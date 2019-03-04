@@ -42,7 +42,7 @@ const Section = props => {
           <VisibilityContext.Provider value={inView}>
             {content.background_image ? SectionWithBackground({...content, inView})
               : (
-                <div className={clsx('content-section', props.content.style)} style={styles}>
+                <div className={clsx('content-section', props.content.style, props.content.style_props)} style={styles}>
                   {props.content.body.map((blok) => Components({...blok, inView}))}
                 </div>
               )
@@ -52,7 +52,6 @@ const Section = props => {
       </ThemeProvider>
     </SbEditable>
   )
-
 }
 
 export default Section

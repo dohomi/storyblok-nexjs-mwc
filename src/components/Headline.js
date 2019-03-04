@@ -10,7 +10,8 @@ const Headline = (props) => {
   const classes = clsx(
     'mdc-typography',
     `mdc-typography--${typography}`,
-    content.style
+    content.style,
+    content.style_props
   )
   const Tag = tag
   return (

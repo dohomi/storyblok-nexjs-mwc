@@ -6,7 +6,7 @@ import clsx from 'clsx'
 const MatRow = (props) => {
 
   const content = props.content
-  const classes = clsx(content.style)
+  const classes = clsx(content.style, content.style_props)
   const classesInner = clsx(content.style_inner)
   const styles = {}
   if (content.max_width) {

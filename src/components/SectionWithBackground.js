@@ -28,10 +28,11 @@ const WithBackgroundImage = (props) => {
   const backgroundImageProperty = props.background_image_property || []
 
   const sectionClasses = clsx('content-section', {
-    'background-section': true,
-    'bg-section__repeat': backgroundImageProperty.includes('repeat'),
-    'bg-section__contain': backgroundImageProperty.includes('contain')
-  })
+      'background-section': true,
+      'bg-section__repeat': backgroundImageProperty.includes('repeat'),
+      'bg-section__contain': backgroundImageProperty.includes('contain')
+    },
+    props.style_props, props.style)
 
   return (
     <ContainerDimensions>
