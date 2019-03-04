@@ -2,7 +2,6 @@ import Components from 'components/index'
 import Layout from '../components/Layout'
 import React from 'react'
 import {withRouter} from 'next/router'
-import SettingsService from '../utils/SettingsService'
 import StoryblokService from '../utils/StoryblokService'
 import WebpService from '../utils/WebpService'
 import Head from '../components/Head'
@@ -75,7 +74,7 @@ Index.getInitialProps = async (context) => {
   try {
     let [page, settings] = await Promise.all([
       StoryblokService.get(`cdn/stories/${slug}`),
-      SettingsService.getSettings()
+      StoryblokService.get(`cdn/stories/settings`)
     ])
 
     return {
