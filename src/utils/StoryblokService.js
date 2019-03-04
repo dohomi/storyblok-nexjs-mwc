@@ -65,7 +65,7 @@ class StoryblokService {
     if (!this.getQuery('_storyblok')) {
       return ''
     }
-    return (<script src='//app.storyblok.com/f/storyblok-latest.js'></script>)
+    return (<script src={'//app.storyblok.com/f/storyblok-latest.js?t=' + this.token}></script>)
   }
 }
 
