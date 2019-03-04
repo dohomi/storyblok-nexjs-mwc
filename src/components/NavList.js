@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import {Link} from '../routes'
+import {Link} from 'routes/index'
 
 const NavListItem = (props) => {
   const content = props

@@ -1,7 +1,7 @@
 import {MenuItem, SimpleMenu} from '@rmwc/menu'
 import {Button} from '@rmwc/button'
 import SbEditable from 'storyblok-react'
-import {Link} from '../routes'
+import {Link} from 'routes/index'
 
 const Child = (nestedProps) => {
   if (nestedProps.link.linktype === 'story') {

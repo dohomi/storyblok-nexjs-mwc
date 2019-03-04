@@ -1,4 +1,4 @@
-import {Link} from '../routes'
+import {Link} from 'routes/index'
 import SbEditable from 'storyblok-react'
 import Button from './Button'
 

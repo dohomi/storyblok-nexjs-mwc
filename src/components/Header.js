@@ -4,7 +4,7 @@ import SbEditable from 'storyblok-react'
 import {addEvent} from '../utils/addEventListener'
 import imageService from '../utils/ImageService'
 import clsx from 'clsx'
-import {Link} from '../routes'
+import {Link} from 'routes/index'
 
 import {
   TopAppBarFixedAdjust,

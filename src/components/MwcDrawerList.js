@@ -4,7 +4,7 @@ import {
   CollapsibleList
 } from '@rmwc/list'
 import {object} from 'prop-types'
-import {Link} from '../routes'
+import {Link} from 'routes/index'
 
 
 const CollapsibleListSection = (props) => {

@@ -1,4 +1,4 @@
-// import {Link} from '../routes'
+// import {Link} from 'routes'
 import marked from 'marked'
 
 const Markdown = (props) => {
