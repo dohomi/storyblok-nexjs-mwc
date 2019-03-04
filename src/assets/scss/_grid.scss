@@ -1,0 +1,26 @@
+// layout
+@import "~@material/layout-grid/mdc-layout-grid.scss";
+@import "mixins/media_query";
+
+
+/*
+adds breakpoint for each offset on desktop, tablet and phone
+ Example:
+ mdc-layout-grid__cell--start--1-desktop
+ mdc-layout-grid__cell--start--2-phone
+ mdc-layout-grid__cell--start--1-tablet
+*/
+.mdc-layout-grid__cell {
+  // select the upper breakpoint
+  $upper-breakpoint: nth(map-keys($mdc-layout-grid-columns), 1);
+
+  @each $size in map-keys($mdc-layout-grid-columns) {
+    @include lm-media-query_($size) {
+      @for $span from 1 through map-get(($mdc-layout-grid-columns), $upper-breakpoint) {
+        &.mdc-layout-grid__cell--start-#{$span}-#{$size} {
+          grid-column-start: min($span, map-get($mdc-layout-grid-columns, $size));
+        }
+      }
+    }
+  }
+}

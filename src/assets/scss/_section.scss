@@ -1,0 +1,11 @@
+.background-section{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position:center;
+}
+.background-section.bg-section__contain{
+  background-size: contain;
+}
+.background-section.bg-section__repeat{
+  background-repeat: repeat;
+}

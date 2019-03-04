@@ -1,0 +1,32 @@
+body, #__next > div {
+  display: block;
+  min-height: 100vh;
+}
+
+body, .mdc-drawer, .mdc-drawer .mdc-list-item {
+  color: var(--mdc-theme-on-surface);
+}
+
+body, .mdc-drawer {
+  background-color: var(--mdc-theme-background);
+}
+
+// overwrite how mdc handles colors, bg-colors and borders to overwrite props correctly
+.content-section {
+  background-color: var(--mdc-theme-surface);
+  color: var(--mdc-theme-on-surface);
+
+  .mdc-button, a .mdc-button {
+    color: var(--mdc-theme-text-primary-on-background);
+
+    &.mdc-button--outlined {
+      border-color: var(--mdc-theme-text-primary-on-background)
+    }
+  }
+}
+
+// body footer
+footer .nav .nav-link {
+  padding-left: 0;
+  color: var(--mdc-theme-text-primary-on-background)
+}

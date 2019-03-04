@@ -1,0 +1,29 @@
+// borrowed from _mixins mdc-layout-grid
+@mixin lm-media-query_($size) {
+  @if not map-has-key($mdc-layout-grid-columns, $size) {
+    @error "Invalid style specified! Choose one of #{map-keys($mdc-layout-grid-columns)}";
+  }
+
+  $min: mdc-layout-grid-breakpoint-min($size);
+  $max: mdc-layout-grid-breakpoint-max($size);
+
+  @if $min == null and $max != null {
+    // Phone
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else if $min != null and $max != null {
+    // Tablet
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if $min != null and $max == null {
+    // Desktop
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    // Fallback - no breakpoints defined
+    @content;
+  }
+}

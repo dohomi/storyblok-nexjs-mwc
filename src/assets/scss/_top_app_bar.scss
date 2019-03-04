@@ -1,0 +1,36 @@
+@import "~@material/top-app-bar/mdc-top-app-bar.scss";
+
+.mdc-top-app-bar__row {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.mdc-top-app-bar__section--shrink-to-fit {
+  flex: none;
+}
+
+// change colors for button, label and title according to theme colors
+.mdc-top-app-bar__section {
+  .mdc-button, a .mdc-button, .mdc-button__label, .mdc-top-app-bar__title {
+    color: var(--mdc-theme-on-primary);
+  }
+}
+
+// add transparent toolbar in case feature element is present
+.mdc-top-app-bar {
+
+  &.lm-toolbar-transparent {
+    background-color: transparent;
+
+    .mdc-top-app-bar__section {
+      .mdc-button, a .mdc-button, .mdc-button__label, .mdc-top-app-bar__title, .mdc-top-app-bar__navigation-icon {
+        color: white;
+      }
+    }
+  }
+
+  transition: background-color .3s ease-in-out; // nice effect if changed bg..
+  &:not(.lm-toolbar-transparent) {
+    border-bottom: 1px solid whitesmoke; // maybe customizable with var
+  }
+}

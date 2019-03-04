@@ -1,0 +1,38 @@
+// reset
+@import "./normalize";
+// overwrite variables
+@import "./variables";
+// theming of mdc
+@import "~@material/theme/mdc-theme";
+// button
+@import "./button";
+// nprogress
+@import "~nprogress/nprogress.css";
+// icons rmwc
+@import "~@rmwc/icon/icon.css";
+// grid
+@import "grid";
+// app bar
+@import "top_app_bar";
+// drawer
+@import "~@material/drawer/mdc-drawer";
+// menu
+@import "~@material/menu/mdc-menu";
+// menu surface
+@import "~@material/menu-surface/mdc-menu-surface.scss";
+// list
+@import "~@material/list/mdc-list";
+// collapsible lists
+@import "~@rmwc/list/collapsible-list.css";
+// animations
+@import "animations";
+// some utility (bootstrap)
+@import "utility";
+// call as latest
+// typography (needs to be loaded after bootstrap)
+@import "./typography";
+// default body styles
+@import "body";
+// configure setup
+@import "element_config";
+
