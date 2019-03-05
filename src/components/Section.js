@@ -8,13 +8,12 @@ import {useInView} from 'react-intersection-observer'
 import SectionWithBackground from './SectionWithBackground'
 import VisibilityContext from '../utils/VisibilityContext'
 
-const Section = props => {
+const Section = ({content}) => {
   const [ref, inView] = useInView({
     /* Optional options */
     threshold: 0,
     triggerOnce: true // for inView only once..
   })
-  const content = props.content
   let theme = {}
   const variant = content.variant
   // configure some theming variants
@@ -30,24 +29,26 @@ const Section = props => {
   const styles = {
     padding: content.padding || '2.5rem 0'
   }
-  if (content.background_color) {
-    styles.backgroundColor = content.background_color
-  }
+
+  content.background_color && (styles.backgroundColor = content.background_color)
 
 
+  let sectionClassNames = clsx('content-section', content.style, content.class_names && content.class_names.values)
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
         <div ref={ref}>
           <VisibilityContext.Provider value={inView}>
-            {content.background_image ? SectionWithBackground({...content, inView})
-              : (
-                <div
-                  className={clsx('content-section', content.style, content.style_props, content.class_names && content.class_names.values)}
-                  style={styles}>
-                  {props.content.body.map((blok) => Components({...blok, inView}))}
-                </div>
-              )
+            {content.background_image ? (
+              <SectionWithBackground classNames={sectionClassNames} {...content} inView={inView}>
+                {content.body.map((blok) => Components(blok))}
+              </SectionWithBackground>
+            ) : (
+              <div className={sectionClassNames}
+                   style={styles}>
+                {content.body.map((blok) => Components(blok))}
+              </div>
+            )
             }
           </VisibilityContext.Provider>
         </div>

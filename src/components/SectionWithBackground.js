@@ -14,6 +14,7 @@ const getBackgroundImageSource = (context) => {
       path += '/smart'
     }
   }
+  console.log(path)
   const src = imageService(backgroundImage, path)
   if (context.inView) {
     return `url('${src}')`
@@ -27,12 +28,11 @@ const WithBackgroundImage = (props) => {
   const backgroundImagePosition = props.background_image_position || 'center'
   const backgroundImageProperty = props.background_image_property || []
 
-  const sectionClasses = clsx('content-section', {
+  const sectionClasses = clsx(props.classNames, {
       'background-section': true,
       'bg-section__repeat': backgroundImageProperty.includes('repeat'),
       'bg-section__contain': backgroundImageProperty.includes('contain')
-    },
-    props.style_props, props.style, props.class_names && props.class_names.values)
+    })
 
   return (
     <ContainerDimensions>
@@ -43,7 +43,7 @@ const WithBackgroundImage = (props) => {
                'backgroundPosition': backgroundImagePosition,
                'padding': props.padding || '2.5rem 0'
              }}>
-          {props.body.map((blok) => Components(blok))}
+          {props.children}
         </div>
       )}
     </ContainerDimensions>
