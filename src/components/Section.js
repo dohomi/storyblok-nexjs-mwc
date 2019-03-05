@@ -14,6 +14,7 @@ const Section = ({content}) => {
     threshold: 0,
     triggerOnce: true // for inView only once..
   })
+  const isFullHeight = content.property.includes('is_full_height')
   let theme = {}
   const variant = content.variant
   // configure some theming variants
@@ -27,20 +28,22 @@ const Section = ({content}) => {
   }
 
   const styles = {
-    padding: content.padding || '2.5rem 0'
+    padding: !isFullHeight && content.padding || '2.5rem 0'
   }
 
   content.background_color && (styles.backgroundColor = content.background_color)
 
 
-  let sectionClassNames = clsx('content-section', content.style, content.class_names && content.class_names.values)
+  let sectionClassNames = clsx('lm-content-section', content.style, content.class_names && content.class_names.values, {
+    ['lm-section__full-height']: !!isFullHeight
+  })
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
         <div ref={ref}>
           <VisibilityContext.Provider value={inView}>
             {content.background_image ? (
-              <SectionWithBackground classNames={sectionClassNames} {...content} inView={inView}>
+              <SectionWithBackground classNames={sectionClassNames} {...content} inView={inView} isFullHeight={isFullHeight}>
                 {content.body.map((blok) => Components(blok))}
               </SectionWithBackground>
             ) : (

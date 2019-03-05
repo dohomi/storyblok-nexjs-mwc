@@ -12,7 +12,7 @@ body, .mdc-drawer {
 }
 
 // overwrite how mdc handles colors, bg-colors and borders to overwrite props correctly
-.content-section {
+.lm-content-section {
   background-color: var(--mdc-theme-surface);
   color: var(--mdc-theme-on-surface);
 

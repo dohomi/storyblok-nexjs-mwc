@@ -1,11 +1,24 @@
-.background-section{
+.lm-background-section{
   background-repeat: no-repeat;
   background-size: cover;
   background-position:center;
 }
-.background-section.bg-section__contain{
+.lm-background-section.lm-bg-section__contain{
   background-size: contain;
 }
-.background-section.bg-section__repeat{
+.lm-background-section.lm-bg-section__repeat{
   background-repeat: repeat;
+}
+
+.lm-content-section.lm-section__full-height {
+  width: 100vw;
+  height: 100vh;
+  .mdc-layout-grid{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
 }

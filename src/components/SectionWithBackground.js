@@ -29,10 +29,10 @@ const WithBackgroundImage = (props) => {
   const backgroundImageProperty = props.background_image_property || []
 
   const sectionClasses = clsx(props.classNames, {
-      'background-section': true,
-      'bg-section__repeat': backgroundImageProperty.includes('repeat'),
-      'bg-section__contain': backgroundImageProperty.includes('contain')
-    })
+    'lm-background-section': true,
+    'lm-bg-section__repeat': backgroundImageProperty.includes('repeat'),
+    'lm-bg-section__contain': backgroundImageProperty.includes('contain')
+  })
 
   return (
     <ContainerDimensions>
@@ -41,7 +41,7 @@ const WithBackgroundImage = (props) => {
              style={{
                'backgroundImage': props.inView ? getBackgroundImageSource({...context, ...props}) : 'none',
                'backgroundPosition': backgroundImagePosition,
-               'padding': props.padding || '2.5rem 0'
+               'padding': !props.isFullHeight && content.padding || '2.5rem 0'
              }}>
           {props.children}
         </div>
