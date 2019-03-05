@@ -10,6 +10,7 @@ import NavList from './NavList'
 import RowNav from './RowNav'
 import RowNested from './RowNested'
 import Menu from './Menu'
+import Icon from './Icon'
 
 const Components = {
   'page': Page,
@@ -24,7 +25,8 @@ const Components = {
   'button': Button,
   'nav_list': NavList,
   'row_nested': RowNested,
-  'nav_menu': Menu
+  'nav_menu': Menu,
+  'icon': Icon
 }
 
 export default Components
