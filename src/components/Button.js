@@ -46,7 +46,7 @@ const MtButton = (props) => {
     additionalClasses.push(size)
   }
 
-  buttonProps.className = clsx(additionalClasses, content.corners)
+  buttonProps.className = clsx(additionalClasses, content.corners, content.class_names && content.class_names.values)
   // console.log(buttonProps)
   return (
     <SbEditable content={content}>

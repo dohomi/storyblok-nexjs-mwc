@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 const MatRow = (props) => {
   const content = props.content
-  const classes = clsx(content.style, content.style_props)
+  const classes = clsx(content.style, content.style_props, content.class_names && content.class_names.values)
   const styles = {}
   if (content.background_color) {
     styles.backgroundColor = content.background_color

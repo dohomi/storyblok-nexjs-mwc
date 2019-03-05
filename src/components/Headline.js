@@ -11,7 +11,8 @@ const Headline = (props) => {
     'mdc-typography',
     `mdc-typography--${typography}`,
     content.style,
-    content.style_props
+    content.style_props,
+    content.class_names && content.class_names.values
   )
   const Tag = tag
   return (

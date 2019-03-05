@@ -17,7 +17,7 @@ const Column = (props) => {
   content.start_tablet && additionalClasses.push(`mdc-layout-grid__cell--start-${Number(content.start_tablet)}-tablet`)
   content.start_phone && additionalClasses.push(`mdc-layout-grid__cell--start-${Number(content.start_phone)}-phone`)
 
-  const colClasses = clsx(props.content.style, props.content.style_props, additionalClasses)
+  const colClasses = clsx(content.style, content.style_props, additionalClasses, content.class_names && content.class_names.values)
   return (
     <SbEditable content={props.content}>
       <GridCell className={colClasses}

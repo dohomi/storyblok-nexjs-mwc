@@ -42,7 +42,9 @@ const Section = props => {
           <VisibilityContext.Provider value={inView}>
             {content.background_image ? SectionWithBackground({...content, inView})
               : (
-                <div className={clsx('content-section', props.content.style, props.content.style_props)} style={styles}>
+                <div
+                  className={clsx('content-section', content.style, content.style_props, content.class_names && content.class_names.values)}
+                  style={styles}>
                   {props.content.body.map((blok) => Components({...blok, inView}))}
                 </div>
               )

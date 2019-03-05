@@ -32,7 +32,7 @@ const WithBackgroundImage = (props) => {
       'bg-section__repeat': backgroundImageProperty.includes('repeat'),
       'bg-section__contain': backgroundImageProperty.includes('contain')
     },
-    props.style_props, props.style)
+    props.style_props, props.style, props.class_names && props.class_names.values)
 
   return (
     <ContainerDimensions>
@@ -47,7 +47,6 @@ const WithBackgroundImage = (props) => {
         </div>
       )}
     </ContainerDimensions>
-
   )
 }
 
