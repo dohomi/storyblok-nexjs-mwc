@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import imageService from '../utils/ImageService'
-import Components from 'components/index'
 import ContainerDimensions from 'react-container-dimensions'
 
 
@@ -41,7 +40,7 @@ const WithBackgroundImage = (props) => {
              style={{
                'backgroundImage': props.inView ? getBackgroundImageSource({...context, ...props}) : 'none',
                'backgroundPosition': backgroundImagePosition,
-               'padding': !props.isFullHeight && content.padding || '2.5rem 0'
+               'padding': !props.isFullHeight && props.padding || '2.5rem 0'
              }}>
           {props.children}
         </div>

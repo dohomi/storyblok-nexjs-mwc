@@ -11,6 +11,7 @@ import RowNav from './RowNav'
 import RowNested from './RowNested'
 import Menu from './Menu'
 import Icon from './Icon'
+import SectionVideoBg from './SectionVideoBg'
 
 const Components = {
   'page': Page,
@@ -26,7 +27,8 @@ const Components = {
   'nav_list': NavList,
   'row_nested': RowNested,
   'nav_menu': Menu,
-  'icon': Icon
+  'icon': Icon,
+  'section_video_bg': SectionVideoBg
 }
 
 export default Components
