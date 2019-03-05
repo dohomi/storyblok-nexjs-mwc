@@ -13,7 +13,7 @@
 .lm-content-section.lm-section__full-height {
   width: 100vw;
   height: 100vh;
-  .mdc-layout-grid{
+  > .mdc-layout-grid{
     margin: 0;
     position: absolute;
     top: 50%;
