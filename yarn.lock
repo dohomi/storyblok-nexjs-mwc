@@ -778,6 +778,19 @@
     "@material/feature-targeting" "^0.44.1"
     "@material/theme" "^0.43.0"
 
+"@material/fab@^0.44.0", "@material/fab@^0.44.1":
+  version "0.44.1"
+  resolved "https://registry.yarnpkg.com/@material/fab/-/fab-0.44.1.tgz#40f8152b4eff94995a927514563b109f9f432a7d"
+  integrity sha512-EoqtNkLOjJEYAPp01kfmnpFKoo6NTGZiMiXXCNRWyus5tslXFI6FE05ph/S+g0PlAiivZzZO0YcXtZBv1WXPgQ==
+  dependencies:
+    "@material/animation" "^0.41.0"
+    "@material/elevation" "^0.44.1"
+    "@material/ripple" "^0.44.1"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^0.44.1"
+    "@material/theme" "^0.43.0"
+    "@material/typography" "^0.44.1"
+
 "@material/feature-targeting@^0.44.1":
   version "0.44.1"
   resolved "https://registry.yarnpkg.com/@material/feature-targeting/-/feature-targeting-0.44.1.tgz#afafc80294e5efab94bee31a187273d43d34979a"
@@ -913,6 +926,17 @@
   dependencies:
     "@material/drawer" "^0.44.0"
     "@rmwc/base" "^5.1.8"
+
+"@rmwc/fab@^5.1.8":
+  version "5.1.8"
+  resolved "https://registry.yarnpkg.com/@rmwc/fab/-/fab-5.1.8.tgz#dc44ab3872b1625cbe6a9ca8149092732ad12645"
+  integrity sha512-RuMs/udSbi2ElOsKDJaycDfXcHfzq7WSrTNReKr+TA2cAsWxwHF2ynsIfxCbgqnbnBlUCcQA2/aVbWZNNg5hJg==
+  dependencies:
+    "@material/fab" "^0.44.0"
+    "@rmwc/base" "^5.1.8"
+    "@rmwc/icon" "^5.1.8"
+    "@rmwc/provider" "^5.1.8"
+    "@rmwc/ripple" "^5.1.8"
 
 "@rmwc/grid@^5.1.8":
   version "5.1.8"
@@ -2172,13 +2196,6 @@ clean-webpack-plugin@^0.1.19:
   version "0.1.19"
   resolved "https://registry.yarnpkg.com/clean-webpack-plugin/-/clean-webpack-plugin-0.1.19.tgz#ceda8bb96b00fe168e9b080272960d20fdcadd6d"
   integrity sha512-M1Li5yLHECcN2MahoreuODul5LkjohJGFxLPTjl3j1ttKrF5rgjZET1SJduuqxLAuT1gAPOdkhg03qcaaU1KeA==
-  dependencies:
-    rimraf "^2.6.1"
-
-clean-webpack-plugin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/clean-webpack-plugin/-/clean-webpack-plugin-1.0.1.tgz#b16ee2f1386aea403010236e632447c7d3505f5a"
-  integrity sha512-gvwfMsqu3HBgTVvaBa1H3AZKO03CHpr5uP92SPIktP3827EovAitwW+1xoqXyTxCuXnLYpMHG5ytS4AoukHDWA==
   dependencies:
     rimraf "^2.6.1"
 

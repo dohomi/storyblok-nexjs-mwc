@@ -1,15 +1,22 @@
 @import 'variables';
 @import "~@material/button/mdc-button.scss";
 @import "~@material/icon-button/mdc-icon-button";
+@import "~@material/fab/mdc-fab";
 
 .mdc-button.lm-button-large {
   height: 40px;
   font-size: 1.2rem; // 13sp
+  .mdc-button__icon{
+    font-size: 1.2rem;
+  }
 }
 
 .mdc-button.lm-button-xlarge {
-  height: 44px;
-  font-size: 1.2rem; // 13sp
+  height: 50px;
+  font-size: 1.3rem; // 13sp
+  .mdc-button__icon{
+    font-size: 1.3rem;
+  }
 }
 
 
@@ -30,5 +37,5 @@
 }
 
 .mdc-button.lm-button-shaped.lm-button-xlarge {
-  @include mdc-button-shape-radius(22px);
+  @include mdc-button-shape-radius(24px);
 }
