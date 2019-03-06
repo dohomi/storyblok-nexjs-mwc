@@ -52,7 +52,6 @@
     "nprogress": "^0.2.0",
     "prop-types": "latest",
     "react": "^16.8.3",
-    "react-container-dimensions": "^1.4.1",
     "react-dom": "^16.8.3",
     "react-intersection-observer": "^8.10.0",
     "storyblok-js-client": "^1.0.21",
