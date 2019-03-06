@@ -85,7 +85,6 @@ const MtButton = (props) => {
   // console.log(buttonProps)
   return (
     <SbEditable content={content}>
-      {content._uid}
       {link.linktype === 'story' ? (
         <Link route={`/${link.cached_url}`}>
           <ButtonMwc {...buttonProps} href={`/${link.cached_url}`}/>

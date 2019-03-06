@@ -1,51 +1,57 @@
 import clsx from 'clsx'
 import imageService from '../utils/ImageService'
-import ContainerDimensions from 'react-container-dimensions'
+import {useInView} from 'react-intersection-observer'
+import React, {useEffect} from 'react'
+import useResizeObserver from 'use-resize-observer'
 
 
-const getBackgroundImageSource = (context) => {
-  const backgroundImage = context.background_image
-  const backgroundImageProperty = context.background_image_property || []
+const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = [], width, height}) => {
+
   let path = ''
   if (!backgroundImageProperty.includes('contain')) {
-    path = `${parseInt(context.width)}x${parseInt(context.height)}`
+    path = `${parseInt(width)}x${parseInt(height)}`
     if (backgroundImageProperty.includes('crop')) {
       path += '/smart'
     }
   }
-  console.log(path)
   const src = imageService(backgroundImage, path)
-  if (context.inView) {
-    return `url('${src}')`
-  } else {
-    return 'none'
-  }
+  return `url('${src}')`
 }
 
 const WithBackgroundImage = (props) => {
-
-  const backgroundImagePosition = props.background_image_position || 'center'
+  const backgroundImage = props.background_image
   const backgroundImageProperty = props.background_image_property || []
-
+  const [refResizeObserver, width, height] = useResizeObserver()
+  const [refIntersectionObserver, inView] = useInView({
+    triggerOnce: true
+  })
+  useEffect(() => {
+    if (inView) {
+      const element = refResizeObserver.current
+      element.style.backgroundImage = getBackgroundImageSource({
+        width, height, backgroundImage, backgroundImageProperty
+      })
+    }
+  })
+  const backgroundImagePosition = props.background_image_position || 'center'
   const sectionClasses = clsx(props.classNames, {
     'lm-background-section': true,
     'lm-bg-section__repeat': backgroundImageProperty.includes('repeat'),
     'lm-bg-section__contain': backgroundImageProperty.includes('contain')
   })
 
+
   return (
-    <ContainerDimensions>
-      {(context) => (
-        <div className={sectionClasses}
-             style={{
-               'backgroundImage': props.inView ? getBackgroundImageSource({...context, ...props}) : 'none',
-               'backgroundPosition': backgroundImagePosition,
-               'padding': !props.isFullHeight && props.padding || '2.5rem 0'
-             }}>
-          {props.children}
-        </div>
-      )}
-    </ContainerDimensions>
+    <div ref={refIntersectionObserver}>
+      <div className={sectionClasses}
+           ref={refResizeObserver}
+           style={{
+             'backgroundPosition': backgroundImagePosition,
+             'padding': !props.isFullHeight && props.padding || '2.5rem 0'
+           }}>
+        {props.children}
+      </div>
+    </div>
   )
 }
 
