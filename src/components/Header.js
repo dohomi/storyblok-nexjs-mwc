@@ -1,11 +1,9 @@
 import Components from 'components/index'
 import React from 'react'
 import SbEditable from 'storyblok-react'
-import {addEvent} from '../utils/addEventListener'
 import imageService from '../utils/ImageService'
 import clsx from 'clsx'
 import {Link} from 'routes/index'
-
 import {
   TopAppBarFixedAdjust,
   TopAppBar,
@@ -16,9 +14,71 @@ import {
 } from '@rmwc/top-app-bar'
 
 import {ThemeProvider} from '@rmwc/theme'
-import {toolbar} from '../utils/themes'
 import {func, object, bool} from 'prop-types'
+import useResizeObserver from 'use-resize-observer'
+import {useEffect} from 'react'
 
+import scrollPositionHook from '../utils/hooks/scrollPositionHook'
+import {toolbar} from '../utils/themes'
+
+const Header = (props) => {
+  const [refResizeObserver, width, height] = useResizeObserver()
+  const scrollPos = scrollPositionHook()
+
+  useEffect(() => {
+    const el = refResizeObserver.current.parentElement
+      if (scrollPos > 100) {
+        el.classList.remove('lm-toolbar-transparent')
+      } else {
+        el.classList.add('lm-toolbar-transparent')
+      }
+  }, [width, height, scrollPos])
+
+  const content = props.settings || {}
+  const navRight = content.toolbar || []
+  const color = content.toolbar_variant
+  let theme = toolbar.primary
+  if (color) {
+    theme = toolbar[color]
+  }
+
+  const websiteTitle = content.website_title
+  const websiteLogo = content.website_logo
+  const transparentToolbar = props.hasFeature
+  const topToolbarClasses = clsx('lm-app-toolbar', {
+    'lm-toolbar-transparent': transparentToolbar
+  })
+  return (
+    <SbEditable content={content}>
+      <ThemeProvider options={theme}>
+        <TopAppBar fixed className={topToolbarClasses}>
+          <TopAppBarRow ref={refResizeObserver}>
+            <TopAppBarSection>
+              <TopAppBarNavigationIcon icon="menu" className="d-sm-none"
+                                       onClick={() => props.onNav()}/>
+              <Link route="/">
+                <a>
+                  <TopAppBarTitle>
+                    {!websiteLogo && websiteTitle}
+                    {websiteLogo &&
+                    <img src={imageService(websiteLogo, '0x128')} height="56" alt={websiteTitle || 'website logo'}/>}
+                  </TopAppBarTitle>
+                </a>
+              </Link>
+            </TopAppBarSection>
+            {navRight.length && (
+              <TopAppBarSection alignEnd
+                                className="d-none d-sm-inline-flex">
+                {navRight.map(blok => Components(blok))}
+              </TopAppBarSection>)}
+          </TopAppBarRow>
+        </TopAppBar>
+      </ThemeProvider>
+      {!props.hasFeature && <TopAppBarFixedAdjust/>}
+    </SbEditable>
+  )
+}
+/*
 class Header extends React.Component {
 
   constructor (props) {
@@ -135,7 +195,7 @@ class Header extends React.Component {
     )
   }
 }
-
+*/
 Header.propTypes = {
   onNav: func,
   settings: object,
