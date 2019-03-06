@@ -27,6 +27,7 @@ class Header extends React.Component {
       isTop: true
     }
     this.calculateStickyState = this.calculateStickyState.bind(this)
+    this.topToolbar = React.createRef()
   }
 
   componentDidUpdate (prevProps) {
@@ -53,16 +54,20 @@ class Header extends React.Component {
     if (this._rafExecuting) {
       return
     }
+
     this._rafExecuting = true
+    const el = document.querySelector('.lm-app-toolbar')
     window.requestAnimationFrame(() => {
       const pageYOffset = window.pageYOffset
       if (pageYOffset > 64) {
-        this.setState({isTop: false})
+        el.classList.remove('lm-toolbar-transparent')
       } else {
-        this.setState({isTop: true})
+        el.classList.add('lm-toolbar-transparent')
       }
       this._rafExecuting = false
     })
+
+
   }
 
   onResize = () => {
@@ -99,7 +104,7 @@ class Header extends React.Component {
     const websiteTitle = content.website_title
     const websiteLogo = content.website_logo
     const transparentToolbar = this.props.hasFeature && this.state.isTop
-    const topToolbarClasses = clsx({
+    const topToolbarClasses = clsx('lm-app-toolbar', {
       'lm-toolbar-transparent': transparentToolbar
     })
     return (

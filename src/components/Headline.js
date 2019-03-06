@@ -14,6 +14,7 @@ const Headline = (props) => {
     content.style_props,
     content.class_names && content.class_names.values
   )
+  console.log('headline called', content._uid)
   const Tag = tag
   return (
     <SbEditable content={content}>
