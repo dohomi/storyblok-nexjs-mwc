@@ -23,9 +23,6 @@ class Header extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {
-      isTop: true
-    }
     this.calculateStickyState = this.calculateStickyState.bind(this)
     this.topToolbar = React.createRef()
   }
@@ -103,7 +100,7 @@ class Header extends React.Component {
 
     const websiteTitle = content.website_title
     const websiteLogo = content.website_logo
-    const transparentToolbar = this.props.hasFeature && this.state.isTop
+    const transparentToolbar = this.props.hasFeature
     const topToolbarClasses = clsx('lm-app-toolbar', {
       'lm-toolbar-transparent': transparentToolbar
     })

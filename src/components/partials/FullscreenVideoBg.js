@@ -14,7 +14,6 @@ const FullscreenVideoBg = (content) => {
   } else if (content.vimeo) {
     src = `https://player.vimeo.com/video/${content.vimeo}?background=1&autoplay=1&loop=1&byline=0&title=0`
   }
-  console.log(inView)
 
   return (
     <div className={sectionClassNames} ref={ref}>

@@ -7,7 +7,6 @@ import {section} from '../utils/themes'
 import SectionWithBackground from './SectionWithBackground'
 
 const Section = ({content}) => {
-
   const isFullHeight = content.property.includes('is_full_height')
   let theme = {}
   const variant = content.variant

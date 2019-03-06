@@ -42,7 +42,6 @@ const MtButton = (props) => {
   const trailingIcon = content.trailing_icon && content.trailing_icon.name
   const properties = content.properties || []
   const additionalClasses = []
-  console.log("button called",content._uid)
 
   let theme
   if (color) {

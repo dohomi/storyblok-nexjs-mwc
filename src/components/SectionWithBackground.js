@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import imageService from '../utils/ImageService'
 import {useInView} from 'react-intersection-observer'
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import useResizeObserver from 'use-resize-observer'
 
 
@@ -32,7 +32,7 @@ const WithBackgroundImage = (props) => {
         width, height, backgroundImage, backgroundImageProperty
       })
     }
-  })
+  }, [width, height, inView])
   const backgroundImagePosition = props.background_image_position || 'center'
   const sectionClasses = clsx(props.classNames, {
     'lm-background-section': true,
