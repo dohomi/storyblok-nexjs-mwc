@@ -1,8 +1,6 @@
 import React from 'react'
 import App, {Container} from 'next/app'
 // import WebpService from '../src/utils/WebpService'
-import NextSeo from 'next-seo'
-
 
 class MyApp extends App {
 
@@ -16,7 +14,6 @@ class MyApp extends App {
     const raw = {title: 'A Lumen Media Project'}
     return (
       <Container>
-        <NextSeo config={raw}/>
         <Component {...pageProps} />
       </Container>
     )
