@@ -66,7 +66,7 @@ class Index extends React.Component {
 Index.getInitialProps = async (context) => {
   const query = context.query
   StoryblokService.setQuery(query)
-  WebpService.setWebpSupport(context.req)
+  WebpService.setWebpSupport(context.req) // move this to _app?
   let slug = query.slug || 'home'
   if (slug.match(/^.*\.[^\\]+$/)) {
     return {}

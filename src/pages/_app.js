@@ -11,7 +11,6 @@ class MyApp extends App {
 
   render () {
     const {Component, pageProps} = this.props
-    const raw = {title: 'A Lumen Media Project'}
     return (
       <Container>
         <Component {...pageProps} />
