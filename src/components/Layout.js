@@ -43,7 +43,8 @@ class Layout extends React.Component {
   render () {
     return (
       <ThemeProvider options={base}>
-        <MwcDrawer content={this.props.settings} isDrawerOpen={this.state.drawerOpen}
+        <MwcDrawer content={this.props.settings}
+                   isDrawerOpen={this.state.drawerOpen}
                    onDrawerClose={this.closeDrawer}/>
         <Header settings={this.props.settings}
                 hasFeature={this.state.hasFeature}
@@ -52,11 +53,6 @@ class Layout extends React.Component {
           {this.props.children}
         </div>
         <Footer settings={this.props.settings}/>
-        <style jsx global>{`
-        :root{
-          --mdc-theme-dark: black;
-        }
-    `}</style>
       </ThemeProvider>
     )
   }

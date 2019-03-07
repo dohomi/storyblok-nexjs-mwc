@@ -1,13 +1,13 @@
 // reset
-@import "./normalize";
+@import "normalize";
 // overwrite variables
-@import "./variables";
+@import "variables";
 // theming of mdc
 @import "~@material/theme/mdc-theme";
 // button
-@import "./button";
+@import "button";
 // nprogress
-@import "~nprogress/nprogress.css";
+@import "nprogress";
 // icons rmwc
 @import "icon";
 // grid

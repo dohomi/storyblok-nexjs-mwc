@@ -46,7 +46,7 @@ const nextConfig = {
     return config
   },
   // webpack: (config, {buildId, dev, isServer, defaultLoaders}) => config,
-  // webpackDevMiddleware: config => config,
+  webpackDevMiddleware: config => config,
   workboxOpts: {
     swDest: 'static/service-worker.js',
     runtimeCaching: [
@@ -80,7 +80,7 @@ const sassConfig = {
 module.exports = withPlugins(
   [
     // @zeit/next-bundle-analyzer
-    // [withBundleAnalyzer, bundleAnalyzerConfig],
+    [withBundleAnalyzer, bundleAnalyzerConfig],
     // @zeit/next-sass
     [withSass, sassConfig],
     // @zeit/next-mdx

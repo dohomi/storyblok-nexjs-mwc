@@ -10,6 +10,7 @@
 /build
 /dist
 /.next
+/bundles
 
 # misc
 .DS_Store
