@@ -1,7 +1,7 @@
 import Header from './Header'
 import Footer from '../components/Footer'
 import {ThemeProvider} from '@rmwc/theme'
-import {base, dark} from '../utils/themes'
+import * as themeLayout from '../utils/themeLayout' // todo make
 import React from 'react'
 import MwcDrawer from './MwcDrawer'
 import {withRouter} from 'next/router'
@@ -41,19 +41,22 @@ class Layout extends React.Component {
   }
 
   render () {
-
+    let settings = this.props.settings
+    const themeOptions = themeLayout[settings.theme_base || 'base']
+    settings.theme_primary && (themeOptions.primary = settings.theme_primary)
+    settings.theme_secondary && (themeOptions.secondary = settings.theme_secondary)
     return (
-      <ThemeProvider options={base}>
-        <MwcDrawer content={this.props.settings}
+      <ThemeProvider options={themeOptions} className="app__root">
+        <MwcDrawer content={settings}
                    isDrawerOpen={this.state.drawerOpen}
                    onDrawerClose={this.closeDrawer}/>
-        <Header settings={this.props.settings}
+        <Header settings={settings}
                 hasFeature={this.state.hasFeature}
                 onNav={this.toggleDrawer}/>
         <div className="util__container">
           {this.props.children}
         </div>
-        <Footer settings={this.props.settings}/>
+        <Footer settings={settings}/>
       </ThemeProvider>
     )
   }

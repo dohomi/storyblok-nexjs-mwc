@@ -3,7 +3,7 @@ import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import React from 'react'
 import {ThemeProvider} from '@rmwc/theme'
-import {section} from '../utils/themes'
+import {section} from '../utils/themeContentSection'
 import SectionWithBackground from './SectionWithBackground'
 
 const Section = ({content}) => {

@@ -19,7 +19,7 @@ import useResizeObserver from 'use-resize-observer'
 import {useEffect} from 'react'
 
 import scrollPositionHook from '../utils/hooks/scrollPositionHook'
-import {toolbar} from '../utils/themes'
+import {toolbar} from '../utils/themeContentSection'
 
 const Header = (props) => {
   const transparentToolbar = props.hasFeature

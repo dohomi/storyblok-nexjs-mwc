@@ -1,4 +1,4 @@
-body, #__next > div {
+body, .app__root {
   display: block;
   min-height: 100vh;
 }
@@ -7,13 +7,15 @@ body, .mdc-drawer, .mdc-drawer .mdc-list-item {
   color: var(--mdc-theme-on-surface);
 }
 
-body, .mdc-drawer {
+body, .mdc-drawer, .app__root {
+  background-color: yellow;
   background-color: var(--mdc-theme-background);
+  color: var(--mdc-theme-on-surface);
 }
 
 // overwrite how mdc handles colors, bg-colors and borders to overwrite props correctly
 .lm-content-section {
-  background-color: var(--mdc-theme-surface);
+  background-color: var(--mdc-theme-background);
   color: var(--mdc-theme-on-surface);
 
   .mdc-button, a .mdc-button {

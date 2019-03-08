@@ -4,30 +4,24 @@ import SbEditable from 'storyblok-react'
 import {Link} from 'routes/index'
 
 const Child = (nestedProps) => {
-  if (nestedProps.link.linktype === 'story') {
-    return (
-      <Link route={`/${nestedProps.link.cached_url}`} prefetch>
-        <a>
-          {nestedProps.label}
-        </a>
-      </Link>
-    )
-  }
-  return (
-    <a href={nestedProps.link.cached_url}>{nestedProps.label}</a>
+  const isInternalLink = nestedProps.link && nestedProps.link.linktype === 'story'
+  const href = nestedProps.link && `/${nestedProps.link.cached_url}`
+  return isInternalLink ? (
+    <Link to={href}><a>{nestedProps.label}</a></Link>
+  ) : (
+    <a href={href}>{nestedProps.label}</a>
   )
 }
 
 const MtMenu = (props) => {
-  const menuItems = props.content.body || []
-
+  const content = props.content
+  const menuItems = content.body || []
   return (
-    <SbEditable content={props.content}>
+    <SbEditable content={content}>
       <SimpleMenu handle={<Button>{props.content.title}</Button>}
                   theme={['']}>
         {menuItems.map(nestedProps => (
-            <MenuItem key={nestedProps._uid}>{Child(nestedProps)}</MenuItem>
-          )
+          <MenuItem key={nestedProps._uid}>{Child(nestedProps)}</MenuItem>)
         )}
       </SimpleMenu>
     </SbEditable>
