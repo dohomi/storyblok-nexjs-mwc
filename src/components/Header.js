@@ -23,9 +23,9 @@ import {toolbar} from '../utils/themes'
 
 const Header = (props) => {
   const transparentToolbar = props.hasFeature
+  const [refResizeObserver, width, height] = useResizeObserver()
   if (transparentToolbar) {
 
-    const [refResizeObserver, width, height] = useResizeObserver()
     const scrollPos = scrollPositionHook()
 
     useEffect(() => {
