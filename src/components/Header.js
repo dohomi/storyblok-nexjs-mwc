@@ -24,19 +24,17 @@ import {toolbar} from '../utils/themes'
 const Header = (props) => {
   const transparentToolbar = props.hasFeature
   const [refResizeObserver, width, height] = useResizeObserver()
-  if (transparentToolbar) {
-
-    const scrollPos = scrollPositionHook()
-
-    useEffect(() => {
+  const scrollPos = scrollPositionHook()
+  useEffect(() => {
+    if (transparentToolbar) {
       const el = refResizeObserver.current.parentElement
       if (scrollPos > 100) {
         el.classList.remove('lm-toolbar-transparent')
       } else {
         el.classList.add('lm-toolbar-transparent')
       }
-    }, [width, height, scrollPos])
-  }
+    }
+  }, [width, height, scrollPos])
 
   const content = props.settings || {}
   const navRight = content.toolbar || []
