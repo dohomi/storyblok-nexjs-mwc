@@ -1,50 +1,45 @@
 import Components from 'components/index'
-import Layout from '../components/Layout'
 import React from 'react'
 import {withRouter} from 'next/router'
 import StoryblokService from '../utils/StoryblokService'
 import WebpService from '../utils/WebpService'
 import Head from '../components/Head'
+import Layout from '../components/Layout'
+
+const mapStateProps = (pageProps, checkSettings) => {
+  let settings
+  if (checkSettings) {
+    settings = pageProps.settings && pageProps.settings.data && pageProps.settings.data.story && pageProps.settings.data.story.content || {}
+  }
+  const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}
+  const pageSeo = {
+    title: pageContent.meta_title,
+    description: pageContent.meta_description,
+    disableRobots: pageContent.meta_robots
+  }
+  const hasFeature = pageContent && pageContent.body && pageContent.body[0] && pageContent.body[0].property && pageContent.body[0].property.includes('is_feature')
+  const state = {
+    pageContent,
+    hasFeature,
+    pageSeo
+  }
+
+  settings && (state.settings = settings)
+  return state
+}
 
 class Index extends React.Component {
+
+
   constructor (props) {
     super(props)
-    const pageContent = props.page && props.page.data.story.content || {}
-    const settings = props.settings && props.settings.data.story.content || {}
-    const body = pageContent.body || []
-    const pageSeo = {
-      title: pageContent.meta_title,
-      description: pageContent.meta_description,
-      disableRobots: pageContent.meta_robots
-    }
-    this.state = {
-      pageContent,
-      settings,
-      hasFeature: body && this.hasFeatureAsFirstChild(body[0] || []), // enable content top and transparent header
-      pageSeo
-    }
+    this.state = mapStateProps(props, true)
   }
 
   componentDidUpdate (prevProps) {
     if (this.props.router.asPath !== prevProps.router.asPath) {
-      const pageContent = this.props.page.data.story.content || {}
-      const body = pageContent.body || []
-      const pageSeo = {
-        title: pageContent.meta_title,
-        description: pageContent.meta_description,
-        disableRobots: pageContent.meta_robots
-      }
-      this.setState({
-        pageContent,
-        hasFeature: body && this.hasFeatureAsFirstChild(body[0] || []),
-        pageSeo
-      })
+      this.setState(mapStateProps(this.props))
     }
-  }
-
-  hasFeatureAsFirstChild (element) {
-    const property = element.property || []
-    return property.includes('is_feature')
   }
 
   componentDidMount () {

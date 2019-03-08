@@ -41,6 +41,7 @@ class Layout extends React.Component {
   }
 
   render () {
+
     return (
       <ThemeProvider options={base}>
         <MwcDrawer content={this.props.settings}
