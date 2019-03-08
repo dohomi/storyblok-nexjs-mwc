@@ -14,11 +14,11 @@ const ButtonMwc = (props) => {
   if (mappedProps.fab) {
     delete mappedProps.fab
     mappedProps.trailingIcon && !mappedProps.label && delete mappedProps.trailingIcon
-    if(mappedProps.dense){
+    if (mappedProps.dense) {
       mappedProps.mini = true
       delete mappedProps.dense
     }
-    return <Fab {...mappedProps}/>
+    return <Fab {...mappedProps} />
   }
   // render Button with or without icon
   if (mappedProps.label) {
@@ -78,17 +78,18 @@ const MtButton = (props) => {
   trailingIcon && (buttonProps.trailingIcon = trailingIcon)
 
   icon && (buttonProps.icon = icon)
-
-
   buttonProps.className = clsx(additionalClasses, content.corners, content.class_names && content.class_names.values)
+  const href = `/${link.cached_url}`
+  let isInternalLink = props.linktype === 'story'
+
+  buttonProps.tag = isInternalLink ? Link : 'a'
+  isInternalLink && (buttonProps.to = href)
+  !isInternalLink && (buttonProps.href = href)
+
   // console.log(buttonProps)
   return (
     <SbEditable content={content}>
-      {link.linktype === 'story' ? (
-        <Link route={`/${link.cached_url}`}>
-          <ButtonMwc {...buttonProps} href={`/${link.cached_url}`}/>
-        </Link>
-      ) : <ButtonMwc {...buttonProps} href={`/${link.cached_url}`}/>}
+      <ButtonMwc {...buttonProps} />
     </SbEditable>
   )
 }

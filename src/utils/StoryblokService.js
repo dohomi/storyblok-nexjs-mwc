@@ -44,7 +44,11 @@ class StoryblokService {
   initEditor (reactComponent) {
     if (window.storyblok) {
       window.storyblok.init({accessToken: this.token})
-      window.storyblok.on(['change', 'published'], () => location.reload(true))
+      window.storyblok.on(['change', 'published'], () => {
+          console.log('change::published triggered')
+          location.reload(true)
+        }
+      )
       window.storyblok.on('input', (event) => {
         if (event.story.content._uid === reactComponent.state.pageContent._uid) {
           reactComponent.setState({pageContent: event.story.content})

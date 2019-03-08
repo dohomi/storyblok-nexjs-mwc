@@ -46,7 +46,6 @@ const nextConfig = {
     return config
   },
   // webpack: (config, {buildId, dev, isServer, defaultLoaders}) => config,
-  webpackDevMiddleware: config => config,
   workboxOpts: {
     swDest: 'static/service-worker.js',
     runtimeCaching: [
