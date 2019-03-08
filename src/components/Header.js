@@ -22,17 +22,21 @@ import scrollPositionHook from '../utils/hooks/scrollPositionHook'
 import {toolbar} from '../utils/themes'
 
 const Header = (props) => {
-  const [refResizeObserver, width, height] = useResizeObserver()
-  const scrollPos = scrollPositionHook()
+  const transparentToolbar = props.hasFeature
+  if (transparentToolbar) {
 
-  useEffect(() => {
-    const el = refResizeObserver.current.parentElement
+    const [refResizeObserver, width, height] = useResizeObserver()
+    const scrollPos = scrollPositionHook()
+
+    useEffect(() => {
+      const el = refResizeObserver.current.parentElement
       if (scrollPos > 100) {
         el.classList.remove('lm-toolbar-transparent')
       } else {
         el.classList.add('lm-toolbar-transparent')
       }
-  }, [width, height, scrollPos])
+    }, [width, height, scrollPos])
+  }
 
   const content = props.settings || {}
   const navRight = content.toolbar || []
@@ -44,7 +48,6 @@ const Header = (props) => {
 
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo
-  const transparentToolbar = props.hasFeature
   const topToolbarClasses = clsx('lm-app-toolbar', {
     'lm-toolbar-transparent': transparentToolbar
   })
