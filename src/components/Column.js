@@ -2,36 +2,36 @@ import Components from 'components/index'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 
-import {GridCell} from '@rmwc/grid'
-
 const Column = (props) => {
   // const width = props.content && props.content.width || {}
   const content = props.content
-  const additionalClasses = []
   const styles = {}
   if (content.background_color) {
     styles.backgroundColor = content.background_color
   }
 
-  content.start_desktop && additionalClasses.push(`mdc-layout-grid__cell--start-${Number(content.start_desktop)}-desktop`)
-  content.start_tablet && additionalClasses.push(`mdc-layout-grid__cell--start-${Number(content.start_tablet)}-tablet`)
-  content.start_phone && additionalClasses.push(`mdc-layout-grid__cell--start-${Number(content.start_phone)}-phone`)
-
-  const colClasses = clsx(content.style, content.style_props, additionalClasses, content.class_names && content.class_names.values)
+  const colClasses = clsx(
+    'mdc-layout-grid__cell',
+    {
+      [`mdc-layout-grid__cell--order-${content.order || ''}`]: content.order !== undefined,
+      [`mdc-layout-grid__cell--align-${content.align || ''}`]: content.align !== undefined,
+      [`mdc-layout-grid__cell--span-${content.width_general || ''}`]: content.width_general !== undefined,
+      [`mdc-layout-grid__cell--span-${content.width_mobile || ''}-phone`]: content.width_mobile !== undefined,
+      [`mdc-layout-grid__cell--span-${content.width_tablet || ''}-tablet`]: content.width_tablet !== undefined,
+      [`mdc-layout-grid__cell--span-${content.width_desktop || ''}-desktop`]: content.width_desktop !== undefined,
+      [`mdc-layout-grid__cell--start-${Number(content.start_desktop || '')}-desktop`]: content.start_desktop !== undefined,
+      [`mdc-layout-grid__cell--start-${Number(content.start_tablet || '')}-tablet`]: content.start_tablet !== undefined,
+      [`mdc-layout-grid__cell--start-${Number(content.start_phone || '')}-phone`]: content.start_phone !== undefined
+    },
+    content.style,
+    content.style_props,
+    content.class_names && content.class_names.values)
   return (
     <SbEditable content={props.content}>
-      <GridCell className={colClasses}
-                span={content.width_general}
-                phone={content.width_mobile}
-                tablet={content.width_tablet}
-                desktop={content.width_desktop}
-                order={content.order}
-                align={content.align}
-                style={styles}>
-        {props.content.body.map((blok) =>
-          Components(blok)
-        )}
-      </GridCell>
+      <div className={colClasses}
+           style={styles}>
+        {props.content.body.map((blok) => Components(blok))}
+      </div>
     </SbEditable>
   )
 }

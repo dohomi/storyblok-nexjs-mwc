@@ -1,33 +1,32 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
-import {Grid, GridInner} from '@rmwc/grid'
 import clsx from 'clsx'
 
 const MatRow = (props) => {
-
   const content = props.content
-  const classes = clsx(content.style, content.style_props, content.class_names && content.class_names.values)
-  const classesInner = clsx(content.style_inner)
+  const gridClasses = clsx(
+    'mdc-layout-grid',
+    {
+      [`mdc-layout-grid__cell--align-${content.align || ''}`]: content.align !== undefined,
+      'mdc-layout-grid--fixed-column-width': !content.fluid_width
+    },
+    content.style,
+    content.style_props,
+    content.class_names && content.class_names.values)
   const styles = {}
-  if (content.max_width) {
-    styles.maxWidth = content.max_width
-    styles.margin = '0 auto'
-  }
   if (content.background_color) {
     styles.backgroundColor = content.background_color
   }
   return (
     <SbEditable content={content}>
-      <Grid className={classes}
-            align={content.align}
-            style={styles}
-            fixedColumnWidth={!content.fluid_width}>
-        <GridInner className={classesInner}>
+      <div className={gridClasses}
+           style={styles}>
+        <div className="mdc-layout-grid__inner">
           {content.body.map((blok) =>
             Components(blok)
           )}
-        </GridInner>
-      </Grid>
+        </div>
+      </div>
     </SbEditable>
   )
 }
