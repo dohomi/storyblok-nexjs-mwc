@@ -18,7 +18,6 @@
 
 // add transparent toolbar in case feature element is present
 .mdc-top-app-bar {
-
   &.lm-toolbar-transparent {
     background-color: transparent;
 
@@ -32,5 +31,21 @@
   transition: background-color .3s ease-in-out; // nice effect if changed bg..
   &:not(.lm-toolbar-transparent) {
     border-bottom: 1px solid whitesmoke; // maybe customizable with var
+  }
+}
+
+// overwrite md-list-item a link styles to match
+.mdc-menu .mdc-list-item {
+  a {
+    color: inherit;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    &:focus{
+      background-image: none;
+      outline: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
   }
 }
