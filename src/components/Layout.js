@@ -13,7 +13,7 @@ const Layout = (props) => {
 
   useEffect(() => {
     closeDrawer()
-  }, [props.router])
+  }, [props.router.asPath])
 
   function closeDrawer () {
     setDrawer(false)

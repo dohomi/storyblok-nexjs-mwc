@@ -41,7 +41,9 @@
     white-space: nowrap;
     display: block;
     width: 100%;
-    &:focus{
+    line-height: 48px;
+
+    &:focus {
       background-image: none;
       outline: 0;
       -webkit-box-shadow: none;
