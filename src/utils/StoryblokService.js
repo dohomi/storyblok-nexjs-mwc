@@ -41,7 +41,7 @@ class StoryblokService {
     return this.client.get(slug, params)
   }
 
-  initEditor (reactComponent) {
+  initEditor (content, setContent) {
     if (window.storyblok) {
       window.storyblok.init({accessToken: this.token})
       window.storyblok.on(['change', 'published'], () => {
@@ -50,8 +50,11 @@ class StoryblokService {
         }
       )
       window.storyblok.on('input', (event) => {
-        if (event.story.content._uid === reactComponent.state.pageContent._uid) {
-          reactComponent.setState({pageContent: event.story.content})
+        if (event.story.content._uid === content.pageContent._uid) {
+          setContent({
+            ...content,
+            pageContent: event.story.content
+          })
         }
       })
     }

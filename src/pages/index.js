@@ -1,16 +1,12 @@
 import Components from 'components/index'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {withRouter} from 'next/router'
 import StoryblokService from '../utils/StoryblokService'
 import WebpService from '../utils/WebpService'
 import Head from '../components/Head'
 import Layout from '../components/Layout'
 
-const mapStateProps = (pageProps, checkSettings) => {
-  let settings
-  if (checkSettings) {
-    settings = pageProps.settings && pageProps.settings.data && pageProps.settings.data.story && pageProps.settings.data.story.content || {}
-  }
+function mapStateProps (pageProps) {
   const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}
   const pageSeo = {
     title: pageContent.meta_title,
@@ -18,44 +14,33 @@ const mapStateProps = (pageProps, checkSettings) => {
     disableRobots: pageContent.meta_robots
   }
   const hasFeature = pageContent && pageContent.body && pageContent.body[0] && pageContent.body[0].property && pageContent.body[0].property.includes('is_feature')
-  const state = {
+  return {
     pageContent,
     hasFeature,
     pageSeo
   }
-
-  settings && (state.settings = settings)
-  return state
 }
 
-class Index extends React.Component {
+const Index = (props) => {
+  let [content, setContent] = useState(mapStateProps(props))
 
+  useEffect(() => {
+    setContent(mapStateProps(props))
+  }, [props.router.asPath])
 
-  constructor (props) {
-    super(props)
-    this.state = mapStateProps(props, true)
-  }
+  useEffect(() => {
+    StoryblokService.initEditor(content, setContent)
+  }, [])
 
-  componentDidUpdate (prevProps) {
-    if (this.props.router.asPath !== prevProps.router.asPath) {
-      this.setState(mapStateProps(this.props))
-    }
-  }
-
-  componentDidMount () {
-    StoryblokService.initEditor(this)
-  }
-
-  render () {
-    return (
-      <>
-        <Head settings={this.state.settings} pageSeo={this.state.pageSeo}/>
-        <Layout settings={this.state.settings} hasFeature={this.state.hasFeature}>
-          {Components(this.state.pageContent)}
-        </Layout>
-      </>
-    )
-  }
+  const settings = props.settings && props.settings.data && props.settings.data.story && props.settings.data.story.content || {}
+  return (
+    <>
+      <Head settings={settings} pageSeo={content.pageSeo}/>
+      <Layout settings={settings} hasFeature={content.hasFeature}>
+        {Components(content.pageContent)}
+      </Layout>
+    </>
+  )
 }
 
 Index.getInitialProps = async (context) => {
