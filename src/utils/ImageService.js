@@ -1,10 +1,12 @@
 import WebpService from './WebpService'
 
-function imageService (image, option = '') {
+function imageService (image, option = '', filter = '') {
   option && (option += '/')
   const hasWebpSupport = typeof window !== 'undefined' ? window.hasWebpSupport : WebpService.getWebpSupport()
   if (hasWebpSupport) {
-    option += 'filters:format(webp)'
+    option += 'filters:format(webp)' + filter
+  } else if (filter) {
+    option += 'filters' + filter
   }
 
   const imageService = '//img2.storyblok.com/'

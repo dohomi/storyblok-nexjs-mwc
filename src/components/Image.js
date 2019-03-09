@@ -7,30 +7,53 @@ import {useEffect} from 'react'
 
 /**
  *
- * @param componentProps
- * @param {width,height}
+ * @param content
+ * @param width
+ * @param height
  * @return {*}
  */
-const getSource = (componentProps, {width}) => {
-  const property = componentProps.content.property || []
-  const availableWidth = componentProps.content.width || width
-  const availableHeight = componentProps.content.height || 0
-  let path = `${availableWidth || 0}x${availableHeight || 0}`
+function getSource (content, {width, height}) {
+  width = parseInt(width)
+  height = parseInt(height) - 4 // needs to correct height.
+  const imageCrop = content.image_crop || []
+  const property = content.property || []
+  let availableWidth = content.width || 0
+  let availableHeight = content.height || 0
+  if (content.height_fill && availableHeight) {
+    // in case user wants that image covers height of column
+    availableHeight = availableHeight > height ? availableHeight : height
+    availableWidth = width
+  }
+  if ((!availableWidth && !availableHeight) || imageCrop.length || content.fit_in_color) {
+    // default: set available width to the current width either in crop mode
+    availableWidth = availableWidth || width
+  }
   if (property.includes('rounded-circle') || property.includes('square')) {
     // overwrite if square
     const iconSize = availableHeight || availableWidth || '64'
-    path = `${iconSize}x${iconSize}`
+    availableWidth = iconSize
+    availableHeight = iconSize
   }
-  return imageService(componentProps.content.source, path)
+  let filter = ''
+  let path = `${availableWidth}x${availableHeight}`
+  if (imageCrop.includes('smart_crop')) {
+  }
+  if (content.fit_in_color) {
+    path = 'fit-in/' + path
+    filter =`:fill(${content.fit_in_color})`
+  } else if (imageCrop.includes('smart_crop')) {
+    path += '/smart'
+  }
+  return imageService(content.source, path, filter)
 }
 
 const Image = (props) => {
-  const [refResizeObserver, width] = useResizeObserver()
+  const [refResizeObserver, width, height] = useResizeObserver()
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true
   })
-  const componentProps = props
-  const imgClasses = clsx(componentProps.content.property)
+  const content = props.content
+  const imgClasses = clsx('img-fluid', content.property)
 
 
   useEffect(() => {
@@ -41,15 +64,15 @@ const Image = (props) => {
     if (!inView) {
       element.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
     } else {
-      element.src = getSource(componentProps, {width})
+      element.src = getSource(content, {width, height})
     }
-  }, [width, inView])
+  }, [width, height, inView])
 
   return (
-    <SbEditable content={componentProps.content}>
-      <div className={`w-100`} ref={refResizeObserver}>
+    <SbEditable content={content}>
+      <div className="w-100 h-100" ref={refResizeObserver}>
         <img ref={refIntersectionObserver}
-             alt={componentProps.content.alt || 'website image'}
+             alt={content.alt || 'website image'}
              className={imgClasses}/>
       </div>
     </SbEditable>
