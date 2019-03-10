@@ -3,8 +3,8 @@ import React, {useState, useEffect} from 'react'
 import {withRouter} from 'next/router'
 import StoryblokService from '../utils/StoryblokService'
 import WebpService from '../utils/WebpService'
-import Head from '../components/Head'
-import Layout from '../components/Layout'
+import Head from '../components/layout/Head'
+import Layout from '../components/layout/Layout'
 
 function mapStateProps (pageProps) {
   const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}

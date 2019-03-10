@@ -40,7 +40,7 @@ function getSource (content, {width, height}) {
   }
   if (content.fit_in_color) {
     path = 'fit-in/' + path
-    filter =`:fill(${content.fit_in_color})`
+    filter = `:fill(${content.fit_in_color})`
   } else if (imageCrop.includes('smart_crop')) {
     path += '/smart'
   }
@@ -54,6 +54,7 @@ const Image = (props) => {
   })
   const content = props.content
   const imgClasses = clsx('img-fluid', content.property)
+  const containerClasses = clsx('w-100', {'h-100': !!content.height_fill})
 
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const Image = (props) => {
 
   return (
     <SbEditable content={content}>
-      <div className="w-100 h-100" ref={refResizeObserver}>
+      <div className={containerClasses} ref={refResizeObserver}>
         <img ref={refIntersectionObserver}
              alt={content.alt || 'website image'}
              className={imgClasses}/>

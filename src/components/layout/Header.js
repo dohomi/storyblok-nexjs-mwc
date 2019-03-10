@@ -1,7 +1,7 @@
 import Components from 'components/index'
 import React from 'react'
 import SbEditable from 'storyblok-react'
-import imageService from '../utils/ImageService'
+import imageService from '../../utils/ImageService'
 import clsx from 'clsx'
 import {Link} from 'routes/index'
 import {
@@ -18,8 +18,8 @@ import {func, object, bool} from 'prop-types'
 import useResizeObserver from 'use-resize-observer'
 import {useEffect} from 'react'
 
-import scrollPositionHook from '../utils/hooks/scrollPositionHook'
-import {toolbar} from '../utils/themeContentSection'
+import scrollPositionHook from '../../utils/hooks/scrollPositionHook'
+import {toolbar} from '../../utils/themeContentSection'
 import {withRouter} from 'next/dist/client/router'
 
 const Header = (props) => {

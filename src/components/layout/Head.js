@@ -2,9 +2,9 @@ import NextHead from 'next/head'
 import {string} from 'prop-types'
 import NProgress from 'nprogress'
 import Router from 'next/router'
-import StoryblokService from '../utils/StoryblokService'
+import StoryblokService from '../../utils/StoryblokService'
 import NextSeo from 'next-seo'
-import imageService from '../utils/ImageService'
+import imageService from '../../utils/ImageService'
 
 Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()

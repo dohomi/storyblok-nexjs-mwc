@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import imageService from '../utils/ImageService'
+import imageService from '../../utils/ImageService'
 import {useInView} from 'react-intersection-observer'
 import {useEffect} from 'react'
 import useResizeObserver from 'use-resize-observer'

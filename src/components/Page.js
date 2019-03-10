@@ -2,12 +2,13 @@ import Components from 'components/index'
 import SbEditable from 'storyblok-react'
 
 const Page = (props) => {
-  const body = props.content.body || []
+  let content = props.content
+  const body = content.body || []
   if (!body.length) {
     return <div></div>
   }
   return (
-    <SbEditable content={props.content}>
+    <SbEditable content={content}>
       {body.map((blok) =>
         Components(blok)
       )}

@@ -9,7 +9,7 @@ import {
 import {bool, func, object} from 'prop-types'
 import DrawerContentList from './MwcDrawerList'
 import {Link} from 'routes/index'
-import imageService from '../utils/ImageService'
+import imageService from '../../utils/ImageService'
 
 const MwcDrawer = (props) => {
   const content = props.content

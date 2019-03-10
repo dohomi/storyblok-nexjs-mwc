@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import React from 'react'
 import {ThemeProvider} from '@rmwc/theme'
 import {section} from '../utils/themeContentSection'
-import SectionWithBackground from './SectionWithBackground'
+import SectionWithBackground from './partials/SectionWithBackground'
 
 const Section = ({content}) => {
   const isFullHeight = content.property.includes('is_full_height')

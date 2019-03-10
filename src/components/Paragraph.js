@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import Markdown from './Markdown'
+import Markdown from './partials/Markdown'
 import clsx from 'clsx'
 
 const Paragraph = (props) => {

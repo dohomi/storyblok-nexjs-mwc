@@ -1,7 +1,7 @@
 import Header from './Header'
-import Footer from '../components/Footer'
+import Footer from './Footer'
 import {ThemeProvider} from '@rmwc/theme'
-import * as themeLayout from '../utils/themeLayout' // todo make
+import * as themeLayout from '../../utils/themeLayout' // todo make
 import React, {useState, useEffect} from 'react'
 import MwcDrawer from './MwcDrawer'
 import {withRouter} from 'next/router'
