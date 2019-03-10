@@ -30,8 +30,8 @@ class DeviceDetect {
       const parsed = userAgent && parser(userAgent)
       this.device = this._getDeviceValues(parsed)
     } else {
-      const parser = new UAParser()
-      this.device = this._getDeviceValues(parser.getResult())
+      this.device = this._getDeviceValues(parser())
+      window.userDevice = this.device
     }
   }
 }
