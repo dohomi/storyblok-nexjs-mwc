@@ -23,6 +23,7 @@
     "@material/button": "^1.0.0",
     "@material/drawer": "^1.0.0",
     "@material/fab": "^1.0.0",
+    "@material/image-list": "^1.0.0",
     "@material/layout-grid": "^0.41.0",
     "@material/list": "^1.0.0",
     "@material/menu": "^1.0.0",

@@ -35,10 +35,8 @@ const Header = (props) => {
   const scrollPos = scrollPositionHook()
 
   useEffect(() => {
-    console.log('inside of router', websiteLogo)
     const logoTag = logoRef.current
     if (transparentToolbar) {
-      console.log('inside of router TRUE', websiteLogo)
       const el = refResizeObserver.current.parentElement
       if (scrollPos > 100) {
         el.classList.remove('lm-toolbar-transparent')
@@ -48,7 +46,6 @@ const Header = (props) => {
         websiteLogoInverted && (logoTag.src = websiteLogoInverted)
       }
     } else {
-      console.log('inside of router ELSE', websiteLogo)
       websiteLogo && (logoTag.src = websiteLogo)
     }
   }, [width, height, scrollPos, props.router.asPath, transparentToolbar])

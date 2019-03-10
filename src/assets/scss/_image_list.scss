@@ -1,0 +1,24 @@
+@import "~@material/image-list/mdc-image-list";
+
+.image-list {
+  @include mdc-image-list-standard-columns(5);
+}
+
+.masonry-image-list__columns-4 {
+  @include mdc-image-list-masonry-columns(4);
+}
+.masonry-image-list__columns-5 {
+  @include mdc-image-list-masonry-columns(5);
+}
+.masonry-image-list__columns-6 {
+  @include mdc-image-list-masonry-columns(6);
+}
+.masonry-image-list__columns-7 {
+  @include mdc-image-list-masonry-columns(7);
+}
+.masonry-image-list__columns-8 {
+  @include mdc-image-list-masonry-columns(8);
+}
+.masonry-image-list__columns-9 {
+  @include mdc-image-list-masonry-columns(9);
+}

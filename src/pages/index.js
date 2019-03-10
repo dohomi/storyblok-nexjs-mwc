@@ -5,6 +5,7 @@ import StoryblokService from '../utils/StoryblokService'
 import WebpService from '../utils/WebpService'
 import Head from '../components/layout/Head'
 import Layout from '../components/layout/Layout'
+import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 
 function mapStateProps (pageProps) {
   const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}
@@ -36,9 +37,11 @@ const Index = (props) => {
   return (
     <>
       <Head settings={settings} pageSeo={content.pageSeo}/>
-      <Layout settings={settings} hasFeature={content.hasFeature}>
-        {Components(content.pageContent)}
-      </Layout>
+      <WindowDimensionsProvider>
+        <Layout settings={settings} hasFeature={content.hasFeature}>
+          {Components(content.pageContent)}
+        </Layout>
+      </WindowDimensionsProvider>
     </>
   )
 }

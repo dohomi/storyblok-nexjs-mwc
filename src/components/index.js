@@ -1,10 +1,11 @@
-import Page from './Page'
+import Page from './pages/Page'
 import Section from './Section'
 import Paragraph from './Paragraph'
 import Headline from './Headline'
 import Row from './Row'
 import Column from './Column'
 import Image from './Image'
+import ImageList from './ImageList'
 import Button from './Button'
 import NavList from './NavList'
 import RowNav from './RowNav'
@@ -23,6 +24,7 @@ const Components = {
   'column': Column,
   'column_nav': Column, // different set of components
   'image': Image,
+  'image_list': ImageList,
   'button': Button,
   'nav_list': NavList,
   'row_nested': RowNested,
