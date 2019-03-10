@@ -6,6 +6,7 @@ import WebpService from '../utils/WebpService'
 import Head from '../components/layout/Head'
 import Layout from '../components/layout/Layout'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
+import DeviceDetectService from '../utils/DeviceDetectService'
 
 function mapStateProps (pageProps) {
   const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}
@@ -48,6 +49,7 @@ const Index = (props) => {
 
 Index.getInitialProps = async (context) => {
   const query = context.query
+  DeviceDetectService.setDevice(context.req) // important to call first, webp is depending on this
   StoryblokService.setQuery(query)
   WebpService.setWebpSupport(context.req) // move this to _app?
   let slug = query.slug || 'home'

@@ -54,6 +54,7 @@
     "react-intersection-observer": "^8.10.0",
     "storyblok-js-client": "^1.0.21",
     "storyblok-react": "^0.0.7",
+    "ua-parser-js": "^0.7.19",
     "use-resize-observer": "^3.1.0"
   },
   "devDependencies": {

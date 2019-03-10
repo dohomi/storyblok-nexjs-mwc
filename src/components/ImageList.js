@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import SbEditable from 'storyblok-react'
 import withWindowDimensions from './provider/WithWindowDimensions'
-import {useEffect} from 'react'
 
 function onImageLoad (ev) {
   console.log(ev)
@@ -41,19 +40,14 @@ const ImageList = (props) => {
   if (dimensions.isPhone && content.column_count_phone) {
     columnCount = parseInt(content.column_count_phone)
   }
-  if (dimensions.isPhone && content.column_count_tablet) {
+  if (dimensions.isTablet && content.column_count_tablet) {
     columnCount = parseInt(content.column_count_tablet)
   }
-  console.log(columnCount, dimensions.isPhone, dimensions.isTablet, dimensions.isDesktop)
-
-  // useEffect(() => {
-  //   console.log(windowWidth)
-  // }, [windowWidth])
 
   let listStyles = {}
   // default columns
   let listItemStyles = {
-    width: `calc(100% / ${columnCount} - ${gutterSize + 1 / columnCount}px)`,
+    width: `calc(100% / ${columnCount} - ${Math.round((gutterSize + 1 / columnCount)/100 * 100)}px)`,
     margin: `${gutterSize / 2}px`
   }
   if (content.masonry) {
@@ -67,7 +61,6 @@ const ImageList = (props) => {
       marginBottom: `${gutterSize}px`
     }
   }
-
 
   return (
     <SbEditable content={content}>

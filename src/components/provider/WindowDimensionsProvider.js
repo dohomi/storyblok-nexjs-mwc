@@ -1,4 +1,5 @@
 import React, {createContext, useContext, useState, useEffect} from 'react'
+import DeviceDetectService from '../../utils/DeviceDetectService'
 
 export const WindowDimensionsCtx = createContext(null)
 
@@ -8,12 +9,14 @@ const windowDims = () => {
   desktop: 840px,
   tablet: 480px,
    */
-
   if (typeof window === 'undefined') {
-    // todo do something on server side..
+    const detect = DeviceDetectService.getDevice()
+    let isTablet = detect.device === 'tablet'
+    let isMobile = detect.device === 'mobile'
     return {
-      height: 800,
-      width: 600
+      isTablet,
+      isMobile,
+      isDesktop: !isTablet && !isMobile
     }
   }
   let height = window.innerHeight
@@ -32,8 +35,16 @@ const windowDims = () => {
 const WindowDimensionsProvider = ({children}) => {
   const [dimensions, setDimensions] = useState(windowDims())
   useEffect(() => {
+    let isActive = false
     const handleResize = () => {
-      setDimensions(windowDims())
+      if (isActive) {
+        return
+      }
+      isActive = true
+      window.requestAnimationFrame(() => {
+        setDimensions(windowDims())
+        isActive = false
+      })
     }
     window.addEventListener('resize', handleResize)
     return () => {

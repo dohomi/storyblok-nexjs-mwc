@@ -1,13 +1,17 @@
 import Document, {Head, Main, NextScript} from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
 import WebpService from '../utils/WebpService'
+import DeviceDetectService from '../utils/DeviceDetectService'
 
 class MyDocument extends Document {
   render () {
     // Todo: set lang of html
 
     const injectBodyScript = {
-      __html: `var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}'; var hasWebpSupport = ${WebpService.getWebpSupport()}`
+      __html: `
+      var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}'; 
+      var userDevice = ${JSON.stringify(DeviceDetectService.getDevice())};
+      var hasWebpSupport = ${WebpService.getWebpSupport()};`
     }
     return (
       <html>

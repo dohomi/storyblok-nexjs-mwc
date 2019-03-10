@@ -37,7 +37,7 @@ function useWindowScrollPosition () {
       if (isPainting) {
         return
       }
-      // isPainting = true
+      isPainting = true
       window.requestAnimationFrame(() => {
         setPosition(getPosition())
         isPainting = false
