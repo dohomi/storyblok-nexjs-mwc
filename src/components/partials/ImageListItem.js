@@ -3,9 +3,8 @@ import SbEditable from 'storyblok-react'
 
 const ImageListItem = (props) => {
   return (
-    <SbEditable content={props}>
+    <SbEditable content={props} key={props._uid}>
       <li className="mdc-image-list__item"
-          key={props._uid}
           style={props.style}
           onClick={props.onImageClick}>
         {Image(props)}

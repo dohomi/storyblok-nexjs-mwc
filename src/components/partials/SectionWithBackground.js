@@ -29,7 +29,7 @@ const WithBackgroundImage = (props) => {
     if (inView) {
       const element = refResizeObserver.current
       element.style.backgroundImage = getBackgroundImageSource({
-        width, height, backgroundImage, backgroundImageProperty
+        width, height: element.clientHeight, backgroundImage, backgroundImageProperty
       })
     }
   }, [width, height, inView])
@@ -42,12 +42,13 @@ const WithBackgroundImage = (props) => {
 
 
   return (
-    <div ref={refIntersectionObserver}>
+    <div ref={refIntersectionObserver}
+         className="mw-100 mh-100">
       <div className={sectionClasses}
            ref={refResizeObserver}
            style={{
-             'backgroundPosition': backgroundImagePosition,
-             'padding': !props.isFullHeight && props.padding || '2.5rem 0'
+             backgroundPosition: backgroundImagePosition,
+             padding: !props.isFullHeight && props.padding || '2.5rem 0'
            }}>
         {props.children}
       </div>
