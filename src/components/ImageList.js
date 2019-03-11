@@ -65,7 +65,7 @@ const ImageList = (props) => {
 
   function onImageClick (props) {
     // open lightbox
-    setLightbox(true)
+    setLightbox(props._uid)
   }
 
   function closeLightbox () {
@@ -92,7 +92,13 @@ const ImageList = (props) => {
           }))}
         </ul>
       </div>
-      {lightbox && ImageListLightbox({elements, lightbox, setLightbox, dimensions})}
+      {lightbox && ImageListLightbox({
+        elements,
+        lightbox,
+        setLightbox,
+        dimensions,
+        onImageClick
+      })}
     </SbEditable>
   )
 }

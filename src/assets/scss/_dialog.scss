@@ -11,6 +11,7 @@
     max-height: 100%;
     max-width: 100%;
     flex-grow: 1;
+    border-radius: 0;
     background-color: rgba(0, 0, 0, 0.9);
     box-shadow: none;
   }
@@ -26,6 +27,7 @@
 
     > div {
       height: calc(100vh - 100px);
+      text-align: center;
     }
   }
 
@@ -50,5 +52,13 @@
     > div {
       text-align: center;
     }
+  }
+
+  .lm-pagination {
+    color: white;
+    position: absolute;
+    bottom: 24px;
+    height: 24px !important;
+    width: 100%;
   }
 }
