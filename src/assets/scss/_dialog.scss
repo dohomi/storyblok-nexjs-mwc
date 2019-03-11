@@ -69,6 +69,7 @@
     top: 50%;
     margin-top: -24px;
     font-size: 2rem;
+
     &.left {
       left: 0;
     }
@@ -76,5 +77,11 @@
     &.right {
       right: 8px
     }
+  }
+}
+
+.lm-pagination {
+  i {
+    cursor: pointer;
   }
 }
