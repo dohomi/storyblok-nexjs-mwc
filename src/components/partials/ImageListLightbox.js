@@ -23,18 +23,6 @@ const styles = {
 }
 
 
-const SwipePagination = (props) => {
-  return (
-    <div className="lm-pagination">
-      {props.elements.map((item) => (
-        <i key={item._uid}
-           className="material-icons"
-           onClick={() => props.onImageClick(item)}>{props.lightbox === item._uid ? 'radio_button_checked' : 'radio_button_unchecked'}</i>
-      ))}
-    </div>
-  )
-}
-
 const Swipe = (props) => {
 
   let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)
@@ -72,7 +60,19 @@ const Swipe = (props) => {
           </React.Fragment>
         ))}
       </SwipeableViews>
-      {SwipePagination({...props, currentIndex})}
+      <IconButton icon="arrow_back_ios" className="lm-navigation left"
+                  onClick={() => props.onImageClick(props.elements[currentIndex - 1])}
+                  disabled={currentIndex === 0}/>
+      <IconButton icon="arrow_forward_ios" className="lm-navigation right"
+                  disabled={currentIndex === props.elements.length - 1}
+                  onClick={() => props.onImageClick(props.elements[currentIndex + 1])}/>
+      <div className="lm-pagination">
+        {props.elements.map((item) => (
+          <i key={item._uid}
+             className="material-icons"
+             onClick={() => props.onImageClick(item)}>{props.lightbox === item._uid ? 'radio_button_checked' : 'radio_button_unchecked'}</i>
+        ))}
+      </div>
     </>
   )
 }

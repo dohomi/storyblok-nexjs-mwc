@@ -61,4 +61,20 @@
     height: 24px !important;
     width: 100%;
   }
+
+  .mdc-icon-button.lm-navigation {
+    color: white;
+    position: absolute;
+    top: 50%;
+    margin-top: -24px;
+    font-size: 2rem;
+
+    &.left {
+      left: 0;
+    }
+
+    &.right {
+      right: 8px
+    }
+  }
 }
