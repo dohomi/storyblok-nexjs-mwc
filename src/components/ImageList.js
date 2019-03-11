@@ -17,8 +17,11 @@ const ImageList = (props) => {
 
   useEffect(() => {
     const element = refResizeObserver.current
-    let imageContainer = element.firstChild.firstElementChild.firstElementChild.tagName === 'IMG' ?
-      element.firstChild.firstElementChild : element.firstChild.firstElementChild.firstElementChild
+    let firstChild = element.firstChild
+    if (!firstChild) return
+    if (!firstChild.firstElementChild) return
+    let imageContainer = firstChild.firstElementChild.firstElementChild.tagName === 'IMG' ?
+      firstChild.firstElementChild : firstChild.firstElementChild.firstElementChild
 
     setChildDimensions({
       width: imageContainer.clientWidth,
@@ -67,11 +70,6 @@ const ImageList = (props) => {
   function onImageClick (props) {
     // open lightbox
     content.enable_lightbox && setLightbox(props._uid)
-  }
-
-  function closeLightbox () {
-    // close ligthbox
-    setLightbox(false)
   }
 
   return (
