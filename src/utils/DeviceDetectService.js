@@ -31,7 +31,7 @@ class DeviceDetect {
       this.device = this._getDeviceValues(parsed)
     } else {
       this.device = this._getDeviceValues(parser())
-      window.userDevice = this.device
+      window.userDevice = {...this.device}
     }
   }
 }

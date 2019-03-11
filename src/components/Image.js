@@ -36,8 +36,7 @@ function getSource (content, {width, height}) {
   }
   let filter = ''
   let path = `${availableWidth}x${availableHeight}`
-  if (imageCrop.includes('smart_crop')) {
-  }
+
   if (content.fit_in_color) {
     path = 'fit-in/' + path
     filter = `:fill(${content.fit_in_color})`
