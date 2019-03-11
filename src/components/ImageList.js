@@ -62,10 +62,11 @@ const ImageList = (props) => {
       marginBottom: `${gutterSize}px`
     }
   }
+  content.enable_lightbox && (listItemStyles.cursor = 'pointer')
 
   function onImageClick (props) {
     // open lightbox
-    setLightbox(props._uid)
+    content.enable_lightbox && setLightbox(props._uid)
   }
 
   function closeLightbox () {
