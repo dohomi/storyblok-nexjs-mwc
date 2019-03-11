@@ -16,7 +16,6 @@ const Slider = (props) => {
   )
 
   function handleChangeIndex (item) {
-    console.log(item)
     setSlide(body.findIndex(i => i._uid === item._uid))
   }
 
@@ -24,7 +23,7 @@ const Slider = (props) => {
     <SbEditable content={content}>
       <div className="lm-content-slider">
         <SwipeableViews index={slide}
-                        onChangeIndex={handleChangeIndex}>
+                        onChangeIndex={(i) => setSlide(i)}>
           {body.map(item => Components(item))}
         </SwipeableViews>
 
