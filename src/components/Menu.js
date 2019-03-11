@@ -18,7 +18,7 @@ const MtMenu = (props) => {
   const menuItems = content.body || []
   return (
     <SbEditable content={content}>
-      <SimpleMenu handle={<Button>{props.content.title}</Button>}
+      <SimpleMenu handle={<Button trailingIcon="expand_more">{props.content.title}</Button>}
                   theme={['']}>
         {menuItems.map(nestedProps => (
           <MenuItem key={nestedProps._uid}>{Child(nestedProps)}</MenuItem>)
