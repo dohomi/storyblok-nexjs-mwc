@@ -2,7 +2,7 @@ import {SimpleDialog} from '@rmwc/dialog'
 import {IconButton} from '@rmwc/icon-button'
 import SwipeableViews from 'react-swipeable-views'
 import imageService from '../../utils/ImageService'
-import {useState} from 'react'
+
 import React from 'react'
 
 const styles = {

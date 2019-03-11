@@ -13,6 +13,7 @@ import RowNested from './RowNested'
 import Menu from './Menu'
 import Icon from './Icon'
 import SectionVideoBg from './SectionVideoBg'
+import Slider from './Slider'
 
 const Components = {
   'page': Page,
@@ -30,6 +31,7 @@ const Components = {
   'row_nested': RowNested,
   'nav_menu': Menu,
   'icon': Icon,
+  'slider': Slider,
   'section_video_bg': SectionVideoBg
 }
 
