@@ -5,24 +5,6 @@ import imageService from '../../utils/ImageService'
 
 import React from 'react'
 
-const styles = {
-  slide: {
-    padding: 15,
-    minHeight: 100,
-    color: '#fff'
-  },
-  slide1: {
-    background: '#FEA900'
-  },
-  slide2: {
-    background: '#B3DC4A'
-  },
-  slide3: {
-    background: '#6AC0FF'
-  }
-}
-
-
 const Swipe = (props) => {
 
   let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)

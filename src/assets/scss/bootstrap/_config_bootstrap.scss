@@ -50,6 +50,8 @@ $grid-breakpoints: (
 @import "~bootstrap/scss/utilities/sizing";
 @import "~bootstrap/scss/utilities/spacing";
 
+// image slider for lightbox
+@import "~bootstrap/scss/carousel";
 
 // individual components
 @import "addon_bootstrap_components";
