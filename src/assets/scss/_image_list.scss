@@ -1,9 +1,40 @@
 @import "~@material/image-list/mdc-image-list";
+@import "./mixins/media_query";
 
-.image-list {
-  @include mdc-image-list-standard-columns(5);
-}
-
-.masonry-image-list {
-  @include mdc-image-list-masonry-columns(4);
+@each $size in map-keys($mdc-layout-grid-columns) {
+  $upper-breakpoint: nth(map-keys($mdc-layout-grid-columns), 1);
+  @include lm-media-query_($size) {
+    @for $span from 1 through map-get($mdc-layout-grid-columns, $upper-breakpoint) {
+      .lm-image-list__column-#{$span}-#{$size}-0 {
+        @include mdc-image-list-standard-columns($span, 0px);
+      }
+      .lm-image-list-masonry__column-#{$span}-#{$size}-0 {
+        @include mdc-image-list-masonry-columns($span, 0px);
+      }
+      .lm-image-list__column-#{$span}-#{$size}-2 {
+        @include mdc-image-list-standard-columns($span, 2px);
+      }
+      .lm-image-list-masonry__column-#{$span}-#{$size}-2 {
+        @include mdc-image-list-masonry-columns($span, 2px);
+      }
+      .lm-image-list__column-#{$span}-#{$size}-4 {
+        @include mdc-image-list-standard-columns($span, 4px);
+      }
+      .lm-image-list-masonry__column-#{$span}-#{$size}-4 {
+        @include mdc-image-list-masonry-columns($span, 4px);
+      }
+      .lm-image-list__column-#{$span}-#{$size}-8 {
+        @include mdc-image-list-standard-columns($span, 8px);
+      }
+      .lm-image-list-masonry__column-#{$span}-#{$size}-8 {
+        @include mdc-image-list-masonry-columns($span, 8px);
+      }
+      .lm-image-list__column-#{$span}-#{$size}-16 {
+        @include mdc-image-list-standard-columns($span, 16px);
+      }
+      .lm-image-list-masonry__column-#{$span}-#{$size}-16 {
+        @include mdc-image-list-masonry-columns($span, 16px);
+      }
+    }
+  }
 }

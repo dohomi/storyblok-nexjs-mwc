@@ -2,6 +2,10 @@
 @import "~@material/layout-grid/mdc-layout-grid.scss";
 @import "mixins/media_query";
 
+// fix columns get wider that viewport:
+.mdc-layout-grid {
+  max-width: 100vw;
+}
 
 /*
 adds breakpoint for each offset on desktop, tablet and phone

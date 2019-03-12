@@ -9,6 +9,7 @@ import SwipeableViews from 'react-swipeable-views'
 import imageService from '../../utils/ImageService'
 
 import React from 'react'
+import withWindowDimensions from '../provider/WithWindowDimensions'
 
 const Swipe = (props) => {
 
@@ -37,12 +38,11 @@ const Swipe = (props) => {
 
   return (
     <div className="carousel slide">
-
       <SwipeableViews index={currentIndex}
                       className="carousel-inner h-100 text-center"
                       onChangeIndex={handleChangeIndex}>
         {props.elements.map(item => (
-          <div key={item._uid}>
+          <div key={item._uid} className="carousel-item d-block">
             <img
               src={getImageSource(item.source)}
               className='img-fluid'/>
@@ -66,7 +66,6 @@ const Swipe = (props) => {
              onClick={() => props.onImageClick(item)}>{props.lightbox === item._uid ? 'radio_button_checked' : 'radio_button_unchecked'}</i>
         ))}
       </ol>
-
     </div>
   )
 }
@@ -75,7 +74,7 @@ const ImageListLightbox = (props) => {
     <Dialog className="lm-dialog-lightbox"
             open={props.lightbox}>
       <DialogTitle className="pb-0 text-white text-right">{IconButton({icon: 'clear', onClick: () => props.setLightbox()})}</DialogTitle>
-      <DialogContent>{Swipe(props)}</DialogContent>
+      <DialogContent className="pb-0 h-100">{Swipe(props)}</DialogContent>
     </Dialog>
   )
 }

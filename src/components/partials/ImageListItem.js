@@ -8,9 +8,11 @@ const ImageListItem = (props) => {
           style={props.style}
           onClick={props.onImageClick}>
         {Image(props)}
-        <div className="mdc-image-list__supporting">
-          <span className="mdc-image-list__label">{props.label}</span>
-        </div>
+        {(props.label || props.sub_label) && (
+          <div className="mdc-image-list__supporting">
+            <span className="mdc-image-list__label">{props.label}</span>
+          </div>)
+        }
       </li>
     </SbEditable>
   )
