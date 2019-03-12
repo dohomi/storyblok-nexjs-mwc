@@ -15,7 +15,8 @@ function mapStateProps (pageProps) {
     description: pageContent.meta_description,
     disableRobots: pageContent.meta_robots
   }
-  const hasFeature = pageContent && pageContent.body && pageContent.body[0] && pageContent.body[0].property && pageContent.body[0].property.includes('is_feature')
+  const properties = pageContent.property || []
+  const hasFeature = properties.includes('has_feature')
   return {
     pageContent,
     hasFeature,

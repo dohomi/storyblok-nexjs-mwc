@@ -9,9 +9,9 @@ const Slider = (props) => {
 
   const content = props.content
   const body = content.body
-
+  const styles = {}
   const paginationClasses = clsx(
-    'lm-pagination',
+    'carousel-indicators',
     content.pagination_classes
   )
 
@@ -19,19 +19,21 @@ const Slider = (props) => {
     setSlide(body.findIndex(i => i._uid === item._uid))
   }
 
+  content.background_color && (styles.backgroundColor = content.background_color)
   return (
     <SbEditable content={content}>
-      <div className="lm-content-slider">
+      <div className="carousel slide" style={styles}>
         <SwipeableViews index={slide}
                         onChangeIndex={(i) => setSlide(i)}>
           {body.map(item => Components(item))}
         </SwipeableViews>
 
         <ol className={paginationClasses}>
-          {body.map((item, index) => (
-            <li key={item._uid}
-                className="material-icons"
-                onClick={() => handleChangeIndex(item)}>{slide === index ? 'radio_button_checked' : 'radio_button_unchecked'}</li>
+          {body.map((item, i) => (
+            <li className={`${slide === i ? 'active' : ''}`}
+                key={item._uid}
+                onClick={() => handleChangeIndex(item)}>
+            </li>
           ))}
         </ol>
       </div>

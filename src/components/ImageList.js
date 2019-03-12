@@ -18,7 +18,6 @@ const ImageList = (props) => {
 
   useEffect(() => {
     const element = containerRef.current
-    console.log(element)
     let firstChild = element.firstChild
     if (!firstChild) return
     if (!firstChild.firstElementChild) return

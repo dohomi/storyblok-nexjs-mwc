@@ -1,18 +1,16 @@
 import {
   Dialog,
   DialogTitle,
-  DialogContent,
-} from '@rmwc/dialog';
+  DialogContent
+} from '@rmwc/dialog'
 
 import {IconButton} from '@rmwc/icon-button'
 import SwipeableViews from 'react-swipeable-views'
 import imageService from '../../utils/ImageService'
 
 import React from 'react'
-import withWindowDimensions from '../provider/WithWindowDimensions'
 
 const Swipe = (props) => {
-
   let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)
 
   function getImageSource (source) {
@@ -61,9 +59,10 @@ const Swipe = (props) => {
       </a>
       <ol className="carousel-indicators" style={{color: 'white'}}>
         {props.elements.map((item) => (
-          <i key={item._uid}
-             className="material-icons"
-             onClick={() => props.onImageClick(item)}>{props.lightbox === item._uid ? 'radio_button_checked' : 'radio_button_unchecked'}</i>
+          <li className={`${props.lightbox === item._uid ? 'active' : ''}`}
+              onClick={() => props.onImageClick(item)}
+              key={item._uid}>
+          </li>
         ))}
       </ol>
     </div>
@@ -73,7 +72,10 @@ const ImageListLightbox = (props) => {
   return (
     <Dialog className="lm-dialog-lightbox"
             open={props.lightbox}>
-      <DialogTitle className="pb-0 text-white text-right">{IconButton({icon: 'clear', onClick: () => props.setLightbox()})}</DialogTitle>
+      <DialogTitle className="pb-0 text-white text-right">{IconButton({
+        icon: 'clear',
+        onClick: () => props.setLightbox()
+      })}</DialogTitle>
       <DialogContent className="pb-0 h-100">{Swipe(props)}</DialogContent>
     </Dialog>
   )
