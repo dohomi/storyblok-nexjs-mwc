@@ -1,4 +1,9 @@
-import {SimpleDialog} from '@rmwc/dialog'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+} from '@rmwc/dialog';
+
 import {IconButton} from '@rmwc/icon-button'
 import SwipeableViews from 'react-swipeable-views'
 import imageService from '../../utils/ImageService'
@@ -31,41 +36,47 @@ const Swipe = (props) => {
   }
 
   return (
-    <>
-      <SwipeableViews enableMouseEvents
-                      index={currentIndex}
+    <div className="carousel slide">
+
+      <SwipeableViews index={currentIndex}
+                      className="carousel-inner h-100 text-center"
                       onChangeIndex={handleChangeIndex}>
         {props.elements.map(item => (
-          <React.Fragment key={item._uid}>
-            <span className="helper"></span>
-            <img src={getImageSource(item.source)} className='img-fluid'/>
-          </React.Fragment>
+          <div key={item._uid}>
+            <img
+              src={getImageSource(item.source)}
+              className='img-fluid'/>
+          </div>
         ))}
       </SwipeableViews>
-      <IconButton icon="arrow_back_ios" className="lm-navigation left"
-                  onClick={() => props.onImageClick(props.elements[currentIndex - 1])}
-                  disabled={currentIndex === 0}/>
-      <IconButton icon="arrow_forward_ios" className="lm-navigation right"
-                  disabled={currentIndex === props.elements.length - 1}
-                  onClick={() => props.onImageClick(props.elements[currentIndex + 1])}/>
-      <div className="lm-pagination">
+      <a className="carousel-control-prev"
+         role="button"
+         onClick={() => props.onImageClick(currentIndex === 0 ? props.elements[props.elements.length - 1] : props.elements[currentIndex - 1])}>
+        <IconButton icon="arrow_back_ios"/>
+      </a>
+      <a className="carousel-control-next"
+         role="button"
+         onClick={() => props.onImageClick(currentIndex === props.elements.length - 1 ? props.elements[0] : props.elements[currentIndex + 1])}>
+        <IconButton icon="arrow_forward_ios"/>
+      </a>
+      <ol className="carousel-indicators" style={{color: 'white'}}>
         {props.elements.map((item) => (
           <i key={item._uid}
              className="material-icons"
              onClick={() => props.onImageClick(item)}>{props.lightbox === item._uid ? 'radio_button_checked' : 'radio_button_unchecked'}</i>
         ))}
-      </div>
-    </>
+      </ol>
+
+    </div>
   )
 }
 const ImageListLightbox = (props) => {
   return (
-    <SimpleDialog title={IconButton({icon: 'clear', onClick: () => props.setLightbox()})}
-                  className="lm-dialog-lightbox"
-                  acceptLabel={null}
-                  cancelLabel={null}
-                  body={Swipe(props)}
-                  open={props.lightbox}/>
+    <Dialog className="lm-dialog-lightbox"
+            open={props.lightbox}>
+      <DialogTitle className="pb-0 text-white text-right">{IconButton({icon: 'clear', onClick: () => props.setLightbox()})}</DialogTitle>
+      <DialogContent>{Swipe(props)}</DialogContent>
+    </Dialog>
   )
 }
 

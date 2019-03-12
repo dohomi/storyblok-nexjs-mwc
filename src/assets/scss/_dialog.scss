@@ -16,72 +16,21 @@
     box-shadow: none;
   }
 
-  .mdc-dialog__title {
-    text-align: right;
-    color: white;
-    padding: 0;
-  }
-
   .mdc-dialog__content {
     padding-bottom: 0;
 
     > div {
-      height: calc(100vh - 100px);
-      text-align: center;
+      height: calc(100vh - 80px);
     }
-  }
-
-  .mdc-dialog__actions {
-    padding: 0;
-  }
-
-  .helper {
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-  }
-
-  img.img-fluid {
-    vertical-align: middle;
-    max-height: 100%;
   }
 
   .react-swipeable-view-container {
     height: 100%;
 
     > div {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
-  }
-
-  .lm-pagination {
-    color: white;
-    position: absolute;
-    bottom: 24px;
-    height: 24px !important;
-    width: 100%;
-    margin-left: -24px;
-  }
-
-  .mdc-icon-button.lm-navigation {
-    color: white;
-    position: absolute;
-    top: 50%;
-    margin-top: -24px;
-    font-size: 2rem;
-
-    &.left {
-      left: 0;
-    }
-
-    &.right {
-      right: 8px
-    }
-  }
-}
-
-.lm-pagination {
-  i {
-    cursor: pointer;
   }
 }
