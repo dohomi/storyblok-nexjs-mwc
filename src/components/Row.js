@@ -17,11 +17,13 @@ const MatRow = (props) => {
   if (content.background_color) {
     styles.backgroundColor = content.background_color
   }
+  const innerStyles = {}
+  content.grid_gap && (innerStyles.columnGap = `${content.grid_gap}px`)
   return (
     <SbEditable content={content}>
       <div className={gridClasses}
            style={styles}>
-        <div className="mdc-layout-grid__inner">
+        <div className="mdc-layout-grid__inner" style={innerStyles}>
           {content.body.map((blok) =>
             Components(blok)
           )}

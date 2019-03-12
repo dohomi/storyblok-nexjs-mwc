@@ -11,6 +11,7 @@ const ImageListItem = (props) => {
         {(props.label || props.sub_label) && (
           <div className="mdc-image-list__supporting">
             <span className="mdc-image-list__label">{props.label}</span>
+            <span className="mdc-image-list__label-sub">{props.sub_label}</span>
           </div>)
         }
       </li>

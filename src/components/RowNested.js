@@ -9,9 +9,8 @@ const MatRow = (props) => {
     content.style,
     content.style_props, content.class_names && content.class_names.values)
   const styles = {}
-  if (content.background_color) {
-    styles.backgroundColor = content.background_color
-  }
+  content.background_color && (styles.backgroundColor = content.background_color)
+  content.grid_gap && (styles.columnGap = `${content.grid_gap}px`)
   return (
     <SbEditable content={content}>
       <div className={classes}
