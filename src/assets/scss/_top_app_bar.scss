@@ -1,5 +1,20 @@
 @import "~@material/top-app-bar/mdc-top-app-bar.scss";
 
+
+.lm-logo-header {
+  display: inline-block;
+  height: 100%;
+
+  > div {
+    height: 100%;
+  }
+
+  img {
+    height: 100%;
+  }
+}
+
+
 .mdc-top-app-bar__row {
   max-width: 1140px;
   margin: 0 auto;

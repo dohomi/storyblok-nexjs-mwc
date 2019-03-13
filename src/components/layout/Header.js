@@ -69,7 +69,7 @@ const Header = (props) => {
               <TopAppBarNavigationIcon icon="menu" className="d-sm-none"
                                        onClick={() => props.onNav()}/>
               <Link route="/">
-                <a>
+                <a className="lm-logo-header">
                   <TopAppBarTitle>
                     {!websiteLogo && websiteTitle}
                     {websiteLogo &&
