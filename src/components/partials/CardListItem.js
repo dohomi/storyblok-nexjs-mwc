@@ -51,7 +51,7 @@ const CardListActionTitles = (content) => {
                                     style={titleStyles}
                                     use={content.titleTypography || 'headline6'}>{content.title}</Typography>}
       {content.subtitle && <Typography tag={content.subtitleTag || 'h4'}
-                                       use={content.titleTypography || 'subtitle2'}>{content.subtitle}</Typography>}
+                                       use={content.subtitleTypography || 'subtitle2'}>{content.subtitle}</Typography>}
     </div>
   )
 }
