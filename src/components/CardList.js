@@ -23,10 +23,12 @@ const CardList = (props) => {
     if (inView) {
       const current = cardRef.current
       const mediaContainer = current.querySelector('.mdc-card__media')
-      setMediaDimension({
-        width: mediaContainer.clientWidth,
-        height: mediaContainer.clientHeight
-      })
+      if (mediaContainer) {
+        setMediaDimension({
+          width: mediaContainer.clientWidth,
+          height: mediaContainer.clientHeight
+        })
+      }
     }
   }, [inView])
 
