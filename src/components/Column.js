@@ -10,15 +10,19 @@ const Column = (props) => {
     styles.backgroundColor = content.background_color
   }
 
+  const widthGeneral = content.width_general || 12
+  const widthMobile = content.width_mobile || widthGeneral
+  const widthTablet = content.width_tablet || widthGeneral
+  const widthDesktop = content.width_desktop || widthGeneral
   const colClasses = clsx(
     'mdc-layout-grid__cell',
     {
       [`mdc-layout-grid__cell--order-${content.order || ''}`]: content.order !== undefined,
       [`mdc-layout-grid__cell--align-${content.align || ''}`]: content.align !== undefined,
-      [`mdc-layout-grid__cell--span-${content.width_general || ''}`]: content.width_general !== undefined,
-      [`mdc-layout-grid__cell--span-${content.width_mobile || ''}-phone`]: content.width_mobile !== undefined,
-      [`mdc-layout-grid__cell--span-${content.width_tablet || ''}-tablet`]: content.width_tablet !== undefined,
-      [`mdc-layout-grid__cell--span-${content.width_desktop || ''}-desktop`]: content.width_desktop !== undefined,
+      [`mdc-layout-grid__cell--span-${widthGeneral || ''}`]: true,
+      [`mdc-layout-grid__cell--span-${widthMobile || ''}-phone`]: true,
+      [`mdc-layout-grid__cell--span-${widthTablet || ''}-tablet`]: true,
+      [`mdc-layout-grid__cell--span-${widthDesktop || ''}-desktop`]: true,
       [`mdc-layout-grid__cell--start-${Number(content.start_desktop || '')}-desktop`]: content.start_desktop !== undefined,
       [`mdc-layout-grid__cell--start-${Number(content.start_tablet || '')}-tablet`]: content.start_tablet !== undefined,
       [`mdc-layout-grid__cell--start-${Number(content.start_phone || '')}-phone`]: content.start_phone !== undefined

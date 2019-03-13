@@ -14,6 +14,7 @@ import Menu from './Menu'
 import Icon from './Icon'
 import SectionVideoBg from './SectionVideoBg'
 import Slider from './Slider'
+import Iframe from './Iframe'
 
 const Components = {
   'page': Page,
@@ -31,6 +32,7 @@ const Components = {
   'row_nested': RowNested,
   'nav_menu': Menu,
   'icon': Icon,
+  'iframe': Iframe,
   'slider': Slider,
   'section_video_bg': SectionVideoBg
 }
