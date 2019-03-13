@@ -759,6 +759,18 @@
     "@material/theme" "^1.0.0"
     "@material/typography" "^1.0.0"
 
+"@material/card@^1.0.0", "@material/card@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@material/card/-/card-1.0.1.tgz#846def8c5f78bda6b5c4119257a66fc96dcf6026"
+  integrity sha512-ePGhXIY/vETtE3o4LA8Vcm8w2QXMCqcoha2/MDiY+3MDa3Yl26tuvnaJa8D641xCMfQKd5rAhOrdTcb83sIiMA==
+  dependencies:
+    "@material/elevation" "^1.0.0"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/ripple" "^1.0.1"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.0.0"
+    "@material/theme" "^1.0.0"
+
 "@material/dialog@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@material/dialog/-/dialog-1.0.1.tgz#940eed0df837d23a9db267f4a0110495f160a6f8"
@@ -974,6 +986,18 @@
     "@rmwc/ripple" "^5.2.0"
     "@rmwc/types" "^5.2.0"
 
+"@rmwc/card@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@rmwc/card/-/card-5.2.0.tgz#77c4414f992505bc8a4023156a867dbbd2b65536"
+  integrity sha512-V4mPMlauum/YAZ106Bab2qTkQ62TwqJ5RjeqUMoPgVk4LvK2TZ14I21lyw8820NXerh3CVJcGzo5fLUPDG6GNA==
+  dependencies:
+    "@material/card" "^1.0.0"
+    "@rmwc/base" "^5.2.0"
+    "@rmwc/button" "^5.2.0"
+    "@rmwc/icon-button" "^5.2.0"
+    "@rmwc/ripple" "^5.2.0"
+    "@rmwc/types" "^5.2.0"
+
 "@rmwc/dialog@^5.2.0":
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@rmwc/dialog/-/dialog-5.2.0.tgz#db39c9065fa3a6d8e665c72709d9e030e014c272"
@@ -1090,6 +1114,15 @@
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/@rmwc/types/-/types-5.2.0.tgz#cc487ca514ecf3e6c18c7d19bc18d9f41ece351d"
   integrity sha512-oKecdqz3J8zRFMae4fPkNeYbTsQEW/gii5ixtq7a2v6/VxvALD1I28NlbdBwHRYODGXAQj+Nefx7E/Pz+R82ZA==
+
+"@rmwc/typography@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@rmwc/typography/-/typography-5.2.0.tgz#e36caa461122e4187c6eb4a111b20849acc82a5e"
+  integrity sha512-7WqryWcuJAB8pz2I1Ovcv1rEMq30VA/S3+FDEw8PktWpJ5ywJKqZdm+ZqhSRSMfGBXJdfNn3M0s1o84f6hCIRQ==
+  dependencies:
+    "@material/typography" "^1.0.0"
+    "@rmwc/base" "^5.2.0"
+    "@rmwc/types" "^5.2.0"
 
 "@types/q@^1.5.1":
   version "1.5.1"

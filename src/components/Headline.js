@@ -1,27 +1,21 @@
 import SbEditable from 'storyblok-react'
 import React from 'react'
 import clsx from 'clsx'
+import {Typography} from '@rmwc/typography'
 
 const Headline = (props) => {
   const content = props.content
-  let text = content.text
-  let typography = content.typography || 'headline4'
-  const tag = content.tag || 'h3'
-  const classes = clsx(
-    'mdc-typography',
-    `mdc-typography--${typography}`,
-    content.style,
-    content.style_props,
-    content.class_names && content.class_names.values
-  )
-  const Tag = tag
+  const classes = clsx(content.style, content.style_props, content.class_names && content.class_names.values)
   return (
     <SbEditable content={content}>
-      <Tag className={classes}>
-        {text}
-      </Tag>
+      <Typography className={classes}
+                  tag={content.tag || 'h3'}
+                  use={content.typography || 'headline4'}>
+        {content.text}
+      </Typography>
     </SbEditable>
   )
 }
+
 
 export default Headline

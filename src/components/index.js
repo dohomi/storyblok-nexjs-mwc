@@ -15,6 +15,7 @@ import Icon from './Icon'
 import SectionVideoBg from './SectionVideoBg'
 import Slider from './Slider'
 import Iframe from './Iframe'
+import CardList from './CardList'
 
 const Components = {
   'page': Page,
@@ -34,7 +35,8 @@ const Components = {
   'icon': Icon,
   'iframe': Iframe,
   'slider': Slider,
-  'section_video_bg': SectionVideoBg
+  'section_video_bg': SectionVideoBg,
+  'card_list': CardList
 }
 
 export default Components

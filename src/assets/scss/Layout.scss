@@ -2,7 +2,6 @@
 Important:
 keep normalize npm package and css of collapsible list up to date on every release
  */
-
 // reset
 @import "normalize";
 // overwrite variables
@@ -29,12 +28,16 @@ keep normalize npm package and css of collapsible list up to date on every relea
 @import "~@material/list/mdc-list";
 // image list
 @import "image_list";
+// card
+@import "card";
 // dialog
 @import "dialog";
 // collapsible lists
 @import "collapsible_list";
 // sections
 @import "section";
+// elevation
+@import "~@material/elevation/mdc-elevation";
 // animations
 @import "animations";
 // slider

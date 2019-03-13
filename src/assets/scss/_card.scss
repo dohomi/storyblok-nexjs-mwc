@@ -1,0 +1,20 @@
+@import "~@material/card/mdc-card";
+
+.mdc-card a {
+  color: inherit;
+  border-radius: inherit;
+}
+
+.lm-card__content {
+  padding: 1rem;
+
+  h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.lm-card__content.mdc-card__media-content {
+  display: flex;
+  align-items: flex-end;
+}
