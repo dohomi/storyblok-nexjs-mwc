@@ -1,8 +1,16 @@
 import SbEditable from 'storyblok-react'
 import CardListItem from './partials/CardListItem'
 import clsx from 'clsx'
+import {useInView} from 'react-intersection-observer'
+import React, {useEffect, useState} from 'react'
 
 const CardList = (props) => {
+  const cardRef = React.createRef()
+  const [refIntersectionObserver, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: '0px 0px 500px 0px'
+  })
+  const [mediaDimension, setMediaDimension] = useState({width: 0, height: 0})
   const content = props.content
   const body = content.body
   const imageRatio = content.image_ratio || '16x9'
@@ -10,6 +18,17 @@ const CardList = (props) => {
   let columnCount = content.column_count || 5
   let columnCountTablet = content.column_count_tablet || 4
   let columnCountPhone = content.column_count_phone || 1
+
+  useEffect(() => {
+    if (inView) {
+      const current = cardRef.current
+      const mediaContainer = current.querySelector('.mdc-card__media')
+      setMediaDimension({
+        width: mediaContainer.clientWidth,
+        height: mediaContainer.clientHeight
+      })
+    }
+  }, [inView])
 
   const containerClasses = clsx(
     'mdc-image-list',
@@ -24,24 +43,28 @@ const CardList = (props) => {
 
   return (
     <SbEditable content={content}>
-      <ul className={containerClasses}>
-        {body.map(item => (
-          <li key={item._uid} className="mdc-image-list__item">
-            {CardListItem({
-              ...item,
-              elevation: content.elevation,
-              borderRadius: content.border_radius,
-              variant: content.variant,
-              titleTag: content.title_tag,
-              subtitleTag: content.subtitle_tag,
-              titleTypography: content.title_typography,
-              subtitleTypography: content.subtitle_typography,
-              sixteenByNine: imageRatio === '16x9', // todo
-              square: imageRatio === '1x1' // todo
-            })}
-          </li>
-        ))}
-      </ul>
+      <div ref={refIntersectionObserver}>
+        <ul className={containerClasses} ref={cardRef}>
+          {body.map(item => (
+            <li key={item._uid} className="mdc-image-list__item">
+              {CardListItem({
+                ...item,
+                inView,
+                mediaDimension,
+                elevation: content.elevation,
+                borderRadius: content.border_radius,
+                variant: content.variant,
+                titleTag: content.title_tag,
+                subtitleTag: content.subtitle_tag,
+                titleTypography: content.title_typography,
+                subtitleTypography: content.subtitle_typography,
+                sixteenByNine: imageRatio === '16x9', // todo
+                square: imageRatio === '1x1' // todo
+              })}
+            </li>
+          ))}
+        </ul>
+      </div>
     </SbEditable>
   )
 }

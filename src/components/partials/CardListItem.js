@@ -58,14 +58,18 @@ const CardListActionTitles = (content) => {
 
 const CardListItem = (content) => {
   let variant = content.variant || []
-  let mediaStyles = {
-    backgroundImage: getBackgroundImageSource({
-      image: content.image,
-      properties: [],
-      width: 300,
-      height: 200
-    })
+  let mediaStyles = {}
+  if (content.mediaDimension && content.mediaDimension.width) {
+    mediaStyles = {
+      backgroundImage: getBackgroundImageSource({
+        image: content.image,
+        properties: [],
+        width: content.mediaDimension.width,
+        height: content.mediaDimension.height
+      })
+    }
   }
+
   const cardClasses = clsx(
     {
       [`mdc-elevation--z${content.elevation}`]: content.elevation
@@ -76,7 +80,7 @@ const CardListItem = (content) => {
   content.borderRadius && (cardStyles.borderRadius = content.borderRadius)
   return (
     <SbEditable content={content}>
-      <Card className={cardClasses} style={cardStyles}>
+      <Card className={cardClasses} style={cardStyles} outlined={variant.includes('outlined')}>
         <CardLink link={content.link}>
           <CardPrimaryAction>
             <CardMedia style={mediaStyles} sixteenByNine={content.sixteenByNine} square={content.square}>
