@@ -14,6 +14,7 @@ const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = []
       path += '/smart'
     }
   }
+  console.log(path)
   const src = imageService(backgroundImage, path)
   return `url('${src}')`
 }
@@ -21,16 +22,28 @@ const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = []
 const WithBackgroundImage = (props) => {
   const backgroundImage = props.background_image
   const backgroundImageProperty = props.background_image_property || []
+  let backgroundStyle = props.background_style
   const [refResizeObserver, width, height] = useResizeObserver()
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true
   })
+  // backgroundStyle = ''
+
   useEffect(() => {
     if (inView) {
+
       const element = refResizeObserver.current
+      let containerHeight = element.clientHeight
+      if (backgroundStyle === 'fixed_cover') {
+        containerHeight = window.innerHeight // overwrite height to match viewport height
+      }
       element.style.backgroundImage = getBackgroundImageSource({
-        width, height: element.clientHeight, backgroundImage, backgroundImageProperty
+        width, height: containerHeight, backgroundImage, backgroundImageProperty
       })
+      if (['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
+        element.style.backgroundAttachment = 'fixed' // use fixed
+        element.style.backgroundSize = 'contain' // overwrite that its bg is not covered
+      }
     }
   }, [width, height, inView])
   const backgroundImagePosition = props.background_image_position || 'center'

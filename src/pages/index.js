@@ -28,7 +28,10 @@ const Index = (props) => {
   let [content, setContent] = useState(mapStateProps(props))
 
   useEffect(() => {
-    setContent(mapStateProps(props))
+    // only set if location changed
+    if (location.pathname !== props.router.asPath) {
+      setContent(mapStateProps(props))
+    }
   }, [props.router.asPath])
 
   useEffect(() => {
