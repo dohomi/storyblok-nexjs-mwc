@@ -1,9 +1,9 @@
 import SbEditable from 'storyblok-react'
 import imageService from '../utils/ImageService'
 import clsx from 'clsx'
-import useResizeObserver from 'use-resize-observer'
 import {useInView} from 'react-intersection-observer'
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
+import withWindowDimensions from './provider/WithWindowDimensions'
 
 /**
  *
@@ -14,7 +14,7 @@ import {useEffect} from 'react'
  */
 function getSource (content, {width, height}) {
   width = parseInt(width)
-  height = parseInt(height) - 4 // needs to correct height.
+  height = parseInt(height)
   const imageCrop = content.image_crop || []
   const property = content.property || []
   let availableWidth = content.width || 0
@@ -47,7 +47,11 @@ function getSource (content, {width, height}) {
 }
 
 const Image = (props) => {
-  const [refResizeObserver, width, height] = useResizeObserver()
+  const refResizeObserver = React.createRef()
+  const width = props.dimensions.width
+  const height = props.dimensions.height
+
+
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true
   })
@@ -57,14 +61,16 @@ const Image = (props) => {
 
 
   useEffect(() => {
-    /**
-     * @type HTMLImageElement
-     */
-    const element = refResizeObserver.current.firstElementChild
+
+    const imgContainer = refResizeObserver.current
+
+    const img = imgContainer.firstElementChild
     if (!inView) {
-      element.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+      img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
     } else {
-      element.src = getSource(content, {width, height})
+      let imgDimensions = {width: imgContainer.clientWidth, height: imgContainer.clientHeight}
+      console.log(imgDimensions, imgContainer)
+      img.src = getSource(content, imgDimensions)
     }
   }, [width, height, inView])
 
@@ -79,4 +85,4 @@ const Image = (props) => {
   )
 }
 
-export default Image
+export default withWindowDimensions(dimensions => ({dimensions}))(Image)

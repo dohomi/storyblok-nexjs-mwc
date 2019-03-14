@@ -4,7 +4,6 @@ import {useInView} from 'react-intersection-observer'
 import React, {useEffect} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 
-
 const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = [], width, height}) => {
 
   let path = ''
