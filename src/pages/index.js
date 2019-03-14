@@ -37,6 +37,8 @@ const Index = (props) => {
 
   useEffect(() => {
     StoryblokService.initEditor(content, setContent)
+    DeviceDetectService.setDevice()
+    WebpService.setWebpSupport()
   }, [])
 
   const settings = props.settings && props.settings.data && props.settings.data.story && props.settings.data.story.content || {}

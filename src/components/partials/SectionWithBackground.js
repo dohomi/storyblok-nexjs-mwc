@@ -34,6 +34,7 @@ const WithBackgroundImage = (props) => {
 
       const element = refResizeObserver.current
       let containerHeight = element.clientHeight
+
       if (backgroundStyle === 'fixed_cover') {
         containerHeight = window.innerHeight // overwrite height to match viewport height
       }
@@ -44,6 +45,7 @@ const WithBackgroundImage = (props) => {
         element.style.backgroundAttachment = 'fixed' // use fixed
         element.style.backgroundSize = 'contain' // overwrite that its bg is not covered
       }
+
     }
   }, [width, height, inView])
   const backgroundImagePosition = props.background_image_position || 'center'
