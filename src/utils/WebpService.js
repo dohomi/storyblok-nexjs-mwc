@@ -27,7 +27,8 @@ class WebpService {
       if (can) {
         setVersionSupport()
       }
-      if (window.userDevice.browser === 'Firefox' && parseInt(window.userDevice.version) >= 65) {
+      if ((window.userDevice.browser === 'Firefox' && window.userDevice.version >= 65) ||
+        (window.userDevice.browser === 'Edge' && window.userDevice.version >= 18)) {
         setVersionSupport()
       }
       console.log('does not support webp', window.userDevice)

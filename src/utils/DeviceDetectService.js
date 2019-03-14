@@ -13,7 +13,7 @@ class DeviceDetect {
   _getDeviceValues (parsed) {
     return {
       browser: parsed.browser.name,
-      version: parsed.browser.major,
+      version: parseInt(parsed.browser.major),
       os: parsed.os.name,
       device: parsed.device.type
     }
