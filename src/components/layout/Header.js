@@ -75,6 +75,7 @@ const Header = (props) => {
                     {websiteLogo &&
                     <img src={websiteLogo}
                          height="56"
+                         className="img-fluid"
                          alt={websiteTitle || 'website logo'}
                          ref={logoRef}/>}
                   </TopAppBarTitle>

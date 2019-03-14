@@ -26,11 +26,12 @@ function mapStateProps (pageProps) {
 
 const Index = (props) => {
   let [content, setContent] = useState(mapStateProps(props))
-
+  let [prevPath, setPrevPath] = useState(props.router.asPath)
   useEffect(() => {
     // only set if location changed
-    if (location.pathname !== props.router.asPath) {
+    if (prevPath !== props.router.asPath) {
       setContent(mapStateProps(props))
+      setPrevPath(props.router.asPath)
     }
   }, [props.router.asPath])
 
