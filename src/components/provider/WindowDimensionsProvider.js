@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useState, useEffect} from 'react'
 import DeviceDetectService from '../../utils/DeviceDetectService'
+import ResizeObserver from 'resize-observer-polyfill'
 
 export const WindowDimensionsCtx = createContext(null)
 
@@ -35,20 +36,24 @@ const windowDims = () => {
 const WindowDimensionsProvider = ({children}) => {
   const [dimensions, setDimensions] = useState(windowDims())
   useEffect(() => {
-    let isActive = false
-    const handleResize = () => {
-      if (isActive) {
+    const body = document.querySelector('body')
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (!Array.isArray(entries)) {
         return
       }
-      isActive = true
-      window.requestAnimationFrame(() => {
-        setDimensions(windowDims())
-        isActive = false
-      })
-    }
-    window.addEventListener('resize', handleResize)
+
+      // Since we only observe the one element, we don't need to loop over the
+      // array
+      if (!entries.length) {
+        return
+      }
+      setDimensions(windowDims())
+    })
+
+    resizeObserver.observe(body)
+
     return () => {
-      window.removeEventListener('resize', handleResize)
+      resizeObserver.unobserve(body)
     }
   }, [])
   return (

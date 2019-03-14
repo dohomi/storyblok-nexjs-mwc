@@ -15,9 +15,8 @@ import {
 
 import {ThemeProvider} from '@rmwc/theme'
 import {func, object, bool} from 'prop-types'
-import useResizeObserver from 'use-resize-observer'
+import withWindowDimensions from '../provider/WithWindowDimensions'
 import {useEffect} from 'react'
-
 import scrollPositionHook from '../../utils/hooks/scrollPositionHook'
 import {toolbar} from '../../utils/themeContentSection'
 import {withRouter} from 'next/dist/client/router'
@@ -26,7 +25,10 @@ const Header = (props) => {
   const content = props.settings || {}
   let toolbarConfig = content.toolbar_config || []
   const transparentToolbar = props.hasFeature
-  const [refResizeObserver, width, height] = useResizeObserver()
+  const refResizeObserver = React.createRef()
+  const width = props.dimensions.width
+  const height = props.dimensions.height
+
   const logoRef = React.createRef()
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo && imageService(content.website_logo, '0x128')
@@ -101,4 +103,4 @@ Header.propTypes = {
   hasFeature: bool
 }
 
-export default withRouter(Header)
+export default withWindowDimensions(dimensions => ({dimensions}))(withRouter(Header))
