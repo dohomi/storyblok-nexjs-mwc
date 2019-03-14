@@ -17,22 +17,11 @@ class WebpService {
       // we set this and calling it in _document to set global windows variable
       this.hasWebpSupport = req.headers.accept && req.headers.accept.includes('webp')
     } else {
-      // we currently don't do anything.. needs testing though..
-      const setVersionSupport = () => {
+      if (this._supportsWebp() || (window.userDevice.browser === 'Firefox' && window.userDevice.version >= 65) ||
+        (window.userDevice.browser === 'Edge' && window.userDevice.version >= 18)) {
         this.hasWebpSupport = true
         window.hasWebpSupport = true
       }
-      let can = this._supportsWebp() // not sufficient yet
-      console.log('inside webp support', can)
-      if (can) {
-        setVersionSupport()
-      }
-      if ((window.userDevice.browser === 'Firefox' && window.userDevice.version >= 65) ||
-        (window.userDevice.browser === 'Edge' && window.userDevice.version >= 18)) {
-        setVersionSupport()
-      }
-      console.log('does not support webp', window.userDevice)
-      // console.log('is client browser sniffing', can, window.hasWebpSupport)
     }
   }
 

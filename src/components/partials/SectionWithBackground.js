@@ -31,21 +31,24 @@ const WithBackgroundImage = (props) => {
 
   useEffect(() => {
     if (inView) {
-
+      console.log(window.userDevice)
       const element = refResizeObserver.current
       let containerHeight = element.clientHeight
 
-      if (backgroundStyle === 'fixed_cover') {
-        containerHeight = window.innerHeight // overwrite height to match viewport height
+      if (!window.userDevice.device) {
+        if (backgroundStyle === 'fixed_cover') {
+          containerHeight = window.innerHeight // overwrite height to match viewport height
+        }
+        if (['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
+          element.style.backgroundAttachment = 'fixed' // use fixed
+          element.style.backgroundSize = 'contain' // overwrite that its bg is not covered
+        }
       }
+
+      // set bg image src
       element.style.backgroundImage = getBackgroundImageSource({
         width, height: containerHeight, backgroundImage, backgroundImageProperty
       })
-      if (['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
-        element.style.backgroundAttachment = 'fixed' // use fixed
-        element.style.backgroundSize = 'contain' // overwrite that its bg is not covered
-      }
-
     }
   }, [width, height, inView])
   const backgroundImagePosition = props.background_image_position || 'center'
