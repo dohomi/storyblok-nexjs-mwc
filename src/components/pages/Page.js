@@ -1,5 +1,6 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
+import {ParallaxProvider} from 'react-scroll-parallax'
 
 const Page = (props) => {
   let content = props.content
@@ -9,9 +10,11 @@ const Page = (props) => {
   }
   return (
     <SbEditable content={content}>
-      {body.map((blok) =>
-        Components(blok)
-      )}
+      <ParallaxProvider>
+        {body.map((blok) =>
+          Components(blok)
+        )}
+      </ParallaxProvider>
     </SbEditable>
   )
 }

@@ -58,6 +58,7 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-intersection-observer": "^8.22.0",
+    "react-scroll-parallax": "^2.0.2",
     "react-swipeable-views": "^0.13.1",
     "resize-observer-polyfill": "^1.5.1",
     "storyblok-js-client": "^1.0.21",

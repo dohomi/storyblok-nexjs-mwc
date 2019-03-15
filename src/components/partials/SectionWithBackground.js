@@ -13,7 +13,6 @@ const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = []
       path += '/smart'
     }
   }
-  console.log(path)
   const src = imageService(backgroundImage, path)
   return `url('${src}')`
 }
