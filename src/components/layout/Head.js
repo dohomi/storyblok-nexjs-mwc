@@ -39,7 +39,7 @@ const Head = (props) => {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,700|Material+Icons"
               key="google_font"/>
         <script crossOrigin="anonymous"
-                src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default,IntersectionObserver"
+                src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default,IntersectionObserver,fetch"
                 key="polyfill"></script>
         {StoryblokService.bridge()}
       </NextHead>

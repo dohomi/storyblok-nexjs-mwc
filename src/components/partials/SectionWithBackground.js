@@ -3,7 +3,7 @@ import imageService from '../../utils/ImageService'
 import {useInView} from 'react-intersection-observer'
 import React, {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
-import ProgressiveImage from './ProgressiveImage'
+import {fetchImageSource} from '../../utils/fetchImageHelper'
 
 const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = [], width, height}) => {
 
@@ -14,8 +14,7 @@ const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = []
       path += '/smart'
     }
   }
-  const src = imageService(backgroundImage, path)
-  return `url('${src}')`
+  return imageService(backgroundImage, path)
 }
 
 const WithBackgroundImage = (props) => {
@@ -26,11 +25,9 @@ const WithBackgroundImage = (props) => {
 
   const refContainer = React.createRef()
 
-  const width = props.dimensions.width
-  const height = props.dimensions.height
-
   const sectionClasses = clsx(props.classNames, {
     'lm-background-section': true,
+    'progressive-img-container': true,
     'lm-bg-section__repeat': backgroundImageProperty.includes('repeat'),
     'lm-bg-section__contain': backgroundImageProperty.includes('contain')
   })
@@ -40,8 +37,11 @@ const WithBackgroundImage = (props) => {
     triggerOnce: true,
     rootMargin: '0px 0px 500px 0px'
   })
-  let [imgDimensions, setImgDimensions] = useState({width: 0, height: 0})
-  let [imgSource, setImgSource] = useState('')
+
+  const initialSrc = getBackgroundImageSource({
+    backgroundImage, width: 42, height: 42
+  })
+
   let [imgStyle, setImgStyle] = useState({
     backgroundPosition: backgroundImagePosition,
     padding: !props.isFullHeight && props.padding || '2.5rem 0'
@@ -49,13 +49,19 @@ const WithBackgroundImage = (props) => {
 
 
   useEffect(() => {
+    let newStyles = {
+      ...imgStyle,
+      backgroundImage: `url('${initialSrc}')`
+    }
     if (!window.userDevice.device && ['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
-      setImgStyle({
-        ...imgStyle,
+      newStyles = {
+        ...newStyles,
+        backgroundPosition: 'inherit',
         backgroundAttachment: 'fixed', // use fixed
         backgroundSize: 'contain' // overwrite that its bg is not covered
-      })
+      }
     }
+    setImgStyle(newStyles)
   }, [])
 
   useEffect(() => {
@@ -66,40 +72,26 @@ const WithBackgroundImage = (props) => {
       // cover img
       if (!window.userDevice.device) {
         if (backgroundStyle === 'fixed_cover') {
-          elementHeight = height// overwrite height to match viewport height
+          elementHeight = props.dimensions.height// overwrite height to match viewport height
         }
       }
-      setImgDimensions({width: elementWidth, height: elementHeight})
+      const newImgSource = getBackgroundImageSource({
+        width: elementWidth, height: elementHeight, backgroundImage, backgroundImageProperty
+      })
+      fetchImageSource(newImgSource)
+        .then(() => {
+          setImgStyle({
+            ...imgStyle,
+            filter: 'blur(0)', // unset blur effect
+            backgroundImage: `url("${newImgSource}")`
+          })
+        })
     }
-
-  }, [width, height, inView])
-
-
-
-  /**
-   *
-   * @param opts
-   */
-  function onProgressiveChange (opts) {
-    if (imgSource !== opts.src) {
-      setImgSource(opts.src)
-      const newStyles = {
-        ...imgStyle,
-        ...opts.style,
-        backgroundImage: `url("${opts.src}")`
-      }
-      setImgStyle(newStyles)
-    }
-  }
+  }, [props.dimensions.width, props.dimensions.height, inView])
 
   return (
     <div ref={refIntersectionObserver}
          className="mw-100 mh-100">
-      <ProgressiveImage onChange={onProgressiveChange}
-                        src={backgroundImage}
-                        width={imgDimensions.width}
-                        height={imgDimensions.height}
-                        inView={inView}/>
       <div className={sectionClasses}
            ref={refContainer}
            style={imgStyle}>

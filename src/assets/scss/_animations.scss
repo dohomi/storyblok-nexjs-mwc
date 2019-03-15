@@ -31,4 +31,7 @@
   transition: mdc-animation-enter(background-image, 700ms)
 }
 
-
+.progressive-img-container {
+  filter: blur(10px);
+  transition: filter 500ms ease;
+}

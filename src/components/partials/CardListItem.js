@@ -64,17 +64,24 @@ const CardListItem = (content) => {
       backgroundImage: getBackgroundImageSource({
         image: content.image,
         properties: [],
-        width: content.mediaDimension.width,
-        height: content.mediaDimension.height
+        width: 42,
+        height: 42
       })
     }
   }
 
-  const cardClasses = clsx(
-    {
-      [`mdc-elevation--z${content.elevation}`]: content.elevation
-    }
-  )
+  const cardClasses = clsx({
+    [`mdc-elevation--z${content.elevation}`]: content.elevation
+  })
+  if (content.inView) {
+    mediaStyles.backgroundImage = getBackgroundImageSource({
+      image: content.image,
+      properties: [],
+      width: content.mediaDimension.width,
+      height: content.mediaDimension.height
+    })
+    mediaStyles.filter = 'blur(0)'
+  }
   variant.includes('font_white') && (mediaStyles.color = 'white')
   const cardStyles = {}
   content.borderRadius && (cardStyles.borderRadius = content.borderRadius)
@@ -83,7 +90,10 @@ const CardListItem = (content) => {
       <Card className={cardClasses} style={cardStyles} outlined={variant.includes('outlined')}>
         <CardLink link={content.link}>
           <CardPrimaryAction>
-            <CardMedia style={mediaStyles} sixteenByNine={content.sixteenByNine} square={content.square}>
+            <CardMedia style={mediaStyles}
+                       sixteenByNine={content.sixteenByNine}
+                       className="progressive-img-container"
+                       square={content.square}>
               {variant.includes('over_media') &&
               <CardMediaContent className="lm-card__content">{CardListActionTitles(content)}</CardMediaContent>}
             </CardMedia>

@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import {useInView} from 'react-intersection-observer'
 import React, {useEffect} from 'react'
 import withWindowDimensions from './provider/WithWindowDimensions'
+import {fetchImageSource} from '../utils/fetchImageHelper'
 
 /**
  *
@@ -46,6 +47,10 @@ function getSource (content, {width, height}) {
   return imageService(content.source, path, filter)
 }
 
+function getSmallSource (content) {
+  return imageService(content.source, '42x42')
+}
+
 const Image = (props) => {
   const refResizeObserver = React.createRef()
   const width = props.dimensions.width
@@ -58,17 +63,30 @@ const Image = (props) => {
   })
   const content = props.content
   const imgClasses = clsx('img-fluid', content.property)
-  const containerClasses = clsx('w-100', {'h-100': !!content.height_fill})
-
+  const containerClasses = clsx('w-100', 'progressive-img-container', {'h-100': !!content.height_fill})
 
   useEffect(() => {
     const imgContainer = refResizeObserver.current
     const img = imgContainer.firstElementChild
+
     if (!inView) {
-      img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+      if (content.height_fill) {
+        imgContainer.style.maxHeight = imgContainer.clientHeight
+      }
+      img.src = getSmallSource(content, {width: 42, height: 42})
+      img.style.width = '100%'
+      img.style.maxHeight = imgContainer.clientHeight + 'px'
+      // img.style.objectFit = 'scale-down'
     } else {
       let imgDimensions = {width: imgContainer.clientWidth, height: imgContainer.clientHeight}
-      img.src = getSource(content, imgDimensions)
+      const imgSource = getSource(content, imgDimensions)
+      fetchImageSource(imgSource)
+        .then(() => {
+          img.style.width = 'inherit'
+          img.style.maxHeight = 'inherit'
+          img.src = imgSource
+          imgContainer.style.filter = 'blur(0)'
+        })
     }
   }, [width, height, inView])
 
