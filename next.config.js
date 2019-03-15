@@ -4,7 +4,7 @@ const path = require('path')
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const withSass = require('@zeit/next-sass')
 // withMDX = require('@zeit/next-mdx')(),
-const withOffline = require('next-offline')
+// const withOffline = require('next-offline')
 const withPlugins = require('next-compose-plugins')
 const withSourceMaps = require('@zeit/next-source-maps')()
 const {BUNDLE_ANALYZE} = process.env
@@ -85,7 +85,7 @@ module.exports = withPlugins(
     // @zeit/next-mdx
     // [withMDX],
     // next-offline
-    [withOffline],
+    // [withOffline],
     // @zeit/next-source-maps
     [withSourceMaps]
   ],
