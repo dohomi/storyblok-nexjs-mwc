@@ -1,8 +1,9 @@
 import clsx from 'clsx'
 import imageService from '../../utils/ImageService'
 import {useInView} from 'react-intersection-observer'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
+import ProgressiveImage from './ProgressiveImage'
 
 const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = [], width, height}) => {
 
@@ -20,39 +21,14 @@ const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = []
 const WithBackgroundImage = (props) => {
   const backgroundImage = props.background_image
   const backgroundImageProperty = props.background_image_property || []
-  let backgroundStyle = props.background_style
+  const backgroundStyle = props.background_style
+  const backgroundImagePosition = props.background_image_position || 'center'
+
   const refContainer = React.createRef()
-  // const [refResizeObserver, width, height] = useResizeObserver()
+
   const width = props.dimensions.width
   const height = props.dimensions.height
-  const [refIntersectionObserver, inView] = useInView({
-    triggerOnce: true
-  })
-  // backgroundStyle = ''
 
-  useEffect(() => {
-    if (inView) {
-      const element = refContainer.current
-      let elementWidth = element.clientWidth
-      let elementHeight = element.clientHeight
-      // cover img
-      if (!window.userDevice.device) {
-        if (backgroundStyle === 'fixed_cover') {
-          elementHeight = height// overwrite height to match viewport height
-        }
-        if (['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
-          element.style.backgroundAttachment = 'fixed' // use fixed
-          element.style.backgroundSize = 'contain' // overwrite that its bg is not covered
-        }
-      }
-
-      // set bg image src
-      element.style.backgroundImage = getBackgroundImageSource({
-        width: elementWidth, height: elementHeight, backgroundImage, backgroundImageProperty
-      })
-    }
-  }, [width, height, inView])
-  const backgroundImagePosition = props.background_image_position || 'center'
   const sectionClasses = clsx(props.classNames, {
     'lm-background-section': true,
     'lm-bg-section__repeat': backgroundImageProperty.includes('repeat'),
@@ -60,15 +36,73 @@ const WithBackgroundImage = (props) => {
   })
 
 
+  const [refIntersectionObserver, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: '0px 0px 500px 0px'
+  })
+  let [imgDimensions, setImgDimensions] = useState({width: 0, height: 0})
+  let [imgSource, setImgSource] = useState('')
+  let [imgStyle, setImgStyle] = useState({
+    backgroundPosition: backgroundImagePosition,
+    padding: !props.isFullHeight && props.padding || '2.5rem 0'
+  })
+
+
+  useEffect(() => {
+    if (!window.userDevice.device && ['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
+      setImgStyle({
+        ...imgStyle,
+        backgroundAttachment: 'fixed', // use fixed
+        backgroundSize: 'contain' // overwrite that its bg is not covered
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    const element = refContainer.current
+    let elementWidth = element.clientWidth
+    let elementHeight = element.clientHeight
+    if (inView) {
+      // cover img
+      if (!window.userDevice.device) {
+        if (backgroundStyle === 'fixed_cover') {
+          elementHeight = height// overwrite height to match viewport height
+        }
+      }
+      setImgDimensions({width: elementWidth, height: elementHeight})
+    }
+
+  }, [width, height, inView])
+
+
+
+  /**
+   *
+   * @param opts
+   */
+  function onProgressiveChange (opts) {
+    if (imgSource !== opts.src) {
+      setImgSource(opts.src)
+      const newStyles = {
+        ...imgStyle,
+        ...opts.style,
+        backgroundImage: `url("${opts.src}")`
+      }
+      setImgStyle(newStyles)
+    }
+  }
+
   return (
     <div ref={refIntersectionObserver}
          className="mw-100 mh-100">
+      <ProgressiveImage onChange={onProgressiveChange}
+                        src={backgroundImage}
+                        width={imgDimensions.width}
+                        height={imgDimensions.height}
+                        inView={inView}/>
       <div className={sectionClasses}
            ref={refContainer}
-           style={{
-             backgroundPosition: backgroundImagePosition,
-             padding: !props.isFullHeight && props.padding || '2.5rem 0'
-           }}>
+           style={imgStyle}>
         {props.children}
       </div>
     </div>

@@ -11,7 +11,8 @@ import React from 'react'
 const ImageList = (props) => {
   const containerRef = React.createRef()
   const [refIntersectionObserver, inView] = useInView({
-    triggerOnce: true
+    triggerOnce: true,
+    rootMargin: '0px 0px 500px 0px'
   })
   const [childDimensions, setChildDimensions] = useState({width: 0, height: 0})
   const [lightbox, setLightbox] = useState(false)

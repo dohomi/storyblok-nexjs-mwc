@@ -53,7 +53,8 @@ const Image = (props) => {
 
 
   const [refIntersectionObserver, inView] = useInView({
-    triggerOnce: true
+    triggerOnce: true,
+    rootMargin: '0px 0px 500px 0px'
   })
   const content = props.content
   const imgClasses = clsx('img-fluid', content.property)
@@ -61,9 +62,7 @@ const Image = (props) => {
 
 
   useEffect(() => {
-
     const imgContainer = refResizeObserver.current
-
     const img = imgContainer.firstElementChild
     if (!inView) {
       img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='

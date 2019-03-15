@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import withWindowDimensions from './provider/WithWindowDimensions'
 import {useEffect, useState} from 'react'
 import {useInView} from 'react-intersection-observer'
-import {imageServiceNoWebp} from '../utils/ImageService'
+import imageService from '../utils/ImageService'
 
 /**
  *
@@ -15,7 +15,7 @@ import {imageServiceNoWebp} from '../utils/ImageService'
  */
 const getImgSource = (backgroundImage, {width, height}) => {
   let path = `${width}x${height}/smart`
-  return imageServiceNoWebp(backgroundImage, path)
+  return imageService(backgroundImage, path)
 }
 
 const SectionParallax = ({content, dimensions}) => {
@@ -36,7 +36,7 @@ const SectionParallax = ({content, dimensions}) => {
           const imgHeight = containerHeight + offset
           let imgSource = getImgSource(item.image, {width, height: parseInt(imgHeight)})
           return {
-            image: imgSource,
+            image: `'${imgSource}'`,
             amount: Number(item.amount),
             children: item.children && item.children.length && Components(item.children[0])
           }
