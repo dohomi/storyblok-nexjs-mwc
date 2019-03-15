@@ -6,7 +6,6 @@ import {Typography} from '@rmwc/typography'
 const Headline = (props) => {
   const content = props.content
   const classes = clsx(content.style, content.style_props, content.class_names && content.class_names.values)
-  console.log('rendered headline', content.text)
   return (
     <SbEditable content={content}>
       <Typography className={classes}

@@ -1,10 +1,5 @@
 import imageService from '../../utils/ImageService'
 
-
-function onImageLoad (ev) {
-  console.log(ev)
-}
-
 function getSource (source, {width, height, crop, fitInColor}) {
   let filter = ''
   let path = `${width}x${height}`

@@ -32,8 +32,6 @@ const WithBackgroundImage = (props) => {
 
   useEffect(() => {
     if (inView) {
-      console.log(width, height)
-      console.log(window.userDevice)
       const element = refContainer.current
       let elementWidth = element.clientWidth
       let elementHeight = element.clientHeight

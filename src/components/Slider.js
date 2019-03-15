@@ -7,7 +7,6 @@ import {IconButton} from '@rmwc/icon-button'
 
 const Slider = (props) => {
   const [slide, setSlide] = useState(0)
-
   const content = props.content
   const body = content.body
   const properties = content.property || []
@@ -24,6 +23,13 @@ const Slider = (props) => {
     'carousel-control-next',
     {'d-none': properties.includes('hide_arrows')}
   )
+
+  const carouselClasses = clsx(
+    'carousel slide',
+    {'carousel-indicators__dark': properties.includes('pagination_dark')},
+    {'carousel-arrows__dark': properties.includes('arrows_dark')}
+  )
+
   function handleChangeIndex (item) {
     setSlide(body.findIndex(i => i._uid === item._uid))
   }
@@ -31,7 +37,7 @@ const Slider = (props) => {
   content.background_color && (styles.backgroundColor = content.background_color)
   return (
     <SbEditable content={content}>
-      <div className="carousel slide" style={styles}>
+      <div className={carouselClasses} style={styles}>
         <SwipeableViews index={slide}
                         onChangeIndex={(i) => setSlide(i)}>
           {body.map(item => Components(item))}
@@ -39,12 +45,14 @@ const Slider = (props) => {
         <a className={carouselPrevClasses}
            role="button"
            onClick={() => setSlide(slide === 0 ? body.length - 1 : slide - 1)}>
-          <IconButton icon="arrow_back_ios"/>
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="sr-only">Previous</span>
         </a>
         <a className={carouselNextClasses}
            role="button"
            onClick={() => setSlide(slide === body.length - 1 ? 0 : slide + 1)}>
-          <IconButton icon="arrow_forward_ios"/>
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="sr-only">Next</span>
         </a>
         <ol className={paginationClasses}>
           {body.map((item, i) => (

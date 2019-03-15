@@ -50,12 +50,14 @@ const Swipe = (props) => {
       <a className="carousel-control-prev"
          role="button"
          onClick={() => props.onImageClick(currentIndex === 0 ? props.elements[props.elements.length - 1] : props.elements[currentIndex - 1])}>
-        <IconButton icon="arrow_back_ios"/>
+        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span className="sr-only">Previous</span>
       </a>
       <a className="carousel-control-next"
          role="button"
          onClick={() => props.onImageClick(currentIndex === props.elements.length - 1 ? props.elements[0] : props.elements[currentIndex + 1])}>
-        <IconButton icon="arrow_forward_ios"/>
+        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <span className="sr-only">Next</span>
       </a>
       <ol className="carousel-indicators" style={{color: 'white'}}>
         {props.elements.map((item) => (

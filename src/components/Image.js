@@ -69,7 +69,6 @@ const Image = (props) => {
       img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
     } else {
       let imgDimensions = {width: imgContainer.clientWidth, height: imgContainer.clientHeight}
-      console.log(imgDimensions, imgContainer)
       img.src = getSource(content, imgDimensions)
     }
   }, [width, height, inView])

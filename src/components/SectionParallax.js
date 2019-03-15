@@ -30,7 +30,6 @@ const SectionParallax = ({content, dimensions}) => {
 
   useEffect(() => {
     if (inView) {
-      console.log(width, height)
       setLayers(elements.map(item => {
           const containerHeight = height * Number('0.' + contentHeight)
           const offset = ((containerHeight * item.amount) * 2)
