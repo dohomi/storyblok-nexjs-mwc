@@ -31,8 +31,8 @@ const Header = (props) => {
 
   const logoRef = React.createRef()
   const websiteTitle = content.website_title
-  const websiteLogo = content.website_logo && imageService(content.website_logo, '0x128')
-  const websiteLogoInverted = content.website_logo_invert && imageService(content.website_logo_invert, '0x128')
+  const websiteLogo = content.website_logo && imageService(content.website_logo, '0x' + 48 * 2)
+  const websiteLogoInverted = content.website_logo_invert && imageService(content.website_logo_invert, '0x' + 48 * 2)
 
   const scrollPos = scrollPositionHook()
 
