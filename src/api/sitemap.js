@@ -39,7 +39,7 @@ function fetchStories () {
 
 
 function generateSitemap (req, res) {
-
+  const host = req && req.headers && req.headers.host
   return fetchStories()
     .then((result) => {
       const sitemapUrls = result.map(item => {
@@ -49,7 +49,7 @@ function generateSitemap (req, res) {
         }
       })
       const options = {
-        hostname: 'http://example.com',
+        hostname: host || 'http://example.com',
         cacheTime: 600000,        // 600 sec - cache purge period
         urls: sitemapUrls
         // [
