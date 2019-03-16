@@ -6,32 +6,38 @@ import {ThemeProvider} from '@rmwc/theme'
 import {section} from '../utils/themeContentSection'
 import SectionWithBackground from './partials/SectionWithBackground'
 
-const omit = (object, omit = []) => {
-  const newObject = {}
-  Object.keys(object).map(key => {
-    !omit.includes(key) && (newObject[key] = object[key])
-  })
-  return newObject
-}
-
 const backgroundPropertyHelper = (properties) => {
   if (!Array.isArray(properties)) {
-    return null
+    return {}
   }
-  const values = properties[0] || {}
+  const values = properties[0]
+  if (Object.keys(values).length === 0) {
+    return {}
+  }
   const mapped = {
-    ...values
+    image: values.image,
+    styles: {
+      borderColor: values.border_color && values.border_color.rgba,
+      backgroundColor: values.background_color && values.background_color.rgba,
+      borderRadius: values.border_radius,
+      borderStyle: values.border_style,
+      borderSize: values.border_size
+    },
+    classNames: values.classNames && values.classNames.values,
+    classes: {
+      [`mdc-elevation--z${values.elevation}`]: !!values.elevation
+    },
+    imageProperties: values.image_properties
   }
+  console.log(values)
   console.log(mapped)
-
-  return values
+  return mapped
 }
 
 const Section = ({content}) => {
   const isFullHeight = content.property.includes('is_full_height')
-  const backgroundProperties = backgroundPropertyHelper(content.background)
-  const backgroundImage = backgroundProperties.image
-  console.log(backgroundProperties)
+  const containerProps = backgroundPropertyHelper(content.background)
+  const backgroundImage = containerProps.image
   let theme = {}
   const variant = content.variant
   // configure some theming variants
@@ -45,6 +51,7 @@ const Section = ({content}) => {
   }
 
   const styles = {
+    ...containerProps.styles,
     padding: !isFullHeight && content.padding || '2.5rem 0'
   }
 
@@ -53,13 +60,14 @@ const Section = ({content}) => {
 
   let sectionClassNames = clsx(
     'lm-content-section',
-    content.style, content.class_names && content.class_names.values, {
+    containerProps.classNames,
+    containerProps.classes, {
       ['lm-section__full-height']: !!isFullHeight
     })
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
-        {content.background_image ? (
+        {backgroundImage || content.background_image ? (
           <SectionWithBackground classNames={sectionClassNames}
                                  {...content}
                                  isFullHeight={isFullHeight}>
