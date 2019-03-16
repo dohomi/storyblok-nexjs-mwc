@@ -6,9 +6,32 @@ import {ThemeProvider} from '@rmwc/theme'
 import {section} from '../utils/themeContentSection'
 import SectionWithBackground from './partials/SectionWithBackground'
 
+const omit = (object, omit = []) => {
+  const newObject = {}
+  Object.keys(object).map(key => {
+    !omit.includes(key) && (newObject[key] = object[key])
+  })
+  return newObject
+}
+
+const backgroundPropertyHelper = (properties) => {
+  if (!Array.isArray(properties)) {
+    return null
+  }
+  const values = properties[0] || {}
+  const mapped = {
+    ...values
+  }
+  console.log(mapped)
+
+  return values
+}
 
 const Section = ({content}) => {
   const isFullHeight = content.property.includes('is_full_height')
+  const backgroundProperties = backgroundPropertyHelper(content.background)
+  const backgroundImage = backgroundProperties.image
+  console.log(backgroundProperties)
   let theme = {}
   const variant = content.variant
   // configure some theming variants
