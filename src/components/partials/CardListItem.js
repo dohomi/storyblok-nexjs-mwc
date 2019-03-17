@@ -85,6 +85,9 @@ const CardListItem = (content) => {
   variant.includes('font_white') && (mediaStyles.color = 'white')
   const cardStyles = {}
   content.borderRadius && (cardStyles.borderRadius = content.borderRadius)
+  const isOverMedia = variant.includes('over_media')
+  const descriptionIsEmpty = isOverMedia && !content.description
+
   return (
     <SbEditable content={content}>
       <Card className={cardClasses} style={cardStyles} outlined={variant.includes('outlined')}>
@@ -94,13 +97,15 @@ const CardListItem = (content) => {
                        sixteenByNine={content.sixteenByNine}
                        className="progressive-img-container"
                        square={content.square}>
-              {variant.includes('over_media') &&
+              {isOverMedia &&
               <CardMediaContent className="lm-card__content">{CardListActionTitles(content)}</CardMediaContent>}
             </CardMedia>
-            <div style={{padding: '1rem'}} className="lm-card__content">
-              {!variant.includes('over_media') && CardListActionTitles(content)}
-              {content.description && <Typography tag="div" use="body1">{content.description}</Typography>}
-            </div>
+            {!descriptionIsEmpty && (
+              <div style={{padding: '1rem'}} className="lm-card__content">
+                {!isOverMedia && CardListActionTitles(content)}
+                {content.description && <Typography tag="div" use="body1">{content.description}</Typography>}
+              </div>
+            )}
           </CardPrimaryAction>
         </CardLink>
       </Card>

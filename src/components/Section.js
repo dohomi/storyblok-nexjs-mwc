@@ -37,7 +37,7 @@ const Section = ({content}) => {
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
-        {backgroundImage || content.background_image ? (
+        {backgroundImage ? (
           <SectionWithBackground className={sectionClassNames}
                                  {...content}
                                  containerProps={containerProps}

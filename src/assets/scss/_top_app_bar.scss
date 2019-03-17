@@ -6,8 +6,14 @@
   height: 100%;
   align-items: center;
 
-  img {
+  .mdc-top-app-bar__title {
+    display: flex;
     height: 100%;
+    align-items: center;
+  }
+
+  img {
+    height: 48px;
   }
 }
 

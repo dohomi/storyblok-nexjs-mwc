@@ -2,7 +2,7 @@ import SbEditable from 'storyblok-react'
 import imageService from '../utils/ImageService'
 import clsx from 'clsx'
 import {useInView} from 'react-intersection-observer'
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import withWindowDimensions from './provider/WithWindowDimensions'
 import {fetchImageSource} from '../utils/fetchImageHelper'
 
@@ -52,48 +52,76 @@ function getSmallSource (content) {
 }
 
 const Image = (props) => {
-  const refResizeObserver = React.createRef()
   const width = props.dimensions.width
   const height = props.dimensions.height
 
 
-  const [refIntersectionObserver, inView] = useInView({
+  const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
   })
+
+  const [imageProps, setImageProps] = useState({
+    src: '',
+    styles: {}
+  })
+
   const content = props.content
-  const imgClasses = clsx('img-fluid', content.property)
-  const containerClasses = clsx('w-100', 'progressive-img-container', {'h-100': !!content.height_fill})
+  const imgClasses = clsx('img-fluid', 'progressive-img-container', content.property)
+  const containerClasses = clsx('w-100', {'h-100': !!content.height_fill})
 
   useEffect(() => {
-    const imgContainer = refResizeObserver.current
-    const img = imgContainer.firstElementChild
+    if (!intersectionElement) {
+      return // don't proceed
+    }
+    const elementDimensions = intersectionElement.boundingClientRect
+
+    // const imgContainer = refResizeObserver.current
+    // const img = imgContainer.firstElementChild
 
     if (!inView) {
       if (content.height_fill) {
-        imgContainer.style.maxHeight = imgContainer.clientHeight
+        console.log('inside of height_fill')
+        debugger
+        // imgContainer.style.maxHeight = imgContainer.clientHeight // todo
       }
-      img.src = getSmallSource(content, {width: 42, height: 42})
-      img.style.width = '100%'
-      img.style.maxHeight = imgContainer.clientHeight + 'px'
+      setImageProps({
+        src: getSmallSource(content, {width: 42, height: 42}),
+        styles: {
+          width: '100%',
+          maxHeight: elementDimensions.height + 'px'
+        }
+      })
+      // img.style.width = '100%'
+      // img.style.maxHeight = imgContainer.clientHeight + 'px'
       // img.style.objectFit = 'scale-down'
     } else {
-      let imgDimensions = {width: imgContainer.clientWidth, height: imgContainer.clientHeight}
+      let imgDimensions = {width: elementDimensions.width, height: elementDimensions.height}
       const imgSource = getSource(content, imgDimensions)
       fetchImageSource(imgSource)
         .then(() => {
-          img.style.width = 'inherit'
-          img.style.maxHeight = 'inherit'
-          img.src = imgSource
-          imgContainer.style.filter = 'blur(0)'
+          setImageProps({
+            src: imgSource,
+            styles: {
+              width: content.width || 'auto',
+              maxHeight: 'inherit',
+              height: !content.height_fill && content.height ? content.height : 'auto',
+              filter: 'blur(0)'
+            }
+          })
+          // img.style.width = content.width || 'inherit'
+          // img.style.maxHeight = 'inherit'
+          // img.src = imgSource
+          // imgContainer.style.filter = 'blur(0)'
         })
     }
   }, [width, height, inView])
 
   return (
     <SbEditable content={content}>
-      <div className={containerClasses} ref={refResizeObserver}>
-        <img ref={refIntersectionObserver}
+      <div className={containerClasses} ref={refIntersectionObserver}>
+        <img src={imageProps.src}
+             style={imageProps.styles}
              alt={content.alt || 'website image'}
              className={imgClasses}/>
       </div>
