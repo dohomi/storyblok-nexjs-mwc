@@ -8,9 +8,7 @@ const app = next({dev})
 // const handler = routes.getRequestHandler(app)
 
 const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
-  console.log('on server', req.url)
   if (req.url === '/sitemap.xml') {
-
     return generateSitemap(req, res)
   }
   app.render(req, res, route.page, query)

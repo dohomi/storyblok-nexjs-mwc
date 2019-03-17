@@ -5,34 +5,7 @@ import React from 'react'
 import {ThemeProvider} from '@rmwc/theme'
 import {section} from '../utils/themeContentSection'
 import SectionWithBackground from './partials/SectionWithBackground'
-
-const backgroundPropertyHelper = (properties) => {
-  if (!Array.isArray(properties)) {
-    return {}
-  }
-  const values = properties[0]
-  if (Object.keys(values).length === 0) {
-    return {}
-  }
-  const mapped = {
-    image: values.image,
-    styles: {
-      borderColor: values.border_color && values.border_color.rgba,
-      backgroundColor: values.background_color && values.background_color.rgba,
-      borderRadius: values.border_radius,
-      borderStyle: values.border_style,
-      borderSize: values.border_size
-    },
-    classNames: values.classNames && values.classNames.values,
-    classes: {
-      [`mdc-elevation--z${values.elevation}`]: !!values.elevation
-    },
-    imageProperties: values.image_properties
-  }
-  console.log(values)
-  console.log(mapped)
-  return mapped
-}
+import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
 
 const Section = ({content}) => {
   const isFullHeight = content.property.includes('is_full_height')
@@ -68,8 +41,10 @@ const Section = ({content}) => {
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
         {backgroundImage || content.background_image ? (
-          <SectionWithBackground classNames={sectionClassNames}
+          <SectionWithBackground className={sectionClassNames}
                                  {...content}
+                                 containerProps={containerProps}
+                                 style={styles}
                                  isFullHeight={isFullHeight}>
             {content.body.map((blok) => Components(blok))}
           </SectionWithBackground>

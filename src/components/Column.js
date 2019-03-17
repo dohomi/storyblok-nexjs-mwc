@@ -1,35 +1,55 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
+import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
+import SectionWithBackground from './partials/SectionWithBackground'
 
 const Column = (props) => {
   // const width = props.content && props.content.width || {}
   const content = props.content
-  const styles = {}
-  if (content.background_color) {
-    styles.backgroundColor = content.background_color
+  /**
+   *
+   * @type {BackgroundProperty}
+   */
+  const containerProps = backgroundPropertyHelper(content.background)
+  let styles = {}
+  if (containerProps.styles) {
+    styles = containerProps.styles
   }
 
   const widthGeneral = content.width_general || 12
-  const widthMobile = content.width_mobile || widthGeneral
+  const widthMobile = content.width_mobile || 4
   const widthTablet = content.width_tablet || widthGeneral
   const widthDesktop = content.width_desktop || widthGeneral
   const colClasses = clsx(
     'mdc-layout-grid__cell',
     {
-      [`mdc-layout-grid__cell--order-${content.order || ''}`]: content.order !== undefined,
-      [`mdc-layout-grid__cell--align-${content.align || ''}`]: content.align !== undefined,
-      [`mdc-layout-grid__cell--span-${widthGeneral || ''}`]: true,
+      [`mdc-layout-grid__cell--order-${content.order || ''}`]: !!content.order,
+      [`mdc-layout-grid__cell--align-${content.align || ''}`]: !!content.align,
+      [`mdc-layout-grid__cell--span-${widthGeneral || ''}`]: !widthDesktop,
       [`mdc-layout-grid__cell--span-${widthMobile || ''}-phone`]: true,
       [`mdc-layout-grid__cell--span-${widthTablet || ''}-tablet`]: true,
       [`mdc-layout-grid__cell--span-${widthDesktop || ''}-desktop`]: true,
-      [`mdc-layout-grid__cell--start-${Number(content.start_desktop || '')}-desktop`]: content.start_desktop !== undefined,
-      [`mdc-layout-grid__cell--start-${Number(content.start_tablet || '')}-tablet`]: content.start_tablet !== undefined,
-      [`mdc-layout-grid__cell--start-${Number(content.start_phone || '')}-phone`]: content.start_phone !== undefined
+      [`mdc-layout-grid__cell--start-${Number(content.start_desktop || '')}-desktop`]: !!content.start_desktop,
+      [`mdc-layout-grid__cell--start-${Number(content.start_tablet || '')}-tablet`]: !!content.start_tablet,
+      [`mdc-layout-grid__cell--start-${Number(content.start_phone || '')}-phone`]: !!content.start_phone
     },
-    content.style,
-    content.style_props,
-    content.class_names && content.class_names.values)
+    containerProps.classNames,
+    containerProps.classes
+  )
+  if (containerProps.image) {
+    return (
+      <SbEditable content={props.content}>
+        <SectionWithBackground style={styles}
+                               isColumn={true}
+                               className={colClasses}
+                               containerProps={containerProps}>
+          {props.content.body.map((blok) => Components(blok))}
+        </SectionWithBackground>
+      </SbEditable>
+    )
+  }
+
   return (
     <SbEditable content={props.content}>
       <div className={colClasses}

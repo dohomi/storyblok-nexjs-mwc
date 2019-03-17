@@ -18,39 +18,39 @@ const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = []
 }
 
 const WithBackgroundImage = (props) => {
-  const backgroundImage = props.background_image
-  const backgroundImageProperty = props.background_image_property || []
-  const backgroundStyle = props.background_style
-  const backgroundImagePosition = props.background_image_position || 'center'
+  const isColumn = props.isColumn
+  const containerProps = props.containerProps || {}
+  const backgroundImage = containerProps.image // original img source
+  const backgroundImageProperty = containerProps.imageProperties || [] // repeat,contain..
+  const backgroundStyle = props.background_style // background attachment props
 
-  const refContainer = React.createRef()
+  const containerClasses = clsx(!isColumn && 'mw-100 mh-100',
+    props.className, {
+      'lm-background-image': true,
+      'progressive-img-container': true,
+      'lm-bg-section__repeat': backgroundImageProperty.includes('repeat'),
+      'lm-bg-section__contain': backgroundImageProperty.includes('contain')
+    })
 
-  const sectionClasses = clsx(props.classNames, {
-    'lm-background-section': true,
-    'progressive-img-container': true,
-    'lm-bg-section__repeat': backgroundImageProperty.includes('repeat'),
-    'lm-bg-section__contain': backgroundImageProperty.includes('contain')
-  })
 
-
-  const [refIntersectionObserver, inView] = useInView({
+  const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
-    rootMargin: '0px 0px 500px 0px'
+    rootMargin: '300px 0px 300px 0px'
   })
 
   const initialSrc = getBackgroundImageSource({
     backgroundImage, width: 42, height: 42
   })
 
-  let [imgStyle, setImgStyle] = useState({
-    backgroundPosition: backgroundImagePosition,
+  let [styles, setStyles] = useState({
+    ...props.style,
     padding: !props.isFullHeight && props.padding || '2.5rem 0'
   })
 
 
   useEffect(() => {
     let newStyles = {
-      ...imgStyle,
+      ...styles,
       backgroundImage: `url('${initialSrc}')`
     }
     if (!window.userDevice.device && ['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
@@ -61,13 +61,14 @@ const WithBackgroundImage = (props) => {
         backgroundSize: 'contain' // overwrite that its bg is not covered
       }
     }
-    setImgStyle(newStyles)
+    setStyles(newStyles)
   }, [])
 
   useEffect(() => {
-    const element = refContainer.current
-    let elementWidth = element.clientWidth
-    let elementHeight = element.clientHeight
+    if (!intersectionElement) return
+    const elementDimensions = intersectionElement.boundingClientRect
+    let elementWidth = elementDimensions.width
+    let elementHeight = elementDimensions.height
     if (inView) {
       // cover img
       if (!window.userDevice.device) {
@@ -80,8 +81,8 @@ const WithBackgroundImage = (props) => {
       })
       fetchImageSource(newImgSource)
         .then(() => {
-          setImgStyle({
-            ...imgStyle,
+          setStyles({
+            ...styles,
             filter: 'blur(0)', // unset blur effect
             backgroundImage: `url("${newImgSource}")`
           })
@@ -91,12 +92,9 @@ const WithBackgroundImage = (props) => {
 
   return (
     <div ref={refIntersectionObserver}
-         className="mw-100 mh-100">
-      <div className={sectionClasses}
-           ref={refContainer}
-           style={imgStyle}>
-        {props.children}
-      </div>
+         className={containerClasses}
+         style={styles}>
+      {props.children}
     </div>
   )
 }

@@ -35,9 +35,7 @@ const Layout = (props) => {
       <Header settings={settings}
               hasFeature={props.hasFeature}
               onNav={toggleDrawer}/>
-      <div className="util__container">
-        {props.children}
-      </div>
+      <main>{props.children}</main>
       <Footer settings={settings}/>
     </ThemeProvider>
   )

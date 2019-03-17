@@ -65,6 +65,4 @@ const WindowDimensionsProvider = ({children}) => {
 
 export default WindowDimensionsProvider
 
-export const useWindowDimensions = () => {
-  return useContext(WindowDimensionsCtx)
-}
+export const useWindowDimensions = () => useContext(WindowDimensionsCtx)
