@@ -59,7 +59,7 @@ const Image = (props) => {
 
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true,
-    rootMargin: '0px 0px 500px 0px'
+    rootMargin: '300px 0px 300px 0px'
   })
   const content = props.content
   const imgClasses = clsx('img-fluid', content.property)
