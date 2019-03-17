@@ -15,7 +15,13 @@ const getThemeStyles = (values) => {
   return styles
 }
 
-const MatRow = ({content}) => {
+/**
+ *
+ * @param content
+ * @return {{containerProps: BackgroundProperty, styles: {border: string, backgroundColor: string, borderRadius: string}}}
+ */
+const getRowProperties = (content = {}) => {
+  content = content || {}
 
   /**
    *
@@ -23,6 +29,23 @@ const MatRow = ({content}) => {
    */
   const containerProps = backgroundPropertyHelper(content.background)
 
+  const styles = {
+    ...containerProps.styles,
+    ...getThemeStyles([{'grid-margin-desktop': content.grid_margin_desktop},
+      {'grid-margin-tablet': content.grid_margin_tablet},
+      {'grid-margin-phone': content.grid_margin_phone},
+      {'grid-gutter-desktop': content.grid_gutter_desktop},
+      {'grid-gutter-tablet': content.grid_gutter_tablet},
+      {'grid-gutter-phone': content.grid_gutter_phone}])
+  }
+  return {
+    containerProps,
+    styles
+  }
+}
+
+export const MatRow = ({content}) => {
+  const {styles, containerProps} = getRowProperties(content)
   const gridClasses = clsx(
     'mdc-layout-grid',
     {
@@ -31,12 +54,7 @@ const MatRow = ({content}) => {
     },
     containerProps.classNames,
     containerProps.classes)
-  const styles = {
-    ...containerProps.styles,
-    ...getThemeStyles([{'grid-margin-desktop': content.grid_margin_desktop}, {'grid-margin-tablet': content.grid_margin_tablet}, {'grid-margin-phone': content.grid_margin_phone}, {'grid-gutter-desktop': content.grid_gutter_desktop},
-      {'grid-gutter-tablet': content.grid_gutter_tablet}, {'grid-gutter-phone': content.grid_gutter_phone}])
-  }
-  console.log(styles)
+  const body = content.body || []
   if (containerProps.image) {
     return (
       <SbEditable content={content}>
@@ -44,7 +62,7 @@ const MatRow = ({content}) => {
                                className={gridClasses}
                                containerProps={containerProps}>
           <div className="mdc-layout-grid__inner">
-            {content.body.map((blok) => Components(blok))}
+            {body.map((blok) => Components(blok))}
           </div>
         </SectionWithBackground>
       </SbEditable>
@@ -56,10 +74,39 @@ const MatRow = ({content}) => {
       <div className={gridClasses}
            style={styles}>
         <div className="mdc-layout-grid__inner">
-          {content.body.map((blok) => Components(blok))}
+          {body.map((blok) => Components(blok))}
         </div>
       </div>
     </SbEditable>
   )
 }
-export default MatRow
+
+export const MatRowNested = ({content}) => {
+  const {styles, containerProps} = getRowProperties(content)
+  const classes = clsx(
+    'mdc-layout-grid__inner',
+    containerProps.classNames,
+    containerProps.classes)
+  const body = content.body || []
+  if (containerProps.image) {
+    return (
+      <SbEditable content={content}>
+        <SectionWithBackground style={styles}
+                               className={classes}
+                               containerProps={containerProps}>
+          {body.map((blok) => Components(blok))}
+        </SectionWithBackground>
+      </SbEditable>
+    )
+  }
+
+  return (
+    <SbEditable content={content}>
+      <div className={classes}
+           style={styles}>
+        {body.map((blok) => Components(blok))}
+      </div>
+    </SbEditable>
+  )
+}
+
