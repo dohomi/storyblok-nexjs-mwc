@@ -28,16 +28,19 @@ function backgroundPropertyHelper (properties) {
     return {}
   }
   const borderColor = values.border_color && values.border_color.rgba
-  /**
-   *
-   * @type {BackgroundProperty}
-   */
+  const borderRadius = values.border_radius
+  let border = null
+  if (borderColor) {
+    border = `${values.border_size || 1}px ${values.border_style || 'solid'} ${borderColor}`
+  } else if (borderRadius) {
+    border = '1px solid transparent'
+  }
   return {
     image: values.image,
     styles: {
-      border: borderColor ? `${values.border_size || 1}px ${values.border_style || 'solid'} ${borderColor}` : null,
+      border,
       backgroundColor: values.background_color && values.background_color.rgba,
-      borderRadius: values.border_radius
+      borderRadius
     },
     classNames: values.classNames && values.classNames.values,
     classes: {

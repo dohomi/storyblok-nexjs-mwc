@@ -24,7 +24,8 @@ const WithBackgroundImage = (props) => {
   const backgroundImageProperty = containerProps.imageProperties || [] // repeat,contain..
   const backgroundStyle = props.background_style // background attachment props
 
-  const containerClasses = clsx(!isColumn && 'mw-100 mh-100',
+  const containerClasses = clsx(
+    !isColumn && 'mw-100 mh-100',
     props.className, {
       'lm-background-image': true,
       'progressive-img-container': true,
@@ -43,8 +44,7 @@ const WithBackgroundImage = (props) => {
   })
 
   let [styles, setStyles] = useState({
-    ...props.style,
-    padding: !props.isFullHeight && props.padding || '2.5rem 0'
+    ...props.style
   })
 
 

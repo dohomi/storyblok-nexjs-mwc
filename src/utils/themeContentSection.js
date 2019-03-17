@@ -25,9 +25,6 @@ export const toolbar = {
 
 export const section = {
   dark: {
-    // onPrimary: 'white',
-    // onSurface: 'white',
-    // primary: 'white',
     textPrimaryOnBackground: 'white',
     onSurface: 'white',
     background: 'var(--mdc-theme-dark)'
@@ -39,10 +36,23 @@ export const section = {
   },
   secondary: {
     onSurface: 'white',
+    textPrimaryOnBackground: 'white',
     background: 'var(--mdc-theme-secondary)'
   },
   light: {
     background: 'whitesmoke',
+    textPrimaryOnBackground: 'var(--mdc-theme-dark)',
     onSurface: 'var(--mdc-theme-dark)'
+  },
+  dark_text: {
+    textPrimaryOnBackground: 'var(--mdc-theme-dark)',
+    onSurface: 'var(--mdc-theme-dark)'
+  },
+  light_text: {
+    textPrimaryOnBackground: 'white',
+    onSurface: 'white'
+  },
+  transparent: {
+    background: 'transparent'
   }
 }

@@ -2,12 +2,9 @@
 
 
 .lm-logo-header {
-  display: inline-block;
+  display: flex;
   height: 100%;
-
-  > div {
-    height: 100%;
-  }
+  align-items: center;
 
   img {
     height: 100%;

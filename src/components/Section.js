@@ -28,9 +28,6 @@ const Section = ({content}) => {
     padding: !isFullHeight && content.padding || '2.5rem 0'
   }
 
-  content.background_color && (styles.backgroundColor = content.background_color)
-
-
   let sectionClassNames = clsx(
     'lm-content-section',
     containerProps.classNames,
