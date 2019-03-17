@@ -35,7 +35,8 @@ const getRowProperties = (content = {}) => {
 
   const styles = {
     ...containerProps.styles,
-    ...getThemeStyles([{'grid-margin-desktop': content.grid_margin_desktop},
+    ...getThemeStyles([
+      {'grid-margin-desktop': content.grid_margin_desktop},
       {'grid-margin-tablet': content.grid_margin_tablet},
       {'grid-margin-phone': content.grid_margin_phone},
       {'grid-gutter-desktop': content.grid_gutter_desktop},
@@ -53,7 +54,7 @@ export const MatRow = ({content}) => {
   const gridClasses = clsx(
     'mdc-layout-grid',
     {
-      [`mdc-layout-grid__cell--align-${content.align || ''}`]: content.align !== undefined,
+      [`mdc-layout-grid__cell--align-${content.align || ''}`]: !!content.align,
       'mdc-layout-grid--fixed-column-width': !content.fluid_width
     },
     containerProps.classNames,
