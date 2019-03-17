@@ -4,6 +4,10 @@ import clsx from 'clsx'
 import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
 import SectionWithBackground from './partials/SectionWithBackground'
 
+/**
+ *
+ * @param values
+ */
 const getThemeStyles = (values) => {
   const styles = {}
   values.forEach((value) => {
