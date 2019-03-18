@@ -66,7 +66,7 @@ const Header = (props) => {
   })
   return (
     <SbEditable content={content}>
-      <ThemeProvider options={theme} wrap>
+      <ThemeProvider options={theme}>
         <TopAppBar className={topToolbarClasses} fixed={toolbarConfig.includes('fixed')}>
           <TopAppBarRow ref={refResizeObserver}>
             <TopAppBarSection>
