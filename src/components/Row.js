@@ -73,12 +73,17 @@ export const MatRow = ({content}) => {
       </SbEditable>
     )
   }
+  const innerStyles = {}
+  if (content.column_gap) {
+    innerStyles.columnGap = `${content.column_gap}px`
+  }
 
   return (
     <SbEditable content={content}>
       <div className={gridClasses}
            style={styles}>
-        <div className="mdc-layout-grid__inner">
+        <div className="mdc-layout-grid__inner"
+             style={innerStyles}>
           {body.map((blok) => Components(blok))}
         </div>
       </div>
@@ -103,6 +108,9 @@ export const MatRowNested = ({content}) => {
         </SectionWithBackground>
       </SbEditable>
     )
+  }
+  if (content.column_gap) {
+    styles.columnGap = `${content.column_gap}px`
   }
 
   return (
