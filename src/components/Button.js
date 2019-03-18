@@ -38,10 +38,11 @@ const MtButton = (props) => {
   // const property = content.styles
   const color = content.color
   const size = content.size
-  const icon = content.icon && content.icon.name
+  const icon = content.image || (content.icon && content.icon.name)
   const trailingIcon = content.trailing_icon && content.trailing_icon.name
   const properties = content.properties || []
   const additionalClasses = []
+
 
   let theme
   if (color) {

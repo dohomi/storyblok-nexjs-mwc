@@ -16,9 +16,11 @@ import Slider from './Slider'
 import Iframe from './Iframe'
 import CardList from './CardList'
 import SectionParallax from './SectionParallax'
+import ButtonList from './ButtonList'
 
 const Components = {
   'page': Page,
+  'button_list': ButtonList,
   'section': Section,
   'headline': Headline,
   'paragraph': Paragraph,
