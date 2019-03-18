@@ -3,6 +3,12 @@
 @import "~@material/icon-button/mdc-icon-button";
 @import "~@material/fab/mdc-fab";
 
+
+// special designs for button lists
+.lm-button-list__margin-left {
+  margin-left: -12px; // moves 12 px to the left (button-icon padding)
+}
+
 .mdc-button {
   text-transform: inherit; // overwrite UPPERCASE of mdc
 }
