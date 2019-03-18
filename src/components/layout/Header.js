@@ -59,12 +59,14 @@ const Header = (props) => {
     theme = toolbar[color]
   }
 
-  const topToolbarClasses = clsx('lm-app-toolbar', {
-    'lm-toolbar-transparent': transparentToolbar
+  const topToolbarClasses = clsx('lm-toolbar', {
+    'lm-toolbar-transparent': transparentToolbar,
+    ['lm-toolbar__bold-text']: !!toolbarConfig.includes('text_bold'),
+    ['lm-toolbar__fixed-width']: !!toolbarConfig.includes('fixed_width')
   })
   return (
     <SbEditable content={content}>
-      <ThemeProvider options={theme}>
+      <ThemeProvider options={theme} wrap>
         <TopAppBar className={topToolbarClasses} fixed={toolbarConfig.includes('fixed')}>
           <TopAppBarRow ref={refResizeObserver}>
             <TopAppBarSection>
@@ -72,15 +74,17 @@ const Header = (props) => {
                                        onClick={() => props.onNav()}/>
               <Link route="/">
                 <a className="lm-logo-header">
-                  <TopAppBarTitle>
-                    {!websiteLogo && websiteTitle}
-                    {websiteLogo &&
-                    <img src={websiteLogo}
-                         height="56"
-                         className="img-fluid"
-                         alt={websiteTitle || 'website logo'}
-                         ref={logoRef}/>}
-                  </TopAppBarTitle>
+                  {!websiteLogo && (
+                    <TopAppBarTitle>
+                      {websiteTitle}
+                    </TopAppBarTitle>
+                  )}
+                  {websiteLogo &&
+                  <img src={websiteLogo}
+                       height="56"
+                       className="img-fluid"
+                       alt={websiteTitle || 'website logo'}
+                       ref={logoRef}/>}
                 </a>
               </Link>
             </TopAppBarSection>
