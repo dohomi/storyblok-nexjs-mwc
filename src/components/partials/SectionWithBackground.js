@@ -50,8 +50,7 @@ const WithBackgroundImage = (props) => {
 
   useEffect(() => {
     let newStyles = {
-      ...styles,
-      backgroundImage: `url('${initialSrc}')`
+      ...styles
     }
     if (!window.userDevice.device && ['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
       newStyles = {
@@ -70,6 +69,10 @@ const WithBackgroundImage = (props) => {
     let elementWidth = elementDimensions.width
     let elementHeight = elementDimensions.height
     if (inView) {
+      setStyles({
+        ...styles,
+        backgroundImage: `url('${initialSrc}')`
+      })
       // cover img
       if (!window.userDevice.device) {
         if (backgroundStyle === 'fixed_cover') {

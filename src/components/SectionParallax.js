@@ -34,18 +34,15 @@ const SectionParallax = ({content, dimensions}) => {
   })
 
   useEffect(() => {
-    setLayers(elements.map(item => {
-      let imgSource = getImgSource(item.image, {width: 42, height: 42})
-      return {
-        image: `'${imgSource}'`,
-        amount: Number(item.amount),
-        children: item.children && item.children.length && Components(item.children[0])
-      }
-    }))
-  }, [])
-
-  useEffect(() => {
     if (inView) {
+      setLayers(elements.map(item => {
+        let imgSource = getImgSource(item.image, {width: 42, height: 42})
+        return {
+          image: `'${imgSource}'`,
+          amount: Number(item.amount),
+          children: item.children && item.children.length && Components(item.children[0])
+        }
+      }))
       const items = elements.map(item => {
         const containerHeight = height * Number('0.' + contentHeight)
         const offset = ((containerHeight * item.amount) * 2)
@@ -59,7 +56,6 @@ const SectionParallax = ({content, dimensions}) => {
       })
       Promise.all(elements.map(item => {
         const src = item.image
-        console.log(src)
         return fetchImageSource(src)
       }))
         .then(() => {

@@ -75,16 +75,12 @@ const Image = (props) => {
       return // don't proceed
     }
     const elementDimensions = intersectionElement.boundingClientRect
+    if (content.height_fill) {
+      intersectionElement.target.style.maxHeight = elementDimensions.height
+    }
 
-    // const imgContainer = refResizeObserver.current
-    // const img = imgContainer.firstElementChild
-
-    if (!inView) {
-      if (content.height_fill) {
-        console.log('inside of height_fill')
-        debugger
-        // imgContainer.style.maxHeight = imgContainer.clientHeight // todo
-      }
+    if (inView) {
+      // small preview
       setImageProps({
         src: getSmallSource(content, {width: 42, height: 42}),
         styles: {
@@ -92,10 +88,7 @@ const Image = (props) => {
           maxHeight: elementDimensions.height + 'px'
         }
       })
-      // img.style.width = '100%'
-      // img.style.maxHeight = imgContainer.clientHeight + 'px'
-      // img.style.objectFit = 'scale-down'
-    } else {
+
       let imgDimensions = {width: elementDimensions.width, height: elementDimensions.height}
       const imgSource = getSource(content, imgDimensions)
       fetchImageSource(imgSource)
@@ -109,10 +102,6 @@ const Image = (props) => {
               filter: 'blur(0)'
             }
           })
-          // img.style.width = content.width || 'inherit'
-          // img.style.maxHeight = 'inherit'
-          // img.src = imgSource
-          // imgContainer.style.filter = 'blur(0)'
         })
     }
   }, [width, height, inView])
