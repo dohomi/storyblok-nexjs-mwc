@@ -10,8 +10,8 @@ import imageService from '../../utils/ImageService'
 import {Link} from 'routes/index'
 import clsx from 'clsx'
 
-const getBackgroundImageSource = ({image, properties = [], width, height}) => {
 
+const getBackgroundImageSource = ({image, properties = [], width, height}) => {
   let path = `${parseInt(width)}x0}`
   if (!properties.includes('contain')) {
     path = `${parseInt(width)}x${parseInt(height)}`
@@ -19,8 +19,7 @@ const getBackgroundImageSource = ({image, properties = [], width, height}) => {
       path += '/smart'
     }
   }
-  const src = imageService(image, path)
-  return `url("${src}")`
+  return imageService(image, path)
 }
 
 const CardLink = (props) => {
@@ -81,28 +80,18 @@ const CardMediaElement = ({style, sixteenByNine, square, children}) => {
 
 const CardListItem = (content) => {
   let variant = content.variant || []
-  let mediaStyles = {}
-  if (content.mediaDimension && content.mediaDimension.width) {
-    mediaStyles = {
-      backgroundImage: getBackgroundImageSource({
-        image: content.image,
-        properties: [],
-        width: 42,
-        height: 42
-      })
-    }
-  }
-
+  const mediaStyles = {}
   const cardClasses = clsx({
     [`mdc-elevation--z${content.elevation}`]: content.elevation
   })
   if (content.inView) {
-    mediaStyles.backgroundImage = getBackgroundImageSource({
+    const backgroundImageSource = getBackgroundImageSource({
       image: content.image,
       properties: [],
       width: content.mediaDimension.width,
       height: content.mediaDimension.height
     })
+    mediaStyles.backgroundImage = `url("${backgroundImageSource}")`
     mediaStyles.filter = 'blur(0)'
   }
   variant.includes('font_white') && (mediaStyles.color = 'white')
@@ -129,7 +118,8 @@ const CardListItem = (content) => {
         <CardPrimaryAction>
           <div className="lm-card__content lm-card__content-padding">
             {CardListActionTitles(content)}
-            {content.description && <Typography tag="p" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+            {content.description &&
+            <Typography tag="p" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
           </div>
         </CardPrimaryAction>
       </CardWrap>
@@ -147,7 +137,8 @@ const CardListItem = (content) => {
           <CardMediaElement {...cardMediaProps}/>
           {!descriptionIsEmpty && (
             <div className="lm-card__content lm-card__content-padding">
-              {content.description && <Typography tag="p" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+              {content.description &&
+              <Typography tag="p" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
             </div>
           )}
         </CardPrimaryAction>
@@ -166,7 +157,8 @@ const CardListItem = (content) => {
         {!descriptionIsEmpty && (
           <div className="lm-card__content lm-card__content-padding">
             {!isOverMedia && CardListActionTitles(content)}
-            {content.description && <Typography tag="div" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+            {content.description &&
+            <Typography tag="div" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
           </div>
         )}
       </CardPrimaryAction>

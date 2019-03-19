@@ -13,6 +13,8 @@ function getSource (source, {width, height, crop, fitInColor}) {
   return imageService(source, path, filter)
 }
 
+const placeholder = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSJ3aGl0ZSI+CiAgPHBhdGggZD0iTTAgNCBMMCAyOCBMMzIgMjggTDMyIDQgeiBNNCAyNCBMMTAgMTAgTDE1IDE4IEwxOCAxNCBMMjQgMjR6IE0yNSA3IEE0IDQgMCAwIDEgMjUgMTUgQTQgNCAwIDAgMSAyNSA3Ij48L3BhdGg+Cjwvc3ZnPg=='
+
 const Image = (props) => {
   const childDimensions = props.childDimensions
   let aspectRatioStyles
@@ -27,27 +29,30 @@ const Image = (props) => {
     const splitAspectRatio = props.aspectRatio.split('x')
     aspectRatioStyles = {paddingBottom: `${splitAspectRatio[1] / splitAspectRatio[0] * 100}%`}
   }
-  let src = getSource(props.source, {width: 42, height: 42})
+  let src = '' // getSource(props.source, {width: 42, height: 42})
   if (props.inView) {
     src = getSource(props.source, {width, height, crop: crop, fitInColor: props.fitInColor})
-    styles.filter = 'blur(0)'
-  } else {
-    styles.filter = 'blur(10px)'
   }
+
+  function onLoad (ev) {
+    ev.target.style.filter = 'blur(0)'
+  }
+
 
   if (aspectRatioStyles) {
     return (
-      <div className="mdc-image-list__image-aspect-container progressive-img-container"
+      <div className="mdc-image-list__image-aspect-container"
            style={{
              ...aspectRatioStyles,
              ...styles
            }}>
-        <img src={src} className="mdc-image-list__image"/>
+        <img src={src} className="mdc-image-list__image progressive-img-container" onLoad={onLoad}/>
       </div>
     )
   }
+
   return (
-    <img src={src} className="mdc-image-list__image" style={styles}/>
+    <img src={src} className="mdc-image-list__image" style={styles} onLoad={onLoad} />
   )
 }
 
