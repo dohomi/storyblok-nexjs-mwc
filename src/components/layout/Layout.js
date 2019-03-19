@@ -27,6 +27,8 @@ const Layout = (props) => {
   const themeOptions = themeLayout[settings.theme_base || 'base']
   settings.theme_primary && (themeOptions.primary = settings.theme_primary)
   settings.theme_secondary && (themeOptions.secondary = settings.theme_secondary)
+  settings.theme_link && (themeOptions.link = settings.theme_link)
+  settings.theme_link_hover && (themeOptions.linkHover = settings.theme_link_hover)
   return (
     <ThemeProvider options={themeOptions} className="app__root">
       <MwcDrawer content={settings}

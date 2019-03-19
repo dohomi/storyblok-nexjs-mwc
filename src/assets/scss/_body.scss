@@ -32,3 +32,12 @@ footer .nav .nav-link {
   padding-left: 0;
   color: var(--mdc-theme-text-primary-on-background)
 }
+
+// links
+a {
+  color: var(--mdc-theme-link);
+
+  &:hover {
+    color: var(--mdc-theme-link-hover);
+  }
+}
