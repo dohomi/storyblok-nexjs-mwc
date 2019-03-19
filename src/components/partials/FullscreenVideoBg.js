@@ -19,12 +19,12 @@ const FullscreenVideoBg = (content) => {
       controls: 0
     }
   }
-
   return (
     <div className={sectionClassNames}>
       <div className="lm-video-foreground">
         <YouTube videoId={content.youtube}
                  opts={opts}></YouTube>
+
       </div>
     </div>
   )
