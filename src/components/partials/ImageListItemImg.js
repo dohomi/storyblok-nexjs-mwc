@@ -34,6 +34,7 @@ const Image = (props) => {
 
   function onLoad (ev) {
     ev.target.style.filter = 'blur(0)'
+    ev.target.style.backgroundColor = 'transparent'
   }
 
 
@@ -44,13 +45,14 @@ const Image = (props) => {
              ...aspectRatioStyles,
              ...styles
            }}>
-        <img src={src} className="mdc-image-list__image progressive-img-container" onLoad={onLoad}/>
+        <img src={src} style={{backgroundColor: 'grey'}} className="mdc-image-list__image progressive-img-container"
+             onLoad={onLoad}/>
       </div>
     )
   }
 
   return (
-    <img src={src} className="mdc-image-list__image" style={styles} onLoad={onLoad} />
+    <img src={src} className="mdc-image-list__image" style={styles} onLoad={onLoad}/>
   )
 }
 
