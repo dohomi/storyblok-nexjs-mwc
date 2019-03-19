@@ -5,16 +5,23 @@
   border-radius: inherit;
 }
 
-.lm-card__content {
-  padding: 1rem;
-
-  h1, h2, h3, h4, h5, h6 {
+.mdc-card {
+  h1, h2, h3, h4, h5, h6, p {
     padding: 0;
     margin: 0;
   }
+}
+
+.mdc-card__media-content {
+  padding: 1rem;
+}
+
+.lm-card__content-padding {
+  padding: 1rem;
 }
 
 .lm-card__content.mdc-card__media-content {
   display: flex;
   align-items: flex-end;
 }
+

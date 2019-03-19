@@ -6,9 +6,9 @@ import React, {useEffect, useState} from 'react'
 
 const CardList = (props) => {
   const cardRef = React.createRef()
-  const [refIntersectionObserver, inView] = useInView({
+  const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
-    rootMargin: '0px 0px 500px 0px'
+    rootMargin: '400px 0px 400px 0px'
   })
   const [mediaDimension, setMediaDimension] = useState({width: 0, height: 0})
   const content = props.content
@@ -21,6 +21,10 @@ const CardList = (props) => {
 
   useEffect(() => {
     if (inView) {
+      if (!intersectionElement) {
+        return
+      }
+
       const current = cardRef.current
       const mediaContainer = current.querySelector('.mdc-card__media')
       if (mediaContainer) {
@@ -60,6 +64,7 @@ const CardList = (props) => {
                 subtitleTag: content.subtitle_tag,
                 titleTypography: content.title_typography,
                 subtitleTypography: content.subtitle_typography,
+                descriptionTypography: content.description_typography,
                 sixteenByNine: imageRatio === '16x9', // todo
                 square: imageRatio === '1x1' // todo
               })}

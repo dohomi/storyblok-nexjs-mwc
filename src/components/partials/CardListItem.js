@@ -56,6 +56,29 @@ const CardListActionTitles = (content) => {
   )
 }
 
+const CardWrap = ({children, content, className, style, outlined}) => {
+  return (
+    <SbEditable content={content}>
+      <Card className={className} style={style} outlined={outlined}>
+        <CardLink link={content.link}>
+          {children}
+        </CardLink>
+      </Card>
+    </SbEditable>
+  )
+}
+
+const CardMediaElement = ({style, sixteenByNine, square, children}) => {
+  return (
+    <CardMedia style={style}
+               sixteenByNine={sixteenByNine}
+               className="progressive-img-container"
+               square={square}>
+      {children}
+    </CardMedia>
+  )
+}
+
 const CardListItem = (content) => {
   let variant = content.variant || []
   let mediaStyles = {}
@@ -87,29 +110,67 @@ const CardListItem = (content) => {
   content.borderRadius && (cardStyles.borderRadius = content.borderRadius)
   const isOverMedia = variant.includes('over_media')
   const descriptionIsEmpty = isOverMedia && !content.description
+  const cardwrapProps = {
+    content,
+    style: cardStyles,
+    className: cardClasses,
+    outlined: variant.includes('outlined')
+  }
+  const cardMediaProps = {
+    style: mediaStyles,
+    sixteenByNine: content.sixteenByNine,
+    square: content.square
+  }
 
+  // without media / text only
+  if (!content.image) {
+    return (
+      <CardWrap {...cardwrapProps}>
+        <CardPrimaryAction>
+          <div className="lm-card__content lm-card__content-padding">
+            {CardListActionTitles(content)}
+            {content.description && <Typography tag="p" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+          </div>
+        </CardPrimaryAction>
+      </CardWrap>
+    )
+  }
+
+  // header on top
+  if (variant.includes('header_top')) {
+    return (
+      <CardWrap {...cardwrapProps}>
+        <div className="lm-card__content-padding">
+          {CardListActionTitles(content)}
+        </div>
+        <CardPrimaryAction>
+          <CardMediaElement {...cardMediaProps}/>
+          {!descriptionIsEmpty && (
+            <div className="lm-card__content lm-card__content-padding">
+              {content.description && <Typography tag="p" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+            </div>
+          )}
+        </CardPrimaryAction>
+      </CardWrap>
+    )
+  }
+  // header over media or title bottom
   return (
-    <SbEditable content={content}>
-      <Card className={cardClasses} style={cardStyles} outlined={variant.includes('outlined')}>
-        <CardLink link={content.link}>
-          <CardPrimaryAction>
-            <CardMedia style={mediaStyles}
-                       sixteenByNine={content.sixteenByNine}
-                       className="progressive-img-container"
-                       square={content.square}>
-              {isOverMedia &&
-              <CardMediaContent className="lm-card__content">{CardListActionTitles(content)}</CardMediaContent>}
-            </CardMedia>
-            {!descriptionIsEmpty && (
-              <div style={{padding: '1rem'}} className="lm-card__content">
-                {!isOverMedia && CardListActionTitles(content)}
-                {content.description && <Typography tag="div" use="body1">{content.description}</Typography>}
-              </div>
-            )}
-          </CardPrimaryAction>
-        </CardLink>
-      </Card>
-    </SbEditable>
+    <CardWrap {...cardwrapProps}>
+      <CardPrimaryAction>
+        <CardMediaElement {...cardMediaProps}>
+          {isOverMedia && (
+            <CardMediaContent className="lm-card__content">{CardListActionTitles(content)}</CardMediaContent>
+          )}
+        </CardMediaElement>
+        {!descriptionIsEmpty && (
+          <div className="lm-card__content lm-card__content-padding">
+            {!isOverMedia && CardListActionTitles(content)}
+            {content.description && <Typography tag="div" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+          </div>
+        )}
+      </CardPrimaryAction>
+    </CardWrap>
   )
 }
 
