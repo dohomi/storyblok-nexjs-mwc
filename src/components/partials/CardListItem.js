@@ -10,7 +10,6 @@ import imageService from '../../utils/ImageService'
 import {Link} from 'routes/index'
 import clsx from 'clsx'
 
-
 const getBackgroundImageSource = ({image, properties = [], width, height}) => {
   let path = `${parseInt(width)}x0}`
   if (!properties.includes('contain')) {
