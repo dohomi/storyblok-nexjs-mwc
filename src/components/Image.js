@@ -108,7 +108,8 @@ const Image = (props) => {
 
   const currentProps = {
     ...imageProps,
-    alt: content.alt || 'website image'
+    alt: content.alt || 'website image',
+    className
   }
 
   return (
