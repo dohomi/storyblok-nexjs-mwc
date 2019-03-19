@@ -29,7 +29,10 @@ const ButtonMwc = (props) => {
     mappedProps.onIcon = props.trailingIcon
     delete mappedProps.trailingIcon
   }
-  // does not have variants
+  delete mappedProps.raised
+  delete mappedProps.unelevated
+  delete mappedProps.outlined
+
   return <IconButton {...mappedProps}/>
 }
 
@@ -67,7 +70,7 @@ const MtButton = (props) => {
     label: content.label,
     ripple: !properties.includes('disable-ripple')
   }
-  variant && buttonProps.label && (buttonProps[variant] = true) // variants only available on buttons with label
+  variant && (buttonProps[variant] = true) // variants only available on buttons with label
   theme && (buttonProps.theme = theme)
 
   if (size === 'dense') {
