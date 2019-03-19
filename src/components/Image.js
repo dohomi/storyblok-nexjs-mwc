@@ -63,11 +63,11 @@ const Image = (props) => {
 
   const [imageProps, setImageProps] = useState({
     src: '',
-    styles: {}
+    style: {}
   })
 
   const content = props.content
-  const imgClasses = clsx('img-fluid', 'progressive-img-container', content.property)
+  const className = clsx('img-fluid', 'progressive-img-container', content.property)
   const containerClasses = clsx('w-100', {'h-100': !!content.height_fill})
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const Image = (props) => {
       // small preview
       setImageProps({
         src: getSmallSource(content, {width: 42, height: 42}),
-        styles: {
+        style: {
           width: '100%',
           maxHeight: elementDimensions.height + 'px'
         }
@@ -95,8 +95,8 @@ const Image = (props) => {
         .then(() => {
           setImageProps({
             src: imgSource,
-            styles: {
-              width: content.width || 'auto',
+            style: {
+              width: `${content.width}px` || 'auto',
               maxHeight: 'inherit',
               height: !content.height_fill && content.height ? content.height : 'auto',
               filter: 'blur(0)'
@@ -106,13 +106,15 @@ const Image = (props) => {
     }
   }, [width, height, inView])
 
+  const currentProps = {
+    ...imageProps,
+    alt: content.alt || 'website image'
+  }
+
   return (
     <SbEditable content={content}>
       <div className={containerClasses} ref={refIntersectionObserver}>
-        <img src={imageProps.src}
-             style={imageProps.styles}
-             alt={content.alt || 'website image'}
-             className={imgClasses}/>
+        <img {...currentProps}/>
       </div>
     </SbEditable>
   )
