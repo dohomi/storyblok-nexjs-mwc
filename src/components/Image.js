@@ -96,7 +96,7 @@ const Image = (props) => {
           setImageProps({
             src: imgSource,
             style: {
-              width: `${content.width}px` || 'auto',
+              width: content.width ? `${content.width}px` : 'auto',
               maxHeight: 'inherit',
               height: !content.height_fill && content.height ? content.height : 'auto',
               filter: 'blur(0)'
