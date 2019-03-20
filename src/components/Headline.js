@@ -2,6 +2,7 @@ import SbEditable from 'storyblok-react'
 import React from 'react'
 import clsx from 'clsx'
 import {Typography} from '@rmwc/typography'
+import {memo} from 'react'
 
 const Headline = (props) => {
   const content = props.content
@@ -17,5 +18,4 @@ const Headline = (props) => {
   )
 }
 
-
-export default Headline
+export default memo(Headline)

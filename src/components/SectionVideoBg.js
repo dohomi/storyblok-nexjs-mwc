@@ -1,6 +1,7 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
 import FullscreenVideoBg from './partials/FullscreenVideoBg'
+import {memo} from 'react'
 
 const SectionVideoBg = ({content}) => {
   const hasSrc = !!(content.youtube || content.vimeo)
@@ -15,4 +16,4 @@ const SectionVideoBg = ({content}) => {
   )
 }
 
-export default SectionVideoBg
+export default memo(SectionVideoBg)

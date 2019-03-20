@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import React from 'react'
+import {memo} from 'react'
 import clsx from 'clsx'
 
 /**
@@ -28,4 +28,4 @@ const IconMwc = ({content}) => {
   )
 }
 
-export default IconMwc
+export default memo(IconMwc)

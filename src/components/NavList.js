@@ -1,6 +1,7 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import {Link} from 'routes/index'
+import {memo} from 'react'
 
 const NavListItem = (props) => {
   const content = props
@@ -33,4 +34,4 @@ const NavList = (props) => {
   )
 }
 
-export default NavList
+export default memo(NavList)

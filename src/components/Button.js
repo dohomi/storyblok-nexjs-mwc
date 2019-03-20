@@ -4,7 +4,7 @@ import {Link} from 'routes/index'
 import {Button} from '@rmwc/button'
 import {IconButton} from '@rmwc/icon-button'
 import {Fab} from '@rmwc/fab'
-import React from 'react'
+import React, {memo} from 'react'
 
 const ButtonMwc = (props) => {
   const mappedProps = {
@@ -34,6 +34,17 @@ const ButtonMwc = (props) => {
   delete mappedProps.outlined
 
   return <IconButton {...mappedProps}/>
+}
+
+const ButtonLink = (props) => {
+  if (props.to) {
+    return (
+      <Link to={props.to}><a {...props}>{props.children}</a></Link>
+    )
+  }
+  return (
+    <a {...props}>{props.children}</a>
+  )
 }
 
 const MtButton = (props) => {
@@ -85,13 +96,11 @@ const MtButton = (props) => {
   icon && (buttonProps.icon = icon)
   buttonProps.className = clsx(additionalClasses, content.corners, content.class_names && content.class_names.values)
   const href = `/${link.cached_url}`
-  let isInternalLink = props.linktype === 'story'
+  let isInternalLink = link.linktype === 'story'
 
-  buttonProps.tag = isInternalLink ? Link : 'a'
   isInternalLink && (buttonProps.to = href)
   !isInternalLink && (buttonProps.href = href)
-
-  // console.log(buttonProps)
+  buttonProps.tag = ButtonLink
   return (
     <SbEditable content={content}>
       <ButtonMwc {...buttonProps} />
@@ -99,4 +108,4 @@ const MtButton = (props) => {
   )
 }
 
-export default MtButton
+export default memo(MtButton)

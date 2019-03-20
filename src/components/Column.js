@@ -3,6 +3,7 @@ import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
 import SectionWithBackground from './partials/SectionWithBackground'
+import {memo} from 'react'
 
 const Column = (props) => {
   // const width = props.content && props.content.width || {}
@@ -60,4 +61,4 @@ const Column = (props) => {
   )
 }
 
-export default Column
+export default memo(Column)

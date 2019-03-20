@@ -3,6 +3,7 @@ import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
 import SectionWithBackground from './partials/SectionWithBackground'
+import {memo} from 'react'
 
 /**
  *
@@ -49,7 +50,7 @@ const getRowProperties = (content = {}) => {
   }
 }
 
-export const MatRow = ({content}) => {
+export const MatRow = memo(({content}) => {
   const {styles, containerProps} = getRowProperties(content)
   const gridClasses = clsx(
     'mdc-layout-grid',
@@ -89,9 +90,9 @@ export const MatRow = ({content}) => {
       </div>
     </SbEditable>
   )
-}
+})
 
-export const MatRowNested = ({content}) => {
+export const MatRowNested = memo(({content}) => {
   const {styles, containerProps} = getRowProperties(content)
   const classes = clsx(
     'mdc-layout-grid__inner',
@@ -121,5 +122,5 @@ export const MatRowNested = ({content}) => {
       </div>
     </SbEditable>
   )
-}
+})
 

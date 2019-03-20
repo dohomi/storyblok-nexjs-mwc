@@ -7,6 +7,7 @@ import {useEffect, useState} from 'react'
 import {useInView} from 'react-intersection-observer'
 import imageService from '../utils/ImageService'
 import {fetchImageSource} from '../utils/fetchImageHelper'
+import {memo} from 'react'
 
 /**
  *
@@ -87,4 +88,4 @@ const SectionParallax = ({content, dimensions}) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(SectionParallax)
+export default memo(withWindowDimensions(dimensions => ({dimensions}))(SectionParallax))

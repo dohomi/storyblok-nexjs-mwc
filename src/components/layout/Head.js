@@ -12,6 +12,8 @@ Router.onRouteChangeError = () => NProgress.done()
 
 const iconSizes = [16, 32, 96, 192]
 
+import {memo} from 'react'
+
 // <link rel="apple-touch-icon" href="/static/touch-icon.png"/>
 // <link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882"/>
 
@@ -54,4 +56,4 @@ Head.propTypes = {
   ogImage: string
 }
 
-export default Head
+export default memo(Head)

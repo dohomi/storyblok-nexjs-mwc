@@ -1,7 +1,7 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import React from 'react'
+import {memo} from 'react'
 import {ThemeProvider} from '@rmwc/theme'
 import {section} from '../utils/themeContentSection'
 import SectionWithBackground from './partials/SectionWithBackground'
@@ -56,4 +56,4 @@ const Section = ({content}) => {
   )
 }
 
-export default Section
+export default memo(Section)

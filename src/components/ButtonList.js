@@ -1,6 +1,7 @@
 import SbEditable from 'storyblok-react'
 import Components from 'components/index'
 import clsx from 'clsx'
+import {memo} from 'react'
 
 
 const ButtonList = ({content}) => {
@@ -19,4 +20,4 @@ const ButtonList = ({content}) => {
   )
 }
 
-export default ButtonList
+export default memo(ButtonList)

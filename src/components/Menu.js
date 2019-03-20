@@ -2,6 +2,7 @@ import {MenuItem, SimpleMenu} from '@rmwc/menu'
 import {Button} from '@rmwc/button'
 import SbEditable from 'storyblok-react'
 import {Link} from 'routes/index'
+import {memo} from 'react'
 
 const Child = (nestedProps) => {
   const isInternalLink = nestedProps.link && nestedProps.link.linktype === 'story'
@@ -27,4 +28,4 @@ const MtMenu = (props) => {
     </SbEditable>
   )
 }
-export default MtMenu
+export default memo(MtMenu)
