@@ -5,8 +5,8 @@ import {useEffect} from 'react'
 
 const HubspotForm = ({content}) => {
   const opts = {
-    portalId: '4965341',
-    formId: '7856bf18-dd63-4488-9f1d-a52427ea5f55'
+    portalId: content.portal_id,
+    formId: content.form_id
   }
 
   return (
