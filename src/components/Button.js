@@ -43,8 +43,14 @@ const ButtonLink = (props) => {
       <Link to={props.to}><a {...props}>{props.children}</a></Link>
     )
   }
+  let href = props.href
+  if (href.includes('@')) {
+    href = `mailto:${href}`
+  } else if (href.includes('+')) {
+    href = `tel:${href.replace('+', '00')}`
+  }
   return (
-    <a {...props}>{props.children}</a>
+    <a {...props} href={href}>{props.children}</a>
   )
 }
 
@@ -97,12 +103,12 @@ const MtButton = (props) => {
 
   icon && (buttonProps.icon = icon)
   buttonProps.className = clsx(additionalClasses, content.corners, content.class_names && content.class_names.values)
-  const href = `/${link.cached_url}`
   let isInternalLink = link.linktype === 'story'
+  const href = isInternalLink ? `/${link.cached_url}` : link.cached_url // append leading slash
 
   isInternalLink && (buttonProps.to = href)
   !isInternalLink && (buttonProps.href = href)
-  buttonProps.tag = isInternalLink ? ButtonLink : 'a'
+  buttonProps.tag = ButtonLink
 
   // console.log(buttonProps)
   return (
