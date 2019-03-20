@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import imageService from '../../utils/ImageService'
 import {useInView} from 'react-intersection-observer'
-import {useEffect, useState, memo} from 'react'
+import React, {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import {fetchImageSource} from '../../utils/fetchImageHelper'
 
@@ -61,7 +61,7 @@ const WithBackgroundImage = (props) => {
       }
     }
     setStyles(newStyles)
-  }, [backgroundStyle])
+  }, [])
 
   useEffect(() => {
     if (!intersectionElement) return
@@ -91,7 +91,7 @@ const WithBackgroundImage = (props) => {
           })
         })
     }
-  }, [backgroundImage, props.dimensions.width, props.dimensions.height, inView])
+  }, [props.dimensions.width, props.dimensions.height, inView])
 
   return (
     <div ref={refIntersectionObserver}
@@ -102,4 +102,4 @@ const WithBackgroundImage = (props) => {
   )
 }
 
-export default memo(withWindowDimensions(dimensions => ({dimensions}))(WithBackgroundImage))
+export default withWindowDimensions(dimensions => ({dimensions}))(WithBackgroundImage)

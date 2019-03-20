@@ -2,10 +2,10 @@ import SbEditable from 'storyblok-react'
 import CardListItem from './partials/CardListItem'
 import clsx from 'clsx'
 import {useInView} from 'react-intersection-observer'
-import {useEffect, useState, memo, createRef} from 'react'
+import React, {useEffect, useState} from 'react'
 
 const CardList = (props) => {
-  const cardRef = createRef()
+  const cardRef = React.createRef()
   const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
     rootMargin: '400px 0px 400px 0px'
@@ -76,4 +76,4 @@ const CardList = (props) => {
   )
 }
 
-export default memo(CardList)
+export default CardList

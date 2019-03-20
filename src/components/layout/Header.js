@@ -1,5 +1,5 @@
 import Components from 'components/index'
-import {memo, createRef} from 'react'
+import React from 'react'
 import SbEditable from 'storyblok-react'
 import imageService from '../../utils/ImageService'
 import clsx from 'clsx'
@@ -17,6 +17,7 @@ import {ThemeProvider} from '@rmwc/theme'
 import {func, object, bool} from 'prop-types'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import {useEffect} from 'react'
+import scrollPositionHook from '../../utils/hooks/scrollPositionHook'
 import {toolbar} from '../../utils/themeContentSection'
 import {withRouter} from 'next/dist/client/router'
 
@@ -24,25 +25,21 @@ const Header = (props) => {
   const content = props.settings || {}
   let toolbarConfig = content.toolbar_config || []
   const transparentToolbar = props.hasFeature
-  const refResizeObserver = createRef()
-  let currentToolbar = null
-  let currentLogo = null
+  const refResizeObserver = React.createRef()
   const width = props.dimensions.width
   const height = props.dimensions.height
-  const logoRef = createRef()
+
+  const logoRef = React.createRef()
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo && imageService(content.website_logo, '0x' + 48 * 2)
   const websiteLogoInverted = content.website_logo_invert && imageService(content.website_logo_invert, '0x' + 48 * 2)
-  const onInteractionChanged = () => {
-    const scrollPos = window.pageYOffset
-    const logoTag = logoRef.current || currentLogo
-    if (transparentToolbar) {
-      const el = (refResizeObserver.current && refResizeObserver.current.parentElement) || currentToolbar
-      if (!el) {
-        console.log('el not defined', currentToolbar)
-        return
-      }
 
+  const scrollPos = scrollPositionHook()
+
+  useEffect(() => {
+    const logoTag = logoRef.current
+    if (transparentToolbar) {
+      const el = refResizeObserver.current.parentElement
       if (scrollPos > 100) {
         el.classList.remove('lm-toolbar-transparent')
         websiteLogoInverted && (logoTag.src = websiteLogo)
@@ -53,30 +50,7 @@ const Header = (props) => {
     } else {
       websiteLogo && (logoTag.src = websiteLogo)
     }
-  }
-
-  useEffect(() => {
-    currentToolbar = refResizeObserver.current && refResizeObserver.current.parentElement
-    currentLogo = logoRef && logoRef.current
-    const handleScroll = () => {
-      window.requestAnimationFrame(() => {
-        onInteractionChanged()
-      })
-    }
-    window.addEventListener(
-      'scroll',
-      handleScroll,
-      window.hasPassiveListenerSupport ? {passive: true} : false
-    )
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-
-
-  useEffect(() => {
-    onInteractionChanged()
-  }, [width, height, props.router.asPath, transparentToolbar])
+  }, [width, height, scrollPos, props.router.asPath, transparentToolbar])
 
   const navRight = content.toolbar || []
   const color = content.toolbar_variant
@@ -133,4 +107,4 @@ Header.propTypes = {
   hasFeature: bool
 }
 
-export default memo(withWindowDimensions(dimensions => ({dimensions}))(withRouter(Header)))
+export default withWindowDimensions(dimensions => ({dimensions}))(withRouter(Header))

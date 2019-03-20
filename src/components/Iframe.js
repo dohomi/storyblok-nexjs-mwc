@@ -1,13 +1,13 @@
 import SbEditable from 'storyblok-react'
 import {useInView} from 'react-intersection-observer'
-import {useEffect, createRef, memo} from 'react'
+import React, {useEffect} from 'react'
 
 const Iframe = (props) => {
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true,
     rootMargin: '0px 0px 800px 0px'
   })
-  const iframeRef = createRef()
+  const iframeRef = React.createRef()
 
   useEffect(() => {
     if (inView) {
@@ -54,4 +54,4 @@ const Iframe = (props) => {
   )
 }
 
-export default memo(Iframe)
+export default Iframe

@@ -17,28 +17,12 @@ class WebpService {
       // we set this and calling it in _document to set global windows variable
       this.hasWebpSupport = req.headers.accept && req.headers.accept.includes('webp')
     } else {
-      window.hasPassiveListenerSupport = this._supportPassive()
       if (this._supportsWebp() || (window.userDevice.browser === 'Firefox' && window.userDevice.version >= 65) ||
         (window.userDevice.browser === 'Edge' && window.userDevice.version >= 18)) {
         this.hasWebpSupport = true
         window.hasWebpSupport = true
       }
     }
-  }
-
-  _supportPassive () {
-    let supportsPassive = false
-    try {
-      const opts = Object.defineProperty({}, 'passive', {
-        get: function () {
-          supportsPassive = true
-        }
-      })
-      window.addEventListener('testPassive', null, opts)
-      window.removeEventListener('testPassive', null, opts)
-    } catch (e) {
-    }
-    return supportsPassive
   }
 
   _supportsWebp () {

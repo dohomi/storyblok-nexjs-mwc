@@ -5,11 +5,11 @@ import {useInView} from 'react-intersection-observer'
 import {useEffect, useState} from 'react'
 import ImageListItem from './partials/ImageListItem'
 import ImageListLightbox from './partials/ImageListLightbox'
-import {memo, createRef} from 'react'
+import React from 'react'
 
 
 const ImageList = (props) => {
-  const containerRef = createRef()
+  const containerRef = React.createRef()
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
@@ -86,4 +86,4 @@ const ImageList = (props) => {
   )
 }
 
-export default memo(withWindowDimensions(dimensions => ({dimensions}))(ImageList))
+export default withWindowDimensions(dimensions => ({dimensions}))(ImageList)

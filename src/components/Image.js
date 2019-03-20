@@ -2,7 +2,7 @@ import SbEditable from 'storyblok-react'
 import imageService from '../utils/ImageService'
 import clsx from 'clsx'
 import {useInView} from 'react-intersection-observer'
-import {useEffect, useState, memo} from 'react'
+import React, {useEffect, useState} from 'react'
 import withWindowDimensions from './provider/WithWindowDimensions'
 import {fetchImageSource} from '../utils/fetchImageHelper'
 
@@ -121,4 +121,4 @@ const Image = (props) => {
   )
 }
 
-export default memo(withWindowDimensions(dimensions => ({dimensions}))(Image))
+export default withWindowDimensions(dimensions => ({dimensions}))(Image)

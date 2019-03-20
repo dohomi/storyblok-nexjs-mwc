@@ -1,9 +1,27 @@
 let {useState, useEffect} = require('react')
 
+let supportsPassive = false
+
+const checkPassiveEventListener = () => {
+  try {
+    var opts = Object.defineProperty({}, 'passive', {
+      get: function () {
+        supportsPassive = true
+      }
+    })
+    window.addEventListener('testPassive', null, opts)
+    window.removeEventListener('testPassive', null, opts)
+  } catch (e) {
+  }
+}
+
+
 function useWindowScrollPosition () {
   if (typeof window === 'undefined') {
     return 0
   }
+
+  checkPassiveEventListener()
 
   let getPosition = () => window.pageYOffset
   //   ({
@@ -29,7 +47,7 @@ function useWindowScrollPosition () {
     window.addEventListener(
       'scroll',
       handleScroll,
-      window.hasPassiveListenerSupport ? {passive: true} : false
+      supportsPassive ? {passive: true} : false
     )
 
     return () => {

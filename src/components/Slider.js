@@ -1,8 +1,9 @@
 import SbEditable from 'storyblok-react'
 import Components from 'components/index'
 import SwipeableViews from 'react-swipeable-views'
-import {useState, memo} from 'react'
+import React, {useState} from 'react'
 import clsx from 'clsx'
+import {IconButton} from '@rmwc/icon-button'
 
 const Slider = (props) => {
   const [slide, setSlide] = useState(0)
@@ -66,4 +67,4 @@ const Slider = (props) => {
   )
 }
 
-export default memo(Slider)
+export default Slider
