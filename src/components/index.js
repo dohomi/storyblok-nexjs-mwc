@@ -17,9 +17,13 @@ import Iframe from './Iframe'
 import CardList from './CardList'
 import SectionParallax from './SectionParallax'
 import ButtonList from './ButtonList'
+import Html from './Html'
+import HubspotForm from './HubspotForm'
 
 const Components = {
   'page': Page,
+  'html': Html,
+  'hubspot_form': HubspotForm,
   'button_list': ButtonList,
   'section': Section,
   'headline': Headline,

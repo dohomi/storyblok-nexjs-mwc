@@ -5,7 +5,7 @@ import {useInView} from 'react-intersection-observer'
 import {useEffect, useState} from 'react'
 import ImageListItem from './partials/ImageListItem'
 import ImageListLightbox from './partials/ImageListLightbox'
-import React from 'react'
+import React, {memo} from 'react'
 
 
 const ImageList = (props) => {
@@ -57,22 +57,27 @@ const ImageList = (props) => {
     content.enable_lightbox && setLightbox(props._uid)
   }
 
+  const imageListItemProps = {
+    style: listItemStyles,
+    aspectRatio: content.aspect_ratio,
+    masonry: content.masonry,
+    inView,
+    width: childDimensions.width,
+    height: childDimensions.height,
+    crop: content.image_crop,
+    fitInColor: content.fit_in_color
+  }
+
   return (
     <SbEditable content={content}>
       <div ref={containerRef}>
         <ul className={imageContainerClasses}
             ref={refIntersectionObserver}>
-          {elements.map((item, i) => ImageListItem({
-            ...item,
-            style: listItemStyles,
-            aspectRatio: content.aspect_ratio,
-            masonry: content.masonry,
-            inView,
-            childDimensions,
-            crop: content.image_crop,
-            fitInColor: content.fit_in_color,
-            onImageClick: (ev) => onImageClick({_uid: item._uid, count: i, ...ev})
-          }))}
+          {elements.map((item, i) => (
+            <ImageListItem {...item} {...imageListItemProps}
+                           key={item._uid}
+                           onImageClick={(ev) => onImageClick({_uid: item._uid, count: i, ...ev})}/>
+          ))}
         </ul>
       </div>
       {lightbox && ImageListLightbox({

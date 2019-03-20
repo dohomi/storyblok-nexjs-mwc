@@ -1,4 +1,6 @@
 import imageService from '../../utils/ImageService'
+import {componentLogger} from '../../utils/componentLogger'
+import {memo} from 'react'
 
 function getSource (source, {width, height, crop, fitInColor}) {
   let filter = ''
@@ -14,14 +16,14 @@ function getSource (source, {width, height, crop, fitInColor}) {
 }
 
 const Image = (props) => {
-  const childDimensions = props.childDimensions
+  componentLogger(props)
   let aspectRatioStyles
-  let height = props.masonry || !props.aspectRatio ? 0 : childDimensions.height
-  const width = childDimensions.width
+  let height = props.masonry || !props.aspectRatio ? 0 : props.height
+  const width = props.width
   let crop = props.crop
   const styles = {}
   if (crop) {
-    height = childDimensions.height
+    height = props.height
   }
   if (props.aspectRatio && !props.masonry) {
     const splitAspectRatio = props.aspectRatio.split('x')

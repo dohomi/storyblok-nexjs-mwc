@@ -3,7 +3,6 @@ import {
   DialogTitle,
   DialogContent
 } from '@rmwc/dialog'
-
 import {IconButton} from '@rmwc/icon-button'
 import SwipeableViews from 'react-swipeable-views'
 import imageService from '../../utils/ImageService'

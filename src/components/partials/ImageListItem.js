@@ -1,5 +1,6 @@
 import Image from './ImageListItemImg'
 import SbEditable from 'storyblok-react'
+import {memo} from 'react'
 
 const ImageListItem = (props) => {
   return (
@@ -7,7 +8,7 @@ const ImageListItem = (props) => {
       <li className="mdc-image-list__item"
           style={props.style}
           onClick={props.onImageClick}>
-        {Image(props)}
+        <Image {...props}/>
         {(props.label) && (
           <div className="mdc-image-list__supporting">
             <div className="mdc-image-list__label">{props.label}</div>
@@ -18,4 +19,4 @@ const ImageListItem = (props) => {
   )
 }
 
-export default ImageListItem
+export default memo(ImageListItem)

@@ -61,7 +61,7 @@ const WithBackgroundImage = (props) => {
       }
     }
     setStyles(newStyles)
-  }, [])
+  }, [backgroundStyle])
 
   useEffect(() => {
     if (!intersectionElement) return
@@ -91,7 +91,7 @@ const WithBackgroundImage = (props) => {
           })
         })
     }
-  }, [props.dimensions.width, props.dimensions.height, inView])
+  }, [backgroundImage, props.dimensions.width, props.dimensions.height, inView])
 
   return (
     <div ref={refIntersectionObserver}

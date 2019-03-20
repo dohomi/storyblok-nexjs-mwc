@@ -5,6 +5,7 @@ import {Button} from '@rmwc/button'
 import {IconButton} from '@rmwc/icon-button'
 import {Fab} from '@rmwc/fab'
 import React from 'react'
+import {componentLogger} from '../utils/componentLogger'
 
 const ButtonMwc = (props) => {
   const mappedProps = {
@@ -36,8 +37,20 @@ const ButtonMwc = (props) => {
   return <IconButton {...mappedProps}/>
 }
 
+const ButtonLink = (props) => {
+  if (props.to) {
+    return (
+      <Link to={props.to}><a {...props}>{props.children}</a></Link>
+    )
+  }
+  return (
+    <a {...props}>{props.children}</a>
+  )
+}
+
 const MtButton = (props) => {
   const content = props.content
+  componentLogger(content)
   const link = content.link || {}
   // const property = content.styles
   const color = content.color
@@ -85,11 +98,11 @@ const MtButton = (props) => {
   icon && (buttonProps.icon = icon)
   buttonProps.className = clsx(additionalClasses, content.corners, content.class_names && content.class_names.values)
   const href = `/${link.cached_url}`
-  let isInternalLink = props.linktype === 'story'
+  let isInternalLink = link.linktype === 'story'
 
-  buttonProps.tag = isInternalLink ? Link : 'a'
   isInternalLink && (buttonProps.to = href)
   !isInternalLink && (buttonProps.href = href)
+  buttonProps.tag = isInternalLink ? ButtonLink : 'a'
 
   // console.log(buttonProps)
   return (

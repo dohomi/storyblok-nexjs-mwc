@@ -16,41 +16,48 @@ import {
 import {ThemeProvider} from '@rmwc/theme'
 import {func, object, bool} from 'prop-types'
 import withWindowDimensions from '../provider/WithWindowDimensions'
-import {useEffect} from 'react'
 import scrollPositionHook from '../../utils/hooks/scrollPositionHook'
 import {toolbar} from '../../utils/themeContentSection'
 import {withRouter} from 'next/dist/client/router'
+
+const TopAppBarWrapEl = (props) => {
+  const scrollPos = scrollPositionHook()
+  const logoTag = props.logoRef && props.logoRef.current
+  if (props.transparentToolbar) {
+    if (scrollPos > 100) {
+      props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogo)
+    } else {
+      props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogoInverted)
+    }
+  }
+  const className = clsx('lm-toolbar', {
+    ['lm-toolbar__bold-text']: !!props.toolbarConfig.includes('text_bold'),
+    ['lm-toolbar__fixed-width']: !!props.toolbarConfig.includes('fixed_width'),
+    ['lm-toolbar-transparent']: props.transparentToolbar && scrollPos < 100
+  })
+
+  return (
+    <TopAppBar className={className} fixed={props.fixed}>
+      {props.children}
+    </TopAppBar>
+  )
+}
+
+
+const TopAppBarWrap = withWindowDimensions(dimensions => ({dimensions}))(withRouter(TopAppBarWrapEl))
 
 const Header = (props) => {
   const content = props.settings || {}
   let toolbarConfig = content.toolbar_config || []
   const transparentToolbar = props.hasFeature
-  const refResizeObserver = React.createRef()
-  const width = props.dimensions.width
-  const height = props.dimensions.height
-
-  const logoRef = React.createRef()
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo && imageService(content.website_logo, '0x' + 48 * 2)
   const websiteLogoInverted = content.website_logo_invert && imageService(content.website_logo_invert, '0x' + 48 * 2)
+  const currentLogoSrc = transparentToolbar && websiteLogoInverted ? websiteLogoInverted : websiteLogo
 
-  const scrollPos = scrollPositionHook()
 
-  useEffect(() => {
-    const logoTag = logoRef.current
-    if (transparentToolbar) {
-      const el = refResizeObserver.current.parentElement
-      if (scrollPos > 100) {
-        el.classList.remove('lm-toolbar-transparent')
-        websiteLogoInverted && (logoTag.src = websiteLogo)
-      } else {
-        el.classList.add('lm-toolbar-transparent')
-        websiteLogoInverted && (logoTag.src = websiteLogoInverted)
-      }
-    } else {
-      websiteLogo && (logoTag.src = websiteLogo)
-    }
-  }, [width, height, scrollPos, props.router.asPath, transparentToolbar])
+  const logoRef = React.createRef()
+
 
   const navRight = content.toolbar || []
   const color = content.toolbar_variant
@@ -59,16 +66,18 @@ const Header = (props) => {
     theme = toolbar[color]
   }
 
-  const topToolbarClasses = clsx('lm-toolbar', {
-    'lm-toolbar-transparent': transparentToolbar,
-    ['lm-toolbar__bold-text']: !!toolbarConfig.includes('text_bold'),
-    ['lm-toolbar__fixed-width']: !!toolbarConfig.includes('fixed_width')
-  })
+
+  console.debug('inside of Header')
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
-        <TopAppBar className={topToolbarClasses} fixed={toolbarConfig.includes('fixed')}>
-          <TopAppBarRow ref={refResizeObserver}>
+        <TopAppBarWrap transparentToolbar={transparentToolbar}
+                       websiteLogo={websiteLogo}
+                       toolbarConfig={toolbarConfig}
+                       websiteLogoInverted={websiteLogoInverted}
+                       fixed={toolbarConfig.includes('fixed')}
+                       logoRef={logoRef}>
+          <TopAppBarRow>
             <TopAppBarSection>
               <TopAppBarNavigationIcon icon="menu" className="d-sm-none"
                                        onClick={() => props.onNav()}/>
@@ -80,7 +89,7 @@ const Header = (props) => {
                     </TopAppBarTitle>
                   )}
                   {websiteLogo &&
-                  <img src={websiteLogo}
+                  <img src={currentLogoSrc}
                        height="56"
                        className="img-fluid"
                        alt={websiteTitle || 'website logo'}
@@ -94,7 +103,7 @@ const Header = (props) => {
                 {navRight.map(blok => Components(blok))}
               </TopAppBarSection>)}
           </TopAppBarRow>
-        </TopAppBar>
+        </TopAppBarWrap>
       </ThemeProvider>
       {!props.hasFeature && <TopAppBarFixedAdjust/>}
     </SbEditable>
@@ -107,4 +116,4 @@ Header.propTypes = {
   hasFeature: bool
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(withRouter(Header))
+export default Header
