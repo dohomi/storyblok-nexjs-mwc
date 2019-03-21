@@ -92,6 +92,7 @@ const CardListItem = (content) => {
     })
     mediaStyles.backgroundImage = `url("${backgroundImageSource}")`
     mediaStyles.filter = 'blur(0)'
+    mediaStyles.backgroundColor = 'transparent'
   }
   variant.includes('font_white') && (mediaStyles.color = 'white')
   const cardStyles = {}
