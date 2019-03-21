@@ -36,9 +36,6 @@ const Head = (props) => {
           <link rel="icon" sizes={`${size}/${size}`} href={imageService(favicon, `${size}x${size}`)}
                 key={`fav_${size}`}/>
         ))}
-        <script crossOrigin="anonymous"
-                src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default,IntersectionObserver,fetch"
-                key="polyfill"></script>
         {StoryblokService.bridge()}
       </NextHead>
     </>
