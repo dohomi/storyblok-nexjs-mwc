@@ -4,7 +4,7 @@ import NProgress from 'nprogress'
 import Router from 'next/router'
 import StoryblokService from '../../utils/StoryblokService'
 import NextSeo from 'next-seo'
-import imageService from '../../utils/ImageService'
+import imageService, {imageServiceNoWebp} from '../../utils/ImageService'
 
 Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -12,20 +12,47 @@ Router.onRouteChangeError = () => NProgress.done()
 
 const iconSizes = [16, 32, 96, 192]
 
-// <link rel="apple-touch-icon" href="/static/touch-icon.png"/>
-// <link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882"/>
+function parseOpenGraph (values) {
+  const openGraph = values
+  if (openGraph.images) {
+    openGraph.images = openGraph.images.map(item => {
+      if (!item.url) return
+      const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
+      return Object.assign(item, {url: imageServiceNoWebp(item.url, imgPath)})
+    }).filter(i => i)
+  }
+  return openGraph
+}
+
+function parseTwitter (values) {
+  const twitter = values
+  if (twitter.card_type) {
+    twitter.cardType = twitter.card_type
+  }
+  return twitter
+}
 
 const Head = (props) => {
   const settings = props.settings
   const pageSeo = props.pageSeo
   const favicon = settings.setup_favicon
-
+  const seoBody = settings.seo_body || []
   const seo = {
     title: pageSeo.title || settings.seo_title || 'Website made by Lumen Media',
     description: pageSeo.description || settings.seo_description || 'Website made by Lumen Media',
     noindex: pageSeo.disableRobots || !settings.seo_robots // important to change if go live
   }
-
+  // open graphs
+  const settingsOpenGraphs = seoBody.find(i => i.component === 'seo_open_graph')
+  let openGraph = {}
+  if (settingsOpenGraphs) {
+    seo.openGraph = parseOpenGraph(settingsOpenGraphs)
+  }
+  // twitter
+  const settingsTwitter = seoBody.find(i => i.component === 'seo_twitter')
+  if (settingsTwitter) {
+    seo.twitter = parseTwitter(settingsTwitter)
+  }
   return (
     <>
       <NextSeo config={seo}/>
