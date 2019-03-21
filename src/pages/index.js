@@ -7,6 +7,7 @@ import Head from '../components/layout/Head'
 import Layout from '../components/layout/Layout'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import DeviceDetectService from '../utils/DeviceDetectService'
+import Fonts from '../utils/Fonts'
 
 function mapStateProps (pageProps) {
   const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}
@@ -36,6 +37,7 @@ const Index = (props) => {
   }, [props.router.asPath])
 
   useEffect(() => {
+    Fonts()
     StoryblokService.initEditor(content, setContent)
     DeviceDetectService.setDevice()
     WebpService.setWebpSupport()
