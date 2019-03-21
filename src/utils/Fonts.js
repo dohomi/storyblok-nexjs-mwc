@@ -3,10 +3,11 @@ import FontFaceObserver from 'fontfaceobserver'
 const Fonts = () => {
 
   const link = document.createElement('link')
-  link.href = '/static/font.css'
+  link.href = 'https://fonts.googleapis.com/css?family=Nunito:300,400,700|Material+Icons'
   link.rel = 'stylesheet'
   document.head.appendChild(link)
 
+  //https://fonts.googleapis.com/css?family=Nunito:300,400,700|Material+Icons
   const fonts = {
     material: new FontFaceObserver('Material Icons', {
       weight: 400
