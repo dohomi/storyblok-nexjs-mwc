@@ -1,5 +1,5 @@
 import NextHead from 'next/head'
-import {string} from 'prop-types'
+import PropTypes from 'prop-types'
 import NProgress from 'nprogress'
 import Router from 'next/router'
 import StoryblokService from '../../utils/StoryblokService'
@@ -12,14 +12,37 @@ Router.onRouteChangeError = () => NProgress.done()
 
 const iconSizes = [16, 32, 96, 192]
 
-function parseOpenGraph (values) {
-  const openGraph = values
-  if (openGraph.images) {
-    openGraph.images = openGraph.images.map(item => {
-      if (!item.url) return
-      const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
-      return Object.assign(item, {url: imageServiceNoWebp(item.url, imgPath)})
-    }).filter(i => i)
+function mapOpenGraphImage (item) {
+  if (!item.url) return
+  const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
+  return Object.assign(item, {url: imageServiceNoWebp(item.url, imgPath)})
+
+}
+
+function parseOpenGraph (settingsOpenGraph = {}, pageOpenGraph = {}, seoMeta = {}, url = '') {
+  // set some defaults of seoMeta
+  const openGraph = {
+    title: pageOpenGraph.title || seoMeta.title || settingsOpenGraph.title,
+    description: pageOpenGraph.description || seoMeta.description || settingsOpenGraph.description,
+    url: pageOpenGraph.url || url || settingsOpenGraph.url,
+    type: pageOpenGraph.type || settingsOpenGraph.type,
+    site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
+    locale: pageOpenGraph.locale || settingsOpenGraph.locale,
+    images: []
+  }
+  // settings images
+  if (settingsOpenGraph.images) {
+    settingsOpenGraph.images.forEach(img => {
+      let parsed = mapOpenGraphImage(img)
+      parsed && openGraph.images.push(parsed)
+    })
+  }
+  // page images
+  if (pageOpenGraph.images) {
+    pageOpenGraph.images.forEach(item => {
+      let parsed = mapOpenGraphImage(item)
+      parsed && openGraph.images.push(parsed)
+    })
   }
   return openGraph
 }
@@ -44,9 +67,10 @@ const Head = (props) => {
   }
   // open graphs
   const settingsOpenGraphs = seoBody.find(i => i.component === 'seo_open_graph')
-  let openGraph = {}
+  const pageOpenGraphs = pageSeo.body.find(i => i.component === 'seo_open_graph')
+  // const pageOpenGraphImages =
   if (settingsOpenGraphs) {
-    seo.openGraph = parseOpenGraph(settingsOpenGraphs)
+    seo.openGraph = parseOpenGraph(settingsOpenGraphs, pageOpenGraphs, seo, pageSeo.url)
   }
   // twitter
   const settingsTwitter = seoBody.find(i => i.component === 'seo_twitter')
@@ -70,10 +94,8 @@ const Head = (props) => {
 }
 
 Head.propTypes = {
-  title: string,
-  description: string,
-  url: string,
-  ogImage: string
+  settings: PropTypes.object,
+  pageSeo: PropTypes.object
 }
 
 export default Head

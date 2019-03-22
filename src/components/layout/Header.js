@@ -66,8 +66,6 @@ const Header = (props) => {
     theme = toolbar[color]
   }
 
-
-  console.debug('inside of Header')
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>

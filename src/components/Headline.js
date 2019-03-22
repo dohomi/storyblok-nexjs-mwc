@@ -4,6 +4,18 @@ import clsx from 'clsx'
 import {Typography} from '@rmwc/typography'
 import {componentLogger} from '../utils/componentLogger'
 
+const HeadlineContent = ({content}) => {
+  if (content.text_xs) {
+    return (
+      <>
+        <span className="d-none d-sm-block">{content.text}</span>
+        <span className="d-block d-sm-none">{content.text_xs}</span>
+      </>
+    )
+  }
+  return content.text
+}
+
 const Headline = ({content}) => {
   componentLogger(content)
   const classes = clsx(content.style, content.style_props, content.class_names && content.class_names.values)
@@ -12,7 +24,7 @@ const Headline = ({content}) => {
       <Typography className={classes}
                   tag={content.tag || 'h3'}
                   use={content.typography || 'headline4'}>
-        {content.text}
+        <HeadlineContent content={content}/>
       </Typography>
     </SbEditable>
   )

@@ -11,10 +11,13 @@ import Fonts from '../utils/Fonts'
 
 function mapStateProps (pageProps) {
   const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}
+
   const pageSeo = {
     title: pageContent.meta_title,
     description: pageContent.meta_description,
-    disableRobots: pageContent.meta_robots
+    disableRobots: pageContent.meta_robots,
+    body: pageContent.seo_body || [],
+    url: pageProps.url
   }
   const properties = pageContent.property || []
   const hasFeature = properties.includes('has_feature')
@@ -58,22 +61,25 @@ const Index = (props) => {
 
 Index.getInitialProps = async (context) => {
   const query = context.query
-  DeviceDetectService.setDevice(context.req) // important to call first, webp is depending on this
-  StoryblokService.setQuery(query)
-  WebpService.setWebpSupport(context.req) // move this to _app?
   let slug = query.slug || 'home'
   if (slug.match(/^.*\.[^\\]+$/)) {
     return {}
   }
+  DeviceDetectService.setDevice(context.req) // important to call first, webp is depending on this
+  WebpService.setWebpSupport(context.req) // move this to _app?
+  StoryblokService.setQuery(query)
   try {
     let [page, settings] = await Promise.all([
       StoryblokService.get(`cdn/stories/${slug}`),
       StoryblokService.get(`cdn/stories/settings`)
     ])
-
+    let currentSlug = slug !== 'home' ? slug : '' // need to modify. maybe check if ROOT of storyblok config?
+    const host = context.req ? context.req.headers.host : window.location.host
+    const url = `https://${host}/${currentSlug}`
     return {
       page,
-      settings
+      settings,
+      url
     }
   } catch (e) {
     console.error(e)
