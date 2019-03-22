@@ -1,0 +1,17 @@
+@import "~@material/textfield/mdc-text-field";
+@import "~@material/floating-label/mdc-floating-label";
+@import "~@material/notched-outline/mdc-notched-outline";
+@import "~@material/line-ripple/mdc-line-ripple";
+
+.hs-form{
+  //background-color: red;
+  .hs-fieldtype-text{
+    @extend .mdc-text-field;
+  }
+  input[type="text"],input[type="email"]{
+    @extend .mdc-text-field__input
+  }
+  label{
+    @extend .mdc-floating-label
+  }
+}

@@ -7,6 +7,54 @@ import {Fab} from '@rmwc/fab'
 import React from 'react'
 import {componentLogger} from '../utils/componentLogger'
 
+export const mapButtonProps = (content) => {
+  // const property = content.styles
+  const color = content.color
+  const size = content.size
+  const icon = content.image || (content.icon && content.icon.name)
+  const trailingIcon = content.trailing_icon && content.trailing_icon.name
+  const properties = content.properties || []
+  const additionalClasses = []
+  let theme
+  if (color) {
+    if (color === 'primary') {
+      theme = ['primaryBg', 'onPrimary']
+    } else if (color === 'secondary') {
+      theme = ['secondaryBg', 'onSecondary']
+    } else if (color === 'primary_text') {
+      theme = ['primary']
+    } else if (color === 'secondary_text') {
+      theme = ['secondary']
+    } else if (color === 'light') {
+      theme = ['textPrimaryOnDark']
+    } else if (color === 'dark') {
+      theme = ['textPrimaryOnLight']
+    }
+  }
+
+  const variant = content.variant
+  const buttonProps = {
+    label: content.label,
+    ripple: !properties.includes('disable-ripple')
+  }
+  variant && (buttonProps[variant] = true) // variants only available on buttons with label
+  theme && (buttonProps.theme = theme)
+
+  if (size === 'dense') {
+    buttonProps.dense = true
+  }
+
+  if (size && size !== 'dense') {
+    additionalClasses.push(size)
+  }
+  trailingIcon && (buttonProps.trailingIcon = trailingIcon)
+
+  icon && (buttonProps.icon = icon)
+  buttonProps.className = clsx(additionalClasses, content.corners, content.class_names && content.class_names.values)
+  return buttonProps
+}
+
+
 const ButtonMwc = (props) => {
   const mappedProps = {
     ...props
@@ -56,53 +104,10 @@ const ButtonLink = (props) => {
 
 const MtButton = (props) => {
   const content = props.content
-  componentLogger(content)
+  const buttonProps = mapButtonProps(content)
   const link = content.link || {}
-  // const property = content.styles
-  const color = content.color
-  const size = content.size
-  const icon = content.image || (content.icon && content.icon.name)
-  const trailingIcon = content.trailing_icon && content.trailing_icon.name
-  const properties = content.properties || []
-  const additionalClasses = []
+  componentLogger(content)
 
-
-  let theme
-  if (color) {
-    if (color === 'primary') {
-      theme = ['primaryBg', 'onPrimary']
-    } else if (color === 'secondary') {
-      theme = ['secondaryBg', 'onSecondary']
-    } else if (color === 'primary_text') {
-      theme = ['primary']
-    } else if (color === 'secondary_text') {
-      theme = ['secondary']
-    } else if (color === 'light') {
-      theme = ['textPrimaryOnDark']
-    } else if (color === 'dark') {
-      theme = ['textPrimaryOnLight']
-    }
-  }
-
-  const variant = content.variant
-  const buttonProps = {
-    label: content.label,
-    ripple: !properties.includes('disable-ripple')
-  }
-  variant && (buttonProps[variant] = true) // variants only available on buttons with label
-  theme && (buttonProps.theme = theme)
-
-  if (size === 'dense') {
-    buttonProps.dense = true
-  }
-
-  if (size && size !== 'dense') {
-    additionalClasses.push(size)
-  }
-  trailingIcon && (buttonProps.trailingIcon = trailingIcon)
-
-  icon && (buttonProps.icon = icon)
-  buttonProps.className = clsx(additionalClasses, content.corners, content.class_names && content.class_names.values)
   let isInternalLink = link.linktype === 'story'
   const href = isInternalLink ? `/${link.cached_url}` : link.cached_url // append leading slash
 

@@ -1,5 +1,5 @@
 import Components from 'components/index'
-import {createRef, useLayoutEffect, useState} from 'react'
+import {createRef, useEffect, useState} from 'react'
 import SbEditable from 'storyblok-react'
 import imageService from '../../utils/ImageService'
 import clsx from 'clsx'
@@ -24,7 +24,7 @@ const TopAppBarWrapEl = (props) => {
   const scrollPos = scrollPositionHook()
   const logoTag = props.logoRef && props.logoRef.current
   let [className, setClassName] = useState(getClassName()) // because of server/client hydration
-  useLayoutEffect(() => {
+  useEffect(() => {
       if (!props.transparentToolbar) return
       setClassName(getClassName(scrollPos))
       if (scrollPos > 100) {
