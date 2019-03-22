@@ -1,5 +1,5 @@
 import Components from 'components/index'
-import React from 'react'
+import {createRef, useLayoutEffect, useState} from 'react'
 import SbEditable from 'storyblok-react'
 import imageService from '../../utils/ImageService'
 import clsx from 'clsx'
@@ -23,18 +23,26 @@ import {withRouter} from 'next/dist/client/router'
 const TopAppBarWrapEl = (props) => {
   const scrollPos = scrollPositionHook()
   const logoTag = props.logoRef && props.logoRef.current
-  if (props.transparentToolbar) {
-    if (scrollPos > 100) {
-      props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogo)
-    } else {
-      props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogoInverted)
-    }
+  let [className, setClassName] = useState(getClassName()) // because of server/client hydration
+  useLayoutEffect(() => {
+      if (!props.transparentToolbar) return
+      setClassName(getClassName(scrollPos))
+      if (scrollPos > 100) {
+        props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogo)
+      } else {
+        props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogoInverted)
+      }
+    },
+    [scrollPos, props.transparentToolbar]
+  )
+
+  function getClassName (pos) {
+    return clsx('lm-toolbar', {
+      ['lm-toolbar__bold-text']: !!props.toolbarConfig.includes('text_bold'),
+      ['lm-toolbar__fixed-width']: !!props.toolbarConfig.includes('fixed_width'),
+      ['lm-toolbar-transparent']: pos < 100
+    })
   }
-  const className = clsx('lm-toolbar', {
-    ['lm-toolbar__bold-text']: !!props.toolbarConfig.includes('text_bold'),
-    ['lm-toolbar__fixed-width']: !!props.toolbarConfig.includes('fixed_width'),
-    ['lm-toolbar-transparent']: props.transparentToolbar && scrollPos < 100
-  })
 
   return (
     <TopAppBar className={className} fixed={props.fixed}>
@@ -56,7 +64,7 @@ const Header = (props) => {
   const currentLogoSrc = transparentToolbar && websiteLogoInverted ? websiteLogoInverted : websiteLogo
 
 
-  const logoRef = React.createRef()
+  const logoRef = createRef()
 
 
   const navRight = content.toolbar || []

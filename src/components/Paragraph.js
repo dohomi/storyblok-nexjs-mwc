@@ -5,8 +5,7 @@ import clsx from 'clsx'
 const Paragraph = (props) => {
   const content = props.content
   const typography = content.typography || 'body1'
-  const styleClasses = clsx({
-    'mdc-typography': true,
+  const styleClasses = clsx('mdc-typography lm-markup', {
     [`mdc-typography--${typography}`]: true
   }, content.style, content.class_names && content.class_names.values)
   return (
