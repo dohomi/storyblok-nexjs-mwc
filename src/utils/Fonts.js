@@ -20,11 +20,9 @@ const Fonts = () => {
     fonts.material.load(),
     fonts.nunito.load()
   ]).then(() => {
-    console.log('family loaded')
     document.documentElement.classList.add('fonts-loaded')
   }).catch(e => {
     document.documentElement.classList.add('fonts-failed')
-    console.error(e)
   })
 }
 export default Fonts

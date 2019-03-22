@@ -5,15 +5,8 @@ import React, {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import {fetchImageSource} from '../../utils/fetchImageHelper'
 
-const getBackgroundImageSource = ({backgroundImage, backgroundImageProperty = [], width, height}) => {
-
-  let path = ''
-  if (!backgroundImageProperty.includes('contain')) {
-    path = `${parseInt(width)}x${parseInt(height)}`
-    if (backgroundImageProperty.includes('crop')) {
-      path += '/smart'
-    }
-  }
+const getBackgroundImageSource = ({backgroundImage, width, height}) => {
+  let path = `${parseInt(width)}x${parseInt(height)}/smart`
   return imageService(backgroundImage, path)
 }
 
@@ -21,16 +14,13 @@ const WithBackgroundImage = (props) => {
   const isColumn = props.isColumn
   const containerProps = props.containerProps || {}
   const backgroundImage = containerProps.image // original img source
-  const backgroundImageProperty = containerProps.imageProperties || [] // repeat,contain..
   const backgroundStyle = props.background_style // background attachment props
 
   const containerClasses = clsx(
     !isColumn && 'mw-100 mh-100',
     props.className, {
       'lm-background-image': true,
-      'progressive-img-container': true,
-      'lm-bg-section__repeat': backgroundImageProperty.includes('repeat'),
-      'lm-bg-section__contain': backgroundImageProperty.includes('contain')
+      'progressive-img-container': true
     })
 
 
@@ -46,22 +36,6 @@ const WithBackgroundImage = (props) => {
   let [styles, setStyles] = useState({
     ...props.style
   })
-
-
-  useEffect(() => {
-    let newStyles = {
-      ...styles
-    }
-    if (!window.userDevice.device && ['fixed_image', 'fixed_cover'].includes(backgroundStyle)) {
-      newStyles = {
-        ...newStyles,
-        backgroundPosition: 'inherit',
-        backgroundAttachment: 'fixed', // use fixed
-        backgroundSize: 'contain' // overwrite that its bg is not covered
-      }
-    }
-    setStyles(newStyles)
-  }, [backgroundStyle])
 
   useEffect(() => {
     if (!intersectionElement) return
@@ -80,7 +54,7 @@ const WithBackgroundImage = (props) => {
         }
       }
       const newImgSource = getBackgroundImageSource({
-        width: elementWidth, height: elementHeight, backgroundImage, backgroundImageProperty
+        width: elementWidth, height: elementHeight, backgroundImage
       })
       fetchImageSource(newImgSource)
         .then(() => {

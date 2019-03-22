@@ -1,3 +1,6 @@
+import imageService from './ImageService'
+
+
 /**
  * @typedef {Object} BackgroundStyles
  * @property {string} border The image main source
@@ -13,6 +16,20 @@
  * @property {array} classes Computed class names
  * @property {array} imageProperties Image background properties
  */
+
+function multipleBackgroundComposer (backgroundElements) {
+  const elements = backgroundElements.map(item => {
+    const url = imageService(item.url, '')
+    return {
+      background: `url('${url}') ${item.horizontal || 'left'} ${item.vertical || 'top'} ${item.repeat || 'no-repeat'}`,
+      backgroundSize: item.size || 'auto'
+    }
+  })
+  return {
+    background: elements.map(i => i.background).join(','),
+    backgroundSize: elements.map(i => i.backgroundSize).join(',')
+  }
+}
 
 /**
  *
@@ -35,13 +52,18 @@ function backgroundPropertyHelper (properties) {
   } else if (borderRadius) {
     border = '1px solid transparent'
   }
+  const styles = {
+    border,
+    backgroundColor: values.background_color && values.background_color.rgba,
+    borderRadius
+  }
+  if (values.background_elements && values.background_elements.length) {
+    Object.assign(styles,multipleBackgroundComposer(values.background_elements))
+  }
+
   return {
     image: values.image,
-    styles: {
-      border,
-      backgroundColor: values.background_color && values.background_color.rgba,
-      borderRadius
-    },
+    styles,
     classNames: values.classNames && values.classNames.values,
     classes: {
       [`mdc-elevation--z${values.elevation}`]: !!values.elevation
