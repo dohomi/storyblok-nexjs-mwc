@@ -12,16 +12,35 @@
 }
 
 .hs-form {
-  //background-color: red;
-  .hs-fieldtype-text {
+  .hs-fieldtype-textarea {
     @extend .mdc-text-field;
+    @extend .mdc-text-field--textarea;
   }
 
-  input[type="text"], input[type="email"] {
-    @extend .mdc-text-field__input
+
+
+  .hs-form-field {
+    display: block;
+    @extend .mdc-form-field;
+
+
+    label {
+      @extend .mdc-floating-label;
+    }
+
+    .input {
+      @extend .mdc-text-field;
+
+      input {
+        @extend .mdc-text-field__input;
+      }
+
+      textarea {
+        @extend .mdc-text-field__input
+      }
+    }
+
+
   }
 
-  label {
-    @extend .mdc-floating-label
-  }
 }

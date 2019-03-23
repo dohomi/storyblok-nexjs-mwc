@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-// import HubSpot from 'react-hubspot-form'
+import ReactHubspotForm from 'react-hubspot-form'
 import {useForm} from '../utils/hooks/hubspotForm'
 import {TextField} from '@rmwc/textfield'
 import {Button} from '@rmwc/button'
@@ -148,20 +148,28 @@ const HubspotFormHooked = ({content}) => {
     </SbEditable>
   )
 }
-//
-// const HubspotForm = ({content}) => {
-//   const opts = {
-//     portalId: content.portal_id,
-//     formId: content.form_id
-//   }
-//   return (
-//     <SbEditable content={content}>
-//       <HubSpot {...opts}
-//                onSubmit={() => console.debug('Submit!')}
-//                onReady={(form) => console.debug('Form ready!')}
-//                loading={<div>Loading...</div>}></HubSpot>
-//     </SbEditable>
-//   )
-// }
 
-export default HubspotFormHooked
+const HubspotForm = ({content}) => {
+  const opts = {
+    portalId: content.portal_id,
+    formId: content.form_id
+  }
+  return (
+    <SbEditable content={content}>
+      <ReactHubspotForm {...opts}
+               onSubmit={() => console.debug('Submit!')}
+               onReady={(form) => console.debug('Form ready!')}
+               loading={<div>Loading...</div>}></ReactHubspotForm>
+    </SbEditable>
+  )
+}
+
+const FormDelegation = (props) => {
+  const content = props.content
+  if (content.body && content.body.length) {
+    return HubspotFormHooked(props)
+  }
+  return HubspotForm(props)
+}
+
+export default FormDelegation
