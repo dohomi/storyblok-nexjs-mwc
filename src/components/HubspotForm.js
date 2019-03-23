@@ -1,10 +1,38 @@
 import SbEditable from 'storyblok-react'
-import HubSpot from 'react-hubspot-form'
-import {useForm} from 'react-hubspot'
+// import HubSpot from 'react-hubspot-form'
+import {useForm} from '../utils/hooks/hubspotForm'
 import {TextField} from '@rmwc/textfield'
 import {Button} from '@rmwc/button'
 import React, {useState, createRef} from 'react'
 import {mapButtonProps} from './Button'
+import {Checkbox} from '@rmwc/checkbox'
+import {Select} from '@rmwc/select'
+
+const FormSelect = (content) => {
+  let [value, setValue] = useState('')
+  const fieldProps = {
+    id: content._uid,
+    name: content.name,
+    label: content.label,
+    enhanced: true,// make this dependend on viewport?
+    required: !!content.required,
+    value: value,
+    options: content.options && content.options.map(i => ({value: i.value, label: i.label}))
+  }
+
+  return <Select {...fieldProps} onChange={(ev) => setValue(ev.target.value)}/>
+}
+
+const FormCheckbox = (content) => {
+  const fieldProps = {
+    id: content._uid,
+    name: content.name,
+    label: content.label,
+    required: !!content.required
+  }
+
+  return <Checkbox {...fieldProps}/>
+}
 
 const FormTextfield = (content) => {
   const inputRef = createRef()
@@ -15,6 +43,8 @@ const FormTextfield = (content) => {
   }
   let [msg, setMsg] = useState(initialMsg)
   const fieldProps = {
+    id: content._uid,
+    name: content.name,
     label: content.label,
     type: content.type || 'text',
     required: !!content.required,
@@ -57,7 +87,9 @@ const FormSubmitButton = (content) => {
 
 const FormComponents = {
   'form_textfield': FormTextfield,
-  'button': FormSubmitButton
+  'button': FormSubmitButton,
+  'form_checkbox': FormCheckbox,
+  'form_select': FormSelect
 }
 
 const FormItem = (blok) => {
@@ -116,20 +148,20 @@ const HubspotFormHooked = ({content}) => {
     </SbEditable>
   )
 }
-
-const HubspotForm = ({content}) => {
-  const opts = {
-    portalId: content.portal_id,
-    formId: content.form_id
-  }
-  return (
-    <SbEditable content={content}>
-      <HubSpot {...opts}
-               onSubmit={() => console.debug('Submit!')}
-               onReady={(form) => console.debug('Form ready!')}
-               loading={<div>Loading...</div>}></HubSpot>
-    </SbEditable>
-  )
-}
+//
+// const HubspotForm = ({content}) => {
+//   const opts = {
+//     portalId: content.portal_id,
+//     formId: content.form_id
+//   }
+//   return (
+//     <SbEditable content={content}>
+//       <HubSpot {...opts}
+//                onSubmit={() => console.debug('Submit!')}
+//                onReady={(form) => console.debug('Form ready!')}
+//                loading={<div>Loading...</div>}></HubSpot>
+//     </SbEditable>
+//   )
+// }
 
 export default HubspotFormHooked

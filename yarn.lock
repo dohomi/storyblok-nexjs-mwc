@@ -771,6 +771,20 @@
     "@material/shape" "^1.0.0"
     "@material/theme" "^1.0.0"
 
+"@material/checkbox@^1.0.0", "@material/checkbox@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@material/checkbox/-/checkbox-1.0.1.tgz#c482324dabd873fa8b86438fd16609edf2c05b29"
+  integrity sha512-/FMQEM5aT3S63Rp2gWgq0/WnMl9tNpSBs222r/3YT9Aqesbdp56mcDG9rk9rq2Ph74sWxlI5+9MVwL4CZ3nCyg==
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/dom" "^1.0.1"
+    "@material/feature-targeting" "^0.44.1"
+    "@material/ripple" "^1.0.1"
+    "@material/rtl" "^0.42.0"
+    "@material/theme" "^1.0.0"
+    tslib "^1.9.3"
+
 "@material/dialog@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@material/dialog/-/dialog-1.0.1.tgz#940eed0df837d23a9db267f4a0110495f160a6f8"
@@ -851,6 +865,18 @@
     "@material/typography" "^1.0.0"
     tslib "^1.9.3"
 
+"@material/form-field@^1.0.0", "@material/form-field@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@material/form-field/-/form-field-1.0.1.tgz#67832a4132dec8f1d715cf90703324943f918081"
+  integrity sha512-waYkRZvREMPawjO6f7FYeoxbX+ewtA6j1jwL/YEza9gR2kKjCCNDHMcTDT2FlnrWvtePTfgmYD6RmptCfFw4og==
+  dependencies:
+    "@material/base" "^1.0.0"
+    "@material/ripple" "^1.0.1"
+    "@material/rtl" "^0.42.0"
+    "@material/theme" "^1.0.0"
+    "@material/typography" "^1.0.0"
+    tslib "^1.9.3"
+
 "@material/icon-button@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@material/icon-button/-/icon-button-1.0.1.tgz#47293ba077a4da886b2fe5778d8c07e12718cfb3"
@@ -914,7 +940,7 @@
     "@material/theme" "^1.0.0"
     tslib "^1.9.3"
 
-"@material/menu@^1.0.0":
+"@material/menu@^1.0.0", "@material/menu@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@material/menu/-/menu-1.0.1.tgz#379a593a82281feed9b80c40c4c5b856370a0c35"
   integrity sha512-fmBBHADc4hlp/yJSRHY+rjO0mzMYajSrTdXVycAv/pyml7VsjMa2MUf6NTSUpzpJf/snGcbfXo5RDJOGP1VbXg==
@@ -956,6 +982,25 @@
   version "0.42.0"
   resolved "https://registry.yarnpkg.com/@material/rtl/-/rtl-0.42.0.tgz#1836e78186c2d8b996f6fbf97adab203535335bc"
   integrity sha512-VrnrKJzhmspsN8WXHuxxBZ69yM5IwhCUqWr1t1eNfw3ZEvEj7i1g3P31HGowKThIN1dc1Wh4LE14rCISWCtv5w==
+
+"@material/select@^1.0.0", "@material/select@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@material/select/-/select-1.0.1.tgz#896112c292a37f606733fcba8dfd14545c663193"
+  integrity sha512-DG2Ud5SVO0h+rugyX3hbfVRW1UPYnMCYeUBAYtx3Vyu1eoEh2b2478IRKpGOMzGZOn6jF4cPP6l9fSLHQs5ayQ==
+  dependencies:
+    "@material/animation" "^1.0.0"
+    "@material/base" "^1.0.0"
+    "@material/floating-label" "^1.0.0"
+    "@material/line-ripple" "^1.0.0"
+    "@material/menu" "^1.0.1"
+    "@material/menu-surface" "^1.0.1"
+    "@material/notched-outline" "^1.0.0"
+    "@material/ripple" "^1.0.1"
+    "@material/rtl" "^0.42.0"
+    "@material/shape" "^1.0.0"
+    "@material/theme" "^1.0.0"
+    "@material/typography" "^1.0.0"
+    tslib "^1.9.3"
 
 "@material/shape@^1.0.0":
   version "1.0.0"
@@ -1051,6 +1096,18 @@
     "@rmwc/ripple" "^5.2.1"
     "@rmwc/types" "^5.2.1"
 
+"@rmwc/checkbox@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@rmwc/checkbox/-/checkbox-5.2.1.tgz#11a5360d06a30d13a27144bb5bd61a7a7342f4d3"
+  integrity sha512-j0GK9x/M9dFXdkO3r2Q1uqq+gfjXG6djodYvPoF6MMh7qLGlBizHxZUtJGW65W2ENKOOhK/nHByAB5quex8jQA==
+  dependencies:
+    "@material/checkbox" "^1.0.0"
+    "@rmwc/base" "^5.2.1"
+    "@rmwc/formfield" "^5.2.1"
+    "@rmwc/ripple" "^5.2.1"
+    "@rmwc/toggleable" "^5.2.1"
+    "@rmwc/types" "^5.2.1"
+
 "@rmwc/dialog@^5.2.0":
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/@rmwc/dialog/-/dialog-5.2.1.tgz#b3e39b896c0f183a7478c40ee88afa33c11da264"
@@ -1088,6 +1145,15 @@
   integrity sha512-tPdbxYgIntVyVqf5ZtTnfyCjtPjWmU7jRvGtIiRxLLaAZW8Q+tO/jta4eTGZy8CO1LhRosIPK6xsTyh5deYMaQ==
   dependencies:
     "@material/floating-label" "^1.0.0"
+    "@rmwc/base" "^5.2.1"
+    "@rmwc/types" "^5.2.1"
+
+"@rmwc/formfield@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@rmwc/formfield/-/formfield-5.2.1.tgz#6ccf9e7a60ddf0ab6394e8f1c9b4c5b831a1d0ea"
+  integrity sha512-hVJMpSMr95DbXp2u5PFnSFA+gXA3vmyqIjaFVU31kUffsGlJPeTBUp9Lp8aJjfRSEWSQTLiJfSuZ7d5i1bP1Gg==
+  dependencies:
+    "@material/form-field" "^1.0.0"
     "@rmwc/base" "^5.2.1"
     "@rmwc/types" "^5.2.1"
 
@@ -1132,7 +1198,7 @@
     "@rmwc/ripple" "^5.2.1"
     "@rmwc/types" "^5.2.1"
 
-"@rmwc/menu@^5.2.0":
+"@rmwc/menu@^5.2.0", "@rmwc/menu@^5.2.1":
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/@rmwc/menu/-/menu-5.2.1.tgz#54b878396e2364eaa6637585fa6c40c0ed775ead"
   integrity sha512-hqZIlCpMxQT4RbyMep4MvViYjz8H3vj6j+69J9WbADQ+QHI6lBOR6URF8A7y2kOQ48R21bGNlPIRjn7QpG0sig==
@@ -1170,6 +1236,22 @@
     "@rmwc/provider" "^5.2.1"
     "@rmwc/types" "^5.2.1"
 
+"@rmwc/select@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@rmwc/select/-/select-5.2.1.tgz#ec1b29cde887e0d01304800fc12fdf2a2ba53e36"
+  integrity sha512-U7iNhMDGGTWNqBwV3lv1NPxFxdExuLCjgyHh3GrTSeyGd0gdBOtGPOoaW2ZnUNO/bNTR33hTQbt4As2ucx67kg==
+  dependencies:
+    "@material/select" "^1.0.0"
+    "@rmwc/base" "^5.2.1"
+    "@rmwc/floating-label" "^5.2.1"
+    "@rmwc/icon" "^5.2.1"
+    "@rmwc/line-ripple" "^5.2.1"
+    "@rmwc/list" "^5.2.1"
+    "@rmwc/menu" "^5.2.1"
+    "@rmwc/notched-outline" "^5.2.1"
+    "@rmwc/ripple" "^5.2.1"
+    "@rmwc/types" "^5.2.1"
+
 "@rmwc/textfield@^5.2.1":
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/@rmwc/textfield/-/textfield-5.2.1.tgz#fc7eedffb50e3982d58051d170ec5138c7d6f5a5"
@@ -1191,6 +1273,15 @@
   dependencies:
     "@material/theme" "^0.43.0"
     "@rmwc/base" "^5.2.1"
+    "@rmwc/types" "^5.2.1"
+
+"@rmwc/toggleable@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@rmwc/toggleable/-/toggleable-5.2.1.tgz#2536e1354b8286742fb4417d8d3bfa73d6a2bb04"
+  integrity sha512-27CEBlbBHXr1lahic4Bga8izuQC3KsIbBOyJhoklQGTyh7rAuMVyv0z38ITAOCjkInjXc0bHTqSouak6pReOdQ==
+  dependencies:
+    "@rmwc/base" "^5.2.1"
+    "@rmwc/formfield" "^5.2.1"
     "@rmwc/types" "^5.2.1"
 
 "@rmwc/top-app-bar@^5.2.0":
