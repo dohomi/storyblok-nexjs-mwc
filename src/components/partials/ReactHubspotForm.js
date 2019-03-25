@@ -29,15 +29,14 @@ const HubspotForm = (props) => {
       delete currentProps.loading
       delete currentProps.onSubmit
       delete currentProps.onReady
-      console.log(el.getAttribute('id'))
       let options = {
         ...currentProps,
         target: `#${el.getAttribute(`id`)}`,
-        onFormSubmit: ($form) => {
-          // ref: https://developers.hubspot.com/docs/methods/forms/advanced_form_options
-          const formData = $form.serializeArray()
-          props.onSubmit(formData)
-        }
+        // onFormSubmit: ($form) => {
+        //   // ref: https://developers.hubspot.com/docs/methods/forms/advanced_form_options
+        //   const formData = $form.serializeArray()
+        //   props.onSubmit(formData)
+        // }
       }
       window.hbspt.forms.create(options)
       return true
@@ -48,7 +47,6 @@ const HubspotForm = (props) => {
 
   function loadScript () {
     let script = document.createElement(`script`)
-    console.log('inside load script')
     script.defer = true
     script.onload = () => {
       createForm()
@@ -78,7 +76,7 @@ const HubspotForm = (props) => {
     <div>
       <div
         ref={element => el = element}
-        id={`reactHubspotForm${props._uid}`}
+        id={`reactHubspotForm_${props._uid}`}
         style={{display: loaded ? 'block' : 'none'}}
       />
       {!loaded && props.loading}
