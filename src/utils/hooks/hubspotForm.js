@@ -28,16 +28,8 @@ export const useForm = ({portalId, formId}) => {
     for (var pair of formData.entries()) {
       data.fields.push({name: pair[0], value: pair[1]})
     }
-    // const fetchOptions = {
-    //   method: 'POST',
-    //   mode: 'no-cors',
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }
     try {
-      const res = await formv3(url, data)
+      const res = await onFormSubmission(url, data)
       setData(res)
       setForm(false)
     } catch (e) {
@@ -46,19 +38,6 @@ export const useForm = ({portalId, formId}) => {
       setIsError(true)
     }
     setIsLoading(false)
-
-    // console.log(fetchOptions)
-    // try {
-    //   const res = await fetch(url, fetchOptions)
-    //   const result = await res.json()
-    //   setIsLoading(false)
-    //   console.log('Success:', JSON.stringify(result))
-
-    // } catch (e) {
-    //   debugger
-    //   console.error('Error:', e)
-    // }
-    // setIsLoading(false)
   }
 
   useEffect(
@@ -85,7 +64,7 @@ export const useForm = ({portalId, formId}) => {
  * @param data
  * @return {Promise<any>}
  */
-function formv3 (url, data) {
+function onFormSubmission (url, data) {
   return new Promise((resolve, reject) => {
     // Create the new request
     const xhr = new XMLHttpRequest()
