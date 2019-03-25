@@ -4,7 +4,7 @@ import WebpService from '../utils/WebpService'
 import DeviceDetectService from '../utils/DeviceDetectService'
 
 function getGoogleTagManager () {
-  if (process.env.GTM_CONTAINER && process.env.NODE_ENV !== 'production') {
+  if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {
     return {
       __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
