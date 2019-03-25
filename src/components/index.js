@@ -19,6 +19,7 @@ import SectionParallax from './SectionParallax'
 import ButtonList from './ButtonList'
 import Html from './Html'
 import HubspotForm from './HubspotForm'
+import Form from './Form'
 
 const Components = {
   'page': Page,
@@ -43,7 +44,8 @@ const Components = {
   'slider': Slider,
   'section_video_bg': SectionVideoBg,
   'card_list': CardList,
-  'section_parallax': SectionParallax
+  'section_parallax': SectionParallax,
+  'form': Form
 }
 
 export default Components

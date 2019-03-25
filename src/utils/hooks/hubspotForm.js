@@ -6,13 +6,14 @@ import {useState, useEffect} from 'react'
  * @param formId
  * @return {{isLoading: boolean, handleSubmit: handleSubmit, isError: boolean, data: any}}
  */
-export const useForm = ({portalId, formId}) => {
-  if (!portalId || !formId) {
-    console.log('you must provide portalId and formId')
-    return
+export const useForm = ({api}) => {
+  if (!api) {
+    console.log('you must an API endpoint')
+    return {}
   }
-  const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`
-  const [data, setData] = useState()
+  // const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`
+  const url = api
+  const [data, setData] = useState(false)
   const [form, setForm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -22,7 +23,6 @@ export const useForm = ({portalId, formId}) => {
     setIsLoading(true)
     const formData = new FormData(form)
     const data = {
-      submittedAt: `${Date.now()}`,
       fields: []
     }
     for (var pair of formData.entries()) {
