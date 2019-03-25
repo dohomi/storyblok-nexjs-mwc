@@ -47,6 +47,7 @@ const WithBackgroundImage = (props) => {
   useEffect(
     () => {
       // only if lazyload disabled
+      if (!lazyDisabled) return
       setStyles({
         ...styles,
         filter: 'blur(0)' // unset blur effect
