@@ -4,7 +4,6 @@ import {useInView} from 'react-intersection-observer'
 import React, {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import {fetchImageSource} from '../../utils/fetchImageHelper'
-import {FullsizePicture} from 'react-responsive-picture'
 
 const getBackgroundImageSource = ({backgroundImage, width, height}) => {
   let path = ''
@@ -21,7 +20,6 @@ const WithBackgroundImage = (props) => {
   const backgroundStyle = props.background_style // background attachment props
   const imageProperties = containerProps.imageProperties
   const lazyDisabled = imageProperties.includes('disable_lazy_load')
-  console.log(lazyDisabled)
   const containerClasses = clsx(
     !isColumn && 'mw-100 mh-100',
     props.className, {
@@ -56,15 +54,7 @@ const WithBackgroundImage = (props) => {
       const newImgSource = getBackgroundImageSource({
         width: props.dimensions.width, height: 0, backgroundImage
       })
-      fetchImageSource(newImgSource)
-        .then(() => {
-          setStyles({
-            ...styles,
-            backgroundImage: `url("${newImgSource}")`,
-            filter: 'blur(0)' // unset blur effect
-          })
-        })
-
+      fetchAndSetImg(newImgSource)
     },
     [props.dimensions.width, props.dimensions.height, backgroundImage]
   )
