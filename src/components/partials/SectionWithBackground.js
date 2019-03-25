@@ -4,18 +4,24 @@ import {useInView} from 'react-intersection-observer'
 import React, {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import {fetchImageSource} from '../../utils/fetchImageHelper'
+import {FullsizePicture} from 'react-responsive-picture'
 
 const getBackgroundImageSource = ({backgroundImage, width, height}) => {
-  let path = `${parseInt(width)}x${parseInt(height)}/smart`
+  let path = ''
+  if (width && height) {
+    path = `${parseInt(width)}x${parseInt(height)}/smart`
+  }
   return imageService(backgroundImage, path)
 }
 
 const WithBackgroundImage = (props) => {
-  const isColumn = props.isColumn
+  const isColumn = props.isColumn // used in Column.js
   const containerProps = props.containerProps || {}
   const backgroundImage = containerProps.image // original img source
   const backgroundStyle = props.background_style // background attachment props
-
+  const imageProperties = containerProps.imageProperties
+  const lazyDisabled = imageProperties.includes('disable_lazy_load')
+  console.log(lazyDisabled)
   const containerClasses = clsx(
     !isColumn && 'mw-100 mh-100',
     props.className, {
@@ -34,19 +40,42 @@ const WithBackgroundImage = (props) => {
   })
 
   let [styles, setStyles] = useState({
-    ...props.style
+    ...props.style,
+    position: 'relative',
+    overflow: 'hidden',
+    backgroundImage: `url("${initialSrc}")`
   })
 
+  useEffect(
+    () => {
+      // only if lazyload disabled
+      setStyles({
+        ...styles,
+        filter: 'blur(0)' // unset blur effect
+      })
+      const newImgSource = getBackgroundImageSource({
+        width: props.dimensions.width, height: 0, backgroundImage
+      })
+      fetchImageSource(newImgSource)
+        .then(() => {
+          setStyles({
+            ...styles,
+            backgroundImage: `url("${newImgSource}")`,
+            filter: 'blur(0)' // unset blur effect
+          })
+        })
+
+    },
+    [props.dimensions.width, props.dimensions.height, backgroundImage]
+  )
+
   useEffect(() => {
-    if (!intersectionElement) return
+    // only runs if lazy load is enabled (default)
+    if (lazyDisabled || !intersectionElement) return
     const elementDimensions = intersectionElement.boundingClientRect
     let elementWidth = elementDimensions.width
     let elementHeight = elementDimensions.height
     if (inView) {
-      setStyles({
-        ...styles,
-        backgroundImage: `url('${initialSrc}')`
-      })
       // cover img
       if (!window.userDevice.device) {
         if (backgroundStyle === 'fixed_cover') {
@@ -56,16 +85,20 @@ const WithBackgroundImage = (props) => {
       const newImgSource = getBackgroundImageSource({
         width: elementWidth, height: elementHeight, backgroundImage
       })
-      fetchImageSource(newImgSource)
-        .then(() => {
-          setStyles({
-            ...styles,
-            filter: 'blur(0)', // unset blur effect
-            backgroundImage: `url("${newImgSource}")`
-          })
-        })
+      fetchAndSetImg(newImgSource)
     }
   }, [backgroundImage, props.dimensions.width, props.dimensions.height, inView])
+
+  function fetchAndSetImg (src) {
+    fetchImageSource(src)
+      .then(() => {
+        setStyles({
+          ...styles,
+          filter: 'blur(0)', // unset blur effect
+          backgroundImage: `url("${src}")`
+        })
+      })
+  }
 
   return (
     <div ref={refIntersectionObserver}

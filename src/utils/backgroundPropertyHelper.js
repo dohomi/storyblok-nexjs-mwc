@@ -68,7 +68,7 @@ function backgroundPropertyHelper (properties) {
     classes: {
       [`mdc-elevation--z${values.elevation}`]: !!values.elevation
     },
-    imageProperties: values.image_properties
+    imageProperties: values.property || []
   }
 }
 
