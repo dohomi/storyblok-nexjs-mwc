@@ -38,9 +38,10 @@ class MyDocument extends Document {
       <body className="mdc-typography mdc-theme--background">
       {GTM && (
         <noscript>
-          <iframe src={`https://www.googletagmanager.com/ns.html?id=${process.env.GTM_CONTAINER}`} height="0"
+          <iframe src={`https://www.googletagmanager.com/ns.html?id=${process.env.GTM_CONTAINER}`}
+                  height="0"
                   width="0"
-                  style="display:none;visibility:hidden"></iframe>
+                  style={{display:'none',visibility:'hidden'}}></iframe>
         </noscript>
       )}
       <Main/>
