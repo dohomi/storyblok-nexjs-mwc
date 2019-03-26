@@ -1108,6 +1108,14 @@
     "@rmwc/toggleable" "^5.2.1"
     "@rmwc/types" "^5.2.1"
 
+"@rmwc/circular-progress@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/@rmwc/circular-progress/-/circular-progress-5.2.1.tgz#d6626b8145cf0d1dcc29c0d07e69bf3b1bf21d1b"
+  integrity sha512-l7UuZJsI3hDPsWuuPqw3zXPrGj0tLYQ/N5UiS7WCiaDzpNXvu9GZs8LeLQuq/3ERoHnVQonK5GVVgWWxzXVCCg==
+  dependencies:
+    "@rmwc/base" "^5.2.1"
+    "@rmwc/types" "^5.2.1"
+
 "@rmwc/dialog@^5.2.0":
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/@rmwc/dialog/-/dialog-5.2.1.tgz#b3e39b896c0f183a7478c40ee88afa33c11da264"

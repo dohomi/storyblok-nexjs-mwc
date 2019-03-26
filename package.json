@@ -44,6 +44,7 @@
     "@rmwc/button": "^5.2.0",
     "@rmwc/card": "^5.2.0",
     "@rmwc/checkbox": "^5.2.1",
+    "@rmwc/circular-progress": "^5.2.1",
     "@rmwc/dialog": "^5.2.0",
     "@rmwc/drawer": "^5.2.0",
     "@rmwc/fab": "^5.2.0",

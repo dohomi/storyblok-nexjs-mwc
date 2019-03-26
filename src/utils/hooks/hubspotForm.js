@@ -23,7 +23,26 @@ export const useForm = ({api}) => {
     setIsLoading(true)
     const formData = new FormData(form)
     const data = {
-      fields: []
+      fields: [],
+      'legalConsentOptions': { // Include this object when GDPR options are enabled
+        'consent': {
+          'consentToProcess': true,
+          'text': 'I agree to allow Example Company to store and process my personal data.',
+          'communications': [
+            {
+              'value': true,
+              'subscriptionTypeId': 999,
+              'text': 'I agree to receive marketing communications from Example Company.'
+            }
+          ]
+        }
+      }
+    }
+    if (window.hubspotutk) {
+      data.context = {
+        'hutk': window.hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
+        'pageUri': window.location.href
+      }
     }
     for (var pair of formData.entries()) {
       data.fields.push({name: pair[0], value: pair[1]})

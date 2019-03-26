@@ -7,6 +7,7 @@ import {mapButtonProps} from './Button'
 import {Checkbox} from '@rmwc/checkbox'
 import {Select} from '@rmwc/select'
 import Paragraph from './Paragraph'
+import {CircularProgress} from '@rmwc/circular-progress'
 
 /**
  *
@@ -133,6 +134,10 @@ const FormTextfield = (content) => {
 
 const FormSubmitButton = (content) => {
   const buttonProps = mapButtonProps(content)
+  if (content.isLoading) {
+    buttonProps.icon = <CircularProgress/>
+  }
+
   return <Button {...buttonProps}
                  disabled={content.isLoading}
                  type="submit"/>
@@ -167,6 +172,7 @@ const Form = ({content}) => {
 
   function onSubmit (e) {
     e.preventDefault()
+    if (isLoading) return
     const form = e.target
     const elements = [...form.elements]
     elements.forEach(element => {
@@ -184,7 +190,7 @@ const Form = ({content}) => {
 
   return (
     <SbEditable content={content}>
-      <form noValidate onSubmit={!isLoading && onSubmit} className="lm-hubspot-form">
+      <form noValidate onSubmit={onSubmit} className="lm-hubspot-form">
         {isError && (
           <div>Form submit has error...</div>
         )}
