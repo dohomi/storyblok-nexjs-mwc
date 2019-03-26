@@ -36,7 +36,6 @@ const SectionParallax = ({content, dimensions}) => {
   const contentHeight = content.height
   const [layers, setLayers] = useState([])
   const disableLazyLoad = content.disable_lazy_load
-  const focalPoint = content.image_focal_point
   let [styles, setStyles] = useState({
     minHeight: contentHeight ? `${contentHeight}vh` : '50vh',
     height: '100%'
