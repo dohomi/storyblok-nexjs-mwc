@@ -5,7 +5,7 @@ import {
 } from '@rmwc/dialog'
 import {IconButton} from '@rmwc/icon-button'
 import SwipeableViews from 'react-swipeable-views'
-import imageService from '../../utils/ImageService'
+import imageService, {getOriginaImageDimensions} from '../../utils/ImageService'
 
 import React from 'react'
 
@@ -15,10 +15,9 @@ const Swipe = (props) => {
   function getImageSource (source) {
     let dimensionHeight = props.dimensions.height - 68 - 16
     let dimensionWidth = props.dimensions.width - 48
-
-    const originalDimension = source.split('/f/')[1].split('/')[1].split('x').map(i => parseInt(i))
-    const imgWidth = originalDimension[0]
-    const imgHeight = originalDimension[1]
+    const originalDimension = getOriginaImageDimensions(source)
+    const imgWidth = originalDimension.width
+    const imgHeight = originalDimension.height
     dimensionWidth = imgWidth <= dimensionWidth ? imgWidth : dimensionWidth
     dimensionHeight = imgHeight <= dimensionHeight ? imgHeight : dimensionHeight
     let path = `${dimensionWidth}x0`

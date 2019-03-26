@@ -1,16 +1,22 @@
 import clsx from 'clsx'
-import imageService from '../../utils/ImageService'
+import imageService, {getFocalPoint} from '../../utils/ImageService'
 import {useInView} from 'react-intersection-observer'
-import React, {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import {fetchImageSource} from '../../utils/fetchImageHelper'
 
-const getBackgroundImageSource = ({backgroundImage, width, height}) => {
+const getBackgroundImageSource = ({backgroundImage, width, height, focalPoint}) => {
   let path = ''
+  let focal = ''
   if (width && height) {
-    path = `${parseInt(width)}x${parseInt(height)}/smart`
+    path = `${parseInt(width)}x${parseInt(height)}`
   }
-  return imageService(backgroundImage, path)
+  if (!focalPoint) {
+    path += '/smart'
+  } else {
+    focal = getFocalPoint(backgroundImage, focalPoint)
+  }
+  return imageService(backgroundImage, path, focal)
 }
 
 const WithBackgroundImage = (props) => {
@@ -20,6 +26,9 @@ const WithBackgroundImage = (props) => {
   const backgroundStyle = props.background_style // background attachment props
   const imageProperties = containerProps.imageProperties
   const lazyDisabled = imageProperties.includes('disable_lazy_load')
+
+  let containerRef
+
   const containerClasses = clsx(
     !isColumn && 'mw-100 mh-100',
     props.className, {
@@ -46,39 +55,44 @@ const WithBackgroundImage = (props) => {
 
   useEffect(
     () => {
-      // only if lazyload disabled
-      if (!lazyDisabled) return
       setStyles({
         ...styles,
-        filter: 'blur(0)' // unset blur effect
+        filter: 'blur(10px)' // set blur effect
       })
-      const newImgSource = getBackgroundImageSource({
-        width: props.dimensions.width, height: 0, backgroundImage
-      })
-      fetchAndSetImg(newImgSource)
+      if (lazyDisabled) {
+        // only runs if lazy load is disabled
+        fetchAndSetImg(getBackgroundImageSource({
+          width: containerRef.clientWidth,
+          height: containerRef.clientHeight,
+          backgroundImage,
+          focalPoint: containerProps.focalPoint
+        }))
+      } else if (inView && intersectionElement) {
+        // only runs if
+        setLazyImg()
+      }
     },
-    [props.dimensions.width, props.dimensions.height, backgroundImage]
+    [backgroundImage, props.dimensions.width, props.dimensions.height, inView]
   )
 
-  useEffect(() => {
-    // only runs if lazy load is enabled (default)
-    if (lazyDisabled || !intersectionElement) return
+  function setLazyImg () {
     const elementDimensions = intersectionElement.boundingClientRect
     let elementWidth = elementDimensions.width
     let elementHeight = elementDimensions.height
-    if (inView) {
-      // cover img
-      if (!window.userDevice.device) {
-        if (backgroundStyle === 'fixed_cover') {
-          elementHeight = props.dimensions.height// overwrite height to match viewport height
-        }
+    // cover img
+    if (!window.userDevice.device) {
+      if (backgroundStyle === 'fixed_cover') {
+        elementHeight = props.dimensions.height// overwrite height to match viewport height
       }
-      const newImgSource = getBackgroundImageSource({
-        width: elementWidth, height: elementHeight, backgroundImage
-      })
-      fetchAndSetImg(newImgSource)
     }
-  }, [backgroundImage, props.dimensions.width, props.dimensions.height, inView])
+    const newImgSource = getBackgroundImageSource({
+      width: elementWidth,
+      height: elementHeight,
+      backgroundImage,
+      focalPoint: containerProps.focalPoint
+    })
+    fetchAndSetImg(newImgSource)
+  }
 
   function fetchAndSetImg (src) {
     fetchImageSource(src)
@@ -91,8 +105,13 @@ const WithBackgroundImage = (props) => {
       })
   }
 
+  function setRef (el) {
+    refIntersectionObserver(el)
+    containerRef = el
+  }
+
   return (
-    <div ref={refIntersectionObserver}
+    <div ref={setRef}
          className={containerClasses}
          style={styles}>
       {props.children}

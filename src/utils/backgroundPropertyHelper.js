@@ -58,7 +58,7 @@ function backgroundPropertyHelper (properties) {
     borderRadius
   }
   if (values.background_elements && values.background_elements.length) {
-    Object.assign(styles,multipleBackgroundComposer(values.background_elements))
+    Object.assign(styles, multipleBackgroundComposer(values.background_elements))
   }
 
   return {
@@ -68,7 +68,8 @@ function backgroundPropertyHelper (properties) {
     classes: {
       [`mdc-elevation--z${values.elevation}`]: !!values.elevation
     },
-    imageProperties: values.property || []
+    imageProperties: values.property || [],
+    focalPoint: values.image_focal_point
   }
 }
 
