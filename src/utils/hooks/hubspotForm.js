@@ -48,7 +48,7 @@ export const useForm = ({api}) => {
       data.fields.push({name: pair[0], value: pair[1]})
     }
     try {
-      const res = await onFormSubmission(url, data)
+      const res = await onFormSubmissionFetch(url, data)
       setData(res)
       setForm(false)
     } catch (e) {
@@ -76,6 +76,16 @@ export const useForm = ({api}) => {
   return {data, isLoading, isError, handleSubmit}
 }
 
+function onFormSubmissionFetch (url, data) {
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(r => r.json())
+}
+
 
 /**
  *
@@ -94,6 +104,7 @@ function onFormSubmission (url, data) {
     xhr.setRequestHeader('Content-type', 'application/json')
 
     xhr.onreadystatechange = function () {
+      debugger
       if (xhr.readyState == 4 && xhr.status == 200) {
         resolve(xhr.responseText)
       } else if (xhr.readyState == 4 && xhr.status == 400) {

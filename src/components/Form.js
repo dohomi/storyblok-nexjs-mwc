@@ -8,6 +8,7 @@ import {Checkbox} from '@rmwc/checkbox'
 import {Select} from '@rmwc/select'
 import Paragraph from './Paragraph'
 import {CircularProgress} from '@rmwc/circular-progress'
+import Components from 'components/index'
 
 /**
  *
@@ -164,6 +165,7 @@ const FormItem = (blok) => {
 
 const Form = ({content}) => {
   const body = content.body || []
+  const responseBody = content.success_body || []
   const opts = {
     api: content.api
   }
@@ -186,6 +188,15 @@ const Form = ({content}) => {
 
     }
     handleSubmit(e)
+  }
+
+  if (!!data) {
+    return (
+      <div>
+        {!responseBody.length && 'Submit is done but add better some success body in Storyblok..'}
+        {responseBody.map(item => Components(item))}
+      </div>
+    )
   }
 
   return (
