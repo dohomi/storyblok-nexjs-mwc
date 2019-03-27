@@ -12,7 +12,7 @@ export function linkHandler (props = {}, link = {}) {
     if (href.includes('@')) {
       href = `mailto:${href}`
     } else if (href.includes('+')) {
-      href = `tel:${href.replace('+', '00')}`
+      href = `tel:${href.replace('+', '')}`
     }
     props.target = '_blank'
     props.rel = 'noopener noreferrer'
