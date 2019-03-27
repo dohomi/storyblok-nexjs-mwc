@@ -1,4 +1,3 @@
-import {withRouter} from 'next/router'
 import StoryblokService from '../utils/StoryblokService'
 import Index from '../components/pages/Index'
 import DeviceDetectService from '../utils/DeviceDetectService'
@@ -30,5 +29,4 @@ Index.getInitialProps = async (context) => {
   return {}
 }
 
-
-export default withRouter(Index)
+export default Index
