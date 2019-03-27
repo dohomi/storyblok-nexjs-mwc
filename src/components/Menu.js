@@ -16,13 +16,14 @@ const Child = (nestedProps) => {
   )
 }
 
-const MtMenu = (props) => {
-  const content = props.content
+const MtMenu = ({content}) => {
   componentLogger(content)
   const menuItems = content.body || []
+  console.log(content.border_radius)
   return (
     <SbEditable content={content}>
-      <SimpleMenu handle={<Button trailingIcon="expand_more">{props.content.title}</Button>}
+      <SimpleMenu style={{borderRadius:`${content.border_radius || 4}px`}}
+        handle={<Button trailingIcon="expand_more">{content.title}</Button>}
                   theme={['']}>
         {menuItems.map(nestedProps => (
           <MenuItem key={nestedProps._uid}>{Child(nestedProps)}</MenuItem>)
