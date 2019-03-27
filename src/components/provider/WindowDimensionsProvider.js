@@ -11,25 +11,26 @@ const windowDims = () => {
   tablet: 480px,
    */
   if (typeof window === 'undefined') {
-    const detect = DeviceDetectService.getDevice()
-    let isTablet = detect.device === 'tablet'
-    let isMobile = detect.device === 'mobile'
-    return {
-      isTablet,
-      isMobile,
-      isDesktop: !isTablet && !isMobile
-    }
+    return {}
+    // const detect = DeviceDetectService.getDevice()
+    // let isTablet = detect.device === 'tablet'
+    // let isMobile = detect.device === 'mobile'
+    // return {
+    //   isTablet,
+    //   isMobile,
+    //   isDesktop: !isTablet && !isMobile
+    // }
   }
   let height = window.innerHeight
   let width = window.innerWidth
-  let phone = width <= 480
-  let desktop = width > 840
+  // let phone = width <= 480
+  // let desktop = width > 840
   return {
     height: height,
     width: width,
-    isTablet: !phone && !desktop,
-    isPhone: phone,
-    isDesktop: desktop
+    // isTablet: !phone && !desktop,
+    // isPhone: phone,
+    // isDesktop: desktop
   }
 }
 
