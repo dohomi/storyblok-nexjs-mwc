@@ -1,4 +1,4 @@
-import WebpService from './WebpService'
+import DeviceDetectService from './DeviceDetectService'
 
 export function imageServiceNoWebp (image, option = '') {
   const imageService = '//img2.storyblok.com/'
@@ -45,7 +45,7 @@ export function getFocalPoint (src, focalPoint) {
  */
 function imageService (image, option = '', filter = '') {
   option && (option += '/')
-  const hasWebpSupport = typeof window !== 'undefined' ? window.hasWebpSupport : WebpService.getWebpSupport()
+  const hasWebpSupport = typeof window !== 'undefined' ? window.hasWebpSupport : DeviceDetectService.getWebpSupport()
   if (hasWebpSupport) {
     option += 'filters:format(webp)' + filter
   } else if (filter) {

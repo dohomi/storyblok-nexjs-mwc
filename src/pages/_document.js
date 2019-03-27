@@ -1,6 +1,5 @@
 import Document, {Head, Main, NextScript} from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
-import WebpService from '../utils/WebpService'
 import DeviceDetectService from '../utils/DeviceDetectService'
 
 function getGoogleTagManager () {
@@ -24,7 +23,7 @@ class MyDocument extends Document {
       __html: `
       var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}'; 
       var userDevice = ${JSON.stringify(DeviceDetectService.getDevice())};
-      var hasWebpSupport = ${WebpService.getWebpSupport()};`
+      var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
     }
     const GTM = getGoogleTagManager()
 
