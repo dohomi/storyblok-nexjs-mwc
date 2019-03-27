@@ -6,6 +6,7 @@ import {IconButton} from '@rmwc/icon-button'
 import {Fab} from '@rmwc/fab'
 import React from 'react'
 import {componentLogger} from '../utils/componentLogger'
+import {linkHandler} from '../utils/linkHandler'
 
 export const mapButtonProps = (content) => {
   // const property = content.styles
@@ -91,14 +92,8 @@ const ButtonLink = (props) => {
       <Link to={props.to}><a {...props}>{props.children}</a></Link>
     )
   }
-  let href = props.href
-  if (href.includes('@')) {
-    href = `mailto:${href}`
-  } else if (href.includes('+')) {
-    href = `tel:${href.replace('+', '00')}`
-  }
   return (
-    <a {...props} href={href}>{props.children}</a>
+    <a {...props} href={props.href}>{props.children}</a>
   )
 }
 
@@ -108,11 +103,7 @@ const MtButton = (props) => {
   const link = content.link || {}
   componentLogger(content)
 
-  let isInternalLink = link.linktype === 'story'
-  const href = isInternalLink ? `/${link.cached_url}` : link.cached_url // append leading slash
-
-  isInternalLink && (buttonProps.to = href)
-  !isInternalLink && (buttonProps.href = href)
+  linkHandler(buttonProps, link)
   buttonProps.tag = ButtonLink
 
   // console.log(buttonProps)

@@ -3,15 +3,16 @@ import {Button} from '@rmwc/button'
 import SbEditable from 'storyblok-react'
 import {Link} from 'routes/index'
 import {componentLogger} from '../utils/componentLogger'
+import {linkHandler} from '../utils/linkHandler'
 
 
 const Child = (nestedProps) => {
-  const isInternalLink = nestedProps.link && nestedProps.link.linktype === 'story'
-  const href = nestedProps.link && `/${nestedProps.link.cached_url}`
-  return isInternalLink ? (
-    <Link to={href}><a>{nestedProps.label}</a></Link>
+  const props = {}
+  linkHandler(props,nestedProps.link)
+  return props.to ? (
+    <Link to={props.to}><a>{nestedProps.label}</a></Link>
   ) : (
-    <a href={href}>{nestedProps.label}</a>
+    <a href={props.href}>{nestedProps.label}</a>
   )
 }
 

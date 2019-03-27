@@ -1,17 +1,15 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import {Link} from 'routes/index'
+import {linkHandler} from '../utils/linkHandler'
 
 const NavListItem = (props) => {
   const content = props
-  const link = content.link
-  const label = content.name
-  return (
-    <Link key={props._uid} route={`/${link.cached_url}`}>
-      <a className="nav-link">
-        {label}
-      </a>
-    </Link>
+  linkHandler(content, content.link)
+  return content.to ? (
+    <Link to={content.to} key={props._uid}><a className="nav-link">{content.name}</a></Link>
+  ) : (
+    <a href={content.href} className="nav-link" key={props._uid}>{content.name}</a>
   )
 }
 

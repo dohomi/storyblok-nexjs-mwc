@@ -9,6 +9,7 @@ import {Typography} from '@rmwc/typography'
 import imageService from '../../utils/ImageService'
 import {Link} from 'routes/index'
 import clsx from 'clsx'
+import {linkHandler} from '../../utils/linkHandler'
 
 const getBackgroundImageSource = ({image, properties = [], width, height}) => {
   let path = `${parseInt(width)}x0}`
@@ -22,17 +23,15 @@ const getBackgroundImageSource = ({image, properties = [], width, height}) => {
 }
 
 const CardLink = (props) => {
-  const link = props.link || {}
-  if (!link.cached_url) {
+  if (!(props.link && props.link.cached_url)) {
     return <>{props.children}</>
   }
-  const href = `/${link.cached_url}`
-  return (
-    <Link to={href}>
-      <a>
-        {props.children}
-      </a>
-    </Link>
+  const content = {...props}
+  linkHandler(content, content.link)
+  return content.to ? (
+    <Link to={content.to}><a>{content.children}</a></Link>
+  ) : (
+    <a href={content.href}>{content.children}</a>
   )
 }
 

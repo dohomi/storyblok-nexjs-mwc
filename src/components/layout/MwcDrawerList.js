@@ -5,16 +5,27 @@ import {
 } from '@rmwc/list'
 import {object} from 'prop-types'
 import {Link} from 'routes/index'
+import {linkHandler} from '../../utils/linkHandler'
 
+const LinkItem = (props) => {
+  const content = {...props}
+  linkHandler(content, content.link)
+  return content.to ? (
+    <Link to={content.to}><a>{props.children}</a></Link>
+  ) : (
+    <a href={content.href}>{props.children}</a>
+  )
+
+}
 
 const CollapsibleListSection = (props) => {
   const body = props.body || []
   return (
     <CollapsibleList handle={<SimpleListItem text={props.title} metaIcon="chevron_right"/>}>
       {body.map(content => (
-          <Link route={`/${content.link && content.link.cached_url}`} key={content._uid}>
+          <LinkItem  {...content} key={content._uid}>
             <SimpleListItem text={content.label}/>
-          </Link>
+          </LinkItem>
         )
       )}
     </CollapsibleList>
@@ -31,9 +42,9 @@ const DrawerContentList = (content) => {
       {childs.map(props => {
         if (props.component === 'button') {
           return (
-            <Link route={`/${props.link && props.link.cached_url}`} key={props._uid}>
+            <LinkItem  {...props} key={props._uid}>
               <SimpleListItem text={props.label}/>
-            </Link>
+            </LinkItem>
           )
         } else if (props.component === 'nav_menu') {
           return <CollapsibleListSection key={props._uid} {...props}/>
