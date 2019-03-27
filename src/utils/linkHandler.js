@@ -14,6 +14,8 @@ export function linkHandler (props = {}, link = {}) {
     } else if (href.includes('+')) {
       href = `tel:${href.replace('+', '00')}`
     }
+    props.target = '_blank'
+    props.rel = 'noopener noreferrer'
     props.href = href
   }
 }
