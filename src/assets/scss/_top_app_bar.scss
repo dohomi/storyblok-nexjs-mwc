@@ -66,6 +66,10 @@
   &:not(.lm-toolbar-transparent) {
     border-bottom: 1px solid whitesmoke; // maybe customizable with var
   }
+
+  .mdc-button, .mdc-list-item a {
+    letter-spacing: 0; // remove letter spacing
+  }
 }
 
 // overwrite md-list-item a link styles to match
@@ -75,7 +79,8 @@
     white-space: nowrap;
     display: block;
     width: 100%;
-    line-height: 48px;
+    line-height: 1rem;
+    font-size: 0.875rem;
 
     &:focus {
       background-image: none;
