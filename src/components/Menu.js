@@ -19,7 +19,6 @@ const Child = (nestedProps) => {
 const MtMenu = ({content}) => {
   componentLogger(content)
   const menuItems = content.body || []
-  console.log(content.border_radius)
   return (
     <SbEditable content={content}>
       <SimpleMenu style={{borderRadius:`${content.border_radius || 4}px`}}
