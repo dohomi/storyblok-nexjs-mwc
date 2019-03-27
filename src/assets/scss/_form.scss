@@ -11,13 +11,37 @@
   min-width: 120px;
 }
 
+
 // for checkboxes add red color for validation-msg
-.lm-hubspot-form {
+.lm-form {
+  .mb-2 > div {
+    width: 100%; // 100% width by default
+  }
+
   .mdc-select-helper-text--validation-msg, .mdc-text-field-helper-text--validation-msg {
     color: #b00020 !important;
     color: var(--mdc-theme-error, #b00020) !important;
   }
 }
+
+.lm-form.lm-form__shaped {
+  .mdc-text-field, .mdc-select {
+    @include mdc-text-field-shape-radius(28px)
+  }
+  .mdc-text-field--outlined, .mdc-select--outlined{
+    @include mdc-text-field-outline-shape-radius(28px)
+  }
+}
+
+.lm-form.lm-form__square {
+  .mdc-text-field, .mdc-select {
+    @include mdc-text-field-shape-radius(0px)
+  }
+  .mdc-text-field--outlined, .mdc-select--outlined{
+    @include mdc-text-field-outline-shape-radius(0px)
+  }
+}
+
 
 .mdc-select__native-control {
   -webkit-appearance: none; // needs this for hiding the select arrows

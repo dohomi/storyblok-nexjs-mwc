@@ -9,6 +9,7 @@ import {Select} from '@rmwc/select'
 import Paragraph from './Paragraph'
 import {CircularProgress} from '@rmwc/circular-progress'
 import Components from 'components/index'
+import clsx from 'clsx'
 
 /**
  *
@@ -64,7 +65,7 @@ const FormSelect = (content) => {
   const fieldProps = {
     id: content._uid,
     name: content.name,
-    outlined: content.outlined,
+    outlined: content.border.includes('outlined'),
     label: content.label,
     enhanced: false,// currently important
     required: !!content.required,
@@ -120,16 +121,20 @@ const FormTextfield = (content) => {
   const fieldProps = {
     id: content._uid,
     name: content.name,
-    label: content.label,
+    label: content.label || 'label',
     type: content.type || 'text',
     required: !!content.required,
-    outlined: content.outlined,
+    outlined: content.border.includes('outlined'),
     textarea: content.textarea,
     inputRef: el => inputRef = el,
     helpText: msg,
     onBlur: () => onInputChange(inputRef)
   }
 
+  if (fieldProps.textarea) {
+    delete fieldProps.type
+    fieldProps.outlined = true
+  }
   return <TextField {...fieldProps}/>
 }
 
@@ -189,7 +194,12 @@ const Form = ({content}) => {
     }
     handleSubmit(e)
   }
+  const border = content.border || []
 
+  const formClassName = clsx('lm-form',{
+    ['lm-form__shaped']:border.includes('shaped'),
+    ['lm-form__square']:border.includes('square')
+  })
   if (!!data) {
     return (
       <div>
@@ -201,7 +211,7 @@ const Form = ({content}) => {
 
   return (
     <SbEditable content={content}>
-      <form noValidate onSubmit={onSubmit} className="lm-hubspot-form">
+      <form noValidate onSubmit={onSubmit} className={formClassName}>
         {isError && (
           <div>Form submit has error...</div>
         )}
@@ -209,7 +219,7 @@ const Form = ({content}) => {
           <div className="mb-2" key={item._uid}>
             {FormItem({
               ...item,
-              outlined: content.outlined,
+              border: border || [],
               errorMsgRequired: content.error_msg_required,
               errorMsgEmail: content.error_msg_email,
               isLoading
