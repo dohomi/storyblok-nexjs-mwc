@@ -104,7 +104,7 @@ const Image = (props) => {
           })
         })
     }
-  }, [width, height, inView])
+  }, [width, height, inView, content.source])
 
   const currentProps = {
     ...imageProps,
