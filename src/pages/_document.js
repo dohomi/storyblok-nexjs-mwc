@@ -17,6 +17,11 @@ function getGoogleTagManager () {
 
 
 class MyDocument extends Document {
+  static async getInitialProps (ctx) {
+    const initialProps = await Document.getInitialProps(ctx)
+    return {...initialProps}
+  }
+
   render () {
     // Todo: set lang of html
     const injectBodyScript = {
@@ -26,6 +31,7 @@ class MyDocument extends Document {
       var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
     }
     const GTM = getGoogleTagManager()
+    console.log("inside _document")
 
     return (
       <html>
@@ -40,7 +46,7 @@ class MyDocument extends Document {
           <iframe src={`https://www.googletagmanager.com/ns.html?id=${process.env.GTM_CONTAINER}`}
                   height="0"
                   width="0"
-                  style={{display:'none',visibility:'hidden'}}></iframe>
+                  style={{display: 'none', visibility: 'hidden'}}></iframe>
         </noscript>
       )}
       <Main/>

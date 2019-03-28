@@ -62,6 +62,7 @@
     "clsx": "latest",
     "dotenv": "^7.0.0",
     "fontfaceobserver": "^2.1.0",
+    "js-cookie": "^2.2.0",
     "marked": "^0.6.1",
     "next": "^8.0.3",
     "next-offline": "^3.3.5",

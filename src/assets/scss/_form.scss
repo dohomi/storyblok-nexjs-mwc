@@ -11,6 +11,12 @@
   min-width: 120px;
 }
 
+.lm-checkbox-failed {
+  .mdc-checkbox__background {
+    border-color: #b00020 !important;
+    border-color: var(--mdc-theme-error, #b00020) !important;
+  }
+}
 
 // for checkboxes add red color for validation-msg
 .lm-form {
@@ -28,7 +34,8 @@
   .mdc-text-field, .mdc-select {
     @include mdc-text-field-shape-radius(28px)
   }
-  .mdc-text-field--outlined, .mdc-select--outlined{
+
+  .mdc-text-field--outlined, .mdc-select--outlined {
     @include mdc-text-field-outline-shape-radius(28px)
   }
 }
@@ -37,7 +44,8 @@
   .mdc-text-field, .mdc-select {
     @include mdc-text-field-shape-radius(0px)
   }
-  .mdc-text-field--outlined, .mdc-select--outlined{
+
+  .mdc-text-field--outlined, .mdc-select--outlined {
     @include mdc-text-field-outline-shape-radius(0px)
   }
 }

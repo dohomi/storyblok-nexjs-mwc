@@ -15,8 +15,10 @@ const iconSizes = [16, 32, 96, 192]
 function mapOpenGraphImage (item) {
   if (!item.url) return
   const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
-  return Object.assign(item, {url: imageServiceNoWebp(item.url, imgPath)})
-
+  return {
+    ...item,
+    url: imageServiceNoWebp(item.url, imgPath)
+  }
 }
 
 function parseOpenGraph (settingsOpenGraph = {}, pageOpenGraph = {}, seoMeta = {}, url = '') {

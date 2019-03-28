@@ -11,7 +11,7 @@ const HubspotForm = (props) => {
         loadScript()
       } else {
         createForm()
-        findFormElement()
+        // findFormElement()
       }
     },
     []
@@ -19,6 +19,13 @@ const HubspotForm = (props) => {
 
   function createForm () {
     if (window.hbspt) {
+      window.jQuery = window.jQuery || (() => ({
+        // these are all methods required by HubSpot
+        change: () => {
+        },
+        trigger: () => {
+        }
+      }))
       // protect against component unmounting before window.hbspt is available
       if (el === null) {
         return
@@ -32,11 +39,16 @@ const HubspotForm = (props) => {
       let options = {
         ...currentProps,
         target: `#${el.getAttribute(`id`)}`,
-        // onFormSubmit: ($form) => {
-        //   // ref: https://developers.hubspot.com/docs/methods/forms/advanced_form_options
-        //   const formData = $form.serializeArray()
-        //   props.onSubmit(formData)
-        // }
+        onFormReady: () => {
+          setLoaded(true)
+          // const formData = $form.serializeArray()
+          props.onReady && props.onReady(el)
+        },
+        onFormSubmit: () => {
+          // https://integrate.hubspot.com/t/form-callback-throws-unrelated-jquery-error/77/7
+          // ref: https://developers.hubspot.com/docs/methods/forms/advanced_form_options
+          props.onSubmit && props.onSubmit(el)
+        }
       }
       window.hbspt.forms.create(options)
       return true
@@ -50,27 +62,27 @@ const HubspotForm = (props) => {
     script.defer = true
     script.onload = () => {
       createForm()
-      findFormElement()
+      // findFormElement()
     }
     script.src = `//js.hsforms.net/forms/v2.js`
     document.head.appendChild(script)
   }
 
-  function findFormElement () {
-    // protect against component unmounting before form is added
-    if (el === null) {
-      return
-    }
-    let form = el.querySelector(`iframe`)
-    if (form) {
-      setLoaded(true)
-      if (props.onReady) {
-        props.onReady(form)
-      }
-    } else {
-      setTimeout(findFormElement, 1)
-    }
-  }
+  // function findFormElement () {
+  //   // protect against component unmounting before form is added
+  //   if (el === null) {
+  //     return
+  //   }
+  //   let form = el.querySelector(`iframe`)
+  //   if (form) {
+  //     setLoaded(true)
+  //     if (props.onReady) {
+  //       props.onReady(form)
+  //     }
+  //   } else {
+  //     setTimeout(findFormElement, 1)
+  //   }
+  // }
 
   return (
     <div>

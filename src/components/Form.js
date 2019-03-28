@@ -1,153 +1,13 @@
 import SbEditable from 'storyblok-react'
 import {useForm} from '../utils/hooks/hubspotForm'
-import {TextField, TextFieldHelperText} from '@rmwc/textfield'
-import {Button} from '@rmwc/button'
-import {useState, createElement} from 'react'
-import {mapButtonProps} from './Button'
-import {Checkbox} from '@rmwc/checkbox'
-import {Select} from '@rmwc/select'
+import {createElement} from 'react'
 import Paragraph from './Paragraph'
-import {CircularProgress} from '@rmwc/circular-progress'
 import Components from 'components/index'
 import clsx from 'clsx'
-
-/**
- *
- * @param helpText
- * @param helpTextPersistent
- * @param errorMsgEmail
- * @param errorMsgRequired
- * @return {{msg: {validationMsg: boolean, children: string, persistent: boolean}, onInputChange: onInputChange}}
- */
-export const formHandling = ({helpText = '', helpTextPersistent = false, errorMsgEmail, errorMsgRequired}) => {
-  const initialMsg = {
-    children: helpText,
-    persistent: helpTextPersistent,
-    validationMsg: false
-  }
-  let [msg, setMsg] = useState(initialMsg)
-
-  /**
-   * Todo: add more validations
-   * @param input
-   */
-  const onInputChange = (input) => {
-    if (input.type === 'email' && input.validity.typeMismatch) {
-      setMsg({
-        children: errorMsgEmail,
-        validationMsg: true,
-        persistent: true
-      })
-    } else if (input.validity.valueMissing) {
-      setMsg({
-        children: errorMsgRequired,
-        validationMsg: true,
-        persistent: true
-      })
-    } else {
-      setMsg(initialMsg)
-    }
-  }
-
-
-  return {msg, onInputChange}
-}
-
-const FormSelect = (content) => {
-  let inputRef
-  const {msg, onInputChange} = formHandling({
-    helpText: content.help_text,
-    helpTextPersistent: content.help_text_persistent,
-    errorMsgRequired: content.errorMsgRequired,
-    errorMsgEmail: content.errorMsgEmail
-  })
-  let [value, setValue] = useState('')
-  const fieldProps = {
-    id: content._uid,
-    name: content.name,
-    outlined: content.border.includes('outlined'),
-    label: content.label,
-    enhanced: false,// currently important
-    required: !!content.required,
-    value: value,
-    options: content.options && content.options.map(i => ({value: i.value, label: i.label})),
-    inputRef: el => inputRef = el,
-    helpText: msg,
-    onBlur: () => onInputChange(inputRef)
-  }
-
-  function onChange (ev) {
-    setValue(ev.target.value)
-  }
-
-  return <Select {...fieldProps} onChange={(ev) => onChange(ev)}/>
-}
-
-const FormCheckbox = (content) => {
-  // todo: currently no validation msg for checkboxes
-  let inputRef
-  const {msg, onInputChange} = formHandling({
-    helpText: content.help_text,
-    helpTextPersistent: content.help_text_persistent,
-    errorMsgRequired: content.errorMsgRequired,
-    errorMsgEmail: content.errorMsgEmail
-  })
-
-  const fieldProps = {
-    id: content._uid,
-    name: content.name,
-    label: content.label,
-    required: !!content.required,
-    inputRef: el => inputRef = el,
-    onBlur: () => onInputChange(inputRef)
-  }
-  return (
-    <>
-      <Checkbox {...fieldProps}/>
-      <TextFieldHelperText {...msg}/>
-    </>
-  )
-}
-
-const FormTextfield = (content) => {
-  let inputRef
-  const {msg, onInputChange} = formHandling({
-    helpText: content.help_text,
-    helpTextPersistent: content.help_text_persistent,
-    errorMsgRequired: content.errorMsgRequired,
-    errorMsgEmail: content.errorMsgEmail
-  })
-
-  const fieldProps = {
-    id: content._uid,
-    name: content.name,
-    label: content.label || 'label',
-    type: content.type || 'text',
-    required: !!content.required,
-    outlined: content.border.includes('outlined'),
-    textarea: content.textarea,
-    inputRef: el => inputRef = el,
-    helpText: msg,
-    onBlur: () => onInputChange(inputRef)
-  }
-
-  if (fieldProps.textarea) {
-    delete fieldProps.type
-    fieldProps.outlined = true
-  }
-  return <TextField {...fieldProps}/>
-}
-
-const FormSubmitButton = (content) => {
-  const buttonProps = mapButtonProps(content)
-  if (content.isLoading) {
-    buttonProps.icon = <CircularProgress/>
-  }
-
-  return <Button {...buttonProps}
-                 disabled={content.isLoading}
-                 type="submit"/>
-}
+import FormSelect from './form/FormSelect'
+import FormCheckbox from './form/FormCheckbox'
+import FormTextfield from './form/FormTextfield'
+import FormSubmitButton from './form/FormSubmitButton'
 
 const ParagraphElement = (content) => Paragraph({content})
 
@@ -190,15 +50,15 @@ const Form = ({content}) => {
     const valid = form.checkValidity()
     if (!valid) {
       return
-
     }
     handleSubmit(e)
   }
+
   const border = content.border || []
 
-  const formClassName = clsx('lm-form',{
-    ['lm-form__shaped']:border.includes('shaped'),
-    ['lm-form__square']:border.includes('square')
+  const formClassName = clsx('lm-form', {
+    ['lm-form__shaped']: border.includes('shaped'),
+    ['lm-form__square']: border.includes('square')
   })
   if (!!data) {
     return (
@@ -215,17 +75,26 @@ const Form = ({content}) => {
         {isError && (
           <div>Form submit has error...</div>
         )}
-        {body.map(item => (
-          <div className="mb-2" key={item._uid}>
-            {FormItem({
-              ...item,
-              border: border || [],
-              errorMsgRequired: content.error_msg_required,
-              errorMsgEmail: content.error_msg_email,
-              isLoading
-            })}
-          </div>
-        ))}
+        {body.map((item, i) => {
+          return (
+            <React.Fragment key={item._uid}>
+              {i === body.length - 1 && content.children && content.children.map((f, q) => (
+                <div className="mb-2" key={'kids__' + q + 1}>
+                  {f}
+                </div>
+              ))}
+              <div className="mb-2">
+                {FormItem({
+                  ...item,
+                  border: border || [],
+                  errorMsgRequired: content.error_msg_required,
+                  errorMsgEmail: content.error_msg_email,
+                  isLoading
+                })}
+              </div>
+            </React.Fragment>
+          )
+        })}
       </form>
     </SbEditable>
   )
