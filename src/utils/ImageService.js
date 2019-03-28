@@ -1,6 +1,9 @@
 import DeviceDetectService from './DeviceDetectService'
 
 export function imageServiceNoWebp (image, option = '') {
+  if (image.endsWith('.svg')) {
+    return image
+  }
   const imageService = 'https://img2.storyblok.com/'
   const path = image.replace('//a.storyblok.com', '')
   return imageService + option + path
@@ -44,6 +47,9 @@ export function getFocalPoint (src, focalPoint) {
  * @return {string}
  */
 function imageService (image, option = '', filter = '') {
+  if (image.endsWith('.svg')) {
+    return image
+  }
   option && (option += '/')
   const hasWebpSupport = typeof window !== 'undefined' ? window.hasWebpSupport : DeviceDetectService.getWebpSupport()
   if (hasWebpSupport) {
