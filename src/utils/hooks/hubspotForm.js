@@ -15,6 +15,7 @@ export const useForm = ({api}) => {
   const url = api
   const [data, setData] = useState(false)
   const [form, setForm] = useState(false)
+  const [customData, setCustomData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
 
@@ -23,34 +24,23 @@ export const useForm = ({api}) => {
     setIsLoading(true)
     const formData = new FormData(form)
     const data = {
-      fields: [],
-      'legalConsentOptions': { // Include this object when GDPR options are enabled
-        'consent': {
-          'consentToProcess': true,
-          'text': 'I agree to allow Example Company to store and process my personal data.',
-          'communications': [
-            {
-              'value': true,
-              'subscriptionTypeId': 999,
-              'text': 'I agree to receive marketing communications from Example Company.'
-            }
-          ]
-        }
-      }
-    }
-    if (window.hubspotutk) {
-      data.context = {
-        'hutk': window.hubspotutk, // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
-        'pageUri': window.location.href
-      }
+      ...customData,
+      fields: []
     }
     for (var pair of formData.entries()) {
       data.fields.push({name: pair[0], value: pair[1]})
     }
+    console.info(url, data)
     try {
       const res = await onFormSubmissionFetch(url, data)
-      setData(res)
-      setForm(false)
+      if (res.status === 200) {
+        setData(res)
+        setForm(false)
+      } else {
+        console.error(res)
+        setForm(false)
+        setIsError(true)
+      }
     } catch (e) {
       console.error(e)
       setForm(false)
@@ -68,9 +58,10 @@ export const useForm = ({api}) => {
     [form]
   )
 
-  const handleSubmit = e => {
+  const handleSubmit = (e, customData) => {
     e.preventDefault()
     setForm(e.target)
+    setCustomData(customData)
   }
 
   return {data, isLoading, isError, handleSubmit}
@@ -83,45 +74,7 @@ function onFormSubmissionFetch (url, data) {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(r => r.json())
+  }).then(r.json())
 }
 
-
-/**
- *
- * @param url
- * @param data
- * @return {Promise<any>}
- */
-function onFormSubmission (url, data) {
-  return new Promise((resolve, reject) => {
-    // Create the new request
-    const xhr = new XMLHttpRequest()
-    const final_data = JSON.stringify(data)
-
-    xhr.open('POST', url)
-    // Sets the value of the 'Content-Type' HTTP request headers to 'application/json'
-    xhr.setRequestHeader('Content-type', 'application/json')
-
-    xhr.onreadystatechange = function () {
-      debugger
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        resolve(xhr.responseText)
-      } else if (xhr.readyState == 4 && xhr.status == 400) {
-        reject(xhr.responseText)
-        alert(xhr.responseText) // Returns a 400 error the submission is rejected.
-      } else if (xhr.readyState == 4 && xhr.status == 403) {
-        reject(xhr.responseText)
-        alert(xhr.responseText) // Returns a 403 error if the portal isn't allowed to post submissions.
-      } else if (xhr.readyState == 4 && xhr.status == 404) {
-        reject(xhr.responseText)
-        alert(xhr.responseText) //Returns a 404 error if the formGuid isn't found
-      } else {
-        reject(xhr.responseText)
-      }
-    }
-    // Sends the request
-    xhr.send(final_data)
-  })
-}
 

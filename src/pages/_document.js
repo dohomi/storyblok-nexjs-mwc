@@ -31,7 +31,6 @@ class MyDocument extends Document {
       var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
     }
     const GTM = getGoogleTagManager()
-    console.log("inside _document")
 
     return (
       <html>

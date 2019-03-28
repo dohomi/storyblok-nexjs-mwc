@@ -8,6 +8,7 @@ import FormSelect from './form/FormSelect'
 import FormCheckbox from './form/FormCheckbox'
 import FormTextfield from './form/FormTextfield'
 import FormSubmitButton from './form/FormSubmitButton'
+import PropTypes from 'prop-types'
 
 const ParagraphElement = (content) => Paragraph({content})
 
@@ -28,7 +29,7 @@ const FormItem = (blok) => {
   ), {key: blok._uid})
 }
 
-const Form = ({content}) => {
+const Form = ({content, customData = {}, children}) => {
   const body = content.body || []
   const responseBody = content.success_body || []
   const opts = {
@@ -51,7 +52,7 @@ const Form = ({content}) => {
     if (!valid) {
       return
     }
-    handleSubmit(e)
+    handleSubmit(e, customData)
   }
 
   const border = content.border || []
@@ -78,7 +79,7 @@ const Form = ({content}) => {
         {body.map((item, i) => {
           return (
             <React.Fragment key={item._uid}>
-              {i === body.length - 1 && content.children && content.children.map((f, q) => (
+              {i === body.length - 1 && children && children.map((f, q) => (
                 <div className="mb-2" key={'kids__' + q + 1}>
                   {f}
                 </div>
@@ -98,6 +99,12 @@ const Form = ({content}) => {
       </form>
     </SbEditable>
   )
+}
+
+Form.propTypes = {
+  content: PropTypes.object,
+  customData: PropTypes.object,
+  children: PropTypes.arrayOf(PropTypes.element)
 }
 
 export default Form

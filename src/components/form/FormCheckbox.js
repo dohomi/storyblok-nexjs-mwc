@@ -32,7 +32,7 @@ const FormCheckbox = (content) => {
   return (
     <>
       <Checkbox {...fieldProps} className={className}/>
-      <TextFieldHelperText {...msg}/>
+      {msg.children && <TextFieldHelperText {...msg}/>}
     </>
   )
 }
