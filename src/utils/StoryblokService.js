@@ -20,6 +20,10 @@ class StoryblokService {
     this.query = {}
   }
 
+  flushCache () {
+    this.client.flushCache()
+  }
+
   getCacheVersion () {
     return this.client.cacheVersion
   }
@@ -36,8 +40,6 @@ class StoryblokService {
     if (typeof window !== 'undefined' && typeof window.StoryblokCacheVersion !== 'undefined') {
       params.cv = window.StoryblokCacheVersion
     }
-
-
     return this.client.get(slug, params)
   }
 
@@ -47,6 +49,17 @@ class StoryblokService {
       window.storyblok.on(['change', 'published'], () => {
           console.log('change::published triggered')
           location.reload(true)
+        }
+      )
+      window.storyblok.on(['published'], () => {
+          location.reload(true)
+          fetch( `${location.protocol}//${location.host}/api/clear-cache`)
+            .then(() => {
+              console.log('flush cache successful')
+            })
+            .catch((e) => {
+              console.error(e)
+            })
         }
       )
       window.storyblok.on('input', (event) => {

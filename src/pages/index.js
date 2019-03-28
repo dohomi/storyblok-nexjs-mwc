@@ -5,6 +5,10 @@ import DeviceDetectService from '../utils/DeviceDetectService'
 Index.getInitialProps = async (context) => {
   const query = context.query
   let slug = query.slug || 'home'
+  if (slug === 'api/clear-cache') {
+    return StoryblokService.flushCache() // flush cache if any Storyblok publish triggered
+  }
+
   if (slug.match(/^.*\.[^\\]+$/)) {
     return {}
   }
