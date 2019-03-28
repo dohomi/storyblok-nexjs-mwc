@@ -72,6 +72,7 @@
     "prop-types": "latest",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-inlinesvg": "^0.8.4",
     "react-intersection-observer": "^8.22.0",
     "react-player": "^1.10.0",
     "react-scroll-parallax": "^2.0.4",

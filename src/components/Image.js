@@ -5,6 +5,7 @@ import {useInView} from 'react-intersection-observer'
 import React, {useEffect, useState} from 'react'
 import withWindowDimensions from './provider/WithWindowDimensions'
 import {fetchImageSource} from '../utils/fetchImageHelper'
+import SVG from 'react-inlinesvg'
 
 /**
  *
@@ -51,10 +52,10 @@ function getSmallSource (content) {
   return imageService(content.source, '42x42')
 }
 
+
 const Image = (props) => {
   const width = props.dimensions.width
   const height = props.dimensions.height
-
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
@@ -69,6 +70,31 @@ const Image = (props) => {
   const content = props.content
   const className = clsx('img-fluid', 'progressive-img-container', content.property)
   const containerClasses = clsx('w-100', {'h-100': !!content.height_fill})
+  const isSvgImage = content.source.endsWith('.svg')
+  if (isSvgImage) {
+
+    const src = inView ? 'https:' + content.source : ''
+
+    const afterSvgLoaded = () => {
+      console.log('loaded')
+      // document.getElementById(props._uid).style.filter = 'blur(0)'
+    }
+
+    return (
+      <SbEditable content={content}>
+        <div className={containerClasses} ref={refIntersectionObserver}>
+          <SVG src={src}
+               style={{
+                 color:content.fit_in_color || 'blue'
+               }}
+               id={props._uid}
+               onLoad={afterSvgLoaded}
+               className="lm-svg-img"/>
+        </div>
+      </SbEditable>
+    )
+  }
+
 
   useEffect(() => {
     if (!intersectionElement) {
@@ -78,16 +104,21 @@ const Image = (props) => {
     if (content.height_fill) {
       intersectionElement.target.style.maxHeight = elementDimensions.height
     }
+    const isSvgImage = content.source.endsWith('.svg')
+    if (isSvgImage) {
+
+      console.log(isSvgImage, content.fit_in_color)
+    }
 
     if (inView) {
       // small preview
-      setImageProps({
-        src: getSmallSource(content, {width: 42, height: 42}),
-        style: {
-          width: '100%',
-          maxHeight: elementDimensions.height + 'px'
-        }
-      })
+      // setImageProps({
+      //   src: getSmallSource(content, {width: 42, height: 42}),
+      //   style: {
+      //     width: '100%',
+      //     maxHeight: elementDimensions.height + 'px'
+      //   }
+      // })
 
       let imgDimensions = {width: elementDimensions.width, height: elementDimensions.height}
       const imgSource = getSource(content, imgDimensions)
