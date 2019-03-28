@@ -46,18 +46,20 @@ class StoryblokService {
   initEditor (content, setContent) {
     if (window.storyblok) {
       window.storyblok.init({accessToken: this.token})
-      window.storyblok.on(['change', 'published'], () => {
+      window.storyblok.on(['change'], () => {
           console.log('change::published triggered')
           location.reload(true)
         }
       )
       window.storyblok.on(['published'], () => {
           location.reload(true)
-          fetch( `${location.protocol}//${location.host}/api/clear-cache`)
+          fetch(`${location.protocol}//${location.host}/api/clear-cache`)
             .then(() => {
+              location.reload(true)
               console.log('flush cache successful')
             })
             .catch((e) => {
+              location.reload(true)
               console.error(e)
             })
         }
