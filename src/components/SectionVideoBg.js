@@ -23,10 +23,13 @@ const SectionVideoBg = ({content}) => {
   const containerStyle = {}
   if (content.height) {
     containerStyle.minHeight = `${content.height}vh`
-    delete containerStyle.paddingTop
   } else {
-    containerStyle.paddingTop = `${((ratioHeight / ratioWidth) * 100).toFixed(2)}%`
   }
+  // const containerStyleChildren = {
+  //   paddingTop: `${((ratioHeight / ratioWidth) * 100).toFixed(2)}%`
+  // }
+
+
   return (
     <SbEditable content={content}>
       <div className="lm-content-section lm-video-section"
