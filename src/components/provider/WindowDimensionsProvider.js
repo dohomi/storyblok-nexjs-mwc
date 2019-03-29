@@ -5,58 +5,58 @@ import ResizeObserver from 'resize-observer-polyfill'
 export const WindowDimensionsCtx = createContext(null)
 
 const windowDims = () => {
-  /*
-  breakpoints from Material spec.
-  desktop: 840px,
-  tablet: 480px,
-   */
-  if (typeof window === 'undefined') {
-    return {}
-    // const detect = DeviceDetectService.getDevice()
-    // let isTablet = detect.device === 'tablet'
-    // let isMobile = detect.device === 'mobile'
-    // return {
-    //   isTablet,
-    //   isMobile,
-    //   isDesktop: !isTablet && !isMobile
-    // }
+  const opts = {
+    height: window.innerHeight,
+    width: window.innerWidth
   }
-  let height = window.innerHeight
-  let width = window.innerWidth
-  // let phone = width <= 480
-  // let desktop = width > 840
-  return {
-    height: height,
-    width: width,
-    // isTablet: !phone && !desktop,
-    // isPhone: phone,
-    // isDesktop: desktop
+  return opts
+}
+
+const debounce = function (ms, fn) {
+  let timer
+  return function () {
+    clearTimeout(timer)
+    const args = Array.prototype.slice.call(arguments)
+    args.unshift(this)
+    timer = setTimeout(fn.bind.apply(fn, args), ms)
   }
 }
 
 const WindowDimensionsProvider = ({children}) => {
+  if (typeof window === 'undefined') {
+    return (
+      <WindowDimensionsCtx.Provider value={{width: 0, height: 0}}>
+        {children}
+      </WindowDimensionsCtx.Provider>
+    )
+  }
   const [dimensions, setDimensions] = useState(windowDims())
-  useEffect(() => {
-    const body = document.querySelector('body')
-    const resizeObserver = new ResizeObserver((entries) => {
-      if (!Array.isArray(entries)) {
-        return
+
+  useEffect(
+    () => {
+      const body = document.querySelector('body')
+      const checkWindowsDimensions = (entries) => {
+        if (!Array.isArray(entries)) {
+          return
+        }
+        // Since we only observe the one element, we don't need to loop over the
+        // array
+        if (!entries.length) {
+          return
+        }
+        setDimensions(windowDims())
       }
+      const resizeObserver = new ResizeObserver(debounce(500, checkWindowsDimensions))
 
-      // Since we only observe the one element, we don't need to loop over the
-      // array
-      if (!entries.length) {
-        return
+      resizeObserver.observe(body)
+
+      return () => {
+        resizeObserver.unobserve(body)
       }
-      setDimensions(windowDims())
-    })
+    },
+    []
+  )
 
-    resizeObserver.observe(body)
-
-    return () => {
-      resizeObserver.unobserve(body)
-    }
-  }, [])
   return (
     <WindowDimensionsCtx.Provider value={dimensions}>
       {children}

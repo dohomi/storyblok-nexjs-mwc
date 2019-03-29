@@ -1,7 +1,15 @@
-.lm-background-image{
+.lm-background-image {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.lm-background__absolute-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .lm-background-image.lm-bg-section__contain {
@@ -26,7 +34,7 @@
   }
 }
 
-.lm-video-section{
+.lm-video-section {
   position: relative;
   overflow: hidden;
 
@@ -41,48 +49,49 @@
 }
 
 .react-player {
+
   position: absolute;
-  top: 0;
-  left: 0;
+
+  &.react-player__fixed-ratio {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &.react-player__fit-into-ratio {
+    //  Given a 16:9 aspect ratio, 9/16*100 = 56.25  Given a 16:9 aspect ratio, 16/9*100 = 177.77
+
+    //width: 100vw;
+    //min-height: 100vh;
+    //height: 56.25vw;
+    //min-width: 177.77vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  //pointer-events: none;
+  //}
 }
 
-// fullscreen embed video
-.lm-video-background {
-  background: #000;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  //z-index: -99;
-  /*
-   width: 100%;
-   height: 100%;
-   z-index: -1;
-   overflow: hidden;
-   */
-  pointer-events: none;
-}
+//// fullscreen embed video
+//.lm-video-background {
+//  background: #000;
+//  position: absolute;
+//  top: 0;
+//  right: 0;
+//  bottom: 0;
+//  left: 0;
+//  //z-index: -99;
+//  /*
+//   width: 100%;
+//   height: 100%;
+//   z-index: -1;
+//   overflow: hidden;
+//   */
+//  pointer-events: none;
+//}
 
-.lm-video-background iframe {
-  //  Given a 16:9 aspect ratio, 9/16*100 = 56.25  Given a 16:9 aspect ratio, 16/9*100 = 177.77
-  width: 100vw;
-  height: 56.25vw;
-  min-height: 100vh;
-  min-width: 177.77vh;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /*
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-*/
-  pointer-events: none;
-}
 
 @media (min-aspect-ratio: 16/9) {
   // .lm-video-foreground { height: 300%; top: -100%; }

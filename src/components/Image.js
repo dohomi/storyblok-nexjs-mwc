@@ -16,16 +16,11 @@ import SVG from 'react-inlinesvg'
  */
 function getSource (content, {width, height}) {
   width = parseInt(width)
-  height = parseInt(height)
   const imageCrop = content.image_crop || []
   const property = content.property || []
   let availableWidth = content.width || 0
   let availableHeight = content.height || 0
-  if (content.height_fill && availableHeight) {
-    // in case user wants that image covers height of column
-    availableHeight = availableHeight > height ? availableHeight : height
-    availableWidth = width
-  }
+
   if ((!availableWidth && !availableHeight) || imageCrop.length || content.fit_in_color) {
     // default: set available width to the current width either in crop mode
     availableWidth = availableWidth || width
@@ -48,9 +43,9 @@ function getSource (content, {width, height}) {
   return imageService(content.source, path, filter)
 }
 
-function getSmallSource (content) {
-  return imageService(content.source, '42x42')
-}
+// function getSmallSource (content) {
+//   return imageService(content.source, '42x42')
+// }
 
 
 const Image = (props) => {
@@ -69,7 +64,7 @@ const Image = (props) => {
 
   const content = props.content
   const className = clsx('img-fluid', 'progressive-img-container', content.property)
-  const containerClasses = clsx('w-100', {'h-100': !!content.height_fill})
+  const containerClasses = clsx('w-100')
   const isSvgImage = content.source.endsWith('.svg')
   if (isSvgImage) {
 
@@ -101,9 +96,6 @@ const Image = (props) => {
       return // don't proceed
     }
     const elementDimensions = intersectionElement.boundingClientRect
-    if (content.height_fill) {
-      intersectionElement.target.style.maxHeight = elementDimensions.height
-    }
     const isSvgImage = content.source.endsWith('.svg')
     if (isSvgImage) {
 
@@ -129,7 +121,7 @@ const Image = (props) => {
             style: {
               width: content.width ? `${content.width}px` : 'auto',
               maxHeight: 'inherit',
-              height: !content.height_fill && content.height ? content.height : 'auto',
+              height: content.height ? content.height : 'auto',
               filter: 'blur(0)'
             }
           })

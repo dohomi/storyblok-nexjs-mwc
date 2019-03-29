@@ -1,23 +1,10 @@
 import clsx from 'clsx'
-import imageService, {getFocalPoint} from '../../utils/ImageService'
+import {getImageSource} from '../../utils/ImageService'
 import {useInView} from 'react-intersection-observer'
 import {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import {fetchImageSource} from '../../utils/fetchImageHelper'
 
-const getBackgroundImageSource = ({backgroundImage, width, height, focalPoint}) => {
-  let path = ''
-  let focal = ''
-  if (width && height) {
-    path = `${parseInt(width)}x${parseInt(height)}`
-  }
-  if (!focalPoint) {
-    path += '/smart'
-  } else {
-    focal = getFocalPoint(backgroundImage, focalPoint)
-  }
-  return imageService(backgroundImage, path, focal)
-}
 
 const WithBackgroundImage = (props) => {
   const isColumn = props.isColumn // used in Column.js
@@ -42,8 +29,10 @@ const WithBackgroundImage = (props) => {
     rootMargin: '300px 0px 300px 0px'
   })
 
-  const initialSrc = getBackgroundImageSource({
-    backgroundImage, width: 42, height: 42
+  const initialSrc = getImageSource({
+    image: backgroundImage,
+    width: 42,
+    height: 42
   })
 
   let [styles, setStyles] = useState({
@@ -61,10 +50,10 @@ const WithBackgroundImage = (props) => {
       })
       if (lazyDisabled) {
         // only runs if lazy load is disabled
-        fetchAndSetImg(getBackgroundImageSource({
+        fetchAndSetImg(getImageSource({
           width: containerRef.clientWidth,
           height: containerRef.clientHeight,
-          backgroundImage,
+          image: backgroundImage,
           focalPoint: containerProps.focalPoint
         }))
       } else if (inView && intersectionElement) {
@@ -85,10 +74,10 @@ const WithBackgroundImage = (props) => {
         elementHeight = props.dimensions.height// overwrite height to match viewport height
       }
     }
-    const newImgSource = getBackgroundImageSource({
+    const newImgSource = getImageSource({
       width: elementWidth,
       height: elementHeight,
-      backgroundImage,
+      image: backgroundImage,
       focalPoint: containerProps.focalPoint
     })
     fetchAndSetImg(newImgSource)

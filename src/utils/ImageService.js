@@ -1,5 +1,19 @@
 import DeviceDetectService from './DeviceDetectService'
 
+export function getImageSource ({image, width, height, focalPoint}) {
+  let path = ''
+  let focal = ''
+  if (width && height) {
+    path = `${parseInt(width)}x${parseInt(height)}`
+  }
+  if (!focalPoint) {
+    path += '/smart'
+  } else {
+    focal = getFocalPoint(image, focalPoint)
+  }
+  return imageService(image, path, focal)
+}
+
 export function imageServiceNoWebp (image, option = '') {
   if (image.endsWith('.svg')) {
     return image
