@@ -20,11 +20,13 @@ import ButtonList from './ButtonList'
 import Html from './Html'
 import HubspotForm from './HubspotForm'
 import Form from './Form'
+import HubspotMeeting from './HubspotMeeting'
 
 const Components = {
   'page': Page,
   'html': Html,
   'hubspot_form': HubspotForm,
+  'hubspot_meeting': HubspotMeeting,
   'button_list': ButtonList,
   'section': Section,
   'headline': Headline,

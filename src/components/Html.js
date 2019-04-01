@@ -1,14 +1,13 @@
 import SbEditable from 'storyblok-react'
 
 const Html = ({content}) => {
-  function createInner(){
-    return {
-      __html:content.body
-    }
+  const innerHtml = {
+    __html: content.body
   }
+
   return (
     <SbEditable content={content}>
-      <div dangerouslySetInnerHTML={createInner()}></div>
+      <div dangerouslySetInnerHTML={innerHtml}></div>
     </SbEditable>
   )
 }
