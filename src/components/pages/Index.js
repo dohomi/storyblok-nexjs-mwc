@@ -7,6 +7,7 @@ import WindowDimensionsProvider from '../../components/provider/WindowDimensions
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import Fonts from '../../utils/Fonts'
 import {withRouter} from 'next/dist/client/router'
+import Error from '../../pages/_error'
 
 function mapStateProps (pageProps) {
   const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}
@@ -50,6 +51,10 @@ const Index = (props) => {
   )
 
   const settings = props.settings && props.settings.data && props.settings.data.story && props.settings.data.story.content || {}
+  if (props.error) {
+    return <Error statusCode={props.error.status}/>
+  }
+
   return (
     <>
       <Head settings={settings} pageSeo={content.pageSeo}/>

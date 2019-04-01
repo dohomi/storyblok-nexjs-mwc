@@ -28,9 +28,20 @@ Index.getInitialProps = async (context) => {
       url
     }
   } catch (e) {
-    console.error(e)
+    // console.log(e.response)
+    // console.log(e.response.data)
+    // console.log(e.response.config)
+
+
+    const error = {
+      status: e.response.status,
+      url: e.response.config.url
+    }
+    console.log(error)
+    return {
+      error: error
+    }
   }
-  return {}
 }
 
 export default Index
