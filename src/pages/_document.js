@@ -34,11 +34,7 @@ class MyDocument extends Document {
 
     return (
       <html>
-      <Head>
-        {GTM && (
-          <script dangerouslySetInnerHTML={GTM}></script>
-        )}
-      </Head>
+      <Head></Head>
       <body className="mdc-typography mdc-theme--background">
       {GTM && (
         <noscript>
@@ -54,6 +50,9 @@ class MyDocument extends Document {
               src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default,IntersectionObserver,fetch"
               key="polyfill"></script>
       <NextScript/>
+      {GTM && (
+        <script dangerouslySetInnerHTML={GTM}></script>
+      )}
       </body>
       </html>
     )
