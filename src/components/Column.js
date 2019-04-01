@@ -24,7 +24,6 @@ const Column = (props) => {
   const colClasses = clsx(
     'mdc-layout-grid__cell',
     {
-      [`mdc-layout-grid__cell--order-${content.order || ''}`]: !!content.order,
       [`mdc-layout-grid__cell--align-${content.align || ''}`]: !!content.align,
       [`mdc-layout-grid__cell--span-${widthGeneral || ''}`]: !widthDesktop,
       [`mdc-layout-grid__cell--span-${widthMobile || ''}-phone`]: true,
@@ -32,7 +31,10 @@ const Column = (props) => {
       [`mdc-layout-grid__cell--span-${widthDesktop || ''}-desktop`]: true,
       [`mdc-layout-grid__cell--start-${Number(content.start_desktop || '')}-desktop`]: !!content.start_desktop,
       [`mdc-layout-grid__cell--start-${Number(content.start_tablet || '')}-tablet`]: !!content.start_tablet,
-      [`mdc-layout-grid__cell--start-${Number(content.start_phone || '')}-phone`]: !!content.start_phone
+      [`mdc-layout-grid__cell--start-${Number(content.start_phone || '')}-phone`]: !!content.start_phone,
+      [`mdc-layout-grid__cell--order-${Number(content.order_desktop || '')}-desktop`]: !!content.order_desktop,
+      [`mdc-layout-grid__cell--order-${Number(content.order_tablet || '')}-tablet`]: !!content.order_tablet,
+      [`mdc-layout-grid__cell--order-${Number(content.order_phone || '')}-phone`]: !!content.order_phone
     },
     containerProps.classNames,
     containerProps.classes

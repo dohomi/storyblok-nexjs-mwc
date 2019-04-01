@@ -5,6 +5,7 @@ import Form from './Form'
 import cookie from 'js-cookie'
 import {Checkbox} from '@rmwc/checkbox'
 import FormCheckbox from './form/FormCheckbox'
+import Paragraph from './Paragraph'
 
 const HubspotFormDyn = dynamic(
   () => import('./partials/ReactHubspotForm'),
@@ -27,7 +28,7 @@ const HubspotFormCustom = ({content}) => {
   const children = []
 
   const subscriptionTypeId = Number(content.newsletter_subscription)
-  if (content.consent_process || conten.consent_communication) {
+  if (content.consent_process || content.consent_communication) {
     data.legalConsentOptions.consent = {
       consentToProcess: true,
       text: content.consent_process,
@@ -53,13 +54,17 @@ const HubspotFormCustom = ({content}) => {
                                                              id={'consent_communication'}
                                                              value={subscriptionTypeId}
                                                              onChange={onCommunicationChange}/>)
-  } else if (content.legitimate_interest) {
+  } else if (content.legitimate_interest && content.legitimate_interest.length) {
+    const legitimateProps = content.legitimate_interest[0]
     data.legalConsentOptions.legitimateInterest = {
       value: true,
       subscriptionTypeId: subscriptionTypeId,
-      text: content.legitimate_interest
+      text: legitimateProps.text
     }
+    console.log('some props for legitimate', legitimateProps)
+    children.push(Paragraph({content: legitimateProps}))
   }
+
 
   const formProps = {
     ...body[0],
