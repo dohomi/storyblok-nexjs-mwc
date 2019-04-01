@@ -11,7 +11,6 @@ export const useForm = ({api}) => {
     console.log('you must an API endpoint')
     return {}
   }
-  // const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`
   const url = api
   const [data, setData] = useState(false)
   const [form, setForm] = useState(false)
@@ -28,19 +27,24 @@ export const useForm = ({api}) => {
       fields: []
     }
     for (var pair of formData.entries()) {
-      data.fields.push({name: pair[0], value: pair[1]})
+
+      const name = pair[0]
+      const value = pair[1]
+      if (!name.includes('__consent')) {
+        data.fields.push({name, value})
+      }
     }
     console.info(url, data)
     try {
       const res = await onFormSubmissionFetch(url, data)
-      if (res.status === 200) {
-        setData(res)
-        setForm(false)
-      } else {
-        console.error(res)
-        setForm(false)
-        setIsError(true)
-      }
+      // if (res.status === 200) {
+      setData(res)
+      setForm(false)
+      // } else {
+      //   console.error(res)
+      //   setForm(false)
+      //   setIsError(true)
+      // }
     } catch (e) {
       console.error(e)
       setForm(false)
@@ -74,7 +78,7 @@ function onFormSubmissionFetch (url, data) {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then(r.json())
+  }).then(r => r.json())
 }
 
 
