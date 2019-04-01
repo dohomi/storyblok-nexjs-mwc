@@ -25,7 +25,6 @@ const TopAppBarWrapEl = (props) => {
   const logoTag = props.logoRef && props.logoRef.current
   let [className, setClassName] = useState(getClassName()) // because of server/client hydration
   useEffect(() => {
-      if (!props.transparentToolbar) return
       setClassName(getClassName(scrollPos))
       if (scrollPos > 100) {
         props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogo)
@@ -40,7 +39,7 @@ const TopAppBarWrapEl = (props) => {
     return clsx('lm-toolbar', {
       ['lm-toolbar__bold-text']: !!props.toolbarConfig.includes('text_bold'),
       ['lm-toolbar__fixed-width']: !!props.toolbarConfig.includes('fixed_width'),
-      ['lm-toolbar-transparent']: pos < 100
+      ['lm-toolbar-transparent']: props.transparentToolbar && pos < 100
     })
   }
 
