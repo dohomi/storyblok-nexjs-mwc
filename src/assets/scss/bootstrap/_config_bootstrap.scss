@@ -1,12 +1,6 @@
-//$mdc-layout-grid-breakpoints: (
-//  desktop: 840px,
-//  tablet: 480px,
-//  phone: 0px
-//) !default;
-
 // overwrites
 $container-max-widths: (
-  sm: 480px,
+  sm: 600px,
   md: 840px,
   lg: 960px,
   xl: 1140px
@@ -14,8 +8,8 @@ $container-max-widths: (
 
 $grid-breakpoints: (
   xs: 0,
-  sm: 576px,
-  md: 768px,
+  sm: 600px,
+  md: 840px,
   lg: 992px,
   xl: 1200px
 );

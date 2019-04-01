@@ -7,6 +7,7 @@ import withWindowDimensions from '../provider/WithWindowDimensions'
 const FullscreenVideoBg = (content) => {
   const windowWidth = content.dimensions.width
   const windowHeight = content.dimensions.height
+  const properties = content.property || []
   const windowAspect = windowHeight / windowWidth
   const videoAspect = content.ratioHeight / content.ratioWidth
   let vidBgWidth = '100%'
@@ -30,7 +31,7 @@ const FullscreenVideoBg = (content) => {
     // }
   }
   let hasError
-  const properties = content.property || []
+
   if (!content.url) {
     return (
       <div>please insert a video URL</div>
@@ -47,7 +48,7 @@ const FullscreenVideoBg = (content) => {
 
   return (
     <>
-      <div className="videobg-width"
+      <div className={`videobg-width${properties.includes('suppress_mouse_events') ? ' video-no-mouse' : ''}`}
            style={{width: vidBgWidth}}>
         <div className="videobg-aspect">
           <div className="videobg-make-height">

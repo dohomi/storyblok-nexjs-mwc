@@ -13,4 +13,9 @@ $mdc-typography-font-weight-values: (
   thin: 300,
   medium:400,
   black:700
-)
+);
+$mdc-layout-grid-breakpoints: (
+  desktop: 840px,
+  tablet: 600px,
+  phone: 0px
+);

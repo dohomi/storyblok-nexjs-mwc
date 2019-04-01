@@ -22,11 +22,11 @@ const MwcDrawer = (props) => {
             onClose={() => props.onDrawerClose()}>
       <DrawerHeader>
         <Link route="/">
-          <a>
+          <a className="p-2 d-block">
             <DrawerTitle>
               {!websiteLogo && websiteTitle}
               {websiteLogo &&
-              <img src={imageService(websiteLogo, '0x128')} height="56" alt={websiteTitle || 'website logo'}/>}
+              <img src={imageService(websiteLogo, '0x128')} height="48" alt={websiteTitle || 'website logo'}/>}
             </DrawerTitle>
           </a>
         </Link>

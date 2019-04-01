@@ -26,10 +26,13 @@ const TopAppBarWrapEl = (props) => {
   let [className, setClassName] = useState(getClassName()) // because of server/client hydration
   useEffect(() => {
       setClassName(getClassName(scrollPos))
-      if (scrollPos > 100) {
-        props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogo)
-      } else {
-        props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogoInverted)
+      if (props.transparentToolbar) {
+        // todo website logo inverted only if transparent toolbar
+        if (scrollPos > 100) {
+          props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogo)
+        } else {
+          props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogoInverted)
+        }
       }
     },
     [scrollPos, props.transparentToolbar]
@@ -61,7 +64,7 @@ const Header = (props) => {
   const websiteLogo = content.website_logo && imageService(content.website_logo, '0x' + 48 * 2)
   const websiteLogoInverted = content.website_logo_invert && imageService(content.website_logo_invert, '0x' + 48 * 2)
   const currentLogoSrc = transparentToolbar && websiteLogoInverted ? websiteLogoInverted : websiteLogo
-
+  const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
 
   const logoRef = createRef()
 
@@ -84,7 +87,7 @@ const Header = (props) => {
                        logoRef={logoRef}>
           <TopAppBarRow>
             <TopAppBarSection>
-              <TopAppBarNavigationIcon icon="menu" className="d-sm-none"
+              <TopAppBarNavigationIcon icon="menu" className={`d-${mobileNavBreakpoint}-none`}
                                        onClick={() => props.onNav()}/>
               <Link route="/">
                 <a className="lm-logo-header">
@@ -104,7 +107,7 @@ const Header = (props) => {
             </TopAppBarSection>
             {navRight.length && (
               <TopAppBarSection alignEnd
-                                className="d-none d-sm-inline-flex">
+                                className={`d-none d-${mobileNavBreakpoint}-inline-flex`}>
                 {navRight.map(blok => Components(blok))}
               </TopAppBarSection>)}
           </TopAppBarRow>
