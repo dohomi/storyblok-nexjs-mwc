@@ -1,5 +1,11 @@
 import StoryblokService from './StoryblokService'
 
+/**
+ *
+ * @param e
+ * @param res
+ * @return {Promise<{settings: null, page: null, error: {url: *, status: *}}>}
+ */
 const handleErrorContent = async (e, res) => {
   const error = {
     status: e.response.status,

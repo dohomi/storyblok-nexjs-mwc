@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next-server/head'
-import StoryblokService from '../utils/StoryblokService'
 import Components from '../../components'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import Layout from '../components/layout/Layout'
@@ -21,6 +20,8 @@ const Error = (props) => {
         <title>
           {statusCode}: {title}
         </title>
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+              key="viewport"/>
         <meta key="robots" name="robots" content="noindex"/>
       </Head>
       <WindowDimensionsProvider>
