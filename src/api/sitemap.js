@@ -121,7 +121,6 @@ function generateSitemapOnStory (req, res, ignorePaths = []) {
           lastmodISO: item.published
         }
       })
-      console.log(sitemapUrls.length)
       const protocol = 'https'
       const options = {
         hostname: host ? `${protocol}://${host}` : 'http://example.com',
