@@ -1,4 +1,3 @@
-require('dotenv').config()
 const StoryblokClient = require('storyblok-js-client')
 const sm = require('sitemap')
 
