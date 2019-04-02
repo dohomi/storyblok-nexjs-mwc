@@ -122,7 +122,7 @@ function generateSitemapOnStory (req, res, ignorePaths = []) {
         }
       })
       console.log(sitemapUrls.length)
-      const protocol = req.connection.encrypted ? 'https' : 'http'
+      const protocol = 'https'
       const options = {
         hostname: host ? `${protocol}://${host}` : 'http://example.com',
         cacheTime: 600000,        // 600 sec - cache purge period
