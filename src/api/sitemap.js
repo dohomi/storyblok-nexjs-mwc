@@ -2,7 +2,12 @@ require('dotenv').config()
 const StoryblokClient = require('storyblok-js-client')
 const sm = require('sitemap')
 
-function fetchStories () {
+/**
+ *
+ * @param ignoreInPath
+ * @return {*}
+ */
+function fetchStories (ignoreInPath = []) {
   const client = new StoryblokClient({
     accessToken: process.env.STORYBLOK_PUBLIC
   })
@@ -18,6 +23,9 @@ function fetchStories () {
       filter_query: {
         component: {
           in: 'page'
+        },
+        meta_robots: {
+          not_in: true
         }
       },
       page
@@ -35,7 +43,8 @@ function fetchStories () {
   return getItems()
     .then(() => {
       results.forEach((link) => {
-        const isStartpage = link.full_slug === 'home'
+        const fullSlug = link.full_slug
+        const isStartpage = fullSlug === 'home'
         /**
          *
          * @type {{isStartpage: boolean | 0 | 1, name: *, language: *, published: string, robots: *, firstPublished: *, fullSlug: string}}
@@ -44,10 +53,13 @@ function fetchStories () {
           firstPublished: link.first_published_at,
           isStartpage: isStartpage,
           name: link.name,
-          slug: isStartpage ? '' : link.full_slug,
+          slug: isStartpage ? '' : fullSlug,
           published: link.published_at,
           language: link.lang,
           robots: link.content.meta_robots
+        }
+        if (ignoreInPath.some(slug => fullSlug.includes(slug))) {
+          return
         }
         routes.push(obj)
         // routes.push('/' + (link.slug == 'home' ? '' : link.slug))
@@ -91,9 +103,17 @@ function fetchLinks () {
     })
 }
 
-function generateSitemapOnStory (req, res) {
+/**
+ *
+ * @param req
+ * @param res
+ * @param ignorePaths example: ['demo-content', 'services-folder']
+ * @return {Q.Promise<any> | * | Promise<T | never>}
+ */
+function generateSitemapOnStory (req, res, ignorePaths = []) {
   const host = req && req.headers && req.headers.host
-  return fetchStories()
+
+  return fetchStories(ignorePaths)
     .then((result) => {
       const sitemapUrls = result.map(item => {
         return {
@@ -102,6 +122,7 @@ function generateSitemapOnStory (req, res) {
           lastmodISO: item.published
         }
       })
+      console.log(sitemapUrls.length)
       const protocol = req.connection.encrypted ? 'https' : 'http'
       const options = {
         hostname: host ? `${protocol}://${host}` : 'http://example.com',
