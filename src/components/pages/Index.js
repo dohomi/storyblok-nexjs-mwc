@@ -18,6 +18,9 @@ function mapStateProps (pageProps) {
     body: pageContent.seo_body || [],
     url: pageProps.url
   }
+  if (pageProps.overwriteDisableRobots) {
+    pageSeo.disableRobots = true
+  }
   const properties = pageContent.property || []
   const hasFeature = properties.includes('has_feature')
   return {
