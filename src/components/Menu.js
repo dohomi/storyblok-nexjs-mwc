@@ -8,7 +8,7 @@ import {linkHandler} from '../utils/linkHandler'
 
 const Child = (nestedProps) => {
   const props = {}
-  linkHandler(props,nestedProps.link)
+  linkHandler(props, nestedProps.link, {openExternal: !!nestedProps.open_external})
   return props.to ? (
     <Link to={props.to}><a>{nestedProps.label}</a></Link>
   ) : (
@@ -21,8 +21,8 @@ const MtMenu = ({content}) => {
   const menuItems = content.body || []
   return (
     <SbEditable content={content}>
-      <SimpleMenu style={{borderRadius:`${content.border_radius || 4}px`}}
-        handle={<Button trailingIcon="expand_more">{content.title}</Button>}
+      <SimpleMenu style={{borderRadius: `${content.border_radius || 4}px`}}
+                  handle={<Button trailingIcon="expand_more">{content.title}</Button>}
                   theme={['']}>
         {menuItems.map(nestedProps => (
           <MenuItem key={nestedProps._uid}>{Child(nestedProps)}</MenuItem>)

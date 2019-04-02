@@ -5,7 +5,7 @@ import {linkHandler} from '../utils/linkHandler'
 
 const NavListItem = (props) => {
   const content = props
-  linkHandler(content, content.link)
+  linkHandler(content, content.link, {openExternal: !!props.open_external})
   return content.to ? (
     <Link to={content.to} key={props._uid}><a className="nav-link">{content.name}</a></Link>
   ) : (

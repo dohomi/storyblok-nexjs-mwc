@@ -2,8 +2,9 @@
  *
  * @param props
  * @param link
+ * @param options
  */
-export function linkHandler (props = {}, link = {}) {
+export function linkHandler (props = {}, link = {}, options = {}) {
   let isInternalLink = link.linktype === 'story'
   if (isInternalLink) {
     props.to = !link.cached_url.startsWith('/') ? `/${link.cached_url}` : link.cached_url
@@ -14,7 +15,10 @@ export function linkHandler (props = {}, link = {}) {
     } else if (href.includes('+')) {
       href = `tel:${href.replace('+', '')}`
     }
-    props.target = '_blank'
+
+    if (options.openExternal) {
+      props.target = '_blank'
+    }
     props.rel = 'noopener noreferrer'
     props.href = href
   }

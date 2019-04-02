@@ -103,7 +103,7 @@ const MtButton = (props) => {
   const link = content.link || {}
   componentLogger(content)
 
-  linkHandler(buttonProps, link)
+  linkHandler(buttonProps, link, {openExternal: !!content.open_external})
   buttonProps.tag = ButtonLink
 
   // console.log(buttonProps)

@@ -27,7 +27,7 @@ const CardLink = (props) => {
     return <>{props.children}</>
   }
   const content = {...props}
-  linkHandler(content, content.link)
+  linkHandler(content, content.link, {openExternal: !!props.open_external})
   return content.to ? (
     <Link to={content.to}><a>{content.children}</a></Link>
   ) : (
