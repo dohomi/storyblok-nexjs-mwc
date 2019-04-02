@@ -4,7 +4,7 @@ import NProgress from 'nprogress'
 import Router from 'next/router'
 import StoryblokService from '../../utils/StoryblokService'
 import NextSeo from 'next-seo'
-import imageService, {imageServiceNoWebp} from '../../utils/ImageService'
+import imageService, {imageServiceNoWebp, getOriginaImageDimensions} from '../../utils/ImageService'
 
 Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -14,9 +14,16 @@ const iconSizes = [16, 32, 96, 192]
 
 function mapOpenGraphImage (item) {
   if (!item.url) return
+  let dimensions = getOriginaImageDimensions(item.url)
   const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
+  if (item.width || item.height) {
+    dimensions = {} // overwrite original dimensions
+    item.width && (originaImageDimensions.width = item.width)
+    item.height && (originaImageDimensions.height = item.height)
+  }
   return {
-    ...item,
+    ...dimensions,
+    alt: item.alt,
     url: imageServiceNoWebp(item.url, imgPath)
   }
 }
@@ -73,6 +80,8 @@ const Head = (props) => {
   // const pageOpenGraphImages =
   if (settingsOpenGraphs) {
     seo.openGraph = parseOpenGraph(settingsOpenGraphs, pageOpenGraphs, seo, pageSeo.url)
+    const facebookAppId = settingsOpenGraphs.app_id || pageOpenGraphs && pageOpenGraphs.app_id
+    facebookAppId && (seo.facebook = {appId: facebookAppId})
   }
   // twitter
   const settingsTwitter = seoBody.find(i => i.component === 'seo_twitter')
