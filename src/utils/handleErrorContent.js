@@ -4,9 +4,10 @@ import StoryblokService from './StoryblokService'
  *
  * @param e
  * @param res
+ * @param languagePrefix example: zh/
  * @return {Promise<{settings: null, page: null, error: {url: *, status: *}}>}
  */
-const handleErrorContent = async (e, res) => {
+const handleErrorContent = async (e, res, languagePrefix = '') => {
   const error = {
     status: e.response.status,
     url: e.response.config.url
@@ -16,12 +17,13 @@ const handleErrorContent = async (e, res) => {
   let page = null
   let settings = null
   try {
-    page = await StoryblokService.get(`cdn/stories/error-${error.status === 404 ? '404' : '500'}`)
+    const storyblokErrorPageSlug = `error-${error.status === 404 ? '404' : '500'}`
+    page = await StoryblokService.get(`cdn/stories/${languagePrefix}${storyblokErrorPageSlug}`)
   } catch (e) {
     console.error('error page not found')
   }
   try {
-    settings = await StoryblokService.get(`cdn/stories/settings`)
+    settings = await StoryblokService.get(`cdn/stories/settings/${languagePrefix}`)
   } catch (e) {
     console.error('settings page not found')
   }
