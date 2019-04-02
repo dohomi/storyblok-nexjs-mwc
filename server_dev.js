@@ -1,10 +1,10 @@
 const {createServer} = require('http')
-const generateSitemap = require('./src/api/sitemap')
-const port = parseInt(process.env.PORT, 10) || 4000
+const {generateSitemapOnStory} = require('./src/api/sitemap')
+const port = parseInt(process.env.PORT, 10) || 4444
 
 createServer((req, res) => {
   if (req.url === '/sitemap.xml') {
-    return generateSitemap(req, res)
+    return generateSitemapOnStory(req, res)
   }
 
   res.end('server runs in dev mode.')
