@@ -52,7 +52,7 @@ const Index = (props) => {
 
   const settings = props.settings && props.settings.data && props.settings.data.story && props.settings.data.story.content || {}
   if (props.error) {
-    return <Error statusCode={props.error.status}/>
+    return <Error statusCode={props.error.status} settings={settings} page={content}/>
   }
 
   return (
