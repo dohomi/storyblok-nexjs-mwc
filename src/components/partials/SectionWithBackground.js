@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import {getImageSource} from '../../utils/ImageService'
+import {getImageSource, getOriginaImageDimensions} from '../../utils/ImageService'
 import {useInView} from 'react-intersection-observer'
 import {useEffect, useState} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
@@ -18,35 +18,36 @@ const WithBackgroundImage = (props) => {
 
   const containerClasses = clsx(
     !isColumn && 'mw-100 mh-100',
+    'lm-relative-wrap',
     props.className, {
-      'lm-background-image': true,
-      'progressive-img-container': true
+      // 'lm-background-image': true,
+      // 'progressive-img-container': true
     })
 
+  const backgroundClasses = 'progressive-img-container lm-background-image'
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
   })
 
+
+  const orig = getOriginaImageDimensions(backgroundImage)
   const initialSrc = getImageSource({
     image: backgroundImage,
-    width: 42,
-    height: 42
+    width: orig.width / 100,
+    height: orig.height / 100
   })
-
-  let [styles, setStyles] = useState({
-    ...props.style,
-    position: 'relative',
-    overflow: 'hidden',
+  const initialState = {
     backgroundImage: `url("${initialSrc}")`
-  })
+  }
+  let [styles, setStyles] = useState({})
 
   useEffect(
     () => {
       setStyles({
         ...styles,
-        filter: 'blur(10px)' // set blur effect
+        // filter: 'blur(10px)' // set blur effect
       })
       if (lazyDisabled) {
         // only runs if lazy load is disabled
@@ -55,7 +56,7 @@ const WithBackgroundImage = (props) => {
           height: containerRef.clientHeight,
           image: backgroundImage,
           focalPoint: containerProps.focalPoint
-        }))
+        }), containerRef)
       } else if (inView && intersectionElement) {
         // only runs if
         setLazyImg()
@@ -80,15 +81,16 @@ const WithBackgroundImage = (props) => {
       image: backgroundImage,
       focalPoint: containerProps.focalPoint
     })
-    fetchAndSetImg(newImgSource)
+    fetchAndSetImg(newImgSource, intersectionElement.target)
   }
 
-  function fetchAndSetImg (src) {
+  function fetchAndSetImg (src, reference) {
     fetchImageSource(src)
       .then(() => {
+        reference.classList.add('loaded')
         setStyles({
           ...styles,
-          filter: 'blur(0)', // unset blur effect
+          // filter: 'blur(0)', // unset blur effect
           backgroundImage: `url("${src}")`
         })
       })
@@ -100,9 +102,15 @@ const WithBackgroundImage = (props) => {
   }
 
   return (
-    <div ref={setRef}
-         className={containerClasses}
-         style={styles}>
+    <div className={containerClasses}
+         style={props.style}>
+      <div className="lm-background__absolute-fill lm-background-image lm-background__blurred"
+           style={initialState}>
+      </div>
+      <div className={backgroundClasses}
+           ref={setRef}
+           style={styles}>
+      </div>
       {props.children}
     </div>
   )

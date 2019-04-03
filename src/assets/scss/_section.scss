@@ -1,9 +1,3 @@
-.lm-background-image {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-
 .lm-background__absolute-fill {
   position: absolute;
   top: 0;
@@ -11,6 +5,30 @@
   right: 0;
   bottom: 0;
 }
+
+.lm-background-image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.lm-background__blurred {
+  filter: blur(5px)
+}
+
+.lm-relative-wrap {
+  position: relative;
+  overflow: hidden;
+
+  > .lm-background-image {
+    @extend .lm-background__absolute-fill
+  }
+
+  > div:last-child {
+    position: relative;
+  }
+}
+
 
 .lm-background-image.lm-bg-section__contain {
   background-size: contain;
