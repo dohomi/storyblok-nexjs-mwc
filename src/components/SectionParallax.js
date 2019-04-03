@@ -27,32 +27,38 @@ const getImgSource = (backgroundImage, {width, height, focalPoint}) => {
 }
 
 const SectionParallax = ({content, dimensions}) => {
-  const [refIntersectionObserver, inView] = useInView({
+  const [refIntersectionObserver, inView, refElement] = useInView({
     triggerOnce: true
   })
+  let containerEl
   const width = dimensions.width
   const height = dimensions.height
   const elements = content.elements || []
   const contentHeight = content.height
   const [layers, setLayers] = useState([])
   const disableLazyLoad = content.disable_lazy_load
-  let [styles, setStyles] = useState({
+  const styles = {
     minHeight: contentHeight ? `${contentHeight}vh` : '50vh',
     height: '100%'
-  })
+  }
+  const contentClasses = clsx(
+    'parallax__content',
+    content.class_names && content.class_names.values, {}
+  )
+  // let [styles, setStyles] = useState(styles)
 
   useEffect(
     () => {
       if (disableLazyLoad) {
-        processLayers()
+        processLayers(containerEl)
       } else if (inView) {
-        processLayers()
+        processLayers(refElement.target)
       }
     },
     [inView, width, height]
   )
 
-  function processLayers () {
+  function processLayers (el) {
     const items = elements.map(item => {
       const containerHeight = height * Number(contentHeight / 100)
       const offset = ((containerHeight * item.amount) * 2)
@@ -71,29 +77,28 @@ const SectionParallax = ({content, dimensions}) => {
         children: item.children && item.children.length && Components(item.children[0])
       }
     })
+
+    setLayers(items)
     Promise.all(elements.map(item => {
       const src = item.image
       return fetchImageSource(src)
     }))
       .then(() => {
-        setLayers(items)
-        setStyles({
-          ...styles,
-          filter: 'blur(0)'
-        })
+        el.classList.add('loaded')
       })
   }
 
-  const contentClasses = clsx(
-    'parallax__content',
-    content.class_names && content.class_names.values, {}
-  )
+  function setRef (ref) {
+    refIntersectionObserver(ref)
+    containerEl = ref
+  }
+
   return (
     <SbEditable content={content}>
-      <div className="lm-content-section__parallax" ref={refIntersectionObserver}>
+      <div className="lm-content-section__parallax" ref={setRef}>
         <ParallaxBanner disabled={false}
                         style={styles}
-                        className="progressive-img-blur-container"
+                        className=""
                         layers={layers}>
           <div className={contentClasses}>
             {content.body.map((blok) => Components(blok))}

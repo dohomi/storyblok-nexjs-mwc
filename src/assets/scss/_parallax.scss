@@ -10,4 +10,13 @@
     align-items: center;
     justify-content: center;
   }
+
+  .parallax-outer {
+    background-color: darkgrey;
+    filter: blur(5px)
+  }
+
+  &.loaded .parallax-outer {
+    filter: blur(0)
+  }
 }
