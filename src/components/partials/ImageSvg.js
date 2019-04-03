@@ -9,7 +9,8 @@ const ImageSvg = ({content}) => {
   })
   const src = inView ? 'https:' + content.source : ''
   const afterSvgLoaded = () => {
-    el.target.style.filter = 'blur(0)'
+    el.target.classList.add("loaded")
+    // el.target.style.filter = 'blur(0)'
   }
   const svgStyle = {
     color: content.fit_in_color || 'blue'

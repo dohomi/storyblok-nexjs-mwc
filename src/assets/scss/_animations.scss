@@ -41,17 +41,16 @@
   transition: mdc-animation-enter(background-image, 700ms)
 }
 
-.progressive-img-container {
-  //filter: blur(5px);
-  animation: mdc-animation-enter(fade-in, 5000ms)
-  //transition: filter 500ms linear;
+.progressive-img-blur-container{
+  filter: blur(5px);
+  transition: filter 500ms linear;
 }
 
-.progressive-img-container.lm-background-image {
+.progressive-img-container {
   opacity: 0;
 }
 
-.loaded.progressive-img-container.lm-background-image {
+.loaded.progressive-img-container{
   opacity: 1;
   transition: opacity 1s linear;
   //animation: mdc-animation-enter(fade-in, 5000ms)

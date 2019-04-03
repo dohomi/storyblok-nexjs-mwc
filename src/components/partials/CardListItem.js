@@ -69,7 +69,7 @@ const CardMediaElement = ({style, sixteenByNine, square, children}) => {
   return (
     <CardMedia style={style}
                sixteenByNine={sixteenByNine}
-               className="progressive-img-container"
+               className="progressive-img-blur-container"
                square={square}>
       {children}
     </CardMedia>

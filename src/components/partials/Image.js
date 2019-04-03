@@ -77,17 +77,17 @@ const Image = (props) => {
 
       let imgDimensions = {width: elementDimensions.width, height: elementDimensions.height}
       const imgSource = getSource(content, imgDimensions)
+      setImageProps({
+        src: imgSource,
+        style: {
+          width: content.width ? `${content.width}px` : 'auto',
+          maxHeight: 'inherit',
+          height: content.height ? `${content.height}px` : 'auto',
+        }
+      })
       fetchImageSource(imgSource)
         .then(() => {
-          setImageProps({
-            src: imgSource,
-            style: {
-              width: content.width ? `${content.width}px` : 'auto',
-              maxHeight: 'inherit',
-              height: content.height ? `${content.height}px` : 'auto',
-              filter: 'blur(0)'
-            }
-          })
+          intersectionElement.target.firstElementChild.classList.add("loaded")
         })
     }
   }, [width, height, inView, content.source])

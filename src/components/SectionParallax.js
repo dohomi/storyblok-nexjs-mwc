@@ -93,7 +93,7 @@ const SectionParallax = ({content, dimensions}) => {
       <div className="lm-content-section__parallax" ref={refIntersectionObserver}>
         <ParallaxBanner disabled={false}
                         style={styles}
-                        className="progressive-img-container"
+                        className="progressive-img-blur-container"
                         layers={layers}>
           <div className={contentClasses}>
             {content.body.map((blok) => Components(blok))}
