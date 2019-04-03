@@ -85,14 +85,14 @@ const WithBackgroundImage = (props) => {
   }
 
   function fetchAndSetImg (src, reference) {
+    setStyles({
+      ...styles,
+      // filter: 'blur(0)', // unset blur effect
+      backgroundImage: `url("${src}")`
+    })
     fetchImageSource(src)
       .then(() => {
         reference.classList.add('loaded')
-        setStyles({
-          ...styles,
-          // filter: 'blur(0)', // unset blur effect
-          backgroundImage: `url("${src}")`
-        })
       })
   }
 
