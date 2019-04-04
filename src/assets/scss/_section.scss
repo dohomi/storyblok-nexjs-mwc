@@ -20,12 +20,13 @@
   position: relative;
   overflow: hidden;
 
-  > .lm-background-image {
-    @extend .lm-background__absolute-fill
+
+  > div {
+    position: relative;
   }
 
-  > div:last-child {
-    position: relative;
+  > .lm-background-image {
+    @extend .lm-background__absolute-fill
   }
 }
 
