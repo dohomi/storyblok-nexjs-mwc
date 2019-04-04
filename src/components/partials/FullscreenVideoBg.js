@@ -20,6 +20,7 @@ const FullscreenVideoBg = (content) => {
     playing: properties.includes('autoplay'),
     muted: properties.includes('muted'),
     controls: properties.includes('controls'),
+    playsinline: properties.includes('playsinline'),
     onError: () => setError(true)
   }
 
