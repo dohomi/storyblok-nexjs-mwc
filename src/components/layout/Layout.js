@@ -8,12 +8,15 @@ import {withRouter} from 'next/router'
 import PropTypes from 'prop-types'
 
 
-const Layout = (props) => {
+const Layout = ({router, settings = {}, children, hasFeature}) => {
   let [drawer, setDrawer] = useState(false)
 
-  useEffect(() => {
-    closeDrawer()
-  }, [props.router.asPath])
+  useEffect(
+    () => {
+      closeDrawer()
+    },
+    [router.asPath]
+  )
 
   function closeDrawer () {
     setDrawer(false)
@@ -22,8 +25,6 @@ const Layout = (props) => {
   function toggleDrawer () {
     setDrawer(!drawer)
   }
-
-  let settings = props.settings
   const themeOptions = themeLayout[settings.theme_base || 'base']
   settings.theme_primary && (themeOptions.primary = settings.theme_primary)
   settings.theme_secondary && (themeOptions.secondary = settings.theme_secondary)
@@ -35,9 +36,9 @@ const Layout = (props) => {
                  isDrawerOpen={drawer}
                  onDrawerClose={closeDrawer}/>
       <Header settings={settings}
-              hasFeature={props.hasFeature}
+              hasFeature={hasFeature}
               onNav={toggleDrawer}/>
-      <main>{props.children}</main>
+      <main>{children}</main>
       <Footer settings={settings}/>
     </ThemeProvider>
   )

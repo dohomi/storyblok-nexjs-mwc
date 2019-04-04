@@ -105,7 +105,7 @@ const Header = (props) => {
                 </a>
               </Link>
             </TopAppBarSection>
-            {navRight.length && (
+            {!!navRight.length && (
               <TopAppBarSection alignEnd
                                 className={`d-none d-${mobileNavBreakpoint}-inline-flex`}>
                 {navRight.map(blok => Components(blok))}

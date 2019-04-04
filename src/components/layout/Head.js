@@ -64,9 +64,14 @@ function parseTwitter (values) {
   return twitter
 }
 
-const Head = (props) => {
-  const settings = props.settings
-  const pageSeo = props.pageSeo
+/**
+ *
+ * @param settings
+ * @param pageSeo
+ * @return {*}
+ * @constructor
+ */
+const Head = ({settings = {}, pageSeo = {}}) => {
   const favicon = settings.setup_favicon
   const seoBody = settings.seo_body || []
   const seo = {

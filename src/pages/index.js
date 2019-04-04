@@ -22,13 +22,16 @@ Index.getInitialProps = async ({query, req, res}) => {
     let currentSlug = slug !== 'home' ? slug : '' // need to modify. maybe check if ROOT of storyblok config?
     const host = req ? req.headers.host : window.location.host
     const url = `https://${host}/${currentSlug}` // for seo purpose
-    return {
-      page,
-      settings,
+    const pageProps = {
+      page: page.data && page.data.story && page.data.story.content || {},
+      settings: settings.data && settings.data.story && settings.data.story.content || {},
       url
     }
+    DeviceDetectService.setLanguage(pageProps.settings.setup_language, pageProps.settings.setup_supported_languages, res)
+    return pageProps
+
   } catch (e) {
-    return handleErrorContent(e,res)
+    return handleErrorContent(e, res)
   }
 }
 

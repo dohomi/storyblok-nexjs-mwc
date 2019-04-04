@@ -9,16 +9,23 @@ import Fonts from '../../utils/Fonts'
 import {withRouter} from 'next/dist/client/router'
 import Error from '../../pages/_error'
 
-function mapStateProps (pageProps) {
-  const pageContent = pageProps.page && pageProps.page.data && pageProps.page.data.story && pageProps.page.data.story.content || {}
+/**
+ *
+ * @param overwriteDisableRobots
+ * @param page
+ * @param url
+ * @return {{pageSeo: {description: *, disableRobots: (filter_query.meta_robots|{not_in}), title: *, body: (*|Array), url: *}, hasFeature: boolean, pageContent: *}}
+ */
+function mapStateProps ({overwriteDisableRobots = false, page = {}, url = ''}) {
+  const pageContent = page
   const pageSeo = {
     title: pageContent.meta_title,
     description: pageContent.meta_description,
     disableRobots: pageContent.meta_robots,
     body: pageContent.seo_body || [],
-    url: pageProps.url
+    url
   }
-  if (pageProps.overwriteDisableRobots) {
+  if (overwriteDisableRobots) {
     pageSeo.disableRobots = true
   }
   const properties = pageContent.property || []
@@ -53,7 +60,7 @@ const Index = (props) => {
     []
   )
 
-  const settings = props.settings && props.settings.data && props.settings.data.story && props.settings.data.story.content || {}
+  const settings = props.settings
   if (props.error) {
     return <Error statusCode={props.error.status} settings={settings} page={content}/>
   }

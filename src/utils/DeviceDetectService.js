@@ -32,7 +32,9 @@ class DeviceDetect {
    * @param {object} [res]
    */
   setLanguage (language, audienceLanguages, res) {
-    this.language = language
+    if (language) {
+      this.language = language
+    }
     if (res && audienceLanguages) {
       res.headers['Content-Language'] = Array.isArray(audienceLanguages) ? audienceLanguages.join(',') : audienceLanguages
     }

@@ -14,8 +14,8 @@ const handleErrorContent = async (e, res, languagePrefix = '') => {
   }
   res && (res.statusCode = error.status) // set the response error code
   // in storyblok we only handle 404 for not found and any other error 500 including 400 etc.
-  let page = null
-  let settings = null
+  let page = {}
+  let settings = {}
   try {
     const storyblokErrorPageSlug = `error-${error.status === 404 ? '404' : '500'}`
     page = await StoryblokService.get(`cdn/stories/${languagePrefix}${storyblokErrorPageSlug}`)
@@ -27,9 +27,13 @@ const handleErrorContent = async (e, res, languagePrefix = '') => {
   } catch (e) {
     console.error('settings page not found')
   }
-  return {
-    page, settings, error
+
+  const props = {
+    page: page.data && page.data.story && page.data.story.content || {},
+    settings: settings.data && settings.data.story && settings.data.story.content || {},
+    error
   }
+  return props
 }
 
 export default handleErrorContent
