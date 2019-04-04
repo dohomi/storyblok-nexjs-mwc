@@ -36,8 +36,7 @@ class DeviceDetect {
       this.language = language
     }
     if (res && audienceLanguages) {
-      res.headers = res.headers || {}
-      res.headers['Content-Language'] = Array.isArray(audienceLanguages) ? audienceLanguages.join(',') : audienceLanguages
+      res.setHeader('Content-Language', Array.isArray(audienceLanguages) ? audienceLanguages.join(',') : audienceLanguages)
     }
   }
 
