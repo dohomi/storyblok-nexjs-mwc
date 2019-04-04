@@ -13,7 +13,6 @@ const WithBackgroundImage = (props) => {
   const backgroundStyle = props.background_style // background attachment props
   const imageProperties = containerProps.imageProperties
   const lazyDisabled = imageProperties.includes('disable_lazy_load')
-
   let containerRef
 
   const containerClasses = clsx(
@@ -46,7 +45,7 @@ const WithBackgroundImage = (props) => {
   useEffect(
     () => {
       setStyles({
-        ...styles,
+        ...styles
         // filter: 'blur(10px)' // set blur effect
       })
       if (lazyDisabled) {
@@ -85,11 +84,15 @@ const WithBackgroundImage = (props) => {
   }
 
   function fetchAndSetImg (src, reference) {
-    setStyles({
+    const newStyles = {
       ...styles,
       // filter: 'blur(0)', // unset blur effect
       backgroundImage: `url("${src}")`
-    })
+    }
+    if (['fixed_cover', 'fixed_image'].includes(backgroundStyle) && !window.userDevice.device) {
+      newStyles.backgroundAttachment = 'fixed'
+    }
+    setStyles(newStyles)
     fetchImageSource(src)
       .then(() => {
         reference.classList.add('loaded')

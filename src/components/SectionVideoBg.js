@@ -14,7 +14,7 @@ const SectionVideoBg = ({content, dimensions}) => {
   const hasSrc = !!content.url
   const body = content.body || []
   const hasBody = !!body.length
-  let fixedToRatio = !hasBody && !content.height
+  let fixedToRatio = !content.height // enable fixed ratio if height is not set (!hasBody)
   const [containerDimensions, setContainerDimensions] = useState({})
   const [intersectionRef, inView, intersectionElement] = useInView({
     triggerOnce: true,
