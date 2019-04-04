@@ -23,17 +23,20 @@ class MyDocument extends Document {
   }
 
   render () {
-    // Todo: set lang of html
     const injectBodyScript = {
       __html: `
       var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}'; 
       var userDevice = ${JSON.stringify(DeviceDetectService.getDevice())};
       var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
     }
-    const GTM = getGoogleTagManager()
-
+    const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
+    const contentLanguage = DeviceDetectService.getLanguage()
+    const htmlProps = {}
+    if (contentLanguage) {
+      htmlProps.lang = contentLanguage
+    }
     return (
-      <html>
+      <html {...htmlProps}>
       <Head></Head>
       <body className="mdc-typography mdc-theme--background">
       {GTM && (

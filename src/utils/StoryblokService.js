@@ -75,6 +75,10 @@ class StoryblokService {
     }
   }
 
+  insideVisualComposer() {
+    return !!this.getQuery('_storyblok')
+  }
+
   setQuery (query) {
     this.query = query
   }

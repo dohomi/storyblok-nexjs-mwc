@@ -5,17 +5,45 @@ class DeviceDetect {
   constructor () {
     this.device = null
     this.hasWebpSupport = null
+    this.language = null
   }
 
   getDevice () {
     return this.device
   }
 
-  setAppServices(req){
+  setAppServices (req) {
     this.setDevice(req)
     this.setWebpSupport(req)
   }
 
+  /**
+   *
+   * @return {null}
+   */
+  getLanguage () {
+    return this.language
+  }
+
+  /**
+   *
+   * @param {string} language
+   * @param {array} audienceLanguages
+   * @param {object} [res]
+   */
+  setLanguage (language, audienceLanguages, res) {
+    this.language = language
+    if (res && audienceLanguages) {
+      res.headers['Content-Language'] = audienceLanguages
+    }
+  }
+
+  /**
+   *
+   * @param parsed
+   * @return {{os: string, browser: *, version: number, device: *}}
+   * @private
+   */
   _getDeviceValues (parsed) {
     return {
       browser: parsed.browser.name,
@@ -41,6 +69,10 @@ class DeviceDetect {
     }
   }
 
+  /**
+   *
+   * @return {null}
+   */
   getWebpSupport () {
     return this.hasWebpSupport
   }
