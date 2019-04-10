@@ -6,6 +6,7 @@ import Layout from '../components/layout/Layout'
 
 const statusCodes = {
   400: 'Bad Request',
+  401: 'Not Authorized | Invalid API key',
   404: 'This page could not be found',
   500: 'Internal Server Error',
   501: 'Not Implemented'
@@ -14,6 +15,9 @@ const statusCodes = {
 const Error = (props) => {
   let {statusCode, page, settings} = props
   const title = statusCodes[statusCode] || 'An unexpected error has occurred'
+  if (statusCode === 401) {
+    console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
+  }
   return (
     <>
       <Head>
