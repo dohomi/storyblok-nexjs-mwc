@@ -51,13 +51,21 @@ const nextConfig = {
     config.node = {
       fs: 'empty'
     }
-    // config.plugins = config.plugins || []
-    // config.plugins = [
-    //   ...config.plugins,
-    //  //extend
-    // ]
     config.resolve.alias['components'] = path.join(__dirname, 'components')
     config.resolve.alias['routes'] = path.join(__dirname, 'routes')
+    // polyfills
+    const originalEntry = config.entry
+    config.entry = async () => {
+      const entries = await originalEntry()
+      if (
+        entries['main.js'] &&
+        !entries['main.js'].includes('./src/client/polyfills.js')
+      ) {
+        entries['main.js'].unshift('./src/client/polyfills.js')
+      }
+      return entries
+    }
+
     return config
   },
   // webpack: (config, {buildId, dev, isServer, defaultLoaders}) => config,

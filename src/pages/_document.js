@@ -2,6 +2,12 @@ import Document, {Head, Main, NextScript} from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
 import DeviceDetectService from '../utils/DeviceDetectService'
 
+/*
+<script crossOrigin="anonymous"
+              src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default,IntersectionObserver,fetch"
+              key="polyfill"></script>
+ */
+
 function getGoogleTagManager () {
   if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {
     return {
@@ -49,9 +55,7 @@ class MyDocument extends Document {
       )}
       <Main/>
       <script dangerouslySetInnerHTML={injectBodyScript}></script>
-      <script crossOrigin="anonymous"
-              src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default,IntersectionObserver,fetch"
-              key="polyfill"></script>
+
       <NextScript/>
       {GTM && (
         <script dangerouslySetInnerHTML={GTM}></script>

@@ -61,6 +61,7 @@
     "bootstrap": "^4.3.1",
     "clsx": "^1.0.4",
     "fontfaceobserver": "^2.1.0",
+    "intersection-observer": "^0.5.1",
     "js-cookie": "^2.2.0",
     "marked": "^0.6.1",
     "next": "^8.0.3",
@@ -81,6 +82,7 @@
     "storyblok-js-client": "^1.0.21",
     "storyblok-react": "^0.0.7",
     "ua-parser-js": "^0.7.19",
+    "unfetch": "^4.1.0",
     "use-resize-observer": "^3.1.0"
   },
   "devDependencies": {
