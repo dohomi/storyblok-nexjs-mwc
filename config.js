@@ -55,15 +55,16 @@ const nextConfig = {
     }
     config.resolve.alias['components'] = path.join(__dirname, 'components')
     config.resolve.alias['routes'] = path.join(__dirname, 'routes')
+    config.resolve.alias['client'] = path.join(__dirname, 'client')
     // polyfills
     const originalEntry = config.entry
     config.entry = async () => {
       const entries = await originalEntry()
       if (
         entries['main.js'] &&
-        !entries['main.js'].includes('./src/client/polyfills.js')
+        !entries['main.js'].includes('client/polyfills.js')
       ) {
-        entries['main.js'].unshift('./src/client/polyfills.js')
+        entries['main.js'].unshift('client/polyfills.js')
       }
       return entries
     }
