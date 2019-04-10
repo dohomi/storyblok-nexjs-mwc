@@ -25,6 +25,7 @@ const FormItem = (blok) => {
     return createElement(FormComponents[blok.component], blok)
   }
   console.log('component not found on blok: ', blok)
+  console.log('Storyblok PREVIEW and PUBLIC key: ', process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
   return createElement(() => (
     <div>The component {blok.component} has not been created yet.</div>
   ), {key: blok._uid})
