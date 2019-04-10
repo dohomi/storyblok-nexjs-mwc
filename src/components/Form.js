@@ -24,6 +24,7 @@ const FormItem = (blok) => {
   if (typeof FormComponents[blok.component] !== 'undefined') {
     return createElement(FormComponents[blok.component], blok)
   }
+  console.log('component not found on blok: ', blok)
   return createElement(() => (
     <div>The component {blok.component} has not been created yet.</div>
   ), {key: blok._uid})

@@ -8,7 +8,7 @@ import {useState, useEffect} from 'react'
  */
 export const useForm = ({api}) => {
   if (!api) {
-    console.log('you must an API endpoint')
+    console.log('you must provide an API endpoint for the form component.')
     return {}
   }
   const url = api
