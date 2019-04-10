@@ -84,17 +84,17 @@ const WithBackgroundImage = (props) => {
   }
 
   function fetchAndSetImg (src, reference) {
-    const newStyles = {
-      ...styles,
-      // filter: 'blur(0)', // unset blur effect
-      backgroundImage: `url("${src}")`
-    }
-    if (['fixed_cover', 'fixed_image'].includes(backgroundStyle) && !window.userDevice.device) {
-      newStyles.backgroundAttachment = 'fixed'
-    }
-    setStyles(newStyles)
     fetchImageSource(src)
       .then(() => {
+        const newStyles = {
+          ...styles,
+          // filter: 'blur(0)', // unset blur effect
+          backgroundImage: `url("${src}")`
+        }
+        if (['fixed_cover', 'fixed_image'].includes(backgroundStyle) && !window.userDevice.device) {
+          newStyles.backgroundAttachment = 'fixed'
+        }
+        setStyles(newStyles)
         reference.classList.add('loaded')
       })
   }
