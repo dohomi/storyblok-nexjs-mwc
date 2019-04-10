@@ -23,20 +23,28 @@ const bundleAnalyzerConfig = {
   }
 }
 
-const dotEnvResult = require('dotenv').config()
-
-if (dotEnvResult.error) {
-  throw dotEnvResult.error
-}
-const dotEnvVariables = {}
-for (const key of Object.keys(dotEnvResult.parsed)) {
-  dotEnvVariables[key] = process.env[key]
-}
+// STORYBLOK_PREVIEW=W1jvOipRiC2CvR4gxsxjaAtt
+// STORYBLOK_PUBLIC=qlDSPW1dzL2DiSmDYRVkwwtt
+//
+// STORYBLOK_PREVIEW_COMMERCE_CENTRIC=W1jvOipRiC2CvR4gxsxjaAtt
+// STORYBLOK_PUBLIC_COMMERCE_CENTRIC=qlDSPW1dzL2DiSmDYRVkwwtt
+//
+// STORYBLOK_PREVIEW_LUMEN_DEMO=w0nlwuRWpQoDRUbFlwG90gtt
+// STORYBLOK_PUBLIC_LUMEN_DEMO=Q1sBHu46elWLrUz87zDeEgtt
+//
+//
+// STORYBLOK_PREVIEW_JUNGTEXTE=nki3pcCyJQn4Gz4YVPtQDAtt
+// STORYBLOK_PUBLIC_JUNGTEXTE=LUjyqrMPcBd3M9aWJHfNCQtt
+//
+// STORYBLOK_PREVIEW_LUMEN=ppVDdzB1OJZxrF5YU0GJuwtt
+// STORYBLOK_PUBLIC_LUMEN=pw7SspcUSyyy8h6XSsBJhwtt
 
 const nextConfig = {
   target: 'serverless',
   env: {
-    ...dotEnvVariables
+    // .env file is not supported with now any longer
+    STORYBLOK_PREVIEW: 'ppVDdzB1OJZxrF5YU0GJuwtt',
+    STORYBLOK_PUBLIC: 'pw7SspcUSyyy8h6XSsBJhwtt'
   },
   webpack: (config) => {
     // Fixes npm packages that depend on `fs` module
