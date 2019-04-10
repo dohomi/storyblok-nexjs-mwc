@@ -22,8 +22,10 @@ const bundleAnalyzerConfig = {
     }
   }
 }
-const Dotenv = require('dotenv-webpack')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('now-env')
+}
 
 const nextConfig = {
   target: 'serverless',
@@ -32,15 +34,11 @@ const nextConfig = {
     config.node = {
       fs: 'empty'
     }
-    config.plugins = config.plugins || []
-    config.plugins = [
-      ...config.plugins,
-      // Read the .env file
-      new Dotenv({
-        path: path.join(__dirname, '.env'),
-        systemvars: true
-      })
-    ]
+    // config.plugins = config.plugins || []
+    // config.plugins = [
+    //   ...config.plugins,
+    //  //extend
+    // ]
     config.resolve.alias['components'] = path.join(__dirname, 'components')
     config.resolve.alias['routes'] = path.join(__dirname, 'routes')
     return config
