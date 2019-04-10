@@ -23,12 +23,21 @@ const bundleAnalyzerConfig = {
   }
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  require('now-env')
+const dotEnvResult = require('dotenv').config()
+
+if (dotEnvResult.error) {
+  throw dotEnvResult.error
+}
+const dotEnvVariables = {}
+for (const key of Object.keys(dotEnvResult.parsed)) {
+  dotEnvVariables[key] = process.env[key]
 }
 
 const nextConfig = {
   target: 'serverless',
+  env: {
+    ...dotEnvVariables
+  },
   webpack: (config) => {
     // Fixes npm packages that depend on `fs` module
     config.node = {
