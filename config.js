@@ -43,6 +43,7 @@ const bundleAnalyzerConfig = {
 
 const nextConfig = {
   target: 'serverless',
+  transpileModules: ['@lumen/mwc'],
   env: {
     // .env file is not supported with now any longer
     STORYBLOK_PREVIEW: 'ppVDdzB1OJZxrF5YU0GJuwtt',
