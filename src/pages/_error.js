@@ -16,7 +16,7 @@ const Error = (props) => {
   let {statusCode, page, settings} = props
   const title = statusCodes[statusCode] || 'An unexpected error has occurred'
   if (statusCode === 401) {
-    console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
+    console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.NODE_ENV, process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
   }
   return (
     <>
