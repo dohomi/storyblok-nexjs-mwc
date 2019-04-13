@@ -73,7 +73,6 @@ export function getThemeOptions (settings = {}) {
   themeOptions.fontAlt2 = parseFont(settings.theme_font_alt2) || themeOptions.fontDefault
   themeOptions.fontAlt3 = parseFont(settings.theme_font_alt3) || themeOptions.fontDefault
   themeOptions.fontAlt4 = parseFont(settings.theme_font_alt4) || themeOptions.fontDefault
-  console.log(settings.theme_font_default, themeOptions.fontDefault)
   return themeOptions
 }
 

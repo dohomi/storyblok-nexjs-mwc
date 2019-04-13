@@ -97,14 +97,18 @@ const ButtonLink = (props) => {
   )
 }
 
-const MtButton = (props) => {
-  const content = props.content
+const MtButton = ({content}) => {
   const buttonProps = mapButtonProps(content)
   const link = content.link || {}
   componentLogger(content)
 
   linkHandler(buttonProps, link, {openExternal: !!content.open_external})
   buttonProps.tag = ButtonLink
+  if (content.font) {
+    buttonProps.style = {
+      '--mdc-theme-font-default': `var(--mdc-theme-font-${content.font})`
+    }
+  }
 
   // console.log(buttonProps)
   return (
