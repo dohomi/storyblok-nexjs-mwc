@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config_prod()
 const {createServer} = require('http')
 const {generateSitemapOnStory} = require('./src/api/sitemap')
 const port = parseInt(process.env.PORT, 10) || 4444

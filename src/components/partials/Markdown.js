@@ -1,9 +1,12 @@
-import {Link} from 'routes'
 import marked from 'marked'
-import {render} from 'react-dom'
-import {createElement} from 'react'
 
-const Markdown = (props) => {
+const Markdown = (props = {}) => {
+  const componentProps = {
+    className: props.className
+  }
+  if (props.style) {
+    componentProps.style = props.style
+  }
 
   const rawMarkupFunc = () => {
     const renderer = new marked.Renderer()
@@ -38,7 +41,8 @@ const Markdown = (props) => {
   }
 
   return (
-    <div className={props.className} dangerouslySetInnerHTML={rawMarkupFunc()}></div>
+    <div {...componentProps}
+         dangerouslySetInnerHTML={rawMarkupFunc()}></div>
   )
 
 }

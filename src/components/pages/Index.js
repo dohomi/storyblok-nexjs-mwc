@@ -38,6 +38,7 @@ function mapStateProps ({overwriteDisableRobots = false, page = {}, url = ''}) {
 }
 
 const Index = (props) => {
+  const settings = props.settings
   let [content, setContent] = useState(mapStateProps(props))
   let [prevPath, setPrevPath] = useState(props.router.asPath)
   useEffect(
@@ -53,14 +54,13 @@ const Index = (props) => {
 
   useEffect(
     () => {
-      Fonts()
+      Fonts(settings)
       StoryblokService.initEditor(content, setContent)
       DeviceDetectService.setAppServices()
     },
     []
   )
 
-  const settings = props.settings
   if (props.error) {
     return <Error statusCode={props.error.status} settings={settings} page={content}/>
   }

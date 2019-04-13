@@ -7,9 +7,19 @@ const Paragraph = ({content}) => {
   const styleClasses = clsx('mdc-typography lm-markup', {
     [`mdc-typography--${typography}`]: true
   }, content.style, content.class_names && content.class_names.values)
+  const props = {
+    content: content.text,
+    className: styleClasses
+  }
+  if (content.font) {
+    props.style = {
+      '--mdc-theme-font-default': `var(--mdc-theme-font-${content.font})`
+    }
+  }
+
   return (
     <SbEditable content={content}>
-      <Markdown content={content.text} className={styleClasses}/>
+      <Markdown {...props}/>
     </SbEditable>
   )
 }

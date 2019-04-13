@@ -19,11 +19,19 @@ const HeadlineContent = ({content}) => {
 const Headline = ({content}) => {
   componentLogger(content)
   const classes = clsx(content.style, content.style_props, content.class_names && content.class_names.values)
+  const props = {
+    className: {classes},
+    tag: content.tag || 'h3',
+    use: content.typography || 'headline4'
+  }
+  if (content.font) {
+    props.style = {
+      '--mdc-theme-font-default': `var(--mdc-theme-font-${content.font})`
+    }
+  }
   return (
     <SbEditable content={content}>
-      <Typography className={classes}
-                  tag={content.tag || 'h3'}
-                  use={content.typography || 'headline4'}>
+      <Typography {...props}>
         <HeadlineContent content={content}/>
       </Typography>
     </SbEditable>
