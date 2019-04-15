@@ -7,9 +7,9 @@ const ImageSvg = ({content}) => {
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
   })
-  const src = inView ? 'https:' + content.source : ''
+  const src = inView ? content.source : ''
   const afterSvgLoaded = () => {
-    el.target.classList.add("loaded")
+    el.target.classList.add('loaded')
     // el.target.style.filter = 'blur(0)'
   }
   const svgStyle = {

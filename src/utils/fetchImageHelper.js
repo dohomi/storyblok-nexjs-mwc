@@ -5,7 +5,7 @@
  */
 export function fetchImageSource (src) {
   return new Promise((resolve, reject) => {
-    fetch(src.replace('//', 'https://'), {
+    fetch(src, {
       mode: 'no-cors'
     }).then(() => {
       resolve(src)
@@ -13,4 +13,22 @@ export function fetchImageSource (src) {
       reject(e)
     })
   })
+}
+
+/**
+ *
+ * @param {string} src
+ * @param {string} srcSet
+ * @param {function} onReady
+ */
+export function getImage ({src = '', srcSet = '', onReady}) {
+  let img = new Image()
+  img.src = src
+  img.srcset = srcSet || src
+  img.crossorigin = 'anonymous'
+  img.onload = () => {
+    img.onload = null // dispose
+    onReady && onReady(img.currentSrc || img.src) // return current selected source
+    img = null // dispose image element
+  }
 }

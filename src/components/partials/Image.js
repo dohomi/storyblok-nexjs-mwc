@@ -1,65 +1,72 @@
 import SbEditable from 'storyblok-react'
-import imageService from '../../utils/ImageService'
+import {getImageAttrs} from '../../utils/ImageService'
 import clsx from 'clsx'
 import withWindowDimensions from '../provider/WithWindowDimensions'
-import {fetchImageSource} from '../../utils/fetchImageHelper'
+import {getImage} from '../../utils/fetchImageHelper'
 import {useInView} from 'react-intersection-observer'
 import React, {useEffect, useState} from 'react'
 
 
 /**
  *
- * @param content
  * @param width
  * @param height
- * @return {*}
+ * @param definedWidth
+ * @param definedHeight
+ * @param originalSource
+ * @param smart
+ * @param fitInColor
+ * @param cropped
+ * @param square
+ * @return {{src: string}}
  */
-function getSource (content, {width, height}) {
+function getSource ({width, height, definedWidth = 0, definedHeight = 0, originalSource = '', smart = false, fitInColor, cropped, square}) {
   width = parseInt(width)
-  const imageCrop = content.image_crop || []
-  const property = content.property || []
-  let availableWidth = content.width || 0
-  let availableHeight = content.height || 0
-
-  if ((!availableWidth && !availableHeight) || imageCrop.length || content.fit_in_color) {
+  if ((!definedWidth && !definedHeight) || cropped || fitInColor) {
     // default: set available width to the current width either in crop mode
-    availableWidth = availableWidth || width
+    definedWidth = definedWidth || width
   }
-  if (property.includes('rounded-circle') || property.includes('square')) {
+  if (square) {
     // overwrite if square
-    const iconSize = availableHeight || availableWidth || '64'
-    availableWidth = iconSize
-    availableHeight = iconSize
+    const iconSize = definedHeight || definedWidth || '64'
+    definedWidth = iconSize
+    definedHeight = iconSize
   }
-  let filter = ''
-  let path = `${availableWidth}x${availableHeight}`
-
-  if (content.fit_in_color) {
-    path = 'fit-in/' + path
-    filter = `:fill(${content.fit_in_color})`
-  } else if (imageCrop.includes('smart_crop')) {
-    path += '/smart'
-  }
-  return imageService(content.source, path, filter)
+  const imgObj = getImageAttrs({originalSource, width: definedWidth, height: definedHeight, fitInColor, smart})
+  return imgObj
 }
 
 
 const Image = (props) => {
   const width = props.dimensions.width
   const height = props.dimensions.height
+  const content = props.content
+  const imageCrop = content.image_crop || []
+  const property = content.property || []
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
   })
 
+  const className = clsx('img-fluid', 'progressive-img-container', content.property)
   const [imageProps, setImageProps] = useState({
     src: '',
-    style: {}
+    style: {},
+    alt: content.alt || 'website image',
+    className
   })
 
-  const content = props.content
-  const className = clsx('img-fluid', 'progressive-img-container', content.property)
+  const imageProperties = {
+    originalSource: content.source,
+    definedWidth: content.width,
+    definedHeight: content.height,
+    smart: imageCrop.includes('smart_crop'),
+    fitInColor: content.fit_in_color,
+    cropped: imageCrop.length,
+    square: property.includes('rounded-circle') || property.includes('square')
+  }
+
   useEffect(() => {
     if (!intersectionElement) {
       return // don't proceed
@@ -75,33 +82,42 @@ const Image = (props) => {
       //   }
       // })
 
-      let imgDimensions = {width: elementDimensions.width, height: elementDimensions.height}
-      const imgSource = getSource(content, imgDimensions)
+      let imgDimensions = {
+        ...imageProperties,
+        width: elementDimensions.width,
+        height: elementDimensions.height
+      }
+      const imgSource = getSource(imgDimensions)
       setImageProps({
-        src: imgSource,
+        ...imageProps,
+        src: imgSource.src,
+        srcSet: imgSource.srcSet,
         style: {
           width: content.width ? `${content.width}px` : 'auto',
           maxHeight: 'inherit',
-          height: content.height ? `${content.height}px` : 'auto',
+          height: content.height ? `${content.height}px` : 'auto'
         }
       })
-      fetchImageSource(imgSource)
-        .then(() => {
-          intersectionElement.target.firstElementChild.classList.add("loaded")
-        })
+
+      getImage({
+        src: imgSource.src,
+        srcSet: imgSource.srcSet,
+        onReady: () => {
+          intersectionElement.target.firstElementChild.classList.add('loaded')
+        }
+      })
+
+      // fetchImageSource(imgSource.src)
+      //   .then(() => {
+      //     // intersectionElement.target.firstElementChild.classList.add('loaded')
+      //   })
     }
   }, [width, height, inView, content.source])
-
-  const currentProps = {
-    ...imageProps,
-    alt: content.alt || 'website image',
-    className
-  }
 
   return (
     <SbEditable content={content}>
       <div className="w-100" ref={refIntersectionObserver}>
-        <img {...currentProps}/>
+        <img {...imageProps}/>
       </div>
     </SbEditable>
   )

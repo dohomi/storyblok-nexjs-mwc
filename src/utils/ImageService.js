@@ -14,6 +14,15 @@ export function getImageSource ({image, width, height, focalPoint}) {
   return imageService(image, path, focal)
 }
 
+export function getPreviewImageSource(image){
+  const orig = getOriginalImageDimensions(image)
+  return getImageSource({
+    image: image,
+    width: orig.width / 100,
+    height: orig.height / 100
+  })
+}
+
 export function imageServiceNoWebp (image, option = '') {
   if (image.endsWith('.svg')) {
     return image
@@ -28,7 +37,7 @@ export function imageServiceNoWebp (image, option = '') {
  * @param src
  * @return {{width: number, height: number}}
  */
-export function getOriginaImageDimensions (src) {
+export function getOriginalImageDimensions (src) {
   const splitted = src.split('/')
   const originalDimension = src.split('/')[splitted.length - 3].split('x')
   return {
@@ -39,12 +48,53 @@ export function getOriginaImageDimensions (src) {
 
 /**
  *
+ * @param originalSource
+ * @param width
+ * @param height
+ * @param filter
+ * @param fitInColor
+ * @param smart
+ * @param focalPoint
+ * @return {{src: string}}
+ */
+export function getImageAttrs ({originalSource, width, height, filter = '', fitInColor, smart, focalPoint}) {
+  const originalDimensions = getOriginalImageDimensions(originalSource)
+  if (originalDimensions.width < width) {
+    width = originalDimensions.width
+  }
+  if (originalDimensions.height < height) {
+    height = originalDimensions.height
+  }
+  let path = `${width || 0}x${height || 0}`
+  if (fitInColor) {
+    path = 'fit-in/' + path
+    filter += `:fill(${fitInColor})`
+  } else if (smart && !focalPoint) {
+    path += '/smart'
+  }
+  if (focalPoint) {
+    filter += getFocalPoint(originalSource, focalPoint)
+  }
+  const imgObj = {
+    src: imageService(originalSource, path, filter)
+  }
+  // enable retina sourceset
+  if (width <= originalDimensions.width / 2 && height <= originalDimensions.height / 2) {
+    imgObj.srcSet = `${imgObj.src} 1x, ${imageService(originalSource, `${width * 2}x${height * 2}`, filter)} 2x`
+  } else {
+    imgObj.srcSet = imgObj.src
+  }
+  return imgObj
+}
+
+/**
+ *
  * @param src
  * @param focalPoint
  * @return {string}
  */
 export function getFocalPoint (src, focalPoint) {
-  const {width, height} = getOriginaImageDimensions(src)
+  const {width, height} = getOriginalImageDimensions(src)
   const focalSplitted = focalPoint.split('x')
   const focalPercentX = parseFloat(focalSplitted[0]) / 100
   const focalPercentY = parseFloat(focalSplitted[1]) / 100
@@ -72,7 +122,7 @@ function imageService (image, option = '', filter = '') {
     option += 'filters' + filter
   }
 
-  const imageService = '//img2.storyblok.com/'
+  const imageService = 'https://img2.storyblok.com/'
   const path = image.replace('//a.storyblok.com', '')
   return imageService + option + path
 }

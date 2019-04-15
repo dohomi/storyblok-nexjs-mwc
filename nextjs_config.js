@@ -1,15 +1,8 @@
 const path = require('path')
-module.exports = ({
-  STORYBLOK_PREVIEW = 'ppVDdzB1OJZxrF5YU0GJuwtt',
-  STORYBLOK_PUBLIC = 'pw7SspcUSyyy8h6XSsBJhwtt'
-}) => ({
+module.exports = (env) => ({
   target: 'serverless',
   transpileModules: ['@lumen/mwc'],
-  env: {
-    // .env file is not supported with now any longer
-    STORYBLOK_PREVIEW,
-    STORYBLOK_PUBLIC
-  },
+  env,
   webpack: (config) => {
     // Fixes npm packages that depend on `fs` module
     config.node = {
@@ -32,7 +25,7 @@ module.exports = ({
     }
 
     return config
-  },
+  }
   // webpack: (config, {buildId, dev, isServer, defaultLoaders}) => config,
   // workboxOpts: {
   //   swDest: 'static/service-worker.js',

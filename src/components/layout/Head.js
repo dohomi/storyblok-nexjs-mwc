@@ -4,7 +4,7 @@ import NProgress from 'nprogress'
 import Router from 'next/router'
 import StoryblokService from '../../utils/StoryblokService'
 import NextSeo from 'next-seo'
-import imageService, {imageServiceNoWebp, getOriginaImageDimensions} from '../../utils/ImageService'
+import imageService, {imageServiceNoWebp, getOriginalImageDimensions} from '../../utils/ImageService'
 
 Router.onRouteChangeStart = () => NProgress.start()
 Router.onRouteChangeComplete = () => NProgress.done()
@@ -14,7 +14,7 @@ const iconSizes = [16, 32, 96, 192]
 
 function mapOpenGraphImage (item) {
   if (!item.url) return
-  let dimensions = getOriginaImageDimensions(item.url)
+  let dimensions = getOriginalImageDimensions(item.url)
   const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
   if (item.width || item.height) {
     dimensions = {} // overwrite original dimensions
