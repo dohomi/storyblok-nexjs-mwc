@@ -1,6 +1,5 @@
-import imageService from '../../utils/ImageService'
+import imageService, {getImageAttrs} from '../../utils/ImageService'
 import {componentLogger} from '../../utils/componentLogger'
-import {memo} from 'react'
 
 function getSource (source, {width, height, crop, fitInColor}) {
   let filter = ''
@@ -30,8 +29,18 @@ const Image = (props) => {
     aspectRatioStyles = {paddingBottom: `${splitAspectRatio[1] / splitAspectRatio[0] * 100}%`}
   }
   let src = '' // getSource(props.source, {width: 42, height: 42})
+  let srcSet = ''
   if (props.inView) {
-    src = getSource(props.source, {width, height, crop: crop, fitInColor: props.fitInColor})
+    // src = getSource(props.source, {width, height, crop: crop, fitInColor: props.fitInColor})
+    const imgAttrs = getImageAttrs({
+      originalSource: props.source,
+      width,
+      height,
+      smart: crop === 'smart',
+      fitInColor: props.fitInColor
+    })
+    src = imgAttrs.src
+    srcSet = imgAttrs.srcSet
   }
 
   function onLoad (ev) {
@@ -49,14 +58,21 @@ const Image = (props) => {
              ...aspectRatioStyles,
              ...styles
            }}>
-        <img src={src} style={{backgroundColor: 'grey'}} className="mdc-image-list__image progressive-img-blur-container"
+        <img src={src}
+             srcSet={srcSet}
+             style={{backgroundColor: 'grey'}}
+             className="mdc-image-list__image progressive-img-blur-container"
              onLoad={onLoad}/>
       </div>
     )
   }
 
   return (
-    <img src={src} className="mdc-image-list__image" style={styles} onLoad={onLoad}/>
+    <img src={src}
+         srcSet={srcSet}
+         className="mdc-image-list__image"
+         style={styles}
+         onLoad={onLoad}/>
   )
 }
 

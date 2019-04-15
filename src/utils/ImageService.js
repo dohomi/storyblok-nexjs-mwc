@@ -1,28 +1,43 @@
 import DeviceDetectService from './DeviceDetectService'
 
-export function getImageSource ({image, width, height, focalPoint}) {
+/**
+ *
+ * @param image
+ * @param width
+ * @param height
+ * @param focalPoint
+ * @return {string}
+ * @private
+ */
+function _getImageSource ({image, width, height}) {
   let path = ''
-  let focal = ''
   if (width && height) {
     path = `${parseInt(width)}x${parseInt(height)}`
   }
-  if (!focalPoint) {
-    path += '/smart'
-  } else {
-    focal = getFocalPoint(image, focalPoint)
-  }
-  return imageService(image, path, focal)
+  path += '/smart'
+  return imageService(image, path, '')
 }
 
+/**
+ * Get tiny image based on img dimensions
+ * @param image
+ * @return {string}
+ */
 export function getPreviewImageSource (image) {
   const orig = getOriginalImageDimensions(image)
-  return getImageSource({
+  return _getImageSource({
     image: image,
     width: orig.width / 100,
     height: orig.height / 100
   })
 }
 
+/**
+ *
+ * @param image
+ * @param option
+ * @return {string|*}
+ */
 export function imageServiceNoWebp (image, option = '') {
   if (image.endsWith('.svg')) {
     return image

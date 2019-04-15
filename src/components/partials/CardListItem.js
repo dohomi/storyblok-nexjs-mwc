@@ -1,80 +1,13 @@
-import SbEditable from 'storyblok-react'
 import {
-  Card,
   CardPrimaryAction,
-  CardMedia,
   CardMediaContent
 } from '@rmwc/card'
 import {Typography} from '@rmwc/typography'
-import imageService from '../../utils/ImageService'
-import {Link} from 'routes/index'
+import {getImageAttrs} from '../../utils/ImageService'
 import clsx from 'clsx'
-import {linkHandler} from '../../utils/linkHandler'
-
-const getBackgroundImageSource = ({image, properties = [], width, height}) => {
-  let path = `${parseInt(width)}x0}`
-  if (!properties.includes('contain')) {
-    path = `${parseInt(width)}x${parseInt(height)}`
-    if (properties.includes('crop')) {
-      path += '/smart'
-    }
-  }
-  return imageService(image, path)
-}
-
-const CardLink = (props) => {
-  if (!(props.link && props.link.cached_url)) {
-    return <>{props.children}</>
-  }
-  const content = {...props}
-  linkHandler(content, content.link, {openExternal: !!props.open_external})
-  return content.to ? (
-    <Link to={content.to}><a>{content.children}</a></Link>
-  ) : (
-    <a href={content.href}>{content.children}</a>
-  )
-}
-
-
-const CardListActionTitles = (content) => {
-  const titleStyles = {}
-  if (content.variant && content.variant.includes('title_top')) {
-    titleStyles.position = 'absolute'
-    titleStyles.top = '16px'
-  }
-  return (
-    <div>
-      {content.title && <Typography tag={content.titleTag || 'h3'}
-                                    style={titleStyles}
-                                    use={content.titleTypography || 'headline6'}>{content.title}</Typography>}
-      {content.subtitle && <Typography tag={content.subtitleTag || 'h4'}
-                                       use={content.subtitleTypography || 'subtitle2'}>{content.subtitle}</Typography>}
-    </div>
-  )
-}
-
-const CardWrap = ({children, content, className, style, outlined}) => {
-  return (
-    <SbEditable content={content}>
-      <Card className={className} style={style} outlined={outlined}>
-        <CardLink link={content.link}>
-          {children}
-        </CardLink>
-      </Card>
-    </SbEditable>
-  )
-}
-
-const CardMediaElement = ({style, sixteenByNine, square, children}) => {
-  return (
-    <CardMedia style={style}
-               sixteenByNine={sixteenByNine}
-               className="progressive-img-blur-container"
-               square={square}>
-      {children}
-    </CardMedia>
-  )
-}
+import CardMediaElement from './card/CardMediaElement'
+import CardWrap from './card/CardWrap'
+import CardListActionTitles from './card/CardLinkActionTitle'
 
 const CardListItem = (content) => {
   let variant = content.variant || []
@@ -83,13 +16,14 @@ const CardListItem = (content) => {
     [`mdc-elevation--z${content.elevation}`]: content.elevation
   })
   if (content.inView) {
-    const backgroundImageSource = getBackgroundImageSource({
-      image: content.image,
-      properties: [],
+
+    const img = getImageAttrs({
+      originalSource: content.image,
       width: content.mediaDimension.width,
-      height: content.mediaDimension.height
+      height: content.mediaDimension.height,
+      smart: true
     })
-    mediaStyles.backgroundImage = `url("${backgroundImageSource}")`
+    mediaStyles.backgroundImage = `url("${img.src}")`
     mediaStyles.filter = 'blur(0)'
     mediaStyles.backgroundColor = 'transparent'
   }

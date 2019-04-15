@@ -5,26 +5,9 @@ import clsx from 'clsx'
 import withWindowDimensions from './provider/WithWindowDimensions'
 import {useEffect, useState} from 'react'
 import {useInView} from 'react-intersection-observer'
-import imageService, {getFocalPoint, getImageAttrs} from '../utils/ImageService'
+import {getImageAttrs} from '../utils/ImageService'
 import {getImagePromise} from '../utils/fetchImageHelper'
 
-/**
- *
- * @param backgroundImage
- * @param height
- * @return {*}
- */
-const getImgSource = (backgroundImage, {width, height, focalPoint}) => {
-  let path = `${width}x${height}`
-  let focal = ''
-  if (!focalPoint) {
-    path += '/smart'
-  } else {
-    focal = getFocalPoint(backgroundImage, focalPoint)
-  }
-
-  return imageService(backgroundImage, path, focal)
-}
 
 const SectionParallax = ({content, dimensions}) => {
   const [refIntersectionObserver, inView, refElement] = useInView({

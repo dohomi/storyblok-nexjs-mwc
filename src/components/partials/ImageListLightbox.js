@@ -5,12 +5,13 @@ import {
 } from '@rmwc/dialog'
 import {IconButton} from '@rmwc/icon-button'
 import SwipeableViews from 'react-swipeable-views'
-import imageService, {getOriginalImageDimensions} from '../../utils/ImageService'
+import {getImageAttrs, getOriginalImageDimensions} from '../../utils/ImageService'
 
 import React from 'react'
 
 const Swipe = (props) => {
   let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)
+
 
   function getImageSource (source) {
     let dimensionHeight = props.dimensions.height - 68 - 16
@@ -20,12 +21,12 @@ const Swipe = (props) => {
     const imgHeight = originalDimension.height
     dimensionWidth = imgWidth <= dimensionWidth ? imgWidth : dimensionWidth
     dimensionHeight = imgHeight <= dimensionHeight ? imgHeight : dimensionHeight
-    let path = `${dimensionWidth}x0`
-    if (dimensionWidth > dimensionHeight) {
-      path = `0x${dimensionHeight}`
-    }
-
-    return imageService(source, path)
+    const landscape = dimensionWidth > dimensionHeight
+    return getImageAttrs({
+      originalSource: source,
+      width: landscape ? 0 : dimensionWidth,
+      height: landscape ? dimensionHeight : 0
+    })
   }
 
   function handleChangeIndex (index) {
@@ -39,9 +40,8 @@ const Swipe = (props) => {
                       onChangeIndex={handleChangeIndex}>
         {props.elements.map(item => (
           <div key={item._uid} className="carousel-item d-block">
-            <img
-              src={getImageSource(item.source)}
-              className='img-fluid'/>
+            <img {...getImageSource(item.source)}
+                 className='img-fluid'/>
           </div>
         ))}
       </SwipeableViews>
