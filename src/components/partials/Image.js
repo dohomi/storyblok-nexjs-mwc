@@ -32,8 +32,7 @@ function getSource ({width, height, definedWidth = 0, definedHeight = 0, origina
     definedWidth = iconSize
     definedHeight = iconSize
   }
-  const imgObj = getImageAttrs({originalSource, width: definedWidth, height: definedHeight, fitInColor, smart})
-  return imgObj
+  return getImageAttrs({originalSource, width: definedWidth, height: definedHeight, fitInColor, smart})
 }
 
 
@@ -71,7 +70,7 @@ const Image = (props) => {
     if (!intersectionElement) {
       return // don't proceed
     }
-    const elementDimensions = intersectionElement.boundingClientRect
+    let elementDimensions = intersectionElement.boundingClientRect
     if (inView) {
       // small preview
       // setImageProps({
@@ -82,6 +81,8 @@ const Image = (props) => {
       //   }
       // })
 
+      elementDimensions = intersectionElement.target.parentElement.getBoundingClientRect()
+      console.log(elementDimensions)
       let imgDimensions = {
         ...imageProperties,
         width: elementDimensions.width,
@@ -116,9 +117,9 @@ const Image = (props) => {
 
   return (
     <SbEditable content={content}>
-      <div className="w-100" ref={refIntersectionObserver}>
+      <figure ref={refIntersectionObserver} className="img-figure">
         <img {...imageProps}/>
-      </div>
+      </figure>
     </SbEditable>
   )
 }

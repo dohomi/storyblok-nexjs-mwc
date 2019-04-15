@@ -80,13 +80,10 @@ export function getImageAttrs ({originalSource, width, height, filter = '', fitI
   if (originalDimensions.height < height) {
     height = originalDimensions.height
   }
-  let path = `${width || 0}x${height || 0}`
   if (fitInColor) {
-    path = 'fit-in/' + path
     filter += `:fill(${fitInColor})`
-  } else if (smart && !focalPoint) {
-    path += '/smart'
   }
+  let path = getPath(width, height)
   if (focalPoint) {
     filter += getFocalPoint(originalSource, focalPoint)
   }
@@ -95,10 +92,21 @@ export function getImageAttrs ({originalSource, width, height, filter = '', fitI
   }
   // enable retina sourceset
   if (width <= originalDimensions.width / 2 && height <= originalDimensions.height / 2) {
-    imgObj.srcSet = `${imgObj.src} 1x, ${imageService(originalSource, `${width * 2}x${height * 2}`, filter)} 2x`
+    imgObj.srcSet = `${imgObj.src} 1x, ${imageService(originalSource, getPath(width * 2, height * 2), filter)} 2x`
   } else {
     imgObj.srcSet = imgObj.src
   }
+
+  function getPath (width, height) {
+    let path = `${width || 0}x${height || 0}`
+    if (fitInColor) {
+      path = 'fit-in/' + path
+    } else if (smart && !focalPoint) {
+      path += '/smart'
+    }
+    return path
+  }
+
   return imgObj
 }
 
