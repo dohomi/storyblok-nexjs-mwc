@@ -44,4 +44,7 @@ figure.img-figure {
   margin: 0;
   padding: 0;
 
+  > img {
+    margin-bottom: -4px; // correct calculation bug
+  }
 }
