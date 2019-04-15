@@ -82,7 +82,6 @@ const Image = (props) => {
       // })
 
       elementDimensions = intersectionElement.target.parentElement.getBoundingClientRect()
-      console.log(elementDimensions)
       let imgDimensions = {
         ...imageProperties,
         width: elementDimensions.width,
