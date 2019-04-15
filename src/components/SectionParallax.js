@@ -5,8 +5,8 @@ import clsx from 'clsx'
 import withWindowDimensions from './provider/WithWindowDimensions'
 import {useEffect, useState} from 'react'
 import {useInView} from 'react-intersection-observer'
-import imageService, {getFocalPoint} from '../utils/ImageService'
-import {fetchImageSource} from '../utils/fetchImageHelper'
+import imageService, {getFocalPoint, getImageAttrs} from '../utils/ImageService'
+import {getImagePromise} from '../utils/fetchImageHelper'
 
 /**
  *
@@ -59,31 +59,28 @@ const SectionParallax = ({content, dimensions}) => {
   )
 
   function processLayers (el) {
-    const items = elements.map(item => {
+    const items = elements.map(async item => {
       const containerHeight = height * Number(contentHeight / 100)
       const offset = ((containerHeight * item.amount) * 2)
       const imgHeight = containerHeight + offset
-      let imgSource = getImgSource(
-        item.image,
-        {
-          width,
-          height: parseInt(imgHeight),
-          focalPoint: item.image_focal_point
-        }
-      )
+
+      const img = getImageAttrs({
+        originalSource: item.image,
+        width,
+        height: parseInt(imgHeight),
+        smart: true,
+        focalPoint: item.image_focal_point
+      })
+      const imgSource = await getImagePromise({src: img.src, srcSet: img.srcSet})
       return {
         image: `"${imgSource}"`,
         amount: Number(item.amount),
         children: item.children && item.children.length && Components(item.children[0])
       }
     })
-
-    setLayers(items)
-    Promise.all(elements.map(item => {
-      const src = item.image
-      return fetchImageSource(src)
-    }))
-      .then(() => {
+    Promise.all(items)
+      .then((layers) => {
+        setLayers(layers)
         el.classList.add('loaded')
       })
   }

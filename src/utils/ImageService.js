@@ -14,7 +14,7 @@ export function getImageSource ({image, width, height, focalPoint}) {
   return imageService(image, path, focal)
 }
 
-export function getPreviewImageSource(image){
+export function getPreviewImageSource (image) {
   const orig = getOriginalImageDimensions(image)
   return getImageSource({
     image: image,
@@ -55,7 +55,7 @@ export function getOriginalImageDimensions (src) {
  * @param fitInColor
  * @param smart
  * @param focalPoint
- * @return {{src: string}}
+ * @return {{src: string,srcSet:string}}
  */
 export function getImageAttrs ({originalSource, width, height, filter = '', fitInColor, smart, focalPoint}) {
   const originalDimensions = getOriginalImageDimensions(originalSource)

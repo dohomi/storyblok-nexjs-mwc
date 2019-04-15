@@ -1,5 +1,5 @@
-import {getImageSource} from '../../utils/ImageService'
-import {fetchImageSource} from '../../utils/fetchImageHelper'
+import {getImageAttrs} from '../../utils/ImageService'
+import {getImage} from '../../utils/fetchImageHelper'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import React, {useEffect} from 'react'
 
@@ -11,12 +11,20 @@ const BackgroundImage = ({image, dimensions}) => {
       if (current) {
         const width = current.clientWidth
         const height = current.clientHeight
-        const imageSource = getImageSource({image, width, height})
-        fetchImageSource(imageSource)
-          .then(() => {
+        const img = getImageAttrs({
+          originalSource: image,
+          width,
+          height,
+          smart: true
+        })
+        getImage({
+          src: img.src,
+          srcSet: img.srcSet,
+          onReady (imageSource) {
             current.style.filter = 'blur(0)'
-          })
-        current.style.backgroundImage = `url('${imageSource}')`
+            current.style.backgroundImage = `url('${imageSource}')`
+          }
+        })
       }
     },
     [dimensions, image]

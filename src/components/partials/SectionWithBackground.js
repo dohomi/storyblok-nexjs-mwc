@@ -63,7 +63,8 @@ const WithBackgroundImage = (props) => {
       originalSource: backgroundImage,
       width: wrap.current.clientWidth,
       height: overwriteHeight || wrap.current.clientHeight,
-      focalPoint: containerProps.focalPoint
+      focalPoint: containerProps.focalPoint,
+      smart: true
     })
     // fetch current image and set correct src after loaded
     getImage({
