@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import CardListItem from './partials/CardListItem'
+import CardListItem from './partials/card/CardListItem'
 import clsx from 'clsx'
 import {useInView} from 'react-intersection-observer'
 import React, {useEffect, useState} from 'react'

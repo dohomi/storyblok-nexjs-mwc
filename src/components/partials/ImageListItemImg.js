@@ -1,18 +1,5 @@
-import imageService, {getImageAttrs} from '../../utils/ImageService'
+import {getImageAttrs} from '../../utils/ImageService'
 import {componentLogger} from '../../utils/componentLogger'
-
-function getSource (source, {width, height, crop, fitInColor}) {
-  let filter = ''
-  let path = `${width}x${height}`
-  if (crop === 'fit_in') {
-    path = 'fit-in/' + path
-    filter = `:fill(${fitInColor || 'transparent'})`
-  }
-  if (crop === 'smart') {
-    path += '/smart'
-  }
-  return imageService(source, path, filter)
-}
 
 const Image = (props) => {
   componentLogger(props)

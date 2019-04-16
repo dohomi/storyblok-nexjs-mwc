@@ -3,31 +3,42 @@ import {
   CardMediaContent
 } from '@rmwc/card'
 import {Typography} from '@rmwc/typography'
-import {getImageAttrs} from '../../utils/ImageService'
+import {getImageAttrs} from '../../../utils/ImageService'
 import clsx from 'clsx'
-import CardMediaElement from './card/CardMediaElement'
-import CardWrap from './card/CardWrap'
-import CardListActionTitles from './card/CardLinkActionTitle'
+import CardMediaElement from './CardMediaElement'
+import CardWrap from './CardWrap'
+import CardListActionTitles from './CardLinkActionTitle'
+import {useState} from 'react'
+import {getImage} from '../../../utils/fetchImageHelper'
 
 const CardListItem = (content) => {
   let variant = content.variant || []
-  const mediaStyles = {}
   const cardClasses = clsx({
     [`mdc-elevation--z${content.elevation}`]: content.elevation
   })
-  if (content.inView) {
+  const [styles, setStyles] = useState({
+    color: variant.includes('font_white') ? 'white' : 'inherit'
+  })
 
+  if (content.inView && !styles.backgroundImage) {
     const img = getImageAttrs({
       originalSource: content.image,
       width: content.mediaDimension.width,
       height: content.mediaDimension.height,
       smart: true
     })
-    mediaStyles.backgroundImage = `url("${img.src}")`
-    mediaStyles.filter = 'blur(0)'
-    mediaStyles.backgroundColor = 'transparent'
+    getImage({
+      ...img,
+      onReady(src){
+        setStyles({
+          ...styles,
+          backgroundImage: `url("${src}")`,
+          filter: 'blur(0)',
+          backgroundColor: 'transparent'
+        })
+      }
+    })
   }
-  variant.includes('font_white') && (mediaStyles.color = 'white')
   const cardStyles = {}
   content.borderRadius && (cardStyles.borderRadius = content.borderRadius)
   const isOverMedia = variant.includes('over_media')
@@ -39,7 +50,7 @@ const CardListItem = (content) => {
     outlined: variant.includes('outlined')
   }
   const cardMediaProps = {
-    style: mediaStyles,
+    style: styles,
     sixteenByNine: content.sixteenByNine,
     square: content.square
   }
