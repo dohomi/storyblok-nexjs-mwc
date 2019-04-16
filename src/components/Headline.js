@@ -18,9 +18,9 @@ const HeadlineContent = ({content}) => {
 
 const Headline = ({content}) => {
   componentLogger(content)
-  const classes = clsx(content.style, content.style_props, content.class_names && content.class_names.values)
+
   const props = {
-    className: {classes},
+    className: clsx(content.style, content.style_props, content.class_names && content.class_names.values),
     tag: content.tag || 'h3',
     use: content.typography || 'headline4'
   }
