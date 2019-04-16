@@ -43,8 +43,7 @@ const Image = (props) => {
       definedHeight = iconSize
     }
     if (content.height_fill) {
-      const grandParent = parentElement.parentElement
-      const grandParentDim = grandParent.getBoundingClientRect()
+      const grandParentDim = parentElement.parentElement.getBoundingClientRect()
       // with a tolerance of 200 height should fit grandparents height
       if (grandParentDim.width > parentElementDimensions.width + 200) {
         definedHeight = Math.ceil(grandParentDim.height)
