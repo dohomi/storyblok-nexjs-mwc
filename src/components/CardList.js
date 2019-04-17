@@ -3,6 +3,7 @@ import CardListItem from './partials/card/CardListItem'
 import clsx from 'clsx'
 import {useInView} from 'react-intersection-observer'
 import React, {useEffect, useState} from 'react'
+import withWindowDimensions from './provider/WithWindowDimensions'
 
 const CardList = (props) => {
   const cardRef = React.createRef()
@@ -76,4 +77,4 @@ const CardList = (props) => {
   )
 }
 
-export default CardList
+export default withWindowDimensions(dimensions => ({dimensions}))(CardList)
