@@ -77,6 +77,10 @@ export const MatRow = ({content}) => {
   if (content.column_gap) {
     innerStyles.columnGap = `${content.column_gap}px`
   }
+  if (content.grid_gap) {
+    innerStyles.gridGap = `${content.grid_gap}px`
+  }
+
 
   return (
     <SbEditable content={content}>
@@ -111,6 +115,9 @@ export const MatRowNested = ({content}) => {
   }
   if (content.column_gap) {
     styles.columnGap = `${content.column_gap}px`
+  }
+  if (content.grid_gap) {
+    styles.gridGap = `${content.grid_gap}px`
   }
 
   return (
