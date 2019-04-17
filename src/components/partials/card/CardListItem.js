@@ -43,7 +43,8 @@ const CardListItem = (content) => {
           <div className="lm-card__content lm-card__content-padding">
             {CardListActionTitles(content)}
             {content.description &&
-            <Typography tag="p" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+            <Typography tag="p" use={content.descriptionTypography || 'body1'}
+                        className={content.descriptionClassName}>{content.description}</Typography>}
           </div>
         </CardPrimaryAction>
       </CardWrap>
@@ -62,7 +63,8 @@ const CardListItem = (content) => {
           {!descriptionIsEmpty && (
             <div className="lm-card__content lm-card__content-padding">
               {content.description &&
-              <Typography tag="p" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+              <Typography tag="p" use={content.descriptionTypography || 'body1'}
+                          className={content.descriptionClassName}>{content.description}</Typography>}
             </div>
           )}
         </CardPrimaryAction>
@@ -82,7 +84,8 @@ const CardListItem = (content) => {
           <div className="lm-card__content lm-card__content-padding">
             {!isOverMedia && CardListActionTitles(content)}
             {content.description &&
-            <Typography tag="div" use={content.descriptionTypography || 'body1'}>{content.description}</Typography>}
+            <Typography tag="div" use={content.descriptionTypography || 'body1'}
+                        className={content.descriptionClassName}>{content.description}</Typography>}
           </div>
         )}
       </CardPrimaryAction>

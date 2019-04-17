@@ -10,11 +10,10 @@ const ImageSvg = ({content}) => {
   const src = inView ? content.source : ''
   const afterSvgLoaded = () => {
     el.target.classList.add('loaded')
-    // el.target.style.filter = 'blur(0)'
   }
-  const svgStyle = {
-    color: content.fit_in_color || 'blue'
-  }
+  const fitInColor = (content.color && content.color.rgba) || content.fit_in_color // legacy fit_in_color
+  const svgStyle = {}
+  fitInColor && (svgStyle.color = fitInColor)
   content.width && (svgStyle.width = `${content.width}px`)
   content.height && (svgStyle.height = `${content.height}px`)
   return (

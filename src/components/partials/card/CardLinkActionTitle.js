@@ -10,8 +10,10 @@ const CardListActionTitles = (content) => {
     <div>
       {content.title && <Typography tag={content.titleTag || 'h3'}
                                     style={titleStyles}
+                                    className={content.titleClassName}
                                     use={content.titleTypography || 'headline6'}>{content.title}</Typography>}
       {content.subtitle && <Typography tag={content.subtitleTag || 'h4'}
+                                       className={content.subtitleClassName}
                                        use={content.subtitleTypography || 'subtitle2'}>{content.subtitle}</Typography>}
     </div>
   )

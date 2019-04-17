@@ -10,6 +10,7 @@ const Image = (props) => {
   const content = props.content
   const imageCrop = content.image_crop || []
   const property = content.property || []
+  const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
@@ -32,7 +33,7 @@ const Image = (props) => {
     let definedWidth = content.width
     let definedHeight = content.height
     const width = Math.ceil(parentElementDimensions.width)
-    if ((!definedWidth && !definedHeight) || imageCrop.length || content.fit_in_color) {
+    if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
       definedWidth = definedWidth || width
     }
@@ -53,7 +54,7 @@ const Image = (props) => {
       originalSource: content.source,
       width: definedWidth,
       height: definedHeight,
-      fitInColor: content.fitInColor,
+      fitInColor,
       smart: imageCrop.includes('smart_crop')
     })
 
