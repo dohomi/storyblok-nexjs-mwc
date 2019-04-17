@@ -31,6 +31,7 @@ const CardListItem = (content) => {
     width: content.mediaDimension.width,
     height: content.mediaDimension.height,
     variant,
+    imageSize: content.imageSize,
     sixteenByNine: content.sixteenByNine,
     square: content.square
   }

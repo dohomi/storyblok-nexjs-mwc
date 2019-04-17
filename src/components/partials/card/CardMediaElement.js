@@ -3,9 +3,10 @@ import {getImageAttrs} from '../../../utils/ImageService'
 import {getImage} from '../../../utils/fetchImageHelper'
 import {useState, useEffect} from 'react'
 
-const CardMediaElement = ({sixteenByNine, square, children, inView, image, variant, width, height}) => {
+const CardMediaElement = ({imageSize, sixteenByNine, square, children, inView, image, variant, width, height}) => {
   const [styles, setStyles] = useState({
-    color: variant.includes('font_white') ? 'white' : 'inherit'
+    color: variant.includes('font_white') ? 'white' : 'inherit',
+    backgroundSize: imageSize || 'cover'
   })
   useEffect(
     () => {

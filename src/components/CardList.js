@@ -58,6 +58,7 @@ const CardList = (props) => {
                 ...item,
                 inView,
                 mediaDimension,
+                imageSize: content.image_size,
                 elevation: content.elevation,
                 borderRadius: content.border_radius,
                 variant: content.variant,
