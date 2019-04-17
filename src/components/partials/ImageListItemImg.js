@@ -17,7 +17,7 @@ const Image = (props) => {
   }
   let src = '' // getSource(props.source, {width: 42, height: 42})
   let srcSet = ''
-  if (props.inView) {
+  if (props.inView && props.source) {
     // src = getSource(props.source, {width, height, crop: crop, fitInColor: props.fitInColor})
     const imgAttrs = getImageAttrs({
       originalSource: props.source,
