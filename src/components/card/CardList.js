@@ -1,9 +1,9 @@
 import SbEditable from 'storyblok-react'
-import CardListItem from './partials/card/CardListItem'
+import CardListItem from './CardListItem'
 import clsx from 'clsx'
 import {useInView} from 'react-intersection-observer'
 import React, {useEffect, useState} from 'react'
-import withWindowDimensions from './provider/WithWindowDimensions'
+import withWindowDimensions from '../provider/WithWindowDimensions'
 
 const CardList = (props) => {
   const cardRef = React.createRef()
@@ -40,11 +40,9 @@ const CardList = (props) => {
   const containerClasses = clsx(
     'mdc-image-list',
     {
-      'mdc-image-list--masonry': !!content.masonry,
-      'mdc-image-list--with-text-protection': !!content.text_protection,
-      [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCount}-desktop-${gutterSize}`]: true,
-      [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCountTablet}-tablet-${gutterSize}`]: true,
-      [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCountPhone}-phone-${gutterSize}`]: true
+      [`lm-image-list__column-${columnCount}-desktop-${gutterSize}`]: true,
+      [`lm-image-list__column-${columnCountTablet}-tablet-${gutterSize}`]: true,
+      [`lm-image-list__column-${columnCountPhone}-phone-${gutterSize}`]: true
     }
   )
 

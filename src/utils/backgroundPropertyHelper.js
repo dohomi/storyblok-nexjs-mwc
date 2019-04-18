@@ -53,9 +53,13 @@ function backgroundPropertyHelper (properties) {
     border = '1px solid transparent'
   }
   const styles = {
-    border,
-    backgroundColor: values.background_color && values.background_color.rgba,
-    borderRadius
+    border
+  }
+  if(borderRadius){
+    styles.borderRadius = borderRadius
+  }
+  if(values.background_color){
+    styles.backgroundColor = values.background_color.rgba
   }
   if (values.background_elements && values.background_elements.length) {
     Object.assign(styles, multipleBackgroundComposer(values.background_elements))

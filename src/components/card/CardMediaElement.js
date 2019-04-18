@@ -1,6 +1,6 @@
 import {CardMedia} from '@rmwc/card'
-import {getImageAttrs} from '../../../utils/ImageService'
-import {getImage} from '../../../utils/fetchImageHelper'
+import {getImageAttrs} from '../../utils/ImageService'
+import {getImage} from '../../utils/fetchImageHelper'
 import {useState, useEffect} from 'react'
 
 const CardMediaElement = ({imageSize, sixteenByNine, square, children, inView, image, variant, width, height}) => {

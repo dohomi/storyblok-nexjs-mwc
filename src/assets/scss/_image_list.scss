@@ -35,6 +35,18 @@
       .lm-image-list-masonry__column-#{$span}-#{$size}-16 {
         @include mdc-image-list-masonry-columns($span, 16px);
       }
+      .lm-image-list__column-#{$span}-#{$size}-24 {
+        @include mdc-image-list-standard-columns($span, 24px);
+      }
+      .lm-image-list-masonry__column-#{$span}-#{$size}-24 {
+        @include mdc-image-list-masonry-columns($span, 24px);
+      }
+      .lm-image-list__column-#{$span}-#{$size}-32 {
+        @include mdc-image-list-standard-columns($span, 32px);
+      }
+      .lm-image-list-masonry__column-#{$span}-#{$size}-32 {
+        @include mdc-image-list-masonry-columns($span, 32px);
+      }
     }
   }
 }

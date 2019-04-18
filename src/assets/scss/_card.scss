@@ -1,6 +1,6 @@
 @import "~@material/card/mdc-card";
 
-.mdc-card a {
+.mdc-card > a {
   color: inherit;
   border-radius: inherit;
 }

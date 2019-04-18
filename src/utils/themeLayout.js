@@ -10,7 +10,7 @@ const theme = {
     dark: 'rgba(0, 0, 0, 0.87)',
     link: '#6200ee',
     onPrimary: 'rgba(255, 255, 255, 1)',
-    onSecondary: 'rgba(0, 0, 0, 0.87)',
+    onSecondary: 'rgba(255, 255, 255, 1)',
     onSurface: 'rgba(0, 0, 0, 0.87)',
     onDark: 'rgba(255, 255, 255, 1)',
     onError: '#fff',

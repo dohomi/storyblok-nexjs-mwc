@@ -14,17 +14,19 @@ import Icon from './Icon'
 import SectionVideoBg from './SectionVideoBg'
 import Slider from './Slider'
 import Iframe from './Iframe'
-import CardList from './CardList'
+import CardList from './card/CardList'
 import SectionParallax from './SectionParallax'
 import ButtonList from './ButtonList'
 import Html from './Html'
 import HubspotForm from './HubspotForm'
 import Form from './Form'
 import HubspotMeeting from './HubspotMeeting'
+import Pricing from './pricing/Pricing'
 
 const Components = {
   'page': Page,
   'html': Html,
+  'pricing': Pricing,
   'hubspot_form': HubspotForm,
   'hubspot_meeting': HubspotMeeting,
   'button_list': ButtonList,

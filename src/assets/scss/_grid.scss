@@ -27,8 +27,6 @@ adds breakpoint for each offset on desktop, tablet and phone
         &.mdc-layout-grid__cell--order-#{$span}-#{$size} {
           @include mdc-layout-grid-cell-order($span)
         }
-
-
       }
     }
   }

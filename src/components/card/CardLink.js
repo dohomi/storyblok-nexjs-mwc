@@ -1,4 +1,4 @@
-import {linkHandler} from '../../../utils/linkHandler'
+import {linkHandler} from '../../utils/linkHandler'
 import {Link} from 'routes/index'
 
 const CardLink = (props) => {
