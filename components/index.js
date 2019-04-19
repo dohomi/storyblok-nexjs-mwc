@@ -9,6 +9,6 @@ export default (blok) => {
     return React.createElement(Components[blok.component], {key: blok._uid, content: blok})
   }
   return React.createElement(() => (
-    <div>The component {blok.component} has not been created yet.</div>
+    <div style={{color:'red'}}>The component {blok.component} has not been created yet.</div>
   ), {key: blok._uid})
 }

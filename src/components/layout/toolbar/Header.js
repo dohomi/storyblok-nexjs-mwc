@@ -1,12 +1,10 @@
 import Components from 'components/index'
-import {createRef, useEffect, useState} from 'react'
+import {createRef} from 'react'
 import SbEditable from 'storyblok-react'
-import imageService from '../../utils/ImageService'
-import clsx from 'clsx'
+import imageService from '../../../utils/ImageService'
 import {Link} from 'routes/index'
 import {
   TopAppBarFixedAdjust,
-  TopAppBar,
   TopAppBarRow,
   TopAppBarSection,
   TopAppBarNavigationIcon,
@@ -15,48 +13,11 @@ import {
 
 import {ThemeProvider} from '@rmwc/theme'
 import {func, object, bool} from 'prop-types'
-import withWindowDimensions from '../provider/WithWindowDimensions'
-import scrollPositionHook from '../../utils/hooks/scrollPositionHook'
-import {toolbar} from '../../utils/themeContentSection'
-import {withRouter} from 'next/dist/client/router'
+import {toolbar} from '../../../utils/themeContentSection'
+import TopAppBarWrap from './TopAppBar'
+import HeaderCustom from './HeaderCustom'
 
-const TopAppBarWrapEl = (props) => {
-  const scrollPos = scrollPositionHook()
-  const logoTag = props.logoRef && props.logoRef.current
-  let [className, setClassName] = useState(getClassName()) // because of server/client hydration
-  useEffect(() => {
-      setClassName(getClassName(scrollPos))
-      if (props.transparentToolbar) {
-        // todo website logo inverted only if transparent toolbar
-        if (scrollPos > 100) {
-          props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogo)
-        } else {
-          props.websiteLogoInverted && logoTag && (logoTag.src = props.websiteLogoInverted)
-        }
-      }
-    },
-    [scrollPos, props.transparentToolbar]
-  )
-
-  function getClassName (pos) {
-    return clsx('lm-toolbar', {
-      ['lm-toolbar__bold-text']: !!props.toolbarConfig.includes('text_bold'),
-      ['lm-toolbar__fixed-width']: !!props.toolbarConfig.includes('fixed_width'),
-      ['lm-toolbar-transparent']: props.transparentToolbar && pos < 100
-    })
-  }
-
-  return (
-    <TopAppBar className={className} fixed={props.fixed}>
-      {props.children}
-    </TopAppBar>
-  )
-}
-
-
-const TopAppBarWrap = withWindowDimensions(dimensions => ({dimensions}))(withRouter(TopAppBarWrapEl))
-
-const Header = (props) => {
+const HeaderSimple = (props) => {
   const content = props.settings || {}
   let toolbarConfig = content.toolbar_config || []
   const transparentToolbar = props.hasFeature
@@ -67,7 +28,6 @@ const Header = (props) => {
   const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
 
   const logoRef = createRef()
-
 
   const navRight = content.toolbar || []
   const color = content.toolbar_variant
@@ -118,10 +78,19 @@ const Header = (props) => {
   )
 }
 
-Header.propTypes = {
+HeaderSimple.propTypes = {
   onNav: func,
   settings: object,
   hasFeature: bool
 }
+
+const Header = (props) => {
+  const content = props.settings || {}
+  if (content.multi_toolbar && content.multi_toolbar.length) {
+    return <HeaderCustom {...props}/>
+  }
+  return <HeaderSimple {...props}/>
+}
+
 
 export default Header
