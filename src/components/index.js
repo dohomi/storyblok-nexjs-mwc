@@ -22,9 +22,11 @@ import HubspotForm from './HubspotForm'
 import Form from './Form'
 import HubspotMeeting from './HubspotMeeting'
 import Pricing from './pricing/Pricing'
+import Divider from './Divider'
 
 const Components = {
   'page': Page,
+  'divider': Divider,
   'html': Html,
   'pricing': Pricing,
   'hubspot_form': HubspotForm,

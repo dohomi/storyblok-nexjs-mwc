@@ -1,0 +1,70 @@
+.h-separator {
+  clear: both;
+  width: 100%;
+  color: #ccc;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+
+  &.ma-0, &.my-0 {
+    height: 1px
+  }
+
+  &.h-separator-icon {
+    height: 24px;
+    text-align: center;
+  }
+
+  > div {
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  div > span {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: inherit;
+    border-color: inherit;
+    color: inherit;
+
+    &:before {
+      right: 100%;
+    }
+
+    &:after {
+      left: 100%;
+    }
+
+    &:before, &:after {
+      content: '';
+      display: inline-block;
+      vertical-align: top;
+      position: absolute;
+      top: 50%;
+      height: 0;
+      width: 2000px;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-color: currentColor;
+    }
+
+    > .material-icons {
+      color: inherit
+    }
+  }
+
+  &.h-separator-icon {
+    text-align: center;
+
+    div > div > i {
+      &:before {
+        margin-right: 15px;
+      }
+
+      &:after {
+        margin-left: 15px;
+      }
+    }
+  }
+}
