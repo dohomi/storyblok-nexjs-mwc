@@ -5,6 +5,30 @@ import TopAppBarWrap from './TopAppBar'
 import {toolbar} from '../../../utils/themeContentSection'
 import {TopAppBarFixedAdjust} from '@rmwc/top-app-bar'
 import ToolbarRow from './ToolbarRow'
+import Divider from '../../Divider'
+import React from 'react'
+
+const LmToolbarRow = ({content, settings}) => {
+  return (
+    <SbEditable content={content}>
+      <ToolbarRow {...content} settings={settings}/>
+    </SbEditable>
+  )
+}
+
+const Components = {
+  'toolbar_row': LmToolbarRow,
+  'divider': Divider
+}
+
+const Child = (blok, settings) => {
+  if (typeof Components[blok.component] !== 'undefined') {
+    return React.createElement(Components[blok.component], {key: blok._uid, content: blok, settings})
+  }
+  return React.createElement(() => (
+    <div style={{color: 'red'}}>The component {blok.component} has not been created yet.</div>
+  ), {key: blok._uid})
+}
 
 const HeaderCustom = (props) => {
   const content = props.settings || {}
@@ -22,7 +46,7 @@ const HeaderCustom = (props) => {
         <TopAppBarWrap transparentToolbar={transparentToolbar}
                        toolbarConfig={toolbarConfig}
                        fixed={toolbarConfig.includes('fixed')}>
-          {rows.map(p => <ToolbarRow {...p} settings={content} key={p._uid}/>)}
+          {rows.map(p => Child(p, content))}
         </TopAppBarWrap>
       </ThemeProvider>
       {!props.hasFeature && <TopAppBarFixedAdjust/>}

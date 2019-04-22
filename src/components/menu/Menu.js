@@ -2,8 +2,9 @@ import {MenuItem, SimpleMenu} from '@rmwc/menu'
 import {Button} from '@rmwc/button'
 import SbEditable from 'storyblok-react'
 import {Link} from 'routes/index'
-import {componentLogger} from '../utils/componentLogger'
-import {linkHandler} from '../utils/linkHandler'
+import {componentLogger} from '../../utils/componentLogger'
+import {linkHandler} from '../../utils/linkHandler'
+import CustomMenu from './CustomMenu'
 
 
 const Child = (nestedProps) => {
@@ -19,6 +20,10 @@ const Child = (nestedProps) => {
 const MtMenu = ({content}) => {
   componentLogger(content)
   const menuItems = content.body || []
+  const isCustom = menuItems.length && menuItems[0].component !== 'nav_menu_item'
+  if (isCustom) {
+    return <CustomMenu content={content} />
+  }
   return (
     <SbEditable content={content}>
       <SimpleMenu style={{borderRadius: `${content.border_radius || 4}px`}}

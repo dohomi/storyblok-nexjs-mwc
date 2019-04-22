@@ -1,7 +1,8 @@
 import {createGlobalState} from 'react-hooks-global-state'
 
 const initialState = {
-  leftNavigationDrawer: false
+  leftNavigationDrawer: false,
+  megaMenu: {}
 }
 const {GlobalStateProvider, setGlobalState, useGlobalState} = createGlobalState(initialState)
 
@@ -11,6 +12,10 @@ export const toggleLeftNavigation = () => {
 
 export const closeNavigationDrawers = () => {
   setGlobalState('leftNavigationDrawer', false)
+}
+
+export const setMegaMenu = (v, value) => {
+  setGlobalState('megaMenu', {[v]: value})
 }
 
 export {GlobalStateProvider, useGlobalState}
