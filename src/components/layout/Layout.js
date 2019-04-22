@@ -6,37 +6,28 @@ import MwcDrawer from './MwcDrawer'
 import {withRouter} from 'next/router'
 import PropTypes from 'prop-types'
 import {getThemeOptions} from '../../utils/themeLayout'
+import {closeNavigationDrawers, GlobalStateProvider} from '../../utils/state/state'
 
 
 const Layout = ({router, settings = {}, children, hasFeature}) => {
-  let [drawer, setDrawer] = useState(false)
 
   useEffect(
     () => {
-      closeDrawer()
+      closeNavigationDrawers() // todo needs testing might need a pure close drawer action
     },
     [router.asPath]
   )
 
-  function closeDrawer () {
-    setDrawer(false)
-  }
-
-  function toggleDrawer () {
-    setDrawer(!drawer)
-  }
-
   return (
-    <ThemeProvider options={getThemeOptions(settings)} className="app__root">
-      <MwcDrawer content={settings}
-                 isDrawerOpen={drawer}
-                 onDrawerClose={closeDrawer}/>
-      <Header settings={settings}
-              hasFeature={hasFeature}
-              onNav={toggleDrawer}/>
-      <main>{children}</main>
-      <Footer settings={settings}/>
-    </ThemeProvider>
+    <GlobalStateProvider>
+      <ThemeProvider options={getThemeOptions(settings)} className="app__root">
+        <MwcDrawer content={settings}/>
+        <Header settings={settings}
+                hasFeature={hasFeature}/>
+        <main>{children}</main>
+        <Footer settings={settings}/>
+      </ThemeProvider>
+    </GlobalStateProvider>
   )
 }
 

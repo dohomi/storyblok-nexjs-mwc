@@ -1,5 +1,4 @@
 import Components from 'components/index'
-import {createRef} from 'react'
 import SbEditable from 'storyblok-react'
 import imageService from '../../../utils/ImageService'
 import {Link} from 'routes/index'
@@ -16,19 +15,14 @@ import {func, object, bool} from 'prop-types'
 import {toolbar} from '../../../utils/themeContentSection'
 import TopAppBarWrap from './TopAppBar'
 import HeaderCustom from './HeaderCustom'
+import {toggleLeftNavigation} from '../../../utils/state/state'
+import ToolbarLogo from './ToolbarLogo'
 
 const HeaderSimple = (props) => {
   const content = props.settings || {}
   let toolbarConfig = content.toolbar_config || []
   const transparentToolbar = props.hasFeature
-  const websiteTitle = content.website_title
-  const websiteLogo = content.website_logo && imageService(content.website_logo, '0x' + 48 * 2)
-  const websiteLogoInverted = content.website_logo_invert && imageService(content.website_logo_invert, '0x' + 48 * 2)
-  const currentLogoSrc = transparentToolbar && websiteLogoInverted ? websiteLogoInverted : websiteLogo
   const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
-
-  const logoRef = createRef()
-
   const navRight = content.toolbar || []
   const color = content.toolbar_variant
   let theme = toolbar.primary
@@ -40,30 +34,14 @@ const HeaderSimple = (props) => {
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
         <TopAppBarWrap transparentToolbar={transparentToolbar}
-                       websiteLogo={websiteLogo}
                        toolbarConfig={toolbarConfig}
-                       websiteLogoInverted={websiteLogoInverted}
-                       fixed={toolbarConfig.includes('fixed')}
-                       logoRef={logoRef}>
+                       fixed={toolbarConfig.includes('fixed')}>
           <TopAppBarRow>
             <TopAppBarSection>
-              <TopAppBarNavigationIcon icon="menu" className={`d-${mobileNavBreakpoint}-none`}
-                                       onClick={() => props.onNav()}/>
-              <Link route="/">
-                <a className="lm-logo-header">
-                  {!websiteLogo && (
-                    <TopAppBarTitle>
-                      {websiteTitle}
-                    </TopAppBarTitle>
-                  )}
-                  {websiteLogo &&
-                  <img src={currentLogoSrc}
-                       height="56"
-                       className="img-fluid"
-                       alt={websiteTitle || 'website logo'}
-                       ref={logoRef}/>}
-                </a>
-              </Link>
+              <TopAppBarNavigationIcon icon="menu"
+                                       className={`d-${mobileNavBreakpoint}-none`}
+                                       onClick={toggleLeftNavigation}/>
+              <ToolbarLogo settings={content}/>
             </TopAppBarSection>
             {!!navRight.length && (
               <TopAppBarSection alignEnd

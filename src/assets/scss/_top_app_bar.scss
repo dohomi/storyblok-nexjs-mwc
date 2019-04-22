@@ -52,8 +52,22 @@
 
 // add transparent toolbar in case feature element is present
 .mdc-top-app-bar {
+  // hide inverted logo
+  .lm-logo__inverted {
+    display: none;
+  }
+
   &.lm-toolbar-transparent {
     background-color: transparent;
+
+    // hide logo default and show inverted
+    .lm-logo__default {
+      display: none;
+    }
+
+    .lm-logo__inverted {
+      display: block;
+    }
 
     .mdc-top-app-bar__section {
       .mdc-button, a .mdc-button, .mdc-button__label, .mdc-top-app-bar__title, .mdc-top-app-bar__navigation-icon {
@@ -69,6 +83,35 @@
 
   .mdc-button, .mdc-list-item a {
     letter-spacing: 0; // remove letter spacing
+  }
+
+  // search styles
+  .lm-toolbar-search {
+    .lm-toolbar-search__input-container {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 5;
+      background-color: white;
+
+      .mdc-text-field__input {
+        padding-left: 48px !important;
+        border-bottom-color: transparent !important;
+      }
+
+      .lm-toolbar-search__button-clear {
+        color: grey
+      }
+    }
+
+    &.active {
+      .lm-toolbar-search__input-container {
+        display: block;
+      }
+    }
   }
 }
 
@@ -90,3 +133,4 @@
     }
   }
 }
+

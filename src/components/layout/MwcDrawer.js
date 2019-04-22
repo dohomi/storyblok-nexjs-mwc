@@ -10,16 +10,20 @@ import {bool, func, object} from 'prop-types'
 import DrawerContentList from './MwcDrawerList'
 import {Link} from 'routes/index'
 import imageService from '../../utils/ImageService'
+import {toggleLeftNavigation, useGlobalState} from '../../utils/state/state'
+
 
 const MwcDrawer = (props) => {
+
+  let [isOpen] = useGlobalState('leftNavigationDrawer')
   const content = props.content
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo
   const websiteSlogan = content.website_slogan
   return (
     <Drawer modal
-            open={props.isDrawerOpen}
-            onClose={() => props.onDrawerClose()}>
+            open={isOpen}
+            onClose={toggleLeftNavigation}>
       <DrawerHeader>
         <Link route="/">
           <a className="p-2 d-block">

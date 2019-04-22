@@ -73,6 +73,7 @@
     "prop-types": "latest",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-hooks-global-state": "^0.9.0",
     "react-inlinesvg": "^0.8.4",
     "react-intersection-observer": "^8.22.0",
     "react-player": "^1.10.0",

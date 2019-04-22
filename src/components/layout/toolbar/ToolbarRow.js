@@ -7,7 +7,7 @@ const ToolbarRow = (props) => {
   return (
     <SbEditable content={props}>
       <TopAppBarRow>
-        {body.map(p => <ToolbarSection {...p} key={p._uid}/>)}
+        {body.map(p => <ToolbarSection {...p} settings={props.settings} key={p._uid}/>)}
       </TopAppBarRow>
     </SbEditable>
   )
