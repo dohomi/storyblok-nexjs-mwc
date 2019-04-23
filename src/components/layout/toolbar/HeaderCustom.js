@@ -4,17 +4,17 @@ import {ThemeProvider} from '@rmwc/theme'
 import TopAppBarWrap from './TopAppBar'
 import {toolbar} from '../../../utils/themeContentSection'
 import {TopAppBarFixedAdjust} from '@rmwc/top-app-bar'
-import ToolbarRow from './ToolbarRow'
+import LmToolbarRow from './ToolbarRow'
 import Divider from '../../Divider'
 import React from 'react'
 
-const LmToolbarRow = ({content, settings}) => {
-  return (
-    <SbEditable content={content}>
-      <ToolbarRow {...content} settings={settings}/>
-    </SbEditable>
-  )
-}
+// const LmToolbarRow = ({content, settings}) => {
+//   return (
+//     <SbEditable content={content}>
+//       <ToolbarRow {...content} settings={settings}/>
+//     </SbEditable>
+//   )
+// }
 
 const Components = {
   'toolbar_row': LmToolbarRow,

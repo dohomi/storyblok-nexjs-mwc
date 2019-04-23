@@ -17,21 +17,9 @@
   }
 }
 
-// make toolbar boxed design
-.lm-toolbar__fixed-width {
-  .mdc-top-app-bar__row {
-    margin: 0 auto;
-    // take the mixin from grid
-    @each $size in map-keys($mdc-layout-grid-columns) {
-      @include mdc-layout-grid-media-query_($size) {
-        $margin: map-get($mdc-layout-grid-default-margin, $size);
-        $gutter: map-get($mdc-layout-grid-default-gutter, $size);
-        $column-width: map-get($mdc-layout-grid-column-width, $size);
-
-        @include mdc-layout-grid-fixed-column-width($size, $margin, $gutter, $column-width);
-      }
-    }
-  }
+.lm-toolbar-row {
+  margin: 0 auto;
+  position: relative;
 }
 
 // make font weights bold for top nav text
@@ -98,7 +86,6 @@
       background-color: white;
 
       .mdc-text-field__input {
-        padding-left: 48px !important;
         border-bottom-color: transparent !important;
       }
 
@@ -114,6 +101,7 @@
     }
   }
 }
+
 
 // overwrite md-list-item a link styles to match
 .mdc-menu .mdc-list-item {

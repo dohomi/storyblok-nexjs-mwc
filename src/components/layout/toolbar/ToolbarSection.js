@@ -5,9 +5,7 @@ import LmButton from '../../Button'
 import Menu from '../../menu/Menu'
 import {toggleLeftNavigation} from '../../../utils/state/state'
 import ToolbarLogo from './ToolbarLogo'
-import {Button} from '@rmwc/button'
-import {IconButton} from '@rmwc/icon-button'
-import {TextField} from '@rmwc/textfield'
+import ToolbarSearch from './ToolbarSearch'
 
 const NaviButton = ({content, settings}) => {
   const mobileNavBreakpoint = settings.mobile_nav_breakpoint || 'sm'
@@ -20,52 +18,6 @@ const NaviButton = ({content, settings}) => {
     </SbEditable>
   )
 }
-
-const ToolbarSearch = ({content}) => {
-  const container = React.createRef()
-
-  const buttonContent = content.trigger && content.trigger[0] || {}
-  const properties = buttonContent.properties || []
-  const trailingIcon = buttonContent.trailing_icon && buttonContent.trailing_icon.name
-  const icon = buttonContent.icon && buttonContent.icon.name
-  const buttonProps = {
-    trailingIcon,
-    icon,
-    label: buttonContent.label,
-    ripple: !properties.includes('disable-ripple')
-  }
-
-  function openSearch () {
-    container.current.classList.add('active')
-    container.current.querySelector('.mdc-text-field__input').focus()
-  }
-
-  function onCancel () {
-    container.current.classList.remove('active')
-    container.current.querySelector('.mdc-text-field__input').value = ''
-  }
-
-  return (
-    <SbEditable content={content}>
-      <div ref={container} className="lm-toolbar-search">
-        <Button {...buttonProps} onClick={openSearch} className="lm-toolbar-search__button-toggle"/>
-        <div className="lm-toolbar-search__input-container">
-          <div className="d-flex align-items-center h-100">
-            <div style={{flex: 1}}>
-              <TextField fullwidth
-                         placeholder={'todo...'}
-                         icon="search"/>
-            </div>
-            <IconButton icon="clear"
-                        onClick={onCancel}
-                        className="lm-toolbar-search__button-clear"/>
-          </div>
-        </div>
-      </div>
-    </SbEditable>
-  )
-}
-
 
 const Components = {
   'button': LmButton,

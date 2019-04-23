@@ -9,9 +9,8 @@ import {
 import {bool, func, object} from 'prop-types'
 import DrawerContentList from './MwcDrawerList'
 import {Link} from 'routes/index'
-import imageService from '../../utils/ImageService'
-import {toggleLeftNavigation, useGlobalState} from '../../utils/state/state'
-
+import imageService from '../../../utils/ImageService'
+import {toggleLeftNavigation, useGlobalState} from '../../../utils/state/state'
 
 const MwcDrawer = (props) => {
 

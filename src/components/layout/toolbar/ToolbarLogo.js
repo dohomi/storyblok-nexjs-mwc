@@ -3,7 +3,7 @@ import {Link} from 'routes/index'
 import {TopAppBarTitle} from '@rmwc/top-app-bar'
 import SbEditable from 'storyblok-react'
 
-const ToolbarLogo = ({content, settings}) => {
+const ToolbarLogo = ({content = {}, settings = {}}) => {
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo && imageService(settings.website_logo, '0x' + 48 * 2)
   const websiteLogoInverted = settings.website_logo_invert && imageService(settings.website_logo_invert, '0x' + 48 * 2)

@@ -54,3 +54,8 @@
 .mdc-select__native-control {
   -webkit-appearance: none; // needs this for hiding the select arrows
 }
+
+// fix input full width icon issue
+.mdc-text-field--with-leading-icon.mdc-text-field--fullwidth .mdc-text-field__input {
+  padding-left: 48px !important;
+}

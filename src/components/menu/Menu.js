@@ -27,8 +27,7 @@ const MtMenu = ({content}) => {
   return (
     <SbEditable content={content}>
       <SimpleMenu style={{borderRadius: `${content.border_radius || 4}px`}}
-                  handle={<Button trailingIcon="expand_more">{content.title}</Button>}
-                  theme={['']}>
+                  handle={<Button trailingIcon="expand_more">{content.title}</Button>}>
         {menuItems.map(nestedProps => (
           <MenuItem key={nestedProps._uid}>{Child(nestedProps)}</MenuItem>)
         )}
