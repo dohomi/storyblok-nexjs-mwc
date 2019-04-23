@@ -36,7 +36,6 @@ const DrawerContentList = (content) => {
       })
     })
   }
-  console.log(childs)
   return (
     <List>
       {childs.map(props => Child(props))}

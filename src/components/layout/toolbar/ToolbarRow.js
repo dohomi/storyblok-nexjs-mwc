@@ -12,7 +12,6 @@ const ToolbarRow = ({content, settings}) => {
     ['w-100']: !toolbarConfig.includes('fixed_width')
   })
 
-  console.log(className)
   return (
     <SbEditable content={content}>
       <TopAppBarRow className={className}>

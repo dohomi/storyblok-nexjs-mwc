@@ -6,7 +6,6 @@ const DrawerButton = (props) => {
     text: props.label || props.name,
     graphic: props.icon && props.icon.name
   }
-  console.log(buttonProps, props)
   return (
     <LinkItem  {...props}>
       <SimpleListItem {...buttonProps}/>
