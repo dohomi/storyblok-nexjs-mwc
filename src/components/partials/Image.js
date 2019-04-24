@@ -7,7 +7,7 @@ import {useInView} from 'react-intersection-observer'
 
 const Image = (props) => {
   const fallback = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
-  const content = props.content
+  const content = props.content || {}
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color

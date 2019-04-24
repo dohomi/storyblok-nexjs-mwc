@@ -3,6 +3,12 @@
   padding-bottom: 5rem;
 }
 
+.carousel {
+  .lm-promotion {
+    padding-bottom: 0;
+  }
+}
+
 .lm-promotion__item-variant {
   .lm-promotion__content {
     > :first-child {
@@ -33,7 +39,6 @@
     }
   }
 }
-
 
 .lm-promotion__item-variant-1, .lm-promotion__item-variant-2 {
   border-radius: 50%;
