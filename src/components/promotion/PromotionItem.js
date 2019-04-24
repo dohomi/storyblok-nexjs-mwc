@@ -15,11 +15,9 @@ const PromotionItem = (props) => {
   useEffect(
     () => {
       const containerHeight = container.current.clientHeight + 1
-      console.log(props.dimensions, containerHeight)
       const isMobile = props.dimensions.width <= 600
-      console.log(props.position)
       if (props.position === 'bottom_left_overlap' && isMobile) {
-        container.current.style.marginTop = '-20px'
+        container.current.style.marginTop = '-25px'
       } else if (props.position === 'bottom_left_overlap') {
         container.current.style.marginTop = `-${containerHeight - 40}px`
       }
