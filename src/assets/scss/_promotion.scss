@@ -1,0 +1,33 @@
+.lm-promotion{
+  padding-bottom: 5rem;
+}
+.lm-promotion__item-variant {
+  .lm-promotion__content {
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child, > :last-child > p {
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    position: relative;
+    padding: 48px 100px;
+    background-color: #f8f8f8;
+    max-width: 575px;
+    border-radius: 4px;
+    @media (max-width: 600px) {
+      max-width: 300px;
+      padding: 40px 40px 40px 10px;
+    }
+  }
+
+  .lm-promotion__action {
+    margin-top: -20px;
+    padding: 0 100px;
+    @media (max-width: 600px) {
+      padding: 0px 10px;
+    }
+  }
+}
+

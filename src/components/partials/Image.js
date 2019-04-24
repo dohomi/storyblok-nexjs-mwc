@@ -11,7 +11,11 @@ const Image = (props) => {
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
-
+  // const figureStyle = {}
+  // console.log(props.dimensions.width, content.height_xs)
+  // if (content.height_xs && props.dimensions.width <= 600) {
+  //   figureStyle.maxHeight = `${content.height_xs}px`
+  // }
   const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
@@ -31,7 +35,7 @@ const Image = (props) => {
     let parentElementDimensions = parentElement.getBoundingClientRect()
     const square = property.includes('rounded-circle') || property.includes('square')
     let definedWidth = content.width
-    let definedHeight = content.height
+    let definedHeight = content.height_xs && props.dimensions.width <= 600 ? content.height_xs : content.height
     const width = Math.ceil(parentElementDimensions.width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
@@ -55,6 +59,7 @@ const Image = (props) => {
       width: definedWidth,
       height: definedHeight,
       fitInColor,
+      focalPoint: content.focal_point,
       smart: imageCrop.includes('smart_crop')
     })
 
@@ -64,7 +69,7 @@ const Image = (props) => {
       style: {
         width: content.width ? `${content.width}px` : 'auto',
         maxHeight: 'inherit',
-        height: content.height ? `${content.height}px` : 'auto'
+        height: definedHeight ? `${definedHeight}px` : 'auto'
       }
     }
   }

@@ -6,15 +6,8 @@ import {toolbar} from '../../../utils/themeContentSection'
 import {TopAppBarFixedAdjust} from '@rmwc/top-app-bar'
 import LmToolbarRow from './ToolbarRow'
 import Divider from '../../Divider'
-import React from 'react'
-
-// const LmToolbarRow = ({content, settings}) => {
-//   return (
-//     <SbEditable content={content}>
-//       <ToolbarRow {...content} settings={settings}/>
-//     </SbEditable>
-//   )
-// }
+import React, {useEffect, createRef} from 'react'
+import withWindowDimensions from '../../provider/WithWindowDimensions'
 
 const Components = {
   'toolbar_row': LmToolbarRow,
@@ -37,9 +30,21 @@ const HeaderCustom = (props) => {
   const rows = content.multi_toolbar || []
   const color = content.toolbar_variant
   let theme = toolbar.primary
+  const toolbarAdjust = createRef()
   if (color) {
     theme = toolbar[color]
   }
+
+  useEffect(
+    () => {
+      // adjust padding top
+      const toolbar = document.querySelector('.lm-toolbar')
+      toolbarAdjust.current.style.paddingTop = `${toolbar.clientHeight + 1}px`
+    },
+    [props.dimensions]
+  )
+
+
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
@@ -49,7 +54,7 @@ const HeaderCustom = (props) => {
           {rows.map(p => Child(p, content))}
         </TopAppBarWrap>
       </ThemeProvider>
-      {!props.hasFeature && <TopAppBarFixedAdjust/>}
+      {!props.hasFeature && <TopAppBarFixedAdjust ref={toolbarAdjust}/>}
     </SbEditable>
   )
 }
@@ -60,4 +65,4 @@ HeaderCustom.propTypes = {
   hasFeature: bool
 }
 
-export default HeaderCustom
+export default withWindowDimensions(dimensions => ({dimensions}))(HeaderCustom)

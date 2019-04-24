@@ -121,6 +121,7 @@ export function getFocalPoint (src, focalPoint) {
   const focalSplitted = focalPoint.split('x')
   const focalPercentX = parseFloat(focalSplitted[0]) / 100
   const focalPercentY = parseFloat(focalSplitted[1]) / 100
+  console.log(focalPercentY,focalPoint)
   const topLeft = `${Math.max(0, width * focalPercentX - 50)}x${Math.max(0, height * focalPercentY - 50)}`
   const bottomRight = `${Math.min(width * focalPercentX + 50, width)}x${Math.min(height * focalPercentY + 50, height)}`
   return `:focal(${topLeft}:${bottomRight})`
