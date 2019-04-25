@@ -2,22 +2,26 @@ $promotion-overlap: 40px !default;
 
 .lm-promotion {
   position: relative;
-  padding-bottom: 5rem;
+  margin-bottom: 5rem;
   display: flex;
   flex-direction: column;
 }
 
 .carousel {
   div[aria-hidden="true"] {
-    img {
-      transform: translateX(-20%);
+    .lm-promotion {
+      img {
+        transform: translateX(-20%);
+      }
     }
   }
 
   div[aria-hidden="false"] {
-    img {
-      transition: transform 2s ease 0s;
-      transform: translateX(0%);
+    .lm-promotion {
+      img {
+        transition: transform 2s ease 0s;
+        transform: translateX(0%);
+      }
     }
   }
 
@@ -59,6 +63,23 @@ $promotion-overlap: 40px !default;
 .lm-promotion__item-top_right {
   position: absolute;
   top: 0;
+  right: 0;
+}
+
+.lm-promotion__item-top_left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.lm-promotion__item-bottom_left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.lm-promotion__item-bottom_right {
+  position: absolute;
+  bottom: 0;
   right: 0;
 }
 

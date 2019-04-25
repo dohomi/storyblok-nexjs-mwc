@@ -11,7 +11,7 @@ const CustomMenu = ({content}) => {
   const [open, setOpen] = useState(false)
   const menuItems = content.body || []
   const buttonProps = {
-    // ['onMouseOver']: () => openMegaMenu(),
+    // ['onMouseOver']: () => setOpen(!open),
     ['onClick']: () => openMegaMenu()
   }
 
@@ -32,9 +32,13 @@ const CustomMenu = ({content}) => {
 
   return (
     <SbEditable content={content}>
-      <MenuSurfaceAnchor style={{position: 'inherit'}} className="lm-mega-menu">
-        <Button trailingIcon="expand_more" {...buttonProps}>{content.title}</Button>
-        <MenuSurface open={open} anchorCorner="bottomStart" style={{marginTop: '24px', borderRadius: `${content.border_radius || 4}px`}}
+      <MenuSurfaceAnchor style={{position: 'inherit'}}
+                         className="lm-mega-menu">
+        <Button trailingIcon="expand_more"
+                {...buttonProps}>{content.title}</Button>
+        <MenuSurface open={open}
+                     anchorCorner="bottomStart"
+                     style={{marginTop: '24px', borderRadius: `${content.border_radius || 4}px`}}
                      onClose={() => onClose()}>
           {menuItems.map(blok => Components(blok))}
         </MenuSurface>
