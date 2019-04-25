@@ -13,12 +13,14 @@ $promotion-overlap: 40px !default;
       transform: translateX(-20%);
     }
   }
+
   div[aria-hidden="false"] {
     img {
       transition: transform 2s ease 0s;
       transform: translateX(0%);
     }
   }
+
   .lm-promotion {
     padding-bottom: 0;
 
@@ -88,6 +90,16 @@ $promotion-overlap: 40px !default;
     @media (max-width: 600px) {
       padding: 0px 10px;
     }
+  }
+}
+
+.lm-promotion__content {
+  > * {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
   }
 }
 
