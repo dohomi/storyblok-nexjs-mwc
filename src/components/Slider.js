@@ -3,7 +3,6 @@ import Components from 'components/index'
 import SwipeableViews from 'react-swipeable-views'
 import React, {useState} from 'react'
 import clsx from 'clsx'
-import {IconButton} from '@rmwc/icon-button'
 
 const Slider = (props) => {
   const [slide, setSlide] = useState(0)
@@ -25,9 +24,7 @@ const Slider = (props) => {
   )
 
   const carouselClasses = clsx(
-    'carousel slide',
-    {'carousel-indicators__dark': properties.includes('pagination_dark')},
-    {'carousel-arrows__dark': properties.includes('arrows_dark')}
+    'carousel slide', properties.map(i => 'carousel__' + i)
   )
 
   function handleChangeIndex (item) {
