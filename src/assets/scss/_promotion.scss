@@ -1,12 +1,63 @@
+$promotion-overlap: 40px !default;
+
 .lm-promotion {
   position: relative;
   padding-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .carousel {
+  div[aria-hidden="true"] {
+    img {
+      transform: translateX(-20%);
+    }
+  }
+  div[aria-hidden="false"] {
+    img {
+      transition: transform 2s ease 0s;
+      transform: translateX(0%);
+    }
+  }
   .lm-promotion {
     padding-bottom: 0;
+
+    figure {
+      text-align: right;
+    }
   }
+}
+
+.lm-promotion__item-bottom_left_overlap {
+  height: $promotion-overlap;
+  overflow: visible;
+  @media (max-width: 600px) {
+    height: auto;
+    margin-bottom: -$promotion-overlap;
+  }
+
+  > div {
+    transform: translateY(calc(-100% + #{$promotion-overlap}));
+    @media (max-width: 600px) {
+      transform: translateY(-$promotion-overlap);
+    }
+  }
+}
+
+.lm-promotion__item-top_left_overlap {
+  order: -1;
+  height: $promotion-overlap;
+  overflow: visible;
+  @media (max-width: 600px) {
+    height: auto;
+    margin-bottom: -$promotion-overlap;
+  }
+}
+
+.lm-promotion__item-top_right {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .lm-promotion__item-variant {
@@ -42,9 +93,14 @@
 
 .lm-promotion__item-variant-1, .lm-promotion__item-variant-2 {
   border-radius: 50%;
-  position: absolute;
   text-align: center;
   display: flex;
+
+  > div {
+    display: flex;
+    text-align: center;
+    width: 100%;
+  }
 
   .lm-promotion__content {
     display: flex;
