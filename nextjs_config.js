@@ -11,6 +11,8 @@ module.exports = (env) => ({
     config.resolve.alias['components'] = path.join(__dirname, 'components')
     config.resolve.alias['routes'] = path.join(__dirname, 'routes')
     config.resolve.alias['client'] = path.join(__dirname, 'client')
+    config.resolve.alias['fonts'] = path.join(__dirname, 'components/fonts.js')
+
     // polyfills
     const originalEntry = config.entry
     config.entry = async () => {

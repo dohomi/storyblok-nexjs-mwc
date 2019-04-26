@@ -5,7 +5,7 @@ import Head from '../../components/layout/Head'
 import Layout from '../../components/layout/Layout'
 import WindowDimensionsProvider from '../../components/provider/WindowDimensionsProvider'
 import DeviceDetectService from '../../utils/DeviceDetectService'
-import Fonts from '../../utils/Fonts'
+import Fonts from 'fonts'
 import {withRouter} from 'next/dist/client/router'
 import Error from '../../pages/_error'
 

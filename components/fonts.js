@@ -1,6 +1,6 @@
 import FontFaceObserver from 'fontfaceobserver'
 
-const Fonts = (settings) => {
+const fontHandler = (settings) => {
   const settingsFonts = ['theme_font_default', 'theme_font_alt1', 'theme_font_alt2', 'theme_font_alt3', 'theme_font_alt4']
   const loadFonts = ['Material+Icons']
   Object.keys(settings).forEach(key => {
@@ -35,4 +35,4 @@ const Fonts = (settings) => {
     document.documentElement.classList.add('fonts-failed')
   })
 }
-export default Fonts
+export default fontHandler
