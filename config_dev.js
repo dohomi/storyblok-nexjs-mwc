@@ -30,19 +30,27 @@ const sassConfig = {
   }
 }
 
-module.exports = function (env = {}) {
+module.exports = function (env = {}, plugins = []) {
   const config = require('./nextjs_config')(env)
 
-  return withPlugins(
-    [
-      [withBundleAnalyzer, bundleAnalyzerConfig],
-      // @zeit/next-sass
-      [withSass, sassConfig],
-      // next-offline
-      // [withOffline],
-      [withSourceMaps],
-      [withTM]
-    ],
-    config
+  let pluginConfiguration = [
+    [withBundleAnalyzer, bundleAnalyzerConfig],
+    // @zeit/next-sass
+    [withSass, sassConfig],
+    // next-offline
+    // [withOffline],
+    [withSourceMaps],
+    [withTM]
+  ]
+
+  if (plugins.length) {
+    plugins.forEach(plugin => {
+      if (!Array.isArray(plugin)) {
+        throw new Error('plugin configuration must be wrapped in an array.')
+      }
+      pluginConfiguration.unshift(plugin)
+    })
+  }
+  return withPlugins(pluginConfiguration, config
   )
 }

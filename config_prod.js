@@ -13,14 +13,21 @@ const sassConfig = {
   }
 }
 
-module.exports = function (env = {}) {
+module.exports = function (env = {}, plugins = []) {
   const config = require('./nextjs_config')(env)
-
-  return withPlugins(
-    [
-      [withSass, sassConfig],
-      [withTM]
-    ],
+  const pluginConfiguration = [
+    [withSass, sassConfig],
+    [withTM]
+  ]
+  if (plugins.length) {
+    plugins.forEach(plugin => {
+      if (!Array.isArray(plugin)) {
+        throw new Error('plugin configuration must be wrapped in an array.')
+      }
+      pluginConfiguration.unshift(plugin)
+    })
+  }
+  return withPlugins(pluginConfiguration,
     config
   )
 }
