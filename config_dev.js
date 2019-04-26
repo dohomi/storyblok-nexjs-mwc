@@ -30,8 +30,8 @@ const sassConfig = {
   }
 }
 
-module.exports = function (env = {}, plugins = []) {
-  const config = require('./nextjs_config')(env)
+module.exports = function (env = {}, pathAliasOverwrites = {}, plugins = []) {
+  const config = require('./nextjs_config')(env, pathAliasOverwrites)
 
   let pluginConfiguration = [
     [withBundleAnalyzer, bundleAnalyzerConfig],

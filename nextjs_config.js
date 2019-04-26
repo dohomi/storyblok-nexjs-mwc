@@ -1,5 +1,5 @@
 const path = require('path')
-module.exports = (env) => ({
+module.exports = (env, pathAliasOverwrites = {}) => ({
   target: 'serverless',
   transpileModules: ['@lumen/mwc'],
   env,
@@ -8,10 +8,17 @@ module.exports = (env) => ({
     config.node = {
       fs: 'empty'
     }
-    config.resolve.alias['components'] = path.join(__dirname, 'components')
-    config.resolve.alias['routes'] = path.join(__dirname, 'routes')
-    config.resolve.alias['client'] = path.join(__dirname, 'client')
-    config.resolve.alias['fonts'] = path.join(__dirname, 'components/fonts.js')
+    const overwrites = {
+      components: path.join(__dirname, 'components'),
+      routes: path.join(__dirname, 'routes'),
+      client: path.join(__dirname, 'client'),
+      fonts: path.join(__dirname, 'components/fonts.js'),
+      ...pathAliasOverwrites
+    }
+
+    Object.keys(overwrites).forEach(key => {
+      config.resolve.alias[key] = overwrites[key]
+    })
 
     // polyfills
     const originalEntry = config.entry
