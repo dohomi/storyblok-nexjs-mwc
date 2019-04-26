@@ -1,3 +1,5 @@
+@import "variables";
+
 body, .app__root {
   display: block;
   min-height: 100vh;
@@ -28,17 +30,36 @@ body, .mdc-drawer, .app__root {
 }
 
 // body footer
+footer .nav-list__header {
+  color: $footer-nav-list-header;
+}
+
+.lm-mega-menu .nav .nav-link {
+  color: $mega-menu-link;
+
+  &:hover {
+    color: $mega-menu-link-hover;
+  }
+}
+
+footer .nav .nav-link, footer .rmwc-collapsible-list .nav-link {
+  color: $footer-link;
+
+  &:hover {
+    color: $footer-link-hover;
+  }
+}
+
 footer .nav .nav-link, .lm-mega-menu .nav .nav-link {
   padding-left: 0;
-  color: var(--mdc-theme-text-primary-on-background)
 }
 
 // links
 a {
-  color: var(--mdc-theme-link);
+  color: $default-link;
 
   &:hover {
-    color: var(--mdc-theme-link-hover);
+    color: $default-link-hover;
   }
 }
 

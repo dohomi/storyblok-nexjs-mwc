@@ -1,6 +1,5 @@
 import {ListGroup, ListGroupSubheader} from '@rmwc/list'
 import DrawerButton from './DrawerButton'
-import React from 'react'
 
 const DrawerNavList = (props) => {
   const body = props.body || []

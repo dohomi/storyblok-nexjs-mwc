@@ -19,3 +19,14 @@ $mdc-layout-grid-breakpoints: (
   tablet: 600px,
   phone: 0px
 );
+
+// custom app variables
+$carousel-pagination-circle-size: 11px !default;
+$carousel-pagination-active-color-dark: black !default;
+$default-link: var(--mdc-theme-link) !default;
+$default-link-hover: var(--mdc-theme-link-hover) !default;
+$footer-link: var(--mdc-theme-text-primary-on-background) !default;
+$footer-link-hover: var(--mdc-theme-text-primary-on-background) !default;
+$mega-menu-link: var(--mdc-theme-text-primary-on-background) !default;
+$mega-menu-link-hover: var(--mdc-theme-link-hover) !default;
+$footer-nav-list-header:var(--mdc-theme-on-surface) !default;

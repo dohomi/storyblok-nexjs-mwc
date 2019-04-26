@@ -1,4 +1,4 @@
-import {CollapsibleList, SimpleListItem, ListGroup, ListGroupSubheader} from '@rmwc/list'
+import {CollapsibleList, SimpleListItem} from '@rmwc/list'
 import {object} from 'prop-types'
 import DrawerButton from './DrawerButton'
 import React from 'react'
