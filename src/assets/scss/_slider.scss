@@ -8,6 +8,9 @@
 
 .carousel__pagination_dark {
   .carousel-indicators {
+    li{
+      background-color: $carousel-pagination-color-dark;
+    }
     li.active {
       background-color: $carousel-pagination-active-color-dark;
     }
