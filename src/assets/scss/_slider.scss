@@ -8,7 +8,7 @@
 
 .carousel__pagination_dark {
   .carousel-indicators {
-    li {
+    li.active {
       background-color: $carousel-pagination-active-color-dark;
     }
   }
