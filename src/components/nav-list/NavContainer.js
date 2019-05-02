@@ -4,17 +4,10 @@ import {memo} from 'react'
 import NavList from './NavList'
 import CollapsedNavList from './CollapsedNavList'
 
-const NavContainer = ({content,isMobile}) => {
-  // const isSmall = React.useMemo(
-  //   () => {
-  //     return props.dimensions.width > 0 && props.dimensions.width <= 600
-  //   },
-  //   [props.dimensions.width]
-  // )
-
+const NavContainer = ({content,dimensions}) => {
   return (
     <SbEditable content={content}>
-      {isMobile && content.collapse_on_mobile ? (
+      {dimensions.isMobile && content.collapse_on_mobile ? (
         <CollapsedNavList {...content}/>
       ) : (
         <NavList {...content}/>
@@ -23,4 +16,4 @@ const NavContainer = ({content,isMobile}) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({isMobile: dimensions.width > 0 && dimensions.width <= 600}))(memo(NavContainer))
+export default withWindowDimensions(dimensions => ({dimensions}))(memo(NavContainer))

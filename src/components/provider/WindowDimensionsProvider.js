@@ -7,7 +7,8 @@ export const WindowDimensionsCtx = createContext(null)
 const windowDims = () => {
   const opts = {
     height: window.innerHeight,
-    width: window.innerWidth
+    width: window.innerWidth,
+    isMobile: DeviceDetectService.getDevice() && DeviceDetectService.getDevice().device === 'mobile'
   }
   return opts
 }

@@ -1,8 +1,9 @@
 import SbEditable from 'storyblok-react'
 import Components from 'components/index'
 import SwipeableViews from 'react-swipeable-views'
-import React, {useState} from 'react'
+import React, {memo, useState} from 'react'
 import clsx from 'clsx'
+import withWindowDimensions from '../provider/WithWindowDimensions'
 
 const chunkArray = (myArray, chunkSize) => {
   const results = []
@@ -14,8 +15,8 @@ const chunkArray = (myArray, chunkSize) => {
 
 const Child = ({body}) => {
   return (
-    <div>
-      {body.map(i => Components(i))}
+    <div className="d-flex h-100 lm-slider__container flex-row justify-content-center">
+      {body.map(i => <div key={`child_${i._uid}`} className="flex-grow-1">{Components(i)}</div>)}
     </div>
   )
 }
@@ -23,8 +24,8 @@ const Child = ({body}) => {
 const Slider = (props) => {
   const [slide, setSlide] = useState(0)
   const content = props.content
-  // const body = content.body
-  const body = content.slides_per_view ? chunkArray(content.body.slice(0), content.slides_per_view) : content.body
+  const wrapInColumns = content.slides_per_view && !props.dimensions.isMobile
+  const body = wrapInColumns ? chunkArray(content.body.slice(0), content.slides_per_view) : content.body
   const properties = content.property || []
   const styles = {}
   const paginationClasses = clsx(
@@ -57,7 +58,9 @@ const Slider = (props) => {
       <div className={carouselClasses} style={styles}>
         <SwipeableViews index={slide}
                         onChangeIndex={(i) => setSlide(i)}>
-          {body.map(item => Components(item))}
+          {wrapInColumns ? body.map((child, index) => {
+            return <Child key={`swipeable_${index}`} body={child}/>
+          }) : body.map(item => Components(item))}
         </SwipeableViews>
         <a className={carouselPrevClasses}
            role="button"
@@ -74,7 +77,7 @@ const Slider = (props) => {
         <ol className={paginationClasses}>
           {body.map((item, i) => (
             <li className={`${slide === i ? 'active' : ''}`}
-                key={item._uid}
+                key={item._uid || `pagination_${i}`}
                 onClick={() => handleChangeIndex(item)}>
             </li>
           ))}
@@ -84,4 +87,4 @@ const Slider = (props) => {
   )
 }
 
-export default Slider
+export default withWindowDimensions(dimensions => ({dimensions}))(memo(Slider))

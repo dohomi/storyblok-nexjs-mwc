@@ -54,3 +54,9 @@
     }
   }
 }
+
+.lm-slider__container {
+  > div {
+    //@extend .col
+  }
+}
