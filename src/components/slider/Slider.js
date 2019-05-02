@@ -4,10 +4,27 @@ import SwipeableViews from 'react-swipeable-views'
 import React, {useState} from 'react'
 import clsx from 'clsx'
 
+const chunkArray = (myArray, chunkSize) => {
+  const results = []
+  while (myArray.length) {
+    results.push(myArray.splice(0, chunkSize))
+  }
+  return results
+}
+
+const Child = ({body}) => {
+  return (
+    <div>
+      {body.map(i => Components(i))}
+    </div>
+  )
+}
+
 const Slider = (props) => {
   const [slide, setSlide] = useState(0)
   const content = props.content
-  const body = content.body
+  // const body = content.body
+  const body = content.slides_per_view ? chunkArray(content.body.slice(0), content.slides_per_view) : content.body
   const properties = content.property || []
   const styles = {}
   const paginationClasses = clsx(
@@ -31,7 +48,10 @@ const Slider = (props) => {
     setSlide(body.findIndex(i => i._uid === item._uid))
   }
 
-  content.background_color && (styles.backgroundColor = content.background_color)
+  if (content.background_color) {
+    styles.backgroundColor = content.background_color && content.background_color.rgba || content.background_color
+  }
+
   return (
     <SbEditable content={content}>
       <div className={carouselClasses} style={styles}>

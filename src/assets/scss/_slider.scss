@@ -8,11 +8,16 @@
 
 .carousel__pagination_dark {
   .carousel-indicators {
-    li{
+    li {
       background-color: $carousel-pagination-color-dark;
-    }
-    li.active {
-      background-color: $carousel-pagination-active-color-dark;
+
+      &:hover {
+        background-color: darken($carousel-pagination-color-dark, 20%);
+      }
+
+      &.active {
+        background-color: $carousel-pagination-active-color-dark;
+      }
     }
   }
 }
