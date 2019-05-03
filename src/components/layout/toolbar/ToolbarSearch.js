@@ -37,7 +37,7 @@ const ToolbarSearch = ({content}) => {
             <div style={{flex: 1}}>
               <TextField fullwidth
                          id={content._uid}
-                         placeholder={'todo...'}
+                         placeholder={content.placeholder || 'Search...'}
                          icon="search"/>
             </div>
             <IconButton icon="clear"

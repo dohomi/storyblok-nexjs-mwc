@@ -6,6 +6,7 @@ import Menu from '../../menu/Menu'
 import {toggleLeftNavigation} from '../../../utils/state/state'
 import ToolbarLogo from './ToolbarLogo'
 import ToolbarSearch from './ToolbarSearch'
+import clsx from 'clsx'
 
 const NaviButton = ({content, settings}) => {
   const mobileNavBreakpoint = settings.mobile_nav_breakpoint || 'sm'
@@ -40,9 +41,10 @@ const Child = (blok, settings) => {
 
 const ToolbarSection = (props) => {
   const body = props.body || []
+  const className = clsx(props.class_names && props.class_names.values)
   return (
     <SbEditable content={props}>
-      <TopAppBarSection alignEnd={props.align_end}>
+      <TopAppBarSection alignEnd={props.align_end} className={className}>
         {body.map(blok => Child(blok, props.settings))}
       </TopAppBarSection>
     </SbEditable>

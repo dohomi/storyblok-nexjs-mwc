@@ -4,7 +4,7 @@ const DrawerSearch = (content) => {
   return (
     <TextField fullwidth
                id={content._uid}
-               placeholder={'todo...'}
+               placeholder={content.placeholder || 'Search...'}
                icon="search"/>
   )
 }
