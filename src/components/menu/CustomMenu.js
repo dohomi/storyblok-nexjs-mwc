@@ -32,13 +32,12 @@ const CustomMenu = ({content}) => {
 
   return (
     <SbEditable content={content}>
-      <MenuSurfaceAnchor style={{position: 'inherit'}}
-                         className="lm-mega-menu">
+      <MenuSurfaceAnchor className="lm-mega-menu">
         <Button trailingIcon="expand_more"
                 {...buttonProps}>{content.title}</Button>
         <MenuSurface open={open}
                      anchorCorner="bottomStart"
-                     style={{marginTop: '24px', borderRadius: `${content.border_radius || 4}px`}}
+                     style={{borderRadius: `${content.border_radius || 4}px`}}
                      onClose={() => onClose()}>
           {menuItems.map(blok => Components(blok))}
         </MenuSurface>
