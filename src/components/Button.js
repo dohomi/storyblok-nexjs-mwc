@@ -99,10 +99,15 @@ const ButtonLink = (props) => {
 
 const MtButton = ({content}) => {
   const buttonProps = mapButtonProps(content)
-  const link = content.link || {}
+  let link = content.link || {}
   componentLogger(content)
 
+  if (content.file) {
+    // overwrites potential link values
+    link = {cached_url: `https://${content.file}`}
+  }
   linkHandler(buttonProps, link, {openExternal: !!content.open_external})
+
   buttonProps.tag = ButtonLink
   if (content.font) {
     buttonProps.style = {
