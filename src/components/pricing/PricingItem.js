@@ -12,14 +12,15 @@ const PricingItem = (props) => {
   const title = props.title || []
   const price = props.price || []
   const features = props.features || []
+  const subtitle = props.subtitle || []
   const button = props.button || []
   return (
     <SbEditable content={props}>
       <Card style={{height: '100%'}}>
         {media && <div className="lm-pricing__media">{Components(media)}</div>}
-        {title.length > 0 &&
-        <div className="lm-pricing__title">{title.map(v => Components(v))}</div>}
+        <div className={`lm-pricing__title${!title.length ? ' lm-no-title' : ''}`}>{title.map(v => Components(v))}</div>
         {price.length > 0 && <div className="lm-pricing__price">{price.map(v => Components(v))}</div>}
+        {subtitle.length > 0 && <div className="lm-pricing__subtitle">{subtitle.map(v => Components(v))}</div>}
         {features.length > 0 && <div className="lm-pricing__features"><ul>{features.map(v => {
           return <li key={v._uid}>{Components(v)}</li>
         })}</ul></div>}
