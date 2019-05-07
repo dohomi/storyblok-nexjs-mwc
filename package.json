@@ -87,6 +87,7 @@
     "react-inlinesvg": "^0.8.4",
     "react-intersection-observer": "^8.22.0",
     "react-player": "^1.10.0",
+    "react-resize-aware": "3.0.0-beta.3",
     "react-scroll-parallax": "^2.0.4",
     "react-swipeable-views": "^0.13.1",
     "resize-observer-polyfill": "^1.5.1",

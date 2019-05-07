@@ -4,6 +4,7 @@ import {useInView} from 'react-intersection-observer'
 import {useEffect, useState, createRef} from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
 import {getImage} from '../../utils/fetchImageHelper'
+import useResizeAware from 'react-resize-aware'
 
 
 const WithBackgroundImage = (props) => {
@@ -15,6 +16,7 @@ const WithBackgroundImage = (props) => {
   const lazyDisabled = imageProperties.includes('disable_lazy_load')
   let containerRef
   const wrap = createRef()
+  const [resizeListener, sizes] = useResizeAware()
 
   const containerClasses = clsx(
     !isColumn && 'mw-100 mh-100',
@@ -49,16 +51,17 @@ const WithBackgroundImage = (props) => {
         processImg(container)
       }
     },
-    [backgroundImage, props.dimensions.width, props.dimensions.height, inView]
+    [backgroundImage, props.dimensions.width, props.dimensions.height, inView, sizes]
   )
 
   function processImg (container) {
     let overwriteHeight
     if (!window.userDevice.device) {
-      if (backgroundStyle === 'fixed_cover') {
+      if (['fixed_cover', 'fixed_image'].includes(backgroundStyle)) {
         overwriteHeight = props.dimensions.height// overwrite height to match viewport height
       }
     }
+    console.log(wrap.current.clientHeight, overwriteHeight)
     const img = getImageAttrs({
       originalSource: backgroundImage,
       width: wrap.current.clientWidth,
@@ -71,22 +74,18 @@ const WithBackgroundImage = (props) => {
       src: img.src,
       srcSet: img.srcSet,
       onReady (src) {
-        setImage(src, container)
+        const newStyles = {
+          ...styles,
+          // filter: 'blur(0)', // unset blur effect
+          backgroundImage: `url("${src}")`
+        }
+        if (['fixed_cover', 'fixed_image'].includes(backgroundStyle) && !window.userDevice.device) {
+          newStyles.backgroundAttachment = 'fixed'
+        }
+        setStyles(newStyles)
+        container.classList.add('loaded')
       }
     })
-  }
-
-  function setImage (src, reference) {
-    const newStyles = {
-      ...styles,
-      // filter: 'blur(0)', // unset blur effect
-      backgroundImage: `url("${src}")`
-    }
-    if (['fixed_cover', 'fixed_image'].includes(backgroundStyle) && !window.userDevice.device) {
-      newStyles.backgroundAttachment = 'fixed'
-    }
-    setStyles(newStyles)
-    reference.classList.add('loaded')
   }
 
   function setRef (el) {
@@ -98,6 +97,7 @@ const WithBackgroundImage = (props) => {
     <div className={containerClasses}
          ref={wrap}
          style={props.style}>
+      {resizeListener}
       <div className="lm-background__absolute-fill lm-background-image lm-background__blurred"
            style={initialState}>
       </div>
