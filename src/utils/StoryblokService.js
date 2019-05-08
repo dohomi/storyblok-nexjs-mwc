@@ -21,7 +21,10 @@ class StoryblokService {
   }
 
   flushCache () {
+    console.log('flush cashed triggered. ENV Vars:', StoryblokToken.preview, StoryblokToken.public)
+    console.log('current token:', this.client.getToken())
     this.client.flushCache()
+    return true
   }
 
   getCacheVersion () {
@@ -47,25 +50,26 @@ class StoryblokService {
     if (window.storyblok) {
       window.storyblok.init({accessToken: this.token})
       window.storyblok.on(['change'], () => {
-          console.log('change::published triggered')
-          location.reload(true)
+          console.log('change::save triggered')
+          // location.reload()
         }
       )
       window.storyblok.on(['published'], () => {
-          location.reload(true)
+          console.log('published triggered')
           fetch(`${location.protocol}//${location.host}/api/clear-cache`)
             .then(() => {
-              location.reload(true)
-              console.log('flush cache successful')
+              console.log('flush cashed successful triggered. ENV Vars:', StoryblokToken.preview, StoryblokToken.public)
+              console.log('after flush: current token:', this.client.getToken())
+              location.reload()
             })
             .catch((e) => {
-              location.reload(true)
-              console.error(e)
+              console.error('error on flush cache:', e)
             })
         }
       )
       window.storyblok.on('input', (event) => {
         if (event.story.content._uid === content.pageContent._uid) {
+          console.log('input::input changed')
           setContent({
             ...content,
             pageContent: event.story.content
@@ -75,7 +79,7 @@ class StoryblokService {
     }
   }
 
-  insideVisualComposer() {
+  insideVisualComposer () {
     return !!this.getQuery('_storyblok')
   }
 
