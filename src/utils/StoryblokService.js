@@ -54,7 +54,7 @@ class StoryblokService {
           // location.reload()
         }
       )
-      window.storyblok.on(['published'], () => {
+      window.storyblok.on(['published', 'unpublished'], () => {
           console.log('published triggered')
           fetch(`${location.protocol}//${location.host}/api/clear-cache`)
             .then(() => {
