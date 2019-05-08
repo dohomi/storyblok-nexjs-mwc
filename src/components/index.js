@@ -24,9 +24,11 @@ import HubspotMeeting from './HubspotMeeting'
 import Pricing from './pricing/Pricing'
 import Divider from './Divider'
 import Promotion from './promotion/Promotion'
+import Accordion from './accordion/Accordion'
 
 const Components = {
   'page': Page,
+  'accordion': Accordion,
   'promotion': Promotion,
   'divider': Divider,
   'html': Html,
