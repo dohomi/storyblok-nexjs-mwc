@@ -15,7 +15,7 @@ const CardWrap = ({children, content, className, style, outlined}) => {
         <Card className={className}
               style={style}
               outlined={outlined}>
-          <a href="#" onClick={() => setOpen(!open)}>
+          <a onClick={() => setOpen(!open)}>
             {children}
           </a>
         </Card>
