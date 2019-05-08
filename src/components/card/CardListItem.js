@@ -8,7 +8,6 @@ import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
 
-
 const CardListItem = (content) => {
   let variant = content.variant || []
   const cardClasses = clsx({
