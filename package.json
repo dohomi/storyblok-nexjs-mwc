@@ -20,8 +20,7 @@
   "author": "Dominic Garms <djgarms@gmail.com>",
   "license": "ISC",
   "engines": {
-    "node": ">=12.0.0",
-    "npm": ">=6.0.0"
+    "node": "8.10.0"
   },
   "dependencies": {
     "@material/animation": "^1.0.0",
@@ -70,7 +69,7 @@
     "copy-webpack-plugin": "^5.0.0",
     "css-loader": "^2.1.0",
     "extract-css-chunks-webpack-plugin": "^4.0.0",
-    "fibers": "^4.0.1",
+    "fibers": "^3.1.1",
     "fontfaceobserver": "^2.1.0",
     "intersection-observer": "^0.6.0",
     "js-cookie": "^2.2.0",
