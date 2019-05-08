@@ -11,9 +11,11 @@
     margin: 0;
   }
 }
-.mdc-card__media{
+
+.mdc-card__media {
   background-color: grey;
 }
+
 .mdc-card__media-content {
   padding: 1rem;
 }
@@ -27,3 +29,10 @@
   align-items: flex-end;
 }
 
+.lm-card__drawer {
+  top: 0;
+  padding: 36px;
+  width: auto;
+  max-width: 80%;
+  text-align: left;
+}

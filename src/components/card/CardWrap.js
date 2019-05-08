@@ -2,10 +2,35 @@ import SbEditable from 'storyblok-react'
 import {Card} from '@rmwc/card'
 import CardLink from './CardLink'
 import Components from 'components/index'
+import {Drawer, DrawerContent} from '@rmwc/drawer'
+import React from 'react'
 
 
 const CardWrap = ({children, content, className, style, outlined}) => {
   const body = content.body || []
+  let [open, setOpen] = React.useState(false)
+  if (body.length) {
+    return (
+      <SbEditable content={content}>
+        <Card className={className}
+              style={style}
+              outlined={outlined}>
+          <a onClick={() => setOpen(!open)}>
+            {children}
+          </a>
+        </Card>
+        <Drawer modal open={open}
+                dir="rtl"
+                className="lm-card__drawer"
+                onClose={() => setOpen(false)}>
+          <DrawerContent dir="ltr">
+            {body.map(blok => Components(blok))}
+          </DrawerContent>
+        </Drawer>
+      </SbEditable>
+    )
+  }
+
   return (
     <SbEditable content={content}>
       <Card className={className} style={style} outlined={outlined}>
@@ -14,10 +39,10 @@ const CardWrap = ({children, content, className, style, outlined}) => {
         </CardLink>
       </Card>
       {body.length > 0 && (
-        <div>
-          @TODO
+
+        <Drawer model open={true}>
           {body.map(blok => Components(blok))}
-        </div>
+        </Drawer>
       )}
     </SbEditable>
   )
