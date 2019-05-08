@@ -61,7 +61,6 @@ const WithBackgroundImage = (props) => {
         overwriteHeight = props.dimensions.height// overwrite height to match viewport height
       }
     }
-    console.log(wrap.current.clientHeight, overwriteHeight)
     const img = getImageAttrs({
       originalSource: backgroundImage,
       width: wrap.current.clientWidth,
