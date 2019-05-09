@@ -37,14 +37,14 @@ $pricing-title-bg-color: var(--mdc-theme-primary) !default;
 
 
 // table
-$table-comparison-header-font-family: inherit;
-$table-comparison-header-bg-color: var(--mdc-theme-primary);
-$table-comparison-header-color: var(--mdc-theme-on-primary);
-$table-comparison-header-border-radius: 10px;
-$table-comparison-header-padding: 35px;
-$table-comparison-header-body-padding: 25px 0;
-$table-comparison-header-body-first-padding: 25px 35px 25px 0;
-$table-comparison-header-body-border: 1px solid #dfdfdf;
-$table-comparison-header-body-content-border: 2px solid #f0f0f0;
-$table-comparison-content-color: #898989;
-$table-comparison-content-header-color: inherit;
+$table-comparison-header-font-family: inherit !default;
+$table-comparison-header-bg-color: var(--mdc-theme-primary) !default;
+$table-comparison-header-color: var(--mdc-theme-on-primary) !default;
+$table-comparison-header-border-radius: 10px !default;
+$table-comparison-header-padding: 35px !default;
+$table-comparison-header-body-padding: 25px 0 !default;
+$table-comparison-header-body-first-padding: 25px 35px 25px 0 !default;
+$table-comparison-header-body-border: 1px solid #dfdfdf !default;
+$table-comparison-header-body-content-border: 2px solid #f0f0f0 !default;
+$table-comparison-content-color: #898989 !default;
+$table-comparison-content-header-color: inherit !default;
