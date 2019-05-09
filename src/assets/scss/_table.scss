@@ -6,6 +6,25 @@
   border-collapse: collapse;
 }
 
+.lm-table__bordered, .lm-table__bordered-bold {
+  td, th {
+    border: $table-bordered-border;
+    padding: $table-bordered-padding;
+  }
+}
+
+.lm-table__bordered-bold {
+  th {
+    text-align: left;
+  }
+
+  tbody tr:last-child {
+    td {
+      font-weight: bold;
+    }
+  }
+}
+
 .lm-table__comparison {
   thead {
     th {
