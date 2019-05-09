@@ -11,6 +11,7 @@ const Image = (props) => {
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
+  const containerClassName = clsx('img-figure', content.class_names && content.class_names.values)
   // const figureStyle = {}
   // console.log(props.dimensions.width, content.height_xs)
   // if (content.height_xs && props.dimensions.width <= 600) {
@@ -81,7 +82,7 @@ const Image = (props) => {
 
   return (
     <SbEditable content={content}>
-      <figure ref={refIntersectionObserver} className="img-figure">
+      <figure ref={refIntersectionObserver} className={containerClassName}>
         <img {...imgProps} onLoad={onImageLoaded}/>
       </figure>
     </SbEditable>

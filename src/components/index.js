@@ -25,9 +25,11 @@ import Pricing from './pricing/Pricing'
 import Divider from './Divider'
 import Promotion from './promotion/Promotion'
 import Accordion from './accordion/Accordion'
+import Table from './table/Table'
 
 const Components = {
   'page': Page,
+  'table': Table,
   'accordion': Accordion,
   'promotion': Promotion,
   'divider': Divider,
