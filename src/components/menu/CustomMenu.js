@@ -2,33 +2,30 @@ import SbEditable from 'storyblok-react'
 import {MenuSurfaceAnchor, MenuSurface, MenuItem} from '@rmwc/menu'
 import Components from 'components/index'
 import {Button} from '@rmwc/button'
-import {setMegaMenu, useGlobalState} from '../../utils/state/state'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import {withRouter} from 'next/dist/client/router'
 
-const CustomMenu = ({content}) => {
-
-  // let [open] = useGlobalState('megaMenu')
+const CustomMenu = ({content, router}) => {
   const [open, setOpen] = useState(false)
   const menuItems = content.body || []
   const buttonProps = {
-    // ['onMouseOver']: () => setOpen(!open),
     ['onClick']: () => openMegaMenu()
   }
 
+  useEffect(
+    () => {
+      setOpen(false)
+    },
+    [router.asPath]
+  )
+
   function openMegaMenu () {
     setOpen(true)
-    // setTimeout(() => {
-    //   setMegaMenu(content._uid)
-    // }, 150)
   }
 
   function onClose () {
     setOpen(false)
-    // setMegaMenu(content._uid, true)
   }
-
-  //style={{position: 'inherit'}}
-
 
   return (
     <SbEditable content={content}>
@@ -46,4 +43,4 @@ const CustomMenu = ({content}) => {
   )
 }
 
-export default CustomMenu
+export default withRouter(CustomMenu)
