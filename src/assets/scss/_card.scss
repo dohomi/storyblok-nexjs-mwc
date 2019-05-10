@@ -27,6 +27,10 @@
 .lm-card__content.mdc-card__media-content {
   display: flex;
   align-items: flex-end;
+
+  > div {
+    width: 100%;
+  }
 }
 
 .lm-card__drawer {
