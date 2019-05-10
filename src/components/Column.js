@@ -21,7 +21,6 @@ const Column = (props) => {
   const widthMobile = content.width_phone || 4
   const widthTablet = content.width_tablet || widthGeneral
   const widthDesktop = content.width_desktop || widthGeneral
-  console.log(widthMobile)
   const colClasses = clsx(
     'mdc-layout-grid__cell',
     {
