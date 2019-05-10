@@ -53,7 +53,12 @@ $table-bordered-border: 1px solid black !default;
 $table-bordered-border-bold: 2px solid black !default;
 $table-bordered-padding: 20px !default;
 
-$table-boxed-padding: 20px;
-$table-boxed-border: 1px solid #dfdfdf;
-$table-boxed-outline: 1px solid #000;
-$table-boxed-bg: #f8f8f8;
+$table-boxed-padding: 20px !default;
+$table-boxed-border: 1px solid #dfdfdf !default;
+$table-boxed-outline: 1px solid #000 !default;
+$table-boxed-bg: #f8f8f8 !default;
+
+$table-price-padding: 28px 0 !default;
+$table-price-border: 1px solid #dfdfdf !default;
+$table-price-last-font-family: inherit !default;
+$table-price-last-font-size: 1.3rem !default;
