@@ -29,11 +29,11 @@ const Table = ({content}) => {
   return (
     <SbEditable content={content}>
       <table className={className}>
-        <thead>
+        {!content.disable_table_head && (<thead>
         <tr>
           {tableHead.map((content, index) => <th key={`head_${index}`}>{content}</th>)}
         </tr>
-        </thead>
+        </thead>)}
         <tbody>
         {tableBody.map((row, index) => <TableRow key={`row_${index}`} index={index} content={row}/>)}
         </tbody>

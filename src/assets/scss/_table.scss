@@ -13,6 +13,17 @@
   }
 }
 
+.lm-table__boxed {
+  border: $table-boxed-outline;
+  border-collapse: separate;
+  background-color: $table-boxed-bg;
+
+  td {
+    border: $table-boxed-border;
+    padding: $table-boxed-padding;
+  }
+}
+
 .lm-table__bordered-bold {
   td, th {
     border: $table-bordered-border-bold;
