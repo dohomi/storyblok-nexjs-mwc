@@ -18,9 +18,10 @@ const Column = (props) => {
   }
 
   const widthGeneral = content.width_general || 12
-  const widthMobile = content.width_mobile || 4
+  const widthMobile = content.width_phone || 4
   const widthTablet = content.width_tablet || widthGeneral
   const widthDesktop = content.width_desktop || widthGeneral
+  console.log(widthMobile)
   const colClasses = clsx(
     'mdc-layout-grid__cell',
     {
