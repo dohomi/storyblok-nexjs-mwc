@@ -3,8 +3,7 @@ import clsx from 'clsx'
 
 const TableColumn = ({content}) => {
   return (
-    <td>
-      {content}
+    <td dangerouslySetInnerHTML={{__html:content}}>
     </td>
   )
 }
