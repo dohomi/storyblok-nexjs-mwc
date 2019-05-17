@@ -19,10 +19,12 @@ const Divider = ({content}) => {
   if (iconSize) {
     style.height = `${iconSize}px`
   }
-  const className = clsx('h-separator', {
-    divider: !iconName,
-    'h-separator-icon': iconName
-  })
+  const className = clsx(
+    'h-separator',
+    content.class_names && content.class_names.values, {
+      divider: !iconName,
+      'h-separator-icon': iconName
+    })
   const childStyle = {
     borderTopWidth: `${content.thickness || 1}px`
   }
