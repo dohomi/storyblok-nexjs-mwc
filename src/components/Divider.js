@@ -23,7 +23,9 @@ const Divider = ({content}) => {
     divider: !iconName,
     'h-separator-icon': iconName
   })
-  const childStyle = {}
+  const childStyle = {
+    borderTopWidth: `${content.thickness || 1}px`
+  }
   if (content.width) {
     childStyle.width = `${content.width}%`
   }
@@ -32,14 +34,16 @@ const Divider = ({content}) => {
       'material-icons',
       'rmwc-icon'
     )
-    const iconStyle = {}
+    const iconStyle = {
+      marginTop: `${content.thickness || 1}px`
+    }
     if (iconSize) {
       iconStyle.fontSize = `${iconSize}px`
     }
     return (
       <Wrap content={content} style={style} childStyle={childStyle} className={className}>
         <div>
-          <div>
+          <div style={{borderTopWidth: `${content.thickness || 1}px`}}>
             <span>
               <i className={iconClasses} style={iconStyle}>{iconName}</i>
             </span>
@@ -49,7 +53,9 @@ const Divider = ({content}) => {
     )
   }
   return (
-    <Wrap content={content} style={style} childStyle={childStyle} className={className}><span/></Wrap>
+    <Wrap content={content} style={style} childStyle={childStyle} className={className}>
+      <span/>
+    </Wrap>
   )
 }
 

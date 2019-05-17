@@ -12,9 +12,14 @@
     text-align: center;
   }
 
-  > div {
+  > div, > div > div > div {
     margin: 0 auto;
     overflow: hidden;
+    position: relative;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-color: transparent;
+
   }
 
   div > span {
@@ -24,6 +29,8 @@
     height: inherit;
     border-color: inherit;
     color: inherit;
+    border-top-width: inherit;
+    border-top-style: solid;
 
     &:before {
       right: 100%;
@@ -41,7 +48,7 @@
       top: 50%;
       height: 0;
       width: 2000px;
-      border-top-width: 1px;
+      border-top-width: inherit;
       border-top-style: solid;
       border-color: currentColor;
     }

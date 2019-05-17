@@ -13,8 +13,12 @@ if (process.env.NODE_ENV === 'production') {
 // STORYBLOK_PREVIEW: 'tE20umOzBgUMTraCOXpUIAtt',
 // STORYBLOK_PUBLIC: '5Ikr8NfLTsgB47fUZmbmRwtt'
 
+// Mc Laurin:
+// STORYBLOK_PREVIEW: '9zRJpw6MGovargzcXIrMjQtt',
+// STORYBLOK_PUBLIC: 'mlJ9NJ301Jlk0lacBBSqCAtt'
+
 
 module.exports = config({
-  STORYBLOK_PREVIEW: 'h4irkhjH5C5djHiI8f76rQtt',
-  STORYBLOK_PUBLIC: 'rngGl9hhQWVCizcr1WRDJQtt'
+  STORYBLOK_PREVIEW: '9zRJpw6MGovargzcXIrMjQtt',
+  STORYBLOK_PUBLIC: 'mlJ9NJ301Jlk0lacBBSqCAtt'
 })
