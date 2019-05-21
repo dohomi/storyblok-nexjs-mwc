@@ -40,29 +40,35 @@ const Form = ({content, customData = {}, children}) => {
 
   const {data, isLoading, isError, handleSubmit} = useForm(opts)
 
-  function onSubmit (e) {
-    e.preventDefault()
-    if (isLoading) return
-    const form = e.target
-    const elements = [...form.elements]
-    elements.forEach(element => {
-      element.focus()
-      // element.blur()
-      // element.checkValidity()
-    })
-    const valid = form.checkValidity()
-    if (!valid) {
-      return
-    }
-    handleSubmit(e, customData)
-  }
-
   const border = content.border || []
 
   const formClassName = clsx('lm-form', {
     ['lm-form__shaped']: border.includes('shaped'),
     ['lm-form__square']: border.includes('square')
   })
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    // debugger
+    if (isLoading) return
+    const form = e.target
+    const elements = [...form.elements]
+    let isHoneyed = false
+    elements.forEach(element => {
+      element.focus()
+      if (element.id === 'field_name_first') {
+        isHoneyed = element.value.length > 0
+      }
+      // element.blur()
+      // element.checkValidity()
+    })
+    const valid = form.checkValidity()
+    if (!valid || isHoneyed) {
+      return
+    }
+    handleSubmit(e, customData)
+  }
+
   if (!!data) {
     return (
       <div>
@@ -75,6 +81,10 @@ const Form = ({content, customData = {}, children}) => {
   return (
     <SbEditable content={content}>
       <form noValidate onSubmit={onSubmit} className={formClassName}>
+        <div style={{opacity: 0, top: 0, left: '-9999px', position: 'absolute'}}>
+          <label htmlFor="field_name_first">Street</label>
+          <input type="text" id="field_name_first" name="First"/>
+        </div>
         {isError && (
           <div>Form submit has error...</div>
         )}

@@ -1,14 +1,13 @@
 import {useState, useEffect} from 'react'
 
 /**
- * https://developers.hubspot.com/docs/methods/forms/submit_form_v3
- * @param portalId
- * @param formId
- * @return {{isLoading: boolean, handleSubmit: handleSubmit, isError: boolean, data: any}}
+ *
+ * @param api
+ * @return {{isLoading: boolean, handleSubmit: handleSubmit, isError: boolean, data: boolean}|{}}
  */
 export const useForm = ({api}) => {
   if (!api) {
-    console.log('you must provide an API endpoint for the form component.')
+    console.log('you must provide an API endpoint for the form component. Submit of form will fail.')
     return {}
   }
   const url = api
@@ -36,6 +35,7 @@ export const useForm = ({api}) => {
     }
     console.info(url, data)
     try {
+
       const res = await onFormSubmissionFetch(url, data)
       // if (res.status === 200) {
       setData(res)
@@ -72,11 +72,12 @@ export const useForm = ({api}) => {
 }
 
 function onFormSubmissionFetch (url, data) {
+  console.log('sending data:', data)
   return fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'  // application/json
     }
   }).then(r => r.json())
 }
