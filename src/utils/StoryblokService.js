@@ -43,7 +43,9 @@ class StoryblokService {
     if (typeof window !== 'undefined' && typeof window.StoryblokCacheVersion !== 'undefined') {
       params.cv = window.StoryblokCacheVersion
     }
-    console.debug('storyblok token:', this.client.getToken())
+    if (this.getQuery('_storyblok_release')) {
+      params.from_release = this.getQuery('_storyblok_release')
+    }
     return this.client.get(slug, params)
   }
 
