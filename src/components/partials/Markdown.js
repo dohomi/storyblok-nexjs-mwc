@@ -34,7 +34,7 @@ const Markdown = (props = {}) => {
     }
 
     const rawMarkup = marked(props.content, {
-      sanitize: true,
+      //sanitize: true,
       renderer
     })
     return {__html: rawMarkup}

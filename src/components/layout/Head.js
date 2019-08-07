@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import NProgress from 'nprogress'
 import Router from 'next/router'
 import StoryblokService from '../../utils/StoryblokService'
-import NextSeo from 'next-seo'
+import {NextSeo} from 'next-seo'
 import imageService, {imageServiceNoWebp, getOriginalImageDimensions} from '../../utils/ImageService'
 
 Router.onRouteChangeStart = () => NProgress.start()
@@ -95,7 +95,7 @@ const Head = ({settings = {}, pageSeo = {}}) => {
   }
   return (
     <>
-      <NextSeo config={seo}/>
+      <NextSeo {...seo}/>
       <NextHead>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
               key="viewport"/>

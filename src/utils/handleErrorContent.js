@@ -10,7 +10,7 @@ import StoryblokService from './StoryblokService'
 const handleErrorContent = async (e, res, languagePrefix = '') => {
   const error = {
     status: e.response.status,
-    url: e.response.config_prod.url
+    url: e.response.config_prod && e.response.config_prod.url
   }
   res && (res.statusCode = error.status) // set the response error code
   // in storyblok we only handle 404 for not found and any other error 500 including 400 etc.
