@@ -26,7 +26,7 @@ Index.getInitialProps = async ({query, req, res}) => {
       page: page.data && page.data.story && page.data.story.content || {},
       settings: settings.data && settings.data.story && settings.data.story.content || {},
       url,
-      overwriteDisableRobots: ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i))
+      overwriteDisableRobots: ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i)) || host.endsWith('.now.sh')
     }
     DeviceDetectService.setLanguage(pageProps.settings.setup_language, pageProps.settings.setup_supported_languages, res)
     return pageProps
