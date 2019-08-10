@@ -7155,10 +7155,9 @@ react-player@^1.11.1:
     load-script "^1.0.0"
     prop-types "^15.5.6"
 
-react-resize-aware@^3.0.0-beta.3:
-  version "3.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/react-resize-aware/-/react-resize-aware-3.0.0-beta.3.tgz#35aeddebfc4595f01323d0f473884099c4633f1b"
-  integrity sha512-XRnj1qgEAvrjOM7c/wsrVLBJxu0TNOKrhgWG7OasCdYiQSCyqiACxJUScTIknUk0bGV7MaagBjMa0CCYXK4ktQ==
+"react-resize-aware@git://github.com/altitudenetworks/react-resize-aware#bbb3a5845880383de2ba3da01f760a8bd3decaff":
+  version "3.0.0-beta.4"
+  resolved "git://github.com/altitudenetworks/react-resize-aware#bbb3a5845880383de2ba3da01f760a8bd3decaff"
 
 react-scroll-parallax@^2.1.2:
   version "2.1.2"
