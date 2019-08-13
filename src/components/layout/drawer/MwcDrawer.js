@@ -10,7 +10,7 @@ import {bool, func, object} from 'prop-types'
 import DrawerContentList from './MwcDrawerList'
 import {Link} from 'routes/index'
 import imageService from '../../../utils/ImageService'
-import {toggleLeftNavigation, useGlobalState} from '../../../utils/state/state'
+import {closeNavigationDrawers, useGlobalState} from '../../../utils/state/state'
 
 const MwcDrawer = (props) => {
 
@@ -22,7 +22,7 @@ const MwcDrawer = (props) => {
   return (
     <Drawer modal
             open={isOpen}
-            onClose={toggleLeftNavigation}>
+            onClose={closeNavigationDrawers}>
       <DrawerHeader>
         <Link route="/">
           <a className="p-2 d-block">
