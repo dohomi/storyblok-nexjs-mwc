@@ -73,6 +73,7 @@ const Index = (props) => {
           {Components(content.pageContent)}
         </Layout>
       </WindowDimensionsProvider>
+      <script>/* fix FF initial render */</script>
     </>
   )
 }
