@@ -1,13 +1,14 @@
 import Components from 'components/index'
-import React, {useState, useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import StoryblokService from '../../utils/StoryblokService'
 import Head from '../../components/layout/Head'
 import Layout from '../../components/layout/Layout'
 import WindowDimensionsProvider from '../../components/provider/WindowDimensionsProvider'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import Fonts from 'fonts'
-import {withRouter} from 'next/dist/client/router'
+import { withRouter } from 'next/dist/client/router'
 import Error from '../../pages/_error'
+import { NextPage, NextPageContext } from 'next'
 
 /**
  *
@@ -16,7 +17,7 @@ import Error from '../../pages/_error'
  * @param url
  * @return {{pageSeo: {description: *, disableRobots: (filter_query.meta_robots|{not_in}), title: *, body: (*|Array), url: *}, hasFeature: boolean, pageContent: *}}
  */
-function mapStateProps ({overwriteDisableRobots = false, page = {}, url = ''}) {
+function mapStateProps({ overwriteDisableRobots = false, page = {}, url = '' }) {
   const pageContent = page
   const pageSeo = {
     title: pageContent.meta_title,
@@ -37,7 +38,7 @@ function mapStateProps ({overwriteDisableRobots = false, page = {}, url = ''}) {
   }
 }
 
-const Index = (props) => {
+const Index: NextPage = (props: NextPageContext) => {
   const settings = props.settings
   let [content, setContent] = useState(mapStateProps(props))
   let [prevPath, setPrevPath] = useState(props.router.asPath)
@@ -62,12 +63,12 @@ const Index = (props) => {
   )
 
   if (props.error) {
-    return <Error statusCode={props.error.status} settings={settings} page={content}/>
+    return <Error statusCode={props.error.status} settings={settings} page={content} />
   }
 
   return (
     <>
-      <Head settings={settings} pageSeo={content.pageSeo}/>
+      <Head settings={settings} pageSeo={content.pageSeo} />
       <WindowDimensionsProvider>
         <Layout settings={settings} hasFeature={content.hasFeature}>
           {Components(content.pageContent)}

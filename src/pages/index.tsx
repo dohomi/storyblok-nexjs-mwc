@@ -1,5 +1,5 @@
 import StoryblokService from '../utils/StoryblokService'
-import Index from '../components/pages/Index'
+import Index from '../components/pages'
 import DeviceDetectService from '../utils/DeviceDetectService'
 import handleErrorContent from '../utils/handleErrorContent'
 

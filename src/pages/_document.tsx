@@ -1,14 +1,8 @@
-import Document, {Head, Main, NextScript} from 'next/document'
+import Document, { Head, Main, NextScript } from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
 import DeviceDetectService from '../utils/DeviceDetectService'
 
-/*
-<script crossOrigin="anonymous"
-              src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=default,IntersectionObserver,fetch"
-              key="polyfill"></script>
- */
-
-function getGoogleTagManager () {
+function getGoogleTagManager() {
   if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {
     return {
       __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -23,12 +17,12 @@ function getGoogleTagManager () {
 
 
 class MyDocument extends Document {
-  static async getInitialProps (ctx) {
+  static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx)
-    return {...initialProps}
+    return { ...initialProps }
   }
 
-  render () {
+  render() {
     const injectBodyScript = {
       __html: `
       var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}'; 
@@ -37,7 +31,7 @@ class MyDocument extends Document {
     }
     const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
     const contentLanguage = DeviceDetectService.getLanguage()
-    const htmlProps = {}
+    const htmlProps: any = {}
     if (contentLanguage) {
       htmlProps.lang = contentLanguage
     }
@@ -50,13 +44,13 @@ class MyDocument extends Document {
           <iframe src={`https://www.googletagmanager.com/ns.html?id=${process.env.GTM_CONTAINER}`}
                   height="0"
                   width="0"
-                  style={{display: 'none', visibility: 'hidden'}}></iframe>
+                  style={{ display: 'none', visibility: 'hidden' }}></iframe>
         </noscript>
       )}
-      <Main/>
+      <Main />
       <script dangerouslySetInnerHTML={injectBodyScript}></script>
 
-      <NextScript/>
+      <NextScript />
       {GTM && (
         <script dangerouslySetInnerHTML={GTM}></script>
       )}

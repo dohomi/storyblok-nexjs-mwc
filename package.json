@@ -14,8 +14,9 @@
     "build": "rm -rf .next && next build",
     "start": "NODE_ENV=production node server.js",
     "deploy": "NODE_ENV=production now",
-    "gen-dev-certs": "mkcert localhost 127.0.0.1 ::1 && mv localhost+2.pem dev/cert.pem && mv localhost+2-key.pem dev/key.pem",
-    "server": "micro-dev src/api/forwardMail.js -p=4444"
+    "server": "micro-dev src/api/forwardMail.js -p=4444",
+    "get-storyblok-schema": "storyblok pull-components --space=57415",
+    "gen-ts-schema": "node generate-ts-schema.js"
   },
   "author": "Dominic Garms <djgarms@gmail.com>",
   "license": "ISC",
@@ -111,10 +112,12 @@
     "@types/react": "^16.9.4",
     "http-proxy": "^1.17.0",
     "micro-dev": "^3.0.0",
+    "json-schema-to-typescript": "^7.1.0",
     "npm-run-all": "^4.1.5",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "prettier": "^1.16.4",
     "pretty-quick": "^1.10.0",
+    "storyblok": "^1.4.0",
     "typescript": "^3.6.3"
   }
 }
