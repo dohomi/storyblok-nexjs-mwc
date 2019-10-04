@@ -1,7 +1,7 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
 import imageService from '../../../utils/ImageService'
-import {Link} from 'routes/index'
+import {Link} from 'routes'
 import {
   TopAppBarFixedAdjust,
   TopAppBarRow,

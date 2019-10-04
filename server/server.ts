@@ -1,10 +1,11 @@
-const {createServer} = require('http')
-const next = require('next')
-const routes = require('./routes/index')
+import { createServer } from 'http'
+import next from 'next'
+import appRoutes from './routes'
+
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({dev})
-const handler = routes.getRequestHandler(app)
+const app = next({ dev })
+const handler = appRoutes.getRequestHandler(app)
 
 // const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
 //   if (req.url === '/sitemap.xml') {
@@ -15,8 +16,8 @@ const handler = routes.getRequestHandler(app)
 app.prepare()
   .then(() => {
     createServer(handler)
-      .listen(port, (err) => {
-        if (err) throw err
+      .listen(port, () => {
+        // if (err) throw err
         console.log(`> Ready on http://localhost:${port}`)
       })
   })

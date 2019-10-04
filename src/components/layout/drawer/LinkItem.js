@@ -1,5 +1,5 @@
 import {linkHandler} from '../../../utils/linkHandler'
-import {Link} from 'routes/index'
+import {Link} from 'routes'
 
 const LinkItem = (props) => {
   const content = {...props}

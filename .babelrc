@@ -1,3 +1,27 @@
 {
-  "presets": ["next/babel"]
+  "presets": [
+    "next/babel"
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./"
+        ],
+        "alias": {
+          "components": "./components",
+          "fonts": "./components/fonts.ts",
+          "routes": "./server/routes.ts",
+          "client": "./client"
+        },
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".tsx",
+          ".ts"
+        ]
+      }
+    ]
+  ]
 }

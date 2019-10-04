@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import {Link} from 'routes/index'
+import {Link} from 'routes'
 import {Button} from '@rmwc/button'
 import {IconButton} from '@rmwc/icon-button'
 import {Fab} from '@rmwc/fab'

@@ -3,7 +3,8 @@ import Index from '../components/pages'
 import DeviceDetectService from '../utils/DeviceDetectService'
 import handleErrorContent from '../utils/handleErrorContent'
 
-Index.getInitialProps = async ({query, req, res}) => {
+Index.getInitialProps = async ({ query, req, res }) => {
+  console.log('asdfasfasdf adsf', query, req, res)
   let slug = query.slug || 'home'
   if (slug === 'api/clear-cache') {
     return StoryblokService.flushCache() // flush cache if any Storyblok publish triggered

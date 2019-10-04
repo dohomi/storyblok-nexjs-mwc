@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import Components from 'components/index'
+import Components from 'components'
 import SwipeableViews from 'react-swipeable-views'
 import React, {memo, useState} from 'react'
 import clsx from 'clsx'

@@ -1,7 +1,7 @@
 import {MenuItem, SimpleMenu} from '@rmwc/menu'
 import {Button} from '@rmwc/button'
 import SbEditable from 'storyblok-react'
-import {Link} from 'routes/index'
+import {Link} from 'routes'
 import {componentLogger} from '../../utils/componentLogger'
 import {linkHandler} from '../../utils/linkHandler'
 import CustomMenu from './CustomMenu'

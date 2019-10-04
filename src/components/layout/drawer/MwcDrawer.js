@@ -1,14 +1,8 @@
 import React from 'react'
-import {
-  Drawer,
-  DrawerHeader,
-  DrawerContent,
-  DrawerTitle,
-  DrawerSubtitle
-} from '@rmwc/drawer'
+import {Drawer, DrawerContent, DrawerHeader, DrawerSubtitle, DrawerTitle} from '@rmwc/drawer'
 import {bool, func, object} from 'prop-types'
 import DrawerContentList from './MwcDrawerList'
-import {Link} from 'routes/index'
+import {Link} from 'routes'
 import imageService from '../../../utils/ImageService'
 import {closeNavigationDrawers, useGlobalState} from '../../../utils/state/state'
 
@@ -29,7 +23,7 @@ const MwcDrawer = (props) => {
             <DrawerTitle>
               {!websiteLogo && websiteTitle}
               {websiteLogo &&
-              <img src={imageService(websiteLogo, '0x128')} height="48" alt={websiteTitle || 'website logo'}/>}
+              <img src={imageService(websiteLogo, '0x128')} height="48" alt={websiteTitle || 'website logo'} />}
             </DrawerTitle>
           </a>
         </Link>

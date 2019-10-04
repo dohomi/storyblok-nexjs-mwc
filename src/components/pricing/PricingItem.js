@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import {Card, Car} from '@rmwc/card'
-import Components from 'components/index'
+import Components from 'components'
 
 
 const PricingItem = (props) => {

@@ -1,5 +1,5 @@
 import {linkHandler} from '../../utils/linkHandler'
-import {Link} from 'routes/index'
+import {Link} from 'routes'
 import SbEditable from 'storyblok-react'
 
 const NavListItem = (props) => {

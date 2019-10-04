@@ -39,6 +39,7 @@ function mapStateProps({ overwriteDisableRobots = false, page = {}, url = '' }) 
 }
 
 const Index: NextPage = (props: NextPageContext) => {
+  console.log('propssss', props)
   const settings = props.settings
   let [content, setContent] = useState(mapStateProps(props))
   let [prevPath, setPrevPath] = useState(props.router.asPath)

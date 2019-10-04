@@ -1,7 +1,7 @@
 import SbEditable from 'storyblok-react'
 import {Card} from '@rmwc/card'
 import CardLink from './CardLink'
-import Components from 'components/index'
+import Components from 'components'
 import {Drawer, DrawerContent} from '@rmwc/drawer'
 import React from 'react'
 

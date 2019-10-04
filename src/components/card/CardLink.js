@@ -1,5 +1,5 @@
 import {linkHandler} from '../../utils/linkHandler'
-import {Link} from 'routes/index'
+import {Link} from 'routes'
 
 const CardLink = (props) => {
   if (!(props.link && props.link.cached_url)) {

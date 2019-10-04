@@ -1,59 +1,77 @@
 const path = require('path')
-module.exports = (env, pathAliasOverwrites = {}) => ({
-  target: 'serverless',
-  transpileModules: ['@lumen/mwc'],
-  env,
-  webpack: (config) => {
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty'
-    }
-    const overwrites = {
-      components: path.join(__dirname, 'components'),
-      routes: path.join(__dirname, 'routes'),
-      client: path.join(__dirname, 'client'),
-      fonts: path.join(__dirname, 'components/fonts.js'),
-      ...pathAliasOverwrites
-    }
 
-    Object.keys(overwrites).forEach(key => {
-      config.resolve.alias[key] = overwrites[key]
-    })
+function nextjsConfigGen(env, pathAliasOverwrites = {}) {
 
-    // polyfills
-    const originalEntry = config.entry
-    config.entry = async () => {
-      const entries = await originalEntry()
-      if (
-        entries['main.js'] &&
-        !entries['main.js'].includes('client/polyfills.js')
-      ) {
-        entries['main.js'].unshift('client/polyfills.js')
+  const defaults = {
+    target: 'serverless',
+    transpileModules: ['@lumen/mwc'],
+    env,
+    webpack: (config) => {
+      // Fixes npm packages that depend on `fs` module
+      config.node = {
+        fs: 'empty'
       }
-      return entries
-    }
+      const overwrites = {
+        components: path.join(__dirname, 'components'),
+        routes: path.join(__dirname, 'server/routes.ts'),
+        client: path.join(__dirname, 'client'),
+        fonts: path.join(__dirname, 'components/fonts.ts'),
+        ...pathAliasOverwrites
+      }
 
-    return config
+      config.resolve.modules.unshift(__dirname)
+
+      config.resolve.extensions.push('.ts', '.tsx')
+      Object.keys(overwrites).forEach(key => {
+        config.resolve.alias[key] = overwrites[key]
+      })
+
+      // polyfills
+      const originalEntry = config.entry
+      config.entry = async () => {
+        const entries = await originalEntry()
+        if (
+          entries['main.js'] &&
+          !entries['main.js'].includes('client/polyfills.js')
+        ) {
+          entries['main.js'].unshift('client/polyfills.js')
+        }
+        return entries
+      }
+
+      // config.module.rules.push({
+      //   test: /\.s[ac]ss$/i,
+      //   use: [
+      //     // Compiles Sass to CSS
+      //     'sass-loader'
+      //   ]
+      // })
+
+      return config
+    }
+    // webpack: (config, {buildId, dev, isServer, defaultLoaders}) => config,
+    // workboxOpts: {
+    //   swDest: 'static/service-worker.js',
+    //   runtimeCaching: [
+    //     {
+    //       urlPattern: /^https?.*/,
+    //       handler: 'networkFirst',
+    //       options: {
+    //         cacheName: 'https-calls',
+    //         networkTimeoutSeconds: 15,
+    //         expiration: {
+    //           maxEntries: 150,
+    //           maxAgeSeconds: 30 * 24 * 60 * 60 // 1 month
+    //         },
+    //         cacheableResponse: {
+    //           statuses: [0, 200]
+    //         }
+    //       }
+    //     }
+    //   ]
+    // }
   }
-  // webpack: (config, {buildId, dev, isServer, defaultLoaders}) => config,
-  // workboxOpts: {
-  //   swDest: 'static/service-worker.js',
-  //   runtimeCaching: [
-  //     {
-  //       urlPattern: /^https?.*/,
-  //       handler: 'networkFirst',
-  //       options: {
-  //         cacheName: 'https-calls',
-  //         networkTimeoutSeconds: 15,
-  //         expiration: {
-  //           maxEntries: 150,
-  //           maxAgeSeconds: 30 * 24 * 60 * 60 // 1 month
-  //         },
-  //         cacheableResponse: {
-  //           statuses: [0, 200]
-  //         }
-  //       }
-  //     }
-  //   ]
-  // }
-})
+  return defaults
+}
+
+module.exports = nextjsConfigGen
