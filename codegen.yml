@@ -1,0 +1,9 @@
+overwrite: true
+schema:
+  - https://gapi.storyblok.com/v1/api:
+      headers:
+        token: nki3pcCyJQn4Gz4YVPtQDAtt
+generates:
+  src/typings/generated/schema.d.ts:
+    plugins:
+      - "typescript"
