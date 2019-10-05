@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
-import {useForm} from '../utils/hooks/hubspotForm'
-import {createElement} from 'react'
+import useForm from '../utils/hooks/hubspotForm'
+import { createElement, Fragment } from 'react'
 import Paragraph from './Paragraph'
 import Components from 'components/index'
 import clsx from 'clsx'
@@ -10,7 +10,7 @@ import FormTextfield from './form/FormTextfield'
 import FormSubmitButton from './form/FormSubmitButton'
 import PropTypes from 'prop-types'
 
-const ParagraphElement = (content) => Paragraph({content})
+const ParagraphElement = (content) => Paragraph({ content })
 
 const FormComponents = {
   'form_textfield': FormTextfield,
@@ -28,17 +28,17 @@ const FormItem = (blok) => {
   console.log('Storyblok PREVIEW and PUBLIC key: ', process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
   return createElement(() => (
     <div>The component {blok.component} has not been created yet.</div>
-  ), {key: blok._uid})
+  ), { key: blok._uid })
 }
 
-const Form = ({content, customData = {}, children}) => {
+const Form = ({ content, customData = {}, children }) => {
   const body = content.body || []
   const responseBody = content.success_body || []
   const opts = {
     api: content.api
   }
 
-  const {data, isLoading, isError, handleSubmit} = useForm(opts)
+  const { data, isLoading, isError, handleSubmit } = useForm(opts)
 
   const border = content.border || []
 
@@ -81,16 +81,16 @@ const Form = ({content, customData = {}, children}) => {
   return (
     <SbEditable content={content}>
       <form noValidate onSubmit={onSubmit} className={formClassName}>
-        <div style={{opacity: 0, top: 0, left: '-9999px', position: 'absolute'}}>
+        <div style={{ opacity: 0, top: 0, left: '-9999px', position: 'absolute' }}>
           <label htmlFor="field_name_first">Street</label>
-          <input type="text" id="field_name_first" name="First"/>
+          <input type="text" id="field_name_first" name="First" />
         </div>
         {isError && (
           <div>Form submit has error...</div>
         )}
         {body.map((item, i) => {
           return (
-            <React.Fragment key={item._uid}>
+            <Fragment key={item._uid}>
               {i === body.length - 1 && children && children.map((f, q) => (
                 <div className="mb-2" key={'kids__' + q + 1}>
                   {f}
@@ -105,7 +105,7 @@ const Form = ({content, customData = {}, children}) => {
                   isLoading
                 })}
               </div>
-            </React.Fragment>
+            </Fragment>
           )
         })}
       </form>

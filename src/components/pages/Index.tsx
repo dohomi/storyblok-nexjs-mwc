@@ -6,52 +6,34 @@ import Layout from '../../components/layout/Layout'
 import WindowDimensionsProvider from '../../components/provider/WindowDimensionsProvider'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import Fonts from 'fonts'
-import { withRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/dist/client/router'
 import Error from '../../pages/_error'
-import { NextPage, NextPageContext } from 'next'
+import { NextPage } from 'next'
+import { GlobalComponent, PageComponent } from '../../typings/generated/schema'
 
-/**
- *
- * @param overwriteDisableRobots
- * @param page
- * @param url
- * @return {{pageSeo: {description: *, disableRobots: (filter_query.meta_robots|{not_in}), title: *, body: (*|Array), url: *}, hasFeature: boolean, pageContent: *}}
- */
-function mapStateProps({ overwriteDisableRobots = false, page = {}, url = '' }) {
-  const pageContent = page
-  const pageSeo = {
-    title: pageContent.meta_title,
-    description: pageContent.meta_description,
-    disableRobots: pageContent.meta_robots,
-    body: pageContent.seo_body || [],
-    url
-  }
-  if (overwriteDisableRobots) {
-    pageSeo.disableRobots = true
-  }
-  const properties = pageContent.property || []
-  const hasFeature = properties.includes('has_feature')
-  return {
-    pageContent,
-    hasFeature,
-    pageSeo
-  }
+export type AppInitialProps = {
+  settings: GlobalComponent
+  page: PageComponent,
+  overwriteDisableRobots: boolean
+  url: string
+  error?: any
 }
+type AppPageProps = AppInitialProps
 
-const Index: NextPage = (props: NextPageContext) => {
-  console.log('propssss', props)
+const Index: NextPage = (props: AppPageProps) => {
   const settings = props.settings
+  const { asPath } = useRouter()
   let [content, setContent] = useState(mapStateProps(props))
-  let [prevPath, setPrevPath] = useState(props.router.asPath)
+  let [prevPath, setPrevPath] = useState(asPath)
   useEffect(
     () => {
       // only set if location changed
-      if (prevPath !== props.router.asPath) {
+      if (prevPath !== asPath) {
         setContent(mapStateProps(props))
-        setPrevPath(props.router.asPath)
+        setPrevPath(asPath)
       }
     },
-    [props.router.asPath]
+    [asPath]
   )
 
   useEffect(
@@ -80,4 +62,25 @@ const Index: NextPage = (props: NextPageContext) => {
   )
 }
 
-export default withRouter(Index)
+export default Index
+
+function mapStateProps(pageProps: AppPageProps) {
+  const pageContent = pageProps.page
+  const pageSeo = {
+    title: pageContent.meta_title,
+    description: pageContent.meta_description,
+    disableRobots: pageContent.meta_robots,
+    body: pageContent.seo_body || [],
+    url: pageProps.url
+  }
+  if (pageProps.overwriteDisableRobots) {
+    pageSeo.disableRobots = true
+  }
+  const properties = pageContent.property || []
+  const hasFeature = properties.includes('has_feature')
+  return {
+    pageContent,
+    hasFeature,
+    pageSeo
+  }
+}

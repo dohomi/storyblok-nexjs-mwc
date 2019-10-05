@@ -6,7 +6,6 @@ import withWindowDimensions from '../provider/WithWindowDimensions'
 import {getImage} from '../../utils/fetchImageHelper'
 import useResizeAware from 'react-resize-aware'
 
-
 const WithBackgroundImage = (props) => {
   const isColumn = props.isColumn // used in Column.js
   const containerProps = props.containerProps || {}

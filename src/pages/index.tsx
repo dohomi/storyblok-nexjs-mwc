@@ -1,16 +1,16 @@
 import StoryblokService from '../utils/StoryblokService'
-import Index from '../components/pages'
+import Index from '../components/pages/Index'
 import DeviceDetectService from '../utils/DeviceDetectService'
 import handleErrorContent from '../utils/handleErrorContent'
+import { NextPageContext } from 'next'
 
-Index.getInitialProps = async ({ query, req, res }) => {
-  console.log('asdfasfasdf adsf', query, req, res)
+Index.getInitialProps = async ({ query, req, res }: NextPageContext) => {
   let slug = query.slug || 'home'
   if (slug === 'api/clear-cache') {
     return StoryblokService.flushCache() // flush cache if any Storyblok publish triggered
   }
 
-  if (slug.match(/^.*\.[^\\]+$/)) {
+  if (typeof slug !== 'string' || slug.match(/^.*\.[^\\]+$/)) {
     return {}
   }
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
@@ -33,7 +33,7 @@ Index.getInitialProps = async ({ query, req, res }) => {
     return pageProps
 
   } catch (e) {
-    return handleErrorContent(e, res)
+    return await handleErrorContent(e, res)
   }
 }
 

@@ -4,7 +4,7 @@ import SbEditable from 'storyblok-react'
 import { ParallaxProvider } from 'react-scroll-parallax'
 import { NextPage } from 'next'
 
-const Page: NextPage = (props) => {
+const Page: NextPage = (props: RootComponentProps) => {
   let content = props.content
   const body = content.body || []
   if (!body.length) {

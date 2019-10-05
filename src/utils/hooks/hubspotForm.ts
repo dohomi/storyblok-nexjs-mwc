@@ -1,11 +1,12 @@
-import {useState, useEffect} from 'react'
+import { useEffect, useState } from 'react'
 
-/**
- *
- * @param api
- * @return {{isLoading: boolean, handleSubmit: handleSubmit, isError: boolean, data: boolean}|{}}
- */
-export const useForm = ({api}) => {
+// type UseFormProps = {
+//   data: any
+//   isLoading: boolean
+//   isError: boolean
+//   handleSubmit: Function
+// }
+export default function useForm({ api }) {
   if (!api) {
     console.log('you must provide an API endpoint for the form component. Submit of form will fail.')
     return {}
@@ -30,7 +31,7 @@ export const useForm = ({api}) => {
       const name = pair[0]
       const value = pair[1]
       if (!name.includes('__consent')) {
-        data.fields.push({name, value})
+        data.fields.push({ name, value })
       }
     }
     console.info(url, data)
@@ -68,10 +69,10 @@ export const useForm = ({api}) => {
     setCustomData(customData)
   }
 
-  return {data, isLoading, isError, handleSubmit}
+  return { data, isLoading, isError, handleSubmit }
 }
 
-function onFormSubmissionFetch (url, data) {
+function onFormSubmissionFetch(url, data) {
   console.log('sending data:', data)
   return fetch(url, {
     method: 'POST',

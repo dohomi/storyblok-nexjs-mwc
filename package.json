@@ -12,7 +12,7 @@
     "__dev": "next",
     "dev": "nodemon",
     "_dev": "node server.ts",
-    "build": "next build && tsc --project tsconfig.server.json",
+    "build": "next build",
     "start": "node server/server.ts",
     "_start": "NODE_ENV=production node server.ts",
     "deploy": "NODE_ENV=production now",

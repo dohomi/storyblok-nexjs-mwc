@@ -3,6 +3,7 @@ import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
 import SectionWithBackground from './partials/SectionWithBackground'
+import * as React from 'react'
 
 const Column = (props) => {
   // const width = props.content && props.content.width || {}
@@ -42,12 +43,15 @@ const Column = (props) => {
   if (containerProps.image) {
     return (
       <SbEditable content={props.content}>
-        <SectionWithBackground style={styles}
-                               isColumn={true}
-                               className={colClasses}
-                               containerProps={containerProps}>
-          {props.content.body.map((blok) => Components(blok))}
-        </SectionWithBackground>
+        <>
+          //@ts-ignore
+          <SectionWithBackground style={styles}
+                                 isColumn={true}
+                                 className={colClasses}
+                                 containerProps={containerProps}>
+            {props.content.body.map((blok) => Components(blok))}
+          </SectionWithBackground>
+        </>
       </SbEditable>
     )
   }
