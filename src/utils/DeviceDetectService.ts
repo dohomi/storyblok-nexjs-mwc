@@ -2,11 +2,12 @@ import parser from 'ua-parser-js'
 
 class DeviceDetect {
   private device: { os: any; browser: any; version: number; device: any }
-  private hasWebpSupport: null
-  private language: null
+  private hasWebpSupport: boolean
+  private language: string
+
   constructor() {
     this.device = null
-    this.hasWebpSupport = null
+    this.hasWebpSupport = false
     this.language = null
   }
 
@@ -69,7 +70,7 @@ class DeviceDetect {
       this.device = this._getDeviceValues(parsed)
     } else {
       this.device = this._getDeviceValues(parser())
-      window.userDevice = { ...this.device }
+      window['userDevice'] = { ...this.device }
     }
   }
 
@@ -90,19 +91,28 @@ class DeviceDetect {
       // we set this and calling it in _document to set global windows variable
       this.hasWebpSupport = req.headers.accept && req.headers.accept.includes('webp')
     } else {
-      if (this._supportsWebp() || (window.userDevice.browser === 'Firefox' && window.userDevice.version >= 65) ||
-        (window.userDevice.browser === 'Edge' && window.userDevice.version >= 18)) {
-        this.hasWebpSupport = true
-        window.hasWebpSupport = true
-      }
+      this._supportsWebp()
+        .then((can: boolean) => {
+          this.hasWebpSupport = can
+          window['hasWebpSupport'] = can
+        })
+
     }
   }
 
   _supportsWebp() {
-    // credits: https://github.com/bfred-it/supports-webp (does not test correctly firefox 65 and edge
-    const canvas = typeof document === 'object' ? document.createElement('canvas') : {}
-    canvas.width = canvas.height = 1
-    return canvas.toDataURL ? canvas.toDataURL('image/webp').indexOf('image/webp') === 5 : false
+    return new Promise(function(resolve) {
+      var image = new Image()
+      image.onerror = function() {
+        return resolve(false)
+      }
+      image.onload = function() {
+        return resolve(image.width === 1)
+      }
+      image.src = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA='
+    }).catch(function() {
+      return false
+    })
   }
 }
 

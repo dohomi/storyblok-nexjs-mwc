@@ -36,9 +36,7 @@ class StoryblokService {
     return this.client.cacheVersion
   }
 
-  get(slug, params) {
-    params = params || {}
-
+  get(slug, params = {}) {
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
       this.token = StoryblokToken.preview
       this.client.setToken(StoryblokToken.preview)

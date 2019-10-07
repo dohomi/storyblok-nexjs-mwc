@@ -1,22 +1,26 @@
 import Header from './toolbar/Header'
 import Footer from './Footer'
-import {ThemeProvider} from '@rmwc/theme'
-import React, {useEffect} from 'react'
+import { ThemeProvider } from '@rmwc/theme'
+import React, { FunctionComponent, useEffect } from 'react'
 import MwcDrawer from './drawer/MwcDrawer'
-import {withRouter} from 'next/router'
-import PropTypes from 'prop-types'
-import {getThemeOptions} from '../../utils/themeLayout'
-import {GlobalStateProvider} from '../../utils/state/state'
-import {closeNavigationDrawers} from '../../utils/state/actions'
+import { getThemeOptions } from '../../utils/themeLayout'
+import { GlobalStateProvider } from '../../utils/state/state'
+import { closeNavigationDrawers } from '../../utils/state/actions'
+import { Global } from '../../typings/generated/components-schema'
 
+type LayoutProps = {
+  hasFeature?: boolean
+  settings: Global
+  asPath?: string
+}
 
-const Layout = ({router, settings = {}, children, hasFeature}) => {
+const Layout: FunctionComponent<LayoutProps> = ({ asPath = '', settings = {}, children, hasFeature }) => {
 
   useEffect(
     () => {
       closeNavigationDrawers() // todo needs testing might need a pure close drawer action
     },
-    [router.asPath]
+    [asPath]
   )
 
   return (
@@ -32,9 +36,4 @@ const Layout = ({router, settings = {}, children, hasFeature}) => {
   )
 }
 
-Layout.propTypes = {
-  settings: PropTypes.object,
-  hasFeature: PropTypes.bool
-}
-
-export default withRouter(Layout)
+export default Layout

@@ -1,19 +1,19 @@
 import Components from 'components/index'
 import React, { useEffect, useState } from 'react'
 import StoryblokService from '../../utils/StoryblokService'
-import Head from '../../components/layout/Head'
-import Layout from '../../components/layout/Layout'
-import WindowDimensionsProvider from '../../components/provider/WindowDimensionsProvider'
+import Head from '../layout/Head'
+import Layout from '../layout/Layout'
+import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import Fonts from 'fonts'
 import { useRouter } from 'next/dist/client/router'
 import Error from '../../pages/_error'
 import { NextPage } from 'next'
-import { GlobalComponent, PageComponent } from '../../typings/generated/schema'
+import { Global, Page } from '../../typings/generated/components-schema'
 
 export type AppInitialProps = {
-  settings: GlobalComponent
-  page: PageComponent,
+  settings: Global
+  page: Page,
   overwriteDisableRobots: boolean
   url: string
   error?: any
@@ -53,7 +53,7 @@ const Index: NextPage = (props: AppPageProps) => {
     <>
       <Head settings={settings} pageSeo={content.pageSeo} />
       <WindowDimensionsProvider>
-        <Layout settings={settings} hasFeature={content.hasFeature}>
+        <Layout settings={settings} hasFeature={content.hasFeature} asPath={asPath}>
           {Components(content.pageContent)}
         </Layout>
       </WindowDimensionsProvider>

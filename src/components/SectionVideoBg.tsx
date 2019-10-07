@@ -1,16 +1,16 @@
 import Components from 'components'
 import SbEditable from 'storyblok-react'
 import dynamic from 'next/dynamic'
-import {useInView} from 'react-intersection-observer'
-import {useEffect, useState} from 'react'
+import { useInView } from 'react-intersection-observer'
+import { CSSProperties, useEffect, useState } from 'react'
 import withWindowDimensions from './provider/WithWindowDimensions'
 
 const FullscreenVideoBg = dynamic(
   () => import('./partials/FullscreenVideoBg'),
-  {ssr: false}
+  { ssr: false }
 )
 
-const SectionVideoBg = ({content, dimensions}) => {
+const SectionVideoBg = ({ content, dimensions }) => {
   const hasSrc = !!content.url
   const body = content.body || []
   const hasBody = !!body.length
@@ -29,7 +29,7 @@ const SectionVideoBg = ({content, dimensions}) => {
     ratioHeight = parseInt(ratio[1])
   }
 
-  const containerStyle = {}
+  const containerStyle: CSSProperties = {}
   if (content.height) {
     containerStyle.minHeight = `${content.height}vh`
   }
@@ -60,7 +60,7 @@ const SectionVideoBg = ({content, dimensions}) => {
                              containerDimensions={containerDimensions}
                              fixedToRatio={fixedToRatio}
                              ratioHeight={ratioHeight}
-                             ratioWidth={ratioWidth}/>
+                             ratioWidth={ratioWidth} />
         )}
         {hasBody && body.map((blok) => Components(blok))}
       </div>
@@ -68,4 +68,4 @@ const SectionVideoBg = ({content, dimensions}) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(SectionVideoBg)
+export default withWindowDimensions(dimensions => ({ dimensions }))(SectionVideoBg)

@@ -91,7 +91,7 @@ function imageService(image, option = '', filter = '') {
     return image
   }
   option && (option += '/')
-  const hasWebpSupport = typeof window !== 'undefined' ? window.hasWebpSupport : DeviceDetectService.getWebpSupport()
+  const hasWebpSupport = typeof window !== 'undefined' ? window['hasWebpSupport'] : DeviceDetectService.getWebpSupport()
   if (hasWebpSupport) {
     option += 'filters:format(webp)' + filter
   } else if (filter) {

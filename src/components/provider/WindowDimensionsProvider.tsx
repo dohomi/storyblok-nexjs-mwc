@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState, useEffect} from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import ResizeObserver from 'resize-observer-polyfill'
 
@@ -13,9 +13,9 @@ const windowDims = () => {
   return opts
 }
 
-const debounce = function (ms, fn) {
+const debounce = function(ms, fn) {
   let timer
-  return function () {
+  return function() {
     clearTimeout(timer)
     const args = Array.prototype.slice.call(arguments)
     args.unshift(this)
@@ -23,10 +23,10 @@ const debounce = function (ms, fn) {
   }
 }
 
-const WindowDimensionsProvider = ({children}) => {
+const WindowDimensionsProvider = ({ children }) => {
   if (typeof window === 'undefined') {
     return (
-      <WindowDimensionsCtx.Provider value={{width: 0, height: 0}}>
+      <WindowDimensionsCtx.Provider value={{ width: 0, height: 0 }}>
         {children}
       </WindowDimensionsCtx.Provider>
     )

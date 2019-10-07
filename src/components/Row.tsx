@@ -4,6 +4,8 @@ import clsx from 'clsx'
 import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
 import SectionWithBackground from './partials/SectionWithBackground'
 import { Row, RowNested } from '../typings/generated/components-schema'
+import { CSSProperties, FunctionComponent } from 'react'
+
 
 /**
  *
@@ -26,7 +28,7 @@ const getRowProperties = (content: Row) => {
 
   const containerProps = backgroundPropertyHelper(content.background)
 
-  const styles = {
+  const styles: CSSProperties = {
     ...containerProps.styles,
     ...getThemeStyles([
       { 'grid-margin-desktop': content.grid_margin_desktop },
@@ -43,7 +45,7 @@ const getRowProperties = (content: Row) => {
   }
 }
 
-export const MatRow = ({ content }: { content: Row }) => {
+export const MatRow: FunctionComponent<RootComponentProps> = ({ content }: { content: Row }) => {
   const { styles, containerProps } = getRowProperties(content)
   const gridClasses = clsx(
     'mdc-layout-grid',
@@ -67,12 +69,13 @@ export const MatRow = ({ content }: { content: Row }) => {
       </SbEditable>
     )
   }
-  const innerStyles = {}
+  const innerStyles: CSSProperties = {}
   if (content.column_gap) {
     innerStyles.columnGap = `${content.column_gap}px`
   }
   if (content.grid_gap) {
-    innerStyles.gridGap = `${content.grid_gap}px`
+    // innerStyles.gridGap = `${content.grid_gap}px`
+    innerStyles.rowGap = `${content.grid_gap}px`
   }
 
 

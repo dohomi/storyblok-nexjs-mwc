@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import Head from 'next/head'
 import Components from '../../components'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import Layout from '../components/layout/Layout'
+import { Page } from '../typings/generated/components-schema'
+import { NextPage } from 'next'
+
+type ErrorComponentProps = {
+  statusCode: number
+  page?: any
+  settings?: any
+}
 
 const statusCodes = {
   400: 'Bad Request',
@@ -12,8 +20,8 @@ const statusCodes = {
   501: 'Not Implemented'
 }
 
-const Error = (props) => {
-  let {statusCode, page, settings} = props
+const Error: NextPage<ErrorComponentProps> = (props) => {
+  let { statusCode, page, settings } = props
   const title = statusCodes[statusCode] || 'An unexpected error has occurred'
   if (statusCode === 401) {
     console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.NODE_ENV, process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
@@ -25,8 +33,8 @@ const Error = (props) => {
           {statusCode}: {title}
         </title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-              key="viewport"/>
-        <meta key="robots" name="robots" content="noindex"/>
+              key="viewport" />
+        <meta key="robots" name="robots" content="noindex" />
       </Head>
       <WindowDimensionsProvider>
         <Layout settings={settings}>
@@ -36,7 +44,7 @@ const Error = (props) => {
           {
             !page && (
               <div>
-                <style dangerouslySetInnerHTML={{__html: 'body { margin: 0 }'}}/>
+                <style dangerouslySetInnerHTML={{ __html: 'body { margin: 0 }' }} />
                 {statusCode ? <h1>{statusCode}</h1> : null}
                 <div>
                   <h2>{title}.</h2>
@@ -50,9 +58,9 @@ const Error = (props) => {
   )
 }
 
-Error.getInitialProps = async ({res, err}) => {
+Error.getInitialProps = async ({ res, err }) => {
   const statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404
-  return {statusCode}
+  return { statusCode }
 }
 
 export default Error

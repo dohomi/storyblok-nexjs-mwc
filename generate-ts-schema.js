@@ -45,6 +45,20 @@ function typeMapper (schema = {}) {
     if (type === 'custom') {
       Object.assign(parseObj, customTypeParser(key, schemaElement))
       return
+    } else if (type === 'multilink') {
+      Object.assign(parseObj, {
+        [key]: {
+          type: 'object',
+          properties: {
+            cached_url:{
+              type: 'string'
+            },
+            linktype:{
+              type: 'string'
+            }
+          }
+        }
+      })
     }
     const schemaType = parseType(type)
     if (!schemaType) {

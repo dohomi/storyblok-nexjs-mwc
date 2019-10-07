@@ -2,13 +2,17 @@ import clsx from 'clsx'
 import { getImageAttrs, getPreviewImageSource } from '../../utils/ImageService'
 import { useInView } from 'react-intersection-observer'
 import { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
-import withWindowDimensions from '../provider/WithWindowDimensions'
+import { WithWindowDimensionsProps } from '../provider/WithWindowDimensions'
 import { getImage } from '../../utils/fetchImageHelper'
 import useResizeAware from 'react-resize-aware'
 
 type SectionWithBackgroundProps = {
-  isColumn: boolean
+  isColumn?: boolean
   containerProps: any
+  style: any
+  background_style?: string
+  className: string[] | string
+  dimensions?: WithWindowDimensionsProps
 }
 
 const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (props) => {
@@ -119,4 +123,5 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
   )
 }
 
-export default withWindowDimensions(dimensions => ({ dimensions }))(WithBackgroundImage)
+// export default withWindowDimensions(dimensions => ({ dimensions }))(WithBackgroundImage)
+export default WithBackgroundImage
