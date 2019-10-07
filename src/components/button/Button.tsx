@@ -94,7 +94,7 @@ const ButtonMwc = (props) => {
   return <IconButton {...mappedProps} />
 }
 
-const ButtonLink = (props) => {
+const ButtonLink: FunctionComponent<{ to: string, href: string }> = (props) => {
   if (props.to) {
     return (
       <Link to={props.to}><a {...props}>{props.children}</a></Link>

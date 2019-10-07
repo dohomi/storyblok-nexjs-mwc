@@ -26,7 +26,8 @@ const HubspotFormCustom: FunctionComponent<{ content: HubspotFormStoryblok }> = 
       pageUri: typeof document !== 'undefined' && document.location.href
     },
     legalConsentOptions: {
-      consent: undefined
+      consent: undefined,
+      legitimateInterest: undefined
     }
   }
   const children = []

@@ -1,22 +1,22 @@
 import SbEditable from 'storyblok-react'
-import {getImageAttrs} from '../../utils/ImageService'
+import { getImageAttrs } from '../../utils/ImageService'
 import clsx from 'clsx'
-import withWindowDimensions from '../provider/WithWindowDimensions'
-import {useInView} from 'react-intersection-observer'
+import withWindowDimensions, { WithWindowDimensionsProps } from '../provider/WithWindowDimensions'
+import { useInView } from 'react-intersection-observer'
+import { FunctionComponent } from 'react'
+import { ImageStoryblok } from '../../typings/generated/components-schema'
 
 
-const Image = (props) => {
+const Image: FunctionComponent<{
+  content: ImageStoryblok
+  dimensions: WithWindowDimensionsProps
+}> = ({ content, dimensions }) => {
   const fallback = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
-  const content = props.content || {}
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
   const containerClassName = clsx('img-figure', content.class_names && content.class_names.values)
-  // const figureStyle = {}
-  // console.log(props.dimensions.width, content.height_xs)
-  // if (content.height_xs && props.dimensions.width <= 600) {
-  //   figureStyle.maxHeight = `${content.height_xs}px`
-  // }
+
   const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
@@ -36,7 +36,7 @@ const Image = (props) => {
     let parentElementDimensions = parentElement.getBoundingClientRect()
     const square = property.includes('rounded-circle') || property.includes('square')
     let definedWidth = content.width
-    let definedHeight = content.height_xs && props.dimensions.width <= 600 ? content.height_xs : content.height
+    let definedHeight = content.height_xs && dimensions.width <= 600 ? content.height_xs : content.height
     const width = Math.ceil(parentElementDimensions.width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
@@ -75,7 +75,7 @@ const Image = (props) => {
     }
   }
 
-  function onImageLoaded () {
+  function onImageLoaded() {
     intersectionElement && intersectionElement.target.firstElementChild.classList.add('loaded')
   }
 
@@ -83,10 +83,10 @@ const Image = (props) => {
   return (
     <SbEditable content={content}>
       <figure ref={refIntersectionObserver} className={containerClassName}>
-        <img {...imgProps} onLoad={onImageLoaded}/>
+        <img {...imgProps} onLoad={onImageLoaded} />
       </figure>
     </SbEditable>
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(Image)
+export default withWindowDimensions(dimensions => ({ dimensions }))(Image)

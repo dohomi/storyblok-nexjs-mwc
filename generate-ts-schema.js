@@ -69,7 +69,14 @@ function typeMapper (schema = {}) {
       type: schemaType
     }
     if (schemaElement.options && schemaElement.options.length) {
-      obj[key].enum = schemaElement.options.map(item => item.value)
+      const items = schemaElement.options.map(item => item.value)
+      if (schemaType === 'string') {
+        obj[key].enum = items
+      } else {
+        obj[key].items = {
+          enum: items
+        }
+      }
     }
     Object.assign(parseObj, obj)
   })
@@ -93,6 +100,8 @@ function parseType (type) {
       return 'string'
     case 'boolean':
       return 'boolean'
+    case 'textarea':
+      return 'string'
     default:
       return null
   }
