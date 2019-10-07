@@ -1,14 +1,14 @@
 import SbEditable from 'storyblok-react'
-import useForm from '../utils/hooks/hubspotForm'
-import { createElement, Fragment } from 'react'
-import Paragraph from './Paragraph'
+import useForm from '../../utils/hooks/hubspotForm'
+import { createElement, Fragment, FunctionComponent } from 'react'
+import Paragraph from '../Paragraph'
 import Components from 'components/index'
 import clsx from 'clsx'
-import FormSelect from './form/FormSelect'
-import FormCheckbox from './form/FormCheckbox'
-import FormTextfield from './form/FormTextfield'
-import FormSubmitButton from './form/FormSubmitButton'
-import PropTypes from 'prop-types'
+import FormSelect from './FormSelect'
+import FormCheckbox from './FormCheckbox'
+import FormTextfield from './FormTextfield'
+import FormSubmitButton from './FormSubmitButton'
+import { FormStoryblok } from '../../typings/generated/components-schema'
 
 const ParagraphElement = (content) => Paragraph({ content })
 
@@ -31,7 +31,7 @@ const FormItem = (blok) => {
   ), { key: blok._uid })
 }
 
-const Form = ({ content, customData = {}, children }) => {
+const Form: FunctionComponent<{ content: FormStoryblok, customData?: any }> = ({ content, customData = {}, children }) => {
   const body = content.body || []
   const responseBody = content.success_body || []
   const opts = {
@@ -111,12 +111,6 @@ const Form = ({ content, customData = {}, children }) => {
       </form>
     </SbEditable>
   )
-}
-
-Form.propTypes = {
-  content: PropTypes.object,
-  customData: PropTypes.object,
-  children: PropTypes.arrayOf(PropTypes.element)
 }
 
 export default Form

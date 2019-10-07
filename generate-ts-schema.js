@@ -8,14 +8,15 @@ async function genTsSchema () {
 
   for (const values of ComponentsJson.components) {
     const obj = {}
-    obj.title = values.name
+    obj.title = values.name + '_storyblok'
     obj.type = 'object'
     obj.properties = typeMapper(values.schema)
     obj.properties._uid = {
       type: 'string'
     }
     obj.properties.component = {
-      type: 'string'
+      type: 'string',
+      enum: [values.name]
     }
     const requiredFields = ['_uid', 'component']
     Object.keys(values.schema).forEach(key => {
@@ -50,10 +51,10 @@ function typeMapper (schema = {}) {
         [key]: {
           type: 'object',
           properties: {
-            cached_url:{
+            cached_url: {
               type: 'string'
             },
-            linktype:{
+            linktype: {
               type: 'string'
             }
           }
@@ -90,6 +91,8 @@ function parseType (type) {
       return 'number'
     case 'image':
       return 'string'
+    case 'boolean':
+      return 'boolean'
     default:
       return null
   }

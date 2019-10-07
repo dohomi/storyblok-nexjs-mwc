@@ -1,7 +1,9 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
+import { FunctionComponent } from 'react'
+import { DividerStoryblok } from '../../typings/generated/components-schema'
 
-const Wrap = ({content, children, style, className, childStyle}) => (
+const Wrap = ({ content, children, style, className, childStyle }) => (
   <SbEditable content={content}>
     <div className={className} style={style}>
       <div style={childStyle}>{children}</div>
@@ -9,8 +11,11 @@ const Wrap = ({content, children, style, className, childStyle}) => (
   </SbEditable>
 )
 
-const Divider = ({content}) => {
-  const style = {}
+const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) => {
+  const style = {
+    color: undefined,
+    height: undefined
+  }
   const iconName = content.icon && content.icon.name
   const iconSize = content.icon_size
   if (content.color && content.color.rgba) {
@@ -26,7 +31,8 @@ const Divider = ({content}) => {
       'h-separator-icon': iconName
     })
   const childStyle = {
-    borderTopWidth: `${content.thickness || 1}px`
+    borderTopWidth: `${content.thickness || 1}px`,
+    width: undefined
   }
   if (content.width) {
     childStyle.width = `${content.width}%`
@@ -37,7 +43,8 @@ const Divider = ({content}) => {
       'rmwc-icon'
     )
     const iconStyle = {
-      marginTop: `${content.thickness || 1}px`
+      marginTop: `${content.thickness || 1}px`,
+      fontSize: undefined
     }
     if (iconSize) {
       iconStyle.fontSize = `${iconSize}px`
@@ -45,7 +52,7 @@ const Divider = ({content}) => {
     return (
       <Wrap content={content} style={style} childStyle={childStyle} className={className}>
         <div>
-          <div style={{borderTopWidth: `${content.thickness || 1}px`}}>
+          <div style={{ borderTopWidth: `${content.thickness || 1}px` }}>
             <span>
               <i className={iconClasses} style={iconStyle}>{iconName}</i>
             </span>
@@ -56,7 +63,7 @@ const Divider = ({content}) => {
   }
   return (
     <Wrap content={content} style={style} childStyle={childStyle} className={className}>
-      <span/>
+      <span />
     </Wrap>
   )
 }

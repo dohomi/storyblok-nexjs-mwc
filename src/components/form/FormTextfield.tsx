@@ -1,9 +1,11 @@
-import {formHandling} from '../../utils/form/formHandling'
-import {TextField} from '@rmwc/textfield'
+import { formHandling } from '../../utils/form/formHandling'
+import { TextField } from '@rmwc/textfield'
+import { FunctionComponent } from 'react'
+import { FormTextfieldStoryblok } from '../../typings/generated/components-schema'
 
-const FormTextfield = (content) => {
+const FormTextfield: FunctionComponent<FormTextfieldStoryblok> = (content) => {
   let inputRef
-  const {msg, onInputChange} = formHandling({
+  const { msg, onInputChange } = formHandling({
     helpText: content.help_text,
     helpTextPersistent: content.help_text_persistent,
     errorMsgRequired: content.errorMsgRequired,
@@ -27,7 +29,7 @@ const FormTextfield = (content) => {
     delete fieldProps.type
     fieldProps.outlined = true
   }
-  return <TextField {...fieldProps}/>
+  return <TextField {...fieldProps} />
 }
 
 export default FormTextfield

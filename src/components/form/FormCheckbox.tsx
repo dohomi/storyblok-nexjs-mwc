@@ -1,11 +1,13 @@
-import {formHandling} from '../../utils/form/formHandling'
-import {Checkbox} from '@rmwc/checkbox'
-import {TextFieldHelperText} from '@rmwc/textfield'
+import { formHandling } from '../../utils/form/formHandling'
+import { Checkbox } from '@rmwc/checkbox'
+import { TextFieldHelperText } from '@rmwc/textfield'
+import { FunctionComponent } from 'react'
+import { FormCheckboxStoryblok } from '../../typings/generated/components-schema'
 
-const FormCheckbox = (content) => {
+const FormCheckbox: FunctionComponent<FormCheckboxStoryblok> = (content) => {
   // todo: currently no validation msg for checkboxes
   let inputRef
-  const {msg, onInputChange} = formHandling({
+  const { msg, onInputChange } = formHandling({
     helpText: content.help_text,
     helpTextPersistent: content.help_text_persistent,
     errorMsgRequired: content.errorMsgRequired,
@@ -18,7 +20,8 @@ const FormCheckbox = (content) => {
     label: content.label,
     required: !!content.required,
     inputRef: el => inputRef = el,
-    onBlur: () => onInputChange(inputRef)
+    onBlur: () => onInputChange(inputRef),
+    onChange: undefined
   }
   if (content.onChange) {
     fieldProps.onChange = (ev) => content.onChange(ev.target.value)
@@ -31,8 +34,8 @@ const FormCheckbox = (content) => {
   }
   return (
     <>
-      <Checkbox {...fieldProps} className={className}/>
-      {msg.children && <TextFieldHelperText {...msg}/>}
+      <Checkbox {...fieldProps} className={className} />
+      {msg.children && <TextFieldHelperText {...msg} />}
     </>
   )
 }

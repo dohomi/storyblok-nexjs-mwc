@@ -1,13 +1,13 @@
-import {useEffect, useState} from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 
-const HubspotForm = (props) => {
+const HubspotForm: FunctionComponent<{ noScript?: boolean }> = (props) => {
   let el = null
 
   let [loaded, setLoaded] = useState(false)
 
   useEffect(
     () => {
-      if (!window.hbspt && !props.noScript) {
+      if (!window['hbspt'] && !props.noScript) {
         loadScript()
       } else {
         createForm()
@@ -17,9 +17,9 @@ const HubspotForm = (props) => {
     []
   )
 
-  function createForm () {
-    if (window.hbspt) {
-      window.jQuery = window.jQuery || (() => ({
+  function createForm() {
+    if (window['hbspt']) {
+      window['jQuery'] = window['jQuery'] || (() => ({
         // these are all methods required by HubSpot
         change: () => {
         },
@@ -57,7 +57,7 @@ const HubspotForm = (props) => {
     }
   }
 
-  function loadScript () {
+  function loadScript() {
     let script = document.createElement(`script`)
     script.defer = true
     script.onload = () => {
@@ -89,7 +89,7 @@ const HubspotForm = (props) => {
       <div
         ref={element => el = element}
         id={`reactHubspotForm_${props._uid}`}
-        style={{display: loaded ? 'block' : 'none'}}
+        style={{ display: loaded ? 'block' : 'none' }}
       />
       {!loaded && props.loading}
       <style jsx global>{`

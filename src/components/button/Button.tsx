@@ -1,14 +1,15 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import {Link} from 'routes'
-import {Button} from '@rmwc/button'
-import {IconButton} from '@rmwc/icon-button'
-import {Fab} from '@rmwc/fab'
-import React from 'react'
-import {componentLogger} from '../utils/componentLogger'
-import {linkHandler} from '../utils/linkHandler'
+import { Link } from 'routes'
+import { Button } from '@rmwc/button'
+import { IconButton } from '@rmwc/icon-button'
+import { Fab } from '@rmwc/fab'
+import React, { FunctionComponent } from 'react'
+import { componentLogger } from '../../utils/componentLogger'
+import { linkHandler } from '../../utils/linkHandler'
+import { ButtonStoryblok } from '../../typings/generated/components-schema'
 
-export const mapButtonProps = (content) => {
+export const mapButtonProps = (content: ButtonStoryblok) => {
   // const property = content.styles
   const color = content.color
   const size = content.size
@@ -36,7 +37,14 @@ export const mapButtonProps = (content) => {
   const variant = content.variant
   const buttonProps = {
     label: content.label,
-    ripple: !properties.includes('disable-ripple')
+    ripple: !properties.includes('disable-ripple'),
+    tag: undefined,
+    className: undefined,
+    style: undefined,
+    theme: undefined,
+    dense: undefined,
+    trailingIcon: undefined,
+    icon: undefined
   }
   variant && (buttonProps[variant] = true) // variants only available on buttons with label
   theme && (buttonProps.theme = theme)
@@ -72,7 +80,7 @@ const ButtonMwc = (props) => {
   }
   // render Button with or without icon
   if (mappedProps.label) {
-    return <Button {...mappedProps}/>
+    return <Button {...mappedProps} />
   }
   // render IconButton
   if (mappedProps.trailingIcon) {
@@ -83,7 +91,7 @@ const ButtonMwc = (props) => {
   delete mappedProps.unelevated
   delete mappedProps.outlined
 
-  return <IconButton {...mappedProps}/>
+  return <IconButton {...mappedProps} />
 }
 
 const ButtonLink = (props) => {
@@ -97,16 +105,18 @@ const ButtonLink = (props) => {
   )
 }
 
-const MtButton = ({content}) => {
+const MtButton: FunctionComponent<{
+  content: ButtonStoryblok
+}> = ({ content }) => {
   const buttonProps = mapButtonProps(content)
   let link = content.link || {}
   componentLogger(content)
 
   if (content.file) {
     // overwrites potential link values
-    link = {cached_url: `https://${content.file}`}
+    link = { cached_url: `https://${content.file}` }
   }
-  linkHandler(buttonProps, link, {openExternal: !!content.open_external})
+  linkHandler(buttonProps, link, { openExternal: !!content.open_external })
 
   buttonProps.tag = ButtonLink
   if (content.font) {

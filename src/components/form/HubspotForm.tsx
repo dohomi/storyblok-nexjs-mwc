@@ -1,18 +1,20 @@
 import SbEditable from 'storyblok-react'
 import dynamic from 'next/dynamic'
-import {CircularProgress} from '@rmwc/circular-progress'
+import { CircularProgress } from '@rmwc/circular-progress'
 import Form from './Form'
 import cookie from 'js-cookie'
-import {Checkbox} from '@rmwc/checkbox'
-import FormCheckbox from './form/FormCheckbox'
-import Paragraph from './Paragraph'
+import { Checkbox } from '@rmwc/checkbox'
+import FormCheckbox from './FormCheckbox'
+import Paragraph from '../Paragraph'
+import { FunctionComponent } from 'react'
+import { HubspotFormStoryblok } from '../../typings/generated/components-schema'
 
 const HubspotFormDyn = dynamic(
-  () => import('./partials/ReactHubspotForm'),
-  {ssr: false}
+  () => import('../partials/ReactHubspotForm'),
+  { ssr: false }
 )
 
-const HubspotFormCustom = ({content}) => {
+const HubspotFormCustom: FunctionComponent<{ content: HubspotFormStoryblok }> = ({ content }) => {
   const opts = {
     portalId: content.portal_id,
     formId: content.form_id
@@ -23,7 +25,9 @@ const HubspotFormCustom = ({content}) => {
       hutk: cookie.get('hubspotutk'),
       pageUri: typeof document !== 'undefined' && document.location.href
     },
-    legalConsentOptions: {}
+    legalConsentOptions: {
+      consent: undefined
+    }
   }
   const children = []
 
@@ -48,12 +52,12 @@ const HubspotFormCustom = ({content}) => {
     content.consent_process && children.push(<FormCheckbox label={content.consent_process}
                                                            required={true}
                                                            name={'__consent_process'}
-                                                           _uid={'consent_process'}/>)
+                                                           _uid={'consent_process'} />)
     content.consent_communication && children.push(<Checkbox label={content.consent_communication}
                                                              name={'__consent_communication'}
                                                              id={'consent_communication'}
                                                              value={subscriptionTypeId}
-                                                             onChange={onCommunicationChange}/>)
+                                                             onChange={onCommunicationChange} />)
   } else if (content.legitimate_interest && content.legitimate_interest.length) {
     const legitimateProps = content.legitimate_interest[0]
     data.legalConsentOptions.legitimateInterest = {
@@ -62,7 +66,7 @@ const HubspotFormCustom = ({content}) => {
       text: legitimateProps.text
     }
     console.log('some props for legitimate', legitimateProps)
-    children.push(Paragraph({content: legitimateProps}))
+    children.push(Paragraph({ content: legitimateProps }))
   }
 
 
@@ -75,28 +79,28 @@ const HubspotFormCustom = ({content}) => {
     <SbEditable content={content}>
       <Form content={formProps}
             customData={data}
-            children={children}/>
+            children={children} />
     </SbEditable>
   )
 
 }
 
 
-const HubspotForm = ({content}) => {
+const HubspotForm: FunctionComponent<{ content: HubspotFormStoryblok }> = ({ content }) => {
   const opts = {
     portalId: content.portal_id,
     formId: content.form_id
   }
   const body = content.body || []
   if (body && body.length) {
-    return <HubspotFormCustom content={content}/>
+    return <HubspotFormCustom content={content} />
   }
 
   return (
     <SbEditable content={content}>
       <HubspotFormDyn {...opts}
                       _uid={content._uid}
-                      loading={<CircularProgress/>}/>
+                      loading={<CircularProgress />} />
     </SbEditable>
   )
 }
