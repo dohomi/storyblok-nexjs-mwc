@@ -1,15 +1,6 @@
 import DeviceDetectService from './DeviceDetectService'
 
-/**
- *
- * @param image
- * @param width
- * @param height
- * @param focalPoint
- * @return {string}
- * @private
- */
-function _getImageSource ({image, width, height}) {
+function _getImageSource({ image, width, height }) {
   let path = ''
   if (width && height) {
     path = `${parseInt(width)}x${parseInt(height)}`
@@ -18,12 +9,8 @@ function _getImageSource ({image, width, height}) {
   return imageService(image, path, '')
 }
 
-/**
- * Get tiny image based on img dimensions
- * @param image
- * @return {string}
- */
-export function getPreviewImageSource (image) {
+
+export function getPreviewImageSource(image) {
   const orig = getOriginalImageDimensions(image)
   return _getImageSource({
     image: image,
@@ -32,13 +19,7 @@ export function getPreviewImageSource (image) {
   })
 }
 
-/**
- *
- * @param image
- * @param option
- * @return {string|*}
- */
-export function imageServiceNoWebp (image, option = '') {
+export function imageServiceNoWebp(image, option = '') {
   if (image.endsWith('.svg')) {
     return image
   }
@@ -47,12 +28,7 @@ export function imageServiceNoWebp (image, option = '') {
   return imageService + option + path
 }
 
-/**
- *
- * @param src
- * @return {{width: number, height: number}}
- */
-export function getOriginalImageDimensions (src) {
+export function getOriginalImageDimensions(src) {
   const splitted = src.split('/')
   const originalDimension = src.split('/')[splitted.length - 3].split('x')
   return {
@@ -61,18 +37,7 @@ export function getOriginalImageDimensions (src) {
   }
 }
 
-/**
- *
- * @param originalSource
- * @param width
- * @param height
- * @param filter
- * @param fitInColor
- * @param smart
- * @param focalPoint
- * @return {{src: string,srcSet:string}}
- */
-export function getImageAttrs ({originalSource, width, height, filter = '', fitInColor, smart, focalPoint}) {
+export function getImageAttrs({ originalSource, width, height, filter = '', fitInColor = '', smart, focalPoint }) {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   if (originalDimensions.width < width) {
     width = originalDimensions.width
@@ -88,7 +53,8 @@ export function getImageAttrs ({originalSource, width, height, filter = '', fitI
     filter += getFocalPoint(originalSource, focalPoint)
   }
   const imgObj = {
-    src: imageService(originalSource, path, filter)
+    src: imageService(originalSource, path, filter),
+    srcSet: undefined
   }
   // enable retina sourceset
   if (width <= originalDimensions.width / 2 && height <= originalDimensions.height / 2) {
@@ -97,7 +63,7 @@ export function getImageAttrs ({originalSource, width, height, filter = '', fitI
     imgObj.srcSet = imgObj.src
   }
 
-  function getPath (width, height) {
+  function getPath(width, height) {
     let path = `${width || 0}x${height || 0}`
     if (fitInColor) {
       path = 'fit-in/' + path
@@ -110,14 +76,8 @@ export function getImageAttrs ({originalSource, width, height, filter = '', fitI
   return imgObj
 }
 
-/**
- *
- * @param src
- * @param focalPoint
- * @return {string}
- */
-export function getFocalPoint (src, focalPoint) {
-  const {width, height} = getOriginalImageDimensions(src)
+export function getFocalPoint(src, focalPoint) {
+  const { width, height } = getOriginalImageDimensions(src)
   const focalSplitted = focalPoint.split('x')
   const focalPercentX = parseFloat(focalSplitted[0]) / 100
   const focalPercentY = parseFloat(focalSplitted[1]) / 100
@@ -126,14 +86,7 @@ export function getFocalPoint (src, focalPoint) {
   return `:focal(${topLeft}:${bottomRight})`
 }
 
-/**
- *
- * @param image
- * @param option
- * @param filter
- * @return {string}
- */
-function imageService (image, option = '', filter = '') {
+function imageService(image, option = '', filter = '') {
   if (image.endsWith('.svg')) {
     return image
   }

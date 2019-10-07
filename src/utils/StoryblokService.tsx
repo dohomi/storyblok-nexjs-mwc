@@ -6,7 +6,12 @@ const StoryblokToken = {
 }
 
 class StoryblokService {
-  constructor () {
+  private devMode: boolean
+  private token: string
+  private client: StoryblokClient
+  private query: {}
+
+  constructor() {
     this.devMode = false // If true it always loads draft
     this.token = process.env.NODE_ENV === 'development' ? StoryblokToken.preview : StoryblokToken.public
     this.client = new StoryblokClient({
@@ -20,18 +25,18 @@ class StoryblokService {
     this.query = {}
   }
 
-  flushCache () {
+  flushCache() {
     console.log('flush cashed triggered. ENV Vars:', StoryblokToken.preview, StoryblokToken.public)
     console.log('current token:', this.client.getToken())
     this.client.flushCache()
     return true
   }
 
-  getCacheVersion () {
+  getCacheVersion() {
     return this.client.cacheVersion
   }
 
-  get (slug, params) {
+  get(slug, params) {
     params = params || {}
 
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
@@ -49,9 +54,9 @@ class StoryblokService {
     return this.client.get(slug, params)
   }
 
-  initEditor (content, setContent) {
+  initEditor(content, setContent) {
     if (window.storyblok) {
-      window.storyblok.init({accessToken: this.token})
+      window.storyblok.init({ accessToken: this.token })
       window.storyblok.on(['change'], () => {
           console.log('change::save triggered')
           // location.reload()
@@ -82,19 +87,19 @@ class StoryblokService {
     }
   }
 
-  insideVisualComposer () {
+  insideVisualComposer() {
     return !!this.getQuery('_storyblok')
   }
 
-  setQuery (query) {
+  setQuery(query) {
     this.query = query
   }
 
-  getQuery (param) {
+  getQuery(param) {
     return this.query[param]
   }
 
-  bridge () {
+  bridge() {
     if (!this.getQuery('_storyblok')) {
       return ''
     }

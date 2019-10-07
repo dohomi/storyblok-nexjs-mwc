@@ -15,7 +15,7 @@ import {func, object, bool} from 'prop-types'
 import {toolbar} from '../../../utils/themeContentSection'
 import TopAppBarWrap from './TopAppBar'
 import HeaderCustom from './HeaderCustom'
-import {toggleLeftNavigation} from '../../../utils/state/state'
+import {toggleLeftNavigation} from '../../../utils/state/actions'
 import ToolbarLogo from './ToolbarLogo'
 import clsx from 'clsx'
 

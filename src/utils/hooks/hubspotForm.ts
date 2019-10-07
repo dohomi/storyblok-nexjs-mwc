@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react'
 
-// type UseFormProps = {
-//   data: any
-//   isLoading: boolean
-//   isError: boolean
-//   handleSubmit: Function
-// }
 export default function useForm({ api }) {
   if (!api) {
     console.log('you must provide an API endpoint for the form component. Submit of form will fail.')
@@ -13,7 +7,7 @@ export default function useForm({ api }) {
   }
   const url = api
   const [data, setData] = useState(false)
-  const [form, setForm] = useState(false)
+  const [form, setForm] = useState(undefined)
   const [customData, setCustomData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -26,7 +20,7 @@ export default function useForm({ api }) {
       ...customData,
       fields: []
     }
-    for (var pair of formData.entries()) {
+    for (var pair of Array.from(formData.entries())) {
 
       const name = pair[0]
       const value = pair[1]

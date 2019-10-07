@@ -3,6 +3,7 @@ import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
 import SectionWithBackground from './partials/SectionWithBackground'
+import { Row, RowNested } from '../typings/generated/components-schema'
 
 /**
  *
@@ -19,38 +20,31 @@ const getThemeStyles = (values) => {
   return styles
 }
 
-/**
- *
- * @param content
- * @return {{containerProps: BackgroundProperty, styles: {border: string, backgroundColor: string, borderRadius: string}}}
- */
-const getRowProperties = (content = {}) => {
-  content = content || {}
 
-  /**
-   *
-   * @type {BackgroundProperty}
-   */
+const getRowProperties = (content: Row) => {
+  // content = content || {}
+
   const containerProps = backgroundPropertyHelper(content.background)
 
   const styles = {
     ...containerProps.styles,
     ...getThemeStyles([
-      {'grid-margin-desktop': content.grid_margin_desktop},
-      {'grid-margin-tablet': content.grid_margin_tablet},
-      {'grid-margin-phone': content.grid_margin_phone},
-      {'grid-gutter-desktop': content.grid_gutter_desktop},
-      {'grid-gutter-tablet': content.grid_gutter_tablet},
-      {'grid-gutter-phone': content.grid_gutter_phone}])
+      { 'grid-margin-desktop': content.grid_margin_desktop },
+      { 'grid-margin-tablet': content.grid_margin_tablet },
+      { 'grid-margin-phone': content.grid_margin_phone },
+      { 'grid-gutter-desktop': content.grid_gutter_desktop },
+      { 'grid-gutter-tablet': content.grid_gutter_tablet },
+      { 'grid-gutter-phone': content.grid_gutter_phone }])
   }
+
   return {
     containerProps,
     styles
   }
 }
 
-export const MatRow = ({content}) => {
-  const {styles, containerProps} = getRowProperties(content)
+export const MatRow = ({ content }: { content: Row }) => {
+  const { styles, containerProps } = getRowProperties(content)
   const gridClasses = clsx(
     'mdc-layout-grid',
     {
@@ -95,8 +89,8 @@ export const MatRow = ({content}) => {
   )
 }
 
-export const MatRowNested = ({content}) => {
-  const {styles, containerProps} = getRowProperties(content)
+export const MatRowNested = ({ content }: { content: RowNested }) => {
+  const { styles, containerProps } = getRowProperties(content)
   const classes = clsx(
     'mdc-layout-grid__inner',
     containerProps.classNames,

@@ -6,7 +6,8 @@ import MwcDrawer from './drawer/MwcDrawer'
 import {withRouter} from 'next/router'
 import PropTypes from 'prop-types'
 import {getThemeOptions} from '../../utils/themeLayout'
-import {closeNavigationDrawers, GlobalStateProvider} from '../../utils/state/state'
+import {GlobalStateProvider} from '../../utils/state/state'
+import {closeNavigationDrawers} from '../../utils/state/actions'
 
 
 const Layout = ({router, settings = {}, children, hasFeature}) => {
@@ -21,11 +22,11 @@ const Layout = ({router, settings = {}, children, hasFeature}) => {
   return (
     <GlobalStateProvider>
       <ThemeProvider options={getThemeOptions(settings)} className="app__root">
-        <MwcDrawer content={settings}/>
+        <MwcDrawer content={settings} />
         <Header settings={settings}
-                hasFeature={hasFeature}/>
+                hasFeature={hasFeature} />
         <main>{children}</main>
-        <Footer settings={settings}/>
+        <Footer settings={settings} />
       </ThemeProvider>
     </GlobalStateProvider>
   )

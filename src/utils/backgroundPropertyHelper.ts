@@ -1,23 +1,21 @@
 import imageService from './ImageService'
+import { Background } from '../typings/generated/components-schema'
 
+type BackgroundStyles = {
+  border: string
+  backgroundColor?: string
+  borderRadius?: string
+}
 
-/**
- * @typedef {Object} BackgroundStyles
- * @property {string} border The image main source
- * @property {string} backgroundColor Computed styles for the div container
- * @property {string} borderRadius Computed class names mainly from bootstrap
- */
+type BackgroundProperty = {
+  image: string
+  styles: BackgroundStyles
+  classNames: string[]
+  classes: string[]
+  imageProperties: any[]
+}
 
-/**
- * @typedef {Object} BackgroundProperty
- * @property {string} image The image main source
- * @property {BackgroundStyles} styles Computed styles for the div container
- * @property {array} classNames Computed class names mainly from bootstrap
- * @property {array} classes Computed class names
- * @property {array} imageProperties Image background properties
- */
-
-function multipleBackgroundComposer (backgroundElements) {
+function multipleBackgroundComposer(backgroundElements) {
   const elements = backgroundElements.map(item => {
     const url = imageService(item.url, '')
     return {
@@ -31,16 +29,11 @@ function multipleBackgroundComposer (backgroundElements) {
   }
 }
 
-/**
- *
- * @param properties
- * @return BackgroundProperty
- */
-function backgroundPropertyHelper (properties) {
+function backgroundPropertyHelper(properties) {
   if (!Array.isArray(properties)) {
     return {}
   }
-  const values = properties[0] || {}
+  const values: Background = properties[0] || {} as Background
   if (Object.keys(values).length === 0) {
     return {}
   }
@@ -52,13 +45,13 @@ function backgroundPropertyHelper (properties) {
   } else if (borderRadius) {
     border = '1px solid transparent'
   }
-  const styles = {
+  const styles: BackgroundStyles = {
     border
   }
-  if(borderRadius){
+  if (borderRadius) {
     styles.borderRadius = borderRadius
   }
-  if(values.background_color){
+  if (values.background_color) {
     styles.backgroundColor = values.background_color.rgba
   }
   if (values.background_elements && values.background_elements.length) {

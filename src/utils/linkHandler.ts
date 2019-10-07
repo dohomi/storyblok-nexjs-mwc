@@ -1,9 +1,3 @@
-/**
- *
- * @param props
- * @param link
- * @param options
- */
 export function linkHandler (props = {}, link = {}, options = {}) {
   let isInternalLink = link.linktype === 'story'
   if (isInternalLink) {

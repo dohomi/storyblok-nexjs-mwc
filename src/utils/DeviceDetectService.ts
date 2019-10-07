@@ -1,18 +1,20 @@
 import parser from 'ua-parser-js'
 
 class DeviceDetect {
-
-  constructor () {
+  private device: { os: any; browser: any; version: number; device: any }
+  private hasWebpSupport: null
+  private language: null
+  constructor() {
     this.device = null
     this.hasWebpSupport = null
     this.language = null
   }
 
-  getDevice () {
+  getDevice() {
     return this.device
   }
 
-  setAppServices (req) {
+  setAppServices(req?) {
     this.setDevice(req)
     this.setWebpSupport(req)
   }
@@ -21,7 +23,7 @@ class DeviceDetect {
    *
    * @return {null}
    */
-  getLanguage () {
+  getLanguage() {
     return this.language
   }
 
@@ -31,7 +33,7 @@ class DeviceDetect {
    * @param {array|string} audienceLanguages
    * @param {object} [res]
    */
-  setLanguage (language, audienceLanguages, res) {
+  setLanguage(language, audienceLanguages, res) {
     if (language) {
       this.language = language
     }
@@ -46,7 +48,7 @@ class DeviceDetect {
    * @return {{os: string, browser: *, version: number, device: *}}
    * @private
    */
-  _getDeviceValues (parsed) {
+  _getDeviceValues(parsed) {
     return {
       browser: parsed.browser.name,
       version: parseInt(parsed.browser.major),
@@ -59,7 +61,7 @@ class DeviceDetect {
    * on server pass req. leave blank if called on client
    * @param req
    */
-  setDevice (req) {
+  setDevice(req) {
     if (req) {
       // we set this and calling it in _document to set global windows variable
       let userAgent = req.headers['user-agent']
@@ -67,7 +69,7 @@ class DeviceDetect {
       this.device = this._getDeviceValues(parsed)
     } else {
       this.device = this._getDeviceValues(parser())
-      window.userDevice = {...this.device}
+      window.userDevice = { ...this.device }
     }
   }
 
@@ -75,7 +77,7 @@ class DeviceDetect {
    *
    * @return {null}
    */
-  getWebpSupport () {
+  getWebpSupport() {
     return this.hasWebpSupport
   }
 
@@ -83,7 +85,7 @@ class DeviceDetect {
    * on server pass req. leave blank if called on client
    * @param req
    */
-  setWebpSupport (req) {
+  setWebpSupport(req) {
     if (req) {
       // we set this and calling it in _document to set global windows variable
       this.hasWebpSupport = req.headers.accept && req.headers.accept.includes('webp')
@@ -96,7 +98,7 @@ class DeviceDetect {
     }
   }
 
-  _supportsWebp () {
+  _supportsWebp() {
     // credits: https://github.com/bfred-it/supports-webp (does not test correctly firefox 65 and edge
     const canvas = typeof document === 'object' ? document.createElement('canvas') : {}
     canvas.width = canvas.height = 1

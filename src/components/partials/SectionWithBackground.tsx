@@ -1,12 +1,17 @@
 import clsx from 'clsx'
-import {getImageAttrs, getPreviewImageSource} from '../../utils/ImageService'
-import {useInView} from 'react-intersection-observer'
-import {useEffect, useState, createRef} from 'react'
+import { getImageAttrs, getPreviewImageSource } from '../../utils/ImageService'
+import { useInView } from 'react-intersection-observer'
+import { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
 import withWindowDimensions from '../provider/WithWindowDimensions'
-import {getImage} from '../../utils/fetchImageHelper'
+import { getImage } from '../../utils/fetchImageHelper'
 import useResizeAware from 'react-resize-aware'
 
-const WithBackgroundImage = (props) => {
+type SectionWithBackgroundProps = {
+  isColumn: boolean
+  containerProps: any
+}
+
+const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (props) => {
   const isColumn = props.isColumn // used in Column.js
   const containerProps = props.containerProps || {}
   const backgroundImage = containerProps.image // original img source
@@ -14,7 +19,7 @@ const WithBackgroundImage = (props) => {
   const imageProperties = containerProps.imageProperties
   const lazyDisabled = imageProperties.includes('disable_lazy_load')
   let containerRef
-  const wrap = createRef()
+  const wrap: RefObject<HTMLDivElement> = createRef()
   const [resizeListener, sizes] = useResizeAware()
 
   const containerClasses = clsx(
@@ -40,6 +45,44 @@ const WithBackgroundImage = (props) => {
 
   useEffect(
     () => {
+      const processImg = (container) => {
+        let overwriteHeight
+        // @ts-ignore
+        const isDevice = window.userDevice.device
+        if (!isDevice) {
+          if (['fixed_cover', 'fixed_image'].includes(backgroundStyle)) {
+            overwriteHeight = props.dimensions.height// overwrite height to match viewport height
+          }
+        }
+        const current: HTMLDivElement = wrap.current as HTMLDivElement
+        const img = getImageAttrs({
+          originalSource: backgroundImage,
+          width: current.clientWidth,
+          height: overwriteHeight || current.clientHeight,
+          focalPoint: containerProps.focalPoint,
+          smart: true
+        })
+        // fetch current image and set correct src after loaded
+        getImage({
+          src: img.src,
+          srcSet: img.srcSet,
+          onReady(src) {
+            const newStyles = {
+              backgroundAttachment: undefined,
+              ...styles,
+              // filter: 'blur(0)', // unset blur effect
+              backgroundImage: `url("${src}")`
+            }
+            if (['fixed_cover', 'fixed_image'].includes(backgroundStyle) && !isDevice) {
+              newStyles.backgroundAttachment = 'fixed'
+            }
+            setStyles(newStyles)
+            container.classList.add('loaded')
+          }
+        })
+      }
+
+
       if (lazyDisabled) {
         // only runs if lazy load is disabled
         let container = containerRef
@@ -53,40 +96,8 @@ const WithBackgroundImage = (props) => {
     [backgroundImage, props.dimensions.width, props.dimensions.height, inView, sizes]
   )
 
-  function processImg (container) {
-    let overwriteHeight
-    if (!window.userDevice.device) {
-      if (['fixed_cover', 'fixed_image'].includes(backgroundStyle)) {
-        overwriteHeight = props.dimensions.height// overwrite height to match viewport height
-      }
-    }
-    const img = getImageAttrs({
-      originalSource: backgroundImage,
-      width: wrap.current.clientWidth,
-      height: overwriteHeight || wrap.current.clientHeight,
-      focalPoint: containerProps.focalPoint,
-      smart: true
-    })
-    // fetch current image and set correct src after loaded
-    getImage({
-      src: img.src,
-      srcSet: img.srcSet,
-      onReady (src) {
-        const newStyles = {
-          ...styles,
-          // filter: 'blur(0)', // unset blur effect
-          backgroundImage: `url("${src}")`
-        }
-        if (['fixed_cover', 'fixed_image'].includes(backgroundStyle) && !window.userDevice.device) {
-          newStyles.backgroundAttachment = 'fixed'
-        }
-        setStyles(newStyles)
-        container.classList.add('loaded')
-      }
-    })
-  }
 
-  function setRef (el) {
+  function setRef(el) {
     refIntersectionObserver(el)
     containerRef = el
   }
@@ -108,4 +119,4 @@ const WithBackgroundImage = (props) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(WithBackgroundImage)
+export default withWindowDimensions(dimensions => ({ dimensions }))(WithBackgroundImage)

@@ -1,12 +1,5 @@
 import StoryblokService from './StoryblokService'
 
-/**
- *
- * @param e
- * @param res
- * @param languagePrefix example: zh/
- * @return {Promise<{settings: null, page: null, error: {url: *, status: *}}>}
- */
 const handleErrorContent = async (e, res, languagePrefix = '') => {
   const error = {
     status: e.response.status,

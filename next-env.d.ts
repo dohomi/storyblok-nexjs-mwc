@@ -4,3 +4,10 @@
 interface RootComponentProps {
   content: any
 }
+
+declare global {
+  interface Window {
+    userDevice: any
+    hasWebpSupport: boolean
+  }
+}

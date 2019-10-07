@@ -11,7 +11,13 @@ async function genTsSchema () {
     obj.title = values.name
     obj.type = 'object'
     obj.properties = typeMapper(values.schema)
-    const requiredFields = []
+    obj.properties._uid = {
+      type: 'string'
+    }
+    obj.properties.component = {
+      type: 'string'
+    }
+    const requiredFields = ['_uid', 'component']
     Object.keys(values.schema).forEach(key => {
       if (values.schema[key].required) {
         requiredFields.push(key)
@@ -31,24 +37,29 @@ async function genTsSchema () {
 }
 
 function typeMapper (schema = {}) {
-  const parsedObj = Object.keys(schema).reduce((obj, key) => {
+  const parseObj = {}
+  Object.keys(schema).forEach((key) => {
+    const obj = {}
     const schemaElement = schema[key]
-    const schemaType = parseType(schemaElement.type)
+    const type = schemaElement.type
+    if (type === 'custom') {
+      Object.assign(parseObj, customTypeParser(key, schemaElement))
+      return
+    }
+    const schemaType = parseType(type)
     if (!schemaType) {
-      return obj
+      return
     }
     obj[key] = {
       type: schemaType
     }
-    if (schemaElement.options) {
-      obj[key] = {
-        enum: schemaElement.options.map(item => item.value)
-      }
+    if (schemaElement.options && schemaElement.options.length) {
+      obj[key].enum = schemaElement.options.map(item => item.value)
     }
-    return obj
-  }, {})
+    Object.assign(parseObj, obj)
+  })
 
-  return parsedObj
+  return parseObj
 }
 
 function parseType (type) {
@@ -63,15 +74,69 @@ function parseType (type) {
       return 'array'
     case 'number':
       return 'number'
+    case 'image':
+      return 'string'
     default:
       return null
+  }
+}
+
+function customTypeParser (key, obj) {
+  switch (obj.field_type) {
+    case 'bootstrap-utility-class-selector':
+      return {
+        [key]: {
+          type: 'object',
+          properties: {
+            values: {
+              type: 'array'
+            }
+          }
+        }
+      }
+    case 'vue-color-picker':
+      return {
+        [key]: {
+          type: 'object',
+          properties: {
+            rgba: {
+              type: 'string'
+            }
+          }
+        }
+      }
+    case 'material-icons-selector':
+      return {
+        [key]: {
+          type: 'object',
+          properties: {
+            name: {
+              type: 'string'
+            }
+          }
+        }
+      }
+    case 'table':
+      return {
+        [key]: {
+          type: 'object',
+          properties: {
+            tbody: {
+              type: 'array'
+            },
+            thead: {
+              type: 'array'
+            }
+          }
+        }
+      }
+    default:
+      return {}
   }
 }
 
 
 genTsSchema()
   .then(() => {
-
-    console.log(tsString)
     fs.writeFileSync('src/typings/generated/components-schema.d.ts', tsString.join('\n'))
   })

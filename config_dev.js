@@ -1,11 +1,11 @@
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const sass = require('sass')
-const fiber = require('fibers')
+// const fiber = require('fibers')
 const withSass = require('@zeit/next-sass')
 const withPlugins = require('next-compose-plugins')
 // const withSourceMaps = require('@zeit/next-source-maps')()
 const withTM = require('next-transpile-modules')
-const { BUNDLE_ANALYZE } = process.env
+const {BUNDLE_ANALYZE} = process.env
 const bundleAnalyzerConfig = {
   analyzeServer: ['server', 'both'].includes(BUNDLE_ANALYZE),
   analyzeBrowser: ['browser', 'both'].includes(BUNDLE_ANALYZE),
@@ -22,14 +22,16 @@ const bundleAnalyzerConfig = {
 }
 const sassConfig = {
   sassLoaderOptions: {
-    fiber: fiber,
+    // fiber: fiber,
     implementation: sass,
     // includePaths: ['node_modules', glob.sync('packages/*/node_modules').map((d) => path.join(__dirname, d))]
-    includePaths: ['node_modules']
+    sassOptions: {
+      includePaths: ['node_modules']
+    }
   }
 }
 
-module.exports = function(env = {}, pathAliasOverwrites = {}, plugins = []) {
+module.exports = function (env = {}, pathAliasOverwrites = {}, plugins = []) {
   const config = require('./nextjs_config')(env, pathAliasOverwrites)
 
   let pluginConfiguration = [

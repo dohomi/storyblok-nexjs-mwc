@@ -4,7 +4,8 @@ import {bool, func, object} from 'prop-types'
 import DrawerContentList from './MwcDrawerList'
 import {Link} from 'routes'
 import imageService from '../../../utils/ImageService'
-import {closeNavigationDrawers, useGlobalState} from '../../../utils/state/state'
+import {useGlobalState} from '../../../utils/state/state'
+import {closeNavigationDrawers} from '../../../utils/state/actions'
 
 const MwcDrawer = (props) => {
 
