@@ -3,8 +3,6 @@ import React, { FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { IconStoryblok } from '../../typings/generated/components-schema'
 
-import '../../assets/scss/Layout.scss'
-
 const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => {
   const iconName = content.name && content.name.name
   const iconClasses = clsx(

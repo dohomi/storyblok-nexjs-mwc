@@ -1,16 +1,17 @@
 import SbEditable from 'storyblok-react'
-import { getImageAttrs } from '../../utils/ImageService'
+import React, { FunctionComponent } from 'react'
 import clsx from 'clsx'
-import withWindowDimensions, { WithWindowDimensionsProps } from '../provider/WithWindowDimensions'
 import { useInView } from 'react-intersection-observer'
-import { FunctionComponent } from 'react'
+import withWindowDimensions, { WithWindowDimensionsProps } from '../provider/WithWindowDimensions'
+import { getImageAttrs } from '../../utils/ImageService'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 
 const Image: FunctionComponent<{
   content: ImageStoryblok
-  dimensions: WithWindowDimensionsProps
-}> = ({ content, dimensions }) => {
+}> = ({ content}) => {
+  const dimensions = useWindowDimensions()
   const fallback = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
   const imageCrop = content.image_crop || []
   const property = content.property || []
@@ -35,8 +36,8 @@ const Image: FunctionComponent<{
     const parentElement = intersectionElement.target.parentElement
     let parentElementDimensions = parentElement.getBoundingClientRect()
     const square = property.includes('rounded-circle') || property.includes('square')
-    let definedWidth = content.width
-    let definedHeight = content.height_xs && dimensions.width <= 600 ? content.height_xs : content.height
+    let definedWidth: string | number = content.width
+    let definedHeight: string | number = content.height_xs && dimensions.width <= 600 ? content.height_xs : content.height
     const width = Math.ceil(parentElementDimensions.width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
@@ -89,4 +90,4 @@ const Image: FunctionComponent<{
   )
 }
 
-export default withWindowDimensions(dimensions => ({ dimensions }))(Image)
+export default Image

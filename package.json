@@ -92,7 +92,7 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-hooks-global-state": "^0.15.1",
-    "react-inlinesvg": "^1.1.5",
+    "react-inlinesvg": "^1.1.7",
     "react-intersection-observer": "^8.24.1",
     "react-player": "^1.11.1",
     "react-resize-aware": "^3.0.0-beta.4",

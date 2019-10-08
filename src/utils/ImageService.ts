@@ -99,7 +99,7 @@ function imageService(image, option = '', filter = '') {
   }
 
   const imageService = 'https://img2.storyblok.com/'
-  const path = image.replace('//a.storyblok.com', '')
+  const path = image.replace('https://a.storyblok.com', '')
   return imageService + option + path
 }
 

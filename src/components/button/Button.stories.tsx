@@ -3,8 +3,6 @@ import { storiesOf } from '@storybook/react'
 import Button from './Button'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 
-import '../../assets/scss/Layout.scss'
-
 const defaultProps: ButtonStoryblok = {
   label: 'Text Button',
   _uid: '123',

@@ -1,14 +1,17 @@
-import Image from './ImageListItemImg'
+import Image, { ImageListItemProps } from './ImageListItemImg'
 import SbEditable from 'storyblok-react'
-import {memo} from 'react'
+import { FunctionComponent, memo } from 'react'
+import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
+import * as React from 'react'
 
-const ImageListItem = (props) => {
+
+const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
   return (
-    <SbEditable content={props} key={props._uid}>
+    <SbEditable content={props as ImageListItemStoryblok} key={props._uid}>
       <li className="mdc-image-list__item"
           style={props.style}
           onClick={props.onImageClick}>
-        <Image {...props}/>
+        <Image {...props} />
         {(props.label) && (
           <div className="mdc-image-list__supporting">
             <div className="mdc-image-list__label">{props.label}</div>

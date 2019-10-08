@@ -1,13 +1,6 @@
 import React, { Component, forwardRef, PureComponent, RefObject } from 'react'
 import { WindowDimensionsCtx } from './WindowDimensionsProvider'
 
-export type WithWindowDimensionsProps = {
-  width: number
-  height: number
-  isMobile: boolean
-}
-
-
 const withWindowDimensions = (mapDimensionsToProps) => (WrappedComponent) => {
   type PrivateProps = {
     forwardedRef: RefObject<Component>

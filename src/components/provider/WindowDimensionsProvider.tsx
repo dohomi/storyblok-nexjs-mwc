@@ -2,9 +2,20 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import ResizeObserver from 'resize-observer-polyfill'
 
-export const WindowDimensionsCtx = createContext(null)
+export type WithWindowDimensionsProps = {
+  width: number
+  height: number
+  isMobile: boolean
+}
 
-const windowDims = () => {
+const defaultValue: WithWindowDimensionsProps = {
+  height: 0,
+  width: 0,
+  isMobile: false
+}
+export const WindowDimensionsCtx = createContext(defaultValue)
+
+const getWindowDimensions = () => {
   const opts = {
     height: window.innerHeight,
     width: window.innerWidth,
@@ -26,12 +37,12 @@ const debounce = function(ms, fn) {
 const WindowDimensionsProvider = ({ children }) => {
   if (typeof window === 'undefined') {
     return (
-      <WindowDimensionsCtx.Provider value={{ width: 0, height: 0 }}>
+      <WindowDimensionsCtx.Provider value={defaultValue}>
         {children}
       </WindowDimensionsCtx.Provider>
     )
   }
-  const [dimensions, setDimensions] = useState(windowDims())
+  const [dimensions, setDimensions] = useState(getWindowDimensions())
 
   useEffect(
     () => {
@@ -45,7 +56,7 @@ const WindowDimensionsProvider = ({ children }) => {
         if (!entries.length) {
           return
         }
-        setDimensions(windowDims())
+        setDimensions(getWindowDimensions())
       }
       const resizeObserver = new ResizeObserver(debounce(500, checkWindowsDimensions))
 

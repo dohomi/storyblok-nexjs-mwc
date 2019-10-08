@@ -1,19 +1,23 @@
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent
-} from '@rmwc/dialog'
-import {IconButton} from '@rmwc/icon-button'
+import React, { FunctionComponent } from 'react'
+import { Dialog, DialogContent, DialogTitle } from '@rmwc/dialog'
+import { IconButton } from '@rmwc/icon-button'
 import SwipeableViews from 'react-swipeable-views'
-import {getImageAttrs, getOriginalImageDimensions} from '../../utils/ImageService'
+import { getImageAttrs, getOriginalImageDimensions } from '../../utils/ImageService'
+import { WithWindowDimensionsProps } from '../provider/WithWindowDimensions'
+import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 
-import React from 'react'
+type ImageListLightboxProps = {
+  elements: ImageListItemStoryblok[]
+  lightbox: string
+  setLightbox: Function
+  onImageClick: Function
+  dimensions: WithWindowDimensionsProps
+}
 
-const Swipe = (props) => {
+const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
   let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)
 
-
-  function getImageSource (source) {
+  function getImageSource(source) {
     let dimensionHeight = props.dimensions.height - 68 - 16
     let dimensionWidth = props.dimensions.width - 48
     const originalDimension = getOriginalImageDimensions(source)
@@ -29,7 +33,7 @@ const Swipe = (props) => {
     })
   }
 
-  function handleChangeIndex (index) {
+  function handleChangeIndex(index) {
     props.onImageClick(props.elements[index])
   }
 
@@ -41,7 +45,7 @@ const Swipe = (props) => {
         {props.elements.map(item => (
           <div key={item._uid} className="carousel-item d-block">
             <img {...getImageSource(item.source)}
-                 className='img-fluid'/>
+                 className='img-fluid' />
           </div>
         ))}
       </SwipeableViews>
@@ -57,7 +61,7 @@ const Swipe = (props) => {
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
         <span className="sr-only">Next</span>
       </a>
-      <ol className="carousel-indicators" style={{color: 'white'}}>
+      <ol className="carousel-indicators" style={{ color: 'white' }}>
         {props.elements.map((item) => (
           <li className={`${props.lightbox === item._uid ? 'active' : ''}`}
               onClick={() => props.onImageClick(item)}
@@ -68,10 +72,11 @@ const Swipe = (props) => {
     </div>
   )
 }
-const ImageListLightbox = (props) => {
+
+const ImageListLightbox: FunctionComponent<ImageListLightboxProps> = (props) => {
   return (
     <Dialog className="lm-dialog-lightbox"
-            open={props.lightbox}>
+            open={!!props.lightbox}>
       <DialogTitle className="pb-0 text-white text-right">{IconButton({
         icon: 'clear',
         onClick: () => props.setLightbox()

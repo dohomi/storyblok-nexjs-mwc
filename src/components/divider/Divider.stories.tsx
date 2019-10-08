@@ -2,8 +2,6 @@ import { storiesOf } from '@storybook/react'
 import Divider from './Divider'
 import { DividerStoryblok } from '../../typings/generated/components-schema'
 
-import '../../assets/scss/Layout.scss'
-
 const props: DividerStoryblok = {
   _uid: '123',
   component: 'divider',
