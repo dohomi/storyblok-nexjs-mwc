@@ -1,16 +1,16 @@
 import SbEditable from 'storyblok-react'
-import dynamic from 'next/dynamic'
-import { CircularProgress } from '@rmwc/circular-progress'
-import Form from './Form'
+import { ComponentType, FunctionComponent } from 'react'
 import cookie from 'js-cookie'
+import dynamic from 'next/dynamic'
 import { Checkbox } from '@rmwc/checkbox'
-import FormCheckbox from './FormCheckbox'
+import { CircularProgress } from '@rmwc/circular-progress'
+import Form from '../form/Form'
+import FormCheckbox from '../form/FormCheckbox'
 import Paragraph from '../paragraph/Paragraph'
-import { FunctionComponent } from 'react'
 import { HubspotFormStoryblok } from '../../typings/generated/components-schema'
 
-const HubspotFormDyn = dynamic(
-  () => import('../partials/ReactHubspotForm'),
+const HubspotFormDyn: ComponentType<any> = dynamic(
+  () => import('./ReactHubspotForm'),
   { ssr: false }
 )
 
@@ -52,6 +52,7 @@ const HubspotFormCustom: FunctionComponent<{ content: HubspotFormStoryblok }> = 
     }
     content.consent_process && children.push(<FormCheckbox label={content.consent_process}
                                                            required={true}
+                                                           component="form_checkbox"
                                                            name={'__consent_process'}
                                                            _uid={'consent_process'} />)
     content.consent_communication && children.push(<Checkbox label={content.consent_communication}

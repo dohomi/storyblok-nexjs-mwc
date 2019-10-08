@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/react'
-import ImageElement from './Image'
+import ImageElement from './ImageElement'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
 

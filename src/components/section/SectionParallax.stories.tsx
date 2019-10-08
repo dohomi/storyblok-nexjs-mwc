@@ -1,10 +1,11 @@
 import { storiesOf } from '@storybook/react'
-import SectionVideoBg from './SectionVideoBg'
+import SectionParallax from './SectionParallax'
 import {
   ColumnStoryblok,
   ParagraphStoryblok,
+  ParallaxItemStoryblok,
   RowStoryblok,
-  SectionVideoBgStoryblok
+  SectionParallaxStoryblok
 } from '../../typings/generated/components-schema'
 import * as React from 'react'
 
@@ -30,19 +31,25 @@ const row: RowStoryblok[] = [{
   component: 'row'
 }]
 
-const props: SectionVideoBgStoryblok = {
-  component: 'section_video_bg',
-  _uid: '2341',
-  url: 'https://youtu.be/P1qaAGWUz5U',
+const parallax: ParallaxItemStoryblok[] = [
+  {
+    _uid: '234123421',
+    component: 'parallax_item',
+    image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+  }
+]
+
+const props: SectionParallaxStoryblok = {
+  _uid: '123sd',
+  component: 'section_parallax',
   body: row,
-  property: [],
-  height: 50
+  elements: parallax
 }
 
-storiesOf('Section Video', module)
+storiesOf('SectionParallax', module)
   .add(
-    'Section Video',
+    'Section Parallax',
     () => (
-      <SectionVideoBg content={props} />
+      <SectionParallax content={props} />
     )
   )

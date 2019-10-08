@@ -1,13 +1,11 @@
 import SbEditable from 'storyblok-react'
-import {Card, Car} from '@rmwc/card'
+import { Card } from '@rmwc/card'
 import Components from 'components'
+import { FunctionComponent } from 'react'
+import { PricingItemStoryblok } from '../../typings/generated/components-schema'
 
 
-const PricingItem = (props) => {
-
-  // const img = getImageAttrs({
-  //
-  // })
+const PricingItem: FunctionComponent<PricingItemStoryblok> = (props) => {
   const media = props.image && props.image[0]
   const title = props.title || []
   const price = props.price || []
@@ -15,9 +13,10 @@ const PricingItem = (props) => {
   const features = props.features || []
   const subtitle = props.subtitle || []
   const button = props.button || []
+
   return (
     <SbEditable content={props}>
-      <Card style={{height: '100%'}}>
+      <Card style={{ height: '100%' }}>
         {media && <div className="lm-pricing__media">{Components(media)}</div>}
         <div className={`lm-pricing__title${!title.length ? ' lm-no-title' : ''}`}>{title.map(v => Components(v))}</div>
         {price.length > 0 && (

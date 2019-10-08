@@ -1,8 +1,9 @@
 import clsx from 'clsx'
 import SbEditable from 'storyblok-react'
 import PricingItem from './PricingItem'
-import withWindowDimensions from '../provider/WithWindowDimensions'
-import {createRef, useEffect} from 'react'
+import { createRef, FunctionComponent, RefObject, useEffect } from 'react'
+import { PricingStoryblok } from '../../typings/generated/components-schema'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 const equalizeHeights = (querySelectorAll) => {
   if (querySelectorAll.length) {
@@ -17,8 +18,9 @@ const equalizeHeights = (querySelectorAll) => {
   }
 }
 
-const Pricing = ({content, dimensions}) => {
-  const containerRef = createRef()
+const Pricing: FunctionComponent<{ content: PricingStoryblok }> = ({ content }) => {
+  const dimensions = useWindowDimensions()
+  const containerRef: RefObject<HTMLUListElement> = createRef()
   let gutterSize = content.column_gap || 2
   const body = content.body || []
   let columnCount = content.column_count || body.length
@@ -57,4 +59,4 @@ const Pricing = ({content, dimensions}) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(Pricing)
+export default Pricing

@@ -1,4 +1,4 @@
-import { formHandling } from '../../utils/form/formHandling'
+import { formHandling } from './formHandling'
 import { Checkbox } from '@rmwc/checkbox'
 import { TextFieldHelperText } from '@rmwc/textfield'
 import { FunctionComponent } from 'react'

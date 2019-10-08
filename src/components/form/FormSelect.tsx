@@ -1,4 +1,4 @@
-import { formHandling } from '../../utils/form/formHandling'
+import { formHandling } from './formHandling'
 import { Select } from '@rmwc/select'
 import { FunctionComponent, useState } from 'react'
 import { FormSelectOptionStoryblok, FormSelectStoryblok } from '../../typings/generated/components-schema'

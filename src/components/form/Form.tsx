@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import useForm from '../../utils/hooks/hubspotForm'
+import useForm from './useForm'
 import { createElement, Fragment, FunctionComponent } from 'react'
 import Paragraph from '../paragraph/Paragraph'
 import Components from 'components/index'

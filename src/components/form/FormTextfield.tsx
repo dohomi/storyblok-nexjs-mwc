@@ -1,4 +1,4 @@
-import { formHandling } from '../../utils/form/formHandling'
+import { formHandling } from './formHandling'
 import { TextField } from '@rmwc/textfield'
 import { FunctionComponent } from 'react'
 import { FormTextfieldStoryblok } from '../../typings/generated/components-schema'

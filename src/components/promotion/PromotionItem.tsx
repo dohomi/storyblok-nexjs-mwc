@@ -1,30 +1,18 @@
 import SbEditable from 'storyblok-react'
-import React, {createRef, useEffect} from 'react'
+import React, { createRef, FunctionComponent, RefObject } from 'react'
 import Components from 'components'
 import clsx from 'clsx'
+import { PromotionStoryblok } from '../../typings/generated/components-schema'
 
 
-const PromotionItem = (props) => {
-  const container = createRef()
+const PromotionItem: FunctionComponent<PromotionStoryblok> = (props) => {
+  const container: RefObject<HTMLDivElement> = createRef()
   const body = props.body || []
   const action = props.action || []
   const className = clsx('lm-promotion__item', {
     [`lm-promotion__item-${props.variant ? props.variant : 'variant'}`]: true,
     [`lm-promotion__item-${props.position}`]: !!props.position
   })
-
-  // useEffect(
-  //   () => {
-  //     const containerHeight = container.current.clientHeight + 1
-  //     const isMobile = props.dimensions.width <= 600
-  //     if (props.position === 'bottom_left_overlap' && isMobile) {
-  //       // container.current.style.marginTop = '-25px'
-  //     } else if (props.position === 'bottom_left_overlap') {
-  //       // container.current.style.marginTop = `-${containerHeight - 40}px`
-  //     }
-  //   },
-  //   [props.dimensions]
-  // )
 
   return (
     <SbEditable content={props}>

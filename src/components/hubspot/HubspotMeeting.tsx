@@ -1,8 +1,12 @@
 import SbEditable from 'storyblok-react'
-import {useEffect} from 'react'
+import { FunctionComponent, useEffect } from 'react'
+import { HubspotMeetingStoryblok } from '../../typings/generated/components-schema'
 
-const HubspotMeeting = ({content}) => {
-  const dataSrc = `https://app.hubspot.com/meetings/${content.meeting_name}?embed=true`
+const HubspotMeeting: FunctionComponent<{
+  content: HubspotMeetingStoryblok
+  disableEmbed?: boolean
+}> = ({ content, disableEmbed }) => {
+  const dataSrc = `https://app.hubspot.com/meetings/${content.meeting_name}?embed=${disableEmbed ? 'false' : 'true'}`
   useEffect(
     () => {
       const script = document.createElement('script')
