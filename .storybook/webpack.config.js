@@ -15,6 +15,7 @@ module.exports = ({config}) => {
   })
   config.module.rules.push({
     test: /\.scss$/,
+    sideEffects: true,
     use: ['style-loader', 'css-loader', {
       loader: 'sass-loader',
       options: {
