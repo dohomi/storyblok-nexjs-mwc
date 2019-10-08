@@ -1,20 +1,41 @@
-import {
-  CardPrimaryAction,
-  CardMediaContent
-} from '@rmwc/card'
-import {Typography} from '@rmwc/typography'
+import { CardMediaContent, CardPrimaryAction } from '@rmwc/card'
+import { Typography } from '@rmwc/typography'
 import clsx from 'clsx'
 import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
+import { CardListItemStoryblok } from '../../typings/generated/components-schema'
+import { CSSProperties, FunctionComponent } from 'react'
 
-const CardListItem = (content) => {
+interface CardListItemProps extends CardListItemStoryblok {
+  inView: boolean
+  mediaDimension: {
+    height: number
+    width: number
+  }
+  imageSize: string
+  elevation: string
+  borderRadius: string
+  variant: string[]
+  titleTag: string
+  titleClassName: string[]
+  subtitleClassName: string[]
+  descriptionClassName: string[]
+  subtitleTag: string
+  titleTypography: string
+  subtitleTypography: string
+  descriptionTypography: string
+  sixteenByNine: boolean
+  square: boolean
+}
+
+const CardListItem: FunctionComponent<CardListItemProps> = (content) => {
   let variant = content.variant || []
   const cardClasses = clsx({
     [`mdc-elevation--z${content.elevation}`]: content.elevation
   })
 
-  const cardStyles = {}
+  const cardStyles: CSSProperties = {}
   content.borderRadius && (cardStyles.borderRadius = content.borderRadius)
   const isOverMedia = variant.includes('over_media')
   const descriptionIsEmpty = isOverMedia && !content.description
@@ -59,7 +80,7 @@ const CardListItem = (content) => {
           {CardListActionTitles(content)}
         </div>
         <CardPrimaryAction>
-          <CardMediaElement {...cardMediaProps}/>
+          <CardMediaElement {...cardMediaProps} />
           {!descriptionIsEmpty && (
             <div className="lm-card__content lm-card__content-padding">
               {content.description &&

@@ -1,18 +1,20 @@
 import SbEditable from 'storyblok-react'
 import CardListItem from './CardListItem'
 import clsx from 'clsx'
-import {useInView} from 'react-intersection-observer'
-import React, {useEffect, useState} from 'react'
-import withWindowDimensions from '../provider/WithWindowDimensions'
+import { useInView } from 'react-intersection-observer'
+import React, { FunctionComponent, RefObject, useEffect, useState } from 'react'
+import { CardListStoryblok } from '../../typings/generated/components-schema'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
-const CardList = (props) => {
-  const cardRef = React.createRef()
+const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }) => {
+  const dimensions = useWindowDimensions()
   const [refIntersectionObserver, inView, intersectionElement] = useInView({
     triggerOnce: true,
     rootMargin: '400px 0px 400px 0px'
   })
-  const [mediaDimension, setMediaDimension] = useState({width: 0, height: 0})
-  const content = props.content
+  const [mediaDimension, setMediaDimension] = useState({ width: 0, height: 0 })
+
+  const cardRef: RefObject<HTMLUListElement> = React.createRef()
   const body = content.body
   const imageRatio = content.image_ratio || '16x9'
   let gutterSize = content.column_gap || 2
@@ -35,7 +37,7 @@ const CardList = (props) => {
         })
       }
     }
-  }, [inView])
+  }, [inView, dimensions])
 
   const containerClasses = clsx(
     'mdc-image-list',
@@ -79,4 +81,4 @@ const CardList = (props) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(CardList)
+export default CardList
