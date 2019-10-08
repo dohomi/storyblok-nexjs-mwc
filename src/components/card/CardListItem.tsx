@@ -1,33 +1,11 @@
 import { CardMediaContent, CardPrimaryAction } from '@rmwc/card'
-import { Typography } from '@rmwc/typography'
+import { Typography, TypographyT } from '@rmwc/typography'
 import clsx from 'clsx'
-import CardMediaElement from './CardMediaElement'
+import CardMediaElement, { CardMediaElementProps } from './CardMediaElement'
 import CardWrap from './CardWrap'
-import CardListActionTitles from './CardLinkActionTitle'
-import { CardListItemStoryblok } from '../../typings/generated/components-schema'
+import CardListActionTitles, { CardListItemProps } from './CardLinkActionTitle'
 import { CSSProperties, FunctionComponent } from 'react'
 
-interface CardListItemProps extends CardListItemStoryblok {
-  inView: boolean
-  mediaDimension: {
-    height: number
-    width: number
-  }
-  imageSize: string
-  elevation: string
-  borderRadius: string
-  variant: string[]
-  titleTag: string
-  titleClassName: string[]
-  subtitleClassName: string[]
-  descriptionClassName: string[]
-  subtitleTag: string
-  titleTypography: string
-  subtitleTypography: string
-  descriptionTypography: string
-  sixteenByNine: boolean
-  square: boolean
-}
 
 const CardListItem: FunctionComponent<CardListItemProps> = (content) => {
   let variant = content.variant || []
@@ -36,7 +14,7 @@ const CardListItem: FunctionComponent<CardListItemProps> = (content) => {
   })
 
   const cardStyles: CSSProperties = {}
-  content.borderRadius && (cardStyles.borderRadius = content.borderRadius)
+  content.border_radius && (cardStyles.borderRadius = content.border_radius)
   const isOverMedia = variant.includes('over_media')
   const descriptionIsEmpty = isOverMedia && !content.description
   const cardwrapProps = {
@@ -45,17 +23,19 @@ const CardListItem: FunctionComponent<CardListItemProps> = (content) => {
     className: cardClasses,
     outlined: variant.includes('outlined')
   }
-  const cardMediaProps = {
+  const cardMediaProps: CardMediaElementProps = {
     image: content.image,
     inView: content.inView,
     width: content.mediaDimension.width,
     height: content.mediaDimension.height,
     variant,
-    imageSize: content.imageSize,
+    image_size: content.image_size,
     sixteenByNine: content.sixteenByNine,
     square: content.square
   }
 
+  const useTypo: TypographyT = content.description_typography || 'body1'
+  const typographyClassName = content.descriptionClassName
   // without media / text only
   if (!content.image) {
     return (
@@ -64,8 +44,9 @@ const CardListItem: FunctionComponent<CardListItemProps> = (content) => {
           <div className="lm-card__content lm-card__content-padding">
             {CardListActionTitles(content)}
             {content.description &&
-            <Typography tag="p" use={content.descriptionTypography || 'body1'}
-                        className={content.descriptionClassName}>{content.description}</Typography>}
+            <Typography tag="p"
+                        use={useTypo}
+                        className={typographyClassName}>{content.description}</Typography>}
           </div>
         </CardPrimaryAction>
       </CardWrap>
@@ -84,8 +65,9 @@ const CardListItem: FunctionComponent<CardListItemProps> = (content) => {
           {!descriptionIsEmpty && (
             <div className="lm-card__content lm-card__content-padding">
               {content.description &&
-              <Typography tag="p" use={content.descriptionTypography || 'body1'}
-                          className={content.descriptionClassName}>{content.description}</Typography>}
+              <Typography tag="p"
+                          use={useTypo}
+                          className={typographyClassName}>{content.description}</Typography>}
             </div>
           )}
         </CardPrimaryAction>
@@ -105,8 +87,9 @@ const CardListItem: FunctionComponent<CardListItemProps> = (content) => {
           <div className="lm-card__content lm-card__content-padding">
             {!isOverMedia && CardListActionTitles(content)}
             {content.description &&
-            <Typography tag="div" use={content.descriptionTypography || 'body1'}
-                        className={content.descriptionClassName}>{content.description}</Typography>}
+            <Typography tag="div"
+                        use={useTypo}
+                        className={typographyClassName}>{content.description}</Typography>}
           </div>
         )}
       </CardPrimaryAction>

@@ -1,12 +1,21 @@
-import {CardMedia} from '@rmwc/card'
-import {getImageAttrs} from '../../utils/ImageService'
-import {getImage} from '../../utils/fetchImageHelper'
-import {useState, useEffect} from 'react'
+import { CardMedia, CardMediaProps } from '@rmwc/card'
+import { getImageAttrs } from '../../utils/ImageService'
+import { getImage } from '../../utils/fetchImageHelper'
+import { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
+import { CardListStoryblok } from '../../typings/generated/components-schema'
 
-const CardMediaElement = ({imageSize, sixteenByNine, square, children, inView, image, variant, width, height}) => {
-  const [styles, setStyles] = useState({
+export type CardMediaElementProps = CardMediaProps & Pick<CardListStoryblok, 'image_size' | 'variant'> & {
+  inView: boolean
+  image?: string
+  width: number
+  height: number
+}
+
+const CardMediaElement: FunctionComponent<CardMediaElementProps> = ({ image_size, sixteenByNine, square, children, inView, image, variant, width, height }) => {
+  variant = variant || []
+  const [styles, setStyles] = useState<CSSProperties>({
     color: variant.includes('font_white') ? 'white' : 'inherit',
-    backgroundSize: imageSize || 'cover'
+    backgroundSize: image_size || 'cover'
   })
   useEffect(
     () => {
@@ -19,7 +28,7 @@ const CardMediaElement = ({imageSize, sixteenByNine, square, children, inView, i
         })
         getImage({
           ...img,
-          onReady (src) {
+          onReady(src: string) {
             setStyles({
               ...styles,
               backgroundImage: `url("${src}")`,

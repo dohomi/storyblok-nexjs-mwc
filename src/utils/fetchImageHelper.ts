@@ -3,30 +3,31 @@ export function getImagePromise({ src, srcSet }) {
     getImage({
       src,
       srcSet,
-      onReady(src) {
+      onReady(src: string) {
         resolve(src)
       },
-      onError(e) {
+      onError(e: any) {
         reject(e)
       }
     })
   })
 }
 
-export function getImage({ src = '', srcSet = '', onReady, onError = undefined }) {
+export function getImage({ src = '', srcSet = '', onReady, onError }: {
+  src: string
+  srcSet: string
+  onReady?: Function
+  onError?: Function
+}) {
   let img = new Image()
   img.src = src
   img.srcset = srcSet || src
-  img.crossOrigin = 'anonymous'
+  // img.crossOrigin = 'anonymous'
   img.onload = () => {
-    img.onload = null // dispose
-    img.onerror = null
     onReady && onReady(img.currentSrc || img.src) // return current selected source
     img = null // dispose image element
   }
   img.onerror = (e) => {
-    img.onload = null // dispose
-    img.onerror = null
     onError && onError(e)
     img = null
   }

@@ -1,21 +1,27 @@
 import SbEditable from 'storyblok-react'
-import {Card} from '@rmwc/card'
+import { Card, CardProps } from '@rmwc/card'
 import CardLink from './CardLink'
 import Components from 'components'
-import {Drawer, DrawerContent} from '@rmwc/drawer'
-import React from 'react'
+import { Drawer, DrawerContent } from '@rmwc/drawer'
+import React, { CSSProperties, FunctionComponent } from 'react'
+import { CardListItemProps } from './CardLinkActionTitle'
 
+type CardWrapProps = CardProps & {
+  className: string
+  style: CSSProperties
+  content: CardListItemProps
+}
 
-const CardWrap = ({children, content, className, style, outlined}) => {
+const CardWrap: FunctionComponent<CardWrapProps> = ({ children, content, className, style, outlined }) => {
   const body = content.body || []
   let [open, setOpen] = React.useState(false)
 
-  function onDrawerClose () {
+  function onDrawerClose() {
     setOpen(false)
     document.body.style.overflow = 'auto' // prevent scroll while its open
   }
 
-  function onDrawerOpen () {
+  function onDrawerOpen() {
     document.body.style.overflow = 'hidden' // prevent scroll while its open
   }
 
@@ -45,16 +51,10 @@ const CardWrap = ({children, content, className, style, outlined}) => {
   return (
     <SbEditable content={content}>
       <Card className={className} style={style} outlined={outlined}>
-        <CardLink link={content.link}>
+        <CardLink {...content}>
           {children}
         </CardLink>
       </Card>
-      {body.length > 0 && (
-
-        <Drawer model open={true}>
-          {body.map(blok => Components(blok))}
-        </Drawer>
-      )}
     </SbEditable>
   )
 }

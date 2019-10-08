@@ -20,7 +20,8 @@
     "get-storyblok-schema": "storyblok pull-components --space=57415",
     "gen-ts-schema": "node generate-ts-schema.js",
     "codegen": "graphql-codegen --config codegen.yml",
-    "storybook": "start-storybook -p 6006 -c .storybook"
+    "storybook": "start-storybook -p 6006 -c .storybook",
+    "build-storybook": "build-storybook -c .storybook -o public_storybook"
   },
   "author": "Dominic Garms <djgarms@gmail.com>",
   "license": "ISC",

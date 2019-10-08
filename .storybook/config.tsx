@@ -2,7 +2,7 @@ import * as React from 'react'
 import { addDecorator, configure } from '@storybook/react'
 import WindowDimensionsProvider from '../src/components/provider/WindowDimensionsProvider'
 
-import '../src/assets/scss/Layout.scss'
+import '!style-loader!css-loader!sass-loader!../src/assets/scss/Layout.scss'
 
 addDecorator(storyFunc => (
   <WindowDimensionsProvider>{storyFunc()}</WindowDimensionsProvider>

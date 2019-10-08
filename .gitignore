@@ -21,6 +21,9 @@ yarn-error.log*
 .idea*
 /.idea*
 .env
+
+public_storybook
+
 components.*.json
 schema.d.ts
 components-schema.d.ts

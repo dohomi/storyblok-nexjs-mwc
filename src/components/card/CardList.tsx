@@ -15,7 +15,7 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
   const [mediaDimension, setMediaDimension] = useState({ width: 0, height: 0 })
 
   const cardRef: RefObject<HTMLUListElement> = React.createRef()
-  const body = content.body
+  const body = content.body || []
   const imageRatio = content.image_ratio || '16x9'
   let gutterSize = content.column_gap || 2
   let columnCount = content.column_count || 5
@@ -29,7 +29,7 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
       }
 
       const current = cardRef.current
-      const mediaContainer = current.querySelector('.mdc-card__media')
+      const mediaContainer = current && current.querySelector('.mdc-card__media')
       if (mediaContainer) {
         setMediaDimension({
           width: mediaContainer.clientWidth,
@@ -58,18 +58,18 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
                 ...item,
                 inView,
                 mediaDimension,
-                imageSize: content.image_size,
+                image_size: content.image_size,
                 elevation: content.elevation,
-                borderRadius: content.border_radius,
+                border_radius: content.border_radius,
                 variant: content.variant,
-                titleTag: content.title_tag,
+                title_tag: content.title_tag,
                 titleClassName: content.title_class_name && content.title_class_name.values,
                 subtitleClassName: content.subtitle_class_name && content.subtitle_class_name.values,
                 descriptionClassName: content.description_class_name && content.description_class_name.values,
-                subtitleTag: content.subtitle_tag,
-                titleTypography: content.title_typography,
-                subtitleTypography: content.subtitle_typography,
-                descriptionTypography: content.description_typography,
+                subtitle_tag: content.subtitle_tag,
+                title_typography: content.title_typography,
+                subtitle_typography: content.subtitle_typography,
+                description_typography: content.description_typography,
                 sixteenByNine: imageRatio === '16x9', // todo
                 square: imageRatio === '1x1' // todo
               })}
