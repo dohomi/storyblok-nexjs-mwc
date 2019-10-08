@@ -1,9 +1,22 @@
 import clsx from 'clsx'
 import ReactPlayer from 'react-player'
 import BackgroundImageContainer from './BackgroundImageContainer'
-import {useState} from 'react'
+import { FunctionComponent, useState } from 'react'
+import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 
-const FullscreenVideoBg = (content) => {
+type ContainerDimensions = {
+  width: number
+  height: number
+}
+
+type FullscreenVideoBgProps = SectionVideoBgStoryblok & {
+  containerDimensions: ContainerDimensions
+  fixedToRatio: boolean
+  ratioHeight: number
+  ratioWidth: number
+}
+
+const FullscreenVideoBg: FunctionComponent<FullscreenVideoBgProps> = (content) => {
   const properties = content.property || []
   const videoAspect = content.ratioHeight / content.ratioWidth
   let fixedToRatio = content.fixedToRatio
@@ -27,12 +40,12 @@ const FullscreenVideoBg = (content) => {
   // render video based on video ratio
   if (fixedToRatio) {
     return (
-      <div style={{paddingBottom: `${(videoAspect * 100).toFixed(2)}%`, position: 'relative', width: '100%'}}>
+      <div style={{ paddingBottom: `${(videoAspect * 100).toFixed(2)}%`, position: 'relative', width: '100%' }}>
         <ReactPlayer url={content.url}
                      className={className}
                      width="100%"
                      height="100%"
-                     {...playerProps}/>
+                     {...playerProps} />
       </div>
     )
   }
@@ -50,19 +63,19 @@ const FullscreenVideoBg = (content) => {
   return (
     <>
       <div className={`videobg-width${properties.includes('suppress_mouse_events') ? ' video-no-mouse' : ''}`}
-           style={{width: vidBgWidth}}>
+           style={{ width: vidBgWidth }}>
         <div className="videobg-aspect"
-             style={{paddingBottom: `${(videoAspect * 100).toFixed(2)}%`}}>
+             style={{ paddingBottom: `${(videoAspect * 100).toFixed(2)}%` }}>
           <div className="videobg-make-height">
             <ReactPlayer url={content.url}
                          className={className}
                          width="100%"
                          height="100%"
-                         {...playerProps}/>
+                         {...playerProps} />
           </div>
         </div>
       </div>
-      {error && content.fallback_image && <BackgroundImageContainer image={content.fallback_image}/>}
+      {error && content.fallback_image && <BackgroundImageContainer image={content.fallback_image} />}
     </>
   )
 }

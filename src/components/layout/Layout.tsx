@@ -6,11 +6,11 @@ import MwcDrawer from './drawer/MwcDrawer'
 import { getThemeOptions } from '../../utils/themeLayout'
 import { GlobalStateProvider } from '../../utils/state/state'
 import { closeNavigationDrawers } from '../../utils/state/actions'
-import { Global } from '../../typings/generated/components-schema'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 type LayoutProps = {
   hasFeature?: boolean
-  settings: Global
+  settings: GlobalStoryblok
   asPath?: string
 }
 

@@ -1,9 +1,9 @@
 import Components from 'components'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
-import SectionWithBackground from './partials/SectionWithBackground'
-import { Row, RowNested } from '../typings/generated/components-schema'
+import backgroundPropertyHelper from '../../utils/backgroundPropertyHelper'
+import SectionWithBackground from './SectionWithBackground'
+import { RowNestedStoryblok, RowStoryblok } from '../../typings/generated/components-schema'
 import { CSSProperties, FunctionComponent } from 'react'
 
 
@@ -23,7 +23,7 @@ const getThemeStyles = (values) => {
 }
 
 
-const getRowProperties = (content: Row) => {
+const getRowProperties = (content: RowNestedStoryblok | RowStoryblok) => {
   // content = content || {}
 
   const containerProps = backgroundPropertyHelper(content.background)
@@ -45,7 +45,7 @@ const getRowProperties = (content: Row) => {
   }
 }
 
-export const MatRow: FunctionComponent<RootComponentProps> = ({ content }: { content: Row }) => {
+export const MatRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
   const { styles, containerProps } = getRowProperties(content)
   const gridClasses = clsx(
     'mdc-layout-grid',
@@ -92,7 +92,7 @@ export const MatRow: FunctionComponent<RootComponentProps> = ({ content }: { con
   )
 }
 
-export const MatRowNested = ({ content }: { content: RowNested }) => {
+export const MatRowNested: FunctionComponent<{ content: RowNestedStoryblok }> = ({ content }) => {
   const { styles, containerProps } = getRowProperties(content)
   const classes = clsx(
     'mdc-layout-grid__inner',

@@ -1,15 +1,17 @@
 import Components from 'components'
 import SbEditable from 'storyblok-react'
-import {ParallaxBanner} from 'react-scroll-parallax'
+import { ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
-import withWindowDimensions from './provider/WithWindowDimensions'
-import {useEffect, useState} from 'react'
-import {useInView} from 'react-intersection-observer'
-import {getImageAttrs} from '../utils/ImageService'
-import {getImagePromise} from '../utils/fetchImageHelper'
+import { FunctionComponent, useEffect, useState } from 'react'
+import { useInView } from 'react-intersection-observer'
+import { getImageAttrs } from '../../utils/ImageService'
+import { getImagePromise } from '../../utils/fetchImageHelper'
+import { SectionParallaxStoryblok } from '../../typings/generated/components-schema'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 
-const SectionParallax = ({content, dimensions}) => {
+const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> = ({ content }) => {
+  const dimensions = useWindowDimensions()
   const [refIntersectionObserver, inView, refElement] = useInView({
     triggerOnce: true
   })
@@ -41,7 +43,7 @@ const SectionParallax = ({content, dimensions}) => {
     [inView, width, height]
   )
 
-  function processLayers (el) {
+  function processLayers(el) {
     const items = elements.map(async item => {
       const containerHeight = height * Number(contentHeight / 100)
       const offset = ((containerHeight * item.amount) * 2)
@@ -49,12 +51,12 @@ const SectionParallax = ({content, dimensions}) => {
 
       const img = getImageAttrs({
         originalSource: item.image,
-        width,
-        height: parseInt(imgHeight),
+        width: width,
+        height: imgHeight,
         smart: true,
         focalPoint: item.image_focal_point
       })
-      const imgSource = await getImagePromise({src: img.src, srcSet: img.srcSet})
+      const imgSource = await getImagePromise({ src: img.src, srcSet: img.srcSet })
       return {
         image: `"${imgSource}"`,
         amount: Number(item.amount),
@@ -68,7 +70,7 @@ const SectionParallax = ({content, dimensions}) => {
       })
   }
 
-  function setRef (ref) {
+  function setRef(ref) {
     refIntersectionObserver(ref)
     containerEl = ref
   }
@@ -89,4 +91,4 @@ const SectionParallax = ({content, dimensions}) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(SectionParallax)
+export default SectionParallax

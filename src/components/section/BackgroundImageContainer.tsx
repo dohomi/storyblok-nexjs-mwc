@@ -1,10 +1,11 @@
-import {getImageAttrs} from '../../utils/ImageService'
-import {getImage} from '../../utils/fetchImageHelper'
-import withWindowDimensions from '../provider/WithWindowDimensions'
-import React, {useEffect} from 'react'
+import { getImageAttrs } from '../../utils/ImageService'
+import { getImage } from '../../utils/fetchImageHelper'
+import React, { FunctionComponent, RefObject, useEffect } from 'react'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
-const BackgroundImage = ({image, dimensions}) => {
-  const createRef = React.createRef()
+const BackgroundImage: FunctionComponent<{ image: string }> = ({ image }) => {
+  const dimensions = useWindowDimensions()
+  const createRef: RefObject<HTMLDivElement> = React.createRef()
   useEffect(
     () => {
       const current = createRef.current
@@ -20,7 +21,7 @@ const BackgroundImage = ({image, dimensions}) => {
         getImage({
           src: img.src,
           srcSet: img.srcSet,
-          onReady (imageSource) {
+          onReady(imageSource) {
             current.style.filter = 'blur(0)'
             current.style.backgroundImage = `url('${imageSource}')`
           }
@@ -36,4 +37,4 @@ const BackgroundImage = ({image, dimensions}) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(BackgroundImage)
+export default BackgroundImage

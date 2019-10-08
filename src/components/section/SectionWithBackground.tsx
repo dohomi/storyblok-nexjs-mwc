@@ -2,9 +2,9 @@ import clsx from 'clsx'
 import { getImageAttrs, getPreviewImageSource } from '../../utils/ImageService'
 import { useInView } from 'react-intersection-observer'
 import { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
-import { WithWindowDimensionsProps } from '../provider/WithWindowDimensions'
 import { getImage } from '../../utils/fetchImageHelper'
 import useResizeAware from 'react-resize-aware'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 type SectionWithBackgroundProps = {
   isColumn?: boolean
@@ -12,7 +12,7 @@ type SectionWithBackgroundProps = {
   style: any
   background_style?: string
   className: string[] | string
-  dimensions?: WithWindowDimensionsProps
+  isFullHeight: boolean
 }
 
 const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (props) => {
@@ -25,6 +25,7 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
   let containerRef
   const wrap: RefObject<HTMLDivElement> = createRef()
   const [resizeListener, sizes] = useResizeAware()
+  const dimensions = useWindowDimensions()
 
   const containerClasses = clsx(
     !isColumn && 'mw-100 mh-100',
@@ -51,11 +52,11 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
     () => {
       const processImg = (container) => {
         let overwriteHeight
-        // @ts-ignore
-        const isDevice = window.userDevice.device
+
+        const isDevice = window['userDevice'] && window['userDevice'].device
         if (!isDevice) {
           if (['fixed_cover', 'fixed_image'].includes(backgroundStyle)) {
-            overwriteHeight = props.dimensions.height// overwrite height to match viewport height
+            overwriteHeight = dimensions.height// overwrite height to match viewport height
           }
         }
         const current: HTMLDivElement = wrap.current as HTMLDivElement
@@ -97,7 +98,7 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
         processImg(container)
       }
     },
-    [backgroundImage, props.dimensions.width, props.dimensions.height, inView, sizes]
+    [backgroundImage, dimensions.width, dimensions.height, inView, sizes]
   )
 
 
@@ -123,5 +124,4 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
   )
 }
 
-// export default withWindowDimensions(dimensions => ({ dimensions }))(WithBackgroundImage)
 export default WithBackgroundImage

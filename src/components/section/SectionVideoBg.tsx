@@ -2,24 +2,29 @@ import Components from 'components'
 import SbEditable from 'storyblok-react'
 import dynamic from 'next/dynamic'
 import { useInView } from 'react-intersection-observer'
-import { CSSProperties, useEffect, useState } from 'react'
-import withWindowDimensions from './provider/WithWindowDimensions'
+import { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 
 const FullscreenVideoBg = dynamic(
-  () => import('./partials/FullscreenVideoBg'),
+  () => import('./FullscreenVideoBg'),
   { ssr: false }
 )
 
-const SectionVideoBg = ({ content, dimensions }) => {
-  const hasSrc = !!content.url
-  const body = content.body || []
-  const hasBody = !!body.length
-  let fixedToRatio = !content.height // enable fixed ratio if height is not set (!hasBody)
-  const [containerDimensions, setContainerDimensions] = useState({})
+const SectionVideoBg: FunctionComponent<{ content: SectionVideoBgStoryblok }> = ({ content }) => {
+  const dimensions = useWindowDimensions()
   const [intersectionRef, inView, intersectionElement] = useInView({
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
   })
+  const [containerDimensions, setContainerDimensions] = useState({
+    width: 0,
+    height: 0
+  })
+  const hasSrc = !!content.url
+  const body = content.body || []
+  const hasBody = !!body.length
+  let fixedToRatio = !content.height // enable fixed ratio if height is not set (!hasBody)
 
   let ratioHeight = 9
   let ratioWidth = 16
@@ -46,7 +51,7 @@ const SectionVideoBg = ({ content, dimensions }) => {
         }
       }
     },
-    [inView, dimensions.width, dimensions.height, content.url]
+    [inView, dimensions.width, dimensions.height, content.url, fixedToRatio]
   )
 
 
@@ -68,4 +73,4 @@ const SectionVideoBg = ({ content, dimensions }) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({ dimensions }))(SectionVideoBg)
+export default SectionVideoBg

@@ -9,11 +9,11 @@ import Fonts from 'fonts'
 import { useRouter } from 'next/dist/client/router'
 import Error from '../../pages/_error'
 import { NextPage } from 'next'
-import { Global, Page } from '../../typings/generated/components-schema'
+import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 
 export type AppInitialProps = {
-  settings: Global
-  page: Page,
+  settings: GlobalStoryblok
+  page: PageStoryblok,
   overwriteDisableRobots: boolean
   url: string
   error?: any

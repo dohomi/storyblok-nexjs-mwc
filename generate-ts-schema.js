@@ -102,6 +102,8 @@ function parseType (type) {
       return 'boolean'
     case 'textarea':
       return 'string'
+    case 'markdown':
+      return 'string'
     default:
       return null
   }

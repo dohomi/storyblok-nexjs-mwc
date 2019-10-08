@@ -5,7 +5,7 @@ import Form from './Form'
 import cookie from 'js-cookie'
 import { Checkbox } from '@rmwc/checkbox'
 import FormCheckbox from './FormCheckbox'
-import Paragraph from '../Paragraph'
+import Paragraph from '../paragraph/Paragraph'
 import { FunctionComponent } from 'react'
 import { HubspotFormStoryblok } from '../../typings/generated/components-schema'
 

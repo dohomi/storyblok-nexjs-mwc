@@ -1,17 +1,13 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
-import SectionWithBackground from './partials/SectionWithBackground'
+import backgroundPropertyHelper from '../../utils/backgroundPropertyHelper'
+import SectionWithBackground from './SectionWithBackground'
 import * as React from 'react'
+import { FunctionComponent } from 'react'
+import { ColumnStoryblok } from '../../typings/generated/components-schema'
 
-const Column = (props) => {
-  // const width = props.content && props.content.width || {}
-  const content = props.content
-  /**
-   *
-   * @type {BackgroundProperty}
-   */
+const Column: FunctionComponent<ColumnStoryblok> = ({ content }) => {
   const containerProps = backgroundPropertyHelper(content.background)
   let styles = {}
   if (containerProps.styles) {
@@ -42,14 +38,13 @@ const Column = (props) => {
   )
   if (containerProps.image) {
     return (
-      <SbEditable content={props.content}>
+      <SbEditable content={content}>
         <>
-          //@ts-ignore
           <SectionWithBackground style={styles}
                                  isColumn={true}
                                  className={colClasses}
                                  containerProps={containerProps}>
-            {props.content.body.map((blok) => Components(blok))}
+            {content.body.map((blok) => Components(blok))}
           </SectionWithBackground>
         </>
       </SbEditable>
@@ -57,10 +52,10 @@ const Column = (props) => {
   }
 
   return (
-    <SbEditable content={props.content}>
+    <SbEditable content={content}>
       <div className={colClasses}
            style={styles}>
-        {props.content.body.map((blok) => Components(blok))}
+        {content.body.map((blok) => Components(blok))}
       </div>
     </SbEditable>
   )

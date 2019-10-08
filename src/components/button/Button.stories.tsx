@@ -38,3 +38,14 @@ storiesOf('Button', module)
       </>
     )
   )
+  .add(
+    'Primary Button',
+    () => (
+      <>
+        <Button content={{ ...defaultProps, color: 'primary' }} />
+        <Button content={{ ...variant1, color: 'primary' }} />
+        <Button content={{ ...variant2, color: 'primary' }} />
+        <Button content={{ ...variant3, color: 'primary' }} />
+      </>
+    )
+  )

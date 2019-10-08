@@ -1,15 +1,18 @@
 import SbEditable from 'storyblok-react'
-import Markdown from './partials/Markdown'
 import clsx from 'clsx'
+import Markdown from './Markdown'
+import { FunctionComponent } from 'react'
+import { ParagraphStoryblok } from '../../typings/generated/components-schema'
 
-const Paragraph = ({content}) => {
+const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content }) => {
   const typography = content.typography || 'body1'
   const styleClasses = clsx('mdc-typography lm-markup', {
     [`mdc-typography--${typography}`]: true
   }, content.style, content.class_names && content.class_names.values)
   const props = {
     content: content.text,
-    className: styleClasses
+    className: styleClasses,
+    style: undefined
   }
   if (content.font) {
     props.style = {
@@ -19,7 +22,7 @@ const Paragraph = ({content}) => {
 
   return (
     <SbEditable content={content}>
-      <Markdown {...props}/>
+      <Markdown {...props} />
     </SbEditable>
   )
 }

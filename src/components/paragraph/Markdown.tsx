@@ -1,17 +1,18 @@
 import marked from 'marked'
+import { CSSProperties, FunctionComponent } from 'react'
 
-const Markdown = (props = {}) => {
+const Markdown: FunctionComponent<{
+  content: string
+  style: CSSProperties,
+  className: string
+}> = (props) => {
   const componentProps = {
-    className: props.className
+    ...props
   }
-  if (props.style) {
-    componentProps.style = props.style
-  }
-
   const rawMarkupFunc = () => {
     const renderer = new marked.Renderer()
     //
-    renderer.link = function (href, title, text) {
+    renderer.link = function(href, title, text) {
       if (href.includes('@')) {
         href = `mailto:${href}`
       } else if (href.includes('+')) {
@@ -37,14 +38,10 @@ const Markdown = (props = {}) => {
       //sanitize: true,
       renderer
     })
-    return {__html: rawMarkup}
+    return { __html: rawMarkup }
   }
 
-  return (
-    <div {...componentProps}
-         dangerouslySetInnerHTML={rawMarkupFunc()}></div>
-  )
-
+  return <div {...componentProps} dangerouslySetInnerHTML={rawMarkupFunc()}></div>
 }
 
 export default Markdown

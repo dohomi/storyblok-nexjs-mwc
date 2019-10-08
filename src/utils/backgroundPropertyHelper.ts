@@ -1,5 +1,5 @@
 import imageService from './ImageService'
-import { Background } from '../typings/generated/components-schema'
+import { BackgroundStoryblok } from '../typings/generated/components-schema'
 
 type BackgroundStyles = {
   border: string
@@ -33,7 +33,7 @@ function backgroundPropertyHelper(properties) {
   if (!Array.isArray(properties)) {
     return {}
   }
-  const values: Background = properties[0] || {} as Background
+  const values: BackgroundStoryblok = properties[0] || {} as BackgroundStoryblok
   if (Object.keys(values).length === 0) {
     return {}
   }

@@ -37,7 +37,17 @@ export function getOriginalImageDimensions(src) {
   }
 }
 
-export function getImageAttrs({ originalSource, width, height, filter = '', fitInColor = '', smart, focalPoint }) {
+type GetImageAttrs = {
+  originalSource: string
+  width: number
+  height?: number
+  filter?: string
+  fitInColor?: string
+  smart?: boolean
+  focalPoint?: string
+}
+
+export function getImageAttrs({ originalSource, width, height, filter, fitInColor, smart, focalPoint }: GetImageAttrs) {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   if (originalDimensions.width < width) {
     width = originalDimensions.width

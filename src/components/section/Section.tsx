@@ -1,14 +1,15 @@
 import Components from 'components'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import React from 'react'
-import {ThemeProvider} from '@rmwc/theme'
-import {section} from '../utils/themeContentSection'
-import SectionWithBackground from './partials/SectionWithBackground'
-import backgroundPropertyHelper from '../utils/backgroundPropertyHelper'
+import React, { FunctionComponent } from 'react'
+import { ThemeProvider } from '@rmwc/theme'
+import { section } from '../../utils/themeContentSection'
+import SectionWithBackground from './SectionWithBackground'
+import backgroundPropertyHelper from '../../utils/backgroundPropertyHelper'
+import { SectionStoryblok } from '../../typings/generated/components-schema'
 
-const Section = ({content}) => {
-  const isFullHeight = content.property.includes('is_full_height')
+const Section: FunctionComponent<{ content: SectionStoryblok }> = ({ content }) => {
+  const isFullHeight = !!(content.property && content.property.includes('is_full_height'))
   const containerProps = backgroundPropertyHelper(content.background)
   const backgroundImage = containerProps.image
   let theme = {}
