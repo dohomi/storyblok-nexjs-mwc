@@ -9,18 +9,11 @@ import Fonts from 'fonts'
 import { useRouter } from 'next/dist/client/router'
 import Error from '../../pages/_error'
 import { NextPage } from 'next'
-import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
+import { GlobalStateProvider } from '../../utils/state/state'
+import mapStateProps, { AppPageProps } from '../../utils/parsePageProperties'
 
-export type AppInitialProps = {
-  settings: GlobalStoryblok
-  page: PageStoryblok,
-  overwriteDisableRobots: boolean
-  url: string
-  error?: any
-}
-type AppPageProps = AppInitialProps
 
-const Index: NextPage<AppInitialProps> = (props) => {
+const Index: NextPage<AppPageProps> = (props) => {
   const settings = props.settings
   const { asPath } = useRouter()
   let [content, setContent] = useState(mapStateProps(props))
@@ -53,9 +46,11 @@ const Index: NextPage<AppInitialProps> = (props) => {
     <>
       <Head settings={settings} pageSeo={content.pageSeo} />
       <WindowDimensionsProvider>
-        <Layout settings={settings} hasFeature={content.hasFeature} asPath={asPath}>
-          {Components(content.pageContent)}
-        </Layout>
+        <GlobalStateProvider>
+          <Layout settings={settings} hasFeature={content.hasFeature} asPath={asPath}>
+            {Components(content.pageContent)}
+          </Layout>
+        </GlobalStateProvider>
       </WindowDimensionsProvider>
       <script>/* fix FF initial render */</script>
     </>
@@ -64,23 +59,4 @@ const Index: NextPage<AppInitialProps> = (props) => {
 
 export default Index
 
-function mapStateProps(pageProps: AppPageProps) {
-  const pageContent = pageProps.page
-  const pageSeo = {
-    title: pageContent.meta_title,
-    description: pageContent.meta_description,
-    disableRobots: pageContent.meta_robots,
-    body: pageContent.seo_body || [],
-    url: pageProps.url
-  }
-  if (pageProps.overwriteDisableRobots) {
-    pageSeo.disableRobots = true
-  }
-  const properties = pageContent.property || []
-  const hasFeature = properties.includes('has_feature')
-  return {
-    pageContent,
-    hasFeature,
-    pageSeo
-  }
-}
+

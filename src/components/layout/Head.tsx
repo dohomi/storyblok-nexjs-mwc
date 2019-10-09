@@ -1,18 +1,19 @@
 import NextHead from 'next/head'
-import PropTypes from 'prop-types'
 import NProgress from 'nprogress'
 import Router from 'next/router'
 import StoryblokService from '../../utils/StoryblokService'
-import {NextSeo} from 'next-seo'
-import imageService, {imageServiceNoWebp, getOriginalImageDimensions} from '../../utils/ImageService'
+import { NextSeo } from 'next-seo'
+import imageService, { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
+import { FunctionComponent } from 'react'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
-Router.onRouteChangeStart = () => NProgress.start()
-Router.onRouteChangeComplete = () => NProgress.done()
-Router.onRouteChangeError = () => NProgress.done()
+Router.events.on('onRouteChangeStart', () => NProgress.start())
+Router.events.on('onRouteChangeComplete', () => NProgress.done())
+Router.events.on('onRouteChangeError', () => NProgress.done())
 
 const iconSizes = [16, 32, 96, 192]
 
-function mapOpenGraphImage (item) {
+function mapOpenGraphImage(item) {
   if (!item.url) return
   let dimensions = getOriginalImageDimensions(item.url)
   const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
@@ -28,7 +29,7 @@ function mapOpenGraphImage (item) {
   }
 }
 
-function parseOpenGraph (settingsOpenGraph = {}, pageOpenGraph = {}, seoMeta = {}, url = '') {
+function parseOpenGraph(settingsOpenGraph = {}, pageOpenGraph = {}, seoMeta = {}, url = '') {
   // set some defaults of seoMeta
   const openGraph = {
     title: pageOpenGraph.title || seoMeta.title || settingsOpenGraph.title,
@@ -56,7 +57,7 @@ function parseOpenGraph (settingsOpenGraph = {}, pageOpenGraph = {}, seoMeta = {
   return openGraph
 }
 
-function parseTwitter (values) {
+function parseTwitter(values) {
   const twitter = values
   if (twitter.card_type) {
     twitter.cardType = twitter.card_type
@@ -64,14 +65,8 @@ function parseTwitter (values) {
   return twitter
 }
 
-/**
- *
- * @param settings
- * @param pageSeo
- * @return {*}
- * @constructor
- */
-const Head = ({settings = {}, pageSeo = {}}) => {
+
+const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo }> = ({ settings, pageSeo }) => {
   const favicon = settings.setup_favicon
   const seoBody = settings.seo_body || []
   const seo = {
@@ -86,7 +81,7 @@ const Head = ({settings = {}, pageSeo = {}}) => {
   if (settingsOpenGraphs) {
     seo.openGraph = parseOpenGraph(settingsOpenGraphs, pageOpenGraphs, seo, pageSeo.url)
     const facebookAppId = settingsOpenGraphs.app_id || pageOpenGraphs && pageOpenGraphs.app_id
-    facebookAppId && (seo.facebook = {appId: facebookAppId})
+    facebookAppId && (seo.facebook = { appId: facebookAppId })
   }
   // twitter
   const settingsTwitter = seoBody.find(i => i.component === 'seo_twitter')
@@ -95,23 +90,18 @@ const Head = ({settings = {}, pageSeo = {}}) => {
   }
   return (
     <>
-      <NextSeo {...seo}/>
+      <NextSeo {...seo} />
       <NextHead>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-              key="viewport"/>
+              key="viewport" />
         {favicon && iconSizes.map(size => (
           <link rel="icon" sizes={`${size}/${size}`} href={imageService(favicon, `${size}x${size}`)}
-                key={`fav_${size}`}/>
+                key={`fav_${size}`} />
         ))}
         {StoryblokService.bridge()}
       </NextHead>
     </>
   )
-}
-
-Head.propTypes = {
-  settings: PropTypes.object,
-  pageSeo: PropTypes.object
 }
 
 export default Head

@@ -35,7 +35,7 @@ const debounce = function(ms: number, fn: Function) {
   }
 }
 
-const WindowDimensionsProvider = ({ children }: { children: Element[] }) => {
+const WindowDimensionsProvider = ({ children }: { children: any }) => {
   if (typeof window === 'undefined') {
     return (
       <WindowDimensionsCtx.Provider value={defaultValue}>

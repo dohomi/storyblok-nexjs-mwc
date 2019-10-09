@@ -8,7 +8,6 @@ import Image from './image/ImageElement'
 import ImageList from './image-list/ImageList'
 import Button from './button/Button'
 import NavList from './nav-list/NavContainer'
-import RowNav from './RowNav'
 import Menu from './menu/Menu'
 import Icon from './icon/Icon'
 import SectionVideoBg from './section/SectionVideoBg'
@@ -42,9 +41,7 @@ const Components = {
   'headline': Headline,
   'paragraph': Paragraph,
   'row': MatRow,
-  'row_nav': RowNav,
   'column': Column,
-  'column_nav': Column, // different set of components
   'image': Image,
   'image_list': ImageList,
   'button': Button,
