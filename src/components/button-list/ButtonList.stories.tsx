@@ -18,13 +18,14 @@ const variant1: ButtonStoryblok = {
 
 const props: ButtonListStoryblok = {
   ...defaultProps,
+  component: 'button_list',
   body: [defaultProps, variant1]
 }
 
 const props2: ButtonListStoryblok = {
-  ...defaultProps,
+  ...props,
   body: [defaultProps, variant1],
-  property: 'margin_left'
+  property: ['align_right']
 }
 storiesOf('Button List', module)
   .add(

@@ -2444,6 +2444,11 @@
   resolved "https://registry.yarnpkg.com/@types/is-glob/-/is-glob-4.0.1.tgz#a93eec1714172c8eb3225a1cc5eb88c2477b7d00"
   integrity sha512-k3RS5HyBPu4h+5hTmIEfPB2rl5P3LnGdQEZrV2b9OWTJVtsUQ2VBcedqYKGqxvZqle5UALUXdSfVA8nf3HfyWQ==
 
+"@types/js-cookie@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-2.2.3.tgz#30525e93231074d4a092d9f5608c25d5c7a72085"
+  integrity sha512-gfrTQ6xQhPch+Jew+GVUXa7W2Wssh6EbxXDV8xkLD+Pe3VMIuWUh25yH1wOKiWyrYi2zPrS8e6UEgZt7dZXwyQ==
+
 "@types/json-schema@^7.0.3":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.3.tgz#bdfd69d61e464dcc81b25159c270d75a73c1a636"
@@ -2487,6 +2492,13 @@
   integrity sha512-Lna9cD38dN3deqJ6ThZgMKoAzW1LE3u+uUbPGdHUqquoM/fnZitSV1xfJxHjovu4SsNkpN9udkte3wEyrBPawQ==
   dependencies:
     "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react-swipeable-views@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@types/react-swipeable-views/-/react-swipeable-views-0.13.0.tgz#9e5f2efa51380886f3f73014ac8b15546d337210"
+  integrity sha512-orrreCcXev6IUXDuHf07RDDCAoIZRMSr95eyWmYNRfjic7w/O+68iPu0NCysVls+UygRNvoqZMuXI72N/58E1w==
+  dependencies:
     "@types/react" "*"
 
 "@types/react-syntax-highlighter@10.1.0":

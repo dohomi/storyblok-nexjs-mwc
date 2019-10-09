@@ -1,9 +1,14 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import { FunctionComponent } from 'react'
+import { CSSProperties, FunctionComponent } from 'react'
 import { DividerStoryblok } from '../../typings/generated/components-schema'
 
-const Wrap = ({ content, children, style, className, childStyle }) => (
+const Wrap: FunctionComponent<{
+  content: DividerStoryblok
+  style: CSSProperties
+  className: string
+  childStyle: CSSProperties
+}> = ({ content, children, style, className, childStyle }) => (
   <SbEditable content={content}>
     <div className={className} style={style}>
       <div style={childStyle}>{children}</div>
@@ -12,10 +17,7 @@ const Wrap = ({ content, children, style, className, childStyle }) => (
 )
 
 const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) => {
-  const style = {
-    color: undefined,
-    height: undefined
-  }
+  const style: CSSProperties = {}
   const iconName = content.icon && content.icon.name
   const iconSize = content.icon_size
   if (content.color && content.color.rgba) {
@@ -30,9 +32,8 @@ const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) 
       divider: !iconName,
       'h-separator-icon': iconName
     })
-  const childStyle = {
-    borderTopWidth: `${content.thickness || 1}px`,
-    width: undefined
+  const childStyle: CSSProperties = {
+    borderTopWidth: `${content.thickness || 1}px`
   }
   if (content.width) {
     childStyle.width = `${content.width}%`
@@ -42,9 +43,8 @@ const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) 
       'material-icons',
       'rmwc-icon'
     )
-    const iconStyle = {
-      marginTop: `${content.thickness || 1}px`,
-      fontSize: undefined
+    const iconStyle: CSSProperties = {
+      marginTop: `${content.thickness || 1}px`
     }
     if (iconSize) {
       iconStyle.fontSize = `${iconSize}px`

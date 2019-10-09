@@ -23,6 +23,7 @@ const Image: FunctionComponent<ImageListItemProps> = (props) => {
   }
   if (props.aspect_ratio && !props.masonry) {
     const splitAspectRatio: string[] = props.aspect_ratio.split('x')
+    // @ts-ignore
     aspectRatioStyles = { paddingBottom: `${splitAspectRatio[1] / splitAspectRatio[0] * 100}%` }
   }
   let src = '' // getSource(props.source, {width: 42, height: 42})
@@ -39,8 +40,8 @@ const Image: FunctionComponent<ImageListItemProps> = (props) => {
     srcSet = imgAttrs.srcSet
   }
 
-  function onLoad(ev) {
-    const target = ev.target
+  function onLoad(ev: any) {
+    const target = ev.target as HTMLImageElement
     target.classList.add('loaded')
     target.style.filter = 'blur(0)'
     target.style.backgroundColor = 'transparent'
@@ -59,7 +60,7 @@ const Image: FunctionComponent<ImageListItemProps> = (props) => {
              style={{ backgroundColor: 'grey' }}
              className="mdc-image-list__image progressive-img-blur-container"
              onLoad={onLoad}
-             />
+        />
       </div>
     )
   }

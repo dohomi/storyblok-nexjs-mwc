@@ -33,6 +33,7 @@ const email: FormTextfieldStoryblok = {
 const select: FormSelectStoryblok = {
   _uid: '234234',
   component: 'form_select',
+  name: 'select',
   label: 'Select',
   options: [{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: '2' }] as FormSelectOptionStoryblok[]
 }
@@ -59,14 +60,14 @@ const props: FormStoryblok = {
 const props2: FormStoryblok = {
   _uid: '3545234',
   component: 'form',
-  border: 'outlined',
+  border: ['outlined'],
   body: [field1, field2, email, select, check, button]
 }
 
 const props3: FormStoryblok = {
   _uid: '32424322',
   component: 'form',
-  border: 'shaped',
+  border: ['shaped'],
   body: [field1, field2, email, select, check, button]
 }
 

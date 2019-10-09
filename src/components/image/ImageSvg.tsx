@@ -12,9 +12,10 @@ const ImageSvg: FunctionComponent<{ content: ImageStoryblok }> = ({ content }) =
   })
   const src = inView ? content.source : ''
   const afterSvgLoaded = () => {
+    // @ts-ignore
     el.target.classList.add('loaded')
   }
-  const onErrorHandler = (error) => {
+  const onErrorHandler = (error: any) => {
     console.error(error)
   }
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color // legacy fit_in_color
@@ -27,7 +28,7 @@ const ImageSvg: FunctionComponent<{ content: ImageStoryblok }> = ({ content }) =
     <SbEditable content={content}>
       <div className="w-100 progressive-img-container"
            ref={refIntersectionObserver}>
-        <SVG src={src}
+        <SVG src={src as string}
              style={svgStyle}
              onLoad={afterSvgLoaded}
              onError={onErrorHandler}

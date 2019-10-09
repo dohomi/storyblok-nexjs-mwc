@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
-export default function useForm({ api }) {
+export default function useForm({ api }: { api: string }) {
   if (!api) {
     console.log('you must provide an API endpoint for the form component. Submit of form will fail.')
     return {}
   }
   const url = api
-  const [data, setData] = useState(false)
-  const [form, setForm] = useState(undefined)
+  const [data, setData] = useState<any>(false)
+  const [form, setForm] = useState<HTMLFormElement | undefined>(undefined)
   const [customData, setCustomData] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -20,29 +20,22 @@ export default function useForm({ api }) {
       ...customData,
       fields: []
     }
-    for (var pair of Array.from(formData.entries())) {
-
+    for (var pair of formData.entries()) {
       const name = pair[0]
       const value = pair[1]
       if (!name.includes('__consent')) {
+        // @ts-ignore
         data.fields.push({ name, value })
       }
     }
     console.info(url, data)
     try {
-
       const res = await onFormSubmissionFetch(url, data)
-      // if (res.status === 200) {
       setData(res)
-      setForm(false)
-      // } else {
-      //   console.error(res)
-      //   setForm(false)
-      //   setIsError(true)
-      // }
+      setForm(undefined)
     } catch (e) {
       console.error(e)
-      setForm(false)
+      setForm(undefined)
       setIsError(true)
     }
     setIsLoading(false)
@@ -57,7 +50,7 @@ export default function useForm({ api }) {
     [form]
   )
 
-  const handleSubmit = (e, customData) => {
+  const handleSubmit = (e: any, customData: any) => {
     e.preventDefault()
     setForm(e.target)
     setCustomData(customData)
@@ -66,7 +59,7 @@ export default function useForm({ api }) {
   return { data, isLoading, isError, handleSubmit }
 }
 
-function onFormSubmissionFetch(url, data) {
+function onFormSubmissionFetch(url: string, data: any) {
   console.log('sending data:', data)
   return fetch(url, {
     method: 'POST',

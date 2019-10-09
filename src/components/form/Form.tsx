@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import useForm from './useForm'
-import { createElement, Fragment, FunctionComponent } from 'react'
+import { createElement, FormEvent, Fragment, FunctionComponent } from 'react'
 import Paragraph from '../paragraph/Paragraph'
 import Components from 'components/index'
 import clsx from 'clsx'
@@ -8,11 +8,27 @@ import FormSelect from './FormSelect'
 import FormCheckbox from './FormCheckbox'
 import FormTextfield from './FormTextfield'
 import FormSubmitButton from './FormSubmitButton'
-import { FormStoryblok } from '../../typings/generated/components-schema'
+import {
+  ButtonStoryblok,
+  FormCheckboxStoryblok,
+  FormSelectStoryblok,
+  FormStoryblok,
+  FormTextfieldStoryblok,
+  ParagraphStoryblok
+} from '../../typings/generated/components-schema'
 
-const ParagraphElement = (content) => Paragraph({ content })
+const ParagraphElement: FunctionComponent<ParagraphStoryblok> = (content) => Paragraph({ content })
 
-const FormComponents = {
+type FormComponents = {
+  form_textfield: FunctionComponent<FormTextfieldStoryblok>
+  button: FunctionComponent<ButtonStoryblok>
+  form_checkbox: FunctionComponent<FormCheckboxStoryblok>
+  form_select: FunctionComponent<FormSelectStoryblok>
+  paragraph: FunctionComponent<ParagraphStoryblok>
+  [k: string]: any
+}
+
+const FormComponents: FormComponents = {
   'form_textfield': FormTextfield,
   'button': FormSubmitButton,
   'form_checkbox': FormCheckbox,
@@ -20,7 +36,7 @@ const FormComponents = {
   'paragraph': ParagraphElement
 }
 
-const FormItem = (blok) => {
+const FormItem = (blok: any) => {
   if (typeof FormComponents[blok.component] !== 'undefined') {
     return createElement(FormComponents[blok.component], blok)
   }
@@ -47,17 +63,19 @@ const Form: FunctionComponent<{ content: FormStoryblok, customData?: any }> = ({
     ['lm-form__square']: border.includes('square')
   })
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     // debugger
     if (isLoading) return
-    const form = e.target
+    const form = e.target as HTMLFormElement
+
     const elements = [...form.elements]
     let isHoneyed = false
-    elements.forEach(element => {
-      element.focus()
+    elements.forEach((element) => {
+      const el = element as HTMLFormElement
+      el.focus()
       if (element.id === 'field_name_first') {
-        isHoneyed = element.value.length > 0
+        isHoneyed = el.value.length > 0
       }
       // element.blur()
       // element.checkValidity()
@@ -66,7 +84,7 @@ const Form: FunctionComponent<{ content: FormStoryblok, customData?: any }> = ({
     if (!valid || isHoneyed) {
       return
     }
-    handleSubmit(e, customData)
+    handleSubmit && handleSubmit(e, customData)
   }
 
   if (!!data) {
@@ -91,7 +109,7 @@ const Form: FunctionComponent<{ content: FormStoryblok, customData?: any }> = ({
         {body.map((item, i) => {
           return (
             <Fragment key={item._uid}>
-              {i === body.length - 1 && children && children.map((f, q) => (
+              {i === body.length - 1 && Array.isArray(children) && children.map((f, q) => (
                 <div className="mb-2" key={'kids__' + q + 1}>
                   {f}
                 </div>

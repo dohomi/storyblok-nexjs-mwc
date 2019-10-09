@@ -62,15 +62,14 @@ export function getImageAttrs({ originalSource, width, height, filter, fitInColo
   if (focalPoint) {
     filter += getFocalPoint(originalSource, focalPoint)
   }
+  const src = imageService(originalSource, path, filter)
   const imgObj = {
-    src: imageService(originalSource, path, filter),
-    srcSet: undefined
+    src: src,
+    srcSet: src
   }
   // enable retina sourceset
   if (width <= originalDimensions.width / 2 && height <= originalDimensions.height / 2) {
     imgObj.srcSet = `${imgObj.src} 1x, ${imageService(originalSource, getPath(width * 2, height * 2), filter)} 2x`
-  } else {
-    imgObj.srcSet = imgObj.src
   }
 
   function getPath(width, height) {

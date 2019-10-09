@@ -1,12 +1,12 @@
 import { formHandling } from './formHandling'
 import { Checkbox } from '@rmwc/checkbox'
-import { TextFieldHelperText } from '@rmwc/textfield'
+import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { FormCheckboxStoryblok } from '../../typings/generated/components-schema'
+import { TextFieldHelperText } from '@rmwc/textfield'
 
 const FormCheckbox: FunctionComponent<FormCheckboxStoryblok> = (content) => {
-  // todo: currently no validation msg for checkboxes
-  let inputRef
+  let inputRef: HTMLInputElement
   const { msg, onInputChange } = formHandling({
     helpText: content.help_text,
     helpTextPersistent: content.help_text_persistent,
@@ -14,28 +14,32 @@ const FormCheckbox: FunctionComponent<FormCheckboxStoryblok> = (content) => {
     errorMsgEmail: content.errorMsgEmail
   })
 
-  const fieldProps = {
-    id: content._uid,
-    name: content.name,
-    label: content.label,
-    required: !!content.required,
-    inputRef: el => inputRef = el,
-    onBlur: () => onInputChange(inputRef),
-    onChange: undefined
-  }
-  if (content.onChange) {
-    fieldProps.onChange = (ev) => content.onChange(ev.target.value)
-  }
+  // not yet implemented
+  // if (content.onChange) {
+  //   fieldProps.onChange = (ev) => content.onChange(ev.target.value)
+  // }
   let className = ''
   if (msg.validationMsg) {
     className = 'lm-checkbox-failed'
   } else {
     className = ''
   }
+
   return (
     <>
-      <Checkbox {...fieldProps} className={className} />
-      {msg.children && <TextFieldHelperText {...msg} />}
+      <Checkbox
+        id={content._uid}
+        label={content.label}
+        name={content.name}
+        required={!!content.required}
+        inputRef={(el: any) => inputRef = el}
+        className={className}
+        onBlur={() => onInputChange(inputRef)}
+      />
+      {msg.children && <TextFieldHelperText
+        validationMsg={msg.validationMsg}
+        persistent={msg.persistent}
+      >{msg.children}</TextFieldHelperText>}
     </>
   )
 }

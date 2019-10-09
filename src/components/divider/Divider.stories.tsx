@@ -15,7 +15,7 @@ const props2: DividerStoryblok = {
   icon: {
     name: 'home'
   },
-  icon_size: 'xxx-large',
+  icon_size: ['xxx-large'],
   width: 50
 }
 

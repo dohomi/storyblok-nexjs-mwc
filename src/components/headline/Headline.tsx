@@ -8,12 +8,7 @@ import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }) => {
   componentLogger(content)
 
-  const props = {
-    className: clsx(content.style, content.style_props, content.class_names && content.class_names.values),
-    tag: content.tag || 'h3',
-    use: content.typography || 'headline4',
-    style: undefined
-  }
+  const props = { style: {} }
   if (content.font) {
     props.style = {
       '--mdc-theme-font-default': `var(--mdc-theme-font-${content.font})`
@@ -21,7 +16,12 @@ const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }
   }
   return (
     <SbEditable content={content}>
-      <Typography {...props}>
+      <Typography
+        className={clsx(content.style, content.style_props, content.class_names && content.class_names.values)}
+        tag={content.tag || 'h3'}
+        use={content.typography || 'headline4'}
+        {...props}
+      >
         {!!content.text_xs && (
           <>
             <span className="d-none d-sm-block">{content.text}</span>

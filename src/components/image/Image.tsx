@@ -9,7 +9,7 @@ import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 const Image: FunctionComponent<{
   content: ImageStoryblok
-}> = ({ content}) => {
+}> = ({ content }) => {
   const dimensions = useWindowDimensions()
   const fallback = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
   const imageCrop = content.image_crop || []
@@ -32,11 +32,11 @@ const Image: FunctionComponent<{
   }
 
   if (inView && content.source) {
-    const parentElement = intersectionElement.target.parentElement
-    let parentElementDimensions = parentElement.getBoundingClientRect()
+    const parentElement = intersectionElement && intersectionElement.target.parentElement
+    let parentElementDimensions = (parentElement && parentElement.getBoundingClientRect()) || { width: 0 }
     const square = property.includes('rounded-circle') || property.includes('square')
-    let definedWidth: string | number = content.width
-    let definedHeight: string | number = content.height_xs && dimensions.width <= 600 ? content.height_xs : content.height
+    let definedWidth = content.width
+    let definedHeight = content.height_xs && dimensions.width <= 600 ? content.height_xs : content.height
     const width = Math.ceil(parentElementDimensions.width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
@@ -44,12 +44,15 @@ const Image: FunctionComponent<{
     }
     if (square) {
       // overwrite if square
-      const iconSize = definedHeight || definedWidth || '64'
+      const iconSize = definedHeight || definedWidth || 64
       definedWidth = iconSize
       definedHeight = iconSize
     }
     if (content.height_fill) {
-      const grandParentDim = parentElement.parentElement.getBoundingClientRect()
+      const grandParentDim = (parentElement && parentElement.parentElement && parentElement.parentElement.getBoundingClientRect()) || {
+        width: 0,
+        height: 0
+      }
       // with a tolerance of 200 height should fit grandparents height
       if (grandParentDim.width > parentElementDimensions.width + 200) {
         definedHeight = Math.ceil(grandParentDim.height)
@@ -57,7 +60,7 @@ const Image: FunctionComponent<{
     }
     const imgAttrs = getImageAttrs({
       originalSource: content.source,
-      width: definedWidth,
+      width: Number(definedWidth),
       height: definedHeight,
       fitInColor,
       focalPoint: content.focal_point,
@@ -76,7 +79,8 @@ const Image: FunctionComponent<{
   }
 
   function onImageLoaded() {
-    intersectionElement && intersectionElement.target.firstElementChild.classList.add('loaded')
+    // @ts-ignore
+    intersectionElement.target.firstElementChild.classList.add('loaded')
   }
 
 

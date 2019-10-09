@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import { ComponentType, FunctionComponent } from 'react'
+import { ChangeEvent, ComponentType, FunctionComponent } from 'react'
 import cookie from 'js-cookie'
 import dynamic from 'next/dynamic'
 import { Checkbox } from '@rmwc/checkbox'
@@ -34,6 +34,7 @@ const HubspotFormCustom: FunctionComponent<{ content: HubspotFormStoryblok }> = 
 
   const subscriptionTypeId = Number(content.newsletter_subscription)
   if (content.consent_process || content.consent_communication) {
+    // @ts-ignore
     data.legalConsentOptions.consent = {
       consentToProcess: true,
       text: content.consent_process,
@@ -46,8 +47,9 @@ const HubspotFormCustom: FunctionComponent<{ content: HubspotFormStoryblok }> = 
         // String; The text displayed to the visitor for this specific subscription checkbox
       }]
     }
-    const onCommunicationChange = (ev) => {
+    const onCommunicationChange = (ev:ChangeEvent<HTMLInputElement>) => {
       const isChecked = ev.target.checked
+      // @ts-ignore
       data.legalConsentOptions.consent.communications[0].value = !!isChecked
     }
     content.consent_process && children.push(<FormCheckbox label={content.consent_process}
@@ -62,6 +64,7 @@ const HubspotFormCustom: FunctionComponent<{ content: HubspotFormStoryblok }> = 
                                                              onChange={onCommunicationChange} />)
   } else if (content.legitimate_interest && content.legitimate_interest.length) {
     const legitimateProps = content.legitimate_interest[0]
+    // @ts-ignore
     data.legalConsentOptions.legitimateInterest = {
       value: true,
       subscriptionTypeId: subscriptionTypeId,

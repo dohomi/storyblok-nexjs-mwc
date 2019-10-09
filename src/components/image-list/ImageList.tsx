@@ -22,10 +22,14 @@ const ImageList: FunctionComponent<{
 
   useEffect(() => {
     const element = containerRef.current
+    if (!element) return
     let firstChild = element.firstChild
     if (!firstChild) return
+    // @ts-ignore
     if (!firstChild.firstElementChild) return
+    // @ts-ignore
     let imageContainer = firstChild.firstElementChild.firstElementChild.tagName === 'IMG' ?
+      // @ts-ignore
       firstChild.firstElementChild : firstChild.firstElementChild.firstElementChild
 
     setChildDimensions({
@@ -54,7 +58,7 @@ const ImageList: FunctionComponent<{
   const listItemStyles: CSSProperties = {}
   content.enable_lightbox && (listItemStyles.cursor = 'pointer')
 
-  function onImageClick(element) {
+  function onImageClick(element: any) {
     // open lightbox
     content.enable_lightbox && setLightbox(element._uid)
   }
@@ -70,21 +74,22 @@ const ImageList: FunctionComponent<{
     fit_in_color: content.fit_in_color
   }
 
+  const body = content.body || []
   return (
     <SbEditable content={content}>
       <div ref={containerRef}>
         <ul className={imageContainerClasses}
             ref={refIntersectionObserver}>
-          {content.body.map((item, i) => (
+          {body.map((item, i) => (
             <ImageListItem {...item}
                            {...imageListItemProps}
                            key={item._uid}
-                           onImageClick={(ev) => onImageClick({ _uid: item._uid, count: i, ...ev })} />
+                           onImageClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })} />
           ))}
         </ul>
       </div>
       {lightbox && ImageListLightbox({
-        elements: content.body,
+        elements: body,
         lightbox,
         setLightbox,
         dimensions,

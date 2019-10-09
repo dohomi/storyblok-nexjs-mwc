@@ -2,9 +2,10 @@ import { formHandling } from './formHandling'
 import { TextField } from '@rmwc/textfield'
 import { FunctionComponent } from 'react'
 import { FormTextfieldStoryblok } from '../../typings/generated/components-schema'
+import * as React from 'react'
 
 const FormTextfield: FunctionComponent<FormTextfieldStoryblok> = (content) => {
-  let inputRef
+  let inputRef: HTMLInputElement
   const { msg, onInputChange } = formHandling({
     helpText: content.help_text,
     helpTextPersistent: content.help_text_persistent,
@@ -20,7 +21,7 @@ const FormTextfield: FunctionComponent<FormTextfieldStoryblok> = (content) => {
     required: !!content.required,
     outlined: content.border.includes('outlined'),
     textarea: content.textarea,
-    inputRef: el => inputRef = el,
+    inputRef: (el: any) => inputRef = el,
     helpText: msg,
     onBlur: () => onInputChange(inputRef)
   }

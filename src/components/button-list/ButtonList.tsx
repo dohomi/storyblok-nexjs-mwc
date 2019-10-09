@@ -9,7 +9,7 @@ const ButtonList: FunctionComponent<{ content: ButtonListStoryblok }> = ({ conte
   const body = content.body || []
   const properties = content.property || []
   const classNames = clsx('d-flex', content.class_names && content.class_names.values, {
-    'lm-button-list__margin-left': !!properties.includes('margin_left')
+    'lm-button-list__margin-left': properties.includes('margin_left')
   })
 
   return (

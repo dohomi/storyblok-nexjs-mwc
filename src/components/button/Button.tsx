@@ -1,13 +1,19 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import { Link } from 'routes'
-import { Button } from '@rmwc/button'
-import { IconButton } from '@rmwc/icon-button'
-import { Fab } from '@rmwc/fab'
+import { Button, ButtonProps } from '@rmwc/button'
+import { IconButton, IconButtonProps } from '@rmwc/icon-button'
+import { Fab, FabProps } from '@rmwc/fab'
 import React, { FunctionComponent } from 'react'
 import { componentLogger } from '../../utils/componentLogger'
 import { linkHandler } from '../../utils/linkHandler'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
+
+interface MuiButtonProps extends ButtonProps, IconButtonProps, FabProps {
+  className?: string
+
+  [k: string]: any
+}
 
 export const mapButtonProps = (content: ButtonStoryblok) => {
   // const property = content.styles
@@ -35,16 +41,10 @@ export const mapButtonProps = (content: ButtonStoryblok) => {
   }
 
   const variant = content.variant
-  const buttonProps = {
+  const buttonProps: MuiButtonProps = {
     label: content.label,
     ripple: !properties.includes('disable-ripple'),
-    tag: undefined,
-    className: undefined,
-    style: undefined,
-    theme: undefined,
-    dense: undefined,
-    trailingIcon: undefined,
-    icon: undefined
+    trailingIcon: undefined
   }
   variant && (buttonProps[variant] = true) // variants only available on buttons with label
   theme && (buttonProps.theme = theme)
@@ -64,7 +64,7 @@ export const mapButtonProps = (content: ButtonStoryblok) => {
 }
 
 
-const ButtonMwc = (props) => {
+const ButtonMwc: FunctionComponent<MuiButtonProps> = (props) => {
   const mappedProps = {
     ...props
   }

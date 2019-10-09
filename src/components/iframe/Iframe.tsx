@@ -11,38 +11,31 @@ const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) =>
   const iframeRef: RefObject<HTMLIFrameElement> = React.createRef()
   const properties = content.property || []
   const allowed = content.allow || []
-  const iframeProps = {
-    frameBorder: '0',
-    src: '',
-    // target: '_parent',
-    allowFullScreen: properties.includes('allow_fullscreen') || false,
-    height: content.height || '100%',
-    name: content.name || '',
-    width: content.width || '100%',
-    // onLoad: content.onLoad || noop,
-    // onMouseOver: content.onMouseOver || noop,
-    // onMouseOut: this.props.onMouseOut || noop
-    allow: undefined
-  }
-
-  if (allowed.length) {
-    iframeProps.allow = allowed.join(' ')
-  }
 
   useEffect(
     () => {
       if (inView) {
-        iframeRef.current.src = content.url
+        const current = iframeRef.current
+        current && (current.src = content.url as string)
       }
     },
     [inView, content.url]
   )
 
+  let allow = ''
+  if (Array.isArray(allowed) && allowed.length) {
+    allow = allowed.join(' ')
+  }
   return (
     <SbEditable content={content}>
       <div ref={refIntersectionObserver}>
-        <iframe {...iframeProps}
+        <iframe allow={allow}
                 aria-hidden={true}
+                frameBorder={0}
+                allowFullScreen={properties.includes('allow_fullscreen') || false}
+                height={content.height || '100%'}
+                name={content.name || ''}
+                width={content.width || '100%'}
                 ref={iframeRef}
                 style={{
                   position: content.position || 'relative',

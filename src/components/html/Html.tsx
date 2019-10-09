@@ -3,13 +3,9 @@ import { FunctionComponent } from 'react'
 import { HtmlStoryblok } from '../../typings/generated/components-schema'
 
 const Html: FunctionComponent<{ content: HtmlStoryblok }> = ({ content }) => {
-  const innerHtml = {
-    __html: content.body
-  }
-
   return (
     <SbEditable content={content}>
-      <div dangerouslySetInnerHTML={innerHtml}></div>
+      <div dangerouslySetInnerHTML={{ __html: content.body as string }} />
     </SbEditable>
   )
 }

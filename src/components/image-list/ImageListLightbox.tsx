@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogTitle } from '@rmwc/dialog'
 import { IconButton } from '@rmwc/icon-button'
 import SwipeableViews from 'react-swipeable-views'
 import { getImageAttrs, getOriginalImageDimensions } from '../../utils/ImageService'
-import { WithWindowDimensionsProps } from '../provider/WithWindowDimensions'
+import { WithWindowDimensionsProps } from '../provider/WindowDimensionsProvider'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 
 type ImageListLightboxProps = {
@@ -17,7 +17,7 @@ type ImageListLightboxProps = {
 const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
   let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)
 
-  function getImageSource(source) {
+  function getImageSource(source: string) {
     let dimensionHeight = props.dimensions.height - 68 - 16
     let dimensionWidth = props.dimensions.width - 48
     const originalDimension = getOriginalImageDimensions(source)
@@ -33,7 +33,7 @@ const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
     })
   }
 
-  function handleChangeIndex(index) {
+  function handleChangeIndex(index: number) {
     props.onImageClick(props.elements[index])
   }
 
@@ -44,7 +44,7 @@ const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
                       onChangeIndex={handleChangeIndex}>
         {props.elements.map(item => (
           <div key={item._uid} className="carousel-item d-block">
-            <img {...getImageSource(item.source)}
+            <img {...getImageSource(item.source as string)}
                  className='img-fluid' />
           </div>
         ))}

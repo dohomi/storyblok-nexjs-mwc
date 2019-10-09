@@ -1,12 +1,21 @@
 import { FunctionComponent, useEffect, useState } from 'react'
+import { HubspotFormStoryblok } from '../../typings/generated/components-schema'
 
-const HubspotForm: FunctionComponent<{ noScript?: boolean }> = (props) => {
-  let el = null
+type FormProps = HubspotFormStoryblok & {
+  loading?: boolean
+  onSubmit?: Function
+  onReady?: Function
+  noScript?: boolean
+}
+
+const HubspotForm: FunctionComponent<FormProps> = (props) => {
+  let el: HTMLDivElement
 
   let [loaded, setLoaded] = useState(false)
 
   useEffect(
     () => {
+      // @ts-ignore
       if (!window['hbspt'] && !props.noScript) {
         loadScript()
       } else {
@@ -18,7 +27,9 @@ const HubspotForm: FunctionComponent<{ noScript?: boolean }> = (props) => {
   )
 
   function createForm() {
+    // @ts-ignore
     if (window['hbspt']) {
+      // @ts-ignore
       window['jQuery'] = window['jQuery'] || (() => ({
         // these are all methods required by HubSpot
         change: () => {
@@ -30,7 +41,9 @@ const HubspotForm: FunctionComponent<{ noScript?: boolean }> = (props) => {
       if (el === null) {
         return
       }
-      let currentProps = {
+
+
+      let currentProps: FormProps = {
         ...props
       }
       delete currentProps.loading
@@ -50,6 +63,7 @@ const HubspotForm: FunctionComponent<{ noScript?: boolean }> = (props) => {
           props.onSubmit && props.onSubmit(el)
         }
       }
+      // @ts-ignore
       window.hbspt.forms.create(options)
       return true
     } else {
