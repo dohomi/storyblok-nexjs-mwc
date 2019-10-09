@@ -51,7 +51,7 @@ const Form: FunctionComponent<{ content: FormStoryblok, customData?: any }> = ({
   const body = content.body || []
   const responseBody = content.success_body || []
   const opts = {
-    api: content.api
+    api: content.api as string
   }
 
   const { data, isLoading, isError, handleSubmit } = useForm(opts)

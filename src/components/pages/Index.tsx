@@ -20,7 +20,7 @@ export type AppInitialProps = {
 }
 type AppPageProps = AppInitialProps
 
-const Index: NextPage = (props: AppPageProps) => {
+const Index: NextPage<AppInitialProps> = (props) => {
   const settings = props.settings
   const { asPath } = useRouter()
   let [content, setContent] = useState(mapStateProps(props))

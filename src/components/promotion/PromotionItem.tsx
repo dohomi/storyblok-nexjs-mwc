@@ -2,10 +2,13 @@ import SbEditable from 'storyblok-react'
 import React, { createRef, FunctionComponent, RefObject } from 'react'
 import Components from 'components'
 import clsx from 'clsx'
-import { PromotionStoryblok } from '../../typings/generated/components-schema'
+import { PromotionItemStoryblok } from '../../typings/generated/components-schema'
+import { WithWindowDimensionsProps } from '../provider/WindowDimensionsProvider'
 
 
-const PromotionItem: FunctionComponent<PromotionStoryblok> = (props) => {
+const PromotionItem: FunctionComponent<PromotionItemStoryblok & {
+  dimensions: WithWindowDimensionsProps
+}> = (props) => {
   const container: RefObject<HTMLDivElement> = createRef()
   const body = props.body || []
   const action = props.action || []
@@ -22,7 +25,7 @@ const PromotionItem: FunctionComponent<PromotionStoryblok> = (props) => {
             {body.map(blok => Components(blok))}
           </div>
           <div className="lm-promotion__action">
-            {action.map(blok => Components(blok))}
+            {action.map((blok) => Components(blok))}
           </div>
         </div>
       </div>

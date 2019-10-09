@@ -8,6 +8,7 @@ import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
 import { SectionParallaxStoryblok } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { BannerLayer } from 'react-scroll-parallax/cjs'
 
 
 const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> = ({ content }) => {
@@ -15,12 +16,12 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
   const [refIntersectionObserver, inView, refElement] = useInView({
     triggerOnce: true
   })
-  let containerEl
+  let containerEl: Element
   const width = dimensions.width
   const height = dimensions.height
   const elements = content.elements || []
   const contentHeight = content.height
-  const [layers, setLayers] = useState([])
+  const [layers, setLayers] = useState<BannerLayer[]>([])
   const disableLazyLoad = content.disable_lazy_load
   const styles = {
     minHeight: contentHeight ? `${contentHeight}vh` : '50vh',
@@ -37,15 +38,15 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
       if (disableLazyLoad) {
         processLayers(containerEl)
       } else if (inView) {
-        processLayers(refElement.target)
+        refElement && processLayers(refElement.target)
       }
     },
     [inView, width, height]
   )
 
-  function processLayers(el) {
+  function processLayers(el: Element) {
     const items = elements.map(async item => {
-      const containerHeight = height * Number(contentHeight / 100)
+      const containerHeight = height * Number(contentHeight as number / 100)
       const offset = ((containerHeight * item.amount) * 2)
       const imgHeight = containerHeight + offset
 
@@ -65,25 +66,27 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
     })
     Promise.all(items)
       .then((layers) => {
-        setLayers(layers)
+        setLayers(layers as any)
         el.classList.add('loaded')
       })
   }
 
-  function setRef(ref) {
+  function setRef(ref: HTMLDivElement) {
     refIntersectionObserver(ref)
     containerEl = ref
   }
 
+  const body = content.body || []
   return (
     <SbEditable content={content}>
-      <div className="lm-content-section__parallax" ref={setRef}>
+      <div className="lm-content-section__parallax"
+           ref={setRef}>
         <ParallaxBanner disabled={false}
                         style={styles}
                         className=""
                         layers={layers}>
           <div className={contentClasses}>
-            {content.body.map((blok) => Components(blok))}
+            {body.map((blok) => Components(blok))}
           </div>
         </ParallaxBanner>
       </div>

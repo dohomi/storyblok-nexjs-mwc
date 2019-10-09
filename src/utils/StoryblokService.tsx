@@ -1,19 +1,22 @@
 import StoryblokClient from 'storyblok-js-client'
 
-const StoryblokToken = {
-  preview: process.env.STORYBLOK_PREVIEW,
-  public: process.env.STORYBLOK_PUBLIC
+const StoryblokToken: {
+  preview: string
+  public: string
+} = {
+  preview: process.env.STORYBLOK_PREVIEW as string,
+  public: process.env.STORYBLOK_PUBLIC as string
 }
 
 class StoryblokService {
   private devMode: boolean
   private token: string
   private client: StoryblokClient
-  private query: {}
+  private query: any
 
   constructor() {
     this.devMode = false // If true it always loads draft
-    this.token = process.env.NODE_ENV === 'development' ? StoryblokToken.preview : StoryblokToken.public
+    this.token = process.env.NODE_ENV === 'development' ? StoryblokToken.preview as string : StoryblokToken.public as string
     this.client = new StoryblokClient({
       accessToken: this.token,
       cache: {
@@ -36,7 +39,8 @@ class StoryblokService {
     return this.client.cacheVersion
   }
 
-  get(slug, params = {}) {
+  get(slug: string, params: any) {
+    params = params || {}
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
       this.token = StoryblokToken.preview
       this.client.setToken(StoryblokToken.preview)
@@ -52,7 +56,7 @@ class StoryblokService {
     return this.client.get(slug, params)
   }
 
-  initEditor(content, setContent) {
+  initEditor(content: any, setContent: Function) {
     if (window.storyblok) {
       window.storyblok.init({ accessToken: this.token })
       window.storyblok.on(['change'], () => {
@@ -73,7 +77,7 @@ class StoryblokService {
             })
         }
       )
-      window.storyblok.on('input', (event) => {
+      window.storyblok.on('input', (event: any) => {
         if (event.story.content._uid === content.pageContent._uid) {
           console.log('input::input changed')
           setContent({
@@ -89,11 +93,11 @@ class StoryblokService {
     return !!this.getQuery('_storyblok')
   }
 
-  setQuery(query) {
+  setQuery(query: any) {
     this.query = query
   }
 
-  getQuery(param) {
+  getQuery(param: any) {
     return this.query[param]
   }
 

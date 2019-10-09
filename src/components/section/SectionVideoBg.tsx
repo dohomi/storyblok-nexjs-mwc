@@ -42,7 +42,7 @@ const SectionVideoBg: FunctionComponent<{ content: SectionVideoBgStoryblok }> = 
   useEffect(
     () => {
       if (inView) {
-        if (!fixedToRatio) {
+        if (!fixedToRatio && intersectionElement) {
           const current = intersectionElement.target
           setContainerDimensions({
             width: current.clientWidth,

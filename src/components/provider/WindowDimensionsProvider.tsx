@@ -24,17 +24,18 @@ const getWindowDimensions = () => {
   return opts
 }
 
-const debounce = function(ms, fn) {
-  let timer
+const debounce = function(ms: number, fn: Function) {
+  let timer: any
   return function() {
     clearTimeout(timer)
-    const args = Array.prototype.slice.call(arguments)
+    const args = Array.prototype.slice.call(arguments) as any
+    // @ts-ignore
     args.unshift(this)
     timer = setTimeout(fn.bind.apply(fn, args), ms)
   }
 }
 
-const WindowDimensionsProvider = ({ children }) => {
+const WindowDimensionsProvider = ({ children }: { children: Element[] }) => {
   if (typeof window === 'undefined') {
     return (
       <WindowDimensionsCtx.Provider value={defaultValue}>
@@ -46,8 +47,8 @@ const WindowDimensionsProvider = ({ children }) => {
 
   useEffect(
     () => {
-      const body = document.querySelector('body')
-      const checkWindowsDimensions = (entries) => {
+      const body: HTMLBodyElement = document.querySelector('body') as HTMLBodyElement
+      const checkWindowsDimensions = (entries: Element[]) => {
         if (!Array.isArray(entries)) {
           return
         }

@@ -1,11 +1,13 @@
 import SbEditable from 'storyblok-react'
 import Components from 'components'
 import SwipeableViews from 'react-swipeable-views'
-import React, {memo, useState} from 'react'
+import React, { CSSProperties, FunctionComponent, memo, useState } from 'react'
 import clsx from 'clsx'
-import withWindowDimensions from '../provider/WithWindowDimensions'
+import { SliderStoryblok } from '../../typings/generated/components-schema'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { SectionProps } from '../section/Section'
 
-const chunkArray = (myArray, chunkSize) => {
+const chunkArray = (myArray: Element[], chunkSize: number) => {
   const results = []
   while (myArray.length) {
     results.push(myArray.splice(0, chunkSize))
@@ -13,44 +15,56 @@ const chunkArray = (myArray, chunkSize) => {
   return results
 }
 
-const Child = ({body}) => {
+const Child: FunctionComponent<{ body: any[], sectionVariant: any }> = ({ body, sectionVariant }) => {
   return (
     <div className="d-flex h-100 lm-slider__container flex-row justify-content-center">
-      {body.map(i => <div key={`child_${i._uid}`} className="flex-grow-1">{Components(i)}</div>)}
+      {body.map(item => {
+        if (item.component === 'section') {
+          let newOpts: SectionProps = {
+            ...item,
+            presetVariant: {
+              variant: sectionVariant || 'transparent'
+            }
+          }
+          return Components(newOpts)
+        }
+        return <div key={`child_${item._uid}`} className="flex-grow-1">{Components(item)}</div>
+      })}
     </div>
   )
 }
 
-const Slider = (props) => {
+const Slider: FunctionComponent<{ content: SliderStoryblok }> = ({ content }) => {
   const [slide, setSlide] = useState(0)
-  const content = props.content
-  const wrapInColumns = content.slides_per_view && !props.dimensions.isMobile
-  const body = wrapInColumns ? chunkArray(content.body.slice(0), content.slides_per_view) : content.body
+  const dimensions = useWindowDimensions()
+  const wrapInColumns = content.slides_per_view && !dimensions.isMobile
+  const contentBody = content.body || []
+  const body = wrapInColumns ? chunkArray(contentBody.slice(0), content.slides_per_view as number) : contentBody
   const properties = content.property || []
-  const styles = {}
+  const styles: CSSProperties = {}
   const paginationClasses = clsx(
     'carousel-indicators',
-    {'d-none': properties.includes('hide_pagination')}
+    { 'd-none': properties.includes('hide_pagination') }
   )
   const carouselPrevClasses = clsx(
     'carousel-control-prev',
-    {'d-none': properties.includes('hide_arrows')}
+    { 'd-none': properties.includes('hide_arrows') }
   )
   const carouselNextClasses = clsx(
     'carousel-control-next',
-    {'d-none': properties.includes('hide_arrows')}
+    { 'd-none': properties.includes('hide_arrows') }
   )
 
   const carouselClasses = clsx(
     'carousel slide', properties.map(i => 'carousel__' + i)
   )
 
-  function handleChangeIndex (item) {
+  function handleChangeIndex(item: any) {
     setSlide(body.findIndex(i => i._uid === item._uid))
   }
 
   if (content.background_color) {
-    styles.backgroundColor = content.background_color && content.background_color.rgba || content.background_color
+    styles.backgroundColor = content.background_color && content.background_color.rgba
   }
 
   return (
@@ -59,8 +73,19 @@ const Slider = (props) => {
         <SwipeableViews index={slide}
                         onChangeIndex={(i) => setSlide(i)}>
           {wrapInColumns ? body.map((child, index) => {
-            return <Child key={`swipeable_${index}`} body={child}/>
-          }) : body.map(item => Components(item))}
+            return <Child key={`swipeable_${index}`} body={child} sectionVariant={content.section_variant} />
+          }) : body.map(item => {
+            if (item.component === 'section') {
+              let newOpts: SectionProps = {
+                ...item,
+                presetVariant: {
+                  variant: content.section_variant || 'transparent'
+                }
+              }
+              return Components(newOpts)
+            }
+            return Components(item)
+          })}
         </SwipeableViews>
         <a className={carouselPrevClasses}
            role="button"
@@ -87,4 +112,4 @@ const Slider = (props) => {
   )
 }
 
-export default withWindowDimensions(dimensions => ({dimensions}))(memo(Slider))
+export default memo<{ content: SliderStoryblok }>(Slider)

@@ -101,7 +101,7 @@ const HubspotForm: FunctionComponent<FormProps> = (props) => {
   return (
     <div>
       <div
-        ref={element => el = element}
+        ref={(element) => el = element as HTMLDivElement}
         id={`reactHubspotForm_${props._uid}`}
         style={{ display: loaded ? 'block' : 'none' }}
       />

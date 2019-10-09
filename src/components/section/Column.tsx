@@ -7,7 +7,7 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { ColumnStoryblok } from '../../typings/generated/components-schema'
 
-const Column: FunctionComponent<ColumnStoryblok> = ({ content }) => {
+const Column: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }) => {
   const containerProps = backgroundPropertyHelper(content.background)
   let styles = {}
   if (containerProps.styles) {
@@ -36,6 +36,7 @@ const Column: FunctionComponent<ColumnStoryblok> = ({ content }) => {
     containerProps.classNames,
     containerProps.classes
   )
+  const body = content.body || []
   if (containerProps.image) {
     return (
       <SbEditable content={content}>
@@ -44,7 +45,7 @@ const Column: FunctionComponent<ColumnStoryblok> = ({ content }) => {
                                  isColumn={true}
                                  className={colClasses}
                                  containerProps={containerProps}>
-            {content.body.map((blok) => Components(blok))}
+            {body.map((blok) => Components(blok))}
           </SectionWithBackground>
         </>
       </SbEditable>
@@ -55,7 +56,7 @@ const Column: FunctionComponent<ColumnStoryblok> = ({ content }) => {
     <SbEditable content={content}>
       <div className={colClasses}
            style={styles}>
-        {content.body.map((blok) => Components(blok))}
+        {body.map((blok) => Components(blok))}
       </div>
     </SbEditable>
   )

@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import { getImageAttrs, getPreviewImageSource } from '../../utils/ImageService'
 import { useInView } from 'react-intersection-observer'
-import { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
+import { createRef, CSSProperties, FunctionComponent, RefObject, useEffect, useState } from 'react'
 import { getImage } from '../../utils/fetchImageHelper'
-import useResizeAware from 'react-resize-aware'
+import useComponentSize from '@rehooks/component-size'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 type SectionWithBackgroundProps = {
@@ -12,7 +12,7 @@ type SectionWithBackgroundProps = {
   style: any
   background_style?: string
   className: string[] | string
-  isFullHeight: boolean
+  isFullHeight?: boolean
 }
 
 const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (props) => {
@@ -22,9 +22,10 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
   const backgroundStyle = props.background_style // background attachment props
   const imageProperties = containerProps.imageProperties
   const lazyDisabled = imageProperties.includes('disable_lazy_load')
-  let containerRef
+  let containerRef: HTMLDivElement
   const wrap: RefObject<HTMLDivElement> = createRef()
-  const [resizeListener, sizes] = useResizeAware()
+  // const [resizeListener, sizes] = useResizeAware()
+  const sizes = useComponentSize(wrap)
   const dimensions = useWindowDimensions()
 
   const containerClasses = clsx(
@@ -50,12 +51,13 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
 
   useEffect(
     () => {
-      const processImg = (container) => {
+      const processImg = (container: HTMLDivElement) => {
         let overwriteHeight
 
+        // @ts-ignore
         const isDevice = window['userDevice'] && window['userDevice'].device
         if (!isDevice) {
-          if (['fixed_cover', 'fixed_image'].includes(backgroundStyle)) {
+          if (['fixed_cover', 'fixed_image'].includes(backgroundStyle as string)) {
             overwriteHeight = dimensions.height// overwrite height to match viewport height
           }
         }
@@ -71,14 +73,13 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
         getImage({
           src: img.src,
           srcSet: img.srcSet,
-          onReady(src) {
-            const newStyles = {
-              backgroundAttachment: undefined,
+          onReady(src: string) {
+            const newStyles: CSSProperties = {
               ...styles,
               // filter: 'blur(0)', // unset blur effect
               backgroundImage: `url("${src}")`
             }
-            if (['fixed_cover', 'fixed_image'].includes(backgroundStyle) && !isDevice) {
+            if (['fixed_cover', 'fixed_image'].includes(backgroundStyle as string) && !isDevice) {
               newStyles.backgroundAttachment = 'fixed'
             }
             setStyles(newStyles)
@@ -94,7 +95,7 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
         processImg(container)
       } else if (inView && intersectionElement) {
         // only runs if
-        let container = intersectionElement.target
+        let container = intersectionElement.target as HTMLDivElement
         processImg(container)
       }
     },
@@ -102,7 +103,7 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
   )
 
 
-  function setRef(el) {
+  function setRef(el: HTMLDivElement) {
     refIntersectionObserver(el)
     containerRef = el
   }
@@ -111,7 +112,7 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
     <div className={containerClasses}
          ref={wrap}
          style={props.style}>
-      {resizeListener}
+      {/*{resizeListener}*/}
       <div className="lm-background__absolute-fill lm-background-image lm-background__blurred"
            style={initialState}>
       </div>

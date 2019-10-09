@@ -5,9 +5,10 @@ import { createRef, FunctionComponent, RefObject, useEffect } from 'react'
 import { PricingStoryblok } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
-const equalizeHeights = (querySelectorAll) => {
+const equalizeHeights = (querySelectorAll: NodeListOf<HTMLDivElement> | null) => {
+  if (!querySelectorAll) return
   if (querySelectorAll.length) {
-    const heights = []
+    const heights: number[] = []
     querySelectorAll.forEach(container => {
       heights.push(container.clientHeight)
     })
@@ -38,7 +39,8 @@ const Pricing: FunctionComponent<{ content: PricingStoryblok }> = ({ content }) 
 
   useEffect(
     () => {
-      equalizeHeights(containerRef.current.querySelectorAll('.lm-pricing__title'))
+      const current = containerRef.current
+      equalizeHeights(current && current.querySelectorAll('.lm-pricing__title'))
     },
     [dimensions]
   )

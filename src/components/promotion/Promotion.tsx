@@ -13,7 +13,9 @@ const Promotion: FunctionComponent<{ content: PromotionStoryblok }> = ({ content
     <SbEditable content={content}>
       <div className="lm-promotion">
         <Image content={image} />
-        {body.map(blok => <PromotionItem {...blok} dimensions={dimensions} key={blok._uid} />)}
+        {body.map((blok) => <PromotionItem {...blok}
+                                           dimensions={dimensions}
+                                           key={blok._uid} />)}
       </div>
     </SbEditable>
   )

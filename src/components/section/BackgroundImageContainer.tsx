@@ -21,7 +21,7 @@ const BackgroundImage: FunctionComponent<{ image: string }> = ({ image }) => {
         getImage({
           src: img.src,
           srcSet: img.srcSet,
-          onReady(imageSource) {
+          onReady(imageSource: string) {
             current.style.filter = 'blur(0)'
             current.style.backgroundImage = `url('${imageSource}')`
           }

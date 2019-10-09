@@ -8,12 +8,16 @@ import SectionWithBackground from './SectionWithBackground'
 import backgroundPropertyHelper from '../../utils/backgroundPropertyHelper'
 import { SectionStoryblok } from '../../typings/generated/components-schema'
 
-const Section: FunctionComponent<{ content: SectionStoryblok }> = ({ content }) => {
+export interface SectionProps extends SectionStoryblok {
+  presetVariant?: Pick<SectionStoryblok, 'variant'>
+}
+
+const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   const isFullHeight = !!(content.property && content.property.includes('is_full_height'))
   const containerProps = backgroundPropertyHelper(content.background)
   const backgroundImage = containerProps.image
   let theme = {}
-  const variant = content.variant
+  const variant = content.variant || (content.presetVariant && content.presetVariant.variant)
   // configure some theming variants
   if (variant) {
     const sectionVariant = section[variant]
@@ -35,6 +39,7 @@ const Section: FunctionComponent<{ content: SectionStoryblok }> = ({ content }) 
     containerProps.classes, {
       ['lm-section__full-height']: !!isFullHeight
     })
+  const body = content.body || []
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
@@ -44,12 +49,12 @@ const Section: FunctionComponent<{ content: SectionStoryblok }> = ({ content }) 
                                  containerProps={containerProps}
                                  style={styles}
                                  isFullHeight={isFullHeight}>
-            {content.body.map((blok) => Components(blok))}
+            {body.map((blok) => Components(blok))}
           </SectionWithBackground>
         ) : (
           <div className={sectionClassNames}
                style={styles}>
-            {content.body.map((blok) => Components(blok))}
+            {body.map((blok) => Components(blok))}
           </div>
         )}
       </ThemeProvider>

@@ -2,13 +2,14 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
 import { ParallaxProvider } from 'react-scroll-parallax'
-import { NextPage } from 'next'
+import { FunctionComponent } from 'react'
+import { PageStoryblok } from '../../typings/generated/components-schema'
 
-const Page: NextPage = (props: RootComponentProps) => {
+const Page: FunctionComponent<{ content: PageStoryblok }> = (props) => {
   let content = props.content
   const body = content.body || []
   if (!body.length) {
-    return <div></div>
+    return <div>There is no content yet...</div>
   }
   return (
     <SbEditable content={content}>

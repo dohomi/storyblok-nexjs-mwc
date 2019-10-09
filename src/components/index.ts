@@ -1,4 +1,4 @@
-import Page from './pages/Page'
+import Page from './page/Page'
 import Section from './section/Section'
 import Paragraph from './paragraph/Paragraph'
 import Headline from './headline/Headline'

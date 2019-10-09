@@ -11,8 +11,8 @@ import { CSSProperties, FunctionComponent } from 'react'
  *
  * @param values
  */
-const getThemeStyles = (values) => {
-  const styles = {}
+const getThemeStyles = (values: any[]) => {
+  const styles: any = {}
   values.forEach((value) => {
     Object.keys(value).forEach(key => {
       if (!value[key]) return
@@ -114,7 +114,7 @@ export const MatRowNested: FunctionComponent<{ content: RowNestedStoryblok }> = 
     styles.columnGap = `${content.column_gap}px`
   }
   if (content.grid_gap) {
-    styles.gridGap = `${content.grid_gap}px`
+    styles.rowGap = `${content.grid_gap}px`
   }
 
   return (
