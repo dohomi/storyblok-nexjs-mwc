@@ -1,4 +1,4 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
 import DeviceDetectService from '../utils/DeviceDetectService'
 
@@ -17,7 +17,7 @@ function getGoogleTagManager() {
 
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
   }

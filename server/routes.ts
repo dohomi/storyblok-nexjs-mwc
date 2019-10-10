@@ -2,7 +2,7 @@ import routes, { LinkProps } from 'next-routes'
 import { ComponentType } from 'react'
 
 const appRoutes = new routes()
-  .add('index', '/:slug+')
+  .add('Index', '/:slug+')
 
 const { Link: NextRoutesLink, Router } = appRoutes
 
