@@ -1,11 +1,13 @@
 import SbEditable from 'storyblok-react'
-import {MenuSurfaceAnchor, MenuSurface, MenuItem} from '@rmwc/menu'
+import { MenuSurface, MenuSurfaceAnchor } from '@rmwc/menu'
 import Components from 'components/index'
-import {Button} from '@rmwc/button'
-import {useState, useEffect} from 'react'
-import {withRouter} from 'next/dist/client/router'
+import { Button } from '@rmwc/button'
+import { FunctionComponent, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 
-const CustomMenu = ({content, router}) => {
+const CustomMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) => {
+  const { asPath } = useRouter()
   const [open, setOpen] = useState(false)
   const menuItems = content.body || []
   const buttonProps = {
@@ -16,14 +18,14 @@ const CustomMenu = ({content, router}) => {
     () => {
       setOpen(false)
     },
-    [router.asPath]
+    [asPath]
   )
 
-  function openMegaMenu () {
+  function openMegaMenu() {
     setOpen(true)
   }
 
-  function onClose () {
+  function onClose() {
     setOpen(false)
   }
 
@@ -34,7 +36,7 @@ const CustomMenu = ({content, router}) => {
                 {...buttonProps}>{content.title}</Button>
         <MenuSurface open={open}
                      anchorCorner="bottomStart"
-                     style={{borderRadius: `${content.border_radius || 4}px`}}
+                     style={{ borderRadius: `${content.border_radius || 4}px` }}
                      onClose={() => onClose()}>
           {menuItems.map(blok => Components(blok))}
         </MenuSurface>
@@ -43,4 +45,4 @@ const CustomMenu = ({content, router}) => {
   )
 }
 
-export default withRouter(CustomMenu)
+export default CustomMenu

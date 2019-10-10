@@ -27,7 +27,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ asPath, settings, children, ha
     <ThemeProvider options={themeOptions as any} className="app__root">
       <MwcDrawer content={settings} />
       <Header settings={settings}
-              hasFeature={hasFeature} />
+              hasFeature={!!hasFeature} />
       <main>{children}</main>
       <Footer settings={settings} />
     </ThemeProvider>

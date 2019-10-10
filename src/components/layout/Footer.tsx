@@ -1,14 +1,14 @@
 import Components from 'components/index'
 import SbEditable from 'storyblok-react'
+import { FunctionComponent } from 'react'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
-const Footer = (props) => {
-  const content = props.settings && props.settings.footer || []
+const Footer: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings }) => {
+  const content = settings && settings.footer || []
   return (
-    <SbEditable content={props.settings}>
+    <SbEditable content={settings}>
       <footer>
-        {content.map((blok) =>
-          Components(blok)
-        )}
+        {content.map((blok) => Components(blok))}
       </footer>
     </SbEditable>
   )

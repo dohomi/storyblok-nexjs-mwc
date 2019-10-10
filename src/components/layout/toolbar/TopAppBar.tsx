@@ -1,27 +1,37 @@
 import clsx from 'clsx'
-import {TopAppBar} from '@rmwc/top-app-bar'
-import {withRouter} from 'next/dist/client/router'
-import withWindowDimensions from '../../provider/WithWindowDimensions'
+import { TopAppBar } from '@rmwc/top-app-bar'
 import scrollPositionHook from '../../../utils/hooks/scrollPositionHook'
-import {useEffect, useState} from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
+import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
+import { useRouter } from 'next/router'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
-function getClassName (props, pos = 0) {
+type AppTopAppProps = {
+  transparentToolbar: boolean
+  toolbarConfig: GlobalStoryblok['toolbar_config']
+  fixed: boolean
+}
+
+function getClassName(props: AppTopAppProps, pos = 0) {
+  const toolbarConfig = props.toolbarConfig || []
   return clsx('lm-toolbar', {
-    ['lm-toolbar__bold-text']: !!props.toolbarConfig.includes('text_bold'),
-    ['lm-toolbar__fixed-width']: !!props.toolbarConfig.includes('fixed_width'),
+    ['lm-toolbar__bold-text']: toolbarConfig.includes('text_bold'),
+    ['lm-toolbar__fixed-width']: toolbarConfig.includes('fixed_width'),
     ['lm-toolbar-transparent']: props.transparentToolbar && pos < 128
   })
 }
 
-const TopAppBarWrapEl = (props) => {
+const TopAppBarWrap: FunctionComponent<AppTopAppProps> = (props) => {
+  const dimensions = useWindowDimensions()
+  const { asPath } = useRouter()
   let scrollPos = scrollPositionHook()
   let [className, setClassName] = useState(getClassName(props)) // because of server/client hydration
 
   // let className = getClassName()
   useEffect(() => {
-      setClassName(getClassName(props, scrollPos))
+      setClassName(getClassName(props, scrollPos)) // todo is this necessary? maybe different approach
     },
-    [scrollPos, props.transparentToolbar, props.dimensions]
+    [scrollPos, props.transparentToolbar, dimensions, asPath]
   )
 
   return (
@@ -31,9 +41,7 @@ const TopAppBarWrapEl = (props) => {
   )
 }
 
-const TopAppBarWrap = withWindowDimensions(dimensions => ({dimensions}))(withRouter(TopAppBarWrapEl))
-
-const TopAppBarBridge = (props) => {
+const TopAppBarBridge: FunctionComponent<AppTopAppProps> = (props) => {
   if (!props.transparentToolbar) {
     return (
       <TopAppBar className={getClassName(props)} fixed={props.fixed}>
@@ -41,7 +49,7 @@ const TopAppBarBridge = (props) => {
       </TopAppBar>
     )
   }
-  return <TopAppBarWrap {...props}/>
+  return <TopAppBarWrap {...props} />
 }
 
 export default TopAppBarBridge

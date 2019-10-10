@@ -1,9 +1,28 @@
-export function linkHandler (props = {}, link = {}, options = {}) {
+export type LinkPropsType = {
+  to?: string
+  href?: string
+  rel?: string
+  target?: string
+}
+
+export interface LinkType {
+  cached_url: string
+  linktype: string
+
+  [k: string]: any
+}
+
+interface LinkOptions {
+  openExternal?: boolean
+}
+
+export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkOptions) => {
   let isInternalLink = link.linktype === 'story'
+  const cachedUrl = link.cached_url as string
   if (isInternalLink) {
-    props.to = !link.cached_url.startsWith('/') ? `/${link.cached_url}` : link.cached_url
+    props.to = !cachedUrl.startsWith('/') ? `/${cachedUrl}` : cachedUrl
   } else {
-    let href = link.cached_url || ''
+    let href = cachedUrl || ''
     if (href.includes('@')) {
       href = `mailto:${href}`
     } else if (href.includes('+')) {

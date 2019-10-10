@@ -8,7 +8,7 @@ const props: HubspotMeetingStoryblok = {
   component: 'hubspot_meeting',
   meeting_name: 'hello165'
 }
-storiesOf('HubspotMeeting', module)
+storiesOf('Hubspot Meeting', module)
   .add(
     'Hubspot Meeting',
     () => (

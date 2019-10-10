@@ -31,6 +31,9 @@
       ],
       "client": [
         "./client"
+      ],
+      "@initialData/*": [
+        "./src/pages/utils/*"
       ]
     }
   },

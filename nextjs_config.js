@@ -16,6 +16,7 @@ function nextjsConfigGen(env, pathAliasOverwrites = {}) {
         routes: path.join(__dirname, 'server/routes.ts'),
         client: path.join(__dirname, 'client'),
         fonts: path.join(__dirname, 'components/fonts.ts'),
+        '@initialData': path.join(__dirname, 'src/pages/utils'),
         ...pathAliasOverwrites
       }
 

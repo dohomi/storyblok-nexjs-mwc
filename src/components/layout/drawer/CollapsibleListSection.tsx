@@ -1,5 +1,4 @@
 import {CollapsibleList, SimpleListItem} from '@rmwc/list'
-import {object} from 'prop-types'
 import DrawerButton from './DrawerButton'
 import React from 'react'
 import DrawerNavList from './DrawerNavList'
@@ -43,8 +42,8 @@ const CollapsibleListSection = (props) => {
     </CollapsibleList>
   )
 }
-CollapsibleList.propTypes = {
-  content: object
-}
+// CollapsibleList.propTypes = {
+//   content: object
+// }
 
 export default CollapsibleListSection

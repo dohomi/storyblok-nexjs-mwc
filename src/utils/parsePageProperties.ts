@@ -1,13 +1,5 @@
 import { GlobalStoryblok, PageStoryblok, SeoOpenGraphStoryblok } from '../typings/generated/components-schema'
 
-export type AppPageProps = {
-  settings: GlobalStoryblok
-  page: PageStoryblok,
-  overwriteDisableRobots: boolean
-  url: string
-  error?: any
-}
-
 type PageSeoProps = {
   title: string
   description: string
@@ -15,6 +7,14 @@ type PageSeoProps = {
   url: string
   disableRobots: boolean
 }
+
+export type AppPageProps = {
+  settings: GlobalStoryblok
+  page: PageStoryblok,
+  pageSeo?: PageSeoProps
+  error?: any
+}
+
 
 const mapStateProps = (pageProps: AppPageProps) => {
   const pageContent = pageProps.page

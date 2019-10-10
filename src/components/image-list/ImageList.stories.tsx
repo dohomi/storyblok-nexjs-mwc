@@ -47,7 +47,7 @@ const content4: ImageListStoryblok = {
   column_gap: '16'
 }
 
-storiesOf('ImageList', module)
+storiesOf('Image List', module)
   .add(
     'Image List',
     () => (

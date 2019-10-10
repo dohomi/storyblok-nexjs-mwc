@@ -13,7 +13,8 @@
           "components": "./components",
           "fonts": "./components/fonts.ts",
           "routes": "./server/routes.ts",
-          "client": "./client"
+          "client": "./client",
+          "@initialData": "./src/pages/utils"
         },
         "extensions": [
           ".js",

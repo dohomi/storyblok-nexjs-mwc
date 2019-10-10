@@ -15,7 +15,7 @@ const cardList: CardListStoryblok = {
   body: cardListBody
 }
 
-storiesOf('CardList', module)
+storiesOf('Card List', module)
   .add(
     'Card List',
     () => (

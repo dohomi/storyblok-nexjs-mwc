@@ -39,7 +39,7 @@ class StoryblokService {
     return this.client.cacheVersion
   }
 
-  get(slug: string, params: any) {
+  get(slug: string, params?: any) {
     params = params || {}
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
       this.token = StoryblokToken.preview
@@ -78,11 +78,12 @@ class StoryblokService {
         }
       )
       window.storyblok.on('input', (event: any) => {
-        if (event.story.content._uid === content.pageContent._uid) {
+        // todo if this is still works after rewrite... maybe add one for settings as well..
+        if (event.story.content._uid === content.page._uid) {
           console.log('input::input changed')
           setContent({
             ...content,
-            pageContent: event.story.content
+            page: event.story.content
           })
         }
       })

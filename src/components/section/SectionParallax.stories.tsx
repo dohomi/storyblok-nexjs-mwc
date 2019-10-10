@@ -46,7 +46,7 @@ const props: SectionParallaxStoryblok = {
   elements: parallax
 }
 
-storiesOf('SectionParallax', module)
+storiesOf('Section Parallax', module)
   .add(
     'Section Parallax',
     () => (

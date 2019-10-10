@@ -1,36 +1,45 @@
-import {bool, func, object} from 'prop-types'
 import SbEditable from 'storyblok-react'
-import {ThemeProvider} from '@rmwc/theme'
+import { ThemeProvider } from '@rmwc/theme'
 import TopAppBarWrap from './TopAppBar'
-import {toolbar} from '../../../utils/themeContentSection'
-import {TopAppBarFixedAdjust} from '@rmwc/top-app-bar'
+import { toolbar } from '../../../utils/themeContentSection'
+import { TopAppBarFixedAdjust } from '@rmwc/top-app-bar'
 import LmToolbarRow from './ToolbarRow'
-import Divider from '../../Divider'
-import React, {useEffect, createRef} from 'react'
-import withWindowDimensions from '../../provider/WithWindowDimensions'
+import Divider from '../../divider/Divider'
+import React, { createRef, FunctionComponent, RefObject, useEffect } from 'react'
+import { DividerStoryblok, GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
+import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
 
-const Components = {
+export type AppHeaderProps = { settings: GlobalStoryblok, hasFeature: boolean }
+
+type HeaderComponents = {
+  toolbar_row: FunctionComponent<{ content: ToolbarRowStoryblok, settings: GlobalStoryblok }>
+  divider: FunctionComponent<{ content: DividerStoryblok }>
+  [k: string]: any
+}
+
+const Components: HeaderComponents = {
   'toolbar_row': LmToolbarRow,
   'divider': Divider
 }
 
-const Child = (blok, settings) => {
+const Child = (blok: any, settings: GlobalStoryblok) => {
   if (typeof Components[blok.component] !== 'undefined') {
-    return React.createElement(Components[blok.component], {key: blok._uid, content: blok, settings})
+    return React.createElement(Components[blok.component], { key: blok._uid, content: blok, settings })
   }
   return React.createElement(() => (
-    <div style={{color: 'red'}}>The component {blok.component} has not been created yet.</div>
-  ), {key: blok._uid})
+    <div style={{ color: 'red' }}>The component {blok.component} has not been created yet.</div>
+  ), { key: blok._uid })
 }
 
-const HeaderCustom = (props) => {
+const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
+  const dimensions = useWindowDimensions()
   const content = props.settings || {}
   let toolbarConfig = content.toolbar_config || []
   const transparentToolbar = props.hasFeature
   const rows = content.multi_toolbar || []
   const color = content.toolbar_variant
   let theme = toolbar.primary
-  const toolbarAdjust = createRef()
+  const toolbarAdjust: RefObject<HTMLDivElement> = createRef()
   if (color) {
     theme = toolbar[color]
   }
@@ -39,9 +48,10 @@ const HeaderCustom = (props) => {
     () => {
       // adjust padding top
       const toolbar = document.querySelector('.lm-toolbar')
-      toolbarAdjust.current.style.paddingTop = `${toolbar.clientHeight + 1}px`
+      const toolbarAdjustElement = toolbarAdjust.current
+      toolbarAdjustElement && toolbar && (toolbarAdjustElement.style.paddingTop = `${toolbar.clientHeight + 1}px`)
     },
-    [props.dimensions]
+    [dimensions]
   )
 
 
@@ -54,15 +64,9 @@ const HeaderCustom = (props) => {
           {rows.map(p => Child(p, content))}
         </TopAppBarWrap>
       </ThemeProvider>
-      {!props.hasFeature && <TopAppBarFixedAdjust ref={toolbarAdjust}/>}
+      {!props.hasFeature && <TopAppBarFixedAdjust ref={toolbarAdjust} />}
     </SbEditable>
   )
 }
 
-HeaderCustom.propTypes = {
-  onNav: func,
-  settings: object,
-  hasFeature: bool
-}
-
-export default withWindowDimensions(dimensions => ({dimensions}))(HeaderCustom)
+export default HeaderCustom

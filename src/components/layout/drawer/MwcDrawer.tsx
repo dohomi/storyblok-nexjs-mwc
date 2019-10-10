@@ -1,6 +1,5 @@
 import React from 'react'
 import {Drawer, DrawerContent, DrawerHeader, DrawerSubtitle, DrawerTitle} from '@rmwc/drawer'
-import {bool, func, object} from 'prop-types'
 import DrawerContentList from './MwcDrawerList'
 import {Link} from 'routes'
 import imageService from '../../../utils/ImageService'
@@ -37,10 +36,10 @@ const MwcDrawer = (props) => {
   )
 }
 
-MwcDrawer.propTypes = {
-  isDrawerOpen: bool,
-  onDrawerClose: func,
-  content: object
-}
+// MwcDrawer.propTypes = {
+//   isDrawerOpen: bool,
+//   onDrawerClose: func,
+//   content: object
+// }
 
 export default MwcDrawer

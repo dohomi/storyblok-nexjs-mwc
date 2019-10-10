@@ -6,6 +6,7 @@ import { NextSeo } from 'next-seo'
 import imageService, { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
 import { FunctionComponent } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { PageSeoProps } from '@initialData/getInitialPageProps'
 
 Router.events.on('onRouteChangeStart', () => NProgress.start())
 Router.events.on('onRouteChangeComplete', () => NProgress.done())
@@ -66,7 +67,7 @@ function parseTwitter(values) {
 }
 
 
-const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo }> = ({ settings, pageSeo }) => {
+const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps }> = ({ settings, pageSeo }) => {
   const favicon = settings.setup_favicon
   const seoBody = settings.seo_body || []
   const seo = {

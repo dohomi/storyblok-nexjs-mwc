@@ -1,6 +1,8 @@
 import StoryblokService from './StoryblokService'
+import { AppPageProps } from './parsePageProperties'
+import { NextApiResponse } from 'next'
 
-const handleErrorContent = async (e, res, languagePrefix = '') => {
+const handleErrorContent = async (e: any, res: NextApiResponse, languagePrefix = ''): Promise<AppPageProps> => {
   const error = {
     status: e.response.status,
     url: e.response.config_prod && e.response.config_prod.url

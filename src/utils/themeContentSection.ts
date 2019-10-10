@@ -1,4 +1,20 @@
-export const toolbar = {
+type ToolbarThemeItem = {
+  primary: string
+  surface: string
+  onPrimary: string
+  [k: string]: string
+}
+type ToolbarTheme = {
+  white: ToolbarThemeItem
+  primary: ToolbarThemeItem
+  secondary: ToolbarThemeItem
+  dark: ToolbarThemeItem
+
+  [k: string]: any
+}
+
+export const toolbar: ToolbarTheme = {
+// @ts-ignore
   white: {
     primary: 'white',
     surface: 'white'
