@@ -29,18 +29,21 @@ const MtMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) =
     return <CustomMenu content={content} />
   }
   const borderRadius = typeof content.border_radius === 'number' ? content.border_radius : 4
+
   return (
     <SbEditable content={content}>
-      <SimpleMenu
-        style={{ borderRadius: `${borderRadius}px` }}
-        handle={<Button trailingIcon="expand_more">{content.title}</Button>}
-      >
-        {menuItems.map(nestedProps => (
-          <MenuItem key={nestedProps._uid}>
-            {Child(nestedProps)}
-          </MenuItem>)
-        )}
-      </SimpleMenu>
+      { // bug of rmwc
+        // @ts-ignore
+        <SimpleMenu
+          style={{ borderRadius: `${borderRadius}px` }}
+          handle={<Button trailingIcon="expand_more">{content.title}</Button>}
+        >
+          {menuItems.map(nestedProps => (
+            <MenuItem key={nestedProps._uid}>
+              {Child(nestedProps)}
+            </MenuItem>)
+          )}
+        </SimpleMenu>}
     </SbEditable>
   )
 }

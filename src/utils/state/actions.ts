@@ -8,11 +8,12 @@ export const closeNavigationDrawers = () => {
   setGlobalState('leftNavigationDrawer', false)
 }
 
-export const setMegaMenu = (v, shouldClose) => {
+// todo this is used somewhere else.. or not in use any longer?
+export const setMegaMenu = (v: any, shouldClose: any) => {
   if (shouldClose) {
     setGlobalState('megaMenu', { [v]: false }) // close
   } else {
-    setGlobalState('megaMenu', value => {
+    setGlobalState('megaMenu', (value: any) => {
       const obj = { ...value, [v]: !value[v] }
       console.log(obj)
       return obj

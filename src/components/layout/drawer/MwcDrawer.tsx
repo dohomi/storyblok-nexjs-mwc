@@ -1,15 +1,14 @@
-import React from 'react'
-import {Drawer, DrawerContent, DrawerHeader, DrawerSubtitle, DrawerTitle} from '@rmwc/drawer'
-import DrawerContentList from './MwcDrawerList'
-import {Link} from 'routes'
+import React, { FunctionComponent } from 'react'
+import { Drawer, DrawerContent, DrawerHeader, DrawerSubtitle, DrawerTitle } from '@rmwc/drawer'
+import DrawerContentList from './DrawerContentList'
+import { Link } from 'routes'
 import imageService from '../../../utils/ImageService'
-import {useGlobalState} from '../../../utils/state/state'
-import {closeNavigationDrawers} from '../../../utils/state/actions'
+import { useGlobalState } from '../../../utils/state/state'
+import { closeNavigationDrawers } from '../../../utils/state/actions'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
-const MwcDrawer = (props) => {
-
+const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content }) => {
   let [isOpen] = useGlobalState('leftNavigationDrawer')
-  const content = props.content
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo
   const websiteSlogan = content.website_slogan
@@ -35,11 +34,5 @@ const MwcDrawer = (props) => {
     </Drawer>
   )
 }
-
-// MwcDrawer.propTypes = {
-//   isDrawerOpen: bool,
-//   onDrawerClose: func,
-//   content: object
-// }
 
 export default MwcDrawer

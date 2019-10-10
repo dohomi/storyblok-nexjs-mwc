@@ -3,9 +3,14 @@ import { addDecorator, configure } from '@storybook/react'
 import WindowDimensionsProvider from '../src/components/provider/WindowDimensionsProvider'
 
 import '!style-loader!css-loader!sass-loader!../src/assets/scss/Layout.scss'
+import { GlobalStateProvider } from '../src/utils/state/state'
 
 addDecorator(storyFunc => (
-  <WindowDimensionsProvider>{storyFunc()}</WindowDimensionsProvider>
+  <WindowDimensionsProvider>
+    <GlobalStateProvider>
+      {storyFunc()}
+    </GlobalStateProvider>
+  </WindowDimensionsProvider>
 ))
 
 const req = require.context('../src', true, /.stories.tsx$/)
