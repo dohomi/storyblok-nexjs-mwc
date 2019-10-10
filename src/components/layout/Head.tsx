@@ -79,10 +79,11 @@ const parseOpenGraph = (settingsOpenGraph: SeoOpenGraphStoryblok, pageOpenGraph:
   return openGraph
 }
 
-const parseTwitter = (values): Twitter => {
+const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
   const twitter = values
   if (twitter.card_type) {
     twitter.cardType = twitter.card_type
+    delete twitter.card_type // remove wrong string
   }
   return twitter
 }
@@ -106,7 +107,7 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
     facebookAppId && (seo.facebook = { appId: facebookAppId })
   }
   // twitter
-  const settingsTwitter = seoBody.find(i => i.component === 'seo_twitter')
+  const settingsTwitter: SeoTwitterStoryblok = seoBody.find(i => i.component === 'seo_twitter') as SeoTwitterStoryblok || undefined
   if (settingsTwitter) {
     seo.twitter = parseTwitter(settingsTwitter)
   }
