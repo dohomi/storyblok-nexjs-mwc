@@ -68,20 +68,20 @@ const theme = {
 
 export function getThemeOptions(settings: GlobalStoryblok) {
   const themeOptions = {
-    ...theme[settings.theme_base || 'base'],
-    fontAlt1: undefined,
-    fontAlt2: undefined,
-    fontAlt3: undefined,
-    fontAlt4: undefined
+    ...theme[settings.theme_base || 'base']
   }
   settings.theme_primary && (themeOptions.primary = settings.theme_primary)
   settings.theme_secondary && (themeOptions.secondary = settings.theme_secondary)
   settings.theme_link && (themeOptions.link = settings.theme_link) // rewrote link => theme_link
   settings.theme_link_hover && (themeOptions.linkHover = settings.theme_link_hover)
   themeOptions.fontDefault = parseFont(settings.theme_font_default) || 'Nunito'
+  // @ts-ignore
   themeOptions.fontAlt1 = parseFont(settings.theme_font_alt1) || themeOptions.fontDefault
+  // @ts-ignore
   themeOptions.fontAlt2 = parseFont(settings.theme_font_alt2) || themeOptions.fontDefault
+  // @ts-ignore
   themeOptions.fontAlt3 = parseFont(settings.theme_font_alt3) || themeOptions.fontDefault
+  // @ts-ignore
   themeOptions.fontAlt4 = parseFont(settings.theme_font_alt4) || themeOptions.fontDefault
   return themeOptions
 }

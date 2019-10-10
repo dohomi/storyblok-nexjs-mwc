@@ -1,15 +1,15 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import Components from '../../components'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import Layout from '../components/layout/Layout'
-import { Page } from '../typings/generated/components-schema'
 import { NextPage } from 'next'
+import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-schema'
 
 type ErrorComponentProps = {
   statusCode: number
-  page?: any
-  settings?: any
+  page?: PageStoryblok
+  settings?: GlobalStoryblok
 }
 
 const statusCodes = {
@@ -22,7 +22,7 @@ const statusCodes = {
 
 const Error: NextPage<ErrorComponentProps> = (props) => {
   let { statusCode, page, settings } = props
-  const title = statusCodes[statusCode] || 'An unexpected error has occurred'
+  const title = (statusCodes as any)[statusCode] || 'An unexpected error has occurred'
   if (statusCode === 401) {
     console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.NODE_ENV, process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
   }
@@ -37,7 +37,7 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
         <meta key="robots" name="robots" content="noindex" />
       </Head>
       <WindowDimensionsProvider>
-        <Layout settings={settings}>
+        <Layout settings={settings as GlobalStoryblok || {}}>
           {
             page && page.pageContent && Components(page.pageContent)
           }
@@ -58,9 +58,9 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
   )
 }
 
-Error.getInitialProps = async ({ res, err }) => {
+Error.getInitialProps = async ({ res, err }): Promise<ErrorComponentProps> => {
   const statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404
-  return { statusCode }
+  return { statusCode: statusCode as number }
 }
 
 export default Error

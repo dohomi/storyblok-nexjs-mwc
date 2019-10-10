@@ -1,16 +1,16 @@
 import DeviceDetectService from './DeviceDetectService'
 
-function _getImageSource({ image, width, height }) {
+function _getImageSource({ image, width, height }: { image: string, width: number, height: number }) {
   let path = ''
   if (width && height) {
-    path = `${parseInt(width)}x${parseInt(height)}`
+    path = `${parseInt(String(width))}x${parseInt(String(height))}`
   }
   path += '/smart'
   return imageService(image, path, '')
 }
 
 
-export function getPreviewImageSource(image) {
+export function getPreviewImageSource(image: string) {
   const orig = getOriginalImageDimensions(image)
   return _getImageSource({
     image: image,
@@ -19,7 +19,7 @@ export function getPreviewImageSource(image) {
   })
 }
 
-export function imageServiceNoWebp(image, option = '') {
+export function imageServiceNoWebp(image: string, option: string = '') {
   if (image.endsWith('.svg')) {
     return image
   }
@@ -28,7 +28,7 @@ export function imageServiceNoWebp(image, option = '') {
   return imageService + option + path
 }
 
-export function getOriginalImageDimensions(src) {
+export function getOriginalImageDimensions(src: string) {
   const splitted = src.split('/')
   const originalDimension = src.split('/')[splitted.length - 3].split('x')
   return {
@@ -47,12 +47,12 @@ type GetImageAttrs = {
   focalPoint?: string
 }
 
-export function getImageAttrs({ originalSource, width, height, filter, fitInColor, smart, focalPoint }: GetImageAttrs) {
+export function getImageAttrs({ originalSource, width, height = 0, filter, fitInColor, smart, focalPoint }: GetImageAttrs) {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   if (originalDimensions.width < width) {
     width = originalDimensions.width
   }
-  if (originalDimensions.height < height) {
+  if (height && originalDimensions.height < height) {
     height = originalDimensions.height
   }
   if (fitInColor) {
@@ -72,7 +72,7 @@ export function getImageAttrs({ originalSource, width, height, filter, fitInColo
     imgObj.srcSet = `${imgObj.src} 1x, ${imageService(originalSource, getPath(width * 2, height * 2), filter)} 2x`
   }
 
-  function getPath(width, height) {
+  function getPath(width: number, height: number) {
     let path = `${width || 0}x${height || 0}`
     if (fitInColor) {
       path = 'fit-in/' + path
@@ -85,7 +85,7 @@ export function getImageAttrs({ originalSource, width, height, filter, fitInColo
   return imgObj
 }
 
-export function getFocalPoint(src, focalPoint) {
+export function getFocalPoint(src: string, focalPoint: string) {
   const { width, height } = getOriginalImageDimensions(src)
   const focalSplitted = focalPoint.split('x')
   const focalPercentX = parseFloat(focalSplitted[0]) / 100
@@ -95,12 +95,12 @@ export function getFocalPoint(src, focalPoint) {
   return `:focal(${topLeft}:${bottomRight})`
 }
 
-function imageService(image, option = '', filter = '') {
+function imageService(image: string, option: string = '', filter: string = '') {
   if (image.endsWith('.svg')) {
     return image
   }
   option && (option += '/')
-  const hasWebpSupport = typeof window !== 'undefined' ? window['hasWebpSupport'] : DeviceDetectService.getWebpSupport()
+  const hasWebpSupport = typeof window !== 'undefined' ? (window as any)['hasWebpSupport'] : DeviceDetectService.getWebpSupport()
   if (hasWebpSupport) {
     option += 'filters:format(webp)' + filter
   } else if (filter) {

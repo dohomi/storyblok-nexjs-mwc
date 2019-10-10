@@ -1,14 +1,18 @@
 import React from 'react'
 import MwcComponents from '../src/components'
 
+type MwcComponents = {
+  [k: string]: any
+}
 // merge all potential components of storyblok. setup components alias in Webpack
-const Components = {...MwcComponents}
+const Components: MwcComponents = { ...MwcComponents }
 
-export default (blok) => {
+
+export default (blok: any) => {
   if (typeof Components[blok.component] !== 'undefined') {
-    return React.createElement(Components[blok.component], {key: blok._uid, content: blok})
+    return React.createElement(Components[blok.component], { key: blok._uid, content: blok })
   }
   return React.createElement(() => (
-    <div style={{color:'red'}}>The component {blok.component} has not been created yet.</div>
-  ), {key: blok._uid})
+    <div style={{ color: 'red' }}>The component {blok.component} has not been created yet.</div>
+  ), { key: blok._uid })
 }

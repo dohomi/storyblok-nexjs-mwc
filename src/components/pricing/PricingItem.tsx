@@ -9,7 +9,7 @@ const PricingItem: FunctionComponent<PricingItemStoryblok> = (props) => {
   const media = props.image && props.image[0]
   const title = props.title || []
   const price = props.price || []
-  const promo = props.promo || []
+  const promotion = props.promotion || []
   const features = props.features || []
   const subtitle = props.subtitle || []
   const button = props.button || []
@@ -21,7 +21,7 @@ const PricingItem: FunctionComponent<PricingItemStoryblok> = (props) => {
         <div className={`lm-pricing__title${!title.length ? ' lm-no-title' : ''}`}>{title.map(v => Components(v))}</div>
         {price.length > 0 && (
           <div className="lm-pricing__price">
-            {promo.length > 0 && promo.map(v => Components(v))}
+            {promotion.length > 0 && promotion.map(v => Components(v))}
             {price.map(v => Components(v))}
           </div>
         )}

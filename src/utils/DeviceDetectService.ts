@@ -1,40 +1,35 @@
 import parser from 'ua-parser-js'
+import { IncomingMessage, ServerResponse } from 'http'
 
 class DeviceDetect {
-  private device: { os: any; browser: any; version: number; device: any }
+  private device: { os: any; browser: any; device: any }
   private hasWebpSupport: boolean
   private language: string
 
   constructor() {
-    this.device = null
+    this.device = {
+      os: null,
+      browser: null,
+      device: null
+    }
     this.hasWebpSupport = false
-    this.language = null
+    this.language = ''
   }
 
   getDevice() {
     return this.device
   }
 
-  setAppServices(req?) {
+  setAppServices(req?: IncomingMessage) {
     this.setDevice(req)
     this.setWebpSupport(req)
   }
 
-  /**
-   *
-   * @return {null}
-   */
   getLanguage() {
     return this.language
   }
 
-  /**
-   *
-   * @param {string} language
-   * @param {array|string} audienceLanguages
-   * @param {object} [res]
-   */
-  setLanguage(language, audienceLanguages, res) {
+  setLanguage(language?: string, audienceLanguages?: string, res?: ServerResponse) {
     if (language) {
       this.language = language
     }
@@ -43,58 +38,43 @@ class DeviceDetect {
     }
   }
 
-  /**
-   *
-   * @param parsed
-   * @return {{os: string, browser: *, version: number, device: *}}
-   * @private
-   */
-  _getDeviceValues(parsed) {
+  _getDeviceValues(parsed: IUAParser.IResult) {
     return {
       browser: parsed.browser.name,
-      version: parseInt(parsed.browser.major),
       os: parsed.os.name,
       device: parsed.device.type
     }
   }
 
-  /**
-   * on server pass req. leave blank if called on client
-   * @param req
-   */
-  setDevice(req) {
+  setDevice(req?: IncomingMessage) {
     if (req) {
       // we set this and calling it in _document to set global windows variable
-      let userAgent = req.headers['user-agent']
+      let userAgent = req.headers['user-agent'] as string
+
+      // @ts-ignore
       const parsed = userAgent && parser(userAgent)
       this.device = this._getDeviceValues(parsed)
     } else {
-      this.device = this._getDeviceValues(parser())
-      window['userDevice'] = { ...this.device }
+      // @ts-ignore
+      // this.device = this._getDeviceValues(parser())
+      // (window as any)['userDevice'] = { ...this.device }
     }
   }
 
-  /**
-   *
-   * @return {null}
-   */
   getWebpSupport() {
     return this.hasWebpSupport
   }
 
-  /**
-   * on server pass req. leave blank if called on client
-   * @param req
-   */
-  setWebpSupport(req) {
+  setWebpSupport(req?: IncomingMessage) {
     if (req) {
       // we set this and calling it in _document to set global windows variable
-      this.hasWebpSupport = req.headers.accept && req.headers.accept.includes('webp')
+      this.hasWebpSupport = !!(req.headers.accept && req.headers.accept.includes('webp'))
     } else {
       this._supportsWebp()
-        .then((can: boolean) => {
-          this.hasWebpSupport = can
-          window['hasWebpSupport'] = can
+        .then((can: any) => {
+          this.hasWebpSupport = !!can
+          // @ts-ignore
+          window['hasWebpSupport'] = !!can
         })
 
     }

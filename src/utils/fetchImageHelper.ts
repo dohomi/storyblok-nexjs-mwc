@@ -1,4 +1,4 @@
-export function getImagePromise({ src, srcSet }) {
+export function getImagePromise({ src, srcSet }: { src: string, srcSet: string }) {
   return new Promise((resolve, reject) => {
     getImage({
       src,
@@ -19,12 +19,12 @@ export function getImage({ src = '', srcSet = '', onReady, onError }: {
   onReady?: Function
   onError?: Function
 }) {
-  let img = new Image()
+  let img: HTMLImageElement | null = new Image()
   img.src = src
   img.srcset = srcSet || src
   // img.crossOrigin = 'anonymous'
   img.onload = () => {
-    onReady && onReady(img.currentSrc || img.src) // return current selected source
+    onReady && onReady(img && (img.currentSrc || img.src)) // return current selected source
     img = null // dispose image element
   }
   img.onerror = (e) => {

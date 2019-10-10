@@ -14,7 +14,7 @@ export interface SectionProps extends SectionStoryblok {
 
 const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   const isFullHeight = !!(content.property && content.property.includes('is_full_height'))
-  const containerProps = backgroundPropertyHelper(content.background)
+  const containerProps = backgroundPropertyHelper(content.background || [])
   const backgroundImage = containerProps.image
   let theme = {}
   const variant = content.variant || (content.presetVariant && content.presetVariant.variant)

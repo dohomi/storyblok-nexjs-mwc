@@ -1,13 +1,11 @@
 import React from 'react'
 import App from 'next/app'
-
-import '../src/assets/scss/Layout.scss'
-
+import '../assets/scss/Layout.scss'
 
 class MyApp extends App {
 
-  render () {
-    const {Component, pageProps} = this.props
+  render() {
+    const { Component, pageProps } = this.props
     return (
       <Component {...pageProps} />
     )

@@ -2,15 +2,18 @@ let { useState, useEffect } = require('react')
 
 let supportsPassive = false
 
+const noop = () => {
+}
 const checkPassiveEventListener = () => {
   try {
-    var opts = Object.defineProperty({}, 'passive', {
+    const opts = Object.defineProperty({}, 'passive', {
       get: function() {
         supportsPassive = true
       }
     })
-    window.addEventListener('testPassive', null, opts)
-    window.removeEventListener('testPassive', null, opts)
+
+    window.addEventListener('testPassive', noop, opts)
+    window.removeEventListener('testPassive', noop, opts)
   } catch (e) {
   }
 }

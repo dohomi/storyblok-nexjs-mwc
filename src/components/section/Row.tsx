@@ -26,7 +26,7 @@ const getThemeStyles = (values: any[]) => {
 const getRowProperties = (content: RowNestedStoryblok | RowStoryblok) => {
   // content = content || {}
 
-  const containerProps = backgroundPropertyHelper(content.background)
+  const containerProps = backgroundPropertyHelper(content.background || [])
 
   const styles: CSSProperties = {
     ...containerProps.styles,

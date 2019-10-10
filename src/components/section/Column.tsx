@@ -8,7 +8,7 @@ import { FunctionComponent } from 'react'
 import { ColumnStoryblok } from '../../typings/generated/components-schema'
 
 const Column: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }) => {
-  const containerProps = backgroundPropertyHelper(content.background)
+  const containerProps = backgroundPropertyHelper(content.background || [])
   let styles = {}
   if (containerProps.styles) {
     styles = containerProps.styles

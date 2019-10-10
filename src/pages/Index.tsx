@@ -6,7 +6,7 @@ import Layout from '../components/layout/Layout'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import DeviceDetectService from '../utils/DeviceDetectService'
 import Fonts from 'fonts'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 import Error from '../pages/_error'
 import { NextPage } from 'next'
 import { GlobalStateProvider } from '../utils/state/state'
@@ -14,6 +14,7 @@ import getInitialPageProps, { AppPageProps, PageSeoProps } from '@initialData/ge
 
 const Index: NextPage<AppPageProps> = (props) => {
   const { asPath } = useRouter()
+  // const asPath = ''
   let [content, setContent] = useState<AppPageProps>(props)
   const { page } = content
   const { settings, pageSeo, hasFeature, error } = props

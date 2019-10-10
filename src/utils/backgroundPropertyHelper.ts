@@ -1,5 +1,6 @@
 import imageService from './ImageService'
-import { BackgroundStoryblok } from '../typings/generated/components-schema'
+import { BackgroundElementItemStoryblok, BackgroundStoryblok } from '../typings/generated/components-schema'
+import { CSSProperties } from 'react'
 
 type BackgroundStyles = {
   border: string
@@ -15,9 +16,9 @@ type BackgroundProperty = {
   imageProperties: any[]
 }
 
-function multipleBackgroundComposer(backgroundElements) {
+function multipleBackgroundComposer(backgroundElements: BackgroundElementItemStoryblok[]) {
   const elements = backgroundElements.map(item => {
-    const url = imageService(item.url, '')
+    const url = imageService(item.url || '', '')
     return {
       background: `url('${url}') ${item.horizontal || 'left'} ${item.vertical || 'top'} ${item.repeat || 'no-repeat'}`,
       backgroundSize: item.size || 'auto'
@@ -29,7 +30,7 @@ function multipleBackgroundComposer(backgroundElements) {
   }
 }
 
-function backgroundPropertyHelper(properties) {
+const backgroundPropertyHelper = (properties: any[]) => {
   if (!Array.isArray(properties)) {
     return {}
   }
@@ -45,9 +46,8 @@ function backgroundPropertyHelper(properties) {
   } else if (borderRadius) {
     border = '1px solid transparent'
   }
-  const styles: BackgroundStyles = {
-    border
-  }
+  const styles: CSSProperties = {}
+  border && (styles.border = border)
   if (borderRadius) {
     styles.borderRadius = borderRadius
   }

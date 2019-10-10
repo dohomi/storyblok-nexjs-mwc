@@ -1,6 +1,7 @@
 import FontFaceObserver from 'fontfaceobserver'
+import { GlobalStoryblok } from '../src/typings/generated/components-schema'
 
-const fontHandler = (settings) => {
+const fontHandler = (settings: GlobalStoryblok) => {
   const settingsFonts = ['theme_font_default', 'theme_font_alt1', 'theme_font_alt2', 'theme_font_alt3', 'theme_font_alt4']
   const loadFonts = ['Material+Icons']
   Object.keys(settings).forEach(key => {

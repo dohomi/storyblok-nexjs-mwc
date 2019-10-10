@@ -49,3 +49,14 @@ storiesOf('Button', module)
       </>
     )
   )
+  .add(
+    'Mixed Button',
+    () => (
+      <>
+        <Button content={{ ...defaultProps, color: 'secondary' }} />
+        <Button content={{ ...variant1, color: 'secondary' }} />
+        <Button content={{ ...variant2, color: 'primary_text' }} />
+        <Button content={{ ...variant3, color: 'dark' }} />
+      </>
+    )
+  )

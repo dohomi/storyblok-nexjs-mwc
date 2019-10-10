@@ -3,8 +3,9 @@ import { getImageAttrs, getPreviewImageSource } from '../../utils/ImageService'
 import { useInView } from 'react-intersection-observer'
 import { createRef, CSSProperties, FunctionComponent, RefObject, useEffect, useState } from 'react'
 import { getImage } from '../../utils/fetchImageHelper'
-import useComponentSize from '@rehooks/component-size'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import useResizeAware from '../react-resize-aware/src/useResizeAware'
+
 
 type SectionWithBackgroundProps = {
   isColumn?: boolean
@@ -24,8 +25,8 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
   const lazyDisabled = imageProperties.includes('disable_lazy_load')
   let containerRef: HTMLDivElement
   const wrap: RefObject<HTMLDivElement> = createRef()
-  // const [resizeListener, sizes] = useResizeAware()
-  const sizes = useComponentSize(wrap)
+  const [resizeListener, sizes] = useResizeAware()
+  // const sizes = useComponentSize(wrap)
   const dimensions = useWindowDimensions()
 
   const containerClasses = clsx(
@@ -112,7 +113,7 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
     <div className={containerClasses}
          ref={wrap}
          style={props.style}>
-      {/*{resizeListener}*/}
+      {resizeListener}
       <div className="lm-background__absolute-fill lm-background-image lm-background__blurred"
            style={initialState}>
       </div>
