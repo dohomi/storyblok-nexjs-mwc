@@ -6,7 +6,7 @@ import { IconButton, IconButtonProps } from '@rmwc/icon-button'
 import { Fab, FabProps } from '@rmwc/fab'
 import React, { FunctionComponent } from 'react'
 import { componentLogger } from '../../utils/componentLogger'
-import { linkHandler } from '../../utils/linkHandler'
+import { linkHandler, LinkPropsType, LinkType } from '../../utils/linkHandler'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 
 interface MuiButtonProps extends ButtonProps, IconButtonProps, FabProps {
@@ -116,7 +116,7 @@ const MtButton: FunctionComponent<{
     // overwrites potential link values
     link = { cached_url: `https://${content.file}` }
   }
-  linkHandler(buttonProps, link, { openExternal: !!content.open_external })
+  linkHandler(buttonProps as LinkPropsType, link as LinkType, { openExternal: !!content.open_external })
 
   buttonProps.tag = ButtonLink
   if (content.font) {

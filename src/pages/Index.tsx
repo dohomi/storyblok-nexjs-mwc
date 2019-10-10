@@ -10,7 +10,7 @@ import { useRouter } from 'next/dist/client/router'
 import Error from '../pages/_error'
 import { NextPage } from 'next'
 import { GlobalStateProvider } from '../utils/state/state'
-import getInitialPageProps, { AppPageProps } from '@initialData/getInitialPageProps'
+import getInitialPageProps, { AppPageProps, PageSeoProps } from '@initialData/getInitialPageProps'
 
 const Index: NextPage<AppPageProps> = (props) => {
   const { asPath } = useRouter()
@@ -44,7 +44,7 @@ const Index: NextPage<AppPageProps> = (props) => {
 
   return (
     <>
-      <Head settings={settings} pageSeo={pageSeo} />
+      <Head settings={settings} pageSeo={pageSeo as PageSeoProps} />
       <WindowDimensionsProvider>
         <GlobalStateProvider>
           <Layout settings={settings} hasFeature={hasFeature} asPath={asPath}>

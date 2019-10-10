@@ -5,8 +5,14 @@ import StoryblokService from '../../utils/StoryblokService'
 import { NextSeo } from 'next-seo'
 import imageService, { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
 import { FunctionComponent } from 'react'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import {
+  GlobalStoryblok,
+  ImageCoreStoryblok,
+  SeoOpenGraphStoryblok,
+  SeoTwitterStoryblok
+} from '../../typings/generated/components-schema'
 import { PageSeoProps } from '@initialData/getInitialPageProps'
+import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
 
 Router.events.on('onRouteChangeStart', () => NProgress.start())
 Router.events.on('onRouteChangeComplete', () => NProgress.done())
@@ -14,14 +20,28 @@ Router.events.on('onRouteChangeError', () => NProgress.done())
 
 const iconSizes = [16, 32, 96, 192]
 
-function mapOpenGraphImage(item) {
+type SeoMetaTypes = {
+  title: string
+  description: string
+  noindex: boolean
+  openGraph?: OpenGraph
+  facebook?: {
+    appId: string;
+  }
+  twitter?: Twitter
+}
+
+
+const mapOpenGraphImage = (item: ImageCoreStoryblok): OpenGraphImages | undefined => {
   if (!item.url) return
   let dimensions = getOriginalImageDimensions(item.url)
   const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
   if (item.width || item.height) {
-    dimensions = {} // overwrite original dimensions
-    item.width && (originaImageDimensions.width = item.width)
-    item.height && (originaImageDimensions.height = item.height)
+    // delete both original dimensions
+    delete dimensions.width
+    delete dimensions.height
+    item.width && (dimensions.width = item.width)
+    item.height && (dimensions.height = item.height)
   }
   return {
     ...dimensions,
@@ -30,35 +50,36 @@ function mapOpenGraphImage(item) {
   }
 }
 
-function parseOpenGraph(settingsOpenGraph = {}, pageOpenGraph = {}, seoMeta = {}, url = '') {
+const parseOpenGraph = (settingsOpenGraph: SeoOpenGraphStoryblok, pageOpenGraph: SeoOpenGraphStoryblok, seoMeta: SeoMetaTypes, url: string): OpenGraph => {
   // set some defaults of seoMeta
-  const openGraph = {
+  const openGraph: OpenGraph = {
     title: pageOpenGraph.title || seoMeta.title || settingsOpenGraph.title,
     description: pageOpenGraph.description || seoMeta.description || settingsOpenGraph.description,
     url: pageOpenGraph.url || url || settingsOpenGraph.url,
     type: pageOpenGraph.type || settingsOpenGraph.type,
     site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
-    locale: pageOpenGraph.locale || settingsOpenGraph.locale,
-    images: []
+    locale: pageOpenGraph.locale || settingsOpenGraph.locale
   }
+  const images: OpenGraphImages[] = []
   // settings images
   if (settingsOpenGraph.images) {
-    settingsOpenGraph.images.forEach(img => {
+    settingsOpenGraph.images.forEach((img: ImageCoreStoryblok) => {
       let parsed = mapOpenGraphImage(img)
-      parsed && openGraph.images.push(parsed)
+      parsed && images.push(parsed)
     })
   }
   // page images
   if (pageOpenGraph.images) {
-    pageOpenGraph.images.forEach(item => {
+    pageOpenGraph.images.forEach((item: ImageCoreStoryblok) => {
       let parsed = mapOpenGraphImage(item)
-      parsed && openGraph.images.push(parsed)
+      parsed && images.push(parsed)
     })
   }
+  openGraph.images = images
   return openGraph
 }
 
-function parseTwitter(values) {
+const parseTwitter = (values): Twitter => {
   const twitter = values
   if (twitter.card_type) {
     twitter.cardType = twitter.card_type
@@ -69,18 +90,18 @@ function parseTwitter(values) {
 
 const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps }> = ({ settings, pageSeo }) => {
   const favicon = settings.setup_favicon
-  const seoBody = settings.seo_body || []
-  const seo = {
+  const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
+  const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = pageSeo.body || []
+  const seo: SeoMetaTypes = {
     title: pageSeo.title || settings.seo_title || 'Website made by Lumen Media',
     description: pageSeo.description || settings.seo_description || 'Website made by Lumen Media',
     noindex: pageSeo.disableRobots || !settings.seo_robots // important to change if go live
   }
   // open graphs
-  const settingsOpenGraphs = seoBody.find(i => i.component === 'seo_open_graph')
-  const pageOpenGraphs = pageSeo.body.find(i => i.component === 'seo_open_graph')
-  // const pageOpenGraphImages =
-  if (settingsOpenGraphs) {
-    seo.openGraph = parseOpenGraph(settingsOpenGraphs, pageOpenGraphs, seo, pageSeo.url)
+  const settingsOpenGraphs: SeoOpenGraphStoryblok = seoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok
+  const pageOpenGraphs: SeoOpenGraphStoryblok = pageSeoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok
+  if (settingsOpenGraphs || pageOpenGraphs) {
+    seo.openGraph = parseOpenGraph(settingsOpenGraphs || {}, pageOpenGraphs || {}, seo, pageSeo.url)
     const facebookAppId = settingsOpenGraphs.app_id || pageOpenGraphs && pageOpenGraphs.app_id
     facebookAppId && (seo.facebook = { appId: facebookAppId })
   }
