@@ -1,14 +1,9 @@
 {
   "version": 2,
   "name": "storyblok-bare-mwc",
-  "alias": "mwc.lumen.media",
   "regions": [
     "bru1"
   ],
-  "env": {
-    "STORYBLOK_PREVIEW": "ppVDdzB1OJZxrF5YU0GJuwtt",
-    "STORYBLOK_PUBLIC_LUMEN": "pw7SspcUSyyy8h6XSsBJhwtt"
-  },
   "builds": [
     {
       "src": "package.json",
@@ -21,7 +16,7 @@
       "headers": {
         "Cache-Control": "public, s-maxage=31536000, max-age=31536000, immutable"
       },
-      "dest": "/static/$1"
+      "dest": "/$1"
     },
     {
       "src": "^/_next/static/(.*)$",

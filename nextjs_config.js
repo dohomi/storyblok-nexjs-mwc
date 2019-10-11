@@ -4,6 +4,7 @@ function nextjsConfigGen(env, pathAliasOverwrites = {}) {
 
   const defaults = {
     target: 'serverless',
+    compress: false,
     transpileModules: ['@lumen/mwc'],
     env,
     webpack: (config) => {
