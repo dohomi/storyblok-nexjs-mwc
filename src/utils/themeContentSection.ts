@@ -14,7 +14,7 @@ type ToolbarTheme = {
 }
 
 export const toolbar: ToolbarTheme = {
-// @ts-ignore
+  // @ts-ignore
   white: {
     primary: 'white',
     surface: 'white'

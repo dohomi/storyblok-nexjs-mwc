@@ -12,7 +12,7 @@ function nextjsConfigGen(env, pathAliasOverwrites = {}) {
         fs: 'empty'
       }
       const overwrites = {
-        components: path.join(__dirname, 'components'),
+        components: path.join(__dirname, 'components/ComponentRender.tsx'),
         routes: path.join(__dirname, 'server/routes.ts'),
         client: path.join(__dirname, 'client'),
         fonts: path.join(__dirname, 'components/fonts.ts'),

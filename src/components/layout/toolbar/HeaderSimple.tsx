@@ -8,7 +8,7 @@ import TopAppBarWrap from './TopAppBar'
 import { TopAppBarFixedAdjust, TopAppBarNavigationIcon, TopAppBarRow, TopAppBarSection } from '@rmwc/top-app-bar'
 import { toggleLeftNavigation } from '../../../utils/state/actions'
 import ToolbarLogo from './ToolbarLogo'
-import Components from 'components/index'
+import Components from 'components'
 
 const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
   const content = props.settings || {}
@@ -25,8 +25,6 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
   if (color) {
     theme = toolbar[color]
   }
-
-  console.log('theme', color, theme)
 
   return (
     <SbEditable content={content}>

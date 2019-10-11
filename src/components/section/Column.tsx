@@ -1,4 +1,4 @@
-import Components from 'components/index'
+import Components from 'components'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import backgroundPropertyHelper from '../../utils/backgroundPropertyHelper'

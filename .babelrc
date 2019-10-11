@@ -10,7 +10,7 @@
           "./"
         ],
         "alias": {
-          "components": "./components",
+          "components": "./components/ComponentRender.tsx",
           "fonts": "./components/fonts.ts",
           "routes": "./server/routes.ts",
           "client": "./client",

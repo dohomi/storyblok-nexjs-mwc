@@ -20,8 +20,8 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "components/*": [
-        "./components/*"
+      "components": [
+        "./components/ComponentRender.tsx"
       ],
       "fonts": [
         "./components/fonts.ts"

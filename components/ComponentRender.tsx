@@ -1,5 +1,5 @@
 import React from 'react'
-import MwcComponents from '../src/components'
+import MwcComponents from '../src/components/all_components'
 
 type MwcComponents = {
   [k: string]: any

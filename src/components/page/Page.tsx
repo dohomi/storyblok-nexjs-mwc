@@ -1,5 +1,5 @@
 // @ts-ignore
-import Components from 'components/index'
+import Components from 'components'
 import SbEditable from 'storyblok-react'
 import { ParallaxProvider } from 'react-scroll-parallax'
 import { FunctionComponent } from 'react'

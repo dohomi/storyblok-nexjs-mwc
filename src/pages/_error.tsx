@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Components from '../../components'
+import Components from 'components'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import Layout from '../components/layout/Layout'
 import { NextPage } from 'next'

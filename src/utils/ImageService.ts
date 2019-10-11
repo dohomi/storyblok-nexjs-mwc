@@ -106,12 +106,7 @@ function imageService(image: string, option: string = '', filter: string = '') {
   } else if (filter) {
     option += 'filters' + filter
   }
-
-  const imageService = 'https://img2.storyblok.com/'
-  const path = image
-    .replace('https://a.storyblok.com', '')
-    .replace('//a.storyblok.com', '')
-  return imageService + option + path
+  return `https://img2.storyblok.com/${option}${image.split('storyblok.com')[1]}`
 }
 
 export default imageService

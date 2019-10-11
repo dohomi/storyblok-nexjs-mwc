@@ -1,4 +1,4 @@
-import Components from 'components/index'
+import Components from 'components'
 import SbEditable from 'storyblok-react'
 import { FunctionComponent } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'

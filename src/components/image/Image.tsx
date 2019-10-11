@@ -79,15 +79,16 @@ const Image: FunctionComponent<{
   }
 
   function onImageLoaded() {
-    // @ts-ignore
-    intersectionElement.target.firstElementChild.classList.add('loaded')
+
+    intersectionElement && intersectionElement.target && intersectionElement.target.firstElementChild && intersectionElement.target.firstElementChild.classList.add('loaded')
   }
 
 
   return (
     <SbEditable content={content}>
       <figure ref={refIntersectionObserver} className={containerClassName}>
-        <img {...imgProps} onLoad={onImageLoaded} />
+        <img {...imgProps}
+             onLoad={onImageLoaded} />
       </figure>
     </SbEditable>
   )
