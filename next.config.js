@@ -21,9 +21,14 @@ if (process.env.NODE_ENV === 'production') {
 // STORYBLOK_PREVIEW: 'nki3pcCyJQn4Gz4YVPtQDAtt',
 // STORYBLOK_PUBLIC: 'LUjyqrMPcBd3M9aWJHfNCQtt'
 
+// Baliinternships
+// STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
+// STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
+
+
 
 
 module.exports = config({
-  STORYBLOK_PREVIEW: 'nki3pcCyJQn4Gz4YVPtQDAtt',
-  STORYBLOK_PUBLIC: 'LUjyqrMPcBd3M9aWJHfNCQtt'
+  STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
+  STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
 })

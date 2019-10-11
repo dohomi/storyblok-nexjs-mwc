@@ -103,7 +103,7 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
   const pageOpenGraphs: SeoOpenGraphStoryblok = pageSeoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok
   if (settingsOpenGraphs || pageOpenGraphs) {
     seo.openGraph = parseOpenGraph(settingsOpenGraphs || {}, pageOpenGraphs || {}, seo, pageSeo.url)
-    const facebookAppId = settingsOpenGraphs.app_id || pageOpenGraphs && pageOpenGraphs.app_id
+    const facebookAppId = (settingsOpenGraphs && settingsOpenGraphs.app_id) || (pageOpenGraphs && pageOpenGraphs.app_id)
     facebookAppId && (seo.facebook = { appId: facebookAppId })
   }
   // twitter
@@ -121,6 +121,9 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
           <link rel="icon" sizes={`${size}/${size}`} href={imageService(favicon, `${size}x${size}`)}
                 key={`fav_${size}`} />
         ))}
+        {!favicon && (
+          <link rel="icon" href="/favicon.ico" />
+        )}
         {StoryblokService.bridge()}
       </NextHead>
     </>
