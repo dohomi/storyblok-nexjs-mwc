@@ -53,6 +53,8 @@ storiesOf('Button', module)
     'Mixed Button',
     () => (
       <>
+        <Button content={{ ...defaultProps, variant: 'outlined' }} />
+        <Button content={{ ...defaultProps, color: 'secondary_text' }} />
         <Button content={{ ...defaultProps, color: 'secondary' }} />
         <Button content={{ ...variant1, color: 'secondary' }} />
         <Button content={{ ...variant2, color: 'primary_text' }} />
