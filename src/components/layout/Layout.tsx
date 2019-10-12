@@ -7,7 +7,6 @@ import { getThemeOptions } from '../../utils/themeLayout'
 import { closeNavigationDrawers } from '../../utils/state/actions'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { GlobalStateProvider } from '../../utils/state/state'
-import '../../assets/scss/Layout.scss'
 
 type LayoutProps = {
   hasFeature?: boolean

@@ -1,5 +1,6 @@
 import React from 'react'
 import App from 'next/app'
+import '../assets/scss/Layout.scss'
 
 class MyApp extends App {
 
