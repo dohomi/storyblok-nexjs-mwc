@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "downlevelIteration": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "module": "esnext",
+    "outDir": "dist",
+    "isolatedModules": false,
+    "noEmit": false,
+    "baseUrl": ".",
+    "paths": {
+      "components": [
+        "./components/ComponentRender.tsx"
+      ],
+      "fonts": [
+        "./components/fonts.ts"
+      ],
+      "routes": [
+        "./server/routes.ts"
+      ],
+      "client": [
+        "./client"
+      ],
+      "@initialData/*": [
+        "./src/pages/utils/*"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    ".next",
+    ".storybook",
+    "dist",
+    "*.stories.*",
+    "*.test.*",
+    ".storybook",
+    "server"
+  ],
+  "include": [
+    "next-env",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}

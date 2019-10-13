@@ -20,7 +20,8 @@
     "gen-ts-schema": "node generate-ts-schema.js",
     "codegen": "graphql-codegen --config codegen.yml",
     "storybook": "start-storybook -p 6006 -c .storybook",
-    "build-storybook": "rm -rf public_storybook && build-storybook -c .storybook -o public_storybook && cd public_storybook && now"
+    "build-storybook": "rm -rf public_storybook && build-storybook -c .storybook -o public_storybook && cd public_storybook && now",
+    "build-prod": "rm -rf dist && tsc -p tsconfig.build.json"
   },
   "author": "Dominic Garms <djgarms@gmail.com>",
   "license": "ISC",
