@@ -67,7 +67,7 @@ const HubspotForm: FunctionComponent<FormProps> = (props) => {
       window.hbspt.forms.create(options)
       return true
     } else {
-      setTimeout(createForm, 1)
+      return setTimeout(createForm, 1)
     }
   }
 

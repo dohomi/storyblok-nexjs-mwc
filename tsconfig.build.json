@@ -15,9 +15,17 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "preserve",
+    "declaration": true,
     "module": "esnext",
     "outDir": "dist",
     "isolatedModules": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noEmit": false,
     "baseUrl": ".",
     "paths": {
@@ -38,6 +46,11 @@
       ]
     }
   },
+  "include": [
+    "next-env",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
   "exclude": [
     "node_modules",
     ".next",
@@ -47,10 +60,5 @@
     "*.test.*",
     ".storybook",
     "server"
-  ],
-  "include": [
-    "next-env",
-    "**/*.ts",
-    "**/*.tsx"
   ]
 }

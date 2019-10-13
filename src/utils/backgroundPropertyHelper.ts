@@ -2,20 +2,6 @@ import imageService from './ImageService'
 import { BackgroundElementItemStoryblok, BackgroundStoryblok } from '../typings/generated/components-schema'
 import { CSSProperties } from 'react'
 
-type BackgroundStyles = {
-  border: string
-  backgroundColor?: string
-  borderRadius?: string
-}
-
-type BackgroundProperty = {
-  image: string
-  styles: BackgroundStyles
-  classNames: string[]
-  classes: string[]
-  imageProperties: any[]
-}
-
 function multipleBackgroundComposer(backgroundElements: BackgroundElementItemStoryblok[]) {
   const elements = backgroundElements.map(item => {
     const url = imageService(item.url || '', '')

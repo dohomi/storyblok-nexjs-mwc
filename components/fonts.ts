@@ -33,6 +33,7 @@ const fontHandler = (settings: GlobalStoryblok) => {
   ]).then(() => {
     document.documentElement.classList.add('fonts-loaded')
   }).catch(e => {
+    console.error(e)
     document.documentElement.classList.add('fonts-failed')
   })
 }
