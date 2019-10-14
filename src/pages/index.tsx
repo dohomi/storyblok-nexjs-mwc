@@ -9,7 +9,10 @@ import Fonts from 'fonts'
 import { useRouter } from 'next/router'
 import Error from '../pages/_error'
 import { NextPage } from 'next'
-import getInitialPageProps, { AppPageProps, PageSeoProps } from '@initialData/getInitialPageProps'
+import getInitialPageProps from '@initialData/getInitialPageProps'
+import { GlobalStateProvider } from '../utils/state/state'
+import { AppPageProps, PageSeoProps } from '../utils/parsePageProperties'
+import StoriesService from '../utils/StoriesService'
 
 type CoreAppProps = AppPageProps & {
   asPath: string
@@ -20,9 +23,11 @@ const CoreIndex: FunctionComponent<CoreAppProps> = (props) => {
     <>
       <Head settings={settings} pageSeo={pageSeo as PageSeoProps} />
       <WindowDimensionsProvider>
-        <Layout settings={settings} hasFeature={hasFeature} asPath={asPath}>
-          {Components(page)}
-        </Layout>
+        <GlobalStateProvider>
+          <Layout settings={settings} hasFeature={hasFeature} asPath={asPath}>
+            {Components(page)}
+          </Layout>
+        </GlobalStateProvider>
       </WindowDimensionsProvider>
       <script>/* fix FF initial render */</script>
     </>
@@ -52,7 +57,7 @@ const StoryblokIndex: FunctionComponent<CoreAppProps> = (props) => {
 const Index: NextPage<AppPageProps> = (props) => {
   const { asPath, query } = useRouter()
   const { settings, page, error } = props
-
+  StoriesService.setAllStories(props.allStories)
   useEffect(
     () => {
       Fonts(settings)

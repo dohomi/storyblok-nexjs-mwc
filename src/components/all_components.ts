@@ -26,6 +26,7 @@ import Promotion from './promotion/Promotion'
 import Accordion from './accordion/Accordion'
 import Table from './table/Table'
 import Tabs from './tabs/Tabs'
+import ListWidget from './list-widget/ListWidget'
 
 const Components = {
   'page': Page,
@@ -56,7 +57,8 @@ const Components = {
   'card_list': CardList,
   'section_parallax': SectionParallax,
   'form': Form,
-  'tabs': Tabs
+  'tabs': Tabs,
+  'list_widget': ListWidget
 }
 
 export default Components

@@ -2,7 +2,8 @@ import { createGlobalState } from 'react-hooks-global-state'
 
 const initialState = {
   leftNavigationDrawer: false,
-  megaMenu: {}
+  megaMenu: {},
+  allStories: []
 }
 const { GlobalStateProvider, setGlobalState, useGlobalState } = createGlobalState(initialState)
 

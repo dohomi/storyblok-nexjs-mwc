@@ -76,7 +76,6 @@ class DeviceDetect {
           // @ts-ignore
           window['hasWebpSupport'] = !!can
         })
-
     }
   }
 

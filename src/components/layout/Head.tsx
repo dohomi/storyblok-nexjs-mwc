@@ -11,8 +11,8 @@ import {
   SeoOpenGraphStoryblok,
   SeoTwitterStoryblok
 } from '../../typings/generated/components-schema'
-import { PageSeoProps } from '@initialData/getInitialPageProps'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
+import { PageSeoProps } from '../../utils/parsePageProperties'
 
 Router.events.on('onRouteChangeStart', () => NProgress.start())
 Router.events.on('onRouteChangeComplete', () => NProgress.done())
