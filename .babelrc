@@ -1,16 +1,6 @@
 {
   "presets": [
-    [
-      "next/babel",
-      {
-        "preset-env": {
-          "modules": "commonjs",
-          "exclude": [
-            "transform-classes"
-          ]
-        }
-      }
-    ]
+    "next/babel"
   ],
   "plugins": [
     [
