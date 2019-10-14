@@ -7,7 +7,6 @@
       "esnext"
     ],
     "downlevelIteration": true,
-    "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -42,7 +41,8 @@
       "@initialData/*": [
         "./src/pages/utils/*"
       ]
-    }
+    },
+    "allowJs": false
   },
   "exclude": [
     "node_modules",
