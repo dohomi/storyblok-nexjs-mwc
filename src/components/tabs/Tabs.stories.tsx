@@ -73,3 +73,9 @@ storiesOf('Tabs', module)
       <Tabs content={stackedIcons} />
     )
   )
+  .add(
+    'Tabs restrict indicator',
+    () => (
+      <Tabs content={{ ...stackedIcons, restrict_indicator: true }} />
+    )
+  )

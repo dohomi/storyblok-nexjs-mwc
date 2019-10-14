@@ -15,6 +15,7 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
         onActivate={evt => setActiveTab(evt.detail.index)}
       >
         {body.map((tab: TabsItemStoryblok) => <Tab label={tab.title}
+                                                   restrictIndicator={!!content.restrict_indicator}
                                                    stacked={!!content.stacked_icons}
                                                    icon={tab.icon && tab.icon.name}
                                                    key={tab._uid} />)}
