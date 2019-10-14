@@ -14,18 +14,21 @@ const cardListBody: CardListItemStoryblok[] = [{
   component: 'card_list_item',
   title: 'Toll',
   subtitle: 'SubTitle',
+  description: 'Some Description',
   image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
 }, {
   _uid: '12321312',
   component: 'card_list_item',
   title: 'Toll',
   subtitle: 'SubTitle',
+  description: 'Some Description',
   image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
 }, {
   _uid: '123213123',
   component: 'card_list_item',
   title: 'Toll',
   subtitle: 'SubTitle',
+  description: 'Some Description',
   image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
 }]
 
