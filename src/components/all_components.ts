@@ -25,6 +25,7 @@ import Divider from './divider/Divider'
 import Promotion from './promotion/Promotion'
 import Accordion from './accordion/Accordion'
 import Table from './table/Table'
+import Tabs from './tabs/Tabs'
 
 const Components = {
   'page': Page,
@@ -54,7 +55,8 @@ const Components = {
   'section_video_bg': SectionVideoBg,
   'card_list': CardList,
   'section_parallax': SectionParallax,
-  'form': Form
+  'form': Form,
+  'tabs': Tabs
 }
 
 export default Components

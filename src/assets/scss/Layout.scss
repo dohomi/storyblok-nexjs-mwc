@@ -60,6 +60,8 @@ keep normalize npm package and css of collapsible list up to date on every relea
 @import "pricing";
 // some utility (bootstrap)
 @import "utility";
+// tabs
+@import "tabs";
 // call as latest
 // typography (needs to be loaded after bootstrap)
 @import "./typography";

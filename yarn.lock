@@ -1654,6 +1654,55 @@
   dependencies:
     "@material/feature-targeting" "^3.1.0"
 
+"@material/tab-bar@^3.1.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@material/tab-bar/-/tab-bar-3.2.0.tgz#b4909bffff6b1be591269a4ddf88efd8227725b9"
+  integrity sha512-PMSGLhuDm0iE4BQb9DovgKJD9EoKowQhKwXQBt/+5rlSaRshV8X0Gd1YlKgFVX7EAGK2Dfz5u60TFq00gMemXg==
+  dependencies:
+    "@material/base" "^3.1.0"
+    "@material/elevation" "^3.1.0"
+    "@material/feature-targeting" "^3.1.0"
+    "@material/tab" "^3.2.0"
+    "@material/tab-scroller" "^3.2.0"
+    tslib "^1.9.3"
+
+"@material/tab-indicator@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@material/tab-indicator/-/tab-indicator-3.1.0.tgz#aac5de4af5cb56da492535ff63bb2495a063fd31"
+  integrity sha512-U4H1bg792ZP4BzjiG3i3htHKmRGlGUZ8c9iroRN6W5B4hYQ5/4DbFA2h2OaAZ1fhyjHiyFosK5ctvgu7qSfZ/g==
+  dependencies:
+    "@material/animation" "^3.1.0"
+    "@material/base" "^3.1.0"
+    "@material/feature-targeting" "^3.1.0"
+    "@material/theme" "^3.1.0"
+    tslib "^1.9.3"
+
+"@material/tab-scroller@^3.1.0", "@material/tab-scroller@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@material/tab-scroller/-/tab-scroller-3.2.0.tgz#679868f72ccf707d7c7a029327364593dd226f71"
+  integrity sha512-tf7QkLd5Javik4jjHcz1P64btgljvC7IjlYZ8tfoYGbs75Z0MGa57heCypzve8QZFjBcmfiKkw61dFoUbtkU6g==
+  dependencies:
+    "@material/animation" "^3.1.0"
+    "@material/base" "^3.1.0"
+    "@material/dom" "^3.1.0"
+    "@material/feature-targeting" "^3.1.0"
+    "@material/tab" "^3.2.0"
+    tslib "^1.9.3"
+
+"@material/tab@^3.1.0", "@material/tab@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@material/tab/-/tab-3.2.0.tgz#6db251162cf9069263b2c40243ece0cc71ee3964"
+  integrity sha512-O1/ZrBQ/g+fI8jrrpfBDq55BhEPISrFvZeiIVQshQuyZh5bLYYhjMXbOsjC1UYu11rWqAiP+8jDgIyxQT9DHwQ==
+  dependencies:
+    "@material/base" "^3.1.0"
+    "@material/feature-targeting" "^3.1.0"
+    "@material/ripple" "^3.2.0"
+    "@material/rtl" "^3.2.0"
+    "@material/tab-indicator" "^3.1.0"
+    "@material/theme" "^3.1.0"
+    "@material/typography" "^3.1.0"
+    tslib "^1.9.3"
+
 "@material/textfield@^3.1.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@material/textfield/-/textfield-3.2.0.tgz#c4272601f9a57f26fd7fce8b3089a5d5d6595ad1"
@@ -1945,6 +1994,20 @@
     "@rmwc/list" "^5.7.0"
     "@rmwc/menu" "^5.7.1"
     "@rmwc/notched-outline" "^5.7.0"
+    "@rmwc/ripple" "^5.7.0"
+    "@rmwc/types" "^5.6.0"
+
+"@rmwc/tabs@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@rmwc/tabs/-/tabs-5.7.0.tgz#9a66481a9f38aae4d6e3f4999baad9495a3d0941"
+  integrity sha512-n2CmNpoj8R/MV4iH7InK+SD8SELxM5Ci4XoXKvZyA65WaKEPQiK5SBSN43DjIGeYhtZZEU7VSkJaRfxa2I6BPg==
+  dependencies:
+    "@material/tab" "^3.1.0"
+    "@material/tab-bar" "^3.1.0"
+    "@material/tab-indicator" "^3.1.0"
+    "@material/tab-scroller" "^3.1.0"
+    "@rmwc/base" "^5.7.0"
+    "@rmwc/icon" "^5.7.0"
     "@rmwc/ripple" "^5.7.0"
     "@rmwc/types" "^5.6.0"
 

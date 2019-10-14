@@ -21,9 +21,8 @@ export type AppPageProps = {
 }
 
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
-  const { query, req, res, asPath, pathname } = ctx
+  const { query, req, res } = ctx
   let slug: string = query.slug as string || 'home'
-  console.log(slug, query, asPath, pathname)
 
   if (slug.match(/^.*\.[^\\]+$/)) {
     // todo differently!!. handle somehow with routes
