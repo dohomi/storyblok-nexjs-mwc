@@ -19,8 +19,10 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
       const obj = {
         _uid: content._uid,
         component: 'card_list_item',
-        title: content.meta_title || item.name
-
+        title: content.preview_title || content.meta_title || item.name,
+        subtitle: content.preview_subtitle,
+        description: content.preview_teaser,
+        image: content.preview_image
       } as CardListItemStoryblok
       console.log(obj, item)
       return obj
