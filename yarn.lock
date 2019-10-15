@@ -1796,6 +1796,16 @@
     react-lifecycles-compat "^3.0.4"
     warning "^3.0.0"
 
+"@rmwc/avatar@^5.7.0":
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/@rmwc/avatar/-/avatar-5.7.0.tgz#cc2be03d5541ceb8aeac6725906d2df04988b8e5"
+  integrity sha512-5LuS3yz6acYsCIjTb476OetTTrUHN1UHBPx5WOiwFBvc1kvt6pD7oaOROoOzKRZaYUagUuwx1X2GVQQl5xUsrQ==
+  dependencies:
+    "@rmwc/base" "^5.7.0"
+    "@rmwc/icon" "^5.7.0"
+    "@rmwc/ripple" "^5.7.0"
+    "@rmwc/types" "^5.6.0"
+
 "@rmwc/base@^5.7.0":
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/@rmwc/base/-/base-5.7.0.tgz#2b6e36736e5f49353d377fe2336f340bb28da6d4"

@@ -1,20 +1,16 @@
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import StoriesService from '../../utils/StoriesService'
-import {
-  CardListItemStoryblok,
-  CardListStoryblok,
-  ListWidgetStoryblok
-} from '../../typings/generated/components-schema'
-import CardList from '../card/CardList'
+import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent, PageItem } from '../../typings/generated/schema'
-
+import ListWidgetCards from './ListWidgetCards'
+import ListWidgetLists from './ListWidgetLists'
 
 const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
   const filter = content.categories || []
   const sort = content.sort
   const sortDescending = content.sort_descending
-  const filteredItems = StoriesService.getAllStories()
+  const items: PageItem[] = StoriesService.getAllStories()
     .filter((item: PageItem) => {
       const itemContent = item.content as PageComponent
       const itemCategories = itemContent.categories || []
@@ -51,34 +47,13 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
       }
       return 0
     })
-  const cardListItems: CardListItemStoryblok[] = filteredItems
-    .map((item: PageItem) => {
-      const itemContent = item.content as PageComponent
-      return {
-        _uid: itemContent._uid,
-        component: 'card_list_item',
-        title: itemContent.preview_title || itemContent.meta_title || item.name,
-        subtitle: itemContent.preview_subtitle,
-        description: itemContent.preview_teaser,
-        image: itemContent.preview_image,
-        link: {
-          cached_url: item.full_slug || item.slug || item.path,
-          linktype: 'stories'
-        }
-      } as CardListItemStoryblok
-    })
 
-  const listOption = (content.card_list_option && content.card_list_option[0]) || {}
-  const cardList: CardListStoryblok = {
-    ...listOption,
-    _uid: content._uid,
-    component: 'card_list',
-    body: cardListItems
+  if (content.variant === 'list') {
+    return <ListWidgetLists content={content} items={items} />
   }
 
-  return (
-    <CardList content={cardList} />
-  )
+  return <ListWidgetCards content={content} items={items} />
+
 }
 
 export default ListWidget

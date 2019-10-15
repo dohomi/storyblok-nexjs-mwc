@@ -95,7 +95,7 @@ export function getFocalPoint(src: string, focalPoint: string) {
   return `:focal(${topLeft}:${bottomRight})`
 }
 
-function imageService(image: string, option: string = '', filter: string = '') {
+export default function imageService(image: string, option: string = '', filter: string = '') {
   if (image.endsWith('.svg')) {
     return image
   }
@@ -108,5 +108,3 @@ function imageService(image: string, option: string = '', filter: string = '') {
   }
   return `https://img2.storyblok.com/${option}${image.split('storyblok.com')[1]}`
 }
-
-export default imageService
