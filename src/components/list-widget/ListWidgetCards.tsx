@@ -11,7 +11,8 @@ import {
 const ListWidgetCards: FunctionComponent<{
   content: ListWidgetStoryblok
   items: PageItem[]
-}> = ({ items, content }) => {
+  options: CardListStoryblok
+}> = ({ items, content, options }) => {
   const cardListItems: CardListItemStoryblok[] = items
     .map((item: PageItem) => {
       const itemContent = item.content as PageComponent
@@ -29,9 +30,8 @@ const ListWidgetCards: FunctionComponent<{
       } as CardListItemStoryblok
     })
 
-  const listOption = (content.card_list_option && content.card_list_option[0]) || {}
   const cardList: CardListStoryblok = {
-    ...listOption,
+    ...options,
     _uid: content._uid,
     component: 'card_list',
     body: cardListItems

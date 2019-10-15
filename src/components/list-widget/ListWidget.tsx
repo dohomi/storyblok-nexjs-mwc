@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import StoriesService from '../../utils/StoriesService'
-import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
+import { CardListStoryblok, ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent, PageItem } from '../../typings/generated/schema'
 import ListWidgetCards from './ListWidgetCards'
 import ListWidgetLists from './ListWidgetLists'
+import SbEditable from 'storyblok-react'
 
 const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
   const filter = content.categories || []
@@ -48,11 +49,13 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
       return 0
     })
 
-  if (content.variant === 'list') {
-    return <ListWidgetLists content={content} items={items} />
+  const listOption: (ListsStoryblok | CardListStoryblok) = (content.list_options && content.list_options[0]) || {}
+  if (listOption.component === 'lists') {
+    return <SbEditable content={content}><ListWidgetLists content={content} items={items}
+                                                           options={listOption} /></SbEditable>
   }
 
-  return <ListWidgetCards content={content} items={items} />
+  return <SbEditable content={content}><ListWidgetCards content={content} items={items} options={listOption} /></SbEditable>
 
 }
 
