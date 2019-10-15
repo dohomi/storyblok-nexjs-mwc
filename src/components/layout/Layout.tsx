@@ -6,6 +6,7 @@ import MwcDrawer from './drawer/MwcDrawer'
 import { getThemeOptions } from '../../utils/themeLayout'
 import { closeNavigationDrawers } from '../../utils/state/actions'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { GlobalStateProvider } from '../../utils/state/state'
 
 type LayoutProps = {
   hasFeature?: boolean
@@ -25,11 +26,13 @@ const Layout: FunctionComponent<LayoutProps> = ({ asPath, settings, children, ha
   const themeOptions = getThemeOptions(settings)
   return (
     <ThemeProvider options={themeOptions as any} className="app__root">
-      <MwcDrawer content={settings} />
-      <Header settings={settings}
-              hasFeature={!!hasFeature} />
-      <main>{children}</main>
-      <Footer settings={settings} />
+      <GlobalStateProvider>
+        <MwcDrawer content={settings} />
+        <Header settings={settings}
+                hasFeature={!!hasFeature} />
+        <main>{children}</main>
+        <Footer settings={settings} />
+      </GlobalStateProvider>
     </ThemeProvider>
   )
 }

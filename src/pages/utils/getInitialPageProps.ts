@@ -32,7 +32,6 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
         per_page: 100,
         resolve_links: 'url',
         excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
-        resolve_relations: 'page.categories',
         filter_query: {
           'component': {
             'in': 'page'

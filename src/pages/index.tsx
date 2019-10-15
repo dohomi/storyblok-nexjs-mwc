@@ -10,7 +10,6 @@ import { useRouter } from 'next/router'
 import Error from '../pages/_error'
 import { NextPage } from 'next'
 import getInitialPageProps from '@initialData/getInitialPageProps'
-import { GlobalStateProvider } from '../utils/state/state'
 import { AppPageProps, PageSeoProps } from '../utils/parsePageProperties'
 import StoriesService from '../utils/StoriesService'
 
@@ -23,11 +22,9 @@ const CoreIndex: FunctionComponent<CoreAppProps> = (props) => {
     <>
       <Head settings={settings} pageSeo={pageSeo as PageSeoProps} />
       <WindowDimensionsProvider>
-        <GlobalStateProvider>
-          <Layout settings={settings} hasFeature={hasFeature} asPath={asPath}>
-            {Components(page)}
-          </Layout>
-        </GlobalStateProvider>
+        <Layout settings={settings} hasFeature={hasFeature} asPath={asPath}>
+          {Components(page)}
+        </Layout>
       </WindowDimensionsProvider>
       <script>/* fix FF initial render */</script>
     </>
