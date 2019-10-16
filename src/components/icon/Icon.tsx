@@ -7,7 +7,7 @@ const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => 
   const iconName = content.name && content.name.name
   return (
     <SbEditable content={content}>
-      <div className={clsx('d-flex', content.class_names && content.class_names.values)}>
+      <div className={clsx(content.class_names && content.class_names.values)}>
         <i
           className={clsx('material-icons', 'rmwc-icon', { ['rmwc-icon--size-' + content.size]: !!content.size })}>
           {iconName}

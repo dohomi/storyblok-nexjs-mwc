@@ -1,32 +1,42 @@
 import SbEditable from 'storyblok-react'
-import clsx from 'clsx'
-import React, { FunctionComponent, useEffect } from 'react'
+import React, { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { IframeAdvancedStoryblok } from '../../typings/generated/components-schema'
 
 const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = ({ content }) => {
-  const [refIntersectionObserver, inView] = useInView({
+  const [refIntersectionObserver, inView, containerRef] = useInView({
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
   })
+  const iframeRef: RefObject<HTMLIFrameElement> = createRef()
+  const [src, setSrc] = useState<string>('')
   const contentId = `iframe_${content._uid}`
   const properties = content.property || []
   const allowed = content.allow || []
-
+  useEffect(
+    () => {
+      setSrc(content.url || '')
+    },
+    [inView]
+  )
   useEffect(
     () => {
       const messageFunc = (message: any) => {
         const clientHeight = message && message.data && message.data[content.incoming_message_key || 'stClientHeight']
-        const el = document.getElementById(contentId) as HTMLIFrameElement | null
+        const el = containerRef && containerRef.target && containerRef.target.firstChild
         if (clientHeight && el) {
-          el.height = clientHeight + 'px'
-          el.style.height = clientHeight + 'px'
+          const iframe = el as HTMLIFrameElement
+          iframe.height = clientHeight + 'px'
+          iframe.style.height = clientHeight + 'px'
         }
       }
       const clickFunc = () => {
-        const el = document.getElementById(contentId) as HTMLIFrameElement | null
-        const contentWindow = el && el.contentWindow
-        contentWindow && contentWindow.postMessage(content.post_message_key || '_clickOutside', '*')
+        const el = containerRef && containerRef.target && containerRef.target.firstChild
+        if (el) {
+          const iframe = el as HTMLIFrameElement
+          const contentWindow = iframe.contentWindow
+          contentWindow && contentWindow.postMessage(content.post_message_key || '_clickOutside', '*')
+        }
       }
       window.addEventListener('message', messageFunc)
       window.addEventListener('click', clickFunc)
@@ -35,25 +45,28 @@ const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = 
         window.removeEventListener('click', clickFunc)
       }
     },
-    []
+    [containerRef]
   )
 
   return (
     <SbEditable content={content}>
       <div ref={refIntersectionObserver}>
-        {!inView && <div className={clsx({ 'embed-responsive-item': !!content.responsive_ratio })} />}
-        {inView && <iframe
+        <iframe
+          ref={iframeRef}
           id={contentId}
           allow={allowed.join(' ')}
           frameBorder={0}
+          scrolling="no"
           allowFullScreen={properties.includes('allow_fullscreen') || false}
-          src={content.url}
+          src={src}
+          className="border-0"
           style={{
+            overflowY: 'hidden',
             display: content.display,
             height: content.height || '100%',
             width: content.width || '100%'
           }}
-        />}
+        />
       </div>
     </SbEditable>
   )
