@@ -1,26 +1,17 @@
 import SbEditable from 'storyblok-react'
 import { useInView } from 'react-intersection-observer'
-import React, { FunctionComponent, RefObject, useEffect } from 'react'
+import React, { FunctionComponent } from 'react'
 import { IframeStoryblok } from '../../typings/generated/components-schema'
+import clsx from 'clsx'
 
 const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) => {
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true,
-    rootMargin: '0px 0px 800px 0px'
+    rootMargin: '300px 0px 300px 0px'
   })
-  const iframeRef: RefObject<HTMLIFrameElement> = React.createRef()
   const properties = content.property || []
   const allowed = content.allow || []
-
-  useEffect(
-    () => {
-      if (inView) {
-        const current = iframeRef.current
-        current && (current.src = content.url as string)
-      }
-    },
-    [inView, content.url]
-  )
+  content.responsive_ratio
 
   let allow = ''
   if (Array.isArray(allowed) && allowed.length) {
@@ -28,21 +19,27 @@ const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) =>
   }
   return (
     <SbEditable content={content}>
-      <div ref={refIntersectionObserver}>
-        <iframe allow={allow}
-                aria-hidden={true}
-                frameBorder={0}
-                allowFullScreen={properties.includes('allow_fullscreen') || false}
-                height={content.height || '100%'}
-                name={content.name || ''}
-                width={content.width || '100%'}
-                ref={iframeRef}
-                style={{
-                  position: content.position || 'relative',
-                  display: content.display || 'block',
-                  height: content.height || '100%',
-                  width: content.width || '100%'
-                }} />
+      <div ref={refIntersectionObserver} className={clsx({
+        'embed-responsive': !!content.responsive_ratio,
+        [`embed-responsive-${content.responsive_ratio}`]: !!content.responsive_ratio
+      })}>
+        {!inView && <div className={clsx({ 'embed-responsive-item': !!content.responsive_ratio })}/>}
+        {inView && <iframe allow={allow}
+                           src={content.url}
+                           aria-hidden={true}
+                           frameBorder={0}
+                           className={clsx({ 'embed-responsive-item': !!content.responsive_ratio })}
+                           allowFullScreen={properties.includes('allow_fullscreen') || false}
+                           height={content.height || '100%'}
+                           name={content.name || ''}
+                           width={content.width || '100%'}
+                           style={{
+                             position: content.position,
+                             display: content.display,
+                             height: content.height || '100%',
+                             width: content.width || '100%'
+                           }} />}
+
       </div>
     </SbEditable>
   )
