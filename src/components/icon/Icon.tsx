@@ -5,17 +5,13 @@ import { IconStoryblok } from '../../typings/generated/components-schema'
 
 const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => {
   const iconName = content.name && content.name.name
-  const iconClasses = clsx(
-    'material-icons',
-    'rmwc-icon',
-    { ['rmwc-icon--size-' + content.size]: !!content.size }
-  )
-  const containerClasses = clsx(content.class_names && content.class_names.values)
-
   return (
     <SbEditable content={content}>
-      <div className={containerClasses}>
-        <i className={iconClasses}>{iconName}</i>
+      <div className={clsx('d-flex', content.class_names && content.class_names.values)}>
+        <i
+          className={clsx('material-icons', 'rmwc-icon', { ['rmwc-icon--size-' + content.size]: !!content.size })}>
+          {iconName}
+        </i>
       </div>
     </SbEditable>
   )
