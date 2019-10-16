@@ -9,22 +9,19 @@ const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) =>
     triggerOnce: true,
     rootMargin: '300px 0px 300px 0px'
   })
+
   const properties = content.property || []
   const allowed = content.allow || []
   content.responsive_ratio
 
-  let allow = ''
-  if (Array.isArray(allowed) && allowed.length) {
-    allow = allowed.join(' ')
-  }
   return (
     <SbEditable content={content}>
       <div ref={refIntersectionObserver} className={clsx({
         'embed-responsive': !!content.responsive_ratio,
         [`embed-responsive-${content.responsive_ratio}`]: !!content.responsive_ratio
       })}>
-        {!inView && <div className={clsx({ 'embed-responsive-item': !!content.responsive_ratio })}/>}
-        {inView && <iframe allow={allow}
+        {!inView && <div className={clsx({ 'embed-responsive-item': !!content.responsive_ratio })} />}
+        {inView && <iframe allow={allowed.join(' ')}
                            src={content.url}
                            aria-hidden={true}
                            frameBorder={0}

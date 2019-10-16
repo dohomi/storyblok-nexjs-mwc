@@ -28,6 +28,7 @@ import Table from './table/Table'
 import Tabs from './tabs/Tabs'
 import ListWidget from './list-widget/ListWidget'
 import FlexRow from './flex-row/FlexRow'
+import IframeAdvanced from './iframe/IframeAdvanced'
 
 const Components = {
   'page': Page,
@@ -60,7 +61,8 @@ const Components = {
   'form': Form,
   'tabs': Tabs,
   'list_widget': ListWidget,
-  'flex_row': FlexRow
+  'flex_row': FlexRow,
+  'iframe_advanced': IframeAdvanced
 }
 
 export default Components
