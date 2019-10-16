@@ -29,6 +29,7 @@ import Tabs from './tabs/Tabs'
 import ListWidget from './list-widget/ListWidget'
 import FlexRow from './flex-row/FlexRow'
 import IframeAdvanced from './iframe/IframeAdvanced'
+import CategoryBox from './list-widget/CategoryBox'
 
 const Components = {
   'page': Page,
@@ -62,7 +63,8 @@ const Components = {
   'tabs': Tabs,
   'list_widget': ListWidget,
   'flex_row': FlexRow,
-  'iframe_advanced': IframeAdvanced
+  'iframe_advanced': IframeAdvanced,
+  'category_box': CategoryBox
 }
 
 export default Components

@@ -17,7 +17,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       page: { _uid: '', component: 'page' },
       pageSeo: undefined,
       allStories: [],
-      settings: { _uid: '', component: 'global', theme_base: 'base' }
+      settings: { _uid: '', component: 'global', theme_base: 'base' },
+      allCategories: []
     }
     console.log('not found', notFoundVars)
     return notFoundVars
@@ -25,12 +26,19 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   StoryblokService.setQuery(query)
   try {
-    let [page, settings, stories] = await Promise.all([
+    let [page, settings, categories, stories] = await Promise.all([
       StoryblokService.get(`cdn/stories/${slug}`),
       StoryblokService.get(`cdn/stories/settings`),
+      StoryblokService.get('cdn/stories', {
+        per_page: 100,
+        filter_query: {
+          'component': {
+            'in': 'category'
+          }
+        }
+      }),
       StoryblokService.get(`cdn/stories`, {
         per_page: 100,
-        resolve_links: 'url',
         excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
         filter_query: {
           'component': {
@@ -48,6 +56,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     DeviceDetectService.setLanguage(settingsProps.setup_language, settingsProps.setup_supported_languages, res)
 
     const allStories = (stories.data && stories.data.stories) || []
+    const allCategories = (categories.data && categories.data.stories) || []
 
     // StoriesService.setAllStories(allStories)
     const pageSeo = {
@@ -63,7 +72,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       settings: settingsProps,
       pageSeo,
       hasFeature: pageProperties.includes('has_feature'),
-      allStories
+      allStories,
+      allCategories
     }
   } catch (e) {
     return await handleErrorContent(e, res as NextApiResponse)

@@ -55,6 +55,7 @@ const Index: NextPage<AppPageProps> = (props) => {
   const { asPath, query } = useRouter()
   const { settings, page, error } = props
   StoriesService.setAllStories(props.allStories)
+  StoriesService.setAllCategories(props.allCategories)
   useEffect(
     () => {
       Fonts(settings)

@@ -1,4 +1,9 @@
-import { GlobalStoryblok, PageStoryblok, SeoOpenGraphStoryblok } from '../typings/generated/components-schema'
+import {
+  CategoryStoryblok,
+  GlobalStoryblok,
+  PageStoryblok,
+  SeoOpenGraphStoryblok
+} from '../typings/generated/components-schema'
 
 export type PageSeoProps = {
   title: string
@@ -15,4 +20,5 @@ export type AppPageProps = {
   error?: any,
   hasFeature: boolean
   allStories: any[]
+  allCategories: CategoryStoryblok[]
 }
