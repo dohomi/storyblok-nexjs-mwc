@@ -8,6 +8,20 @@ export const closeNavigationDrawers = () => {
   setGlobalState('leftNavigationDrawer', false)
 }
 
+export const addSearchCategory = (value: string) => {
+  setGlobalState('searchParams', (v) => ({
+    ...v,
+    categories: [...v.categories, value]
+  }))
+}
+
+export const removeSearchCategory = (value: string) => {
+  setGlobalState('searchParams', (v) => ({
+    ...v,
+    categories: v.categories.filter(item => item !== value)
+  }))
+}
+
 // todo this is used somewhere else.. or not in use any longer?
 export const setMegaMenu = (v: any, shouldClose: any) => {
   if (shouldClose) {

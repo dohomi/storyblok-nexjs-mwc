@@ -13,8 +13,6 @@ const Page: FunctionComponent<{ content: PageStoryblok }> = (props) => {
   if (!body.length) {
     return <div>There is no content yet...</div>
   }
-
-  console.log("hallo")
   return (
     <SbEditable content={content}>
       <ParallaxProvider>

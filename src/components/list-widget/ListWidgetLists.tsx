@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { FunctionComponent } from 'react'
-import { ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
+import { ListsStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent, PageItem } from '../../typings/generated/schema'
 import { List, SimpleListItem } from '@rmwc/list'
 import { Avatar } from '@rmwc/avatar'
@@ -9,7 +9,6 @@ import { Link } from 'routes'
 import { useInView } from 'react-intersection-observer'
 
 const ListWidgetLists: FunctionComponent<{
-  content: ListWidgetStoryblok
   items: PageItem[]
   options: ListsStoryblok
 }> = ({ items, options }) => {

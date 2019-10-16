@@ -3,9 +3,8 @@ import { FunctionComponent } from 'react'
 import StoriesService from '../../utils/StoriesService'
 import { CardListStoryblok, ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent, PageItem } from '../../typings/generated/schema'
-import ListWidgetCards from './ListWidgetCards'
-import ListWidgetLists from './ListWidgetLists'
-import SbEditable from 'storyblok-react'
+import ListWidgetWithSearch from './ListWidgetWithSearch'
+import ListWidgetContainer from './ListWidgetContainer'
 
 const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
   const filter = content.categories || []
@@ -20,7 +19,10 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
           ? filter.every(element => itemCategories.includes(element))
           : filter.some(element => itemCategories.includes(element))
       }
-      return itemCategories.length
+      if (content.show_only_categorized) {
+        return !!itemCategories.length
+      }
+      return true
     })
     .sort((a: PageItem, b: PageItem) => {
       let sortACriteria = a.published_at as String
@@ -51,16 +53,12 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
   if (content.maximum_items) {
     items = items.slice(0, content.maximum_items)
   }
-
   const listOption: (ListsStoryblok | CardListStoryblok) = (content.list_options && content.list_options[0]) || {}
-  if (listOption.component === 'lists') {
-    return <SbEditable content={content}><ListWidgetLists content={content} items={items}
-                                                          options={listOption} /></SbEditable>
+
+  if (content.enable_for_search) {
+    return <ListWidgetWithSearch listOption={listOption} content={content} items={items} />
   }
-
-  return <SbEditable content={content}><ListWidgetCards content={content} items={items}
-                                                        options={listOption} /></SbEditable>
-
+  return <ListWidgetContainer listOption={listOption} content={content} items={items} />
 }
 
 export default ListWidget

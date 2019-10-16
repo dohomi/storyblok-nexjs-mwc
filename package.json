@@ -96,7 +96,7 @@
     "react-swipeable-views": "^0.13.3",
     "resize-observer-polyfill": "^1.5.1",
     "sitemap": "^3.2.2",
-    "storyblok-js-client": "^2.0.4",
+    "storyblok-js-client": "^2.0.6",
     "storyblok-react": "^0.0.9",
     "ua-parser-js": "^0.7.20",
     "unfetch": "^4.1.0"

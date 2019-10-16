@@ -144,6 +144,17 @@ function customTypeParser (key, obj) {
           }
         }
       }
+    case 'tags-select':
+      return {
+        [key]: {
+          type: 'object',
+          properties: {
+            values: {
+              type: 'array'
+            }
+          }
+        }
+      }
     case 'table':
       return {
         [key]: {

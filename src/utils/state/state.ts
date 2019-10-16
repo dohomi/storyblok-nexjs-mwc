@@ -1,9 +1,21 @@
 import { createGlobalState } from 'react-hooks-global-state'
 
-const initialState = {
+interface State {
+  leftNavigationDrawer: boolean
+  megaMenu: any
+  searchParams: {
+    slug: string
+    categories: string[]
+  }
+}
+
+const initialState: State = {
   leftNavigationDrawer: false,
   megaMenu: {},
-  allStories: []
+  searchParams: {
+    slug: '',
+    categories: []
+  }
 }
 const { GlobalStateProvider, setGlobalState, useGlobalState } = createGlobalState(initialState)
 

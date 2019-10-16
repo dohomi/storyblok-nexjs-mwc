@@ -12440,10 +12440,10 @@ store2@^2.7.1:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.10.0.tgz#46b82bb91878daf1b0d56dec2f1d41e54d5103cf"
   integrity sha512-tWEpK0snS2RPUq1i3R6OahfJNjWCQYNxq0+by1amCSuw0mXtymJpzmZIeYpA1UAa+7B0grCpNYIbDcd7AgTbFg==
 
-storyblok-js-client@^2.0.4:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-2.0.5.tgz#b26762c3b8e642ae7952fb61eef97691f517f362"
-  integrity sha512-al7/WaKtqqCcec10/4Il7Ky7oQAqMLJoFU6o5G4UWsMakrLgNSvOcFpL74Q1++H2dVrMkM75uspB2F4BtgiUng==
+storyblok-js-client@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-2.0.6.tgz#8f8636f012bd84776c568d0c111d56d880a87366"
+  integrity sha512-sEDkqqvhyJ7bkRfhosRL/oj5b2m3Z2OYAyac5OuISkHwJU4cfcxuqnTgk4qzF+Tm35FakWARd/yLKQPjIWxz1A==
   dependencies:
     "@babel/runtime-corejs3" "^7.4.5"
     axios "^0.19.0"
