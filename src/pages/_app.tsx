@@ -1,4 +1,4 @@
 import MyApp from '../components/pages/_app'
-import '../assets/scss/Layout.scss'
+import '../assets/scss/app.scss'
 
 export default MyApp
