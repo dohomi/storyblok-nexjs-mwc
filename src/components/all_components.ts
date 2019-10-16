@@ -27,6 +27,7 @@ import Accordion from './accordion/Accordion'
 import Table from './table/Table'
 import Tabs from './tabs/Tabs'
 import ListWidget from './list-widget/ListWidget'
+import FlexRow from './flex-row/FlexRow'
 
 const Components = {
   'page': Page,
@@ -58,7 +59,8 @@ const Components = {
   'section_parallax': SectionParallax,
   'form': Form,
   'tabs': Tabs,
-  'list_widget': ListWidget
+  'list_widget': ListWidget,
+  'flex_row': FlexRow
 }
 
 export default Components
