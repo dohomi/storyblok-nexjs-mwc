@@ -11,7 +11,7 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
   const filter = content.categories || []
   const sort = content.sort
   const sortDescending = content.sort_descending
-  const items: PageItem[] = StoriesService.getAllStories()
+  let items: PageItem[] = StoriesService.getAllStories()
     .filter((item: PageItem) => {
       const itemContent = item.content as PageComponent
       const itemCategories = itemContent.categories || []
@@ -48,14 +48,18 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
       }
       return 0
     })
+  if (content.maximum_items) {
+    items = items.slice(0, content.maximum_items)
+  }
 
   const listOption: (ListsStoryblok | CardListStoryblok) = (content.list_options && content.list_options[0]) || {}
   if (listOption.component === 'lists') {
     return <SbEditable content={content}><ListWidgetLists content={content} items={items}
-                                                           options={listOption} /></SbEditable>
+                                                          options={listOption} /></SbEditable>
   }
 
-  return <SbEditable content={content}><ListWidgetCards content={content} items={items} options={listOption} /></SbEditable>
+  return <SbEditable content={content}><ListWidgetCards content={content} items={items}
+                                                        options={listOption} /></SbEditable>
 
 }
 
