@@ -15,7 +15,7 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
   if (filterByTags || filterByCategories.length) {
     categories = categories.filter((category: CategoryItem) => {
       const categoryContent = category.content as CategoryStoryblok
-      if (!categoryContent.tag_reference) return false // remove all categories without tag_reference
+      if (!(categoryContent.tag_reference && categoryContent.tag_reference.values)) return false // remove all categories without tag_reference
       let exists = true
       if (filterByTags.length) {
         const tagList = category.tag_list || []
@@ -32,9 +32,9 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
   }
   const items = categories.map((category: CategoryItem) => {
     const categoryContent = category.content as CategoryStoryblok
-    categoryContent.tag_reference
     return {
       _uid: category.uuid as string,
+      value: categoryContent.tag_reference && categoryContent.tag_reference.values as string,
       label: categoryContent.name
     }
   })
@@ -55,7 +55,7 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
             <Checkbox id={category._uid}
                       name={category._uid}
                       label={category.label}
-                      value={category._uid}
+                      value={category.value}
                       onChange={onChange}
             />
           </div>
