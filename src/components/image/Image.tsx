@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 
 const Image: FunctionComponent<{
@@ -17,10 +18,7 @@ const Image: FunctionComponent<{
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
   const containerClassName = clsx('img-figure', content.class_names && content.class_names.values)
 
-  const [refIntersectionObserver, inView, intersectionElement] = useInView({
-    triggerOnce: true,
-    rootMargin: '300px 0px 300px 0px'
-  })
+  const [refIntersectionObserver, inView, intersectionElement] = useInView(intersectionDefaultOptions)
 
   const className = clsx('img-fluid', 'progressive-img-container', content.property)
   let imgProps = {

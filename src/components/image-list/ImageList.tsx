@@ -7,16 +7,14 @@ import ImageListLightbox from './ImageListLightbox'
 import { ImageListStoryblok } from '../../typings/generated/components-schema'
 import { ImageListItemProps } from './ImageListItemImg'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 const ImageList: FunctionComponent<{
   content: ImageListStoryblok
 }> = (props) => {
   const dimensions = useWindowDimensions()
   const containerRef: RefObject<HTMLDivElement> = React.createRef()
-  const [refIntersectionObserver, inView] = useInView({
-    triggerOnce: true,
-    rootMargin: '300px 0px 300px 0px'
-  })
+  const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const [childDimensions, setChildDimensions] = useState({ width: 0, height: 0 })
   const [lightbox, setLightbox] = useState('')
 

@@ -1,52 +1,50 @@
-import { CardMedia, CardMediaProps } from '@rmwc/card'
+import { CardMedia } from '@rmwc/card'
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImage } from '../../utils/fetchImageHelper'
-import { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
-import { CardListStoryblok } from '../../typings/generated/components-schema'
+import * as React from 'react'
+import { FunctionComponent, useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { CardListItemProps } from './cards'
 
-export type CardMediaElementProps = CardMediaProps & Pick<CardListStoryblok, 'image_size' | 'variant'> & {
-  inView: boolean
-  image?: string
-  width: number
-  height: number
-}
+const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, content, options }) => {
+  const [reference, inView, intersecRef] = useInView(intersectionDefaultOptions)
 
-const CardMediaElement: FunctionComponent<CardMediaElementProps> = ({ image_size, sixteenByNine, square, children, inView, image, variant, width, height }) => {
-  variant = variant || []
-  const [styles, setStyles] = useState<CSSProperties>({
-    color: variant.includes('font_white') ? 'white' : 'inherit',
-    backgroundSize: image_size || 'cover'
-  })
   useEffect(
     () => {
-      if (inView && width && height && image) {
+      if (inView && content.image && intersecRef && intersecRef.target) {
+        const mediaEl = intersecRef && intersecRef.target as HTMLDivElement
+        const currentWidth = mediaEl.clientWidth || 0
+        const currentHeight = mediaEl.clientHeight
+
         const img = getImageAttrs({
-          originalSource: image,
-          width,
-          height,
+          originalSource: content.image,
+          width: currentWidth || 0,
+          height: currentHeight,
           smart: true
         })
         getImage({
           ...img,
           onReady(src: string) {
-            setStyles({
-              ...styles,
-              backgroundImage: `url("${src}")`,
-              filter: 'blur(0)',
-              backgroundColor: 'transparent'
-            })
+            mediaEl.style.backgroundImage = `url("${src}")`
+            mediaEl.style.filter = 'blur(0)'
+            mediaEl.style.backgroundColor = 'transparent'
           }
         })
       }
     },
-    [width, height, image, inView]
+    [inView]
   )
 
   return (
-    <CardMedia style={styles}
-               sixteenByNine={sixteenByNine}
+    <CardMedia style={{
+      color: options.variant && options.variant.includes('font_white') ? 'white' : 'inherit',
+      backgroundSize: options.image_size || 'cover'
+    }}
+               ref={reference}
+               sixteenByNine={options.image_ratio !== '1x1'}
                className="progressive-img-blur-container"
-               square={square}>
+               square={options.image_ratio === '1x1'}>
       {children}
     </CardMedia>
   )

@@ -1,10 +1,5 @@
 import { default as React, FunctionComponent } from 'react'
-import {
-  CardListStoryblok,
-  ListsStoryblok,
-  ListWidgetStoryblok,
-  PageStoryblok
-} from '../../typings/generated/components-schema'
+import { CardListStoryblok, ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { PageItem } from '../../typings/generated/schema'
 import ListWidgetContainer from './ListWidgetContainer'
 import { useGlobalState } from '../../utils/state/state'
@@ -16,12 +11,9 @@ const ListWidgetWithSearch: FunctionComponent<{
 }> = ({ listOption, content, items }) => {
   const [searchParams] = useGlobalState('searchParams')
   const searchParamsCategories = searchParams.categories
-  console.log(searchParamsCategories)
   if (searchParamsCategories.length) {
     items = items.filter((item: PageItem) => {
-      const itemContent = item.content as PageStoryblok
-      const itemCategories = itemContent.categories || []
-      console.log(itemCategories,searchParamsCategories)
+      const itemCategories = item.tag_list || []
       return searchParamsCategories.some((element) => itemCategories.includes(element))
     })
   }

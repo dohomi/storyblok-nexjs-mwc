@@ -3,13 +3,11 @@ import SbEditable from 'storyblok-react'
 import SVG from 'react-inlinesvg'
 import { CSSProperties, FunctionComponent } from 'react'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 
 const ImageSvg: FunctionComponent<{ content: ImageStoryblok }> = ({ content }) => {
-  const [refIntersectionObserver, inView, el] = useInView({
-    triggerOnce: true,
-    rootMargin: '300px 0px 300px 0px'
-  })
+  const [refIntersectionObserver, inView, el] = useInView(intersectionDefaultOptions)
   const src = inView ? content.source : ''
   const afterSvgLoaded = () => {
     // @ts-ignore

@@ -51,3 +51,17 @@ storiesOf('Card List Standard', module)
       <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'title_top'] }} />
     )
   )
+  .add(
+    'Card List Responsive',
+    () => (
+      <>
+        <CardList content={{ ...cardList }} />
+        <div style={{ height: '300px' }}>Some spacing</div>
+        <CardList content={{ ...cardList }} />
+        <div style={{ height: '300px' }}>Some spacing</div>
+        <CardList content={{ ...cardList }} />
+        <div style={{ height: '300px' }}>Some spacing</div>
+        <CardList content={{ ...cardList }} />
+      </>
+    )
+  )

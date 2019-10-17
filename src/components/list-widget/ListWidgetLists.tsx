@@ -7,14 +7,13 @@ import { Avatar } from '@rmwc/avatar'
 import imageService from '../../utils/ImageService'
 import { Link } from 'routes'
 import { useInView } from 'react-intersection-observer'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 const ListWidgetLists: FunctionComponent<{
   items: PageItem[]
   options: ListsStoryblok
 }> = ({ items, options }) => {
-  const [refIntersectionObserver, inView] = useInView({
-    triggerOnce: true
-  })
+  const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const imageSize = options.image_size || 'large'
   const hideImage = options.hide_image
   const getImageSrc = (src: string) => {

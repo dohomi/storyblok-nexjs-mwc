@@ -2,12 +2,10 @@ import SbEditable from 'storyblok-react'
 import React, { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { IframeAdvancedStoryblok } from '../../typings/generated/components-schema'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = ({ content }) => {
-  const [refIntersectionObserver, inView, containerRef] = useInView({
-    triggerOnce: true,
-    rootMargin: '300px 0px 300px 0px'
-  })
+  const [refIntersectionObserver, inView, containerRef] = useInView(intersectionDefaultOptions)
   const iframeRef: RefObject<HTMLIFrameElement> = createRef()
   const [src, setSrc] = useState<string>('')
   const contentId = `iframe_${content._uid}`

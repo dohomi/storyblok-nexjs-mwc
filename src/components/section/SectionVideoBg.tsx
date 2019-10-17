@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 const FullscreenVideoBg = dynamic(
   () => import('./FullscreenVideoBg'),
@@ -13,10 +14,7 @@ const FullscreenVideoBg = dynamic(
 
 const SectionVideoBg: FunctionComponent<{ content: SectionVideoBgStoryblok }> = ({ content }) => {
   const dimensions = useWindowDimensions()
-  const [intersectionRef, inView, intersectionElement] = useInView({
-    triggerOnce: true,
-    rootMargin: '300px 0px 300px 0px'
-  })
+  const [intersectionRef, inView, intersectionElement] = useInView(intersectionDefaultOptions)
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0

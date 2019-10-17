@@ -3,12 +3,10 @@ import { useInView } from 'react-intersection-observer'
 import React, { FunctionComponent } from 'react'
 import { IframeStoryblok } from '../../typings/generated/components-schema'
 import clsx from 'clsx'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) => {
-  const [refIntersectionObserver, inView] = useInView({
-    triggerOnce: true,
-    rootMargin: '300px 0px 300px 0px'
-  })
+  const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
 
   const properties = content.property || []
   const allowed = content.allow || []

@@ -5,6 +5,7 @@ import { createRef, CSSProperties, FunctionComponent, RefObject, useEffect, useS
 import { getImage } from '../../utils/fetchImageHelper'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import useResizeAware from '../react-resize-aware/src/useResizeAware'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 
 type SectionWithBackgroundProps = {
@@ -39,10 +40,7 @@ const WithBackgroundImage: FunctionComponent<SectionWithBackgroundProps> = (prop
 
   const backgroundClasses = 'progressive-img-container lm-background-image'
 
-  const [refIntersectionObserver, inView, intersectionElement] = useInView({
-    triggerOnce: true,
-    rootMargin: '300px 0px 300px 0px'
-  })
+  const [refIntersectionObserver, inView, intersectionElement] = useInView(intersectionDefaultOptions)
 
   const initialSrc = getPreviewImageSource(backgroundImage)
   const initialState = {

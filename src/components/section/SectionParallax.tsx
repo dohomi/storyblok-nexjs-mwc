@@ -9,13 +9,11 @@ import { getImagePromise } from '../../utils/fetchImageHelper'
 import { SectionParallaxStoryblok } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { BannerLayer } from 'react-scroll-parallax/cjs'
-
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> = ({ content }) => {
   const dimensions = useWindowDimensions()
-  const [refIntersectionObserver, inView, refElement] = useInView({
-    triggerOnce: true
-  })
+  const [refIntersectionObserver, inView, refElement] = useInView(intersectionDefaultOptions)
   let containerEl: Element
   const width = dimensions.width
   const height = dimensions.height
