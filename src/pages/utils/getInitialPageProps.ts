@@ -31,6 +31,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       StoryblokService.get(`cdn/stories/settings`),
       StoryblokService.get('cdn/stories', {
         per_page: 100,
+        sort_by: 'content.name:asc',
         filter_query: {
           'component': {
             'in': 'category'

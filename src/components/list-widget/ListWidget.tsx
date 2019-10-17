@@ -7,19 +7,18 @@ import ListWidgetWithSearch from './ListWidgetWithSearch'
 import ListWidgetContainer from './ListWidgetContainer'
 
 const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
-  const filter = content.categories || []
+  const filter = (content.tags && content.tags.values) || []
   const sort = content.sort
   const sortDescending = content.sort_descending
   let items: PageItem[] = StoriesService.getAllStories()
     .filter((item: PageItem) => {
-      const itemContent = item.content as PageComponent
-      const itemCategories = itemContent.categories || []
+      const itemCategories = item.tag_list || []
       if (filter.length) {
-        return content.match_all_categories
+        return content.match_all_tags
           ? filter.every(element => itemCategories.includes(element))
           : filter.some(element => itemCategories.includes(element))
       }
-      if (content.show_only_categorized) {
+      if (content.only_tagged) {
         return !!itemCategories.length
       }
       return true

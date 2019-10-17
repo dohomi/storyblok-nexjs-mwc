@@ -8,6 +8,7 @@ async function genTsSchema () {
 
   for (const values of ComponentsJson.components) {
     const obj = {}
+    obj.$id = values.name
     obj.title = values.name + '_storyblok'
     obj.type = 'object'
     obj.properties = typeMapper(values.schema)
@@ -117,7 +118,10 @@ function customTypeParser (key, obj) {
           type: 'object',
           properties: {
             values: {
-              type: 'array'
+              type: 'array',
+              items: {
+                type: 'string'
+              }
             }
           }
         }
@@ -145,13 +149,30 @@ function customTypeParser (key, obj) {
         }
       }
     case 'tags-select':
+      const isSingle = obj.options.find(item => item.name === 'single' && item.value === 'true')
+      if (isSingle) {
+        return {
+          [key]: {
+            type: 'object',
+            properties: {
+              values: {
+                type: 'string'
+              }
+            }
+          }
+        }
+      }
       return {
         [key]: {
           type: 'object',
           properties: {
             values: {
-              type: 'array'
+              type: 'array',
+              items: {
+                type: 'string'
+              }
             }
+
           }
         }
       }

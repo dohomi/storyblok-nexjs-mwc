@@ -9,10 +9,13 @@ import { addSearchCategory, removeSearchCategory } from '../../utils/state/actio
 
 const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ content }) => {
   let categories: CategoryItem[] = StoriesService.getAllCategories() || []
+
   const filterByTags = (content.filter_by_tags && content.filter_by_tags.values) || []
   const filterByCategories = content.filter_categories || []
   if (filterByTags || filterByCategories.length) {
     categories = categories.filter((category: CategoryItem) => {
+      const categoryContent = category.content as CategoryStoryblok
+      if (!categoryContent.tag_reference) return false // remove all categories without tag_reference
       let exists = true
       if (filterByTags.length) {
         const tagList = category.tag_list || []
@@ -29,6 +32,7 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
   }
   const items = categories.map((category: CategoryItem) => {
     const categoryContent = category.content as CategoryStoryblok
+    categoryContent.tag_reference
     return {
       _uid: category.uuid as string,
       label: categoryContent.name
