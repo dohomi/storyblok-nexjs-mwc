@@ -1,6 +1,7 @@
 import { Drawer, DrawerAppContent, DrawerContent } from '@rmwc/drawer'
 import Components from 'components'
 import { FunctionComponent } from 'react'
+import * as React from 'react'
 
 const PageWithDrawer: FunctionComponent<{
   rightBody: any[]
@@ -14,12 +15,10 @@ const PageWithDrawer: FunctionComponent<{
               style={{ zIndex: 3 }}
       >
         <DrawerContent dir="ltr">
-          <div style={{ position: 'fixed' }}>
-            {rightBody.map((blok) => Components(blok))}
-          </div>
+          {rightBody.map((blok) => Components(blok))}
         </DrawerContent>
       </Drawer>
-      <DrawerAppContent dir="rtl">
+      <DrawerAppContent dir="rtl" tag="main">
         <div dir="ltr">
           {body.map((blok) => Components(blok))}
         </div>

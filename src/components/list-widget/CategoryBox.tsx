@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChangeEvent, FunctionComponent } from 'react'
+import { ChangeEvent, CSSProperties, FunctionComponent } from 'react'
 import { CategoryBoxStoryblok, CategoryStoryblok } from '../../typings/generated/components-schema'
 import StoriesService from '../../utils/StoriesService'
 import { Checkbox } from '@rmwc/checkbox'
@@ -47,9 +47,11 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
       removeSearchCategory(value)
     }
   }
+  let style: CSSProperties = {}
+  // const style = { maxHeight: '500px', overflowY: 'auto' }
   return (
     <SbEditable content={content}>
-      <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
+      <div style={style}>
         {items.map(category => (
           <div key={category._uid}>
             <Checkbox id={category._uid}

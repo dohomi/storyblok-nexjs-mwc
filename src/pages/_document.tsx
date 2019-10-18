@@ -1,6 +1,7 @@
 import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
 import DeviceDetectService from '../utils/DeviceDetectService'
+import React from 'react'
 
 function getGoogleTagManager() {
   if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {
@@ -54,6 +55,9 @@ class MyDocument extends Document {
       {GTM && (
         <script dangerouslySetInnerHTML={GTM}></script>
       )}
+      <script>
+        /* fix FF initial render */
+      </script>
       </body>
       </html>
     )

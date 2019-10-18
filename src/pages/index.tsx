@@ -1,9 +1,7 @@
 import Components from 'components'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import StoryblokService from '../utils/StoryblokService'
-import Head from '../components/layout/Head'
 import Layout from '../components/layout/Layout'
-import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import DeviceDetectService from '../utils/DeviceDetectService'
 import Fonts from 'fonts'
 import { useRouter } from 'next/router'
@@ -12,21 +10,20 @@ import { NextPage } from 'next'
 import getInitialPageProps from '@initialData/getInitialPageProps'
 import { AppPageProps, PageSeoProps } from '../utils/parsePageProperties'
 import StoriesService from '../utils/StoriesService'
+import Head from '../components/layout/Head'
 
 type CoreAppProps = AppPageProps & {
   asPath: string
 }
+
 const CoreIndex: FunctionComponent<CoreAppProps> = (props) => {
   const { settings, pageSeo, hasFeature, asPath, page } = props
   return (
     <>
       <Head settings={settings} pageSeo={pageSeo as PageSeoProps} />
-      <WindowDimensionsProvider>
-        <Layout settings={settings} hasFeature={hasFeature} asPath={asPath}>
-          {Components(page)}
-        </Layout>
-      </WindowDimensionsProvider>
-      <script>/* fix FF initial render */</script>
+      <Layout hasFeature={hasFeature} asPath={asPath} settings={settings}>
+        {Components(page)}
+      </Layout>
     </>
   )
 }

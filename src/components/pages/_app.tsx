@@ -12,14 +12,14 @@ class MyApp extends App {
 }
 
 // need to check if its still needed.. maybe move layout to this component!
-MyApp.getInitialProps = async ({Component, ctx}) => {
+MyApp.getInitialProps = async ({ Component, ctx }) => {
   let pageProps = {}
 
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx)
   }
 
-  return {pageProps}
+  return { pageProps }
 }
 
 export default MyApp

@@ -5,16 +5,15 @@ import React, { FunctionComponent, useEffect } from 'react'
 import MwcDrawer from './drawer/MwcDrawer'
 import { getThemeOptions } from '../../utils/themeLayout'
 import { closeNavigationDrawers } from '../../utils/state/actions'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { GlobalStateProvider } from '../../utils/state/state'
+import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
+import { AppPageProps } from '../../utils/parsePageProperties'
 
-type LayoutProps = {
-  hasFeature?: boolean
-  settings: GlobalStoryblok
-  asPath?: string
+export type LayoutComponentProps = Pick<AppPageProps, 'settings' | 'hasFeature'> & {
+  asPath: string
 }
 
-const Layout: FunctionComponent<LayoutProps> = ({ asPath, settings, children, hasFeature }) => {
+const Layout: FunctionComponent<LayoutComponentProps> = ({ asPath, settings, children, hasFeature }) => {
 
   useEffect(
     () => {
@@ -25,15 +24,17 @@ const Layout: FunctionComponent<LayoutProps> = ({ asPath, settings, children, ha
 
   const themeOptions = getThemeOptions(settings)
   return (
-    <ThemeProvider options={themeOptions as any} className="app__root">
-      <GlobalStateProvider>
-        <MwcDrawer content={settings} />
-        <Header settings={settings}
-                hasFeature={!!hasFeature} />
-        <main>{children}</main>
-        <Footer settings={settings} />
-      </GlobalStateProvider>
-    </ThemeProvider>
+    <GlobalStateProvider>
+      <WindowDimensionsProvider>
+        <ThemeProvider options={themeOptions as any} className="app__root">
+          <MwcDrawer content={settings} />
+          <Header settings={settings}
+                  hasFeature={!!hasFeature} />
+          {children}
+          <Footer settings={settings} />
+        </ThemeProvider>
+      </WindowDimensionsProvider>
+    </GlobalStateProvider>
   )
 }
 

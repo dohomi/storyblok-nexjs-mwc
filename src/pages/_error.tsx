@@ -1,7 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
 import Components from 'components'
-import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import Layout from '../components/layout/Layout'
 import { NextPage } from 'next'
 import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-schema'
@@ -36,24 +35,22 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
               key="viewport" />
         <meta key="robots" name="robots" content="noindex" />
       </Head>
-      <WindowDimensionsProvider>
-        <Layout settings={settings as GlobalStoryblok || {}}>
-          {
-            page && page.pageContent && Components(page.pageContent)
-          }
-          {
-            !page && (
+      <Layout settings={settings as GlobalStoryblok || {}} hasFeature={false} asPath="">
+        {
+          page && page.pageContent && Components(page.pageContent)
+        }
+        {
+          !page && (
+            <div>
+              <style dangerouslySetInnerHTML={{ __html: 'body { margin: 0 }' }} />
+              {statusCode ? <h1>{statusCode}</h1> : null}
               <div>
-                <style dangerouslySetInnerHTML={{ __html: 'body { margin: 0 }' }} />
-                {statusCode ? <h1>{statusCode}</h1> : null}
-                <div>
-                  <h2>{title}.</h2>
-                </div>
+                <h2>{title}.</h2>
               </div>
-            )
-          }
-        </Layout>
-      </WindowDimensionsProvider>
+            </div>
+          )
+        }
+      </Layout>
     </>
   )
 }

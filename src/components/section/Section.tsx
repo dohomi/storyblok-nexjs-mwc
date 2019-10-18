@@ -42,7 +42,7 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   const body = content.body || []
   return (
     <SbEditable content={content}>
-      <ThemeProvider options={theme}>
+      <ThemeProvider options={theme} wrap>
         {backgroundImage ? (
           <SectionWithBackground className={sectionClassNames}
                                  {...content}

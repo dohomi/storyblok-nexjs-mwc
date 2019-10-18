@@ -15,6 +15,16 @@ body, .mdc-drawer, .app__root {
   color: var(--mdc-theme-on-surface);
 }
 
+// add styles for right/left additional sidedrawer
+.app__root > .mdc-drawer--dismissible {
+  position: fixed;
+  //top: 64px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: auto;
+}
+
 // overwrite how mdc handles colors, bg-colors and borders to overwrite props correctly
 .lm-content-section {
   background-color: var(--mdc-theme-background);
