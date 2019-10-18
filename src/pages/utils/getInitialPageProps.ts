@@ -9,19 +9,12 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   const { query, req, res } = ctx
   let slug: string = query.slug as string || 'home'
 
-  if (slug.match(/^.*\.[^\\]+$/)) {
-    // todo differently!!. handle somehow with routes
-    const notFoundVars: AppPageProps = {
-      error: undefined,
-      hasFeature: false,
-      page: { _uid: '', component: 'page' },
-      pageSeo: undefined,
-      allStories: [],
-      settings: { _uid: '', component: 'global', theme_base: 'base' },
-      allCategories: []
-    }
-    console.log('not found', notFoundVars)
-    return notFoundVars
+  if (slug.match(/^.*\.[^\\]+$/) && res) {
+    console.log('not found', query)
+    // res.writeHead(301, {
+    //   Location: slug
+    // })
+    // res.end()
   }
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   StoryblokService.setQuery(query)

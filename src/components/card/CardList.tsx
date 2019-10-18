@@ -21,6 +21,7 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
     }
   )
 
+
   return (
     <SbEditable content={content}>
       <div>
