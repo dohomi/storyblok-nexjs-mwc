@@ -3,21 +3,29 @@ import ListWidgetLists from './ListWidgetLists'
 import ListWidgetCards from './ListWidgetCards'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
-import { CardListStoryblok, ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
+import {
+  CardListStoryblok,
+  ListsStoryblok,
+  ListWidgetStoryblok,
+  NavListStoryblok
+} from '../../typings/generated/components-schema'
 import { PageItem } from '../../typings/generated/schema'
+import ListWidgetLinks from './ListWidgetLinks'
 
 const ListWidgetContainer: FunctionComponent<{
-  listOption: (ListsStoryblok | CardListStoryblok)
+  listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok)
   content: ListWidgetStoryblok
   items: PageItem[]
 }> = ({ listOption, content, items }) => {
   if (listOption.component === 'lists') {
     return <SbEditable content={content}><ListWidgetLists items={items}
                                                           options={listOption} /></SbEditable>
+  } else if (listOption.component === 'nav_list') {
+    return <ListWidgetLinks items={items} options={listOption} content={content}/>
   }
-  return <SbEditable content={content}><ListWidgetCards content={content}
-                                                        items={items}
-                                                        options={listOption} /></SbEditable>
+  return <ListWidgetCards content={content}
+                          items={items}
+                          options={listOption} />
 }
 
 export default ListWidgetContainer

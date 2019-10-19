@@ -12,7 +12,7 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
   const descriptionIsEmpty = isOverMedia && !content.description
 
   // without media / text only
-  if (!content.image) {
+  if (!content.image || options.hide_image) {
     return (
       <CardWrap content={content} options={options}>
         <CardPrimaryAction>

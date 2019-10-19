@@ -2,7 +2,7 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { ListsStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent, PageItem } from '../../typings/generated/schema'
-import { List, SimpleListItem } from '@rmwc/list'
+import { List, SimpleListItem, SimpleListItemProps } from '@rmwc/list'
 import { Avatar } from '@rmwc/avatar'
 import imageService from '../../utils/ImageService'
 import { Link } from 'routes'
@@ -24,23 +24,25 @@ const ListWidgetLists: FunctionComponent<{
       <List twoLine={!!options.two_line}>
         {items.map((item: PageItem) => {
           const itemContent = item.content as PageComponent
-          const props = !hideImage ? {
+          const props: SimpleListItemProps = !hideImage ? {
             graphic: {
               size: imageSize,
               icon: inView && !!itemContent.preview_image &&
                 <Avatar src={getImageSrc(itemContent.preview_image)} size={imageSize} />
             }
           } : {}
+          if (itemContent.preview_subtitle && !options.hide_subtitle) {
+            props.secondaryText = itemContent.preview_subtitle
+          }
           return (
             <Link to={'/' + item.full_slug}
-                  passHref
-                  key={String(itemContent._uid)}>
-              <SimpleListItem
-                text={itemContent.preview_title}
-                secondaryText={itemContent.preview_subtitle}
-                tag="a"
-                {...props}
-              />
+                  key={itemContent._uid as string}>
+              <a>
+                <SimpleListItem
+                  text={itemContent.preview_title}
+                  {...props}
+                />
+              </a>
             </Link>
           )
         })}
