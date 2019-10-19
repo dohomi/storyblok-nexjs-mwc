@@ -4,7 +4,7 @@ interface State {
   leftNavigationDrawer: boolean
   megaMenu: any
   searchParams: {
-    slug: string
+    searchText: string
     categories: string[]
   }
 }
@@ -13,7 +13,7 @@ const initialState: State = {
   leftNavigationDrawer: false,
   megaMenu: {},
   searchParams: {
-    slug: '',
+    searchText: '',
     categories: []
   }
 }

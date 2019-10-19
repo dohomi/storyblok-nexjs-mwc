@@ -6,6 +6,7 @@ import { Checkbox } from '@rmwc/checkbox'
 import { CategoryItem } from '../../typings/generated/schema'
 import SbEditable from 'storyblok-react'
 import { addSearchCategory, removeSearchCategory } from '../../utils/state/actions'
+import clsx from 'clsx'
 
 const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ content }) => {
   let categories: CategoryItem[] = StoriesService.getAllCategories() || []
@@ -30,14 +31,6 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
       return exists
     })
   }
-  const items = categories.map((category: CategoryItem) => {
-    const categoryContent = category.content as CategoryStoryblok
-    return {
-      _uid: category.uuid as string,
-      value: categoryContent.tag_reference && categoryContent.tag_reference.values as string,
-      label: categoryContent.name
-    }
-  })
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const isChecked = event.currentTarget.checked
     const value = event.currentTarget.value
@@ -51,13 +44,13 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
   // const style = { maxHeight: '500px', overflowY: 'auto' }
   return (
     <SbEditable content={content}>
-      <div style={style}>
-        {items.map(category => (
-          <div key={category._uid}>
-            <Checkbox id={category._uid}
-                      name={category._uid}
-                      label={category.label}
-                      value={category.value}
+      <div style={style} className={clsx(content.class_names && content.class_names.values)}>
+        {categories.map((category: CategoryItem) => (
+          <div key={category.uuid as string}>
+            <Checkbox id={category.uuid as string}
+                      name={category.uuid as string}
+                      label={(category.content && category.content.name) as string}
+                      value={category.content && category.content.tag_reference && category.content.tag_reference.values}
                       onChange={onChange}
             />
           </div>

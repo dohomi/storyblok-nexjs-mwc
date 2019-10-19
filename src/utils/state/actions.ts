@@ -8,6 +8,13 @@ export const closeNavigationDrawers = () => {
   setGlobalState('leftNavigationDrawer', false)
 }
 
+export const onSearchTextChange = (value: string) => {
+  setGlobalState('searchParams', (v) => ({
+    ...v,
+    searchText: value
+  }))
+}
+
 export const addSearchCategory = (value: string) => {
   setGlobalState('searchParams', (v) => ({
     ...v,
