@@ -34,6 +34,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       StoryblokService.get(`cdn/stories`, {
         per_page: 100,
         excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
+        sort_by: 'published_at:desc',
         filter_query: {
           'component': {
             'in': 'page'

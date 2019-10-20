@@ -9,6 +9,7 @@ body, .mdc-drawer, .mdc-drawer .mdc-list-item {
   color: var(--mdc-theme-on-surface);
 }
 
+
 body, .mdc-drawer, .app__root {
   background-color: yellow;
   background-color: var(--mdc-theme-background);
@@ -16,7 +17,11 @@ body, .mdc-drawer, .app__root {
 }
 
 // add styles for right/left additional sidedrawer
-.app__root > .mdc-drawer--dismissible {
+.page-with-drawer ~ footer {
+  position: relative;
+}
+
+.page-with-drawer > .mdc-drawer--dismissible {
   position: fixed;
   //top: 64px;
   height: calc(100vh - 64px);
@@ -24,6 +29,22 @@ body, .mdc-drawer, .app__root {
   -webkit-overflow-scrolling: touch;
   z-index: auto;
 }
+
+// add right navigation drawer styles. rtl is not sufficient
+.mdc-drawer.right-align {
+  border-right-width: 0;
+  border-left-width: 1px;
+  border-right-style: none;
+  border-left-style: solid;
+  right: 0;
+  left: initial;
+}
+
+.mdc-drawer.mdc-drawer--open:not(.mdc-drawer--closing) + .mdc-drawer-app-content.left-align {
+  margin-left: 0;
+  margin-right: 256px;
+}
+
 
 // overwrite how mdc handles colors, bg-colors and borders to overwrite props correctly
 .lm-content-section {
@@ -134,19 +155,3 @@ a {
 }
 
 
-/**
-add right navigation drawer styles. rtl is not sufficient
- */
-.mdc-drawer.right-align {
-  border-right-width: 0;
-  border-left-width: 1px;
-  border-right-style: none;
-  border-left-style: solid;
-  right: 0;
-  left: initial;
-}
-
-.mdc-drawer.mdc-drawer--open:not(.mdc-drawer--closing) + .mdc-drawer-app-content.left-align {
-  margin-left: 0;
-  margin-right: 256px;
-}
