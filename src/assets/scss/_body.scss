@@ -17,11 +17,11 @@ body, .mdc-drawer, .app__root {
 }
 
 // add styles for right/left additional sidedrawer
-.page-with-drawer ~ footer {
+.app__root > footer {
   position: relative;
 }
 
-.page-with-drawer > .mdc-drawer--dismissible {
+.app__root > .mdc-drawer--dismissible {
   position: fixed;
   //top: 64px;
   height: calc(100vh - 64px);

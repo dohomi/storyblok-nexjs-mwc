@@ -8,7 +8,7 @@ const PageWithDrawer: FunctionComponent<{
   body: any[]
 }> = ({ rightBody, body }) => {
   return (
-    <div className="page-with-drawer">
+    <>
       <Drawer dismissible
               open={true}
               className="right-align"
@@ -20,7 +20,7 @@ const PageWithDrawer: FunctionComponent<{
       <DrawerAppContent tag="main" className="left-align">
         {body.map((blok) => Components(blok))}
       </DrawerAppContent>
-    </div>
+    </>
   )
 }
 
