@@ -1,17 +1,21 @@
 import * as React from 'react'
-import { ChangeEvent, CSSProperties, FunctionComponent, useEffect, useState } from 'react'
+import { ChangeEvent, CSSProperties, FunctionComponent, useState } from 'react'
 import { CategoryBoxStoryblok, CategoryStoryblok } from '../../typings/generated/components-schema'
 import StoriesService from '../../utils/StoriesService'
 import { Checkbox } from '@rmwc/checkbox'
 import { CategoryItem } from '../../typings/generated/schema'
 import SbEditable from 'storyblok-react'
-import { addSearchCategory, removeSearchCategory } from '../../utils/state/actions'
+import { setSearchCategory } from '../../utils/state/actions'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 
 const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ content }) => {
   const { query } = useRouter()
-  const [selected, setSelected] = useState<string[]>(query.search__categories as string[] || [])
+  let initialValues: string[] = []
+  if (query.search__categories) {
+    initialValues = Array.isArray(query.search__categories) ? query.search__categories : [query.search__categories]
+  }
+  const [selected, setSelected] = useState<string[]>(initialValues)
   let categories: CategoryItem[] = StoriesService.getAllCategories() || []
 
   const filterByTags = (content.filter_by_tags && content.filter_by_tags.values) || []
@@ -35,28 +39,18 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
     })
   }
 
-  useEffect(
-    () => {
-      const currentUrl = new URL(`${window.location.protocol}//${window.location.host}${window.location.pathname}`)
-      selected.forEach(cat => {
-        currentUrl.searchParams.append('search__categories', cat)
-      })
-      window.history.pushState({ path: currentUrl.href }, '', currentUrl.href)
-    },
-    [selected]
-  )
-
   function onChange(event: ChangeEvent<HTMLInputElement>) {
     const isChecked = event.currentTarget.checked
     const value = event.currentTarget.value
     if (isChecked) {
-      setSelected([...selected, value])
-      addSearchCategory(value)
+      const currentCategories = [...selected, value]
+      setSelected(currentCategories)
+      setSearchCategory(currentCategories)
 
     } else {
-      setSelected(selected.filter(i => i !== value))
-
-      removeSearchCategory(value)
+      const currentCategories = selected.filter(i => i !== value)
+      setSelected(currentCategories)
+      setSearchCategory(currentCategories)
     }
   }
 

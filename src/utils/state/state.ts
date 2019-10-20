@@ -4,8 +4,8 @@ interface State {
   leftNavigationDrawer: boolean
   megaMenu: any
   searchParams: {
-    searchText: string
-    categories: string[]
+    searchText: string | undefined
+    categories: string[] | undefined
   }
 }
 
@@ -13,8 +13,8 @@ const initialState: State = {
   leftNavigationDrawer: false,
   megaMenu: {},
   searchParams: {
-    searchText: '',
-    categories: []
+    searchText: undefined,
+    categories: undefined
   }
 }
 const { GlobalStateProvider, setGlobalState, useGlobalState } = createGlobalState(initialState)

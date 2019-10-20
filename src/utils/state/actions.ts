@@ -14,19 +14,24 @@ export const onSearchTextChange = (value: string) => {
     searchText: value
   }))
 }
-
-export const addSearchCategory = (value: string) => {
-  setGlobalState('searchParams', (v) => ({
-    ...v,
-    categories: [...v.categories, value]
-  }))
+const addSearchParamsToUrl = ({ categories }: { categories?: string[] }) => {
+  const currentUrl = new URL(`${window.location.protocol}//${window.location.host}${window.location.pathname}`)
+  if (categories && categories.length) {
+    categories.forEach((cat: string) => {
+      currentUrl.searchParams.append('search__categories', cat)
+    })
+  }
+  window.history.pushState({ path: currentUrl.href }, '', currentUrl.href)
 }
 
-export const removeSearchCategory = (value: string) => {
-  setGlobalState('searchParams', (v) => ({
-    ...v,
-    categories: v.categories.filter(item => item !== value)
-  }))
+export const setSearchCategory = (categories: string[]) => {
+  setGlobalState('searchParams', (v) => {
+    return {
+      ...v,
+      categories
+    }
+  })
+  addSearchParamsToUrl({ categories })
 }
 
 // todo this is used somewhere else.. or not in use any longer?

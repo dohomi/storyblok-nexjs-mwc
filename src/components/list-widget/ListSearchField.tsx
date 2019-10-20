@@ -10,11 +10,10 @@ import { useGlobalState } from '../../utils/state/state'
 
 const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> = ({ content }) => {
   const [searchParams] = useGlobalState('searchParams')
-  const [searchText, setSearchText] = useState<string>(searchParams.searchText)
+  const [searchText, setSearchText] = useState<string>(searchParams.searchText || '')
   const [debouncedCallback] = useDebouncedCallback(
     // function
     (value) => {
-
       onSearchTextChange(value)
     },
     // delay in ms
