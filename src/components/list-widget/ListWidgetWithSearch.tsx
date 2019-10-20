@@ -16,6 +16,7 @@ const ListWidgetWithSearch: FunctionComponent<{
 }> = ({ listOption, content, items }) => {
   const [searchParams] = useGlobalState('searchParams')
   console.log('list-widget', searchParams)
+
   const searchParamsCategories = searchParams.categories
   const searchText = searchParams.searchText
   if (searchParamsCategories.length || searchText) {

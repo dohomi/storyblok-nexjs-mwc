@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 
 const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ content }) => {
   const { query } = useRouter()
-  const [selected, setSelected] = useState<string[]>(query.categories as string[] || [])
+  const [selected, setSelected] = useState<string[]>(query.search__categories as string[] || [])
   let categories: CategoryItem[] = StoriesService.getAllCategories() || []
 
   const filterByTags = (content.filter_by_tags && content.filter_by_tags.values) || []
@@ -39,7 +39,7 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
     () => {
       const currentUrl = new URL(`${window.location.protocol}//${window.location.host}${window.location.pathname}`)
       selected.forEach(cat => {
-        currentUrl.searchParams.append('categories', cat)
+        currentUrl.searchParams.append('search__categories', cat)
       })
       window.history.pushState({ path: currentUrl.href }, '', currentUrl.href)
     },
