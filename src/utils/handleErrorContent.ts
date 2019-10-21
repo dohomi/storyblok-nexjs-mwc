@@ -27,7 +27,6 @@ const handleErrorContent = async (e: any, res: NextApiResponse, languagePrefix =
     page: page.data && page.data.story && page.data.story.content || {},
     settings: settings.data && settings.data.story && settings.data.story.content || {},
     error,
-    hasFeature: false,
     allStories: [],
     allCategories: []
   }

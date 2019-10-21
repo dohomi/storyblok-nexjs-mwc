@@ -61,12 +61,10 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       body: pageProps.seo_body || [],
       url: url
     }
-    const pageProperties = pageProps.property || []
     return {
       page: pageProps,
       settings: settingsProps,
       pageSeo,
-      hasFeature: pageProperties.includes('has_feature'),
       allStories,
       allCategories
     }

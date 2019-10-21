@@ -18,7 +18,6 @@ export type AppPageProps = {
   page: PageStoryblok,
   pageSeo?: PageSeoProps
   error?: any,
-  hasFeature: boolean
   allStories: any[]
   allCategories: CategoryStoryblok[]
 }

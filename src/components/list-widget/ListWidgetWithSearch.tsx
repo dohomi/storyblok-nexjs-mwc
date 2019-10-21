@@ -2,7 +2,7 @@ import { default as React, FunctionComponent } from 'react'
 import {
   CardListStoryblok,
   ListsStoryblok,
-  ListWidgetStoryblok,
+  ListWidgetStoryblok, NavListStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import { PageItem } from '../../typings/generated/schema'
@@ -11,7 +11,7 @@ import { useGlobalState } from '../../utils/state/state'
 import { useRouter } from 'next/router'
 
 const ListWidgetWithSearch: FunctionComponent<{
-  listOption: (ListsStoryblok | CardListStoryblok)
+  listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok)
   content: ListWidgetStoryblok
   items: PageItem[]
 }> = ({ listOption, content, items }) => {

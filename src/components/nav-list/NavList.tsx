@@ -25,10 +25,12 @@ const NavList: FunctionComponent<{ content: NavListStoryblok }> = ({ content }) 
   const navClassNames = clsx(content.style, 'nav', properties)
   return (
     <SbEditable content={content}>
-      {header && <h4 className="nav-list__header">{header}</h4>}
-      <nav className={navClassNames}>
-        {body.map((blok) => <NavListItem {...blok} key={blok._uid} />)}
-      </nav>
+      <div className={clsx(content.class_names && content.class_names.values)}>
+        {header && <h4 className="nav-list__header">{header}</h4>}
+        <nav className={navClassNames}>
+          {body.map((blok) => <NavListItem {...blok} key={blok._uid} />)}
+        </nav>
+      </div>
     </SbEditable>
   )
 }

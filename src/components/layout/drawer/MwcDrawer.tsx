@@ -15,7 +15,7 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
   return (
     <Drawer modal
             open={isOpen}
-            onClose={closeNavigationDrawers}>
+            onClose={() => closeNavigationDrawers()}>
       <DrawerHeader>
         <Link route="/">
           <a className="p-2 d-block">

@@ -1,7 +1,12 @@
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import StoriesService from '../../utils/StoriesService'
-import { CardListStoryblok, ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
+import {
+  CardListStoryblok,
+  ListsStoryblok,
+  ListWidgetStoryblok,
+  NavListStoryblok
+} from '../../typings/generated/components-schema'
 import { PageComponent, PageItem } from '../../typings/generated/schema'
 import ListWidgetWithSearch from './ListWidgetWithSearch'
 import ListWidgetContainer from './ListWidgetContainer'
@@ -52,7 +57,7 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
   if (content.maximum_items) {
     items = items.slice(0, content.maximum_items)
   }
-  const listOption: (ListsStoryblok | CardListStoryblok) = (content.list_options && content.list_options[0]) || {}
+  const listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok) = (content.list_options && content.list_options[0]) || {}
 
   if (content.enable_for_search) {
     return <ListWidgetWithSearch listOption={listOption} content={content} items={items} />

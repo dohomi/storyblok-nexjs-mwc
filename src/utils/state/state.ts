@@ -2,6 +2,7 @@ import { createGlobalState } from 'react-hooks-global-state'
 
 interface State {
   leftNavigationDrawer: boolean
+  rightNavigationDrawer: boolean
   megaMenu: any
   searchParams: {
     searchText: string | undefined
@@ -11,6 +12,7 @@ interface State {
 
 const initialState: State = {
   leftNavigationDrawer: false,
+  rightNavigationDrawer: false,
   megaMenu: {},
   searchParams: {
     searchText: undefined,

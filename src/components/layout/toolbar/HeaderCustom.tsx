@@ -9,7 +9,11 @@ import React, { createRef, FunctionComponent, RefObject, useEffect } from 'react
 import { DividerStoryblok, GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
 import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
 
-export type AppHeaderProps = { settings: GlobalStoryblok, hasFeature: boolean }
+export type AppHeaderProps = {
+  settings: GlobalStoryblok,
+  hasFeature: boolean
+  hasRightDrawer: boolean
+}
 
 type HeaderComponents = {
   toolbar_row: FunctionComponent<{ content: ToolbarRowStoryblok, settings: GlobalStoryblok }>

@@ -17,11 +17,16 @@ type CoreAppProps = AppPageProps & {
 }
 
 const CoreIndex: FunctionComponent<CoreAppProps> = (props) => {
-  const { settings, pageSeo, hasFeature, asPath, page } = props
+  const { settings, pageSeo, asPath, page } = props
+
   return (
     <>
       <Head settings={settings} pageSeo={pageSeo as PageSeoProps} />
-      <Layout hasFeature={hasFeature} asPath={asPath} settings={settings}>
+      <Layout hasFeature={!!(page.property && page.property.includes('has_feature'))}
+              asPath={asPath}
+              settings={settings}
+              hasRightDrawer={!!(page.right_body && page.right_body.length)}
+      >
         {Components(page)}
       </Layout>
     </>

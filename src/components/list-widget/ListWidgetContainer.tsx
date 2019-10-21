@@ -21,7 +21,7 @@ const ListWidgetContainer: FunctionComponent<{
     return <SbEditable content={content}><ListWidgetLists items={items}
                                                           options={listOption} /></SbEditable>
   } else if (listOption.component === 'nav_list') {
-    return <ListWidgetLinks items={items} options={listOption} content={content}/>
+    return <ListWidgetLinks items={items} options={listOption} content={content} />
   }
   return <ListWidgetCards content={content}
                           items={items}

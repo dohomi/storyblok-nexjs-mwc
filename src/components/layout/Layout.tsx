@@ -9,11 +9,13 @@ import { GlobalStateProvider } from '../../utils/state/state'
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import { AppPageProps } from '../../utils/parsePageProperties'
 
-export type LayoutComponentProps = Pick<AppPageProps, 'settings' | 'hasFeature'> & {
+export type LayoutComponentProps = Pick<AppPageProps, 'settings'> & {
   asPath: string
+  hasFeature: boolean
+  hasRightDrawer: boolean
 }
 
-const Layout: FunctionComponent<LayoutComponentProps> = ({ asPath, settings, children, hasFeature }) => {
+const Layout: FunctionComponent<LayoutComponentProps> = ({ asPath, settings, children, hasFeature, hasRightDrawer }) => {
 
   useEffect(
     () => {
@@ -29,7 +31,8 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({ asPath, settings, chi
         <ThemeProvider options={themeOptions as any} className="app__root">
           <MwcDrawer content={settings} />
           <Header settings={settings}
-                  hasFeature={!!hasFeature} />
+                  hasRightDrawer={hasRightDrawer}
+                  hasFeature={hasFeature} />
           {children}
           <Footer settings={settings} />
         </ThemeProvider>

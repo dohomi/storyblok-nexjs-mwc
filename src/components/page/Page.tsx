@@ -16,7 +16,7 @@ const Page: FunctionComponent<{ content: PageStoryblok }> = (props) => {
   return (
     <SbEditable content={content}>
       <ParallaxProvider>
-        {!!rightBody.length && (
+        {rightBody.length > 0 && (
           <PageWithDrawer rightBody={rightBody} body={body} />
         )}
         {!rightBody.length && body.map((blok) => Components(blok))}

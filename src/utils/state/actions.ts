@@ -3,9 +3,13 @@ import { setGlobalState } from './state'
 export const toggleLeftNavigation = () => {
   setGlobalState('leftNavigationDrawer', value => !value)
 }
+export const toggleRightNavigation = () => {
+  setGlobalState('rightNavigationDrawer', value => !value)
+}
 
 export const closeNavigationDrawers = () => {
   setGlobalState('leftNavigationDrawer', false)
+  setGlobalState('rightNavigationDrawer', false)
 }
 
 const addSearchParamsToUrl = ({ categories, searchText }: { categories?: string[], searchText?: string }) => {
@@ -24,6 +28,7 @@ const addSearchParamsToUrl = ({ categories, searchText }: { categories?: string[
     }
   }
   window.history.pushState({ path: currentUrl.href }, '', currentUrl.href)
+  window.scrollTo(0, 0)
 }
 
 export const onSearchTextChange = (searchText: string) => {

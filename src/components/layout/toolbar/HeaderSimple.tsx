@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { AppHeaderProps } from './HeaderCustom'
 import clsx from 'clsx'
@@ -6,14 +7,13 @@ import SbEditable from 'storyblok-react'
 import { ThemeProvider } from '@rmwc/theme'
 import TopAppBarWrap from './TopAppBar'
 import { TopAppBarFixedAdjust, TopAppBarNavigationIcon, TopAppBarRow, TopAppBarSection } from '@rmwc/top-app-bar'
-import { toggleLeftNavigation } from '../../../utils/state/actions'
+import { toggleLeftNavigation, toggleRightNavigation } from '../../../utils/state/actions'
 import ToolbarLogo from './ToolbarLogo'
 import Components from 'components'
 
-const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
-  const content = props.settings || {}
+const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings }) => {
+  const content = settings || {}
   let toolbarConfig = content.toolbar_config || []
-  const transparentToolbar = props.hasFeature
   const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
   const navRight = content.toolbar || []
   const color = content.toolbar_variant
@@ -29,7 +29,7 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
-        <TopAppBarWrap transparentToolbar={transparentToolbar}
+        <TopAppBarWrap transparentToolbar={hasFeature}
                        toolbarConfig={toolbarConfig}
                        fixed={toolbarConfig.includes('fixed')}>
           <TopAppBarRow>
@@ -37,7 +37,7 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
               <TopAppBarSection>
                 <TopAppBarNavigationIcon icon="menu"
                                          className={`d-${mobileNavBreakpoint}-none`}
-                                         onClick={toggleLeftNavigation} />
+                                         onClick={() => toggleLeftNavigation()} />
                 <ToolbarLogo settings={content} />
               </TopAppBarSection>
               {!!navRight.length && (
@@ -45,11 +45,20 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
                                   className={`d-none d-${mobileNavBreakpoint}-inline-flex`}>
                   {navRight.map(blok => Components(blok))}
                 </TopAppBarSection>)}
+              <TopAppBarSection alignEnd className="d-inline-flex d-sm-none">
+                <TopAppBarNavigationIcon icon="search"
+                                         className={`d-${mobileNavBreakpoint}-none`}
+                                         onClick={(event) =>  {
+                                           event.stopPropagation()
+                                           toggleRightNavigation()
+                                         }}
+                />
+              </TopAppBarSection>
             </div>
           </TopAppBarRow>
         </TopAppBarWrap>
       </ThemeProvider>
-      {!props.hasFeature && <TopAppBarFixedAdjust />}
+      {!hasFeature && <TopAppBarFixedAdjust />}
     </SbEditable>
   )
 }

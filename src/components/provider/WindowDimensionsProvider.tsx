@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import DeviceDetectService from '../../utils/DeviceDetectService'
-import ResizeObserver from 'resize-observer-polyfill'
+import { useDebouncedCallback } from 'use-debounce'
 
 export type WithWindowDimensionsProps = {
   width: number
@@ -8,7 +8,7 @@ export type WithWindowDimensionsProps = {
   isMobile: boolean
 }
 
-const defaultValue: WithWindowDimensionsProps = {
+let defaultValue: WithWindowDimensionsProps = {
   height: 0,
   width: 0,
   isMobile: false
@@ -24,47 +24,28 @@ const getWindowDimensions = () => {
   return opts
 }
 
-const debounce = function(ms: number, fn: Function) {
-  let timer: any
-  return function() {
-    clearTimeout(timer)
-    const args = Array.prototype.slice.call(arguments) as any
-    // @ts-ignore
-    args.unshift(this)
-    timer = setTimeout(fn.bind.apply(fn, args), ms)
-  }
-}
-
+// todo: make this SSR ready with providing req from getInitialProps
 const WindowDimensionsProvider = ({ children }: { children: any }) => {
-  if (typeof window === 'undefined') {
-    return (
-      <WindowDimensionsCtx.Provider value={defaultValue}>
-        {children}
-      </WindowDimensionsCtx.Provider>
-    )
+  if (typeof window !== 'undefined') {
+    defaultValue = getWindowDimensions()
   }
-  const [dimensions, setDimensions] = useState(getWindowDimensions())
-
+  const [dimensions, setDimensions] = useState(defaultValue)
+  const [debouncedCallback] = useDebouncedCallback(
+    // function
+    () => {
+      setDimensions(getWindowDimensions())
+    },
+    // delay in ms
+    500
+  )
   useEffect(
     () => {
-      const body: HTMLBodyElement = document.querySelector('body') as HTMLBodyElement
-      const checkWindowsDimensions = (entries: Element[]) => {
-        if (!Array.isArray(entries)) {
-          return
-        }
-        // Since we only observe the one element, we don't need to loop over the
-        // array
-        if (!entries.length) {
-          return
-        }
-        setDimensions(getWindowDimensions())
+      if (typeof window === 'undefined') {
+        return
       }
-      const resizeObserver = new ResizeObserver(debounce(500, checkWindowsDimensions))
-
-      resizeObserver.observe(body)
-
+      window.addEventListener('resize', debouncedCallback)
       return () => {
-        resizeObserver.unobserve(body)
+        window.removeEventListener('resize', debouncedCallback)
       }
     },
     []
