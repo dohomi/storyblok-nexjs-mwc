@@ -16,18 +16,15 @@ const ListWidgetWithSearch: FunctionComponent<{
   items: PageItem[]
 }> = ({ listOption, content, items }) => {
   const { query } = useRouter()
-  // const [initialized, setInitialized] = useState<boolean>(false)
-
   const [searchParams] = useGlobalState('searchParams')
-  // console.log('list-widget', searchParams, query)
   let searchParamsCategories = searchParams.categories || []
-  console.log('list widget', searchParamsCategories, query.search__categories)
   if (!searchParams.categories && query.search__categories) {
     searchParamsCategories = Array.isArray(query.search__categories) ? query.search__categories : [query.search__categories]
-    console.log('inside init', query.search__categories)
-    // setInitialized(true)
   }
-  const searchText = searchParams.searchText
+  let searchText = searchParams.searchText
+  if (!searchParams.searchText && query.search__text) {
+    searchText = query.search__text as string
+  }
   if (searchParamsCategories.length || searchText) {
     items = items.filter((item: PageItem) => {
       const itemCategories = item.tag_list || []

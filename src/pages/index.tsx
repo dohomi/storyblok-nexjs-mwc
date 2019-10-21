@@ -51,7 +51,6 @@ const StoryblokIndex: FunctionComponent<CoreAppProps> = (props) => {
 const Index: NextPage<AppPageProps> = (props) => {
   const { asPath, query } = useRouter()
   const { settings, page, error } = props
-  console.log(asPath)
   StoriesService.setAllStories(props.allStories)
   StoriesService.setAllCategories(props.allCategories)
   useEffect(

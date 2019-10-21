@@ -6,11 +6,11 @@ import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import { useDebouncedCallback } from 'use-debounce'
 import { onSearchTextChange } from '../../utils/state/actions'
-import { useGlobalState } from '../../utils/state/state'
+import { useRouter } from 'next/router'
 
 const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> = ({ content }) => {
-  const [searchParams] = useGlobalState('searchParams')
-  const [searchText, setSearchText] = useState<string>(searchParams.searchText || '')
+  const { query } = useRouter()
+  const [searchText, setSearchText] = useState<string>(query.search__text as string || '')
   const [debouncedCallback] = useDebouncedCallback(
     // function
     (value) => {
