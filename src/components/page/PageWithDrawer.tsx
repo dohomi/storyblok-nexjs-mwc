@@ -12,9 +12,6 @@ const PageWithDrawer: FunctionComponent<{
 }> = ({ rightBody, body }) => {
   const { width } = useWindowDimensions()
   const [rightIsOpen] = useGlobalState('rightNavigationDrawer')
-
-  console.log('WIDTH', width)
-
   const isDrawerModal = width < 600
   return (
     <>

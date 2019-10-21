@@ -39,6 +39,11 @@ class StoryblokService {
     return this.client.cacheVersion
   }
 
+  getSearch(slug: string, params: any) {
+    this.client.setToken(StoryblokToken.public)
+    return this.client.get(slug, params)
+  }
+
   get(slug: string, params?: any) {
     params = params || {}
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
