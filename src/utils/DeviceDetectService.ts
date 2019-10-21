@@ -1,8 +1,10 @@
-import parser from 'ua-parser-js'
+const nodeParser = require('ua-parser-js')
 import { IncomingMessage, ServerResponse } from 'http'
 
 class DeviceDetect {
-  private device: { os: any; browser: any; device: any }
+  private device: {
+    os: any; browser: any; device: any, width: number
+  }
   private hasWebpSupport: boolean
   private language: string
 
@@ -10,7 +12,8 @@ class DeviceDetect {
     this.device = {
       os: null,
       browser: null,
-      device: null
+      device: null,
+      width: 0
     }
     this.hasWebpSupport = false
     this.language = ''
@@ -39,26 +42,25 @@ class DeviceDetect {
   }
 
   _getDeviceValues(parsed: IUAParser.IResult) {
-    return {
+    const device = parsed.device.type
+    const obj = {
       browser: parsed.browser.name,
       os: parsed.os.name,
-      device: parsed.device.type
+      device: device,
+      width: 1080
     }
+    if (device === 'mobile') {
+      obj.width = 599
+    } else if (device === 'tablet') {
+      obj.width = 768
+    }
+    return obj
   }
 
   setDevice(req?: IncomingMessage) {
-    if (req) {
-      // we set this and calling it in _document to set global windows variable
-      let userAgent = req.headers['user-agent'] as string
-
-      // @ts-ignore
-      const parsed = userAgent && parser(userAgent)
-      this.device = this._getDeviceValues(parsed)
-    } else {
-      // @ts-ignore
-      // this.device = this._getDeviceValues(parser())
-      // (window as any)['userDevice'] = { ...this.device }
-    }
+    let userAgent = req ? req.headers['user-agent'] as string : window.navigator.userAgent
+    const parsed = userAgent && nodeParser(userAgent)
+    this.device = this._getDeviceValues(parsed)
   }
 
   getWebpSupport() {
@@ -81,7 +83,7 @@ class DeviceDetect {
 
   _supportsWebp() {
     return new Promise(function(resolve) {
-      var image = new Image()
+      const image = new Image()
       image.onerror = function() {
         return resolve(false)
       }

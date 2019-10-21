@@ -6,29 +6,30 @@ export type WithWindowDimensionsProps = {
   width: number
   height: number
   isMobile: boolean
+  isTablet: boolean
 }
 
 let defaultValue: WithWindowDimensionsProps = {
-  height: 0,
-  width: 0,
-  isMobile: false
+  height: 500,
+  width: 599, // mobile
+  isMobile: false,
+  isTablet: false
 }
+
 export const WindowDimensionsCtx = createContext(defaultValue)
 
-const getWindowDimensions = () => {
-  const opts = {
-    height: window.innerHeight,
-    width: window.innerWidth,
-    isMobile: DeviceDetectService.getDevice() && DeviceDetectService.getDevice().device === 'mobile'
-  }
-  return opts
-}
-
-// todo: make this SSR ready with providing req from getInitialProps
 const WindowDimensionsProvider = ({ children }: { children: any }) => {
+  const currentDevice = DeviceDetectService.getDevice()
+  let defaultValue: WithWindowDimensionsProps = {
+    height: 500,
+    width: currentDevice.width,
+    isMobile: currentDevice.device === 'mobile',
+    isTablet: currentDevice.device === 'tablet'
+  }
   if (typeof window !== 'undefined') {
     defaultValue = getWindowDimensions()
   }
+
   const [dimensions, setDimensions] = useState(defaultValue)
   const [debouncedCallback] = useDebouncedCallback(
     // function
@@ -50,6 +51,15 @@ const WindowDimensionsProvider = ({ children }: { children: any }) => {
     },
     []
   )
+
+  function getWindowDimensions() {
+    const opts = {
+      ...defaultValue,
+      height: window.innerHeight,
+      width: window.innerWidth
+    }
+    return opts
+  }
 
   return (
     <WindowDimensionsCtx.Provider value={dimensions}>
