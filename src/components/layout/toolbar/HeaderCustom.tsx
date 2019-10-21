@@ -11,8 +11,8 @@ import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
 
 export type AppHeaderProps = {
   settings: GlobalStoryblok,
-  hasFeature: boolean
-  hasRightDrawer: boolean
+  hasFeature?: boolean
+  hasRightDrawer?: boolean
 }
 
 type HeaderComponents = {
@@ -62,7 +62,7 @@ const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
-        <TopAppBarWrap transparentToolbar={transparentToolbar}
+        <TopAppBarWrap transparentToolbar={!!transparentToolbar}
                        toolbarConfig={toolbarConfig}
                        fixed={toolbarConfig.includes('fixed')}>
           {rows.map(p => Child(p, content))}

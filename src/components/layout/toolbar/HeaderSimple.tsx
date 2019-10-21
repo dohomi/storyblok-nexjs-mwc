@@ -11,7 +11,7 @@ import { toggleLeftNavigation, toggleRightNavigation } from '../../../utils/stat
 import ToolbarLogo from './ToolbarLogo'
 import Components from 'components'
 
-const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings }) => {
+const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings, hasRightDrawer }) => {
   const content = settings || {}
   let toolbarConfig = content.toolbar_config || []
   const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
@@ -29,7 +29,7 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings 
   return (
     <SbEditable content={content}>
       <ThemeProvider options={theme}>
-        <TopAppBarWrap transparentToolbar={hasFeature}
+        <TopAppBarWrap transparentToolbar={!!hasFeature}
                        toolbarConfig={toolbarConfig}
                        fixed={toolbarConfig.includes('fixed')}>
           <TopAppBarRow>
@@ -45,15 +45,14 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings 
                                   className={`d-none d-${mobileNavBreakpoint}-inline-flex`}>
                   {navRight.map(blok => Components(blok))}
                 </TopAppBarSection>)}
-              <TopAppBarSection alignEnd className="d-inline-flex d-sm-none">
-                <TopAppBarNavigationIcon icon="search"
-                                         className={`d-${mobileNavBreakpoint}-none`}
-                                         onClick={(event) =>  {
-                                           event.stopPropagation()
-                                           toggleRightNavigation()
-                                         }}
-                />
-              </TopAppBarSection>
+              {!!hasRightDrawer && (
+                <TopAppBarSection alignEnd className="d-inline-flex d-sm-none">
+                  <TopAppBarNavigationIcon icon="search"
+                                           className={`d-${mobileNavBreakpoint}-none`}
+                                           onClick={() => toggleRightNavigation()}
+                  />
+                </TopAppBarSection>
+              )}
             </div>
           </TopAppBarRow>
         </TopAppBarWrap>

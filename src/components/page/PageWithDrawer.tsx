@@ -19,7 +19,6 @@ const PageWithDrawer: FunctionComponent<{
   return (
     <>
       <Drawer dismissible={!isDrawerModal}
-              dir="rtl"
               modal={isDrawerModal}
               open={isDrawerModal ? rightIsOpen : true}
               className="right-align"
