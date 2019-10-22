@@ -1,6 +1,12 @@
 import { storiesOf } from '@storybook/react'
 import CardList from './CardList'
-import { CardListItemStoryblok, CardListStoryblok } from '../../typings/generated/components-schema'
+import {
+  CardListItemStoryblok,
+  CardListStoryblok,
+  HeadlineStoryblok,
+  ImageStoryblok,
+  ParagraphStoryblok
+} from '../../typings/generated/components-schema'
 import * as React from 'react'
 
 const cardListBody: CardListItemStoryblok[] = [{
@@ -79,7 +85,6 @@ const cardListIcons: CardListItemStoryblok[] = [{
   _uid: '12321312',
   component: 'card_list_item',
   image: twitterPng
-
 }]
 const cardList: CardListStoryblok = {
   _uid: '12311',
@@ -87,7 +92,24 @@ const cardList: CardListStoryblok = {
   body: cardListBody
 }
 
-storiesOf('Card List Standard', module)
+const cardListWithAction: CardListStoryblok = {
+  _uid: '12311',
+  component: 'card_list',
+  body: cardListBody.map((cardItem, i) => ({
+    ...cardItem,
+    body: [{
+      _uid: '543',
+      component: 'headline',
+      text: `Headline ${i}`
+    },{
+      _uid: '2342',
+      component: 'paragraph',
+      text: `Some random ${i}\n\n **Some new line`
+    }] as (HeadlineStoryblok | ParagraphStoryblok | ImageStoryblok)[]
+  }))
+}
+
+storiesOf('Cards', module)
   .add(
     'Card List',
     () => (
@@ -130,7 +152,16 @@ storiesOf('Card List Standard', module)
     'Card Icons',
     () => (
       <>
-        <CardList content={{ ...cardList, elevation: '0', image_size: 'contain',image_ratio:'1x1', body: cardListIcons }} />
+        <CardList
+          content={{ ...cardList, elevation: '0', image_size: 'contain', image_ratio: '1x1', body: cardListIcons }} />
+      </>
+    )
+  )
+  .add(
+    'Card with actions',
+    () => (
+      <>
+        <CardList content={cardListWithAction} />
       </>
     )
   )

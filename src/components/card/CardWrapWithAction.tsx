@@ -12,8 +12,8 @@ interface CardWrapAction extends CardListItemProps {
 }
 
 const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, className, style, outlined, children }) => {
+  let [open, setOpen] = React.useState<boolean>(false)
   const body = content.body || []
-  let [open, setOpen] = React.useState(false)
 
   function onDrawerClose() {
     setOpen(false)
@@ -33,7 +33,8 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, classN
           {children}
         </a>
       </Card>
-      <Drawer modal open={open}
+      <Drawer modal
+              open={open}
               dir="rtl"
               className="lm-card__drawer"
               onOpen={() => onDrawerOpen()}

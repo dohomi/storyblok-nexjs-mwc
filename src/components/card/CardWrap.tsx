@@ -20,7 +20,7 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, opt
                                content={content}
                                style={style}
                                outlined={!!outlined}
-                               options={options} />
+                               options={options}>{children}</CardWrapWithAction>
   }
 
   return (
