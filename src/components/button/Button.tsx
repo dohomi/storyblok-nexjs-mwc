@@ -19,7 +19,7 @@ export const mapButtonProps = (content: ButtonStoryblok) => {
   // const property = content.styles
   const color = content.color
   const size = content.size
-  const icon = content.image || (content.icon && content.icon.name)
+  let icon = content.image || (content.icon && content.icon.name)
   const trailingIcon = content.trailing_icon && content.trailing_icon.name
   const properties = content.properties || []
   const additionalClasses = []
@@ -91,7 +91,6 @@ const ButtonMwc: FunctionComponent<MuiButtonProps> = (props) => {
   delete mappedProps.unelevated
   delete mappedProps.outlined
 
-  console.log(props)
   return <IconButton {...mappedProps} />
 }
 
