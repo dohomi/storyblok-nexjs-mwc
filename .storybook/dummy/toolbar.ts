@@ -1,6 +1,7 @@
 import {
   ButtonStoryblok,
   GlobalStoryblok,
+  ListSearchAutocompleteStoryblok,
   NavMenuItemStoryblok,
   NavMenuStoryblok,
   ToolbarRowSectionStoryblok,
@@ -24,6 +25,12 @@ const menuItem: NavMenuStoryblok = {
 }
 
 const toolbarItems = [{
+  _uid: '34433',
+  component: 'list_search_autocomplete',
+  placeholder: 'Search...',
+  outlined: true,
+  shape: 'square'
+}, {
   _uid: '123',
   component: 'button',
   label: 'Button'
@@ -31,7 +38,7 @@ const toolbarItems = [{
   _uid: '12321',
   component: 'button',
   label: 'Another Button'
-}, menuItem] as (ButtonStoryblok | NavMenuStoryblok)[]
+}, menuItem] as (ListSearchAutocompleteStoryblok | ButtonStoryblok | NavMenuStoryblok)[]
 
 export const simpleSettings: GlobalStoryblok = {
   _uid: '123',

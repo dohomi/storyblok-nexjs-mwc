@@ -36,6 +36,38 @@
   .mdc-button, a .mdc-button, .mdc-button__label, .mdc-top-app-bar__title {
     color: var(--mdc-theme-on-primary);
   }
+
+
+  .lm-search__autocomplete.mdc-text-field {
+    color: var(--mdc-theme-on-primary, #fff);
+    height: 2.5rem;
+
+    [class*=mdc-notched-outline__] {
+      border-color: #fff !important;
+      border-color: var(--mdc-theme-on-primary, #fff) !important;
+      opacity: .6;
+    }
+
+    &--focused {
+      [class*=mdc-notched-outline__] {
+        opacity: 1;
+      }
+    }
+
+    .mdc-text-field__input {
+      color: inherit;
+    }
+
+    ::placeholder {
+      color: inherit;
+    }
+
+    .rmwc-icon {
+      color: inherit !important;
+      top: .5rem !important;
+    }
+  }
+
 }
 
 // add transparent toolbar in case feature element is present

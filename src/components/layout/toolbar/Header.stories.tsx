@@ -3,9 +3,9 @@ import Header from './Header'
 import * as React from 'react'
 import { customSettings, simpleSettings } from '../../../../.storybook/dummy/toolbar'
 
-storiesOf('Header', module)
+storiesOf('Toolbar', module)
   .add(
-    'Header Simple',
+    'Toolbar Simple',
     () => (
       <>
         <h3>Default</h3>
@@ -20,7 +20,7 @@ storiesOf('Header', module)
     )
   )
   .add(
-    'Header Custom',
+    'Toolbar Custom',
     () => (
       <Header settings={customSettings} hasFeature={false} />
     )

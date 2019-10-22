@@ -1,5 +1,5 @@
 import { Menu, MenuItem, MenuSurfaceAnchor } from '@rmwc/menu'
-import { TextField, TextFieldProps } from '@rmwc/textfield'
+import { TextField } from '@rmwc/textfield'
 import React, { ChangeEvent, FunctionComponent, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import StoryblokService from '../../utils/StoryblokService'
@@ -14,6 +14,9 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
 
   const [debounceFunc] = useDebouncedCallback(
     (value) => {
+      if (value.length < 3) {
+        return
+      }
       StoryblokService.getSearch(`cdn/stories`, {
         per_page: 100,
         sort_by: 'content.preview_title:desc',
@@ -32,17 +35,6 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
     },
     400
   )
-  const textFieldProps: TextFieldProps = {}
-  if (searchText.length > 0) {
-    textFieldProps.trailingIcon = {
-      icon: 'close',
-      tabIndex: 0,
-      onClick: () => {
-        setSearchText('')
-        setItems([])
-      }
-    }
-  }
 
   function onSearchChange(value: string) {
     setSearchText(value)
@@ -50,7 +42,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
   }
 
   return (
-    <MenuSurfaceAnchor>
+    <MenuSurfaceAnchor className="lm-search__autocomplete">
       <Menu open={open}
             onClose={() => setOpen(false)}
             anchorCorner="bottomLeft"
@@ -67,14 +59,21 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
                  label={content.label}
                  icon={(content.icon && content.icon.name) || 'search'}
                  value={searchText}
-                 className={clsx('lm-form', {
+                 className={clsx('lm-search__autocomplete lm-form', {
                    'w-100': content.fullwidth,
                    ['lm-form__shaped']: content.shape === 'rounded',
                    ['lm-form__square']: content.shape === 'square'
                  })}
                  outlined={content.outlined}
                  onChange={(event: ChangeEvent<HTMLInputElement>) => onSearchChange(event.currentTarget.value)}
-                 {...textFieldProps}
+                 trailingIcon={{
+                   icon: searchText.length > 0 ? 'close' : '',
+                   tabIndex: 0,
+                   onClick: () => {
+                     setSearchText('')
+                     setItems([])
+                   }
+                 }}
       />
     </MenuSurfaceAnchor>
   )
