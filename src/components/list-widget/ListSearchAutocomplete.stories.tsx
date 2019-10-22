@@ -11,18 +11,52 @@ const props: ListSearchAutocompleteStoryblok = {
   not_found_label: 'There is no item found...'
 }
 
-storiesOf('List Widget', module)
+storiesOf('List Widget Addons', module)
   .add(
     'Search Autocomplete',
     () => (
-      <>
-        <ListSearchAutocomplete content={props} />
-        <h3>Without label</h3>
+      <div className="p-3">
+        <h3>Default:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: 'Search' }} />
+        <h3>Default without label:</h3>
         <ListSearchAutocomplete content={{ ...props, label: undefined }} />
-        <h3>Without label</h3>
+        <h3>Fullwidth:</h3>
         <ListSearchAutocomplete content={{ ...props, label: undefined, fullwidth: true }} />
-        <h3>Outlined</h3>
+        <h3>Square:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: undefined, shape: 'square' }} />
+        <h3>Square fullwidth:</h3>
+        <ListSearchAutocomplete
+          content={{ ...props, label: undefined, fullwidth: true, shape: 'square' }} />
+        <h3>Rounded:</h3>
+        <ListSearchAutocomplete
+          content={{ ...props, label: undefined, shape: 'rounded' }} />
+        <h3>Rounded fullwidth:</h3>
+        <ListSearchAutocomplete
+          content={{ ...props, label: undefined, fullwidth: true, shape: 'rounded' }} />
+      </div>
+    )
+  )
+  .add(
+    'Outlined Autocomplete',
+    () => (
+      <div className="p-3">
+        <h3>Default:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: 'Search', outlined: true }} />
+        <h3>Default without label:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: undefined, outlined: true }} />
+        <h3>Fullwidth:</h3>
         <ListSearchAutocomplete content={{ ...props, label: undefined, fullwidth: true, outlined: true }} />
-      </>
+        <h3>Square:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: undefined, outlined: true, shape: 'square' }} />
+        <h3>Square fullwidth:</h3>
+        <ListSearchAutocomplete
+          content={{ ...props, label: undefined, fullwidth: true, outlined: true, shape: 'square' }} />
+        <h3>Rounded:</h3>
+        <ListSearchAutocomplete
+          content={{ ...props, label: undefined, outlined: true, shape: 'rounded' }} />
+        <h3>Rounded fullwidth:</h3>
+        <ListSearchAutocomplete
+          content={{ ...props, label: undefined, fullwidth: true, outlined: true, shape: 'rounded' }} />
+      </div>
     )
   )

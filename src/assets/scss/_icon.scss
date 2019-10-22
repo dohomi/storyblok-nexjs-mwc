@@ -6,6 +6,10 @@
   &.rmwc-icon {
     min-width: 1em;
     min-height: 1em;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   &.rmwc-icon--image {

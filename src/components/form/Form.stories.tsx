@@ -67,7 +67,7 @@ const props2: FormStoryblok = {
 const props3: FormStoryblok = {
   _uid: '32424322',
   component: 'form',
-  border: ['shaped'],
+  border: ['shaped', 'outlined'],
   body: [field1, field2, email, select, check, button]
 }
 
@@ -89,7 +89,7 @@ storiesOf('Form', module)
     )
   )
   .add(
-    'Shaped Form',
+    'Shaped Outlined Form',
     () => (
       <>
         <Form content={props3} />

@@ -28,6 +28,11 @@ class StoryblokService {
     this.query = {}
   }
 
+  setToken(token: string) {
+    this.token = token
+    this.client.setToken(token)
+  }
+
   flushCache() {
     console.log('flush cashed triggered. ENV Vars:', StoryblokToken.preview, StoryblokToken.public)
     console.log('current token:', this.client.getToken())

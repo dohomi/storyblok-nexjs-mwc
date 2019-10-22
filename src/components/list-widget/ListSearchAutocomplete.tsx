@@ -65,8 +65,13 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
       </Menu>
       <TextField placeholder={content.placeholder}
                  label={content.label}
+                 icon={(content.icon && content.icon.name) || 'search'}
                  value={searchText}
-                 className={clsx({ 'w-100': content.fullwidth })}
+                 className={clsx('lm-form', {
+                   'w-100': content.fullwidth,
+                   ['lm-form__shaped']: content.shape === 'rounded',
+                   ['lm-form__square']: content.shape === 'square'
+                 })}
                  outlined={content.outlined}
                  onChange={(event: ChangeEvent<HTMLInputElement>) => onSearchChange(event.currentTarget.value)}
                  {...textFieldProps}

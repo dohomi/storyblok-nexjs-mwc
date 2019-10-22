@@ -50,10 +50,6 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     const overwriteDisableRobots = ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i)) || host.endsWith('.now.sh')
     DeviceDetectService.setLanguage(settingsProps.setup_language, settingsProps.setup_supported_languages, res)
 
-    const allStories = (stories.data && stories.data.stories) || []
-    const allCategories = (categories.data && categories.data.stories) || []
-
-    // StoriesService.setAllStories(allStories)
     const pageSeo = {
       title: pageProps.meta_title as string,
       description: pageProps.meta_description as string,
@@ -65,8 +61,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       page: pageProps,
       settings: settingsProps,
       pageSeo,
-      allStories,
-      allCategories
+      allStories: (stories.data && stories.data.stories) || [],
+      allCategories: (categories.data && categories.data.stories) || []
     }
   } catch (e) {
     return await handleErrorContent(e, res as NextApiResponse)

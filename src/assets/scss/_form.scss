@@ -31,21 +31,21 @@
 }
 
 .lm-form.lm-form__shaped {
-  .mdc-text-field, .mdc-select {
+  .mdc-text-field, .mdc-select, &.mdc-text-field, &.mdc-select {
     @include mdc-text-field-shape-radius(28px)
   }
 
-  .mdc-text-field--outlined, .mdc-select--outlined {
+  .mdc-text-field--outlined, .mdc-select--outlined, &.mdc-text-field, &.mdc-select {
     @include mdc-text-field-outline-shape-radius(28px)
   }
 }
 
 .lm-form.lm-form__square {
-  .mdc-text-field, .mdc-select {
+  .mdc-text-field, .mdc-select, &.mdc-text-field, &.mdc-select {
     @include mdc-text-field-shape-radius(0px)
   }
 
-  .mdc-text-field--outlined, .mdc-select--outlined {
+  .mdc-text-field--outlined, .mdc-select--outlined, &.mdc-text-field, &.mdc-select {
     @include mdc-text-field-outline-shape-radius(0px)
   }
 }
@@ -56,6 +56,6 @@
 }
 
 // fix input full width icon issue
-.mdc-text-field--with-leading-icon.mdc-text-field--fullwidth .mdc-text-field__input {
+.mdc-text-field--with-leading-icon.mdc-text-field--fullwidth .mdc-text-field__input, .lm-form__shaped .mdc-text-field__input {
   padding-left: 48px !important;
 }
