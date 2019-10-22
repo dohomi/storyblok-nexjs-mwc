@@ -22,7 +22,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     let [page, settings, categories, stories] = await Promise.all([
       StoryblokService.get(`cdn/stories/${slug}`),
       StoryblokService.get(`cdn/stories/settings`),
-      StoryblokService.get('cdn/stories', {
+      StoryblokService.getAll('cdn/stories', {
         per_page: 100,
         sort_by: 'content.name:asc',
         filter_query: {
@@ -31,7 +31,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
           }
         }
       }),
-      StoryblokService.get(`cdn/stories`, {
+      StoryblokService.getAll(`cdn/stories`, {
         per_page: 100,
         excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
         sort_by: 'published_at:desc',
@@ -61,8 +61,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       page: pageProps,
       settings: settingsProps,
       pageSeo,
-      allStories: (stories.data && stories.data.stories) || [],
-      allCategories: (categories.data && categories.data.stories) || []
+      allStories: stories || [],
+      allCategories: categories || []
     }
   } catch (e) {
     return await handleErrorContent(e, res as NextApiResponse)

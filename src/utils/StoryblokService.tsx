@@ -49,12 +49,8 @@ class StoryblokService {
     return this.client.get(slug, params)
   }
 
-  getAll(slug: string, params?: any) {
-    return this.client.getAll(slug, params, 'stories')
-  }
-
-  get(slug: string, params?: StoriesParams) {
-    params = params || {}
+  getDefaultParams() {
+    const params: StoriesParams = {}
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
       this.token = StoryblokToken.preview
       this.client.setToken(StoryblokToken.preview)
@@ -68,7 +64,22 @@ class StoryblokService {
       // @ts-ignore
       params.from_release = this.getQuery('_storyblok_release')
     }
-    return this.client.get(slug, params)
+    return params
+  }
+
+  getAll(slug: string, params = {}) {
+    return this.client.getAll(slug, {
+      ...params,
+      ...this.getDefaultParams()
+    }, 'stories')
+  }
+
+  get(slug: string, params = {}) {
+    params = params || {}
+    return this.client.get(slug, {
+      ...params,
+      ...this.getDefaultParams()
+    })
   }
 
   initEditor(content: any, setContent: Function) {
