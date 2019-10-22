@@ -32,6 +32,7 @@ import IframeAdvanced from './iframe/IframeAdvanced'
 import CategoryBox from './list-widget/CategoryBox'
 import ListSearchField from './list-widget/ListSearchField'
 import LinkWwrap from './link/Link'
+import ListSearchAutocomplete from './list-widget/ListSearchAutocomplete'
 
 const Components = {
   'page': Page,
@@ -68,7 +69,8 @@ const Components = {
   'iframe_advanced': IframeAdvanced,
   'category_box': CategoryBox,
   'list_search_field': ListSearchField,
-  'link': LinkWwrap
+  'link': LinkWwrap,
+  'list_search_autocomplete': ListSearchAutocomplete
 }
 
 export default Components

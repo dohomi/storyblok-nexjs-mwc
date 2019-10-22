@@ -40,7 +40,7 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings,
                                          onClick={() => toggleLeftNavigation()} />
                 <ToolbarLogo settings={content} />
               </TopAppBarSection>
-              {!!navRight.length && (
+              {navRight.length > 0 && (
                 <TopAppBarSection alignEnd
                                   className={`d-none d-${mobileNavBreakpoint}-inline-flex`}>
                   {navRight.map(blok => Components(blok))}
