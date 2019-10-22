@@ -31,6 +31,7 @@ import FlexRow from './flex-row/FlexRow'
 import IframeAdvanced from './iframe/IframeAdvanced'
 import CategoryBox from './list-widget/CategoryBox'
 import ListSearchField from './list-widget/ListSearchField'
+import LinkWwrap from './link/Link'
 
 const Components = {
   'page': Page,
@@ -66,7 +67,8 @@ const Components = {
   'flex_row': FlexRow,
   'iframe_advanced': IframeAdvanced,
   'category_box': CategoryBox,
-  'list_search_field': ListSearchField
+  'list_search_field': ListSearchField,
+  'link': LinkWwrap
 }
 
 export default Components

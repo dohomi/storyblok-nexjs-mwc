@@ -77,7 +77,6 @@ const Image: FunctionComponent<{
   }
 
   function onImageLoaded() {
-
     intersectionElement && intersectionElement.target && intersectionElement.target.firstElementChild && intersectionElement.target.firstElementChild.classList.add('loaded')
   }
 

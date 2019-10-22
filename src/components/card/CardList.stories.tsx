@@ -63,6 +63,24 @@ const cardListLongDescription: CardListItemStoryblok[] = [{
 }]
 
 
+const twitterPng = 'https://img2.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
+const fcbkPng = 'https://a.storyblok.com/f/66717/273x256/1af4758e5f/fb-icon.png'
+const instaPng = 'https://img2.storyblok.com/f/66717/273x256/275fe57666/insta-icon.png'
+
+const cardListIcons: CardListItemStoryblok[] = [{
+  _uid: '123',
+  component: 'card_list_item',
+  image: instaPng
+}, {
+  _uid: '123123',
+  component: 'card_list_item',
+  image: fcbkPng
+}, {
+  _uid: '12321312',
+  component: 'card_list_item',
+  image: twitterPng
+
+}]
 const cardList: CardListStoryblok = {
   _uid: '12311',
   component: 'card_list',
@@ -108,3 +126,12 @@ storiesOf('Card List Standard', module)
       </>
     )
   )
+  .add(
+    'Card Icons',
+    () => (
+      <>
+        <CardList content={{ ...cardList, elevation: '0', image_size: 'contain',image_ratio:'1x1', body: cardListIcons }} />
+      </>
+    )
+  )
+
