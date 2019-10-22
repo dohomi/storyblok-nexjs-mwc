@@ -50,10 +50,14 @@ export const mapButtonProps = (content: ButtonStoryblok) => {
   theme && (buttonProps.theme = theme)
 
   if (size === 'dense') {
-    buttonProps.dense = true
+    if (variant === 'fab') {
+      buttonProps.mini = true
+    } else if (!content.label) {
+      buttonProps.dense = true
+    }
   }
 
-  if (size && size !== 'dense') {
+  if (size) {
     additionalClasses.push(size)
   }
   trailingIcon && (buttonProps.trailingIcon = trailingIcon)
@@ -72,10 +76,6 @@ const ButtonMwc: FunctionComponent<MuiButtonProps> = (props) => {
   if (mappedProps.fab) {
     delete mappedProps.fab
     mappedProps.trailingIcon && !mappedProps.label && delete mappedProps.trailingIcon
-    if (mappedProps.dense) {
-      mappedProps.mini = true
-      delete mappedProps.dense
-    }
     return <Fab {...mappedProps} />
   }
   // render Button with or without icon
@@ -91,6 +91,7 @@ const ButtonMwc: FunctionComponent<MuiButtonProps> = (props) => {
   delete mappedProps.unelevated
   delete mappedProps.outlined
 
+  console.log(props)
   return <IconButton {...mappedProps} />
 }
 
