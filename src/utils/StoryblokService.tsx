@@ -1,4 +1,4 @@
-import StoryblokClient from 'storyblok-js-client'
+import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 
 const StoryblokToken: {
   preview: string
@@ -49,7 +49,11 @@ class StoryblokService {
     return this.client.get(slug, params)
   }
 
-  get(slug: string, params?: any) {
+  getAll(slug: string, params?: any) {
+    return this.client.getAll(slug, params, 'stories')
+  }
+
+  get(slug: string, params?: StoriesParams) {
     params = params || {}
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
       this.token = StoryblokToken.preview
@@ -61,6 +65,7 @@ class StoryblokService {
       params.cv = window.StoryblokCacheVersion
     }
     if (this.getQuery('_storyblok_release')) {
+      // @ts-ignore
       params.from_release = this.getQuery('_storyblok_release')
     }
     return this.client.get(slug, params)

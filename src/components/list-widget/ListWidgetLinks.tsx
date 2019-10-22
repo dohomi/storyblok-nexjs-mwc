@@ -14,9 +14,9 @@ const ListWidgetLinks: FunctionComponent<{
     _uid: content._uid,
     body: items.map((item: PageItem) => {
       const opts: NavItemStoryblok = {
-        _uid: item.uuid as string,
+        _uid: content._uid + item.uuid as string,
         component: 'nav_item',
-        name: (item.content && item.content.preview_title) || '',
+        name: (item.content && (item.content.preview_title || item.name)) || '',
         link: {
           cached_url: '/' + item.full_slug,
           linktype: 'stories'

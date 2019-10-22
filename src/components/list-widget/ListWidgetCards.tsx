@@ -17,7 +17,7 @@ const ListWidgetCards: FunctionComponent<{
     .map((item: PageItem) => {
       const itemContent = item.content as PageComponent
       return {
-        _uid: itemContent._uid,
+        _uid: item.uuid,
         component: 'card_list_item',
         title: itemContent.preview_title || itemContent.meta_title || item.name,
         subtitle: itemContent.preview_subtitle,
@@ -37,7 +37,6 @@ const ListWidgetCards: FunctionComponent<{
     body: cardListItems
   }
   return <CardList content={cardList} />
-
 }
 
 export default ListWidgetCards

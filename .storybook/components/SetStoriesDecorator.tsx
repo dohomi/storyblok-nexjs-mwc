@@ -10,7 +10,7 @@ const SetStoriesDecorator = (storyFunc: Function) => {
     () => {
       const fetch = async () => {
         let [categories, stories] = await Promise.all([
-          StoryblokService.get('cdn/stories', {
+          StoryblokService.getAll('cdn/stories', {
             per_page: 100,
             sort_by: 'content.name:asc',
             filter_query: {
@@ -19,7 +19,7 @@ const SetStoriesDecorator = (storyFunc: Function) => {
               }
             }
           }),
-          StoryblokService.get(`cdn/stories`, {
+          StoryblokService.getAll(`cdn/stories`, {
             per_page: 100,
             excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
             sort_by: 'published_at:desc',
@@ -30,8 +30,9 @@ const SetStoriesDecorator = (storyFunc: Function) => {
             }
           })
         ])
-        StoriesService.setAllStories((stories.data && stories.data.stories) || [])
-        StoriesService.setAllCategories((categories.data && categories.data.stories) || [])
+        console.log(`Found: stories(${stories.length}) categories(${categories.length})`)
+        StoriesService.setAllStories(stories || [])
+        StoriesService.setAllCategories(categories || [])
         setLoaded(true)
       }
 

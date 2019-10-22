@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import ListWidgetLists from './ListWidgetLists'
 import ListWidgetCards from './ListWidgetCards'
 import * as React from 'react'
@@ -18,8 +17,7 @@ const ListWidgetContainer: FunctionComponent<{
   items: PageItem[]
 }> = ({ listOption, content, items }) => {
   if (listOption.component === 'lists') {
-    return <SbEditable content={content}><ListWidgetLists items={items}
-                                                          options={listOption} /></SbEditable>
+    return <ListWidgetLists content={content} items={items} options={listOption} />
   } else if (listOption.component === 'nav_list') {
     return <ListWidgetLinks items={items} options={listOption} content={content} />
   }
