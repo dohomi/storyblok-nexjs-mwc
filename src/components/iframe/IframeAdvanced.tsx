@@ -61,6 +61,7 @@ const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = 
             overflowY: 'hidden',
             display: content.display,
             height: '100%',
+            minHeight: content.height ? `${content.height}px` : undefined,
             width: content.width || '100%'
           }}
         />
