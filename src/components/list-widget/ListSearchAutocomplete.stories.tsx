@@ -80,6 +80,19 @@ storiesOf('List Widget Addons', module)
             shape: 'square',
             menu_border_radius: '0px 4px 16px 16px'
           }} />
+        <h3>Align Menu to the right</h3>
+        <div className="text-center">
+
+          <ListSearchAutocomplete
+            content={{
+              ...props,
+              label: undefined,
+              outlined: true,
+              shape: 'square',
+              menu_border_radius: '0px',
+              menu_align_right: true
+            }} />
+        </div>
       </div>
     )
   )

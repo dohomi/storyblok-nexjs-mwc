@@ -42,13 +42,15 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
   }
 
   return (
-    <MenuSurfaceAnchor>
+    <MenuSurfaceAnchor className="lm-search__anchor">
       <Menu open={open}
-            className="lm-search__menu"
+            className={clsx('lm-search__menu', {
+              'lm-search__menu-right': content.menu_align_right
+            })}
             onClose={() => setOpen(false)}
             anchorCorner="bottomStart"
             style={{ borderRadius: content.menu_border_radius }}
-            hoistToBody={true}
+            hoistToBody={false}
       >
         {items.length < 1 && (
           <MenuItem>{content.not_found_label}</MenuItem>
