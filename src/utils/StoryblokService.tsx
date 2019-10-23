@@ -40,13 +40,13 @@ class StoryblokService {
     return true
   }
 
-  getCacheVersion() {
+  getCacheVersion() { //1571802881726
     return this.client.cacheVersion
   }
 
   getSearch(slug: string, params: any) {
     this.client.setToken(StoryblokToken.public)
-    return this.client.get(slug, params)
+    return this.client.get(slug, { ...params, ...this.getDefaultParams() })
   }
 
   getDefaultParams() {

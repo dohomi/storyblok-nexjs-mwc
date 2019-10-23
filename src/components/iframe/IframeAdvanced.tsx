@@ -70,9 +70,3 @@ const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = 
 }
 
 export default IframeAdvanced
-
-/*
-
-<iframe id="stIDForm" class="md-image" src="https://mysga.studentsgoabroad.com/?id=cj9sfuvq9onal0116182ztkb0" width="100%" style="border:none;overflow-y: hidden;" scrolling="no"></iframe><script>window.addEventListener("message",function(e){const i=e&&e.data&&e.data.stClientHeight;if(i){const e=document.getElementById("stIDForm");e.height=i+60,e.style.height=i+60}},!1),window.document.body.addEventListener("click",function(){const e=document.getElementById("stIDForm");e&&e.contentWindow.postMessage("_clickOutside","*")},!1)</script>
-
- */

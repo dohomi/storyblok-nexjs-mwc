@@ -60,3 +60,26 @@ storiesOf('List Widget Addons', module)
       </div>
     )
   )
+  .add(
+    'Shaped Menu',
+    () => (
+      <div className="p-3">
+        <h3>Default:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: 'Search', outlined: true }} />
+        <h3>Default without label:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: undefined, menu_border_radius: '0px', shape: 'square' }} />
+        <h3>Fullwidth:</h3>
+        <ListSearchAutocomplete
+          content={{ ...props, label: undefined, fullwidth: true, outlined: true, menu_border_radius: '16px' }} />
+        <h3>Square:</h3>
+        <ListSearchAutocomplete
+          content={{
+            ...props,
+            label: undefined,
+            outlined: true,
+            shape: 'square',
+            menu_border_radius: '0px 4px 16px 16px'
+          }} />
+      </div>
+    )
+  )

@@ -18,7 +18,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
         return
       }
       StoryblokService.getSearch(`cdn/stories`, {
-        per_page: 100,
+        per_page: 25,
         sort_by: 'content.preview_title:desc',
         excluding_fields: 'body,right_body,meta_robots,property,seo_body',
         search_term: value,
@@ -42,10 +42,13 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
   }
 
   return (
-    <MenuSurfaceAnchor className="lm-search__autocomplete">
+    <MenuSurfaceAnchor>
       <Menu open={open}
+            className="lm-search__menu"
             onClose={() => setOpen(false)}
-            anchorCorner="bottomLeft"
+            anchorCorner="bottomStart"
+            style={{ borderRadius: content.menu_border_radius }}
+            hoistToBody={true}
       >
         {items.length < 1 && (
           <MenuItem>{content.not_found_label}</MenuItem>

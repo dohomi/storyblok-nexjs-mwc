@@ -29,7 +29,8 @@ const toolbarItems = [{
   component: 'list_search_autocomplete',
   placeholder: 'Search...',
   outlined: true,
-  shape: 'square'
+  shape: 'square',
+  not_found_label: 'We could not find any page..'
 }, {
   _uid: '123',
   component: 'button',
