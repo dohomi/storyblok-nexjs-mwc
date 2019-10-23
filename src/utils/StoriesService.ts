@@ -1,12 +1,15 @@
 import { CategoryStoryblok } from '../typings/generated/components-schema'
+import { PageItem } from '../typings/generated/schema'
 
 class StoriesModule {
   stories: any[]
   categories: CategoryStoryblok[]
+  urlMapping: any
 
   constructor() {
     this.stories = []
     this.categories = []
+    this.urlMapping = {}
   }
 
   setAllCategories(categories: CategoryStoryblok[]) {
@@ -17,8 +20,15 @@ class StoriesModule {
     return this.categories
   }
 
-  setAllStories(stories: any[]) {
+  setAllStories(stories: PageItem[]) {
     this.stories = stories
+    // stories.forEach((item, i) => {
+    //   if (item.uuid === 'e6c274cc-5174-4fd2-94f3-f15a0d1d3436' || i < 2 || item.slug === 'free-brochure') {
+    //
+    //     console.log(item)
+    //   }
+    //   this.urlMapping[item.uuid as string] = item.path || item.full_slug
+    // })
   }
 
   getAllStories() {

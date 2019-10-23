@@ -16,6 +16,13 @@ const advanced: IframeAdvancedStoryblok = {
   url: 'https://mysga.studentsgoabroad.com/?id=cj9sfuvq9onal0116182ztkb0'
 }
 
+const advanced2: IframeAdvancedStoryblok = {
+  _uid: '1231332',
+  component: 'iframe_advanced',
+  url: 'https://mysga.studentsgoabroad.com/?id=cj9sl3csjyn7z0160hnehn855&fluid'
+}
+
+
 storiesOf('Iframe', module)
   .add(
     'Iframe',
@@ -40,5 +47,11 @@ storiesOf('Iframe', module)
     'Iframe Advanced',
     () => (
       <IframeAdvanced content={advanced}/>
+    )
+  )
+  .add(
+    'Iframe With Message',
+    () => (
+      <IframeAdvanced content={advanced2}/>
     )
   )

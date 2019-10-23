@@ -24,8 +24,7 @@ const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = 
         const el = containerRef && containerRef.target && containerRef.target.firstChild
         if (clientHeight && el) {
           const iframe = el as HTMLIFrameElement
-          iframe.height = clientHeight + 'px'
-          iframe.style.height = clientHeight + 'px'
+          iframe.style.minHeight = clientHeight + 'px'
         }
       }
       const clickFunc = () => {
@@ -61,7 +60,7 @@ const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = 
           style={{
             overflowY: 'hidden',
             display: content.display,
-            height: content.height || '100%',
+            height: '100%',
             width: content.width || '100%'
           }}
         />
