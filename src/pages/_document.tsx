@@ -2,6 +2,8 @@ import Document, { DocumentContext, Head, Main, NextScript } from 'next/document
 import StoryblokService from '../utils/StoryblokService'
 import DeviceDetectService from '../utils/DeviceDetectService'
 import React from 'react'
+import StoriesService from '../utils/StoriesService'
+import { CONFIG } from '../config'
 
 function getGoogleTagManager() {
   if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {
@@ -31,13 +33,9 @@ class MyDocument extends Document {
       var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
     }
     const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
-    const contentLanguage = DeviceDetectService.getLanguage()
-    const htmlProps: any = {}
-    if (contentLanguage) {
-      htmlProps.lang = contentLanguage
-    }
+    
     return (
-      <html {...htmlProps}>
+      <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLang}>
       <Head></Head>
       <body className="mdc-typography mdc-theme--background">
       {GTM && (

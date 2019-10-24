@@ -4,11 +4,14 @@ import DeviceDetectService from '../../utils/DeviceDetectService'
 import handleErrorContent from '../../utils/handleErrorContent'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../utils/parsePageProperties'
+import { CONFIG } from '../../config'
 
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
   const { query, req, res } = ctx
   let slug: string = query.slug as string || 'home'
-
+  let settingsPath = 'settings'
+  let storiesPath = 'stories'
+  const filterStoriesAfterLang = { lang: 'default' }
   if (slug.match(/^.*\.[^\\]+$/) && res) {
     console.log('not found', query)
     // res.writeHead(301, {
@@ -16,12 +19,28 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     // })
     // res.end()
   }
+  const splitted = slug.split('/')
+  const firstPathSegment = splitted[0]
+  const secondPathSegment = splitted[1]
+  const locale = CONFIG.languages.find(lang => lang === firstPathSegment) || ''
+  if (locale) {
+    if (CONFIG.storyblok.languageFolder && secondPathSegment) {
+      slug = `${locale}/${slug}`
+    }
+    if (!secondPathSegment) {
+      slug = `${slug}/home`
+    }
+    settingsPath = CONFIG.storyblok.settingsInLangfolder ? `${locale}/${settingsPath}` : settingsPath
+    filterStoriesAfterLang.lang = locale
+    storiesPath = `${storiesPath}/${locale}`
+  }
+  console.log(firstPathSegment, secondPathSegment, slug, settingsPath)
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   StoryblokService.setQuery(query)
   try {
     let [page, settings, categories, stories] = await Promise.all([
       StoryblokService.get(`cdn/stories/${slug}`),
-      StoryblokService.get(`cdn/stories/settings`),
+      StoryblokService.get(`cdn/stories/${settingsPath}`),
       StoryblokService.getAll('cdn/stories', {
         per_page: 100,
         sort_by: 'content.name:asc',
@@ -62,7 +81,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       settings: settingsProps,
       pageSeo,
       allStories: stories || [],
-      allCategories: categories || []
+      allCategories: categories || [],
+      locale
     }
   } catch (e) {
     return await handleErrorContent(e, res as NextApiResponse)

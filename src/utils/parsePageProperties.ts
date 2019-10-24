@@ -20,4 +20,5 @@ export type AppPageProps = {
   error?: any,
   allStories: any[]
   allCategories: CategoryStoryblok[]
+  locale: string | undefined
 }

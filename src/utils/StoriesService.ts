@@ -5,15 +5,21 @@ class StoriesModule {
   stories: any[]
   categories: CategoryStoryblok[]
   urlMapping: any
+  public locale: string | undefined
 
   constructor() {
     this.stories = []
     this.categories = []
     this.urlMapping = {}
+    this.locale = undefined
   }
 
   setAllCategories(categories: CategoryStoryblok[]) {
     this.categories = categories
+  }
+
+  setLocale(locale: string | undefined) {
+    this.locale = locale
   }
 
   getAllCategories() {

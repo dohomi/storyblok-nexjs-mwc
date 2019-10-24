@@ -58,6 +58,7 @@ const Index: NextPage<AppPageProps> = (props) => {
   const { settings, page, error } = props
   StoriesService.setAllStories(props.allStories)
   StoriesService.setAllCategories(props.allCategories)
+  StoriesService.setLocale(props.locale)
   useEffect(
     () => {
       Fonts(settings)

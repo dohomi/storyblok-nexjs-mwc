@@ -28,7 +28,8 @@ const handleErrorContent = async (e: any, res: NextApiResponse, languagePrefix =
     settings: settings.data && settings.data.story && settings.data.story.content || {},
     error,
     allStories: [],
-    allCategories: []
+    allCategories: [],
+    locale: undefined
   }
   return props
 }

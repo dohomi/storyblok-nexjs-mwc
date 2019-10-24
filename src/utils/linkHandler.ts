@@ -1,3 +1,5 @@
+import StoriesService from './StoriesService'
+
 export type LinkPropsType = {
   to?: string
   href?: string
@@ -18,8 +20,12 @@ interface LinkOptions {
 
 export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkOptions) => {
   let isInternalLink = link.linktype === 'story'
-  const cachedUrl = link.cached_url as string
+  let cachedUrl = link.cached_url as string
+
   if (isInternalLink) {
+    if (StoriesService.locale) {
+      cachedUrl = cachedUrl.replace(`${StoriesService.locale}/${StoriesService.locale}/`, `${StoriesService.locale}/`)
+    }
     props.to = !cachedUrl.startsWith('/') ? `/${cachedUrl}` : cachedUrl
   } else {
     let href = cachedUrl || ''
