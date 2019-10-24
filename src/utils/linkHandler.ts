@@ -24,7 +24,14 @@ export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkO
 
   if (isInternalLink) {
     if (StoriesService.locale) {
-      cachedUrl = cachedUrl.replace(`${StoriesService.locale}/${StoriesService.locale}/`, `${StoriesService.locale}/`)
+
+      const searchStr = `/${StoriesService.locale}/${StoriesService.locale}/`
+      if (cachedUrl.startsWith(searchStr)) {
+        console.log('starts with')
+      } else {
+        console.log('does not starts with')
+      }
+      cachedUrl = cachedUrl.replace(searchStr, `/${StoriesService.locale}/`)
     }
     props.to = !cachedUrl.startsWith('/') ? `/${cachedUrl}` : cachedUrl
   } else {

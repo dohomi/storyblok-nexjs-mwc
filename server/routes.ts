@@ -3,6 +3,7 @@ import { ComponentType } from 'react'
 
 const appRoutes = new routes()
   .add('index', '/:slug+')
+  .add('api/sitemap', '/sitemap.xml')
 
 const { Link: NextRoutesLink, Router } = appRoutes
 

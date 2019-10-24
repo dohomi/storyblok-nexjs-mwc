@@ -62,6 +62,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
       </Menu>
       <TextField placeholder={content.placeholder}
                  label={content.label}
+                 id={content._uid}
                  icon={(content.icon && content.icon.name) || 'search'}
                  value={searchText}
                  className={clsx('lm-search__autocomplete lm-form', {
