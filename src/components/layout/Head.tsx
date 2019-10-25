@@ -124,7 +124,9 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
         {!favicon && (
           <link rel="icon" href="/favicon.ico" />
         )}
-        {StoryblokService.bridge()}
+        {StoryblokService.insideVisualComposer() && (
+          <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${StoryblokService.getToken()}`}></script>
+        )}
       </NextHead>
     </>
   )

@@ -44,6 +44,10 @@ class StoryblokService {
     return this.client.cacheVersion
   }
 
+  getToken() {
+    return this.client.getToken()
+  }
+
   getSearch(slug: string, params: any) {
     this.client.setToken(StoryblokToken.public)
     return this.client.get(slug, { ...params, ...this.getDefaultParams() })
@@ -126,13 +130,6 @@ class StoryblokService {
 
   getQuery(param: any) {
     return this.query[param]
-  }
-
-  bridge() {
-    if (!this.getQuery('_storyblok')) {
-      return ''
-    }
-    return (<script src={'//app.storyblok.com/f/storyblok-latest.js?t=' + this.token}></script>)
   }
 }
 

@@ -26,6 +26,13 @@
       "dest": "/_next/static/$1"
     },
     {
+      "src": "/sitemap.xml",
+      "dest": "/index?slug=$1",
+      "headers": {
+        "Cache-Control": "public, s-maxage=0, max-age=0"
+      }
+    },
+    {
       "src": "/(.*)$",
       "dest": "/index?slug=$1",
       "headers": {
