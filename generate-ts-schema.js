@@ -105,6 +105,8 @@ function parseType (type) {
       return 'string'
     case 'markdown':
       return 'string'
+    case 'richtext':
+      return 'any'
     default:
       return null
   }

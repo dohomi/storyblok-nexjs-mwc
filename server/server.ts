@@ -13,7 +13,6 @@ const handle = appRoutes.getRequestHandler(app, ({ req, res, route, query }: { r
   const parsedUrl = parse(req.url!, true)
   const { pathname } = parsedUrl
 
-  console.log('server', pathname, query)
   if (pathname === '/sitemap.xml') {
     return sitemapFunc(req, res)
   }

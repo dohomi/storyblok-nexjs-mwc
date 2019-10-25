@@ -1,9 +1,10 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import Markdown from './Markdown'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { ParagraphStoryblok } from '../../typings/generated/components-schema'
+import RteContentRender from './rte/RteContentRender'
+import parseMarkdownContent from './markdown-helper'
 
 const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content }) => {
   const typography = content.typography || 'body1'
@@ -18,12 +19,24 @@ const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content
     }
   }
 
+  if (content.rte && content.rte.content) {
+    return (
+      <SbEditable content={content}>
+        <div className={styleClasses}
+             style={style}>
+          {content.rte.content.map((blok: any, i: number) => RteContentRender(blok, i))}
+        </div>
+      </SbEditable>
+    )
+  }
+
   return (
     <SbEditable content={content}>
-      <Markdown
-        content={content.text as string}
-        className={styleClasses}
-        style={style}
+      <div className={styleClasses}
+           style={style}
+           dangerouslySetInnerHTML={{
+             __html: parseMarkdownContent(content.text as string)
+           }}
       />
     </SbEditable>
   )

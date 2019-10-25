@@ -7,6 +7,100 @@ const props: ParagraphStoryblok = {
   component: 'paragraph',
   text: 'Hello World'
 }
+const rte = {
+  'type': 'doc',
+  'content': [{
+    'type': 'heading',
+    'attrs': { 'level': 4 },
+    'content': [{ 'text': 'hallo', 'type': 'text' }]
+  }, {
+    'type': 'paragraph',
+    'content': [{ 'text': 'was istIcon ', 'type': 'text' }, {
+      'text': 'denn ',
+      'type': 'text',
+      'marks': [{ 'type': 'italic' }]
+    }, { 'text': 'hier', 'type': 'text', 'marks': [{ 'type': 'italic' }, { 'type': 'strike' }] }, {
+      'text': ' so ',
+      'type': 'text',
+      'marks': [{ 'type': 'italic' }]
+    }, { 'text': 'passiert', 'type': 'text', 'marks': [{ 'type': 'bold' }, { 'type': 'italic' }] }]
+  }, {
+    'type': 'paragraph',
+    'content': [{ 'text': 'was ', 'type': 'text' }, {
+      'text': 'denn ',
+      'type': 'text',
+      'marks': [{
+        'type': 'link',
+        'attrs': {
+          'href': '/interning-to-bali-have-you-got-these-documents-prepared',
+          'uuid': '2b53d62f-7420-4eb6-aff1-1a79b01fd6f3',
+          'target': null,
+          'linktype': 'story'
+        }
+      }]
+    }, {
+      'text': 'noch',
+      'type': 'text',
+      'marks': [{
+        'type': 'link',
+        'attrs': {
+          'href': '/interning-to-bali-have-you-got-these-documents-prepared',
+          'uuid': '2b53d62f-7420-4eb6-aff1-1a79b01fd6f3',
+          'target': null,
+          'linktype': 'story'
+        }
+      }, { 'type': 'bold' }]
+    }, { 'text': '?', 'type': 'text' }]
+  }, {
+    'type': 'bullet_list',
+    'content': [{
+      'type': 'list_item',
+      'content': [{
+        'type': 'paragraph',
+        'content': [{ 'text': 'Icon', 'type': 'text' }, {
+          'text': 'hallo',
+          'type': 'text',
+          'marks': [{ 'type': 'underline' }]
+        }]
+      }]
+    }, {
+      'type': 'list_item',
+      'content': [{
+        'type': 'paragraph',
+        'content': [{
+          'text': 'das',
+          'type': 'text',
+          'marks': [{ 'type': 'styled', 'attrs': { 'class': 'text-primary' } }]
+        }, { 'text': ' ist', 'type': 'text' }]
+      }]
+    }, {
+      'type': 'list_item',
+      'content': [{
+        'type': 'paragraph',
+        'content': [{ 'text': 'ja ', 'type': 'text' }, {
+          'text': 'eine',
+          'type': 'text',
+          'marks': [{
+            'type': 'link',
+            'attrs': {
+              'href': '/internship-at-the-childrens-home-in-jimbaran',
+              'uuid': '8c9ffed9-f69b-46e6-a2ce-a2ce7aeaac24',
+              'target': '_blank',
+              'linktype': 'story'
+            }
+          }]
+        }, { 'text': ' List', 'type': 'text' }]
+      }]
+    }]
+  }, { 'type': 'horizontal_rule' }, {
+    'type': 'paragraph',
+    'content': [{ 'text': 'some ', 'type': 'text' }, {
+      'text': 'more',
+      'type': 'text',
+      'marks': [{ 'type': 'styled', 'attrs': { 'class': 'text-warning' } }]
+    }, { 'text': ' ', 'type': 'text' }]
+  }]
+}
 
 storiesOf('Paragraph', module)
   .add(
@@ -14,10 +108,18 @@ storiesOf('Paragraph', module)
     () => (
       <>
         <Paragraph content={props} />
-        <Paragraph content={{...props,typography:'subtitle2'}} />
-        <Paragraph content={{...props,typography:'headline5'}} />
-        <Paragraph content={{...props,typography:'headline5'}} />
-        <Paragraph content={{...props,typography:'body2'}} />
+        <Paragraph content={{ ...props, typography: 'subtitle2' }} />
+        <Paragraph content={{ ...props, typography: 'headline5' }} />
+        <Paragraph content={{ ...props, typography: 'headline5' }} />
+        <Paragraph content={{ ...props, typography: 'body2' }} />
+      </>
+    )
+  )
+  .add(
+    'Paragraph RTE render',
+    () => (
+      <>
+        <Paragraph content={{ _uid: '12', component: 'paragraph', rte: rte }} />
       </>
     )
   )
