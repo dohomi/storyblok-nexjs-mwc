@@ -27,7 +27,7 @@ export default async function sitemapFunc(req: IncomingMessage, res: ServerRespo
       // console.log(story.full_slug)
       smStream.write({
         url: story.full_slug,
-        published: story.published_at
+        lastmod: story.published_at
       })
     }
     smStream.end()
