@@ -1,31 +1,32 @@
 import { RteContentProps } from './rte_typings'
+import * as React from 'react'
+import clsx from 'clsx'
+import { Link } from 'routes'
 
-const InlineContentMap = {
-  bold: 'b',
-  strike: 'strike',
-  underline: 'u',
-  strong: 'strong',
-  code: 'code',
-  italic: 'i',
-  link: 'a',
-  styled: 'span'
+const InlineClassMapping = {
+  bold: 'font-weight-bold',
+  strike: 'text-decoration-line-through',
+  underline: 'text-decoration-underline',
+  strong: 'font-weight-bolder',
+  code: 'text-code',
+  italic: 'font-italic',
+  link: 'text-link',
+  styled: ''
 }
 
 const RteText = ({ content }: { content: RteContentProps }) => {
   if (content.marks && content.marks.length) {
-    let textWithHtml = content.marks.map(({ type, attrs }) => {
-      let part = `<${InlineContentMap[type]}`
-      if (attrs && attrs.href) {
-        part += ` href="${attrs.href}"`
-      }
+    const link = content.marks.find(({ type }) => type === 'link')
+    const className = clsx(content.marks.map(({ type, attrs }) => {
       if (attrs && attrs.class) {
-        part += ` class="${attrs.class}"`
+        return attrs.class
       }
-      return part += '>'
-    }).join('')
-    textWithHtml += content.text
-    textWithHtml += content.marks.reverse().map(({ type }) => `</${InlineContentMap[type]}>`).join('')
-    return <span dangerouslySetInnerHTML={{ __html: textWithHtml }} />
+      return InlineClassMapping[type]
+    }))
+    if (link) {
+      return <Link to={link.attrs && link.attrs.href}><a>{content.text}</a></Link>
+    }
+    return <span className={className}>{content.text}</span>
   }
   return content.text
 }
