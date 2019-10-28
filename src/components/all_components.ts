@@ -33,6 +33,7 @@ import CategoryBox from './list-widget/CategoryBox'
 import ListSearchField from './list-widget/ListSearchField'
 import LinkWwrap from './link/Link'
 import ListSearchAutocomplete from './list-widget/ListSearchAutocomplete'
+import RichTextParagraph from './paragraph/RichTextParagraph'
 
 const Components = {
   'page': Page,
@@ -70,7 +71,8 @@ const Components = {
   'category_box': CategoryBox,
   'list_search_field': ListSearchField,
   'link': LinkWwrap,
-  'list_search_autocomplete': ListSearchAutocomplete
+  'list_search_autocomplete': ListSearchAutocomplete,
+  'rich_text_editor': RichTextParagraph
 }
 
 export default Components

@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import Paragraph from './Paragraph'
 import { ParagraphStoryblok } from '../../typings/generated/components-schema'
+import RichTextParagraph from './RichTextParagraph'
 
 const props: ParagraphStoryblok = {
   _uid: '123',
@@ -148,7 +149,7 @@ storiesOf('Paragraph', module)
     'Paragraph RTE render',
     () => (
       <>
-        <Paragraph content={{ _uid: '12', component: 'paragraph', rte: rte }} />
+        <RichTextParagraph content={{ _uid: '12', component: 'rich_text_editor', body: rte }} />
       </>
     )
   )
