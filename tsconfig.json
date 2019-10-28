@@ -35,8 +35,8 @@
       "@routes": [
         "./server/routes.ts"
       ],
-      "client": [
-        "./client"
+      "@polyfills": [
+        "./client/polyfills.js"
       ],
       "@initialData/*": [
         "./src/pages/utils/*"

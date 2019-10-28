@@ -1,4 +1,5 @@
-const path = require('path');
+const path = require('path')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = ({config}) => {
   config.module.rules.push({
@@ -28,16 +29,20 @@ module.exports = ({config}) => {
   })
   config.resolve.extensions.push('.ts', '.tsx')
 
-  const overwrites = {
-    components: path.join(__dirname, '../components'),
-    routes: path.join(__dirname, '../server/routes.ts'),
-    client: path.join(__dirname, '../client'),
-    fonts: path.join(__dirname, '../components/fonts.ts')
-  }
+  // const overwrites = {
+  //   components: path.join(__dirname, '../components'),
+  //   routes: path.join(__dirname, '../server/routes.ts'),
+  //   client: path.join(__dirname, '../client'),
+  //   fonts: path.join(__dirname, '../components/fonts.ts')
+  // }
 
-  config.resolve.modules.unshift(__dirname)
-  Object.keys(overwrites).forEach(key => {
-    config.resolve.alias[key] = overwrites[key]
-  })
+  // config.resolve.modules.unshift(__dirname)
+  // Object.keys(overwrites).forEach(key => {
+  //   config.resolve.alias[key] = overwrites[key]
+  // })
+  config.resolve.plugins = config.resolve.plugins || []
+  config.resolve.plugins.push(new TsconfigPathsPlugin())
+
+
   return config
 }
