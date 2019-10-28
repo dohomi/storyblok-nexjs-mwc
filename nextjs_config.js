@@ -1,6 +1,7 @@
 const path = require('path')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
-function nextjsConfigGen(env, pathAliasOverwrites = {}) {
+function nextjsConfigGen (env, pathAliasOverwrites = {}) {
 
   const defaults = {
     target: 'serverless',
@@ -12,21 +13,24 @@ function nextjsConfigGen(env, pathAliasOverwrites = {}) {
       config.node = {
         fs: 'empty'
       }
-      const overwrites = {
-        '@components': path.join(__dirname, 'components/ComponentRender.tsx'),
-        '@routes': path.join(__dirname, 'server/routes.ts'),
-        client: path.join(__dirname, 'client'),
-        '@fonts': path.join(__dirname, 'components/fonts.ts'),
-        '@initialData': path.join(__dirname, 'src/pages/utils'),
-        ...pathAliasOverwrites
-      }
+      // const overwrites = {
+      //   '@components': path.join(__dirname, 'components/ComponentRender.tsx'),
+      //   '@routes': path.join(__dirname, 'server/routes.ts'),
+      //   client: path.join(__dirname, 'client'),
+      //   '@fonts': path.join(__dirname, 'components/fonts.ts'),
+      //   '@initialData': path.join(__dirname, 'src/pages/utils'),
+      //   ...pathAliasOverwrites
+      // }
 
-      config.resolve.modules.unshift(__dirname)
+      // config.resolve.modules.unshift(__dirname)
 
-      config.resolve.extensions.push('.ts', '.tsx')
-      Object.keys(overwrites).forEach(key => {
-        config.resolve.alias[key] = overwrites[key]
-      })
+      // config.resolve.extensions.push('.ts', '.tsx')
+      // Object.keys(overwrites).forEach(key => {
+      //   config.resolve.alias[key] = overwrites[key]
+      // })
+
+      config.resolve.plugins.push(new TsconfigPathsPlugin())
+
 
       // polyfills
       const originalEntry = config.entry
@@ -41,13 +45,6 @@ function nextjsConfigGen(env, pathAliasOverwrites = {}) {
         return entries
       }
 
-      // config.module.rules.push({
-      //   test: /\.s[ac]ss$/i,
-      //   use: [
-      //     // Compiles Sass to CSS
-      //     'sass-loader'
-      //   ]
-      // })
 
       return config
     }

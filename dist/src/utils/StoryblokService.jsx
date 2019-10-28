@@ -1,24 +1,18 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-import StoryblokClient from 'storyblok-js-client';
-var StoryblokToken = {
+Object.defineProperty(exports, "__esModule", { value: true });
+const storyblok_js_client_1 = __importDefault(require("storyblok-js-client"));
+const StoryblokToken = {
     preview: process.env.STORYBLOK_PREVIEW,
     public: process.env.STORYBLOK_PUBLIC
 };
-var StoryblokService = /** @class */ (function () {
-    function StoryblokService() {
+class StoryblokService {
+    constructor() {
         this.devMode = false; // If true it always loads draft
         this.token = process.env.NODE_ENV === 'development' ? StoryblokToken.preview : StoryblokToken.public;
-        this.client = new StoryblokClient({
+        this.client = new storyblok_js_client_1.default({
             accessToken: this.token,
             cache: {
                 clear: 'auto',
@@ -27,17 +21,28 @@ var StoryblokService = /** @class */ (function () {
         });
         this.query = {};
     }
-    StoryblokService.prototype.flushCache = function () {
+    setToken(token) {
+        this.token = token;
+        this.client.setToken(token);
+    }
+    flushCache() {
         console.log('flush cashed triggered. ENV Vars:', StoryblokToken.preview, StoryblokToken.public);
         console.log('current token:', this.client.getToken());
         this.client.flushCache();
         return true;
-    };
-    StoryblokService.prototype.getCacheVersion = function () {
+    }
+    getCacheVersion() {
         return this.client.cacheVersion;
-    };
-    StoryblokService.prototype.get = function (slug, params) {
-        params = params || {};
+    }
+    getToken() {
+        return this.client.getToken();
+    }
+    getSearch(slug, params) {
+        this.client.setToken(StoryblokToken.public);
+        return this.client.get(slug, Object.assign(Object.assign({}, params), this.getDefaultParams()));
+    }
+    getDefaultParams() {
+        const params = {};
         if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
             this.token = StoryblokToken.preview;
             this.client.setToken(StoryblokToken.preview);
@@ -47,55 +52,55 @@ var StoryblokService = /** @class */ (function () {
             params.cv = window.StoryblokCacheVersion;
         }
         if (this.getQuery('_storyblok_release')) {
+            // @ts-ignore
             params.from_release = this.getQuery('_storyblok_release');
         }
-        return this.client.get(slug, params);
-    };
-    StoryblokService.prototype.initEditor = function (content, setContent) {
-        var _this = this;
+        return params;
+    }
+    getAll(slug, params = {}) {
+        return this.client.getAll(slug, Object.assign(Object.assign({}, params), this.getDefaultParams()), 'stories');
+    }
+    get(slug, params = {}) {
+        params = params || {};
+        return this.client.get(slug, Object.assign(Object.assign({}, params), this.getDefaultParams()));
+    }
+    initEditor(content, setContent) {
         if (window.storyblok) {
             window.storyblok.init({ accessToken: this.token });
-            window.storyblok.on(['change'], function () {
+            window.storyblok.on(['change'], () => {
                 console.log('change::save triggered');
                 // location.reload()
             });
-            window.storyblok.on(['published', 'unpublished'], function () {
+            window.storyblok.on(['published', 'unpublished'], () => {
                 console.log('published triggered');
-                fetch(location.protocol + "//" + location.host + "/api/clear-cache")
-                    .then(function () {
+                fetch(`${location.protocol}//${location.host}/api/clear-cache`)
+                    .then(() => {
                     console.log('flush cashed successful triggered. ENV Vars:', StoryblokToken.preview, StoryblokToken.public);
-                    console.log('after flush: current token:', _this.client.getToken());
+                    console.log('after flush: current token:', this.client.getToken());
                     location.reload();
                 })
-                    .catch(function (e) {
+                    .catch((e) => {
                     console.error('error on flush cache:', e);
                 });
             });
-            window.storyblok.on('input', function (event) {
+            window.storyblok.on('input', (event) => {
                 // todo if this is still works after rewrite... maybe add one for settings as well..
                 if (event.story.content._uid === content.page._uid) {
                     console.log('input::input changed');
-                    setContent(__assign(__assign({}, content), { page: event.story.content }));
+                    setContent(Object.assign(Object.assign({}, content), { page: event.story.content }));
                 }
             });
         }
-    };
-    StoryblokService.prototype.insideVisualComposer = function () {
+    }
+    insideVisualComposer() {
         return !!this.getQuery('_storyblok');
-    };
-    StoryblokService.prototype.setQuery = function (query) {
+    }
+    setQuery(query) {
         this.query = query;
-    };
-    StoryblokService.prototype.getQuery = function (param) {
+    }
+    getQuery(param) {
         return this.query[param];
-    };
-    StoryblokService.prototype.bridge = function () {
-        if (!this.getQuery('_storyblok')) {
-            return '';
-        }
-        return (<script src={'//app.storyblok.com/f/storyblok-latest.js?t=' + this.token}></script>);
-    };
-    return StoryblokService;
-}());
-var storyblokInstance = new StoryblokService();
-export default storyblokInstance;
+    }
+}
+const storyblokInstance = new StoryblokService();
+exports.default = storyblokInstance;
