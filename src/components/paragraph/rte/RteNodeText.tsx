@@ -1,5 +1,6 @@
 import { RteContentProps } from './rte_typings'
 import * as React from 'react'
+import { FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { Link } from 'routes'
 
@@ -14,7 +15,7 @@ const InlineClassMapping = {
   styled: ''
 }
 
-const RteText = ({ content }: { content: RteContentProps }) => {
+const RteNodeText: FunctionComponent<{ content: RteContentProps }> = ({ content }) => {
   if (content.marks && content.marks.length) {
     const link = content.marks.find(({ type }) => type === 'link')
     const className = clsx(content.marks.map(({ type, attrs }) => {
@@ -28,6 +29,6 @@ const RteText = ({ content }: { content: RteContentProps }) => {
     }
     return <span className={className}>{content.text}</span>
   }
-  return content.text
+  return <>{content.text}</>
 }
-export default RteText
+export default RteNodeText

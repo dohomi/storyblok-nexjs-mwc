@@ -1,20 +1,19 @@
-import RteHeading from './RteHeading'
 import React from 'react'
-import RteText from './RteText'
-import RteElementNode from './RteElementNode'
+import RteText from './RteNodeText'
+import RteNode from './RteNode'
 
 const RteComponents = {
-  'heading': RteHeading,
+  'heading': RteNode,
   'text': RteText,
-  'paragraph': RteElementNode,
-  'blockquote': RteElementNode,
-  'bullet_list': RteElementNode,
-  'list_item': RteElementNode,
-  'ordered_list': RteElementNode,
-  'horizontal_rule': () => (<hr/>),
-  'hard_break': RteElementNode,
-  'image': RteElementNode,
-  'code_block': RteElementNode
+  'paragraph': RteNode,
+  'blockquote': RteNode,
+  'bullet_list': RteNode,
+  'list_item': RteNode,
+  'ordered_list': RteNode,
+  'horizontal_rule': () => (<hr />),
+  'hard_break': RteNode,
+  'image': RteNode,
+  'code_block': RteNode
 }
 
 export default (blok: any, i: number) => {
@@ -22,6 +21,6 @@ export default (blok: any, i: number) => {
     return React.createElement(RteComponents[blok.type], { content: blok, key: `${blok.type}_${i}` })
   }
   return React.createElement(() => (
-    <div style={{ color: 'red' }}>The component {blok.type} has not been created yet.</div>
-  ), { key: blok._uid })
+    <div style={{ color: 'red' }}>The component {blok.type} {i} has not been created yet.</div>
+  ), { key: `${blok.type}_${i}` })
 }

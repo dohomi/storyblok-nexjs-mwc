@@ -3,8 +3,8 @@ import clsx from 'clsx'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { ParagraphStoryblok } from '../../typings/generated/components-schema'
-import RteContentRender from './rte/RteContentRender'
 import parseMarkdownContent from './markdown-helper'
+import RteContentRender from './rte/RteContentRender'
 
 const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content }) => {
   const typography = content.typography || 'body1'
@@ -20,6 +20,7 @@ const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content
   }
 
   if (content.rte && content.rte.content) {
+    console.log(JSON.stringify(content.rte.content))
     return (
       <SbEditable content={content}>
         <div className={styleClasses}

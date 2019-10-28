@@ -93,12 +93,41 @@ const rte = {
       }]
     }]
   }, { 'type': 'horizontal_rule' }, {
+    'type': 'ordered_list',
+    'attrs': { 'order': 1 },
+    'content': [{
+      'type': 'list_item',
+      'content': [{ 'type': 'paragraph', 'content': [{ 'text': 'first', 'type': 'text' }] }]
+    }, {
+      'type': 'list_item',
+      'content': [{ 'type': 'paragraph', 'content': [{ 'text': 'second', 'type': 'text' }] }]
+    }, { 'type': 'list_item', 'content': [{ 'type': 'paragraph', 'content': [{ 'text': 'third', 'type': 'text' }] }] }]
+  }, {
+    'type': 'heading',
+    'attrs': { 'level': 1 },
+    'content': [{ 'text': 'Headings:', 'type': 'text' }]
+  }, {
+    'type': 'heading',
+    'attrs': { 'level': 2 },
+    'content': [{ 'text': 'hallo', 'type': 'text' }]
+  }, {
+    'type': 'heading',
+    'attrs': { 'level': 3 },
+    'content': [{ 'text': 'hallo', 'type': 'text' }]
+  }, { 'type': 'paragraph' }, {
     'type': 'paragraph',
     'content': [{ 'text': 'some ', 'type': 'text' }, {
       'text': 'more',
       'type': 'text',
       'marks': [{ 'type': 'styled', 'attrs': { 'class': 'text-warning' } }]
     }, { 'text': ' ', 'type': 'text' }]
+  }, {
+    'type': 'paragraph',
+    'content': [{
+      'text': 'Dises ist toll',
+      'type': 'text',
+      'marks': [{ 'type': 'styled', 'attrs': { 'class': 'badge badge-pill badge-primary' } }]
+    }]
   }]
 }
 
