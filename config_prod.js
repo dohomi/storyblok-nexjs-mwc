@@ -1,9 +1,11 @@
 const withSass = require('@zeit/next-sass')
 const withPlugins = require('next-compose-plugins')
 const withTM = require('next-transpile-modules')
+const sass = require('sass')
 
 const sassConfig = {
   sassLoaderOptions: {
+    implementation: sass,
     sassOptions: {
       sideEffects: true,
       includePaths: ['node_modules']
