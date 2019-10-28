@@ -24,7 +24,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   const secondPathSegment = splitted[1]
   const locale = CONFIG.languages.find(lang => lang === firstPathSegment) || ''
   if (locale) {
-    if (CONFIG.storyblok.languageFolder && secondPathSegment) {
+    if (CONFIG.storyblok.languageFolder && secondPathSegment && secondPathSegment !== locale) {
       slug = `${locale}/${slug}`
     }
     if (!secondPathSegment) {
@@ -37,6 +37,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   console.log(firstPathSegment, secondPathSegment, slug, settingsPath)
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   StoryblokService.setQuery(query)
+  console.log(slug)
   try {
     let [page, settings, categories, stories] = await Promise.all([
       StoryblokService.get(`cdn/stories/${slug}`),
