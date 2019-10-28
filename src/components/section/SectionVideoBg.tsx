@@ -1,4 +1,4 @@
-import Components from 'components'
+import Components from '@components'
 import SbEditable from 'storyblok-react'
 import dynamic from 'next/dynamic'
 import { useInView } from 'react-intersection-observer'

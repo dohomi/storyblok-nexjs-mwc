@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import { MenuSurface, MenuSurfaceAnchor } from '@rmwc/menu'
-import Components from 'components'
+import Components from '@components'
 import { Button } from '@rmwc/button'
 import { FunctionComponent, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'

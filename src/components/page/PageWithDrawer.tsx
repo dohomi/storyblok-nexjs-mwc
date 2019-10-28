@@ -1,5 +1,5 @@
 import { Drawer, DrawerAppContent, DrawerContent } from '@rmwc/drawer'
-import Components from 'components'
+import Components from '@components'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'

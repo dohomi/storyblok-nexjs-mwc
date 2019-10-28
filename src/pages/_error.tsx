@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Components from 'components'
+import Components from '@components'
 import Layout from '../components/layout/Layout'
 import { NextPage } from 'next'
 import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-schema'

@@ -9,7 +9,7 @@ import TopAppBarWrap from './TopAppBar'
 import { TopAppBarFixedAdjust, TopAppBarNavigationIcon, TopAppBarRow, TopAppBarSection } from '@rmwc/top-app-bar'
 import { toggleLeftNavigation, toggleRightNavigation } from '../../../utils/state/actions'
 import ToolbarLogo from './ToolbarLogo'
-import Components from 'components'
+import Components from '@components'
 
 const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings, hasRightDrawer }) => {
   const content = settings || {}

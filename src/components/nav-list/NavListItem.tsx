@@ -1,5 +1,5 @@
 import { linkHandler, LinkPropsType, LinkType } from '../../utils/linkHandler'
-import { Link } from 'routes'
+import { Link } from '@routes'
 import SbEditable from 'storyblok-react'
 import { FunctionComponent } from 'react'
 import { NavItemStoryblok } from '../../typings/generated/components-schema'

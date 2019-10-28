@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import { Card } from '@rmwc/card'
-import Components from 'components'
+import Components from '@components'
 import { FunctionComponent } from 'react'
 import { PricingItemStoryblok } from '../../typings/generated/components-schema'
 

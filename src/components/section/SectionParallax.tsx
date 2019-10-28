@@ -1,4 +1,4 @@
-import Components from 'components'
+import Components from '@components'
 import SbEditable from 'storyblok-react'
 import { ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'

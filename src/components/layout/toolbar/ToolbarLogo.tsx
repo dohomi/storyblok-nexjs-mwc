@@ -1,5 +1,5 @@
 import imageService from '../../../utils/ImageService'
-import { Link } from 'routes'
+import { Link } from '@routes'
 import { TopAppBarTitle } from '@rmwc/top-app-bar'
 import SbEditable from 'storyblok-react'
 import { FunctionComponent } from 'react'

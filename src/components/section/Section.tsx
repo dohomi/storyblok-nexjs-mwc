@@ -1,4 +1,4 @@
-import Components from 'components'
+import Components from '@components'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import React, { FunctionComponent } from 'react'

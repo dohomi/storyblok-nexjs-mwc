@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import React, { createRef, FunctionComponent, RefObject } from 'react'
-import Components from 'components'
+import Components from '@components'
 import clsx from 'clsx'
 import { PromotionItemStoryblok } from '../../typings/generated/components-schema'
 import { WithWindowDimensionsProps } from '../provider/WindowDimensionsProvider'

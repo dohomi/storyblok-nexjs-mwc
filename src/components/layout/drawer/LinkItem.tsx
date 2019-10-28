@@ -1,5 +1,5 @@
 import { linkHandler, LinkPropsType, LinkType } from '../../../utils/linkHandler'
-import { Link } from 'routes'
+import { Link } from '@routes'
 import { FunctionComponent } from 'react'
 import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 

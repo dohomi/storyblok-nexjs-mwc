@@ -26,13 +26,13 @@
     "noUnusedParameters": true,
     "baseUrl": ".",
     "paths": {
-      "components": [
+      "@components": [
         "./components/ComponentRender.tsx"
       ],
-      "fonts": [
+      "@fonts": [
         "./components/fonts.ts"
       ],
-      "routes": [
+      "@routes": [
         "./server/routes.ts"
       ],
       "client": [

@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react'
 import { LinkStoryblok } from '../../typings/generated/components-schema'
 import { linkHandler, LinkPropsType, LinkType } from '../../utils/linkHandler'
-import { Link } from 'routes'
-import Components from 'components'
+import { Link } from '@routes'
+import Components from '@components'
 
 const LinkWwrap: FunctionComponent<{ content: LinkStoryblok }> = ({ content }) => {
   const linkProps: LinkPropsType = {}

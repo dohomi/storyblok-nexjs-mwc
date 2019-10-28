@@ -1,7 +1,7 @@
 import { Tab, TabBar } from '@rmwc/tabs'
 import { FunctionComponent, useState } from 'react'
 import { TabsItemStoryblok, TabsStoryblok } from '../../typings/generated/components-schema'
-import Components from 'components'
+import Components from '@components'
 import SwipeableViews from 'react-swipeable-views'
 
 const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {

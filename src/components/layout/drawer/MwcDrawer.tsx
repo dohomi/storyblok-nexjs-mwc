@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { Drawer, DrawerContent, DrawerHeader, DrawerSubtitle, DrawerTitle } from '@rmwc/drawer'
 import DrawerContentList from './DrawerContentList'
-import { Link } from 'routes'
+import { Link } from '@routes'
 import imageService from '../../../utils/ImageService'
 import { useGlobalState } from '../../../utils/state/state'
 import { closeNavigationDrawers } from '../../../utils/state/actions'
