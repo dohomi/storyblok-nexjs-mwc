@@ -1,5 +1,5 @@
 {
-  "name": "next-basic-storyblok-boilerplate",
+  "name": "@lumen/mwc",
   "version": "1.0.0",
   "description": "Next.js Storyblok Boilerplate",
   "main": "index.js",
