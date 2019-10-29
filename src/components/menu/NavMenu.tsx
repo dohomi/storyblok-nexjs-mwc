@@ -8,6 +8,7 @@ import { componentLogger } from '../../utils/componentLogger'
 import { linkHandler, LinkPropsType, LinkType } from '../../utils/linkHandler'
 import CustomMenu from './CustomMenu'
 import { NavMenuItemStoryblok, NavMenuStoryblok } from '../../typings/generated/components-schema'
+import clsx from 'clsx'
 
 
 const Child: FunctionComponent<NavMenuItemStoryblok> = (nestedProps) => {
@@ -21,21 +22,38 @@ const Child: FunctionComponent<NavMenuItemStoryblok> = (nestedProps) => {
   )
 }
 
-const MtMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) => {
+const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) => {
   componentLogger(content)
   const menuItems = content.body || []
   const isCustom = menuItems.length && menuItems[0].component !== 'nav_menu_item'
   if (isCustom) {
     return <CustomMenu content={content} />
   }
-  const borderRadius = typeof content.border_radius === 'number' ? content.border_radius : 4
+
+  let borderRadius = '4px'
+  if (content.border_radius) {
+    // @ts-ignore
+    if (typeof content.border_radius === 'number') {
+      // was number before..
+      borderRadius = `${content.border_radius}px`
+    } else {
+      borderRadius = content.border_radius
+    }
+  }
 
   return (
     <SbEditable content={content}>
       { // bug of rmwc
         // @ts-ignore
         <SimpleMenu
-          style={{ borderRadius: `${borderRadius}px` }}
+          rootProps={{
+            className: clsx('lm-nav-menu', {
+                [`lm-${content.alignment}`]: !!content.alignment
+              },
+              content.class_names && content.class_names.values)
+          }}
+          style={{ borderRadius: borderRadius }}
+          anchorCorner={content.alignment || 'topStart'}
           handle={<Button trailingIcon="expand_more">{content.title}</Button>}
         >
           {menuItems.map(nestedProps => (
@@ -47,4 +65,4 @@ const MtMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) =
     </SbEditable>
   )
 }
-export default MtMenu
+export default NavMenu

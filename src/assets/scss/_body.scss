@@ -121,6 +121,17 @@ a.nav-link {
   color: inherit;
 }
 
+.lm-nav-menu {
+  display: inline-flex;
+
+  &.lm-bottomEnd {
+    .mdc-menu-surface {
+      left: auto !important;
+      right: 0;
+    }
+  }
+}
+
 // section reset of default margins
 .mdc-layout-grid__cell {
   > .lm-markup {

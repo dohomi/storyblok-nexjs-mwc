@@ -614,14 +614,19 @@ export interface NavListStoryblok {
 
 export interface NavMenuStoryblok {
   title?: string;
-  border_radius?: number;
+  border_radius?: string;
   body?: any[];
+  alignment?: "bottomStart" | "bottomEnd";
   icon?: {
     name?: string;
     [k: string]: any;
   };
   icon_collapse?: {
     name?: string;
+    [k: string]: any;
+  };
+  class_names?: {
+    values?: string[];
     [k: string]: any;
   };
   _uid: string;
