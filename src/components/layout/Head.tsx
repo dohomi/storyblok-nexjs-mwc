@@ -89,7 +89,7 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
 }
 
 
-const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps }> = ({ settings, pageSeo }) => {
+const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps, previewImage?: string }> = ({ settings, pageSeo, previewImage }) => {
   const favicon = settings.setup_favicon
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = pageSeo.body || []
@@ -100,12 +100,17 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
   }
   // open graphs
   const settingsOpenGraphs: SeoOpenGraphStoryblok = seoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok
-  const pageOpenGraphs: SeoOpenGraphStoryblok = pageSeoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok
+  const pageOpenGraphs: SeoOpenGraphStoryblok = pageSeoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok || {}
+  if (previewImage) {
+    pageOpenGraphs.images = pageOpenGraphs.images || []
+    pageOpenGraphs.images.push({ url: previewImage })
+  }
   if (settingsOpenGraphs || pageOpenGraphs) {
-    seo.openGraph = parseOpenGraph(settingsOpenGraphs || {}, pageOpenGraphs || {}, seo, pageSeo.url)
+    seo.openGraph = parseOpenGraph(settingsOpenGraphs || {}, pageOpenGraphs, seo, pageSeo.url)
     const facebookAppId = (settingsOpenGraphs && settingsOpenGraphs.app_id) || (pageOpenGraphs && pageOpenGraphs.app_id)
     facebookAppId && (seo.facebook = { appId: facebookAppId })
   }
+
   // twitter
   const settingsTwitter: SeoTwitterStoryblok = seoBody.find(i => i.component === 'seo_twitter') as SeoTwitterStoryblok || undefined
   if (settingsTwitter) {

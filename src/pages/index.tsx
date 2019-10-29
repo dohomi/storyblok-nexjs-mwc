@@ -21,7 +21,7 @@ const CoreIndex: FunctionComponent<CoreAppProps> = (props) => {
 
   return (
     <>
-      <Head settings={settings} pageSeo={pageSeo as PageSeoProps} />
+      <Head settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page.preview_image} />
       <Layout hasFeature={!!(page.property && page.property.includes('has_feature'))}
               asPath={asPath}
               settings={settings}
