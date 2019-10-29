@@ -98,6 +98,8 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
     description: pageSeo.description || settings.seo_description || 'Website made by Lumen Media',
     noindex: pageSeo.disableRobots || !settings.seo_robots // important to change if go live
   }
+
+
   // open graphs
   const settingsOpenGraphs: SeoOpenGraphStoryblok = seoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok
   const pageOpenGraphs: SeoOpenGraphStoryblok = pageSeoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok || {}
