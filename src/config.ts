@@ -1,8 +1,8 @@
-export const CONFIG = {
+export default {
   defaultLang: 'en',
   languages: ['en', 'de'],
   storyblok: {
-    languageFolder: true,
+    activatedLanguages: true,
     settingsInLangfolder: true
   }
 }

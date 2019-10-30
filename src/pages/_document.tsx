@@ -3,7 +3,7 @@ import StoryblokService from '../utils/StoryblokService'
 import DeviceDetectService from '../utils/DeviceDetectService'
 import React from 'react'
 import StoriesService from '../utils/StoriesService'
-import { CONFIG } from '../config'
+import CONFIG from '@config'
 
 function getGoogleTagManager() {
   if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {
@@ -33,7 +33,7 @@ class MyDocument extends Document {
       var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
     }
     const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
-    
+
     return (
       <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLang}>
       <Head></Head>

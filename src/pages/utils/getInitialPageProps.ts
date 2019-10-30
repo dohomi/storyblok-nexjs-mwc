@@ -4,7 +4,7 @@ import DeviceDetectService from '../../utils/DeviceDetectService'
 import handleErrorContent from '../../utils/handleErrorContent'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../utils/parsePageProperties'
-import { CONFIG } from '../../config'
+import CONFIG from '@config'
 
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
   const { query, req, res } = ctx
@@ -24,10 +24,10 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   const secondPathSegment = splitted[1]
   const locale = CONFIG.languages.find(lang => lang === firstPathSegment) || ''
   if (locale) {
-    if (CONFIG.storyblok.languageFolder && secondPathSegment && secondPathSegment !== locale) {
+    if (CONFIG.storyblok.activatedLanguages && secondPathSegment && secondPathSegment !== locale) {
       slug = `${locale}/${slug}`
     }
-    if (!secondPathSegment) {
+    if (CONFIG.storyblok.activatedLanguages && !secondPathSegment) {
       slug = `${slug}/home`
     }
     settingsPath = CONFIG.storyblok.settingsInLangfolder ? `${locale}/${settingsPath}` : settingsPath

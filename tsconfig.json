@@ -40,6 +40,9 @@
       ],
       "@initialData/*": [
         "./src/pages/utils/*"
+      ],
+      "@config": [
+        "./src/config.ts"
       ]
     },
     "allowJs": false
