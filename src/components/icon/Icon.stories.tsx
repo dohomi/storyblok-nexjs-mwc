@@ -46,10 +46,13 @@ storiesOf('Icon', module)
     'Icon',
     () => (
       <>
+        <IconMwc content={{...props, size: 'xmall'}} />
         <IconMwc content={props} />
         <IconMwc content={props2} />
         <IconMwc content={props1} />
         <IconMwc content={props3} />
+        <IconMwc content={{...props, size: 'xxlarge'}} />
+        <IconMwc content={{...props, size: 'xxxlarge'}} />
       </>
     )
   )

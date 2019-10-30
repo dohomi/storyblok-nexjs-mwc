@@ -1,87 +1,24 @@
 import React, { FunctionComponent } from 'react'
-import { Dialog, DialogContent, DialogTitle } from '@rmwc/dialog'
-import { IconButton } from '@rmwc/icon-button'
-import SwipeableViews from 'react-swipeable-views'
-import { getImageAttrs, getOriginalImageDimensions } from '../../utils/ImageService'
-import { WithWindowDimensionsProps } from '../provider/WindowDimensionsProvider'
-import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
-
-type ImageListLightboxProps = {
-  elements: ImageListItemStoryblok[]
-  lightbox: string
-  setLightbox: Function
-  onImageClick: Function
-  dimensions: WithWindowDimensionsProps
-}
-
-const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
-  let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)
-
-  function getImageSource(source: string) {
-    let dimensionHeight = props.dimensions.height - 68 - 16
-    let dimensionWidth = props.dimensions.width - 48
-    const originalDimension = getOriginalImageDimensions(source)
-    const imgWidth = originalDimension.width
-    const imgHeight = originalDimension.height
-    dimensionWidth = imgWidth <= dimensionWidth ? imgWidth : dimensionWidth
-    dimensionHeight = imgHeight <= dimensionHeight ? imgHeight : dimensionHeight
-    const landscape = dimensionWidth > dimensionHeight
-    return getImageAttrs({
-      originalSource: source,
-      width: landscape ? 0 : dimensionWidth,
-      height: landscape ? dimensionHeight : 0
-    })
-  }
-
-  function handleChangeIndex(index: number) {
-    props.onImageClick(props.elements[index])
-  }
-
-  return (
-    <div className="carousel slide">
-      <SwipeableViews index={currentIndex}
-                      className="carousel-inner h-100 text-center"
-                      onChangeIndex={handleChangeIndex}>
-        {props.elements.map(item => (
-          <div key={item._uid} className="carousel-item d-block">
-            <img {...getImageSource(item.source as string)}
-                 className='img-fluid' />
-          </div>
-        ))}
-      </SwipeableViews>
-      <a className="carousel-control-prev"
-         role="button"
-         onClick={() => props.onImageClick(currentIndex === 0 ? props.elements[props.elements.length - 1] : props.elements[currentIndex - 1])}>
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span className="sr-only">Previous</span>
-      </a>
-      <a className="carousel-control-next"
-         role="button"
-         onClick={() => props.onImageClick(currentIndex === props.elements.length - 1 ? props.elements[0] : props.elements[currentIndex + 1])}>
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="sr-only">Next</span>
-      </a>
-      <ol className="carousel-indicators" style={{ color: 'white' }}>
-        {props.elements.map((item) => (
-          <li className={`${props.lightbox === item._uid ? 'active' : ''}`}
-              onClick={() => props.onImageClick(item)}
-              key={item._uid}>
-          </li>
-        ))}
-      </ol>
-    </div>
-  )
-}
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import IconButton from '@material-ui/core/IconButton'
+import Icon from '@material-ui/core/Icon'
+import Swipe, { ImageListLightboxProps } from './ImageListLightboxSwipe'
 
 const ImageListLightbox: FunctionComponent<ImageListLightboxProps> = (props) => {
+console.log(props.className)
   return (
-    <Dialog className="lm-dialog-lightbox"
+    <Dialog fullScreen
+            className={props.className}
+            onEscapeKeyDown={() => props.setLightbox()}
             open={!!props.lightbox}>
-      <DialogTitle className="pb-0 text-white text-right">{IconButton({
-        icon: 'clear',
-        onClick: () => props.setLightbox()
-      })}</DialogTitle>
-      <DialogContent className="pb-0 h-100">{Swipe(props)}</DialogContent>
+      <DialogTitle>
+        <IconButton
+          onClick={() => props.setLightbox()}>
+          <Icon>clear</Icon>
+        </IconButton>
+      </DialogTitle>
+      {Swipe(props)}
     </Dialog>
   )
 }

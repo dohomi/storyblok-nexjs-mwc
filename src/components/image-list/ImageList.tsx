@@ -8,10 +8,45 @@ import { ImageListStoryblok } from '../../typings/generated/components-schema'
 import { ImageListItemProps } from './ImageListItemImg'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles({
+  lightbox: {
+    '& .MuiPaper-root': {
+      backgroundColor: 'rgba(0,0,0,0.9)'
+    },
+    '& .MuiDialogTitle-root': {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      zIndex: 2
+    },
+    '& .carousel': {
+      height: '100%'
+    },
+    '& .carousel-inner': {
+      height: '100%'
+    },
+    '& .react-swipeable-view-container': {
+      height: '100%',
+
+      '& .carousel-item': {
+        display: 'flex',
+        height: '100%',
+        flexDirection: 'column',
+        justifyContent: 'center'
+      }
+    },
+    '& .MuiIcon-root': {
+      color: 'white'
+    }
+  }
+})
 
 const ImageList: FunctionComponent<{
   content: ImageListStoryblok
 }> = (props) => {
+  const classes = useStyles()
   const dimensions = useWindowDimensions()
   const containerRef: RefObject<HTMLDivElement> = React.createRef()
   const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
@@ -91,7 +126,8 @@ const ImageList: FunctionComponent<{
         lightbox,
         setLightbox,
         dimensions,
-        onImageClick
+        onImageClick,
+        className: classes.lightbox
       })}
     </SbEditable>
   )

@@ -30,8 +30,12 @@ if (process.env.NODE_ENV === 'production') {
 // STORYBLOK_PUBLIC:'UNJB9nAEyxrldv4hXwO61Att'
 
 
+//upskill
+// STORYBLOK_PREVIEW: 'frxOrvW4RwWV5Xcrg4b3awtt'
+// STORYBLOK_PUBLIC:'g2AKoarFAJ3BRbUkuafWwQtt'
+
 
 module.exports = config({
-  STORYBLOK_PREVIEW: 'Phi41Cyvru21eG5krXrfEgtt',
-  STORYBLOK_PUBLIC: 'UNJB9nAEyxrldv4hXwO61Att'
+  STORYBLOK_PREVIEW: 'frxOrvW4RwWV5Xcrg4b3awtt',
+  STORYBLOK_PUBLIC: 'g2AKoarFAJ3BRbUkuafWwQtt'
 })

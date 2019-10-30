@@ -241,7 +241,7 @@ export interface DividerStoryblok {
     name?: string;
     [k: string]: any;
   };
-  icon_size?: ("medium" | "large" | "x-large" | "xx-large" | "xxx-large")[];
+  size?: number;
   _uid: string;
   component: "divider";
   [k: string]: any;

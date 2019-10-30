@@ -2,7 +2,7 @@ export default {
   defaultLang: 'en',
   languages: ['en', 'de'],
   storyblok: {
-    activatedLanguages: true,
+    activatedLanguages: false,
     settingsInLangfolder: true
   }
 }

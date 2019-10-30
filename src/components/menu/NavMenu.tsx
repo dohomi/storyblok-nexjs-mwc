@@ -1,14 +1,16 @@
 import * as React from 'react'
 import { FunctionComponent } from 'react'
-import { MenuItem, SimpleMenu } from '@rmwc/menu'
-import { Button } from '@rmwc/button'
+import Button from '@material-ui/core/Button'
 import SbEditable from 'storyblok-react'
 import { Link } from '@routes'
-import { componentLogger } from '../../utils/componentLogger'
 import { linkHandler, LinkPropsType, LinkType } from '../../utils/linkHandler'
-import CustomMenu from './CustomMenu'
+// import CustomMenu from './CustomMenu'
 import { NavMenuItemStoryblok, NavMenuStoryblok } from '../../typings/generated/components-schema'
-import clsx from 'clsx'
+import Icon from '@material-ui/core/Icon'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import { makeStyles } from '@material-ui/core/styles'
+import Components from '@components'
 
 
 const Child: FunctionComponent<NavMenuItemStoryblok> = (nestedProps) => {
@@ -22,47 +24,77 @@ const Child: FunctionComponent<NavMenuItemStoryblok> = (nestedProps) => {
   )
 }
 
+const useStyles = makeStyles({
+  paper: (props: NavMenuStoryblok) => ({
+    borderRadius: props.border_radius
+  })
+})
+
 const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) => {
-  componentLogger(content)
+  const classes = useStyles(content)
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const menuItems = content.body || []
   const isCustom = menuItems.length && menuItems[0].component !== 'nav_menu_item'
-  if (isCustom) {
-    return <CustomMenu content={content} />
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
   }
 
-  let borderRadius = '4px'
-  if (content.border_radius) {
-    // @ts-ignore
-    if (typeof content.border_radius === 'number') {
-      // was number before..
-      borderRadius = `${content.border_radius}px`
-    } else {
-      borderRadius = content.border_radius
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+  let addons = {}
+  if (content.alignment === 'bottomStart') {
+    addons = {
+      getContentAnchorEl: null,
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'left'
+      },
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'left'
+      }
+    }
+  } else if (content.alignment === 'bottomEnd') {
+    addons = {
+      getContentAnchorEl: null,
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'right'
+      },
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'right'
+      }
     }
   }
-
   return (
     <SbEditable content={content}>
-      { // bug of rmwc
-        // @ts-ignore
-        <SimpleMenu
-          rootProps={{
-            className: clsx('lm-nav-menu', {
-                [`lm-${content.alignment}`]: !!content.alignment
-              },
-              content.class_names && content.class_names.values)
-          }}
-          style={{ borderRadius: borderRadius }}
-          anchorCorner={content.alignment || 'topStart'}
-          handle={<Button trailingIcon="expand_more">{content.title}</Button>}
-        >
-          {menuItems.map(nestedProps => (
+      <>
+        <Button endIcon={<Icon>expand_more</Icon>}
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}>
+          {content.title}
+        </Button>
+        <Menu open={Boolean(anchorEl)}
+              onClose={handleClose}
+              anchorEl={anchorEl}
+              classes={{
+                paper: classes.paper
+              }}
+              {...addons}>
+          {isCustom && menuItems.map(blok => Components(blok))}
+          {!isCustom && menuItems.map(nestedProps => (
             <MenuItem key={nestedProps._uid}>
               {Child(nestedProps)}
             </MenuItem>)
           )}
-        </SimpleMenu>}
+        </Menu>
+      </>
     </SbEditable>
   )
 }
+
 export default NavMenu

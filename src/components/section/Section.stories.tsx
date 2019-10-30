@@ -1,52 +1,9 @@
 import { storiesOf } from '@storybook/react'
 import Section from './Section'
-import {
-  BackgroundStoryblok,
-  ColumnStoryblok,
-  ParagraphStoryblok,
-  RowStoryblok,
-  SectionStoryblok
-} from '../../typings/generated/components-schema'
+import { BackgroundStoryblok, RowStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
+import { columns, row } from '../../../.storybook/dummy/section'
 
-const items: ParagraphStoryblok[] = [{
-  text: '<h3>Hello World</h3>',
-  component: 'paragraph',
-  _uid: '789'
-}, {
-  text: '<h4>Another Paragraph</h4>',
-  _uid: '987',
-  component: 'paragraph'
-}]
-
-const column: ColumnStoryblok[] = [{
-  body: items,
-  _uid: '321',
-  component: 'column'
-}]
-
-const columns: ColumnStoryblok[] = [{
-  body: items,
-  _uid: '23424324432',
-  component: 'column',
-  width_general: '4'
-}, {
-  body: items,
-  _uid: '252435131',
-  component: 'column',
-  width_general: '4'
-}, {
-  body: items,
-  _uid: '341531545',
-  component: 'column',
-  width_general: '4'
-}]
-
-const row: RowStoryblok[] = [{
-  body: column,
-  _uid: '123',
-  component: 'row'
-}]
 
 const props: SectionStoryblok = {
   _uid: '34234',

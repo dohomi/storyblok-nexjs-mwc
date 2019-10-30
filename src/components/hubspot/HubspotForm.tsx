@@ -3,7 +3,7 @@ import { ChangeEvent, ComponentType, FunctionComponent } from 'react'
 import cookie from 'js-cookie'
 import dynamic from 'next/dynamic'
 import { Checkbox } from '@rmwc/checkbox'
-import { CircularProgress } from '@rmwc/circular-progress'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Form from '../form/Form'
 import FormCheckbox from '../form/FormCheckbox'
 import Paragraph from '../paragraph/Paragraph'
@@ -47,7 +47,7 @@ const HubspotFormCustom: FunctionComponent<{ content: HubspotFormStoryblok }> = 
         // String; The text displayed to the visitor for this specific subscription checkbox
       }]
     }
-    const onCommunicationChange = (ev:ChangeEvent<HTMLInputElement>) => {
+    const onCommunicationChange = (ev: ChangeEvent<HTMLInputElement>) => {
       const isChecked = ev.target.checked
       // @ts-ignore
       data.legalConsentOptions.consent.communications[0].value = !!isChecked

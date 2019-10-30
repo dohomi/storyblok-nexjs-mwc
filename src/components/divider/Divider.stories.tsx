@@ -43,6 +43,21 @@ storiesOf('Divider', module)
         <div>
           <Divider content={props3} />
         </div>
+        <div>
+          <Divider content={{ ...props3, size: 32, width: 30 }} />
+        </div>
+        <div>
+          <Divider content={{ ...props3, size: 40, width: 30 }} />
+        </div>
+        <div>
+          <Divider content={{ ...props3, size: 50, width: 30 }} />
+        </div>
+        <div>
+          <Divider content={{ ...props3, size:60, width: 30 }} />
+        </div>
+        <div>
+          <Divider content={{ ...props3, size:79, width: 30 }} />
+        </div>
       </>
     )
   )

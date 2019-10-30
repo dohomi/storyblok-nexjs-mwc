@@ -64,6 +64,11 @@ storiesOf('Headline', module)
         <Headline content={props5} />
         <Headline content={props6} />
         <Headline content={props7} />
+        <Headline content={{ ...props7, typography: 'button', text: 'button' }} />
+        <Headline content={{ ...props7, typography: 'body1', text: 'body1' }} />
+        <Headline content={{ ...props7, typography: 'body2', text: 'body2' }} />
+        <Headline content={{ ...props7, typography: 'caption', text: 'caption' }} />
+        <Headline content={{ ...props7, typography: 'overline', text: 'overline' }} />
       </>
     )
   )
