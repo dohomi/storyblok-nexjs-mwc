@@ -25,10 +25,13 @@ if (process.env.NODE_ENV === 'production') {
 // STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
 // STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
 
+//playground
+// STORYBLOK_PREVIEW: 'Phi41Cyvru21eG5krXrfEgtt'
+// STORYBLOK_PUBLIC:'UNJB9nAEyxrldv4hXwO61Att'
 
 
 
 module.exports = config({
-  STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
-  STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
+  STORYBLOK_PREVIEW: 'Phi41Cyvru21eG5krXrfEgtt',
+  STORYBLOK_PUBLIC: 'UNJB9nAEyxrldv4hXwO61Att'
 })

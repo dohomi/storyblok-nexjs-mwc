@@ -6,7 +6,6 @@ import { MatRow, MatRowNested } from './section/Row'
 import Column from './section/Column'
 import Image from './image/ImageElement'
 import ImageList from './image-list/ImageList'
-import Button from './button/Button'
 import NavList from './nav-list/NavList'
 import Menu from './menu/NavMenu'
 import Icon from './icon/Icon'
@@ -34,6 +33,7 @@ import ListSearchField from './list-widget/ListSearchField'
 import LinkWwrap from './link/Link'
 import ListSearchAutocomplete from './list-widget/ListSearchAutocomplete'
 import RichTextParagraph from './paragraph/RichTextParagraph'
+import LmMuiButton from './button/LmMuiButton'
 
 const Components = {
   'page': Page,
@@ -53,7 +53,7 @@ const Components = {
   'column': Column,
   'image': Image,
   'image_list': ImageList,
-  'button': Button,
+  'button': LmMuiButton,
   'nav_list': NavList,
   'row_nested': MatRowNested,
   'nav_menu': Menu,

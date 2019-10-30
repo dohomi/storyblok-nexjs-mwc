@@ -4,6 +4,8 @@ import DeviceDetectService from '../utils/DeviceDetectService'
 import React from 'react'
 import StoriesService from '../utils/StoriesService'
 import { CONFIG } from '../config'
+import { ServerStyleSheets } from '@material-ui/core/styles'
+
 
 function getGoogleTagManager() {
   if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {
@@ -21,8 +23,19 @@ function getGoogleTagManager() {
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
+    const sheets = new ServerStyleSheets()
+    const originalRenderPage = ctx.renderPage
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: App => props => sheets.collect(<App {...props} />)
+      })
+
     const initialProps = await Document.getInitialProps(ctx)
-    return { ...initialProps }
+    return {
+      ...initialProps,
+      // Styles fragment is rendered after the app and page rendering finish.
+      styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()]
+    }
   }
 
   render() {
@@ -33,7 +46,7 @@ class MyDocument extends Document {
       var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
     }
     const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
-    
+
     return (
       <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLang}>
       <Head></Head>
