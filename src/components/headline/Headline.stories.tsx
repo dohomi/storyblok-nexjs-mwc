@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import Headline from './Headline'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
+import * as React from 'react'
 
 const props: HeadlineStoryblok = {
   _uid: '12312',

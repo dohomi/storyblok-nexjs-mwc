@@ -4,22 +4,7 @@ import clsx from 'clsx'
 import { componentLogger } from '../../utils/componentLogger'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import Typography from '@material-ui/core/Typography'
-
-const mapVariant = {
-  headline1: 'h1',
-  headline2: 'h2',
-  headline3: 'h3',
-  headline4: 'h4',
-  headline5: 'h5',
-  headline6: 'h6',
-  subtitle2: 'subtitle2',
-  subtitle1: 'subtitle1',
-  body1: 'body1',
-  body2: 'body2',
-  button: 'button',
-  overline: 'overline',
-  caption: 'caption'
-}
+import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }) => {
   componentLogger(content)
@@ -35,7 +20,7 @@ const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }
       <Typography
         className={clsx(content.style, content.style_props, content.class_names && content.class_names.values)}
         component={content.tag}
-        variant={mapVariant[content.typography as string] || 'headline4'}
+        variant={mapTypographyVariant[content.typography as string] || 'headline4'}
         {...props}
       >
         {!!content.text_xs && (

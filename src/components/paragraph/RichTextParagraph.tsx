@@ -4,13 +4,11 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { RichTextEditorStoryblok } from '../../typings/generated/components-schema'
 import RteContentRender from './rte/RteContentRender'
+import Typography from '@material-ui/core/Typography'
+import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 const RichTextParagraph: FunctionComponent<{ content: RichTextEditorStoryblok }> = ({ content }) => {
-  const typography = content.typography || 'body1'
-  const styleClasses = clsx('mdc-typography lm-markup', {
-    [`mdc-typography--${typography}`]: true
-  }, content.style, content.class_names && content.class_names.values)
-
+  const styleClasses = clsx('lm-markup', content.style, content.class_names && content.class_names.values)
   let style = {}
   if (content.font) {
     style = {
@@ -20,10 +18,12 @@ const RichTextParagraph: FunctionComponent<{ content: RichTextEditorStoryblok }>
 
   return (
     <SbEditable content={content}>
-      <div className={styleClasses}
-           style={style}>
+      <Typography className={styleClasses}
+                  component="div"
+                  variant={mapTypographyVariant[content.typography as string || 'body1']}
+                  style={style}>
         {content.body && content.body.content.map((blok: any, i: number) => RteContentRender(blok, i))}
-      </div>
+      </Typography>
     </SbEditable>
   )
 }

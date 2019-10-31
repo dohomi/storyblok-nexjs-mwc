@@ -3,6 +3,8 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { Link } from '@routes'
+import MuiLink from '@material-ui/core/Link'
+import { getLinkAttrs } from '../../../utils/linkHandler'
 
 const InlineClassMapping = {
   bold: 'font-weight-bold',
@@ -25,7 +27,15 @@ const RteNodeText: FunctionComponent<{ content: RteContentProps }> = ({ content 
       return InlineClassMapping[type]
     }))
     if (link) {
-      return <Link to={link.attrs && link.attrs.href}><a>{content.text}</a></Link>
+      const { rel, target, ...rest } = getLinkAttrs({
+        cached_url: link.attrs.href,
+        linktype: link.attrs.linktype
+      }, {})
+      return (
+        <Link {...rest} passHref>
+          <MuiLink rel={rel} target={target}>{content.text}</MuiLink>
+        </Link>
+      )
     }
     return <span className={className}>{content.text}</span>
   }

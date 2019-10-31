@@ -44,8 +44,14 @@ export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkO
 
     if (options.openExternal) {
       props.target = '_blank'
+      props.rel = 'noopener noreferrer'
     }
-    props.rel = 'noopener noreferrer'
     props.href = href
   }
+}
+
+export const getLinkAttrs = (link: LinkType = {} as LinkType, options: LinkOptions = {}): LinkPropsType => {
+  const linkAttrs: LinkPropsType = {}
+  linkHandler(linkAttrs, link, options)
+  return linkAttrs
 }

@@ -35,6 +35,6 @@ export const columns: ColumnStoryblok[] = [{
 
 export const row: RowStoryblok[] = [{
   body: column,
-  _uid: '123',
+  _uid: 'qdfaefa',
   component: 'row'
 }]

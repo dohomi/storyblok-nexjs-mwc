@@ -4,14 +4,10 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { ParagraphStoryblok } from '../../typings/generated/components-schema'
 import parseMarkdownContent from './markdown-helper'
-import RteContentRender from './rte/RteContentRender'
+import Typography from '@material-ui/core/Typography'
+import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content }) => {
-  const typography = content.typography || 'body1'
-  const styleClasses = clsx('mdc-typography lm-markup', {
-    [`mdc-typography--${typography}`]: true
-  }, content.style, content.class_names && content.class_names.values)
-
   let style = {}
   if (content.font) {
     style = {
@@ -19,25 +15,15 @@ const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content
     }
   }
 
-  if (content.rte && content.rte.content) {
-    console.log(JSON.stringify(content.rte.content))
-    return (
-      <SbEditable content={content}>
-        <div className={styleClasses}
-             style={style}>
-          {content.rte.content.map((blok: any, i: number) => RteContentRender(blok, i))}
-        </div>
-      </SbEditable>
-    )
-  }
-
   return (
     <SbEditable content={content}>
-      <div className={styleClasses}
-           style={style}
-           dangerouslySetInnerHTML={{
-             __html: parseMarkdownContent(content.text as string)
-           }}
+      <Typography className={clsx('lm-markup', content.style, content.class_names && content.class_names.values)}
+                  variant={mapTypographyVariant[content.typography as string || 'body1']}
+                  style={style}
+                  component="div"
+                  dangerouslySetInnerHTML={{
+                    __html: parseMarkdownContent(content.text as string)
+                  }}
       />
     </SbEditable>
   )
