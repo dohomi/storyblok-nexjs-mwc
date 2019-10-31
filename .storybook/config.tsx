@@ -1,17 +1,11 @@
-import * as React from 'react'
 import { addDecorator, configure } from '@storybook/react'
-import WindowDimensionsProvider from '../src/components/provider/WindowDimensionsProvider'
-
 import '!style-loader!css-loader!sass-loader!../src/assets/scss/app_styles.scss'
-import { GlobalStateProvider } from '../src/utils/state/state'
+import { withKnobs } from '@storybook/addon-knobs'
+import StoriesLayout from './components/StoriesLayout'
 
-addDecorator(storyFunc => (
-  <WindowDimensionsProvider>
-    <GlobalStateProvider>
-      {storyFunc()}
-    </GlobalStateProvider>
-  </WindowDimensionsProvider>
-))
+
+addDecorator(withKnobs)
+addDecorator(StoriesLayout)
 
 const req = require.context('../src', true, /.stories.tsx$/)
 

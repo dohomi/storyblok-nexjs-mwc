@@ -20,7 +20,7 @@ const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }
       <Typography
         className={clsx(content.style, content.style_props, content.class_names && content.class_names.values)}
         component={content.tag}
-        variant={mapTypographyVariant[content.typography as string] || 'headline4'}
+        variant={mapTypographyVariant[content.typography as string] || 'h3'}
         {...props}
       >
         {!!content.text_xs && (

@@ -3,7 +3,7 @@ import { LinkStoryblok } from '../../typings/generated/components-schema'
 import { linkHandler, LinkPropsType, LinkType } from '../../utils/linkHandler'
 import { Link } from '@routes'
 import Components from '@components'
-
+// todo mui
 const LinkWwrap: FunctionComponent<{ content: LinkStoryblok }> = ({ content }) => {
   const linkProps: LinkPropsType = {}
   // console.log(content.link)

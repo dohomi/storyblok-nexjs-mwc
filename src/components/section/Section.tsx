@@ -2,11 +2,13 @@ import Components from '@components'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import React, { FunctionComponent } from 'react'
-import { ThemeProvider } from '@rmwc/theme'
+// import { ThemeProvider } from '@rmwc/theme'
 import { section } from '../../utils/themeContentSection'
 import SectionWithBackground from './SectionWithBackground'
 import backgroundPropertyHelper from '../../utils/backgroundPropertyHelper'
 import { SectionStoryblok } from '../../typings/generated/components-schema'
+import { createMuiTheme, Theme, ThemeProvider } from '@material-ui/core/styles'
+
 
 export interface SectionProps extends SectionStoryblok {
   presetVariant?: Pick<SectionStoryblok, 'variant'>
@@ -42,7 +44,9 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   const body = content.body || []
   return (
     <SbEditable content={content}>
-      <ThemeProvider options={theme} wrap>
+      <ThemeProvider theme={(theme: Theme) => createMuiTheme({
+        ...theme
+      })}>
         {backgroundImage ? (
           <SectionWithBackground className={sectionClassNames}
                                  {...content}
