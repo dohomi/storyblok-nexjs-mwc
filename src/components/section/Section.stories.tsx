@@ -34,7 +34,12 @@ storiesOf('Section', module)
   .add(
     'Section',
     () => (
-      <Section content={props} />
+      <>
+        <Section content={props} />
+        <Section content={{ ...columnSection, variant: 'dark' }} />
+        <Section content={{ ...columnSection, variant: 'primary' }} />
+        <Section content={{ ...columnSection, variant: 'secondary' }} />
+      </>
     )
   )
   .add(

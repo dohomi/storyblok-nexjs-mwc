@@ -1,7 +1,6 @@
 import WindowDimensionsProvider from '../../src/components/provider/WindowDimensionsProvider'
 import { GlobalStateProvider } from '../../src/utils/state/state'
-import { ThemeProvider } from '@material-ui/styles'
-import { createMuiTheme } from '@material-ui/core'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import * as React from 'react'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { boolean } from '@storybook/addon-knobs'
@@ -22,7 +21,7 @@ const StoriesLayout = (storyFunc: Function) => {
       <GlobalStateProvider>
         <ThemeProvider theme={createMuiTheme(globalTheme)}>
           <CssBaseline />
-          <Container component="main" maxWidth={false}>
+          <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
             {storyFunc()}
           </Container>
         </ThemeProvider>

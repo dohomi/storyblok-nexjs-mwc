@@ -2,33 +2,59 @@ import Components from '@components'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import React, { FunctionComponent } from 'react'
-// import { ThemeProvider } from '@rmwc/theme'
-import { section } from '../../utils/themeContentSection'
 import SectionWithBackground from './SectionWithBackground'
 import backgroundPropertyHelper from '../../utils/backgroundPropertyHelper'
 import { SectionStoryblok } from '../../typings/generated/components-schema'
-import { createMuiTheme, Theme, ThemeProvider } from '@material-ui/core/styles'
-
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import { makeStyles } from '@material-ui/core/styles'
 
 export interface SectionProps extends SectionStoryblok {
-  presetVariant?: Pick<SectionStoryblok, 'variant'>
+  presetVariant?: SectionStoryblok['variant']
+}
+
+const useStyles = makeStyles({
+  dark: {
+    '& .MuiButton-root, & .MuiIconButton-root': {
+      color: 'inherit'
+    },
+    '& .MuiButton-outlined': {
+      borderColor: 'currentColor'
+    }
+  }
+})
+
+const mapBgColor = {
+  dark: '#303030',
+  primary: 'primary.main',
+  secondary: 'secondary.main'
+}
+
+const SectionWrap: FunctionComponent<{ variant: SectionStoryblok['variant'] }> = ({ variant, children }) => {
+  const classes = useStyles()
+  if (variant) {
+    console.log(variant)
+    return (
+      <Box bgcolor={mapBgColor[variant]} color="common.white" className={classes.dark}>
+        <Container>
+          {children}
+        </Container>
+      </Box>
+    )
+  }
+
+  return (
+    <Container>
+      {children}
+    </Container>
+  )
 }
 
 const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   const isFullHeight = !!(content.property && content.property.includes('is_full_height'))
   const containerProps = backgroundPropertyHelper(content.background || [])
   const backgroundImage = containerProps.image
-  let theme = {}
-  const variant = content.variant || (content.presetVariant && content.presetVariant.variant)
-  // configure some theming variants
-  if (variant) {
-    const sectionVariant = section[variant]
-    if (!sectionVariant) {
-      console.info(`Theme section variant does not exist: ${variant}`)
-    } else {
-      theme = sectionVariant
-    }
-  }
+
 
   const styles = {
     ...containerProps.styles,
@@ -36,7 +62,6 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   }
 
   let sectionClassNames = clsx(
-    'lm-content-section',
     containerProps.classNames,
     containerProps.classes, {
       ['lm-section__full-height']: !!isFullHeight
@@ -44,9 +69,7 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   const body = content.body || []
   return (
     <SbEditable content={content}>
-      <ThemeProvider theme={(theme: Theme) => createMuiTheme({
-        ...theme
-      })}>
+      <SectionWrap variant={content.variant}>
         {backgroundImage ? (
           <SectionWithBackground className={sectionClassNames}
                                  {...content}
@@ -61,7 +84,7 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
             {body.map((blok) => Components(blok))}
           </div>
         )}
-      </ThemeProvider>
+      </SectionWrap>
     </SbEditable>
   )
 }

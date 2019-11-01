@@ -1,17 +1,24 @@
 import SbEditable from 'storyblok-react'
-import { CollapsibleList, SimpleListItem } from '@rmwc/list'
 import Components from '@components'
-import { FunctionComponent } from 'react'
+import { default as React, FunctionComponent } from 'react'
 import { AccordionItemStoryblok } from '../../typings/generated/components-schema'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import Icon from '@material-ui/core/Icon'
+import Typography from '@material-ui/core/Typography'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 
 const AccordionItem: FunctionComponent<AccordionItemStoryblok> = (content) => {
-  const metaIcon = content.metaIcon || 'chevron_right'
-  const body = content.body || []
   return (
     <SbEditable content={content}>
-      <CollapsibleList handle={<SimpleListItem text={content.title} metaIcon={metaIcon} />}>
-        {body.map(blok => Components(blok))}
-      </CollapsibleList>
+      <ExpansionPanel>
+        <ExpansionPanelSummary expandIcon={<Icon>{content.metaIcon || 'expand_more'}</Icon>}>
+          <Typography>{content.title}</Typography>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails>
+          {Array.isArray(content.body) && content.body.map(blok => Components(blok))}
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
     </SbEditable>
   )
 }
