@@ -34,7 +34,9 @@ const mapColor = {
   light: 'rgba(0, 0, 0, 0.87)',
   dark_text: 'rgba(0, 0, 0, 0.87)',
   dark: 'common.white',
-  light_text: 'common.white'
+  light_text: 'common.white',
+  primary: 'common.white',
+  secondary: 'common.white'
 }
 
 const SectionWrap: FunctionComponent<{ variant: SectionStoryblok['variant'] }> = ({ variant, children }) => {
