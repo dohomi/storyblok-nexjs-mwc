@@ -11,13 +11,14 @@ const props: SectionStoryblok = {
   body: row
 }
 
+const backgroundItem = {
+  _uid: '2131',
+  component: 'background',
+  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+}
 const background: SectionStoryblok = {
   ...props,
-  background: [{
-    _uid: '2131',
-    component: 'background',
-    image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-  }] as BackgroundStoryblok[]
+  background: [backgroundItem] as BackgroundStoryblok[]
 }
 
 const columnSection: SectionStoryblok = {
@@ -46,14 +47,45 @@ storiesOf('Section', module)
     )
   )
   .add(
-    'Section with Image',
+    'Section with Styles',
     () => (
-      <Section content={background} />
+      <>
+        <Section content={{
+          ...background,
+          background: [{
+            background_color: {
+              rgba: 'rgba(0,0,0,0.2)'
+            },
+            border_color: {
+              rgba: 'rgba(0,0,0,0.5)'
+            },
+            border_size: 3,
+            border_radius: '12px',
+            border_style: 'dotted',
+            elevation: 12
+          }] as BackgroundStoryblok[]
+        }} />
+        <Section content={background} />
+        <Section content={{
+          ...background,
+          background: [{
+            background_color: {
+              rgba: 'rgba(0,0,0,0.2)'
+            },
+            border_color: {
+              rgba: 'rgba(0,0,0,1)'
+            },
+            border_size: 3,
+            border_radius: '12px',
+            border_style: 'dotted'
+          }] as BackgroundStoryblok[]
+        }} />
+      </>
     )
   )
   .add(
-    'Section With Columns',
+    'Section With Image',
     () => (
-      <Section content={columnSection} />
+      <Section content={background} />
     )
   )
