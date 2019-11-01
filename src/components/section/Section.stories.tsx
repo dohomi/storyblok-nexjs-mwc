@@ -39,6 +39,9 @@ storiesOf('Section', module)
         <Section content={{ ...columnSection, variant: 'dark' }} />
         <Section content={{ ...columnSection, variant: 'primary' }} />
         <Section content={{ ...columnSection, variant: 'secondary' }} />
+        <Section content={{ ...columnSection, variant: 'light' }} />
+        <Section content={{ ...columnSection, variant: 'dark_text' }} />
+        <Section content={{ ...columnSection, variant: 'light_text' }} />
       </>
     )
   )

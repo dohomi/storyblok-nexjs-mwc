@@ -27,7 +27,14 @@ const useStyles = makeStyles({
 const mapBgColor = {
   dark: '#303030',
   primary: 'primary.main',
-  secondary: 'secondary.main'
+  secondary: 'secondary.main',
+  light: '#fafafa'
+}
+const mapColor = {
+  light: 'rgba(0, 0, 0, 0.87)',
+  dark_text: 'rgba(0, 0, 0, 0.87)',
+  dark: 'common.white',
+  light_text: 'common.white'
 }
 
 const SectionWrap: FunctionComponent<{ variant: SectionStoryblok['variant'] }> = ({ variant, children }) => {
@@ -35,7 +42,7 @@ const SectionWrap: FunctionComponent<{ variant: SectionStoryblok['variant'] }> =
   if (variant) {
     console.log(variant)
     return (
-      <Box bgcolor={mapBgColor[variant]} color="common.white" className={classes.dark}>
+      <Box bgcolor={mapBgColor[variant]} color={mapColor[variant]} className={classes.dark}>
         <Container>
           {children}
         </Container>
