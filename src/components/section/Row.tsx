@@ -5,6 +5,7 @@ import backgroundPropertyHelper from '../../utils/backgroundPropertyHelper'
 import SectionWithBackground from './SectionWithBackground'
 import { RowNestedStoryblok, RowStoryblok } from '../../typings/generated/components-schema'
 import { CSSProperties, FunctionComponent } from 'react'
+import BackgroundBox from './BackgroundBox'
 
 
 /**
@@ -46,29 +47,19 @@ const getRowProperties = (content: RowNestedStoryblok | RowStoryblok) => {
 }
 
 export const MatRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
-  const { styles, containerProps } = getRowProperties(content)
+  // const { styles, containerProps } = getRowProperties(content)
   const gridClasses = clsx(
     'mdc-layout-grid',
     {
       [`mdc-layout-grid__cell--align-${content.align || ''}`]: !!content.align,
       'mdc-layout-grid--fixed-column-width': !content.fluid_width
-    },
-    containerProps.classNames,
-    containerProps.classes)
+    }
+    // containerProps.classNames,
+    // containerProps.classes
+  )
   const body = content.body || []
-  if (containerProps.image) {
-    return (
-      <SbEditable content={content}>
-        <SectionWithBackground style={styles}
-                               className={gridClasses}
-                               containerProps={containerProps}>
-          <div className="mdc-layout-grid__inner">
-            {body.map((blok) => Components(blok))}
-          </div>
-        </SectionWithBackground>
-      </SbEditable>
-    )
-  }
+  //  containerProps={containerProps} todo do we need this?
+
   const innerStyles: CSSProperties = {}
   if (content.column_gap) {
     innerStyles.columnGap = `${content.column_gap}px`
@@ -78,16 +69,15 @@ export const MatRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }
     innerStyles.rowGap = `${content.grid_gap}px`
   }
 
-
   return (
     <SbEditable content={content}>
-      <div className={gridClasses}
-           style={styles}>
-        <div className="mdc-layout-grid__inner"
-             style={innerStyles}>
-          {body.map((blok) => Components(blok))}
+      <BackgroundBox background={Array.isArray(content.background) && content.background[0]}>
+        <div className={gridClasses}>
+          <div className="mdc-layout-grid__inner">
+            {body.map((blok) => Components(blok))}
+          </div>
         </div>
-      </div>
+      </BackgroundBox>
     </SbEditable>
   )
 }

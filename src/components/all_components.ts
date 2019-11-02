@@ -2,8 +2,7 @@ import Page from './page/Page'
 import Section from './section/Section'
 import Paragraph from './paragraph/Paragraph'
 import Headline from './headline/Headline'
-import { MatRow, MatRowNested } from './section/Row'
-import Column from './section/Column'
+import { MatRowNested } from './section/Row'
 import Image from './image/ImageElement'
 import ImageList from './image-list/ImageList'
 import NavList from './nav-list/NavList'
@@ -34,6 +33,8 @@ import LinkWwrap from './link/Link'
 import ListSearchAutocomplete from './list-widget/ListSearchAutocomplete'
 import RichTextParagraph from './paragraph/RichTextParagraph'
 import LmMuiButton from './button/LmMuiButton'
+import GridRow from './section/GridRow'
+import GridColumn from './section/GridColumn'
 
 const Components = {
   'page': Page,
@@ -49,8 +50,8 @@ const Components = {
   'section': Section,
   'headline': Headline,
   'paragraph': Paragraph,
-  'row': MatRow,
-  'column': Column,
+  'row': GridRow, // MatRow, GridRow
+  'column': GridColumn, // Column, GridColumn
   'image': Image,
   'image_list': ImageList,
   'button': LmMuiButton,

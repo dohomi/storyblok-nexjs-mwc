@@ -6,6 +6,11 @@ import {
   RowStoryblok
 } from '../../src/typings/generated/components-schema'
 
+const backgroundItem = {
+  _uid: '2131',
+  component: 'background',
+  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+}
 const items: (HeadlineStoryblok | ParagraphStoryblok | ButtonStoryblok)[] = [{
   component: 'headline',
   _uid: 'ododod',
@@ -58,8 +63,34 @@ export const columns: ColumnStoryblok[] = [{
   width_general: '4'
 }]
 
+export const columnsWithImage: ColumnStoryblok[] = [{
+  body: items,
+  _uid: '23424324432',
+  component: 'column',
+  width_general: '4',
+  background: [backgroundItem]
+}, {
+  body: items,
+  _uid: '252435131',
+  component: 'column',
+  width_general: '4'
+}, {
+  body: items,
+  _uid: '341531545',
+  component: 'column',
+  width_general: '4',
+  background: [backgroundItem]
+}]
+
 export const row: RowStoryblok[] = [{
   body: column,
   _uid: 'qdfaefa',
   component: 'row'
+}]
+
+export const rowWithImage: RowStoryblok[] = [{
+  body: column,
+  _uid: 'qdfaefa',
+  component: 'row',
+  background: [backgroundItem]
 }]

@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react'
 import Section from './Section'
 import { BackgroundStoryblok, RowStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
-import { columns, row } from '../../../.storybook/dummy/section'
+import { columns, columnsWithImage, row, rowWithImage } from '../../../.storybook/dummy/section'
 
 
 const props: SectionStoryblok = {
@@ -31,6 +31,17 @@ const columnSection: SectionStoryblok = {
   }] as RowStoryblok[]
 }
 
+const columnSectionWithImages: SectionStoryblok = {
+  _uid: '12312dfd',
+  component: 'section',
+  body: [{
+    body: columnsWithImage,
+    _uid: '34241231',
+    component: 'row'
+  }] as RowStoryblok[]
+}
+
+
 storiesOf('Section', module)
   .add(
     'Section',
@@ -47,11 +58,12 @@ storiesOf('Section', module)
     )
   )
   .add(
-    'Section with Styles',
+    'Section with styles',
     () => (
       <>
         <Section content={{
           ...background,
+          property: ['is_full_height'],
           background: [{
             background_color: {
               rgba: 'rgba(0,0,0,0.2)'
@@ -85,8 +97,28 @@ storiesOf('Section', module)
     )
   )
   .add(
-    'Section With Image',
+    'Section row with image',
     () => (
-      <Section content={background} />
+      <>
+        <Section content={{
+          _uid: '123123',
+          component: 'section',
+          body: rowWithImage
+        }} />
+        <Section content={columnSection} />
+        <Section content={{
+          _uid: '123123',
+          component: 'section',
+          body: rowWithImage
+        }} />
+      </>
+    )
+  )
+  .add(
+    'Section with column image',
+    () => (
+      <>
+        <Section content={columnSectionWithImages} />
+      </>
     )
   )
