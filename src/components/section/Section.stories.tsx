@@ -80,6 +80,7 @@ storiesOf('Section', module)
             border_style: 'dotted'
           }] as BackgroundStoryblok[]
         }} />
+        <Section content={background} />
       </>
     )
   )
