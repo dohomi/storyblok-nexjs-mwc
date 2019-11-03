@@ -37,8 +37,8 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
       <BackgroundBox background={Array.isArray(content.background) && content.background[0]}>
         <Box className={classes.container}
              css={{
-               alignItems: content.align_vertical || 'center',
-               justifyItems: content.align_horizontal || 'left'
+               alignItems: content.align_vertical || 'stretch',
+               justifyItems: content.align_horizontal || 'stretch'
              }}>
           {content.body && content.body.map((blok) => Components(blok))}
         </Box>

@@ -214,7 +214,6 @@ export interface CategoryBoxStoryblok {
 
 export interface ColumnStoryblok {
   body?: any[];
-  align?: "top" | "middle" | "bottom";
   width_general?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1";
   width_desktop?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1";
   width_phone?: "4" | "3" | "2" | "1";
@@ -226,6 +225,8 @@ export interface ColumnStoryblok {
   order_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
   order_phone?: "1" | "2" | "3" | "4";
   background?: any[];
+  align_vertical?: "top" | "center" | "end" | "stretch";
+  align_horizontal?: "left" | "center" | "right" | "stretch";
   _uid: string;
   component: "column";
   [k: string]: any;
@@ -814,6 +815,7 @@ export interface SectionStoryblok {
   body?: any[];
   variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   property?: ("is_full_height")[];
+  max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   padding?: string;
   background_style?: "fixed_image" | "fixed_cover";
   background?: any[];

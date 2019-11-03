@@ -5,7 +5,7 @@ import BackgroundBox from './BackgroundBox'
 import BackgroundImage from './BackgroundImageContainer'
 import Components from '@components'
 import { createStyles, makeStyles } from '@material-ui/styles'
-import { Theme } from '@material-ui/core'
+import { Box, Theme } from '@material-ui/core'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,18 +33,23 @@ const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }
     content.order_phone && (order = content.order_phone)
     content.start_phone && (start = content.start_phone)
   }
+
   return (
     <SbEditable content={content}>
       <BackgroundBox skipBgImage={true} background={background}>
-        <div className={classes.column}
+        <Box className={classes.column}
+             css={{
+               alignSelf: content.align_vertical,
+               justifySelf: content.align_horizontal,
+               order: order && Number(order)
+             }}
              style={{
                gridColumnEnd: `span ${span}`,
-               order: order && Number(order),
                gridColumnStart: start
              }}>
           {background && background.image && <BackgroundImage image={background.image} />}
           {content.body && content.body.map((blok) => Components(blok))}
-        </div>
+        </Box>
       </BackgroundBox>
     </SbEditable>
   )

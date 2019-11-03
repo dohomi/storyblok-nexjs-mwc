@@ -35,8 +35,9 @@ const mapColor = {
 const BackgroundBox: FunctionComponent<{
   background?: BackgroundStoryblok,
   variant?: SectionStoryblok['variant'],
+  skipClone?: boolean
   skipBgImage?: boolean
-}> = ({ children, background, variant, skipBgImage }) => {
+}> = ({ children, background, variant, skipBgImage, skipClone }) => {
   // todo padding !
   if (!background && !variant) {
     return (
@@ -56,14 +57,12 @@ const BackgroundBox: FunctionComponent<{
     boxShadow: background.elevation
   }
 
-
-  console.log(background.image)
   return canClone || skipBgImage ? (
     <Box {...boxProps}
          className={clsx({
            [classes.dark]: !!variant
          })}
-         clone>
+         clone={!skipClone}>
       {children}
     </Box>
   ) : (

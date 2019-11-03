@@ -35,14 +35,18 @@ const props: SectionVideoBgStoryblok = {
   _uid: '2341',
   url: 'https://youtu.be/P1qaAGWUz5U',
   body: row,
-  property: [],
-  height: 50
+  property: []
 }
 
 storiesOf('Section Video', module)
   .add(
     'Section Video',
     () => (
-      <SectionVideoBg content={props} />
+      <>
+        <h3>Default:</h3>
+        <SectionVideoBg content={props} />
+        <h3>Height 50:</h3>
+        <SectionVideoBg content={{ ...props, height: 50 }} />
+      </>
     )
   )
