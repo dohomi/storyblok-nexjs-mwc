@@ -12,13 +12,14 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'grid',
+      height: '100%',
+      // alignItems: 'center', // todo make this configurable
       gridTemplateColumns: 'repeat(12, minmax(0,1fr))',
       gridGap: theme.spacing(3),
       padding: theme.spacing(3),
       margin: '0 auto',
       // paddingRight: theme.spacing(3),
       flexFlow: 'row wrap',
-      alignItems: 'stretch',
       [theme.breakpoints.only('xs')]: {
         gridTemplateColumns: 'repeat(4, minmax(0,1fr))'
       },
@@ -34,7 +35,11 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
   return (
     <SbEditable content={content}>
       <BackgroundBox background={Array.isArray(content.background) && content.background[0]}>
-        <Box className={classes.container}>
+        <Box className={classes.container}
+             css={{
+               alignItems: content.align_vertical || 'center',
+               justifyItems: content.align_horizontal || 'left'
+             }}>
           {content.body && content.body.map((blok) => Components(blok))}
         </Box>
       </BackgroundBox>

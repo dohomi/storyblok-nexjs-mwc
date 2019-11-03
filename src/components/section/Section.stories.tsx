@@ -21,14 +21,15 @@ const background: SectionStoryblok = {
   background: [backgroundItem] as BackgroundStoryblok[]
 }
 
+const rowItem = {
+  body: columns,
+  _uid: '34241231',
+  component: 'row'
+}
 const columnSection: SectionStoryblok = {
   _uid: '2234234',
   component: 'section',
-  body: [{
-    body: columns,
-    _uid: '34241231',
-    component: 'row'
-  }] as RowStoryblok[]
+  body: [rowItem] as RowStoryblok[]
 }
 
 const columnSectionWithImages: SectionStoryblok = {
@@ -119,6 +120,31 @@ storiesOf('Section', module)
     () => (
       <>
         <Section content={columnSectionWithImages} />
+      </>
+    )
+  )
+  .add(
+    'Section alignments',
+    () => (
+      <>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'primary',
+          body: [{ ...rowItem, align_horizontal: 'center', align_vertical: 'center' }] as RowStoryblok[]
+        }} />
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'secondary',
+          body: [{ ...rowItem, align_horizontal: 'left', align_vertical: 'top' }] as RowStoryblok[]
+        }} />
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'dark',
+          body: [{ ...rowItem, align_horizontal: 'right', align_vertical: 'end' }] as RowStoryblok[]
+        }} />
       </>
     )
   )

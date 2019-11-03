@@ -13,20 +13,6 @@ const useStyles = makeStyles({
     '& .MuiButton-outlined': {
       borderColor: 'currentColor'
     }
-  },
-  fullHeight: {
-
-    width: '100%',
-    height: '100vh'
-
-    // '> .mdc-layout-grid': {
-    //   margin: 0,
-    //   position: 'absolute',
-    //   top: '50%',
-    //   left: '50%',
-    //   '-ms-transform': 'translate(-50%, -50%)',
-    //   transform: 'translate(-50%, -50%)'
-    // }
   }
 })
 
@@ -49,10 +35,8 @@ const mapColor = {
 const BackgroundBox: FunctionComponent<{
   background?: BackgroundStoryblok,
   variant?: SectionStoryblok['variant'],
-  skipBgImage?: boolean,
-  isFullHeight?: boolean,
-  padding?: string | number
-}> = ({ children, background, variant, skipBgImage, isFullHeight, padding }) => {
+  skipBgImage?: boolean
+}> = ({ children, background, variant, skipBgImage }) => {
   // todo padding !
   if (!background && !variant) {
     return (
@@ -69,28 +53,21 @@ const BackgroundBox: FunctionComponent<{
     borderRadius: background.border_radius,
     position: 'relative',
     color: mapColor[variant as string],
-    boxShadow: background.elevation,
-    paddingTop: '2.5rem',
-    paddingBottom: '2.5rem'
+    boxShadow: background.elevation
   }
-  if (!isFullHeight && padding) {
-    delete boxProps.paddingTop
-    delete boxProps.paddingBottom
-    boxProps.padding = padding
-  }
+
 
   console.log(background.image)
   return canClone || skipBgImage ? (
     <Box {...boxProps}
          className={clsx({
-           [classes.dark]: !!variant,
-           [classes.fullHeight]: isFullHeight
+           [classes.dark]: !!variant
          })}
          clone>
       {children}
     </Box>
   ) : (
-    <Box className={clsx({ [classes.dark]: !!variant, [classes.fullHeight]: isFullHeight })}
+    <Box className={clsx({ [classes.dark]: !!variant })}
          {...boxProps}
     >
       {!!background.image && <BackgroundImage image={background.image} />}

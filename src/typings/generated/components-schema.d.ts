@@ -785,6 +785,8 @@ export interface RowStoryblok {
   grid_gutter_desktop?: string;
   grid_gutter_tablet?: string;
   grid_gutter_phone?: string;
+  align_vertical?: "top" | "center" | "end" | "stretch";
+  align_horizontal?: "left" | "center" | "right" | "stretch";
   _uid: string;
   component: "row";
   [k: string]: any;
