@@ -37,7 +37,7 @@ const BackgroundBox: FunctionComponent<{
   variant?: SectionStoryblok['variant'],
   skipClone?: boolean
   skipBgImage?: boolean
-  backgroundStyle: SectionStoryblok['background_style']
+  backgroundStyle?: SectionStoryblok['background_style']
 }> = ({ children, background, variant, skipBgImage, skipClone, backgroundStyle }) => {
   if (!background && !variant) {
     return (

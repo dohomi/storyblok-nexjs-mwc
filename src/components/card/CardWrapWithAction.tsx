@@ -1,9 +1,10 @@
 import SbEditable from 'storyblok-react'
-import { Card } from '@rmwc/card'
-import { Drawer, DrawerContent } from '@rmwc/drawer'
+import Drawer from '@material-ui/core/Drawer'
 import Components from '@components'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import { CardListItemProps } from './cards'
+import Card from '@material-ui/core/Card'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 
 interface CardWrapAction extends CardListItemProps {
   className: string
@@ -11,37 +12,32 @@ interface CardWrapAction extends CardListItemProps {
   outlined: boolean
 }
 
-const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, className, style, outlined, children }) => {
+const useStyles = makeStyles((theme: Theme) => ({
+  drawerContent: {
+    padding: theme.spacing(3),
+    minWidth: '30%'
+  }
+}))
+
+const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, className, style, children }) => {
+  const classes = useStyles()
   let [open, setOpen] = React.useState<boolean>(false)
   const body = content.body || []
-
-  function onDrawerClose() {
-    setOpen(false)
-    document.body.style.overflow = 'auto' // prevent scroll while its open
-  }
-
-  function onDrawerOpen() {
-    document.body.style.overflow = 'hidden' // prevent scroll while its open
-  }
 
   return (
     <SbEditable content={content}>
       <Card className={className}
-            style={style}
-            outlined={outlined}>
+            style={style}>
         <a onClick={() => setOpen(!open)}>
           {children}
         </a>
       </Card>
-      <Drawer modal
-              open={open}
-              dir="rtl"
-              className="lm-card__drawer"
-              onOpen={() => onDrawerOpen()}
-              onClose={() => onDrawerClose()}>
-        <DrawerContent dir="ltr">
+      <Drawer open={open}
+              anchor="right"
+              onClose={() => setOpen(false)}>
+        <div className={classes.drawerContent}>
           {body.map(blok => Components(blok))}
-        </DrawerContent>
+        </div>
       </Drawer>
     </SbEditable>
   )

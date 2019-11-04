@@ -1,4 +1,3 @@
-import { CardMediaContent, CardPrimaryAction } from '@rmwc/card'
 import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
@@ -6,6 +5,8 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { CardListItemProps } from './cards'
 import CardDescriptionText from './CardDescriptionText'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
 
 const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }) => {
   const isOverMedia = options.variant && options.variant.includes('over_media')
@@ -15,12 +16,12 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
   if (!content.image || options.hide_image) {
     return (
       <CardWrap content={content} options={options}>
-        <CardPrimaryAction>
-          <div className="lm-card__content lm-card__content-padding">
+        <CardActionArea>
+          <CardContent className="lm-card__content lm-card__content-padding">
             <CardListActionTitles content={content} options={options} />
             <CardDescriptionText content={content} options={options} />
-          </div>
-        </CardPrimaryAction>
+          </CardContent>
+        </CardActionArea>
       </CardWrap>
     )
   }
@@ -32,35 +33,35 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
         <div className="lm-card__content-padding">
           <CardListActionTitles content={content} options={options} />
         </div>
-        <CardPrimaryAction>
+        <CardActionArea>
           <CardMediaElement content={content} options={options} />
           {!descriptionIsEmpty && (
-            <div className="lm-card__content lm-card__content-padding">
+            <CardContent className="lm-card__content lm-card__content-padding">
               <CardDescriptionText content={content} options={options} />
-            </div>
+            </CardContent>
           )}
-        </CardPrimaryAction>
+        </CardActionArea>
       </CardWrap>
     )
   }
   // header over media or title bottom
   return (
     <CardWrap content={content} options={options}>
-      <CardPrimaryAction>
+      <CardActionArea>
         <CardMediaElement content={content} options={options}>
           {isOverMedia && (
-            <CardMediaContent className="lm-card__content">
+            <CardContent className="lm-card__content">
               <CardListActionTitles content={content} options={options} />
-            </CardMediaContent>
+            </CardContent>
           )}
         </CardMediaElement>
         {!descriptionIsEmpty && (
-          <div className="lm-card__content lm-card__content-padding">
+          <CardContent className="lm-card__content lm-card__content-padding">
             {!isOverMedia && <CardListActionTitles content={content} options={options} />}
             <CardDescriptionText content={content} options={options} />
-          </div>
+          </CardContent>
         )}
-      </CardPrimaryAction>
+      </CardActionArea>
     </CardWrap>
   )
 }

@@ -1,10 +1,10 @@
 import SbEditable from 'storyblok-react'
-import { Card } from '@rmwc/card'
 import CardLink from './CardLink'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import clsx from 'clsx'
 import CardWrapWithAction from './CardWrapWithAction'
 import { CardListItemProps } from './cards'
+import Card from '@material-ui/core/Card'
 
 
 const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, options }) => {
@@ -25,7 +25,8 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, opt
 
   return (
     <SbEditable content={content}>
-      <Card className={className} style={style} outlined={outlined}>
+      <Card className={className}
+            style={style}>
         <CardLink {...content}>
           {children}
         </CardLink>

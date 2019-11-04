@@ -3,9 +3,22 @@ import CardListItem from './CardListItem'
 import clsx from 'clsx'
 import React, { FunctionComponent } from 'react'
 import { CardListStoryblok } from '../../typings/generated/components-schema'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles({
+  cards: {
+    '& .MuiCardMedia-root': {
+
+      paddingBottom: '56%' // add ratio variants
+
+    }
+    // '&.'
+  }
+})
 
 const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }) => {
   const { body, column_gap, column_count, column_count_phone, column_count_tablet, ...rest } = content
+  const classes = useStyles()
   const items = body || []
   let gutterSize = column_gap || 2
   let columnCount = column_count || 5
@@ -24,7 +37,9 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
 
   return (
     <SbEditable content={content}>
-      <div>
+      <div className={clsx(classes.cards, {
+        ['ratio-' + content.image_ratio]: content.image_ratio
+      })}>
         <ul className={containerClasses}>
           {items.map(item => (
             <li key={item._uid} className="mdc-image-list__item">
