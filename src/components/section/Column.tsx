@@ -5,7 +5,7 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { ColumnStoryblok } from '../../typings/generated/components-schema'
 import BackgroundBox from './BackgroundBox'
-import BackgroundImage from './BackgroundImageContainer'
+import BackgroundImage from './BackgroundImage'
 
 const Column: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }) => {
   // const containerProps = backgroundPropertyHelper(content.background || [])
@@ -56,7 +56,7 @@ const Column: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }) =>
     <SbEditable content={content}>
       <BackgroundBox skipBgImage={true} background={background}>
         <div className={colClasses}>
-          {background && background.image && <BackgroundImage image={background.image} />}
+          {background && background.image && <BackgroundImage content={background} />}
           {body.map((blok) => Components(blok))}
         </div>
       </BackgroundBox>

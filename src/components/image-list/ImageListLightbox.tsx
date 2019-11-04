@@ -6,7 +6,6 @@ import Icon from '@material-ui/core/Icon'
 import Swipe, { ImageListLightboxProps } from './ImageListLightboxSwipe'
 
 const ImageListLightbox: FunctionComponent<ImageListLightboxProps> = (props) => {
-console.log(props.className)
   return (
     <Dialog fullScreen
             className={props.className}

@@ -47,10 +47,10 @@ const icons: TabsStoryblok = {
   body: withIcons
 }
 
-const stackedIcons: TabsStoryblok = {
+const vertical: TabsStoryblok = {
   _uid: '123',
   component: 'tabs',
-  stacked_icons: true,
+  vertical_tabs: true,
   body: withIcons
 }
 
@@ -58,24 +58,28 @@ storiesOf('Tabs', module)
   .add(
     'Tabs',
     () => (
-      <Tabs content={props} />
+      <>
+        <Tabs content={props} />
+        <Tabs content={{ ...props, variant: 'scrollable' }} />
+        <Tabs content={{ ...props, variant: 'standard' }} />
+        <Tabs content={{ ...props, variant: 'standard', centered: true }} />
+      </>
     )
   )
   .add(
     'Tabs with icon',
     () => (
-      <Tabs content={icons} />
+      <>
+        <Tabs content={icons} />
+        <Tabs content={{ ...icons, variant: 'scrollable' }} />
+        <Tabs content={{ ...icons, variant: 'standard' }} />
+        <Tabs content={{ ...icons, variant: 'standard', centered: true }} />
+      </>
     )
   )
   .add(
-    'Tabs stacked icon',
+    'Tabs vertical',
     () => (
-      <Tabs content={stackedIcons} />
-    )
-  )
-  .add(
-    'Tabs restrict indicator',
-    () => (
-      <Tabs content={{ ...stackedIcons, restrict_indicator: true }} />
+      <Tabs content={vertical} />
     )
   )

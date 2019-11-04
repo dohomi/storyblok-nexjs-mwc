@@ -6,6 +6,7 @@ import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/styles'
 import Fade from '@material-ui/core/Fade'
+import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles({
   root: {
@@ -22,9 +23,13 @@ const useStyles = makeStyles({
   }
 })
 
-const BackgroundImage: FunctionComponent<{ image: string }> = ({ image }) => {
+const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgroundStyle: SectionStoryblok['background_style'] }> = ({ content, backgroundStyle }) => {
+  if (!content.image) {
+    return null
+  }
+  const image = content.image as string
   const classes = useStyles()
-  const dimensions = useWindowDimensions()
+  const { isMobile, width, height } = useWindowDimensions()
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
   const [imgSrc, setImgSrc] = useState<string>('')
   useEffect(
@@ -48,13 +53,16 @@ const BackgroundImage: FunctionComponent<{ image: string }> = ({ image }) => {
         })
       }
     },
-    [dimensions, image, anchorRef, inView]
+    [width, height, image, anchorRef, inView]
   )
   return (
     <Fade in={!!imgSrc} timeout={1000}>
       <div className={classes.root}
            style={{
-             backgroundImage: imgSrc && `url('${imgSrc}')`
+             backgroundImage: imgSrc && `url('${imgSrc}')`,
+             backgroundAttachment: !isMobile && (backgroundStyle === 'fixed_image' || backgroundStyle === 'fixed_cover')
+               ? 'fixed'
+               : 'inherit'
            }}
            ref={viewRef}>
       </div>

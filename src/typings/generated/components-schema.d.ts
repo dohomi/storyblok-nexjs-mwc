@@ -919,9 +919,11 @@ export interface TableStoryblok {
 }
 
 export interface TabsStoryblok {
-  stacked_icons?: boolean;
-  restrict_indicator?: boolean;
   body?: any[];
+  wrapped?: boolean;
+  vertical_tabs?: boolean;
+  variant?: "fullWidth" | "scrollable" | "standard";
+  centered?: boolean;
   _uid: string;
   component: "tabs";
   [k: string]: any;

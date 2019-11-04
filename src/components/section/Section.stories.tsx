@@ -65,6 +65,12 @@ storiesOf('Section', module)
         <Section content={{
           ...background,
           property: ['is_full_height'],
+          background_style: 'fixed_image',
+          variant: 'light_text'
+        }} />
+        <Section content={{
+          ...background,
+          property: ['is_full_height'],
           background: [{
             background_color: {
               rgba: 'rgba(0,0,0,0.2)'
@@ -74,8 +80,22 @@ storiesOf('Section', module)
             },
             border_size: 3,
             border_radius: '12px',
-            border_style: 'dotted',
             elevation: 12
+          }] as BackgroundStoryblok[]
+        }} />
+        <Section content={{ ...background, background_style: 'fixed_cover' }} />
+        <Section content={{
+          ...background,
+          background: [{
+            background_color: {
+              rgba: 'rgba(0,0,0,0.2)'
+            },
+            border_color: {
+              rgba: 'rgba(0,0,0,1)'
+            },
+            border_size: 3,
+            border_radius: '12px',
+            border_style: 'dotted'
           }] as BackgroundStoryblok[]
         }} />
         <Section content={background} />
@@ -93,7 +113,6 @@ storiesOf('Section', module)
             border_style: 'dotted'
           }] as BackgroundStoryblok[]
         }} />
-        <Section content={background} />
       </>
     )
   )

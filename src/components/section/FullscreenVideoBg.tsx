@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import ReactPlayer from 'react-player'
-import BackgroundImageContainer from './BackgroundImageContainer'
+import BackgroundImageContainer from './BackgroundImage'
+import * as React from 'react'
 import { FunctionComponent, useState } from 'react'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 
@@ -19,7 +20,7 @@ type FullscreenVideoBgProps = SectionVideoBgStoryblok & {
 const FullscreenVideoBg: FunctionComponent<FullscreenVideoBgProps> = (content) => {
   const properties = content.property || []
   const videoAspect = content.ratioHeight / content.ratioWidth
-  let fixedToRatio = content.fixedToRatio
+  // let fixedToRatio = content.fixedToRatio
   const [error, setError] = useState(false)
   const className = clsx('react-player')
   if (!content.url) {
@@ -75,7 +76,11 @@ const FullscreenVideoBg: FunctionComponent<FullscreenVideoBgProps> = (content) =
           </div>
         </div>
       </div>
-      {error && content.fallback_image && <BackgroundImageContainer image={content.fallback_image} />}
+      {error && content.fallback_image && <BackgroundImageContainer content={{
+        image: content.fallback_image,
+        _uid: `bg_fallback_${content._uid}`,
+        component: 'background'
+      }} />}
     </>
   )
 }

@@ -18,7 +18,7 @@ import Html from './html/Html'
 import HubspotForm from './hubspot/HubspotForm'
 import Form from './form/Form'
 import HubspotMeeting from './hubspot/HubspotMeeting'
-import Pricing from './pricing/Pricing'
+// import Pricing from './pricing/Pricing'
 import Divider from './divider/Divider'
 // import Promotion from './promotion/Promotion'
 import Accordion from './accordion/Accordion'
@@ -43,7 +43,7 @@ const Components = {
   // 'promotion': Promotion,
   'divider': Divider,
   'html': Html,
-  'pricing': Pricing,
+  // 'pricing': Pricing,
   'hubspot_form': HubspotForm,
   'hubspot_meeting': HubspotMeeting,
   'button_list': ButtonList,

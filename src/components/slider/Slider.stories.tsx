@@ -73,7 +73,7 @@ const props2: SliderStoryblok = {
   background_color: {
     rgba: 'black'
   },
-  section_variant: 'dark'
+  section_variant: 'light_text'
 }
 
 storiesOf('Slider', module)

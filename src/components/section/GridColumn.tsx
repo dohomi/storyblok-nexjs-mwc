@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import { ColumnStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import BackgroundBox from './BackgroundBox'
-import BackgroundImage from './BackgroundImageContainer'
+import BackgroundImage from './BackgroundImage'
 import Components from '@components'
 import { createStyles, makeStyles } from '@material-ui/styles'
 import { Box, Theme } from '@material-ui/core'
@@ -47,7 +47,7 @@ const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }
                gridColumnEnd: `span ${span}`,
                gridColumnStart: start
              }}>
-          {background && background.image && <BackgroundImage image={background.image} />}
+          {background && background.image && <BackgroundImage content={background} />}
           {content.body && content.body.map((blok) => Components(blok))}
         </Box>
       </BackgroundBox>

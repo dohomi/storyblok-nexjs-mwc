@@ -3,6 +3,9 @@ import { getImageAttrs, getOriginalImageDimensions } from '../../utils/ImageServ
 import SwipeableViews from 'react-swipeable-views'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 import { WithWindowDimensionsProps } from '../provider/WindowDimensionsProvider'
+import InvertedIndicator from '../slider/InvertedIndicator'
+import Icon from '@material-ui/core/Icon'
+import Typography from '@material-ui/core/Typography'
 
 export type ImageListLightboxProps = {
   elements: ImageListItemStoryblok[]
@@ -51,21 +54,20 @@ const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
       <a className="carousel-control-prev"
          role="button"
          onClick={() => props.onImageClick(currentIndex === 0 ? props.elements[props.elements.length - 1] : props.elements[currentIndex - 1])}>
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span className="sr-only">Previous</span>
+        <Icon>keyboard_arrow_left</Icon>
       </a>
       <a className="carousel-control-next"
          role="button"
          onClick={() => props.onImageClick(currentIndex === props.elements.length - 1 ? props.elements[0] : props.elements[currentIndex + 1])}>
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="sr-only">Next</span>
+        <Icon>keyboard_arrow_right</Icon>
       </a>
-      <ol className="carousel-indicators" style={{ color: 'white' }}>
+      <ol className="carousel-indicators">
         {props.elements.map((item) => (
-          <li className={`${props.lightbox === item._uid ? 'active' : ''}`}
-              onClick={() => props.onImageClick(item)}
-              key={item._uid}>
-          </li>
+          <InvertedIndicator key={item._uid}
+                             active={props.lightbox === item._uid}
+                             color={'light'}
+                             onClick={() => props.onImageClick(item)}>
+          </InvertedIndicator>
         ))}
       </ol>
     </div>

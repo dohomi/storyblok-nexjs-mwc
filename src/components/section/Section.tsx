@@ -33,7 +33,8 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
     <SbEditable content={content}>
       <BackgroundBox variant={content.variant || content.presetVariant}
                      skipClone={true}
-                     background={Array.isArray(content.background) && content.background[0]}>
+                     background={Array.isArray(content.background) && content.background[0]}
+                     backgroundStyle={content.background_style}>
         <Container style={containerStyles}
                    maxWidth={content.max_width === 'none' ? false : (content.max_width || 'lg')}
                    className={clsx({

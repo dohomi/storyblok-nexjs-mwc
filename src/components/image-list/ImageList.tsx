@@ -39,6 +39,27 @@ const useStyles = makeStyles({
     },
     '& .MuiIcon-root': {
       color: 'white'
+    },
+    '& .carousel-indicators': {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      textAlign: 'center'
+    },
+    '& .carousel-control-next, & .carousel-control-prev': {
+      position: 'absolute',
+      height: '100%',
+      top: 0,
+      display: 'flex',
+      alignItems: 'center',
+      cursor: 'pointer',
+      '& .MuiIcon-root': {
+        fontSize: '4rem',
+        color: 'rgba(255,255,255,0.8)'
+      }
+    },
+    '& .carousel-control-next': {
+      right: 0
     }
   }
 })

@@ -3,7 +3,7 @@ import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/c
 import Box, { BoxProps } from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core'
 import clsx from 'clsx'
-import BackgroundImage from './BackgroundImageContainer'
+import BackgroundImage from './BackgroundImage'
 
 const useStyles = makeStyles({
   dark: {
@@ -37,8 +37,8 @@ const BackgroundBox: FunctionComponent<{
   variant?: SectionStoryblok['variant'],
   skipClone?: boolean
   skipBgImage?: boolean
-}> = ({ children, background, variant, skipBgImage, skipClone }) => {
-  // todo padding !
+  backgroundStyle: SectionStoryblok['background_style']
+}> = ({ children, background, variant, skipBgImage, skipClone, backgroundStyle }) => {
   if (!background && !variant) {
     return (
       <>{children}</>
@@ -69,7 +69,7 @@ const BackgroundBox: FunctionComponent<{
     <Box className={clsx({ [classes.dark]: !!variant })}
          {...boxProps}
     >
-      {!!background.image && <BackgroundImage image={background.image} />}
+      {!!background.image && <BackgroundImage content={background} backgroundStyle={backgroundStyle} />}
       {children}
     </Box>
   )

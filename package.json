@@ -106,6 +106,7 @@
     "react-player": "^1.11.1",
     "react-scroll-parallax": "^2.2.0",
     "react-swipeable-views": "^0.13.3",
+    "react-swipeable-views-utils": "^0.13.3",
     "sass": "^1.22.9",
     "sitemap": "^5.0.1",
     "storyblok-js-client": "^2.0.9",
