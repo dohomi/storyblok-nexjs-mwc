@@ -7,11 +7,11 @@ import { mapTypographyVariant } from '../../utils/muiMapProps'
 const CardListActionTitles: FunctionComponent<CardListItemProps> = ({ content, options }) => {
   const titleStyles: CSSProperties = {}
   if (options.variant && options.variant.includes('title_top')) {
-    titleStyles.position = 'absolute'
-    titleStyles.top = '16px'
+    // titleStyles.position = 'absolute'
+    // titleStyles.top = '16px'
   }
   return (
-    <div>
+    <>
       {content.title && <Typography component={options.title_tag || 'h3'}
                                     style={titleStyles}
                                     className={clsx(options.title_class_name && options.title_class_name.values)}
@@ -19,7 +19,7 @@ const CardListActionTitles: FunctionComponent<CardListItemProps> = ({ content, o
       {content.subtitle && <Typography component={options.subtitle_tag || 'h4'}
                                        className={clsx(options.subtitle_class_name && options.subtitle_class_name.values)}
                                        variant={mapTypographyVariant[options.subtitle_typography as string || 'subtitle2']}>{content.subtitle}</Typography>}
-    </div>
+    </>
   )
 }
 export default CardListActionTitles

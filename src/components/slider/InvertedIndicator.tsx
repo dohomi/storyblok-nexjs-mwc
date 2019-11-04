@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react'
 import cx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(({ palette, transitions, breakpoints }) => {
+const useStyles = makeStyles(({ palette, breakpoints }) => {
   const SIZES = {
     xs: 8,
     sm: 10,

@@ -6,12 +6,12 @@ import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { CardListItemProps } from './cards'
 import CardMedia from '@material-ui/core/CardMedia'
+import { Fade } from '@material-ui/core'
 
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, content, options }) => {
   const [reference, inView, intersecRef] = useInView(intersectionDefaultOptions)
   const [imgSource, setImgSource] = useState<string>('')
   const contentImage = content.image
-  console.log(inView)
   useEffect(
     () => {
 
@@ -19,8 +19,6 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
         const mediaEl = intersecRef && intersecRef.target as HTMLDivElement
         const currentWidth = mediaEl.clientWidth || 0
         const currentHeight = mediaEl.clientHeight
-
-        console.log(currentWidth, currentHeight)
         const img = getImageAttrs({
           originalSource: contentImage,
           width: currentWidth || 0,
@@ -30,11 +28,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
         getImage({
           ...img,
           onReady(src: string) {
-            console.log(src)
             setImgSource(src)
-            // mediaEl.style.backgroundImage = `url("${src}")`
-            // mediaEl.style.filter = 'blur(0)'
-            // mediaEl.style.backgroundColor = 'transparent'
           }
         })
       }
@@ -46,18 +40,18 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
   // square={options.image_ratio === '1x1'}
 
   return (
-    <CardMedia style={{
-      color: options.variant && options.variant.includes('font_white') ? 'white' : 'inherit',
-      backgroundSize: options.image_size || 'cover'
-    }}
-               image={imgSource}
-               ref={reference}
-               className="progressive-img-blur-container"
-    >
-      <div>
+    <Fade in={!!imgSource}>
+      <CardMedia style={{
+        color: options.variant && options.variant.includes('font_white') ? 'white' : 'inherit',
+        backgroundSize: options.image_size || 'cover'
+      }}
+                 image={imgSource}
+                 ref={reference}
+      >
+        {!imgSource && <div></div>}
         {children}
-      </div>
-    </CardMedia>
+      </CardMedia>
+    </Fade>
   )
 }
 export default CardMediaElement

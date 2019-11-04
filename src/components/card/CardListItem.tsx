@@ -17,7 +17,7 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
     return (
       <CardWrap content={content} options={options}>
         <CardActionArea>
-          <CardContent className="lm-card__content lm-card__content-padding">
+          <CardContent>
             <CardListActionTitles content={content} options={options} />
             <CardDescriptionText content={content} options={options} />
           </CardContent>
@@ -30,13 +30,13 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
   if (options.variant && options.variant.includes('header_top')) {
     return (
       <CardWrap content={content} options={options}>
-        <div className="lm-card__content-padding">
+        <div>
           <CardListActionTitles content={content} options={options} />
         </div>
         <CardActionArea>
           <CardMediaElement content={content} options={options} />
           {!descriptionIsEmpty && (
-            <CardContent className="lm-card__content lm-card__content-padding">
+            <CardContent>
               <CardDescriptionText content={content} options={options} />
             </CardContent>
           )}
@@ -50,13 +50,13 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
       <CardActionArea>
         <CardMediaElement content={content} options={options}>
           {isOverMedia && (
-            <CardContent className="lm-card__content">
+            <CardContent>
               <CardListActionTitles content={content} options={options} />
             </CardContent>
           )}
         </CardMediaElement>
         {!descriptionIsEmpty && (
-          <CardContent className="lm-card__content lm-card__content-padding">
+          <CardContent>
             {!isOverMedia && <CardListActionTitles content={content} options={options} />}
             <CardDescriptionText content={content} options={options} />
           </CardContent>

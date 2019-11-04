@@ -110,9 +110,19 @@ export interface ButtonListStoryblok {
 
 export interface CardListStoryblok {
   body?: any[];
-  variant?: ("over_media" | "title_top" | "font_white" | "outlined" | "header_top")[];
+  variant?: (
+    | "over_media"
+    | "title_top"
+    | "font_white"
+    | "outlined"
+    | "header_top"
+    | "text_top_bottom"
+    | "text_bottom"
+    | "text_center"
+    | "text_align_center"
+    | "text_align_right")[];
   hide_image?: boolean;
-  image_ratio?: "16x9" | "1x1";
+  image_ratio?: "16x9" | "1x1" | "4x3" | "3x2";
   image_size?: "cover" | "contain" | "initial" | "auto";
   elevation?: "0" | "1" | "2" | "4" | "8" | "12" | "16" | "20";
   border_radius?: "0" | "2" | "4" | "";

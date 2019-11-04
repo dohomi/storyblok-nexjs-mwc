@@ -15,6 +15,24 @@ const body: ImageListItemStoryblok[] = [
     component: 'image_list_item',
     source: 'https://a.storyblok.com/f/57008/4541x2202/dc46a24330/bicycles-608747.jpg',
     label: 'Second image'
+  },
+  {
+    _uid: '232',
+    component: 'image_list_item',
+    source: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png',
+    label: 'First image'
+  },
+  {
+    _uid: 'fdldis',
+    component: 'image_list_item',
+    source: 'https://a.storyblok.com/f/57008/4541x2202/dc46a24330/bicycles-608747.jpg',
+    label: 'Second image'
+  },
+  {
+    _uid: 'eferrs',
+    component: 'image_list_item',
+    source: 'https://a.storyblok.com/f/57008/4541x2202/dc46a24330/bicycles-608747.jpg',
+    label: 'Second image'
   }
 ]
 
@@ -51,7 +69,11 @@ storiesOf('Image List', module)
   .add(
     'Image List',
     () => (
-      <ImageList content={content} />
+      <>
+        <ImageList content={content} />
+        <h3>Gap of 32</h3>
+        <ImageList content={{ ...content, column_gap: '32' }} />
+      </>
     )
   )
   .add(
@@ -77,8 +99,8 @@ storiesOf('Image List', module)
         <ImageList content={{ ...content4, aspect_ratio: '2x3' }} />
         <ImageList content={{ ...content4, aspect_ratio: '3x2' }} />
         <h4>Fit in color:</h4>
-        <ImageList content={{ ...content4, aspect_ratio: '3x2', fit_in_color:'ccc' }} />
-        <ImageList content={{ ...content4, aspect_ratio: '2x3', fit_in_color:'ccc' }} />
+        <ImageList content={{ ...content4, aspect_ratio: '3x2', fit_in_color: 'ccc' }} />
+        <ImageList content={{ ...content4, aspect_ratio: '2x3', fit_in_color: 'ccc' }} />
       </>
     )
   )

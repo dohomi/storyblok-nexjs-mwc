@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import SbEditable from 'storyblok-react'
 import { useInView } from 'react-intersection-observer'
 import React, { CSSProperties, FunctionComponent, RefObject, useEffect, useState } from 'react'
@@ -9,6 +8,7 @@ import { ImageListItemProps } from './ImageListItemImg'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/core/styles'
+import GridList from '@material-ui/core/GridList'
 
 const useStyles = makeStyles({
   lightbox: {
@@ -61,6 +61,9 @@ const useStyles = makeStyles({
     '& .carousel-control-next': {
       right: 0
     }
+  },
+  root: {
+    overflowX: 'hidden'
   }
 })
 
@@ -99,16 +102,16 @@ const ImageList: FunctionComponent<{
   let columnCountPhone = content.column_count_phone || 1
 
 
-  const imageContainerClasses = clsx(
-    'mdc-image-list',
-    {
-      'mdc-image-list--masonry': !!content.masonry,
-      'mdc-image-list--with-text-protection': !!content.text_protection,
-      [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCount}-desktop-${gutterSize}`]: true,
-      [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCountTablet}-tablet-${gutterSize}`]: true,
-      [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCountPhone}-phone-${gutterSize}`]: true
-    }
-  )
+  // const imageContainerClasses = clsx(
+  //   'mdc-image-list',
+  //   {
+  //     'mdc-image-list--masonry': !!content.masonry,
+  //     'mdc-image-list--with-text-protection': !!content.text_protection,
+  //     [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCount}-desktop-${gutterSize}`]: true,
+  //     [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCountTablet}-tablet-${gutterSize}`]: true,
+  //     [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCountPhone}-phone-${gutterSize}`]: true
+  //   }
+  // )
   const listItemStyles: CSSProperties = {}
   content.enable_lightbox && (listItemStyles.cursor = 'pointer')
 
@@ -131,16 +134,18 @@ const ImageList: FunctionComponent<{
   const body = content.body || []
   return (
     <SbEditable content={content}>
-      <div ref={containerRef}>
-        <ul className={imageContainerClasses}
-            ref={refIntersectionObserver}>
+      <div ref={containerRef}
+           className={classes.root}>
+        <GridList cols={3}
+                  spacing={content.column_gap ? Number(content.column_gap) : 4}
+                  ref={refIntersectionObserver}>
           {body.map((item, i) => (
             <ImageListItem {...item}
                            {...imageListItemProps}
                            key={item._uid}
                            onImageClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })} />
           ))}
-        </ul>
+        </GridList>
       </div>
       {lightbox && ImageListLightbox({
         elements: body,

@@ -36,6 +36,33 @@ const cardListBody: CardListItemStoryblok[] = [{
   subtitle: 'SubTitle',
   description: 'Some Description',
   image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+}, {
+  _uid: '3wdswdeds',
+  component: 'card_list_item',
+  title: 'Toll',
+  subtitle: 'SubTitle',
+  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+}, {
+  _uid: '23421esafdsferf',
+  component: 'card_list_item',
+  title: 'Toll',
+  subtitle: 'SubTitle',
+  description: 'Some Description',
+  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+}, {
+  _uid: '3qwdefwef',
+  component: 'card_list_item',
+  title: 'Toll',
+  subtitle: 'SubTitle',
+  description: 'Some Description',
+  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+}, {
+  _uid: 'jzhilz87zhtf',
+  component: 'card_list_item',
+  title: 'Toll',
+  subtitle: 'SubTitle',
+  description: 'Some Description',
+  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
 }]
 
 const cardListLongDescription: CardListItemStoryblok[] = [{
@@ -101,7 +128,7 @@ const cardListWithAction: CardListStoryblok = {
       _uid: '543',
       component: 'headline',
       text: `Headline ${i}`
-    },{
+    }, {
       _uid: '2342',
       component: 'paragraph',
       text: `Some random ${i}\n\n **Some new line`
@@ -119,7 +146,15 @@ storiesOf('Cards', module)
   .add(
     'Card List Over Image',
     () => (
-      <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'title_top'] }} />
+      <>
+        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'title_top'] }} />
+        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_top_bottom'] }} />
+        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_bottom'] }} />
+        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_center'] }} />
+        <CardList
+          content={{ ...cardList, variant: ['over_media', 'font_white', 'text_center', 'text_align_center'] }} />
+        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_bottom', 'text_align_right'] }} />
+      </>
     )
   )
   .add(
@@ -128,11 +163,11 @@ storiesOf('Cards', module)
       <>
         <CardList content={{ ...cardList }} />
         <div style={{ height: '300px' }}>Some spacing</div>
-        <CardList content={{ ...cardList }} />
+        <CardList content={{ ...cardList, image_ratio: '1x1' }} />
         <div style={{ height: '300px' }}>Some spacing</div>
         <CardList content={{ ...cardList }} />
         <div style={{ height: '300px' }}>Some spacing</div>
-        <CardList content={{ ...cardList }} />
+        <CardList content={{ ...cardList, column_gap: '8' }} />
       </>
     )
   )
