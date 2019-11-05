@@ -47,7 +47,7 @@ type GetImageAttrs = {
   focalPoint?: string
 }
 
-export function getImageAttrs({ originalSource, width = 0, height = 0, filter, fitInColor, smart, focalPoint }: GetImageAttrs) {
+export function getImageAttrs({ originalSource, width = 0, height = 0, filter = '', fitInColor, smart, focalPoint }: GetImageAttrs) {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   if (originalDimensions.width < width) {
     width = originalDimensions.width
@@ -100,8 +100,7 @@ export default function imageService(image: string, option: string = '', filter:
     return image
   }
   option && (option += '/')
-  const hasWebpSupport = typeof window !== 'undefined' ? (window as any)['hasWebpSupport'] : DeviceDetectService.getWebpSupport()
-  if (hasWebpSupport) {
+  if (DeviceDetectService.getWebpSupport()) {
     option += 'filters:format(webp)' + filter
   } else if (filter) {
     option += 'filters' + filter

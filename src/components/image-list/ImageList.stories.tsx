@@ -98,7 +98,7 @@ storiesOf('Image List', module)
         <ImageList content={{ ...content4, aspect_ratio: '16x9' }} />
         <ImageList content={{ ...content4, aspect_ratio: '2x3' }} />
         <ImageList content={{ ...content4, aspect_ratio: '3x2' }} />
-        <h4>Fit in color:</h4>
+        <h3>Fit in color:</h3>
         <ImageList content={{ ...content4, aspect_ratio: '3x2', fit_in_color: 'ccc' }} />
         <ImageList content={{ ...content4, aspect_ratio: '2x3', fit_in_color: 'ccc' }} />
       </>

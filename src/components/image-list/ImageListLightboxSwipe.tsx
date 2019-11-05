@@ -5,7 +5,6 @@ import { ImageListItemStoryblok } from '../../typings/generated/components-schem
 import { WithWindowDimensionsProps } from '../provider/WindowDimensionsProvider'
 import InvertedIndicator from '../slider/InvertedIndicator'
 import Icon from '@material-ui/core/Icon'
-import Typography from '@material-ui/core/Typography'
 
 export type ImageListLightboxProps = {
   elements: ImageListItemStoryblok[]

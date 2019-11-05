@@ -1,14 +1,13 @@
 import SbEditable from 'storyblok-react'
-import { useInView } from 'react-intersection-observer'
 import React, { CSSProperties, FunctionComponent, RefObject, useEffect, useState } from 'react'
-import ImageListItem from './ImageListItem'
+import ImageListItem, { ImageListItemProps } from './ImageListItem'
 import ImageListLightbox from './ImageListLightbox'
 import { ImageListStoryblok } from '../../typings/generated/components-schema'
-import { ImageListItemProps } from './ImageListItemImg'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
+import clsx from 'clsx'
 
 const useStyles = makeStyles({
   lightbox: {
@@ -63,7 +62,35 @@ const useStyles = makeStyles({
     }
   },
   root: {
-    overflowX: 'hidden'
+    overflowX: 'hidden',
+    '& .MuiGridListTile-tile': {
+      paddingBottom: '56.25%',
+      '& img': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%'
+      }
+    },
+    '&.ratio-1x1 .MuiGridListTile-tile': {
+      paddingBottom: '100%'
+    },
+    '&.ratio-4x3 .MuiGridListTile-tile': {
+      paddingBottom: '75%'
+    },
+    '&.ratio-3x2 .MuiGridListTile-tile': {
+      paddingBottom: '66.66%'
+    },
+    '&.ratio-16x9 .MuiGridListTile-tile': {
+      paddingBottom: '56.25%'
+    },
+    '&.ratio-3x4 .MuiGridListTile-tile': {
+      paddingBottom: '133.33%'
+    },
+    '&.ratio-2x3 .MuiGridListTile-tile': {
+      paddingBottom: '150%'
+    }
   }
 })
 
@@ -73,7 +100,6 @@ const ImageList: FunctionComponent<{
   const classes = useStyles()
   const dimensions = useWindowDimensions()
   const containerRef: RefObject<HTMLDivElement> = React.createRef()
-  const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const [childDimensions, setChildDimensions] = useState({ width: 0, height: 0 })
   const [lightbox, setLightbox] = useState('')
 
@@ -121,8 +147,6 @@ const ImageList: FunctionComponent<{
   }
 
   const imageListItemProps: ImageListItemProps = {
-    style: listItemStyles,
-    inView,
     width: childDimensions.width,
     height: childDimensions.height,
     aspect_ratio: content.aspect_ratio,
@@ -135,15 +159,17 @@ const ImageList: FunctionComponent<{
   return (
     <SbEditable content={content}>
       <div ref={containerRef}
-           className={classes.root}>
+           className={clsx(classes.root, 'ratio-' + content.aspect_ratio)}>
         <GridList cols={3}
-                  spacing={content.column_gap ? Number(content.column_gap) : 4}
-                  ref={refIntersectionObserver}>
+                  cellHeight={'auto'}
+                  spacing={content.column_gap ? Number(content.column_gap) : 4}>
           {body.map((item, i) => (
-            <ImageListItem {...item}
-                           {...imageListItemProps}
-                           key={item._uid}
-                           onImageClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })} />
+            <GridListTile style={listItemStyles}
+                          key={item._uid}
+                          onClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })}>
+              <ImageListItem {...item}
+                             {...imageListItemProps} />
+            </GridListTile>
           ))}
         </GridList>
       </div>
