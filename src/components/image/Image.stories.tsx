@@ -9,11 +9,6 @@ const props: ImageStoryblok = {
   source: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
 }
 
-const props2: ImageStoryblok = {
-  ...props,
-  property: ['rounded-circle']
-}
-
 const svg: ImageStoryblok = {
   ...props,
   source: 'https://a.storyblok.com/f/57008/x/7dea868beb/cc_icons-badge_029.svg'
@@ -23,18 +18,35 @@ storiesOf('Image', module)
   .add(
     'Image',
     () => (
-      <ImageElement content={props} />
-    )
-  )
-  .add(
-    'Image Rounded Circle',
-    () => (
-      <ImageElement content={props2} />
+      <div style={{
+        maxWidth: '500px',
+        margin: '0 auto'
+      }}>
+        <ImageElement content={props} />
+        <ImageElement content={{ ...props, property: ['rounded-circle'] }} />
+        <ImageElement content={{ ...props, property: ['rounded-0'] }} />
+        <ImageElement content={{ ...props, property: ['rounded'] }} />
+        <ImageElement content={{ ...props, property: ['img-thumbnail'] }} />
+        <ImageElement content={{ ...props, property: ['square'] }} />
+        <ImageElement content={{ ...props, property: ['rounded-circle'], height: 64 }} />
+        <ImageElement content={{ ...props, property: ['square'], height: 64 }} />
+        <ImageElement content={{ ...props, property: ['img-thumbnail'], height: 64 }} />
+        <ImageElement content={{ ...props, property: ['rounded'], height: 64 }} />
+      </div>
     )
   )
   .add(
     'Image SVG',
-    () =>(
-      <ImageElement content={svg} />
+    () => (
+      <div style={{
+        maxWidth: '500px',
+        margin: '0 auto'
+      }}>
+        <ImageElement content={svg} />
+        <ImageElement content={{...svg, color:{rgba: '#ccc'}}} />
+        <ImageElement content={{...svg, color:{rgba: '#eee'}}} />
+        <ImageElement content={{...svg, color:{rgba: '#ccc'}, height: 64}} />
+        <ImageElement content={{...svg, width: 52}} />
+      </div>
     )
   )

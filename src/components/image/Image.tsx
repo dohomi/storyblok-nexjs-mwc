@@ -1,32 +1,59 @@
 import SbEditable from 'storyblok-react'
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Fade } from '@material-ui/core'
 
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    display: 'inline-block',
+    margin: 0,
+    padding: 0
+  },
+  image: {
+    maxWidth: '100%',
+    height: 'auto',
+    '&.img-thumbnail': {
+      padding: '.25rem',
+      backgroundColor: theme.palette.background.default,
+      border: `1px solid ${theme.palette.divider}`,
+      borderRadius: theme.shape.borderRadius
+    },
+    '&.square, &.rounded-0': {
+      borderRadius: 0
+    },
+    '&.rounded': {
+      borderRadius: theme.shape.borderRadius
+    },
+    '&.rounded-circle': {
+      borderRadius: '50%'
+    }
+  }
+}))
 
 const Image: FunctionComponent<{
   content: ImageStoryblok
 }> = ({ content }) => {
+  const classes = useStyles()
   const dimensions = useWindowDimensions()
   const fallback = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
-  const containerClassName = clsx('img-figure', content.class_names && content.class_names.values)
+  const [loaded, setLoaded] = useState<boolean>(false)
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView(intersectionDefaultOptions)
 
-  const className = clsx('img-fluid', 'progressive-img-container', content.property)
   let imgProps = {
     src: fallback,
     srcSet: fallback,
     style: {},
-    alt: content.alt || 'website image',
-    className
+    alt: content.alt || 'website image'
   }
 
   if (inView && content.source) {
@@ -58,7 +85,7 @@ const Image: FunctionComponent<{
     }
     const imgAttrs = getImageAttrs({
       originalSource: content.source,
-      width: Number(definedWidth),
+      width: Number(definedWidth || 0),
       height: definedHeight,
       fitInColor,
       focalPoint: content.focal_point,
@@ -77,16 +104,20 @@ const Image: FunctionComponent<{
   }
 
   function onImageLoaded() {
-    intersectionElement && intersectionElement.target && intersectionElement.target.firstElementChild && intersectionElement.target.firstElementChild.classList.add('loaded')
+    setLoaded(true)
   }
 
 
   return (
     <SbEditable content={content}>
-      <figure ref={refIntersectionObserver} className={containerClassName}>
-        <img {...imgProps}
-             onLoad={onImageLoaded} />
-      </figure>
+      <Fade in={loaded}>
+        <figure ref={refIntersectionObserver}
+                className={classes.root}>
+          <img {...imgProps}
+               className={clsx(classes.image, content.property)}
+               onLoad={onImageLoaded} />
+        </figure>
+      </Fade>
     </SbEditable>
   )
 }

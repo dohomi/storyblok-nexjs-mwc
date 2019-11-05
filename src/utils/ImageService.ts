@@ -47,7 +47,7 @@ type GetImageAttrs = {
   focalPoint?: string
 }
 
-export function getImageAttrs({ originalSource, width, height = 0, filter, fitInColor, smart, focalPoint }: GetImageAttrs) {
+export function getImageAttrs({ originalSource, width = 0, height = 0, filter, fitInColor, smart, focalPoint }: GetImageAttrs) {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   if (originalDimensions.width < width) {
     width = originalDimensions.width

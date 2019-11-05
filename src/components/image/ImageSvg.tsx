@@ -1,37 +1,60 @@
 import { useInView } from 'react-intersection-observer'
 import SbEditable from 'storyblok-react'
 import SVG from 'react-inlinesvg'
-import { CSSProperties, FunctionComponent } from 'react'
+import * as React from 'react'
+import { FunctionComponent, useState } from 'react'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { makeStyles } from '@material-ui/core/styles'
+import clsx from 'clsx'
+import { Fade } from '@material-ui/core'
 
+const useStyles = makeStyles({
+  root: {
+    display: 'inline-block'
+  },
+  svg: {
+    display: 'inline-block',
+    width: 120,
+    height: 120,
+    '&.has-color': {
+      '& path': {
+        fill: 'currentColor'
+      }
+    }
+  }
+})
 
 const ImageSvg: FunctionComponent<{ content: ImageStoryblok }> = ({ content }) => {
+  const classes = useStyles()
   const [refIntersectionObserver, inView, el] = useInView(intersectionDefaultOptions)
   const src = inView ? content.source : ''
+  const [loaded, setLoaded] = useState<boolean>(false)
   const afterSvgLoaded = () => {
-    // @ts-ignore
-    el.target.classList.add('loaded')
+    setLoaded(true)
   }
   const onErrorHandler = (error: any) => {
     console.error(error)
   }
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color // legacy fit_in_color
-  const svgStyle: CSSProperties = {}
-  fitInColor && (svgStyle.color = fitInColor)
-  content.width && (svgStyle.width = `${content.width}px`)
-  content.height && (svgStyle.height = `${content.height}px`)
-  console.log('image svg', src)
   return (
     <SbEditable content={content}>
-      <div className="w-100 progressive-img-container"
-           ref={refIntersectionObserver}>
-        <SVG src={src as string}
-             style={svgStyle}
-             onLoad={afterSvgLoaded}
-             onError={onErrorHandler}
-             className="lm-svg-img" />
-      </div>
+      <Fade in={loaded}>
+        <div className={classes.root}
+             ref={refIntersectionObserver}>
+          {!!src && <SVG src={src as string}
+                         style={{
+                           color: fitInColor,
+                           width: content.width && `${content.width}px`,
+                           height: content.height && `${content.height}px`
+                         }}
+                         onLoad={afterSvgLoaded}
+                         onError={onErrorHandler}
+                         className={clsx(classes.svg, {
+                           'has-color': !!fitInColor
+                         })} />}
+        </div>
+      </Fade>
     </SbEditable>
   )
 }

@@ -6,8 +6,6 @@ import { CardListStoryblok } from '../../typings/generated/components-schema'
 
 import { createStyles, makeStyles } from '@material-ui/styles'
 import { Theme } from '@material-ui/core'
-
-import { GridProps } from '@material-ui/core/Grid'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 
@@ -21,8 +19,9 @@ type CardListStyleProps = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cardBase: {
+      overflowX: 'hidden',
       flexGrow: 1,
-      '& .MuiGridListTile-tile':{
+      '& .MuiGridListTile-tile': {
         overflow: 'visible'
       },
       '&.card__text_align_center .MuiCardMedia-root .MuiCardContent-root': {
@@ -66,21 +65,23 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     card: (props: CardListStyleProps) => ({
-      overflowX: 'hidden',
+      padding: props.spacing / 2,
       '& .MuiGrid-item': {
         width: 100 / props.columnCount + '%'
         // `calc(100% / ${props.columnCount} - ${(theme.spacing(props.spacing) / 2) / props.columnCount}px)`
       },
       [theme.breakpoints.only('xs')]: {
         '& .MuiGrid-item': {
-          width: (props: CardListStyleProps) =>
-            `calc(100% / ${props.xsColumnCount} - ${(theme.spacing(theme.spacing(props.spacing)) / 2) / (props.xsColumnCount * 100)}px)`
+          width: 100 / props.xsColumnCount + '%'
+          // width: (props: CardListStyleProps) =>
+          //   `calc(100% / ${props.xsColumnCount} - ${(theme.spacing(theme.spacing(props.spacing)) / 2) / (props.xsColumnCount * 100)}px)`
         }
       },
       [theme.breakpoints.only('sm')]: {
         '& .MuiGrid-item': {
-          width: (props: CardListStyleProps) =>
-            `calc(100% / ${props.smColumnCount} - ${(theme.spacing(theme.spacing(props.spacing)) / 2) / (props.smColumnCount * 100)}px)`
+          width: 100 / props.smColumnCount + '%'
+          // width: (props: CardListStyleProps) =>
+          //   `calc(100% / ${props.smColumnCount} - ${(theme.spacing(theme.spacing(props.spacing)) / 2) / (props.smColumnCount * 100)}px)`
         }
       }
     })
