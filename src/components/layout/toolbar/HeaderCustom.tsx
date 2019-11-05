@@ -1,7 +1,5 @@
 import SbEditable from 'storyblok-react'
-import { ThemeProvider } from '@rmwc/theme'
 import TopAppBarWrap from './TopAppBar'
-import { toolbar } from '../../../utils/themeContentSection'
 import { TopAppBarFixedAdjust } from '@rmwc/top-app-bar'
 import LmToolbarRow from './ToolbarRow'
 import Divider from '../../divider/Divider'
@@ -42,11 +40,8 @@ const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
   const transparentToolbar = props.hasFeature
   const rows = content.multi_toolbar || []
   const color = content.toolbar_variant
-  let theme = toolbar.primary
   const toolbarAdjust: RefObject<HTMLDivElement> = createRef()
-  if (color) {
-    theme = toolbar[color]
-  }
+
 
   useEffect(
     () => {
@@ -61,13 +56,11 @@ const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
 
   return (
     <SbEditable content={content}>
-      <ThemeProvider options={theme}>
-        <TopAppBarWrap transparentToolbar={!!transparentToolbar}
-                       toolbarConfig={toolbarConfig}
-                       fixed={toolbarConfig.includes('fixed')}>
-          {rows.map(p => Child(p, content))}
-        </TopAppBarWrap>
-      </ThemeProvider>
+      <TopAppBarWrap transparentToolbar={!!transparentToolbar}
+                     toolbarConfig={toolbarConfig}
+                     fixed={toolbarConfig.includes('fixed')}>
+        {rows.map(p => Child(p, content))}
+      </TopAppBarWrap>
       {!props.hasFeature && <TopAppBarFixedAdjust ref={toolbarAdjust} />}
     </SbEditable>
   )

@@ -1,11 +1,11 @@
 import SbEditable from 'storyblok-react'
-import React, { CSSProperties, FunctionComponent, RefObject, useEffect, useState } from 'react'
+import React, { FunctionComponent, RefObject, useEffect, useState } from 'react'
 import ImageListItem, { ImageListItemProps } from './ImageListItem'
 import ImageListLightbox from './ImageListLightbox'
 import { ImageListStoryblok } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { makeStyles } from '@material-ui/core/styles'
-import GridList from '@material-ui/core/GridList'
+import GridList, { GridListProps } from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
 
@@ -63,6 +63,9 @@ const useStyles = makeStyles({
   },
   root: {
     overflowX: 'hidden',
+    '&.with-lightbox': {}
+  },
+  aspectRatio: {
     '& .MuiGridListTile-tile': {
       paddingBottom: '56.25%',
       '& img': {
@@ -91,6 +94,19 @@ const useStyles = makeStyles({
     '&.ratio-2x3 .MuiGridListTile-tile': {
       paddingBottom: '150%'
     }
+  },
+  masonry: {
+    '& img': {
+      marginBottom: -4
+    },
+    '& .MuiGridList-root': {
+      display: 'block'
+    },
+    '& .MuiGridListTile-root': {
+      width: 'auto !important',
+      breakInside: 'avoid-column',
+      position: 'relative'
+    }
   }
 })
 
@@ -99,6 +115,7 @@ const ImageList: FunctionComponent<{
 }> = (props) => {
   const classes = useStyles()
   const dimensions = useWindowDimensions()
+  const { width, isMobileWidth, isTabletWidth } = dimensions
   const containerRef: RefObject<HTMLDivElement> = React.createRef()
   const [childDimensions, setChildDimensions] = useState({ width: 0, height: 0 })
   const [lightbox, setLightbox] = useState('')
@@ -119,27 +136,16 @@ const ImageList: FunctionComponent<{
       width: imageContainer.clientWidth,
       height: imageContainer.clientHeight
     })
-  }, [dimensions.width])
+  }, [width])
 
   const content = props.content
-  let gutterSize = content.column_gap || 2
-  let columnCount = content.column_count || 5
-  let columnCountTablet = content.column_count_tablet || 4
-  let columnCountPhone = content.column_count_phone || 1
-
-
-  // const imageContainerClasses = clsx(
-  //   'mdc-image-list',
-  //   {
-  //     'mdc-image-list--masonry': !!content.masonry,
-  //     'mdc-image-list--with-text-protection': !!content.text_protection,
-  //     [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCount}-desktop-${gutterSize}`]: true,
-  //     [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCountTablet}-tablet-${gutterSize}`]: true,
-  //     [`lm-image-list${content.masonry ? '-masonry' : ''}__column-${columnCountPhone}-phone-${gutterSize}`]: true
-  //   }
-  // )
-  const listItemStyles: CSSProperties = {}
-  content.enable_lightbox && (listItemStyles.cursor = 'pointer')
+  let gutterSize = content.column_gap ? Number(content.column_gap) : 2
+  let columnCount = content.column_count ? Number(content.column_count) : 5
+  if (isTabletWidth && content.column_count_tablet) {
+    columnCount = Number(content.column_count_tablet)
+  } else if (isMobileWidth) {
+    columnCount = content.column_count_phone ? Number(content.column_count_phone) : 1
+  }
 
   function onImageClick(element: any) {
     // open lightbox
@@ -156,16 +162,30 @@ const ImageList: FunctionComponent<{
   }
 
   const body = content.body || []
+  let gridListProps: GridListProps = {
+    spacing: gutterSize,
+    cols: columnCount
+  }
+  if (content.masonry) {
+    delete gridListProps.spacing
+    delete gridListProps.cols
+    gridListProps.style = {
+      columnCount: columnCount,
+      columnGap: `${gutterSize}px`
+    }
+  }
   return (
     <SbEditable content={content}>
       <div ref={containerRef}
-           className={clsx(classes.root, 'ratio-' + content.aspect_ratio)}>
-        <GridList cols={3}
-                  cellHeight={'auto'}
-                  spacing={content.column_gap ? Number(content.column_gap) : 4}>
+           className={clsx(classes.root, content.masonry ? classes.masonry : classes.aspectRatio, {
+             ['ratio-' + content.aspect_ratio]: content.aspect_ratio,
+             'with-lightbox': content.enable_lightbox
+           })}>
+        <GridList cellHeight={'auto'}
+                  {...gridListProps}
+        >
           {body.map((item, i) => (
-            <GridListTile style={listItemStyles}
-                          key={item._uid}
+            <GridListTile key={item._uid}
                           onClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })}>
               <ImageListItem {...item}
                              {...imageListItemProps} />

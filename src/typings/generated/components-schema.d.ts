@@ -264,6 +264,11 @@ export interface FlexRowStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  column?: boolean;
+  properties?: ("space-between")[];
+  justify?: "space-around" | "center" | "space-between" | "space-evenly" | "flex-start" | "flex-end";
+  align_items?: "center" | "baseline" | "flex-start" | "flex-end" | "stretch";
+  full_height?: boolean;
   _uid: string;
   component: "flex_row";
   [k: string]: any;

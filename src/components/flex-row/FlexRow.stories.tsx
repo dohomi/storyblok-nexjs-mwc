@@ -28,13 +28,13 @@ const props: FlexRowStoryblok = {
 const props2: FlexRowStoryblok = {
   _uid: '223434',
   component: 'flex_row',
-  body: [{...headline, _uid:'123123'}, headline]
+  body: [{ ...headline, _uid: '123123' }, headline]
 }
 
 const props3: FlexRowStoryblok = {
   _uid: '223434',
   component: 'flex_row',
-  body: [icon, {...headline, _uid: '123123'}, headline]
+  body: [icon, { ...headline, _uid: '123123' }, headline]
 }
 
 storiesOf('Flex Row', module)
@@ -42,9 +42,22 @@ storiesOf('Flex Row', module)
     'Flex Row',
     () => (
       <>
-        <FlexRow content={props} />
-        <FlexRow content={props2} />
-        <FlexRow content={props3} />
+        <div style={{ width: '500px', height: '200px', backgroundColor: '#ccc' }}>
+          <FlexRow content={props} />
+          <FlexRow content={{ ...props2, justify: 'center' }} />
+          <FlexRow content={{ ...props3, justify: 'space-between' }} />
+          <FlexRow content={{ ...props3, justify: 'space-around' }} />
+          <FlexRow content={{ ...props3, align_items: 'flex-start' }} />
+        </div>
+        <h3>Column variant</h3>
+        <div style={{ width: '500px', height: '200px', backgroundColor: '#ccc' }}>
+          <FlexRow content={{ ...props, column: true, justify: 'space-between', full_height: true }} />
+        </div>
+        <h3>Column variant centered</h3>
+        <div style={{ width: '500px', height: '200px', backgroundColor: '#ccc' }}>
+          <FlexRow
+            content={{ ...props, column: true, align_items: 'center', justify: 'space-between', full_height: true }} />
+        </div>
       </>
     )
   )

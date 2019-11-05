@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 
 const LmMuiAvatar: FunctionComponent<{ src: string, size: 'small' | 'large' | 'xlarge' | undefined }> = ({ src, size }) => {
   const classes = useStyles()
-
   const [reference, inView] = useInView(intersectionDefaultOptions)
   const [imageAttrs, setImageSrc] = useState<{ src: string, srcSet: string }>({ src: '', srcSet: '' })
   useEffect(

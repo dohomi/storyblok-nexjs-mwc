@@ -2,55 +2,45 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent, PageItem } from '../../typings/generated/schema'
-import { List, SimpleListItem, SimpleListItemProps } from '@rmwc/list'
-import { Avatar } from '@rmwc/avatar'
-import imageService from '../../utils/ImageService'
+import List from '@material-ui/core/List'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import { Link } from '@routes'
-import { useInView } from 'react-intersection-observer'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import SbEditable from 'storyblok-react'
+import ListItem from '@material-ui/core/ListItem'
+import LmMuiAvatar from '../avatar/LmMuiAvatar'
+import ListItemText from '@material-ui/core/ListItemText'
+
 
 const ListWidgetLists: FunctionComponent<{
   items: PageItem[]
   options: ListsStoryblok
   content: ListWidgetStoryblok
 }> = ({ items, options, content }) => {
-  const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const imageSize = options.image_size || 'large'
   const hideImage = options.hide_image
-  const getImageSrc = (src: string) => {
-    return `"${imageService(src, '64x64/smart')}"`
-  }
   return (
     <SbEditable content={content}>
-      <div ref={refIntersectionObserver}>
-        <List twoLine={!!options.two_line}>
-          {items.map((item: PageItem) => {
-            const itemContent = item.content as PageComponent
-            const props: SimpleListItemProps = !hideImage && itemContent.preview_image ? {
-              graphic: {
-                size: imageSize,
-                icon: inView && !!itemContent.preview_image &&
-                  <Avatar src={getImageSrc(itemContent.preview_image)} size={imageSize} />
-              }
-            } : {}
-            if (itemContent.preview_subtitle && !options.hide_subtitle) {
-              props.secondaryText = itemContent.preview_subtitle
-            }
-            return (
-              <Link to={'/' + item.full_slug}
-                    key={item.uuid as string}>
-                <a>
-                  <SimpleListItem
-                    text={itemContent.preview_title || item.name}
-                    {...props}
-                  />
-                </a>
-              </Link>
-            )
-          })}
-        </List>
-      </div>
+      <List>
+        {items.map((item: PageItem) => {
+          const itemContent = item.content as PageComponent
+
+          return (
+            <Link to={'/' + item.full_slug}
+                  key={item.uuid as string}
+                  passHref>
+              <ListItem component={'a'}>
+                {!hideImage && itemContent.preview_image && (
+                  <ListItemAvatar>
+                    <LmMuiAvatar src={itemContent.preview_image} size={imageSize} />
+                  </ListItemAvatar>
+                )}
+                <ListItemText primary={itemContent.preview_title || item.name}
+                              secondary={!options.hide_subtitle && itemContent.preview_subtitle}></ListItemText>
+              </ListItem>
+            </Link>
+          )
+        })}
+      </List>
     </SbEditable>
   )
 }

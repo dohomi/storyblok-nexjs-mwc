@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   }
 })
 
-const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgroundStyle: SectionStoryblok['background_style'] }> = ({ content, backgroundStyle }) => {
+const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgroundStyle?: SectionStoryblok['background_style'] }> = ({ content, backgroundStyle }) => {
   if (!content.image) {
     return null
   }

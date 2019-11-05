@@ -1,15 +1,18 @@
 import clsx from 'clsx'
-import { TopAppBar } from '@rmwc/top-app-bar'
 import scrollPositionHook from '../../../utils/hooks/scrollPositionHook'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
 import { useRouter } from 'next/router'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+
 
 type AppTopAppProps = {
   transparentToolbar: boolean
   toolbarConfig: GlobalStoryblok['toolbar_config']
   fixed: boolean
+  variant: GlobalStoryblok['toolbar_variant']
 }
 
 function getClassName(props: AppTopAppProps, pos = 0) {
@@ -35,18 +38,26 @@ const TopAppBarWrap: FunctionComponent<AppTopAppProps> = (props) => {
   )
 
   return (
-    <TopAppBar className={className} fixed={props.fixed}>
-      {props.children}
-    </TopAppBar>
+    <AppBar className={className}
+            position={props.fixed ? 'fixed' : 'relative'}>
+      <Toolbar>
+        {props.children}
+      </Toolbar>
+    </AppBar>
   )
 }
 
 const TopAppBarBridge: FunctionComponent<AppTopAppProps> = (props) => {
   if (!props.transparentToolbar) {
+    console.log(props.variant)
     return (
-      <TopAppBar className={getClassName(props)} fixed={props.fixed}>
-        {props.children}
-      </TopAppBar>
+      <AppBar className={getClassName(props)}
+              color={props.variant}
+              position={props.fixed ? 'fixed' : 'relative'}>
+        <Toolbar>
+          {props.children}
+        </Toolbar>
+      </AppBar>
     )
   }
   return <TopAppBarWrap {...props} />

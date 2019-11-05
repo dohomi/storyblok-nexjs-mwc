@@ -60,9 +60,7 @@ const content4: ImageListStoryblok = {
   _uid: '123',
   component: 'image_list',
   body: body,
-  enable_lightbox: true,
-  aspect_ratio: '1x1',
-  column_gap: '16'
+  enable_lightbox: true
 }
 
 storiesOf('Image List', module)
@@ -92,12 +90,22 @@ storiesOf('Image List', module)
     'Image List Ratio',
     () => (
       <>
+        <h3>Masonry</h3>
+        <ImageList content={{ ...content4, masonry: true }} />
+        <h3>Default aspect ratio</h3>
         <ImageList content={content4} />
+        <h3>Default 4x3</h3>
         <ImageList content={{ ...content4, aspect_ratio: '4x3' }} />
+        <h3>Default 3x4</h3>
         <ImageList content={{ ...content4, aspect_ratio: '3x4' }} />
+        <h3>Default 16x9</h3>
         <ImageList content={{ ...content4, aspect_ratio: '16x9' }} />
+        <h3>Default 2x3</h3>
         <ImageList content={{ ...content4, aspect_ratio: '2x3' }} />
+        <h3>Default 3x2</h3>
         <ImageList content={{ ...content4, aspect_ratio: '3x2' }} />
+        <h3>Default 1x1</h3>
+        <ImageList content={{ ...content4, aspect_ratio: '1x1' }} />
         <h3>Fit in color:</h3>
         <ImageList content={{ ...content4, aspect_ratio: '3x2', fit_in_color: 'ccc' }} />
         <ImageList content={{ ...content4, aspect_ratio: '2x3', fit_in_color: 'ccc' }} />

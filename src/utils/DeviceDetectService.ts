@@ -52,7 +52,7 @@ class DeviceDetect {
     if (device === 'mobile') {
       obj.width = 599
     } else if (device === 'tablet') {
-      obj.width = 768
+      obj.width = 959
     }
     return obj
   }

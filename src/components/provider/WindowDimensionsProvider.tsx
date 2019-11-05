@@ -8,6 +8,8 @@ export type WithWindowDimensionsProps = {
   isMobile: boolean
   isTablet: boolean
   isDesktop: boolean
+  isMobileWidth: boolean
+  isTabletWidth: boolean
 }
 
 let defaultValue: WithWindowDimensionsProps = {
@@ -15,7 +17,9 @@ let defaultValue: WithWindowDimensionsProps = {
   width: 599, // mobile
   isMobile: true,
   isTablet: false,
-  isDesktop: false
+  isDesktop: false,
+  isMobileWidth: true,
+  isTabletWidth: false
 }
 
 export const WindowDimensionsCtx = createContext(defaultValue)
@@ -27,7 +31,9 @@ const WindowDimensionsProvider = ({ children }: { children: any }) => {
     width: currentDevice.width,
     isMobile: currentDevice.device === 'mobile',
     isTablet: currentDevice.device === 'tablet',
-    isDesktop: !currentDevice.device
+    isDesktop: !currentDevice.device,
+    isMobileWidth: currentDevice.device === 'mobile',
+    isTabletWidth: currentDevice.device === 'tablet'
   }
   if (typeof window !== 'undefined') {
     defaultValue = getWindowDimensions()
@@ -59,7 +65,9 @@ const WindowDimensionsProvider = ({ children }: { children: any }) => {
     const opts = {
       ...defaultValue,
       height: window.innerHeight,
-      width: window.innerWidth
+      width: window.innerWidth,
+      isMobileWidth: window.innerWidth < 600,
+      isTabletWidth: window.innerWidth >= 600 && window.innerWidth < 960
     }
     return opts
   }

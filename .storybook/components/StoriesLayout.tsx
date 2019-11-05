@@ -14,6 +14,31 @@ const StoriesLayout = (storyFunc: Function) => {
   const globalTheme: ThemeOptions = {
     palette: {
       type: isDark ? 'dark' : 'light'
+    },
+    overrides: {
+      MuiAppBar: {
+        root: {
+          '& .MuiButtonBase-root, & a.lm-logo-header': {
+            color: 'inherit',
+            textDecoration: 'none'
+          }
+        }
+      },
+      MuiCard: {
+        root: {
+          '& > a': {
+            textDecoration: 'none',
+            color: 'inherit'
+          }
+        }
+      },
+      MuiList: {
+        root: {
+          '& > a': {
+            color: 'inherit'
+          }
+        }
+      }
     }
   }
   useEffect(

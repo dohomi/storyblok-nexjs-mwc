@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 
 const ImageSvg: FunctionComponent<{ content: ImageStoryblok }> = ({ content }) => {
   const classes = useStyles()
-  const [refIntersectionObserver, inView, el] = useInView(intersectionDefaultOptions)
+  const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const src = inView ? content.source : ''
   const [loaded, setLoaded] = useState<boolean>(false)
   const afterSvgLoaded = () => {

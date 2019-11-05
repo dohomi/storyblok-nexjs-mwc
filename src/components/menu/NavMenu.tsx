@@ -44,6 +44,7 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
     setAnchorEl(null)
   }
   let addons = {}
+
   if (content.alignment === 'bottomStart') {
     addons = {
       getContentAnchorEl: null,
