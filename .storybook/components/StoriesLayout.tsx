@@ -22,6 +22,11 @@ const StoriesLayout = (storyFunc: Function) => {
             color: 'inherit',
             textDecoration: 'none'
           }
+        },
+        colorPrimary:{
+          '&.lm-toolbar__dark':{
+            backgroundColor: '#424242'
+          }
         }
       },
       MuiCard: {

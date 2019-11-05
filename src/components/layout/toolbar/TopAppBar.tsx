@@ -15,6 +15,13 @@ type AppTopAppProps = {
   variant: GlobalStoryblok['toolbar_variant']
 }
 
+const mapToolbarColor = {
+  'primary': 'primary',
+  'secondary': 'secondary',
+  'dark': 'primary',
+  'white': 'inherit'
+}
+
 function getClassName(props: AppTopAppProps, pos = 0) {
   const toolbarConfig = props.toolbarConfig || []
   return clsx('lm-toolbar', {
@@ -39,6 +46,7 @@ const TopAppBarWrap: FunctionComponent<AppTopAppProps> = (props) => {
 
   return (
     <AppBar className={className}
+            color={mapToolbarColor[props.variant || 'default']}
             position={props.fixed ? 'fixed' : 'relative'}>
       <Toolbar>
         {props.children}
@@ -49,10 +57,15 @@ const TopAppBarWrap: FunctionComponent<AppTopAppProps> = (props) => {
 
 const TopAppBarBridge: FunctionComponent<AppTopAppProps> = (props) => {
   if (!props.transparentToolbar) {
+    const toolbarConfig = props.toolbarConfig || []
     console.log(props.variant)
     return (
-      <AppBar className={getClassName(props)}
-              color={props.variant}
+      <AppBar className={clsx({
+        ['lm-toolbar__bold-text']: toolbarConfig.includes('text_bold'),
+        ['lm-toolbar__fixed-width']: toolbarConfig.includes('fixed_width'),
+        [`lm-toolbar__${props.variant}`]: props.variant
+      })}
+              color={mapToolbarColor[props.variant || 'default']}
               position={props.fixed ? 'fixed' : 'relative'}>
         <Toolbar>
           {props.children}

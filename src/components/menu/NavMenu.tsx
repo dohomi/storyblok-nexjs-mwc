@@ -8,19 +8,31 @@ import { linkHandler, LinkPropsType, LinkType } from '../../utils/linkHandler'
 import { NavMenuItemStoryblok, NavMenuStoryblok } from '../../typings/generated/components-schema'
 import Icon from '@material-ui/core/Icon'
 import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/core/styles'
 import Components from '@components'
 
+import MenuItem from '@material-ui/core/MenuItem'
 
 const Child: FunctionComponent<NavMenuItemStoryblok> = (nestedProps) => {
   const props: LinkPropsType = {}
   const link = nestedProps.link || {}
   linkHandler(props, link as LinkType, { openExternal: !!nestedProps.open_external })
-  return props.to ? (
-    <Link to={props.to}><a>{nestedProps.label}</a></Link>
-  ) : (
-    <a href={props.href}>{nestedProps.label}</a>
+  const to = props.to || props.href
+  if (!to) {
+    return (
+      <MenuItem>
+        {nestedProps.label}
+      </MenuItem>
+    )
+  }
+  return (
+    <Link to={to}>
+      <a>
+        <MenuItem>
+          {nestedProps.label}
+        </MenuItem>
+      </a>
+    </Link>
   )
 }
 
@@ -87,10 +99,10 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
               }}
               {...addons}>
           {isCustom && menuItems.map(blok => Components(blok))}
-          {!isCustom && menuItems.map(nestedProps => (
-            <MenuItem key={nestedProps._uid}>
-              {Child(nestedProps)}
-            </MenuItem>)
+          {!isCustom && (
+            <div>
+              {menuItems.map(nestedProps => <Child key={nestedProps._uid} {...nestedProps} />)}
+            </div>
           )}
         </Menu>
       </>
