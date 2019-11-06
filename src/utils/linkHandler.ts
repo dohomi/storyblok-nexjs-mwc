@@ -37,7 +37,7 @@ export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkO
   } else {
     let href = cachedUrl || ''
     if (href.includes('@')) {
-      href = `mailto:${href}`
+      href = `mailto:${href.replace('mailto:', '')}`
     } else if (href.includes('+')) {
       href = `tel:${href.replace('+', '')}`
     }

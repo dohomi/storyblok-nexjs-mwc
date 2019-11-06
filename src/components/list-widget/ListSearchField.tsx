@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { ChangeEvent, FunctionComponent, useState } from 'react'
-import { TextField, TextFieldProps } from '@rmwc/textfield'
+// import { TextField, TextFieldProps } from '@rmwc/textfield'
 import { ListSearchFieldStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
-import clsx from 'clsx'
 import { useDebouncedCallback } from 'use-debounce'
 import { onSearchTextChange } from '../../utils/state/actions'
 import { useRouter } from 'next/router'
+import TextField from '@material-ui/core/TextField'
+import { Icon } from '@material-ui/core'
 
 const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> = ({ content }) => {
   const { query } = useRouter()
@@ -19,18 +20,21 @@ const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> 
     // delay in ms
     300
   )
-  const props: TextFieldProps = {}
+  // const props = {}
+  //
+  // if (searchText.length > 0) {
+  //   props.trailingIcon = {
+  //     icon: 'close',
+  //     tabIndex: 0,
+  //     onClick: () => {
+  //       setSearchText('')
+  //       debouncedCallback('')
+  //     }
+  //   }
+  // }
 
-  if (searchText.length > 0) {
-    props.trailingIcon = {
-      icon: 'close',
-      tabIndex: 0,
-      onClick: () => {
-        setSearchText('')
-        debouncedCallback('')
-      }
-    }
-  }
+
+  // className={clsx({ 'w-100': content.fullwidth })}
 
   function onSearchChange(ev: ChangeEvent<HTMLInputElement>) {
     const value = ev.currentTarget.value
@@ -40,15 +44,17 @@ const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> 
 
   return (
     <SbEditable content={content}>
-      <TextField icon="search"
-                 id={content._uid}
-                 value={searchText}
-                 label={content.label}
-                 placeholder={content.placeholder}
-                 className={clsx({ 'w-100': content.fullwidth })}
-                 outlined={content.outlined}
-                 onChange={onSearchChange}
-                 {...props}
+      <TextField
+        InputProps={{
+          startAdornment: <Icon>search</Icon>
+        }}
+        id={content._uid}
+        value={searchText}
+        label={content.label}
+        type="search"
+        placeholder={content.placeholder}
+        variant={'outlined'}
+        onChange={onSearchChange}
       />
     </SbEditable>
   )

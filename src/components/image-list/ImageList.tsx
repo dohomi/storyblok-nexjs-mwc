@@ -177,6 +177,9 @@ const ImageList: FunctionComponent<{
   return (
     <SbEditable content={content}>
       <div ref={containerRef}
+           style={{
+             padding: gutterSize + 'px'
+           }}
            className={clsx(classes.root, content.masonry ? classes.masonry : classes.aspectRatio, {
              ['ratio-' + content.aspect_ratio]: content.aspect_ratio,
              'with-lightbox': content.enable_lightbox

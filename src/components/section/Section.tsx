@@ -14,7 +14,8 @@ export interface SectionProps extends SectionStoryblok {
 const useStyles = makeStyles({
   fullHeight: {
     width: '100%',
-    height: '100vh'
+    height: '100%',
+    minHeight: '100vh'
   }
 })
 
@@ -32,7 +33,6 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   return (
     <SbEditable content={content}>
       <BackgroundBox variant={content.variant || content.presetVariant}
-                     skipClone={true}
                      background={Array.isArray(content.background) && content.background[0]}
                      backgroundStyle={content.background_style}>
         <Container style={containerStyles}
@@ -48,25 +48,3 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
 }
 
 export default Section
-
-/*
-
-
- <SectionWrap variant={content.variant}>
-        {backgroundImage ? (
-          <SectionWithBackground className={sectionClassNames}
-                                 {...content}
-                                 containerProps={containerProps}
-                                 style={styles}
-                                 isFullHeight={isFullHeight}>
-            {body.map((blok) => Components(blok))}
-          </SectionWithBackground>
-        ) : (
-          <div className={sectionClassNames}
-               style={styles}>
-            {body.map((blok) => Components(blok))}
-          </div>
-        )}
-      </SectionWrap>
-
- */

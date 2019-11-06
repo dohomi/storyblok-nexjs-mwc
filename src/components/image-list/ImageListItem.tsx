@@ -5,6 +5,7 @@ import { ImageListItemStoryblok, ImageListStoryblok } from '../../typings/genera
 import { Fade, GridListTileBar } from '@material-ui/core'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 export type ImageListItemProps =
   Partial<ImageListItemStoryblok>
@@ -15,7 +16,7 @@ export type ImageListItemProps =
 }
 
 const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
-  const [inViewRef, inView] = useInView()
+  const [inViewRef, inView] = useInView(intersectionDefaultOptions)
   const [loaded, setLoaded] = useState<boolean>(false)
   let height = props.masonry || !props.aspect_ratio ? 0 : props.height
   const width = props.width

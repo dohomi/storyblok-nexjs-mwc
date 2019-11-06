@@ -1,51 +1,14 @@
 import WindowDimensionsProvider from '../../src/components/provider/WindowDimensionsProvider'
 import { GlobalStateProvider } from '../../src/utils/state/state'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import * as React from 'react'
 import { useEffect } from 'react'
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
-import { boolean } from '@storybook/addon-knobs'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import DeviceDetectService from '../../src/utils/DeviceDetectService'
+import GlobalTheme from '../../src/components/global-theme/GlobalTheme'
 
 const StoriesLayout = (storyFunc: Function) => {
-  const isDark = boolean('Dark mode', false)
-  const globalTheme: ThemeOptions = {
-    palette: {
-      type: isDark ? 'dark' : 'light'
-    },
-    overrides: {
-      MuiAppBar: {
-        root: {
-          '& .MuiButtonBase-root, & a.lm-logo-header': {
-            color: 'inherit',
-            textDecoration: 'none'
-          }
-        },
-        colorPrimary:{
-          '&.lm-toolbar__dark':{
-            backgroundColor: '#424242'
-          }
-        }
-      },
-      MuiCard: {
-        root: {
-          '& > a': {
-            textDecoration: 'none',
-            color: 'inherit'
-          }
-        }
-      },
-      MuiList: {
-        root: {
-          '& > a': {
-            color: 'inherit'
-          }
-        }
-      }
-    }
-  }
+
   useEffect(
     () => {
       DeviceDetectService.setAppServices()
@@ -53,16 +16,17 @@ const StoriesLayout = (storyFunc: Function) => {
     []
   )
 
-
+  // $primary: #4db6ac;
+  // $secondary: #37474F;
   return (
     <WindowDimensionsProvider>
       <GlobalStateProvider>
-        <ThemeProvider theme={createMuiTheme(globalTheme)}>
+        <GlobalTheme settings={{ toolbar_variant: 'dark', theme_primary: '#4db6ac', theme_secondary: '#37474F' }}>
           <CssBaseline />
           <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
             {storyFunc()}
           </Container>
-        </ThemeProvider>
+        </GlobalTheme>
       </GlobalStateProvider>
     </WindowDimensionsProvider>
   )

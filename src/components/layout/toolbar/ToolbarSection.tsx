@@ -1,30 +1,30 @@
 import SbEditable from 'storyblok-react'
-import { TopAppBarNavigationIcon, TopAppBarSection } from '@rmwc/top-app-bar'
 import React, { FunctionComponent } from 'react'
-import LmButton from '../../button/Button'
 import Menu from '../../menu/NavMenu'
 import { toggleLeftNavigation } from '../../../utils/state/actions'
 import ToolbarLogo from './ToolbarLogo'
-import ToolbarSearch from './ToolbarSearch'
-import clsx from 'clsx'
 import {
   ButtonStoryblok,
   GlobalStoryblok,
   NavMenuStoryblok,
   ToolbarLogoStoryblok,
   ToolbarNaviButtonStoryblok,
-  ToolbarRowSectionStoryblok,
-  ToolbarSearchStoryblok
+  ToolbarRowSectionStoryblok
 } from '../../../typings/generated/components-schema'
+import IconButton from '@material-ui/core/IconButton'
+import Icon from '@material-ui/core/Icon'
+import LmMuiButton from '../../button/LmMuiButton'
+import { Grid } from '@material-ui/core'
 
 const NaviButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
   const mobileNavBreakpoint = settings.mobile_nav_breakpoint || 'sm'
   const iconName = content.icon && content.icon.name || 'menu'
   return (
     <SbEditable content={content}>
-      <TopAppBarNavigationIcon icon={iconName}
-                               className={`d-${mobileNavBreakpoint}-none`}
-                               onClick={toggleLeftNavigation} />
+      <IconButton className={`d-${mobileNavBreakpoint}-none`}
+                  onClick={() => toggleLeftNavigation()}>
+        <Icon>{iconName}</Icon>
+      </IconButton>
     </SbEditable>
   )
 }
@@ -35,17 +35,15 @@ type ToolbarSectionComponents = {
   toolbar_logo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }>
   toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
   toolbar_right_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
-  toolbar_search: FunctionComponent<{ content: ToolbarSearchStoryblok }>
   [k: string]: any
 }
 
 const ToolbarComponents: ToolbarSectionComponents = {
-  'button': LmButton,
+  'button': LmMuiButton,
   'nav_menu': Menu,
   'toolbar_logo': ToolbarLogo,
   'toolbar_navi_button': NaviButton,
-  'toolbar_right_navi_button': NaviButton,
-  'toolbar_search': ToolbarSearch
+  'toolbar_right_navi_button': NaviButton
 }
 
 const Child = (blok: any, settings: GlobalStoryblok) => {
@@ -59,12 +57,13 @@ const Child = (blok: any, settings: GlobalStoryblok) => {
 
 const ToolbarSection: FunctionComponent<{ content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }> = ({ settings, content }) => {
   const body = content.body || []
-  const className = clsx(content.class_names && content.class_names.values)
   return (
     <SbEditable content={content}>
-      <TopAppBarSection alignEnd={content.align_end} className={className}>
+      <Grid container className="lm-toolbar__section" style={{
+        justifyContent: content.align_end ? 'right' : 'left'
+      }}>
         {body.map(blok => Child(blok, settings))}
-      </TopAppBarSection>
+      </Grid>
     </SbEditable>
   )
 }

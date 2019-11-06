@@ -1,6 +1,5 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import Button from './Button'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import LmMuiButton from './LmMuiButton'
 
@@ -16,22 +15,6 @@ const iconProps: ButtonStoryblok = {
   component: 'button'
 }
 
-const variant1: ButtonStoryblok = {
-  ...defaultProps,
-  label: 'Large Button',
-  size: 'lm-button-large'
-}
-const variant2: ButtonStoryblok = {
-  ...defaultProps,
-  label: 'Small Button',
-  size: 'dense'
-}
-
-const variant3: ButtonStoryblok = {
-  ...defaultProps,
-  label: 'Outline Button',
-  variant: 'outlined'
-}
 const twitterPng = 'https://img2.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
 
 const iconButton: ButtonStoryblok = {
@@ -41,41 +24,6 @@ const iconButton: ButtonStoryblok = {
 }
 
 storiesOf('Button', module)
-  // .add(
-  //   'Text Button',
-  //   () => (
-  //     <>
-  //       <Button content={defaultProps} />
-  //       <Button content={variant1} />
-  //       <Button content={variant2} />
-  //       <Button content={variant3} />
-  //     </>
-  //   )
-  // )
-  // .add(
-  //   'Primary Button',
-  //   () => (
-  //     <>
-  //       <Button content={{ ...defaultProps, color: 'primary' }} />
-  //       <Button content={{ ...variant1, color: 'primary' }} />
-  //       <Button content={{ ...variant2, color: 'primary' }} />
-  //       <Button content={{ ...variant3, color: 'primary' }} />
-  //     </>
-  //   )
-  // )
-  // .add(
-  //   'Mixed Button',
-  //   () => (
-  //     <>
-  //       <Button content={{ ...defaultProps, variant: 'outlined' }} />
-  //       <Button content={{ ...defaultProps, color: 'secondary_text' }} />
-  //       <Button content={{ ...defaultProps, color: 'secondary' }} />
-  //       <Button content={{ ...variant1, color: 'secondary' }} />
-  //       <Button content={{ ...variant2, color: 'primary_text' }} />
-  //       <Button content={{ ...variant3, color: 'dark' }} />
-  //     </>
-  //   )
-  // )
   .add(
     'Mui Button',
     () => (
@@ -383,3 +331,33 @@ storiesOf('Button', module)
       </>
     )
   )
+  .add(
+    'Mui special addons',
+    () => (
+      <>
+        <div className="p-2">
+          <LmMuiButton content={defaultProps} />
+          <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, color: 'primary' }} />
+          <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, color: 'secondary' }} />
+          <LmMuiButton content={{ ...defaultProps, color: 'secondary' }} />
+          <LmMuiButton content={{ ...iconProps, color: 'secondary' }} />
+        </div>
+        <div className="p-2">
+          <LmMuiButton content={defaultProps} />
+          <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, color: 'primary', variant: 'outlined' }} />
+          <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, color: 'secondary', variant: 'raised' }} />
+          <LmMuiButton
+            content={{ ...defaultProps, label: 'light', icon: { name: 'home' }, color: 'light', variant: 'raised' }} />
+          <LmMuiButton
+            content={{ ...defaultProps, label: 'dark', icon: { name: 'home' }, color: 'dark', variant: 'raised' }} />
+          <LmMuiButton content={{ ...defaultProps, label: 'unelevated', color: 'secondary', variant: 'unelevated' }} />
+          <LmMuiButton content={{ ...defaultProps, label: 'unelevated', color: 'primary', variant: 'unelevated' }} />
+          <LmMuiButton content={{ ...defaultProps, variant: 'fab' }} />
+          <LmMuiButton content={{ ...defaultProps, variant: 'fab', color: 'dark', properties: ['disable-shadow'] }} />
+          <LmMuiButton content={{ ...iconProps, color: 'secondary', variant: 'fab', properties:['disable-ripple'] }} />
+          <LmMuiButton content={{ ...iconProps, color: 'secondary', variant: 'fab', properties:['disable-shadow'] }} />
+        </div>
+      </>
+    )
+  )
+

@@ -1,4 +1,3 @@
-// import { Tab, TabBar } from '@rmwc/tabs'
 import * as React from 'react'
 import { FunctionComponent, useState } from 'react'
 import { TabsItemStoryblok, TabsStoryblok } from '../../typings/generated/components-schema'

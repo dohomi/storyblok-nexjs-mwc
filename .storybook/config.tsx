@@ -1,5 +1,4 @@
 import { addDecorator, configure } from '@storybook/react'
-import '!style-loader!css-loader!sass-loader!../src/assets/scss/app.scss'
 import { withKnobs } from '@storybook/addon-knobs'
 import StoriesLayout from './components/StoriesLayout'
 

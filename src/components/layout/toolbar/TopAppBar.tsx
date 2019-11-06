@@ -6,7 +6,36 @@ import { useRouter } from 'next/router'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  topAppBar: {
+    [theme.breakpoints.up('sm')]: {
+      '& .sm-inline-flex': {
+        display: 'inline-flex'
+      },
+      '& .sm-none': {
+        display: 'none'
+      }
+    },
+    [theme.breakpoints.up('md')]: {
+      '& .md-inline-flex': {
+        display: 'inline-flex'
+      },
+      '& .md-none': {
+        display: 'none'
+      }
+    },
+    [theme.breakpoints.up('lg')]: {
+      '& .lg-inline-flex': {
+        display: 'inline-flex'
+      },
+      '& .lg-none': {
+        display: 'none'
+      }
+    },
+  }
+}))
 
 type AppTopAppProps = {
   transparentToolbar: boolean
@@ -56,11 +85,11 @@ const TopAppBarWrap: FunctionComponent<AppTopAppProps> = (props) => {
 }
 
 const TopAppBarBridge: FunctionComponent<AppTopAppProps> = (props) => {
+  const classes = useStyles()
   if (!props.transparentToolbar) {
     const toolbarConfig = props.toolbarConfig || []
-    console.log(props.variant)
     return (
-      <AppBar className={clsx({
+      <AppBar className={clsx(classes.topAppBar, {
         ['lm-toolbar__bold-text']: toolbarConfig.includes('text_bold'),
         ['lm-toolbar__fixed-width']: toolbarConfig.includes('fixed_width'),
         [`lm-toolbar__${props.variant}`]: props.variant

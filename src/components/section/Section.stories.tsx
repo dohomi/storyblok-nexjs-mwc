@@ -68,6 +68,7 @@ storiesOf('Section', module)
           background_style: 'fixed_image',
           variant: 'light_text'
         }} />
+        <h2>&nbsp;</h2>
         <Section content={{
           ...background,
           property: ['is_full_height'],
@@ -76,13 +77,14 @@ storiesOf('Section', module)
               rgba: 'rgba(0,0,0,0.2)'
             },
             border_color: {
-              rgba: 'rgba(0,0,0,0.5)'
+              rgba: 'red'
             },
             border_size: 3,
-            border_radius: '12px',
+            border_radius: '24px 4px',
             elevation: 12
           }] as BackgroundStoryblok[]
         }} />
+        <h2>&nbsp;</h2>
         <Section content={{ ...background, background_style: 'fixed_cover' }} />
         <Section content={{
           ...background,
@@ -146,23 +148,83 @@ storiesOf('Section', module)
     'Section alignments',
     () => (
       <>
-        <Section content={{
-          ...columnSection,
-          property: ['is_full_height'],
-          variant: 'primary',
-          body: [{ ...rowItem, align_horizontal: 'center', align_vertical: 'center' }] as RowStoryblok[]
-        }} />
+        <h1>Justify</h1>
         <Section content={{
           ...columnSection,
           property: ['is_full_height'],
           variant: 'secondary',
-          body: [{ ...rowItem, align_horizontal: 'left', align_vertical: 'top' }] as RowStoryblok[]
+          body: [{ ...rowItem, justify: 'flex-start' }] as RowStoryblok[]
         }} />
+        <h2>end</h2>
         <Section content={{
           ...columnSection,
           property: ['is_full_height'],
           variant: 'dark',
-          body: [{ ...rowItem, align_horizontal: 'right', align_vertical: 'end' }] as RowStoryblok[]
+          body: [{ ...rowItem, justify: 'flex-end' }] as RowStoryblok[]
+        }} />
+        <h2>space between</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'primary',
+          body: [{ ...rowItem, justify: 'space-between' }] as RowStoryblok[]
+        }} />
+        <h2>space evenly</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'primary',
+          body: [{ ...rowItem, justify: 'space-evenly' }] as RowStoryblok[]
+        }} />
+        <h2>space around</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'secondary',
+          body: [{ ...rowItem, justify: 'space-around' }] as RowStoryblok[]
+        }} />
+        <h1>Alignment</h1>
+        <h2>start</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'dark',
+          body: [{ ...rowItem, align: 'flex-start' }] as RowStoryblok[]
+        }} />
+        <h2>end</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'primary',
+          body: [{ ...rowItem, align: 'flex-end' }] as RowStoryblok[]
+        }} />
+        <h2>center</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'secondary',
+          body: [{ ...rowItem, align: 'center' }] as RowStoryblok[]
+        }} />
+        <h2>space between</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'dark',
+          body: [{ ...rowItem, align: 'space-between' }] as RowStoryblok[]
+        }} />
+        <h2>space around</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'secondary',
+          body: [{ ...rowItem, align: 'space-around' }] as RowStoryblok[]
+        }} />
+        <h2>stretch</h2>
+        <Section content={{
+          ...columnSection,
+          property: ['is_full_height'],
+          variant: 'primary',
+          body: [{ ...rowItem, align: 'stretch' }] as RowStoryblok[]
         }} />
       </>
     )

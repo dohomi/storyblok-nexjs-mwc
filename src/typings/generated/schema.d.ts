@@ -122,6 +122,7 @@ export type GlobalComponent = {
   theme_link?: Maybe<Scalars['String']>,
   theme_link_hover?: Maybe<Scalars['String']>,
   theme_primary?: Maybe<Scalars['String']>,
+  theme_primary_contrast?: Maybe<Scalars['String']>,
   theme_secondary?: Maybe<Scalars['String']>,
   toolbar?: Maybe<Scalars['BlockScalar']>,
   toolbar_config?: Maybe<Array<Maybe<Scalars['String']>>>,

@@ -4,6 +4,7 @@ import Router from 'next/router'
 import StoryblokService from '../../utils/StoryblokService'
 import { NextSeo } from 'next-seo'
 import imageService, { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
+import * as React from 'react'
 import { FunctionComponent } from 'react'
 import {
   GlobalStoryblok,
@@ -122,8 +123,6 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
     <>
       <NextSeo {...seo} />
       <NextHead>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-              key="viewport" />
         {favicon && iconSizes.map(size => (
           <link rel="icon" sizes={`${size}/${size}`} href={imageService(favicon, `${size}x${size}`)}
                 key={`fav_${size}`} />

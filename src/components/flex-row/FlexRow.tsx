@@ -14,7 +14,7 @@ const FlexRow: FunctionComponent<{ content: FlexRowStoryblok }> = ({ content }) 
       <Grid container direction={content.column ? 'column' : 'row'}
             justify={content.justify}
             style={{
-              height: content.full_height && '100%'
+              height: content.full_height ? '100%' : 'auto'
             }}
             alignItems={content.align_items}>
         {body.map(item => Components(item))}

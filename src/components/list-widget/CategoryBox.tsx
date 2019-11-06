@@ -2,12 +2,14 @@ import * as React from 'react'
 import { ChangeEvent, CSSProperties, FunctionComponent, useState } from 'react'
 import { CategoryBoxStoryblok, CategoryStoryblok } from '../../typings/generated/components-schema'
 import StoriesService from '../../utils/StoriesService'
-import { Checkbox } from '@rmwc/checkbox'
+// import { Checkbox } from '@rmwc/checkbox'
 import { CategoryItem } from '../../typings/generated/schema'
 import SbEditable from 'storyblok-react'
 import { setSearchCategory } from '../../utils/state/actions'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 
 const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ content }) => {
   const { query } = useRouter()
@@ -63,13 +65,15 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
           const value = category.content && category.content.tag_reference && category.content.tag_reference.values
           return (
             <div key={category.uuid as string}>
-              <Checkbox id={category.uuid as string}
-                        name={category.uuid as string}
-                        checked={selected.includes(value)}
-                        label={(category.content && category.content.name) as string}
-                        value={value}
-                        onChange={onChange}
-              />
+              <FormControlLabel control={
+                <Checkbox id={category.uuid as string}
+                          name={category.uuid as string}
+                          checked={selected.includes(value)}
+                          value={value}
+                          onChange={onChange}
+                />
+              } label={category.content && category.content.name} />
+
             </div>
           )
         })}

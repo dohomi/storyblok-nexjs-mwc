@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from '@material-ui/core/Button'
-import Fab from '@material-ui/core/Fab'
+import Fab, { FabProps } from '@material-ui/core/Fab'
 import Icon from '@material-ui/core/Icon'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
@@ -9,6 +9,8 @@ import SbEditable from 'storyblok-react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import LmMuiAvatar from '../avatar/LmMuiAvatar'
+import { Link } from '@routes'
+import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 
 const mapSize = {
   dense: 'small',
@@ -32,60 +34,98 @@ const mapAvatarSize = {
 
 const mapVariant = {
   'raised': 'contained',
-  'outlined': 'outlined'
+  'outlined': 'outlined',
+  'unelevated': 'contained'
+}
+
+const mapColor = {
+  'dark': 'primary',
+  'light': 'default',
+  'primary': 'primary',
+  'secondary': 'secondary',
+  'primary_text': 'inherit',
+  'secondary_text': 'inherit'
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  'lm-button-shaped': {
-    borderRadius: '2em'
-  },
-  'lm-button-square': {
-    borderRadius: '0'
-  },
-  'lm-button-xlarge': {
-    fontSize: '30px',
-    paddingLeft: '2rem',
-    paddingRight: '2rem',
-    '& .MuiIcon-root': {
-      fontSize: '30px'
+  button: {
+    '&.lm-button-shaped': {
+      borderRadius: '2em'
     },
-    '&.MuiFab-root': {
-      height: '62px',
-      minHeight: '62px'
+    '&.lm-button-square': {
+      borderRadius: '0'
     },
-    '&.MuiFab-extended': {
-      borderRadius: '31px'
-    }
-  },
-  'icon-lm-button-xlarge': {
-    '& .MuiIcon-root': {
-      fontSize: '2rem'
-    }
-  },
-  outlined: {
-    '&.MuiIconButton-root': {
-      border: `1px solid rgba(0,0,0,0.23)`
+    '&.lm-button-xlarge': {
+      fontSize: '30px',
+      paddingLeft: '2rem',
+      paddingRight: '2rem',
+      '& .MuiIcon-root': {
+        fontSize: '30px'
+      },
+      '&.MuiFab-root': {
+        height: '62px',
+        minHeight: '62px'
+      },
+      '&.MuiFab-extended': {
+        borderRadius: '31px'
+      },
+      '& .MuiIcon-root': {
+        fontSize: '2rem'
+      }
     },
-    '&.MuiIconButton-colorSecondary': {
-      border: `1px solid ${theme.palette.secondary.main}`
+    '&.lm-outlined': {
+      '&.MuiIconButton-root': {
+        border: `1px solid rgba(0,0,0,0.23)`
+      },
+      '&.MuiIconButton-colorSecondary': {
+        border: `1px solid ${theme.palette.secondary.main}`
+      },
+      '&.MuiIconButton-colorPrimary': {
+        border: `1px solid ${theme.palette.primary.main}`
+      }
     },
-    '&.MuiIconButton-colorPrimary': {
-      border: `1px solid ${theme.palette.primary.main}`
+    '&.lm-unelevated': {
+      boxShadow: 'none'
     }
   }
 }))
 
+const ButtonWrap: FunctionComponent<{ content: ButtonStoryblok }> = ({ content, children }) => {
+  if (content.link) {
+    const { rel, target, ...attrs } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external })
+    return (
+      <Link {...attrs}>
+        <a rel={rel} target={target} className={'lm-link__button'}>{children}</a>
+      </Link>
+    )
+  }
+  return (
+    <SbEditable content={content}>
+      {children}
+    </SbEditable>
+  )
+}
+
 const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content }) => {
   const classes = useStyles()
-  const disableRipple = !!(content.properties && content.properties.find(i => i === 'disable-ripple'))
-
+  const properties = content.properties || []
+  const disableRipple = !!properties.find(i => i === 'disable-ripple')
+  const isUnelevated = properties.find(i => i === 'disable-shadow') || content.variant === 'unelevated'
+  const color = content.color ? mapColor[content.color] : undefined
+  const className = clsx(classes.button, {
+    [content.corners as string]: !!content.corners,
+    'lm-unelevated': isUnelevated,
+    'lm-outlined': content.variant === 'outlined',
+    [content.size as string]: !!content.size
+  })
   if (content.variant === 'fab') {
+
     return (
-      <SbEditable content={content}>
+      <ButtonWrap content={content}>
         <Fab variant={content.label ? 'extended' : undefined}
-             className={classes[content.size as string]}
+             className={className}
              size={mapSize[content.size as string] || 'medium'}
-             color={content.color as ButtonProps['color']}
+             color={color as FabProps['color']}
              disableRipple={disableRipple}>
           {content.icon && content.icon.name && (
             <Icon fontSize={mapIconSize[content.size as string]}>{content.icon.name}</Icon>
@@ -98,16 +138,16 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
             <Icon fontSize={mapIconSize[content.size as string]}>{content.trailing_icon.name}</Icon>
           )}
         </Fab>
-      </SbEditable>
+      </ButtonWrap>
     )
   }
   if (!content.label) {
     return (
-      <SbEditable content={content}>
-        <IconButton color={content.color as IconButtonProps['color']}
+      <ButtonWrap content={content}>
+        <IconButton color={color as IconButtonProps['color']}
                     size={mapIconButtonSize[content.size as string] || 'medium'}
                     disableRipple={disableRipple}
-                    className={clsx(classes[content.variant as string], classes[`icon-${content.size}`])}>
+                    className={className}>
           {content.icon && content.icon.name && (
             <Icon fontSize={mapIconSize[content.size as string]}>{content.icon.name}</Icon>
           )}
@@ -115,17 +155,17 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
             <LmMuiAvatar src={content.image} size={mapAvatarSize[content.size as string]} />
           )}
         </IconButton>
-      </SbEditable>
+      </ButtonWrap>
     )
   }
 
   return (
-    <SbEditable content={content}>
+    <ButtonWrap content={content}>
       <Button size={mapSize[content.size as string]}
-              className={clsx(classes[content.corners as string], classes[content.size as string])}
+              className={className}
               variant={mapVariant[content.variant as string]}
               disabled={disableRipple}
-              color={content.color as ButtonProps['color']}
+              color={color as ButtonProps['color']}
               startIcon={content.icon && content.icon.name &&
               <Icon fontSize={mapIconSize[content.size as string]}>{content.icon.name}</Icon>}
               endIcon={content.trailing_icon && content.trailing_icon.name &&
@@ -135,7 +175,7 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
         )}
         {content.label}
       </Button>
-    </SbEditable>
+    </ButtonWrap>
   )
 }
 export default LmMuiButton

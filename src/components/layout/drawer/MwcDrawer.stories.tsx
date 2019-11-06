@@ -2,8 +2,8 @@ import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import { customSettings, simpleSettings } from '../../../../.storybook/dummy/toolbar'
 import { toggleLeftNavigation } from '../../../utils/state/actions'
-import { Button } from '@rmwc/button'
 import MwcDrawer from './MwcDrawer'
+import Button from '@material-ui/core/Button'
 
 const props = {
   ...simpleSettings

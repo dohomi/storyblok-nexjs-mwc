@@ -23,6 +23,22 @@ const chunkArray = (myArray: Element[], chunkSize: number) => {
 export const useStyles = makeStyles({
   carousel: {
     position: 'relative',
+    '& [data-swipeable="true"]': {
+      overflow: 'hidden',
+      height: '100%',
+      width: '100%',
+      '& > div':{
+        overflow: 'hidden',
+        height: '100%',
+        width: '100%',
+      }
+    },
+    '& .react-swipeable-view-container .MuiContainer-root': {
+      padding: '0px !important',
+      margin: '0px !important',
+      maxWidth: 'inherit !important'
+    },
+
     '&.carousel__arrows_dark': {
       '& .MuiIcon-root': {
         color: 'rgba(0,0,0,0.8)'
@@ -74,7 +90,6 @@ const Slider: FunctionComponent<{ content: SliderStoryblok }> = ({ content }) =>
     'carousel-control-next',
     { 'd-none': properties.includes('hide_arrows') }
   )
-  console.log(content.property)
   const carouselClasses = clsx(
     classes.carousel, 'carousel slide', properties.map(i => 'carousel__' + i)
   )

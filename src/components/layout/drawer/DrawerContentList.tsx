@@ -1,27 +1,22 @@
-import { List } from '@rmwc/list'
 import CollapsibleListSection from './CollapsibleListSection'
 import React, { FunctionComponent } from 'react'
 import DrawerButton from './DrawerButton'
-import DrawerSearch from './DrawerSeearch'
 import {
   ButtonStoryblok,
   GlobalStoryblok,
   NavMenuStoryblok,
-  ToolbarRowStoryblok,
-  ToolbarSearchStoryblok
+  ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 
 type DrawerContentComponents = {
   button: FunctionComponent<ButtonStoryblok>
   nav_menu: FunctionComponent<NavMenuStoryblok>
-  toolbar_search: FunctionComponent<ToolbarSearchStoryblok>
   [k: string]: any
 }
 
 const Components: DrawerContentComponents = {
   'button': DrawerButton,
-  'nav_menu': CollapsibleListSection,
-  'toolbar_search': DrawerSearch
+  'nav_menu': CollapsibleListSection
 }
 
 const Child = (blok: any) => {
@@ -33,7 +28,7 @@ const Child = (blok: any) => {
   ), { key: blok._uid })
 }
 
-const DrawerContentList: FunctionComponent<GlobalStoryblok> = (content) => {
+const DrawerContentList: FunctionComponent<Partial<GlobalStoryblok>> = (content) => {
   let childs = content.toolbar || []
   if (content.multi_toolbar && content.multi_toolbar.length) {
     childs = []
@@ -50,9 +45,9 @@ const DrawerContentList: FunctionComponent<GlobalStoryblok> = (content) => {
     })
   }
   return (
-    <List>
+    <>
       {childs.map(props => Child(props))}
-    </List>
+    </>
   )
 }
 export default DrawerContentList

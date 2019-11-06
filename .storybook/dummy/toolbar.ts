@@ -11,7 +11,7 @@ import {
 const menuItem: NavMenuStoryblok = {
   _uid: '1231231',
   component: 'nav_menu',
-  border_radius: 0,
+  border_radius: "0px",
   title: 'Menu',
   body: [{
     _uid: '3243',

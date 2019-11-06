@@ -2,7 +2,6 @@ import Page from './page/Page'
 import Section from './section/Section'
 import Paragraph from './paragraph/Paragraph'
 import Headline from './headline/Headline'
-import { MatRowNested } from './section/Row'
 import Image from './image/ImageElement'
 import ImageList from './image-list/ImageList'
 import NavList from './nav-list/NavList'
@@ -15,9 +14,9 @@ import CardList from './card/CardList'
 import SectionParallax from './section/SectionParallax'
 import ButtonList from './button-list/ButtonList'
 import Html from './html/Html'
-import HubspotForm from './hubspot/HubspotForm'
-import Form from './form/Form'
-import HubspotMeeting from './hubspot/HubspotMeeting'
+// import HubspotForm from './hubspot/HubspotForm'
+// import Form from './form/Form'
+import HubspotMeeting from './hubspot-meeting/HubspotMeeting'
 // import Pricing from './pricing/Pricing'
 import Divider from './divider/Divider'
 // import Promotion from './promotion/Promotion'
@@ -44,7 +43,7 @@ const Components = {
   'divider': Divider,
   'html': Html,
   // 'pricing': Pricing,
-  'hubspot_form': HubspotForm,
+  // 'hubspot_form': HubspotForm,
   'hubspot_meeting': HubspotMeeting,
   'button_list': ButtonList,
   'section': Section,
@@ -56,7 +55,7 @@ const Components = {
   'image_list': ImageList,
   'button': LmMuiButton,
   'nav_list': NavList,
-  'row_nested': MatRowNested,
+  'row_nested': GridRow,
   'nav_menu': Menu,
   'icon': Icon,
   'iframe': Iframe,
@@ -64,7 +63,7 @@ const Components = {
   'section_video_bg': SectionVideoBg,
   'card_list': CardList,
   'section_parallax': SectionParallax,
-  'form': Form,
+  // 'form': Form,
   'tabs': Tabs,
   'list_widget': ListWidget,
   'flex_row': FlexRow,

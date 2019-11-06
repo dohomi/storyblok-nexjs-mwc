@@ -53,7 +53,7 @@
   ],
   "include": [
     "next-env",
-    "**/*.ts",
-    "**/*.tsx"
+    "src/**/*.ts",
+    "src/**/*.tsx"
   ]
 }

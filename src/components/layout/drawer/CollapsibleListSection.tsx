@@ -1,8 +1,13 @@
-import { CollapsibleList, SimpleListItem } from '@rmwc/list'
 import DrawerButton from './DrawerButton'
 import React, { FunctionComponent } from 'react'
 import DrawerNavList from './DrawerNavList'
 import { ButtonStoryblok, NavMenuStoryblok } from '../../../typings/generated/components-schema'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import Icon from '@material-ui/core/Icon'
+import Typography from '@material-ui/core/Typography'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import List from '@material-ui/core/List'
 
 type CollapsibleComponents = {
   button: FunctionComponent<ButtonStoryblok>
@@ -22,7 +27,8 @@ const Child = (blok: any) => {
     return React.createElement(Components[blok.component], { ...blok, key: blok._uid })
   }
   return React.createElement(() => (
-    <div style={{ color: 'red' }}>The component {blok.component} has not been created yet at collapsible list section.</div>
+    <div style={{ color: 'red' }}>The component {blok.component} has not been created yet at collapsible list
+      section.</div>
   ), { key: blok._uid })
 }
 
@@ -46,9 +52,16 @@ const CollapsibleListSection: FunctionComponent<NavMenuStoryblok> = (props) => {
   })
 
   return (
-    <CollapsibleList handle={<SimpleListItem text={props.title} metaIcon="chevron_right" />}>
-      {items.map(blok => Child(blok))}
-    </CollapsibleList>
+    <ExpansionPanel >
+      <ExpansionPanelSummary expandIcon={<Icon>{'expand_more'}</Icon>}>
+        <Typography>{props.title}</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <List>
+          {Array.isArray(items) && items.map(blok => Child(blok))}
+        </List>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   )
 }
 

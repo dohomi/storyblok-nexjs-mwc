@@ -81,7 +81,7 @@ export interface ButtonStoryblok {
   color?: "primary" | "secondary" | "primary_text" | "secondary_text" | "light" | "dark";
   variant?: "outlined" | "raised" | "unelevated" | "fab";
   corners?: "lm-button-shaped" | "lm-button-square";
-  properties?: ("disable-ripple")[];
+  properties?: ("disable-ripple" | "disable-shadow")[];
   font?: "alt1" | "alt2" | "alt3" | "alt4";
   trailing_icon?: {
     name?: string;
@@ -350,6 +350,7 @@ export interface GlobalStoryblok {
   seo_body?: any[];
   theme_base: "base" | "dark";
   theme_primary?: string;
+  theme_primary_contrast?: string;
   theme_secondary?: string;
   theme_link?: string;
   theme_link_hover?: string;
@@ -791,18 +792,16 @@ export interface RichTextEditorStoryblok {
 export interface RowStoryblok {
   body?: any[];
   fluid_width?: boolean;
-  column_gap?: number;
-  grid_gap?: number;
-  align?: "left" | "right";
+  justify?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "space-around";
+  grid_gutter?: number;
   background?: any[];
   grid_margin_desktop?: string;
   grid_margin_tablet?: string;
   grid_margin_phone?: string;
-  grid_gutter_desktop?: string;
-  grid_gutter_tablet?: string;
-  grid_gutter_phone?: string;
-  align_vertical?: "top" | "center" | "end" | "stretch";
-  align_horizontal?: "left" | "center" | "right" | "stretch";
+  grid_gutter_desktop?: number;
+  grid_gutter_tablet?: number;
+  grid_gutter_phone?: number;
+  align_content?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
   _uid: string;
   component: "row";
   [k: string]: any;

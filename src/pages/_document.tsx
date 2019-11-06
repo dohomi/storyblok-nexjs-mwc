@@ -48,7 +48,11 @@ class MyDocument extends Document {
 
     return (
       <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLang}>
-      <Head></Head>
+      <Head>
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+              key="viewport" />
+        <meta httpEquiv="X-UA-Compatible" content="ie=edge" key="x-ua-compatible" />
+      </Head>
       <body className="mdc-typography mdc-theme--background">
       {GTM && (
         <noscript>

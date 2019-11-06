@@ -3,13 +3,13 @@ import { FunctionComponent } from 'react'
 import { AppHeaderProps } from './HeaderCustom'
 import SbEditable from 'storyblok-react'
 import TopAppBarWrap from './TopAppBar'
-// import { TopAppBarFixedAdjust, TopAppBarNavigationIcon, TopAppBarSection } from '@rmwc/top-app-bar'
 import { toggleLeftNavigation, toggleRightNavigation } from '../../../utils/state/actions'
 import ToolbarLogo from './ToolbarLogo'
 import Components from '@components'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
-import Box from '@material-ui/core/Box'
+import clsx from 'clsx'
+import Grid from '@material-ui/core/Grid'
 
 const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings, hasRightDrawer }) => {
   const content = settings || {}
@@ -28,30 +28,26 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings,
                      toolbarConfig={toolbarConfig}
                      variant={content.toolbar_variant}
                      fixed={toolbarConfig.includes('fixed')}>
-        <IconButton className={`d-${mobileNavBreakpoint}-none`}
+        <IconButton className={`${mobileNavBreakpoint}-none`}
                     onClick={() => toggleLeftNavigation()}>
           <Icon>menu</Icon>
         </IconButton>
         <ToolbarLogo settings={content} />
 
         {navRight.length > 0 && (
-          <Box justifyContent="flex-end"
-               flex={1}
-               display={{
-                 xs: 'none',
-                 [mobileNavBreakpoint]: 'inline-flex'
-               }}>
+          <Grid container
+                className={clsx('lm-toolbar__section', 'display-none', { [`${mobileNavBreakpoint}-inline-flex`]: true })}>
             {navRight.map(blok => Components(blok))}
-          </Box>)}
+          </Grid>
+        )}
         {!!hasRightDrawer && (
-          <Box display={{
-            xs: 'inline-flex',
-            [mobileNavBreakpoint]: 'none'
-          }}>
+          <Grid container className={clsx('lm-toolbar__section', {
+            [`${mobileNavBreakpoint}-none`]: true
+          })}>
             <IconButton onClick={() => toggleRightNavigation()}>
               <Icon>search</Icon>
             </IconButton>
-          </Box>
+          </Grid>
         )}
       </TopAppBarWrap>
       {!hasFeature && <div className={'space_content'} />}
