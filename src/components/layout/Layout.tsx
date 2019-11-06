@@ -17,8 +17,14 @@ const useStyles = makeStyles({
     '.d-none': {
       display: 'none'
     },
+    '.text-left': {
+      textAlign: 'left'
+    },
     '.text-center': {
       textAlign: 'center'
+    },
+    '.text-right': {
+      textAlign: 'right'
     },
     'a.lm-link__button':{
       textDecoration: 'none',

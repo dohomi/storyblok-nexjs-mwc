@@ -12,17 +12,19 @@ const mapSize = {
 }
 
 const useStyles = makeStyles({
-  xmall: {
-    fontSize: '1rem'
-  },
-  xlarge: {
-    fontSize: '3rem'
-  },
-  xxlarge: {
-    fontSize: '3.8rem'
-  },
-  xxxlarge: {
-    fontSize: '5rem'
+  icon: {
+    '&.xmall': {
+      fontSize: '1rem'
+    },
+    '&.xlarge': {
+      fontSize: '3rem'
+    },
+    '&.xxlarge': {
+      fontSize: '3.8rem'
+    },
+    '&.xxxlarge': {
+      fontSize: '5rem'
+    }
   }
 })
 // "xmall":'',
@@ -33,7 +35,7 @@ const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => 
   return (
     <SbEditable content={content}>
       <div className={clsx(content.class_names && content.class_names.values)}>
-        <Icon className={classes[content.size as string]}
+        <Icon className={clsx(classes.icon, { [content.size as string]: !!content.size })}
               fontSize={mapSize[content.size as string]}>{content.name && content.name.name}</Icon>
       </div>
     </SbEditable>

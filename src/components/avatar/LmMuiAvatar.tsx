@@ -8,17 +8,19 @@ import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
 const useStyles = makeStyles({
-  small: {
-    width: 24,
-    height: 24
-  },
-  large: {
-    width: 52,
-    height: 52
-  },
-  xlarge: {
-    width: 64,
-    height: 64
+  avatar: {
+    '&.small': {
+      width: 24,
+      height: 24
+    },
+    '&.large': {
+      width: 52,
+      height: 52
+    },
+    '.xlarge': {
+      width: 64,
+      height: 64
+    }
   }
 })
 
@@ -41,8 +43,8 @@ const LmMuiAvatar: FunctionComponent<{ src: string, size: 'small' | 'large' | 'x
     <Avatar ref={reference}
             src={imageAttrs.src}
             srcSet={imageAttrs.src}
-            className={clsx({
-              [classes[size as string]]: true
+            className={clsx(classes.avatar, {
+              [size as string]: !!size
             })} />
   )
 }

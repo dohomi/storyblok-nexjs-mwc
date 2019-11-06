@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       paddingLeft: '2rem',
       paddingRight: '2rem',
       '& .MuiIcon-root': {
-        fontSize: '30px'
+        fontSize: '2rem'
       },
       '&.MuiFab-root': {
         height: '62px',
@@ -68,9 +68,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       },
       '&.MuiFab-extended': {
         borderRadius: '31px'
-      },
-      '& .MuiIcon-root': {
-        fontSize: '2rem'
       }
     },
     '&.lm-outlined': {
@@ -119,7 +116,6 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
     [content.size as string]: !!content.size
   })
   if (content.variant === 'fab') {
-
     return (
       <ButtonWrap content={content}>
         <Fab variant={content.label ? 'extended' : undefined}
