@@ -1,6 +1,6 @@
 import NextHead from 'next/head'
 import NProgress from 'nprogress'
-import Router from 'next/router'
+import { Router } from '@routes'
 import StoryblokService from '../../utils/StoryblokService'
 import { NextSeo } from 'next-seo'
 import imageService, { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
@@ -15,9 +15,9 @@ import {
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
 import { PageSeoProps } from '../../utils/parsePageProperties'
 
-Router.events.on('onRouteChangeStart', () => NProgress.start())
-Router.events.on('onRouteChangeComplete', () => NProgress.done())
-Router.events.on('onRouteChangeError', () => NProgress.done())
+Router.events.on('routeChangeStart', () => NProgress.start())
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
 
 const iconSizes = [16, 32, 96, 192]
 
