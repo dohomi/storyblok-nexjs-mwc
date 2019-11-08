@@ -14,6 +14,8 @@ const RichTextParagraph: FunctionComponent<{ content: RichTextEditorStoryblok }>
         className={clsx('lm-markup', content.style, content.class_names && content.class_names.values, {
           [`lm-font-${content.font}`]: content.font
         })}
+        align={content.align ? content.align : undefined}
+        color={content.color ? content.color : undefined}
         component="div"
         variant={mapTypographyVariant[content.typography ? content.typography as string : 'body1']}>
         {content.body && content.body.content.map((blok: any, i: number) => RteContentRender(blok, i))}

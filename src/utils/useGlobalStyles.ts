@@ -1,4 +1,5 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import getNprogressJss from './jss/npgrogress'
 
 const useGlobalStyles = makeStyles((theme: Theme) => {
 
@@ -10,40 +11,41 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
   for (let i = 0; i <= 5; i++) {
     for (const dir of directions) {
       spacing[`.p${dir.key}-${i}`] = {
-        [`padding${dir.val}`]: theme.spacing(i)
+        [`padding${dir.val}`]: `${theme.spacing(i)}px !important`
       }
       spacing[`.m${dir.key}-${i}`] = {
-        [`margin${dir.val}`]: theme.spacing(i)
+        [`margin${dir.val}`]: `${theme.spacing(i)}px !important`
       }
       spacing[`.p-${i}`] = {
-        [`padding`]: theme.spacing(i)
+        [`padding`]: `${theme.spacing(i)}px !important`
       }
       spacing[`.m-${i}`] = {
-        [`margin`]: theme.spacing(i)
+        [`margin`]: `${theme.spacing(i)}px !important`
       }
       spacing[`.mx-${i}`] = {
-        [`marginLeft`]: theme.spacing(i),
-        [`marginRight`]: theme.spacing(i)
+        [`marginLeft`]: `${theme.spacing(i)}px !important`,
+        [`marginRight`]: `${theme.spacing(i)}px !important`
       }
       spacing[`.my-${i}`] = {
-        [`marginTop`]: theme.spacing(i),
-        [`marginBottom`]: theme.spacing(i)
+        [`marginTop`]: `${theme.spacing(i)}px !important`,
+        [`marginBottom`]: `${theme.spacing(i)}px !important`
       }
       spacing[`.px-${i}`] = {
-        [`paddingLeft`]: theme.spacing(i),
-        [`paddingRight`]: theme.spacing(i)
+        [`paddingLeft`]: `${theme.spacing(i)}px !important`,
+        [`paddingRight`]: `${theme.spacing(i)}px !important`
       }
       spacing[`.py-${i}`] = {
-        [`paddingTop`]: theme.spacing(i),
-        [`paddingBottom`]: theme.spacing(i)
+        [`paddingTop`]: `${theme.spacing(i)}px !important`,
+        [`paddingBottom`]: `${theme.spacing(i)}px !important`
       }
     }
   }
   return createStyles({
     '@global': {
+      ...getNprogressJss(theme),
       ...spacing,
-      'a':{
-        textDecoration: 'none',
+      'a': {
+        textDecoration: 'none'
 
       },
       '.badge, .badge-pill': {
@@ -110,6 +112,9 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.d-none': {
         display: 'none'
       },
+      '.d-inline-flex': {
+        display: 'inline-flex'
+      },
       '.text-left': {
         textAlign: 'left'
       },
@@ -131,6 +136,9 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.text-white': {
         color: theme.palette.common.white
       },
+      '.text-danger': {
+        color: theme.palette.error.main
+      },
       'a.lm-link__button': {
         textDecoration: 'none',
         color: 'inherit'
@@ -146,51 +154,6 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       },
       '.lm-font-alt4': {
         fontFamily: theme.alternativeFont.alt4 || theme.typography.fontFamily
-      },
-      // NProgress
-      '#nprogress': {
-        pointerEvents: 'none',
-        '& .bar': {
-          position: 'fixed',
-          background: theme.palette.primary.main,
-          borderRadius: 0,
-          zIndex: theme.zIndex.tooltip,
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: 2
-        },
-        '& dd, & dt': {
-          position: 'absolute',
-          top: 0,
-          height: 2,
-          boxShadow: `${theme.palette.primary.main} 1px 0 6px 1px`,
-          borderRadius: '100%',
-          animation: 'nprogress-pulse 2s ease-out 0s infinite'
-        },
-        '& dd': {
-          opacity: 0.6,
-          width: 20,
-          right: 0,
-          clip: 'rect(-6px,22px,14px,10px)'
-        },
-        '& dt': {
-          opacity: 0.6,
-          width: 180,
-          right: -80,
-          clip: 'rect(-6px,90px,14px,-6px)'
-        }
-      },
-      '@keyframes nprogress-pulse': {
-        '30%': {
-          opacity: 0.6
-        },
-        '60%': {
-          opacity: 0
-        },
-        to: {
-          opacity: 0.6
-        }
       }
     }
   })

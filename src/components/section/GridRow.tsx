@@ -6,15 +6,31 @@ import Grid, { GridProps } from '@material-ui/core/Grid'
 import { createStyles, makeStyles } from '@material-ui/styles'
 import Components from '@components'
 import BackgroundBox, { BackgroundBoxProps } from './BackgroundBox'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
+import { Theme } from '@material-ui/core'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     gridRow: {
       height: '100%',
-      minHeight: 'inherit'
+      minHeight: 'inherit',
+      '& .MuiGrid-item ': {
+        '& .MuiTypography-root': {
+          marginTop: theme.spacing(2),
+          marginBottom: theme.spacing(2),
+          '& > p': {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
+            '&:first-child': {
+              marginTop: 0
+            },
+            '&:last-child': {
+              marginBottom: 0
+            }
+          }
+        }
+      }
     }
   })
 )
@@ -22,15 +38,8 @@ const useStyles = makeStyles(() =>
 const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
   // const theme = useTheme()
   const classes = useStyles()
-  const { isMobileWidth, isTabletWidth } = useWindowDimensions()
-  let spacing = content.grid_gutter || 3
-  if (isTabletWidth) {
-    spacing = content.grid_gutter_phone || spacing
-  } else if (isMobileWidth) {
-    spacing = content.grid_gutter_tablet || spacing
-  } else {
-    spacing = content.grid_gutter_desktop || spacing
-  }
+  let spacing = content.spacing ? Number(content.spacing) as GridProps['spacing'] : 3
+
   const background = Array.isArray(content.background) && content.background[0]
   return (
     <SbEditable content={content}>
@@ -39,9 +48,9 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
           <Grid container
                 style={{
                   ...style,
-                  padding: (spacing * 8) + 'px'
+                  padding: spacing ? `-${spacing * 8}px` : undefined
                 }}
-                spacing={spacing as GridProps['spacing']}
+                spacing={spacing}
                 className={clsx(className, classes.gridRow)}
                 justify={content.justify ? content.justify : undefined}
                 alignContent={content.align_content ? content.align_content : undefined}>

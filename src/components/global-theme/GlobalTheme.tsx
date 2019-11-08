@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import * as React from 'react'
 import { FunctionComponent, useEffect } from 'react'
@@ -67,6 +67,13 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     defaultContainerWidth: defaultContainerWidth,
     overrides: {
       MuiContainer: {},
+      MuiTypography: {
+        root: {
+          '& > p': {
+            margin: 0
+          }
+        }
+      },
       MuiDrawer: {
         modal: {
           '&.lm-main__drawer .MuiExpansionPanelDetails-root .MuiList-root': {
@@ -136,8 +143,9 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     []
   )
 
+  const theme = createMuiTheme(globalTheme)
   return (
-    <ThemeProvider theme={createMuiTheme(globalTheme)}>{children}</ThemeProvider>
+    <ThemeProvider theme={responsiveFontSizes(theme)}>{children}</ThemeProvider>
   )
 }
 export default GlobalTheme

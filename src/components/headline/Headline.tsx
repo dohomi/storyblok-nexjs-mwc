@@ -15,6 +15,8 @@ const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }
           [`lm-font-${content.font}`]: content.font
         })}
         component={content.tag}
+        align={content.align ? content.align : undefined}
+        color={content.color ? content.color : undefined}
         variant={mapTypographyVariant[content.typography ? content.typography as string : 'headline4']}
       >
         {!!content.text_xs && (

@@ -228,15 +228,12 @@ export interface ColumnStoryblok {
   width_desktop?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   width_phone?: "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   width_tablet?: "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
-  start_desktop?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11";
-  start_phone?: "1" | "2" | "3";
-  start_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7";
   order_desktop?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
   order_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
   order_phone?: "1" | "2" | "3" | "4";
-  background?: any[];
   align_vertical?: "top" | "center" | "end" | "stretch";
   align_horizontal?: "left" | "center" | "right" | "stretch";
+  background?: any[];
   _uid: string;
   component: "column";
   [k: string]: any;
@@ -384,6 +381,8 @@ export interface HeadlineStoryblok {
     | "subtitle2"
     | "overline";
   tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
+  color?: "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
+  align?: "left" | "center" | "right" | "justify";
   font?: "alt1" | "alt2" | "alt3" | "alt4";
   class_names?: {
     values?: string[];
@@ -782,6 +781,8 @@ export interface RichTextEditorStoryblok {
     | "headline5"
     | "headline6";
   font?: "alt1" | "alt2" | "alt3" | "alt4";
+  align?: "left" | "center" | "right" | "justify";
+  color?: "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
   class_names?: {
     values?: string[];
     [k: string]: any;
@@ -795,14 +796,9 @@ export interface RowStoryblok {
   body?: any[];
   justify?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "space-around";
   align_content?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
-  grid_gutter?: number;
+  spacing?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
+  direction?: "row" | "column" | "row-reverse" | "column-reverse";
   background?: any[];
-  grid_margin_desktop?: string;
-  grid_margin_tablet?: string;
-  grid_margin_phone?: string;
-  grid_gutter_desktop?: number;
-  grid_gutter_tablet?: number;
-  grid_gutter_phone?: number;
   _uid: string;
   component: "row";
   [k: string]: any;

@@ -46,7 +46,13 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   }
   const isFullHeight = !!(content.property && content.property.includes('is_full_height'))
   if (!isFullHeight && content.padding) {
-    containerStyles = { padding: content.padding }
+    const splitPadding = content.padding.split(' ')
+    containerStyles = {
+      paddingTop: splitPadding[0] ? splitPadding[0] : undefined,
+      paddingBottom: splitPadding[0] ? splitPadding[0] : undefined
+      // paddingLeft: splitPadding[1] ? splitPadding[1] : undefined,
+      // paddingRight: splitPadding[1] ? splitPadding[1] : undefined
+    }
   }
   const background = Array.isArray(content.background) && content.background[0]
   let maxWidth: ThemeOptions['defaultContainerWidth'] = theme.defaultContainerWidth

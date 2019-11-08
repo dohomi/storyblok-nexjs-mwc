@@ -7,8 +7,13 @@ import { GlobalStoryblok, ToolbarLogoStoryblok } from '../../../typings/generate
 import StoriesService from '../../../utils/StoriesService'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
+import {useTheme} from '@material-ui/core/styles'
 
 const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
+  const theme = useTheme()
+  console.log(theme)
+  const availableHeight = theme.mixins.toolbar
+  console.log(availableHeight)
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo && imageService(settings.website_logo, '0x' + 48 * 2)
   const websiteLogoInverted = settings.website_logo_invert && imageService(settings.website_logo_invert, '0x' + 48 * 2)
@@ -23,14 +28,12 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
         )}
         {websiteLogo &&
         <img src={websiteLogo}
-             height="56"
-             className={`img-fluid${websiteLogoInverted ? ' lm-logo__default' : ''}`}
+             className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
              alt={websiteTitle || 'website logo'} />}
         {websiteLogoInverted &&
         <img src={websiteLogoInverted}
-             className={`img-fluid${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
-             height="56"
-             alt="inverted logo" />}
+             className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
+             alt={websiteTitle || 'website logo'} />}
       </MuiLink>
     </Link>
   )
