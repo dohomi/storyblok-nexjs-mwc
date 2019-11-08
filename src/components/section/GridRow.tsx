@@ -51,6 +51,7 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
                   padding: spacing ? `-${spacing * 8}px` : undefined
                 }}
                 spacing={spacing}
+                direction={content.direction ? content.direction : undefined}
                 className={clsx(className, classes.gridRow)}
                 justify={content.justify ? content.justify : undefined}
                 alignContent={content.align_content ? content.align_content : undefined}>

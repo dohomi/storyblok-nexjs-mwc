@@ -66,7 +66,6 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     },
     defaultContainerWidth: defaultContainerWidth,
     overrides: {
-      MuiContainer: {},
       MuiTypography: {
         root: {
           '& > p': {
