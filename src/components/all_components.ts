@@ -55,7 +55,6 @@ const Components = {
   'image_list': ImageList,
   'button': LmMuiButton,
   'nav_list': NavList,
-  'row_nested': GridRow,
   'nav_menu': Menu,
   'icon': Icon,
   'iframe': Iframe,

@@ -8,19 +8,14 @@ import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }) => {
   componentLogger(content)
-
-  const props = { style: {} }
-  if (content.font) {
-    props.style = {
-      '--mdc-theme-font-default': `var(--mdc-theme-font-${content.font})`
-    }
-  }
   return (
     <SbEditable content={content}>
       <Typography
-        className={clsx(content.style, content.style_props, content.class_names && content.class_names.values)}
+        className={clsx(content.style, content.style_props, content.class_names && content.class_names.values, {
+          [`lm-font-${content.font}`]: content.font
+        })}
         component={content.tag}
-        variant={mapTypographyVariant[content.typography as string] || 'h3'}
+        variant={mapTypographyVariant[content.typography ? content.typography as string : 'headline4']}
       >
         {!!content.text_xs && (
           <>

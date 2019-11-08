@@ -163,17 +163,17 @@ a.nav-link {
 
 // loaded source
 .app__root .material-icons {
-  visibility: hidden;
-}
+     visibility: hidden;
+   }
 
-.line-through {
-  text-decoration: line-through;
-}
-
-.fonts-loaded {
-  .material-icons {
-    visibility: visible;
+  .line-through {
+    text-decoration: line-through;
   }
+
+  .fonts-loaded {
+    .material-icons {
+      visibility: visible;
+    }
 
   body, footer, .mdc-top-app-bar__title, .mdc-button, .mdc-drawer__title, .mdc-drawer__subtitle, .mdc-list, .nav-link, h4, [class^='mdc-typography'], [class*=' mdc-typography'] {
     font-family: var(--mdc-theme-font-default);

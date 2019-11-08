@@ -5,23 +5,9 @@ import {
   SectionStoryblok
 } from '../../typings/generated/components-schema'
 import clsx from 'clsx'
-import BackgroundImage from './BackgroundImage'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
 import imageService from '../../utils/ImageService'
 
-const useStyles = makeStyles({
-  background: {
-    position: 'relative'
-  },
-  dark: {
-    '& .MuiButton-root, & .MuiIconButton-root': {
-      color: 'inherit'
-    },
-    '& .MuiButton-outlined': {
-      borderColor: 'currentColor'
-    }
-  }
-})
 
 function multipleBackgroundComposer(backgroundElements?: BackgroundElementItemStoryblok[]) {
   if (!Array.isArray(backgroundElements)) {
@@ -40,19 +26,23 @@ function multipleBackgroundComposer(backgroundElements?: BackgroundElementItemSt
   }
 }
 
+export type BackgroundBoxProps = {
+  style?: CSSProperties
+  className?: string
+}
+
 const BackgroundBox: FunctionComponent<{
   background?: BackgroundStoryblok,
   variant?: SectionStoryblok['variant'],
   skipBgImage?: boolean
-  backgroundStyle?: SectionStoryblok['background_style']
-}> = ({ children, background, variant, skipBgImage, backgroundStyle }) => {
+  backgroundStyle?: SectionStoryblok['background_style'],
+}> = ({ children, background, variant }) => {
   if (!background && !variant) {
     return (
-      <>{children}</>
+      <>{typeof children === 'function' ? children({}) : children}</>
     )
   }
   const theme = useTheme()
-  const classes = useStyles()
 
   const mapBgColor = {
     dark: '#303030',
@@ -68,16 +58,7 @@ const BackgroundBox: FunctionComponent<{
     primary: theme.palette.common.white,
     secondary: theme.palette.common.white
   }
-
   background = background || {} as BackgroundStoryblok
-  // const boxProps: CSSStyleRule = {
-  //   bgcolor: (background.background_color && background.background_color.rgba) || mapBgColor[variant as string],
-  //   border: background.border_size,
-  //   borderColor: background.border_color && background.border_color.rgba,
-  //   borderRadius: background.border_radius,
-  //   color: mapColor[variant as string],
-  //   boxShadow: background.elevation
-  // }
   let border = undefined
   if (background.border_color && background.border_color.rgba) {
     border = `${background.border_size || 1}px ${background.border_style || 'solid'} ${background.border_color && background.border_color.rgba}`
@@ -95,14 +76,8 @@ const BackgroundBox: FunctionComponent<{
   }
   Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
-  return (
-    <div
-      className={clsx(classes.background, { [classes.dark]: !!variant }, background.classNames && background.classNames.values)}
-      style={style}>
-      {!skipBgImage && !!background.image && <BackgroundImage content={background} backgroundStyle={backgroundStyle} />}
-      {children}
-    </div>
-  )
+  const className = clsx(background.classNames && background.classNames.values)
+  return typeof children === 'function' ? children({ className, style }) : children
 }
 
 export default BackgroundBox

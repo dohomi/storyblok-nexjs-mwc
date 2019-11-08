@@ -56,15 +56,15 @@ const useStyles = makeStyles((theme: Theme) => ({
       borderRadius: '0'
     },
     '&.lm-button-xlarge': {
-      fontSize: '30px',
+      fontSize: '20px',
       paddingLeft: '2rem',
       paddingRight: '2rem',
       '& .MuiIcon-root': {
-        fontSize: '2rem'
+        fontSize: '1.8rem'
       },
       '&.MuiFab-root': {
-        height: '62px',
-        minHeight: '62px'
+        height: '64px',
+        minHeight: '64px'
       },
       '&.MuiFab-extended': {
         borderRadius: '31px'
@@ -90,6 +90,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 const ButtonWrap: FunctionComponent<{ content: ButtonStoryblok }> = ({ content, children }) => {
   if (content.link) {
     const { rel, target, ...attrs } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external })
+    if(attrs.href){
+      return (
+        <a {...attrs} rel={rel} target={target} className={'lm-link__button'}>{children}</a>
+      )
+    }
     return (
       <Link {...attrs}>
         <a rel={rel} target={target} className={'lm-link__button'}>{children}</a>
@@ -109,11 +114,13 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
   const disableRipple = !!properties.find(i => i === 'disable-ripple')
   const isUnelevated = properties.find(i => i === 'disable-shadow') || content.variant === 'unelevated'
   const color = content.color ? mapColor[content.color] : undefined
-  const className = clsx(classes.button, {
+  const className = clsx(classes.button, content.class_names && content.class_names.values, {
+    'lm-default-color': !content.color,
     [content.corners as string]: !!content.corners,
     'lm-unelevated': isUnelevated,
     'lm-outlined': content.variant === 'outlined',
-    [content.size as string]: !!content.size
+    [content.size as string]: !!content.size,
+    [`lm-font-${content.font}`]: content.font
   })
   if (content.variant === 'fab') {
     return (

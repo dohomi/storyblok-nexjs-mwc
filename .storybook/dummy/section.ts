@@ -29,15 +29,43 @@ const items: (HeadlineStoryblok | ParagraphStoryblok | ButtonStoryblok)[] = [{
   label: 'Test'
 }, {
   component: 'button',
-  _uid: 'asdfasw32',
+  _uid: 'ghfdsrewe',
   icon: {
     name: 'home'
   }
 }, {
   component: 'button',
+  _uid: 'sdefe3343qwdassdf',
+  icon: {
+    name: 'home'
+  },
+  variant: 'outlined'
+}, {
+  component: 'button',
+  _uid: '123131fdsf',
+  icon: {
+    name: 'home'
+  },
+  color: 'primary'
+}, {
+  component: 'button',
+  _uid: 'sdwer234ddsfg',
+  icon: {
+    name: 'home'
+  },
+  variant: 'outlined',
+  color: 'primary'
+}, {
+  component: 'button',
   _uid: '12313dssad',
   label: 'Test',
   variant: 'outlined'
+}, {
+  component: 'button',
+  _uid: 'asdfef',
+  label: 'Test',
+  variant: 'outlined',
+  color: 'primary'
 }]
 
 const column: ColumnStoryblok[] = [{
@@ -50,17 +78,17 @@ export const columns: ColumnStoryblok[] = [{
   body: items,
   _uid: '23424324432',
   component: 'column',
-  width_general: '4'
+  width_general: 'true'
 }, {
   body: items,
   _uid: '252435131',
   component: 'column',
-  width_general: '4'
+  width_general: 'true'
 }, {
   body: items,
   _uid: '341531545',
   component: 'column',
-  width_general: '4'
+  width_general: 'true'
 }]
 
 export const columnsWithImage: ColumnStoryblok[] = [{

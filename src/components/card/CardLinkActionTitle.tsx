@@ -15,10 +15,10 @@ const CardListActionTitles: FunctionComponent<CardListItemProps> = ({ content, o
       {content.title && <Typography component={options.title_tag || 'h3'}
                                     style={titleStyles}
                                     className={clsx(options.title_class_name && options.title_class_name.values)}
-                                    variant={mapTypographyVariant[options.title_typography as string || 'h6']}>{content.title}</Typography>}
+                                    variant={mapTypographyVariant[options.title_typography ? options.title_typography as string : 'headline6']}>{content.title}</Typography>}
       {content.subtitle && <Typography component={options.subtitle_tag || 'h4'}
                                        className={clsx(options.subtitle_class_name && options.subtitle_class_name.values)}
-                                       variant={mapTypographyVariant[options.subtitle_typography as string || 'subtitle2']}>{content.subtitle}</Typography>}
+                                       variant={mapTypographyVariant[options.subtitle_typography ? options.subtitle_typography as string : 'subtitle2']}>{content.subtitle}</Typography>}
     </>
   )
 }

@@ -28,18 +28,21 @@ storiesOf('Button', module)
     'Mui Button',
     () => (
       <>
+        <h3>Default</h3>
         <div className="p-2">
           <LmMuiButton content={defaultProps} />
           <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, color: 'primary' }} />
           <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, color: 'secondary' }} />
           <LmMuiButton content={{ ...iconProps, color: 'secondary' }} />
         </div>
+        <h3>Fab</h3>
         <div className="p-2">
           <LmMuiButton content={{ ...defaultProps, variant: 'fab' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'fab', icon: { name: 'home' }, color: 'primary' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'fab', icon: { name: 'home' }, color: 'secondary' }} />
           <LmMuiButton content={{ ...iconProps, variant: 'fab', color: 'secondary' }} />
         </div>
+        <h3>Dense</h3>
         <div className="p-2">
           <LmMuiButton content={{ ...defaultProps, variant: 'fab', size: 'dense' }} />
           <LmMuiButton
@@ -48,6 +51,8 @@ storiesOf('Button', module)
             content={{ ...defaultProps, variant: 'fab', size: 'dense', icon: { name: 'home' }, color: 'secondary' }} />
           <LmMuiButton content={{ ...iconProps, variant: 'fab', size: 'dense', color: 'secondary' }} />
         </div>
+
+        <h3>Large</h3>
         <div className="p-2">
           <LmMuiButton content={{ ...defaultProps, variant: 'fab', size: 'lm-button-large' }} />
           <LmMuiButton
@@ -197,6 +202,7 @@ storiesOf('Button', module)
               size: 'lm-button-xlarge'
             }} />
         </div>
+        <h3>XLarge</h3>
         <div className="p-2">
           <LmMuiButton
             content={{ ...defaultProps, variant: 'outlined', corners: 'lm-button-shaped', size: 'lm-button-xlarge' }} />
@@ -354,8 +360,150 @@ storiesOf('Button', module)
           <LmMuiButton content={{ ...defaultProps, label: 'unelevated', color: 'primary', variant: 'unelevated' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'fab' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'fab', color: 'dark', properties: ['disable-shadow'] }} />
-          <LmMuiButton content={{ ...iconProps, color: 'secondary', variant: 'fab', properties:['disable-ripple'] }} />
-          <LmMuiButton content={{ ...iconProps, color: 'secondary', variant: 'fab', properties:['disable-shadow'] }} />
+          <LmMuiButton content={{ ...iconProps, color: 'secondary', variant: 'fab', properties: ['disable-ripple'] }} />
+          <LmMuiButton content={{ ...iconProps, color: 'secondary', variant: 'fab', properties: ['disable-shadow'] }} />
+        </div>
+        <div className="p-2">
+          <LmMuiButton content={defaultProps} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            icon: { name: 'home' },
+            color: 'primary',
+            variant: 'outlined',
+            size: 'lm-button-large'
+          }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            icon: { name: 'home' },
+            color: 'secondary',
+            variant: 'raised',
+            size: 'lm-button-large'
+          }} />
+          <LmMuiButton
+            content={{
+              ...defaultProps,
+              label: 'light',
+              icon: { name: 'home' },
+              color: 'light',
+              variant: 'raised',
+              size: 'lm-button-large'
+            }} />
+          <LmMuiButton
+            content={{
+              ...defaultProps,
+              label: 'dark',
+              icon: { name: 'home' },
+              color: 'dark',
+              variant: 'raised',
+              size: 'lm-button-large'
+            }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            label: 'unelevated',
+            color: 'secondary',
+            variant: 'unelevated',
+            size: 'lm-button-large'
+          }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            label: 'unelevated',
+            color: 'primary',
+            variant: 'unelevated',
+            size: 'lm-button-large'
+          }} />
+          <LmMuiButton content={{ ...defaultProps, variant: 'fab', size: 'lm-button-large' }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            variant: 'fab',
+            color: 'dark',
+            properties: ['disable-shadow'],
+            size: 'lm-button-large'
+          }} />
+          <LmMuiButton content={{
+            ...iconProps,
+            color: 'secondary',
+            variant: 'fab',
+            properties: ['disable-ripple'],
+            size: 'lm-button-large'
+          }} />
+          <LmMuiButton content={{
+            ...iconProps,
+            color: 'secondary',
+            variant: 'fab',
+            properties: ['disable-shadow'],
+            size: 'lm-button-large'
+          }} />
+        </div>
+        <div className="p-2">
+          <LmMuiButton content={defaultProps} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            icon: { name: 'home' },
+            color: 'primary',
+            variant: 'outlined',
+            size: 'lm-button-xlarge'
+          }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            icon: { name: 'home' },
+            color: 'secondary',
+            variant: 'raised',
+            size: 'lm-button-xlarge'
+          }} />
+          <LmMuiButton
+            content={{
+              ...defaultProps,
+              label: 'light',
+              icon: { name: 'home' },
+              color: 'light',
+              variant: 'raised',
+              size: 'lm-button-xlarge'
+            }} />
+          <LmMuiButton
+            content={{
+              ...defaultProps,
+              label: 'dark',
+              icon: { name: 'home' },
+              color: 'dark',
+              variant: 'raised',
+              size: 'lm-button-xlarge'
+            }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            label: 'unelevated',
+            color: 'secondary',
+            variant: 'unelevated',
+            size: 'lm-button-xlarge'
+          }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            label: 'unelevated',
+            color: 'primary',
+            variant: 'unelevated',
+            size: 'lm-button-xlarge'
+          }} />
+          <LmMuiButton content={{ ...defaultProps, variant: 'fab', size: 'lm-button-large' }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            variant: 'fab',
+            color: 'dark',
+            properties: ['disable-shadow'],
+            size: 'lm-button-xlarge'
+          }} />
+          <LmMuiButton content={{
+            ...iconProps,
+            color: 'secondary',
+            variant: 'fab',
+            properties: ['disable-ripple'],
+            size: 'lm-button-xlarge'
+          }} />
+          <LmMuiButton content={{
+            ...iconProps,
+            color: 'secondary',
+            variant: 'fab',
+            properties: ['disable-shadow'],
+            size: 'lm-button-xlarge'
+          }} />
         </div>
       </>
     )

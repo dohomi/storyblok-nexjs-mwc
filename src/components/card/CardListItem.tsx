@@ -30,9 +30,9 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
   if (options.variant && options.variant.includes('header_top')) {
     return (
       <CardWrap content={content} options={options}>
-        <div>
+        <CardContent>
           <CardListActionTitles content={content} options={options} />
-        </div>
+        </CardContent>
         <CardActionArea>
           <CardMediaElement content={content} options={options} />
           {!descriptionIsEmpty && (

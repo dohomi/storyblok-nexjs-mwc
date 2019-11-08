@@ -2,8 +2,6 @@ import Components from '@components'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import StoryblokService from '../utils/StoryblokService'
 import Layout from '../components/layout/Layout'
-import DeviceDetectService from '../utils/DeviceDetectService'
-import Fonts from '@fonts'
 import { useRouter } from 'next/router'
 import Error from '../pages/_error'
 import { NextPage } from 'next'
@@ -59,13 +57,7 @@ const Index: NextPage<AppPageProps> = (props) => {
   StoriesService.setAllStories(props.allStories)
   StoriesService.setAllCategories(props.allCategories)
   StoriesService.setLocale(props.locale)
-  useEffect(
-    () => {
-      Fonts(settings)
-      DeviceDetectService.setAppServices()
-    },
-    []
-  )
+
 
   if (error) {
     return <Error statusCode={error.status} settings={settings} page={page} />

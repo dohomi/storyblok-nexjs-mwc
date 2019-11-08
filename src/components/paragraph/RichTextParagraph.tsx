@@ -8,20 +8,14 @@ import Typography from '@material-ui/core/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 const RichTextParagraph: FunctionComponent<{ content: RichTextEditorStoryblok }> = ({ content }) => {
-  const styleClasses = clsx('lm-markup', content.style, content.class_names && content.class_names.values)
-  let style = {}
-  if (content.font) {
-    style = {
-      '--mdc-theme-font-default': `var(--mdc-theme-font-${content.font})`
-    }
-  }
-
   return (
     <SbEditable content={content}>
-      <Typography className={styleClasses}
-                  component="div"
-                  variant={mapTypographyVariant[content.typography as string || 'body1']}
-                  style={style}>
+      <Typography
+        className={clsx('lm-markup', content.style, content.class_names && content.class_names.values, {
+          [`lm-font-${content.font}`]: content.font
+        })}
+        component="div"
+        variant={mapTypographyVariant[content.typography ? content.typography as string : 'body1']}>
         {content.body && content.body.content.map((blok: any, i: number) => RteContentRender(blok, i))}
       </Typography>
     </SbEditable>

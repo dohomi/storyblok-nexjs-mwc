@@ -24,7 +24,6 @@ export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkO
 
   if (isInternalLink) {
     if (StoriesService.locale) {
-
       const searchStr = `/${StoriesService.locale}/${StoriesService.locale}/`
       if (cachedUrl.startsWith(searchStr)) {
         console.log('starts with')

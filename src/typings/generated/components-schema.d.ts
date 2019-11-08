@@ -224,10 +224,10 @@ export interface CategoryBoxStoryblok {
 
 export interface ColumnStoryblok {
   body?: any[];
-  width_general?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1";
-  width_desktop?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1";
-  width_phone?: "4" | "3" | "2" | "1";
-  width_tablet?: "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1";
+  width_general?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
+  width_desktop?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
+  width_phone?: "4" | "3" | "2" | "1" | "false" | "auto" | "true";
+  width_tablet?: "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   start_desktop?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11";
   start_phone?: "1" | "2" | "3";
   start_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7";
@@ -352,6 +352,7 @@ export interface GlobalStoryblok {
   theme_primary?: string;
   theme_primary_contrast?: string;
   theme_secondary?: string;
+  theme_secondary_contrast?: string;
   theme_link?: string;
   theme_link_hover?: string;
   theme_font_default?: string;
@@ -359,6 +360,7 @@ export interface GlobalStoryblok {
   theme_font_alt2?: string;
   theme_font_alt3?: string;
   theme_font_alt4?: string;
+  theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   _uid: string;
   component: "global";
   [k: string]: any;
@@ -791,8 +793,8 @@ export interface RichTextEditorStoryblok {
 
 export interface RowStoryblok {
   body?: any[];
-  fluid_width?: boolean;
   justify?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "space-around";
+  align_content?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
   grid_gutter?: number;
   background?: any[];
   grid_margin_desktop?: string;
@@ -801,7 +803,6 @@ export interface RowStoryblok {
   grid_gutter_desktop?: number;
   grid_gutter_tablet?: number;
   grid_gutter_phone?: number;
-  align_content?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
   _uid: string;
   component: "row";
   [k: string]: any;

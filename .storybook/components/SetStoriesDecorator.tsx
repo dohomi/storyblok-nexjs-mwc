@@ -30,7 +30,6 @@ const SetStoriesDecorator = (storyFunc: Function) => {
             }
           })
         ])
-        console.log(`Found: stories(${stories.length}) categories(${categories.length})`)
         StoriesService.setAllStories(stories || [])
         StoriesService.setAllCategories(categories || [])
         setLoaded(true)

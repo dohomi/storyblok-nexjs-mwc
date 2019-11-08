@@ -73,3 +73,15 @@ storiesOf('Headline', module)
       </>
     )
   )
+  .add(
+    'Headline alternative font',
+    () => (
+      <>
+        <Headline content={{ ...props3 }} />
+        <Headline content={{ ...props3, text: 'Font 1', font: 'alt1' }} />
+        <Headline content={{ ...props3, text: 'Font 2', font: 'alt2' }} />
+        <Headline content={{ ...props3, text: 'Font 3', font: 'alt3' }} />
+        <Headline content={{ ...props3, text: 'Font 4', font: 'alt4' }} />
+      </>
+    )
+  )

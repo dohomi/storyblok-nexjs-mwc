@@ -88,6 +88,7 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
         <Button endIcon={<Icon>expand_more</Icon>}
                 aria-controls="simple-menu"
                 aria-haspopup="true"
+                className="lm-default-color"
                 onClick={handleClick}>
           {content.title}
         </Button>

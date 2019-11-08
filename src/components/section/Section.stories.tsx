@@ -189,42 +189,42 @@ storiesOf('Section', module)
           ...columnSection,
           property: ['is_full_height'],
           variant: 'dark',
-          body: [{ ...rowItem, align: 'flex-start' }] as RowStoryblok[]
+          body: [{ ...rowItem, align_content: 'flex-start' }] as RowStoryblok[]
         }} />
         <h2>end</h2>
         <Section content={{
           ...columnSection,
           property: ['is_full_height'],
           variant: 'primary',
-          body: [{ ...rowItem, align: 'flex-end' }] as RowStoryblok[]
+          body: [{ ...rowItem, align_content: 'flex-end' }] as RowStoryblok[]
         }} />
         <h2>center</h2>
         <Section content={{
           ...columnSection,
           property: ['is_full_height'],
           variant: 'secondary',
-          body: [{ ...rowItem, align: 'center' }] as RowStoryblok[]
+          body: [{ ...rowItem, align_content: 'center' }] as RowStoryblok[]
         }} />
         <h2>space between</h2>
         <Section content={{
           ...columnSection,
           property: ['is_full_height'],
           variant: 'dark',
-          body: [{ ...rowItem, align: 'space-between' }] as RowStoryblok[]
+          body: [{ ...rowItem, align_content: 'space-between' }] as RowStoryblok[]
         }} />
         <h2>space around</h2>
         <Section content={{
           ...columnSection,
           property: ['is_full_height'],
           variant: 'secondary',
-          body: [{ ...rowItem, align: 'space-around' }] as RowStoryblok[]
+          body: [{ ...rowItem, align_content: 'space-around' }] as RowStoryblok[]
         }} />
         <h2>stretch</h2>
         <Section content={{
           ...columnSection,
           property: ['is_full_height'],
           variant: 'primary',
-          body: [{ ...rowItem, align: 'stretch' }] as RowStoryblok[]
+          body: [{ ...rowItem, align_content: 'stretch' }] as RowStoryblok[]
         }} />
       </>
     )

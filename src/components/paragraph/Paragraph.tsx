@@ -8,22 +8,17 @@ import Typography from '@material-ui/core/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content }) => {
-  let style = {}
-  if (content.font) {
-    style = {
-      '--mdc-theme-font-default': `var(--mdc-theme-font-${content.font})`
-    }
-  }
-
   return (
     <SbEditable content={content}>
-      <Typography className={clsx('lm-markup', content.style, content.class_names && content.class_names.values)}
-                  variant={mapTypographyVariant[content.typography as string || 'body1']}
-                  style={style}
-                  component="div"
-                  dangerouslySetInnerHTML={{
-                    __html: parseMarkdownContent(content.text as string)
-                  }}
+      <Typography
+        className={clsx('lm-markup', content.style, content.class_names && content.class_names.values, {
+          [`lm-font-${content.font}`]: content.font
+        })}
+        variant={mapTypographyVariant[content.typography ? content.typography as string : 'body1']}
+        component="div"
+        dangerouslySetInnerHTML={{
+          __html: parseMarkdownContent(content.text as string)
+        }}
       />
     </SbEditable>
   )
