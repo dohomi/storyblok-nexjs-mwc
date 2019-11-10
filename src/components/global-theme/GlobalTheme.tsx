@@ -94,9 +94,10 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
         // },
         root: {
           '& .lm-logo-header': {
+            maxHeight: '128px',
             height: '100%',
             display: 'inline-block',
-            '& .MuiCollapse-wrapper':{
+            '& .MuiCollapse-wrapper': {
               height: '100%'
             },
             '& img': {
