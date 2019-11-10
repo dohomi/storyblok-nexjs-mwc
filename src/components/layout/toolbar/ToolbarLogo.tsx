@@ -7,10 +7,14 @@ import { GlobalStoryblok, ToolbarLogoStoryblok } from '../../../typings/generate
 import StoriesService from '../../../utils/StoriesService'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
-import {useTheme} from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
+import { Collapse } from '@material-ui/core'
+import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 
 const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
   const theme = useTheme()
+  const trigger = useScrollTrigger()
+
   console.log(theme)
   const availableHeight = theme.mixins.toolbar
   console.log(availableHeight)
@@ -21,19 +25,21 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
   const CurrentLink = () => (
     <Link route={StoriesService.locale ? `/${StoriesService.locale}` : '/'} passHref>
       <MuiLink className="lm-logo-header">
-        {!websiteLogo && (
-          <Typography>
-            {websiteTitle}
-          </Typography>
-        )}
-        {websiteLogo &&
-        <img src={websiteLogo}
-             className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
-             alt={websiteTitle || 'website logo'} />}
-        {websiteLogoInverted &&
-        <img src={websiteLogoInverted}
-             className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
-             alt={websiteTitle || 'website logo'} />}
+        <Collapse collapsedHeight={'64px'} in={!trigger}>
+          {!websiteLogo && (
+            <Typography>
+              {websiteTitle}
+            </Typography>
+          )}
+          {websiteLogo &&
+          <img src={websiteLogo}
+               className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
+               alt={websiteTitle || 'website logo'} />}
+          {websiteLogoInverted &&
+          <img src={websiteLogoInverted}
+               className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
+               alt={websiteTitle || 'website logo'} />}
+        </Collapse>
       </MuiLink>
     </Link>
   )
