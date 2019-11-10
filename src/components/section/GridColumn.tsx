@@ -74,12 +74,22 @@ const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }
       <BackgroundBox skipBgImage={true} background={background}>
         {({ style, className }: BackgroundBoxProps) => (
           <Grid item
-                xs={xsSpanMap[content.width_phone as string] || 12}
+                xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
                 sm={gridWidth}
                 className={className}
                 style={{ ...style, ...gridStyle }}>
             {background && background.image && <BackgroundImage content={background} />}
-            {content.body && content.body.map((blok) => Components(blok))}
+            {(content.justify || content.align_content || content.align_items) ? (
+              <Grid container
+                    direction={'column'}
+                    className={'mh-100'}
+                    justify={content.justify ? content.justify : undefined}
+                    alignItems={content.align_items ? content.align_items : undefined}
+                    alignContent={content.align_content ? content.align_content : undefined}
+              >
+                {content.body && content.body.map((blok) => Components(blok))}
+              </Grid>
+            ) : content.body && content.body.map((blok) => Components(blok))}
           </Grid>
         )}
       </BackgroundBox>

@@ -15,18 +15,40 @@ const useStyles = makeStyles((theme: Theme) =>
     gridRow: {
       height: '100%',
       minHeight: 'inherit',
-      '& .MuiGrid-item ': {
-        '& .MuiTypography-root': {
-          marginTop: theme.spacing(2),
-          marginBottom: theme.spacing(2),
-          '& > p': {
+      '& .MuiGrid-item': {
+        '& > .MuiGrid-direction-xs-column': {
+          '& > *': {
             marginTop: theme.spacing(1),
             marginBottom: theme.spacing(1),
+            boxSizing: 'border-box',
             '&:first-child': {
               marginTop: 0
             },
             '&:last-child': {
               marginBottom: 0
+            }
+          }
+        },
+        '& > *': {
+          marginTop: theme.spacing(2),
+          marginBottom: theme.spacing(2),
+          boxSizing: 'border-box',
+          '&:first-child': {
+            marginTop: 0
+          },
+          '&:last-child': {
+            marginBottom: 0
+          },
+          '& .MuiTypography-root': {
+            '& > p': {
+              marginTop: theme.spacing(1),
+              marginBottom: theme.spacing(1),
+              '&:first-child': {
+                marginTop: 0
+              },
+              '&:last-child': {
+                marginBottom: 0
+              }
             }
           }
         }
@@ -51,6 +73,7 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
                   padding: spacing ? `-${spacing * 8}px` : undefined
                 }}
                 spacing={spacing}
+                alignItems={content.align_items ? content.align_items : undefined}
                 direction={content.direction ? content.direction : undefined}
                 className={clsx(className, classes.gridRow)}
                 justify={content.justify ? content.justify : undefined}

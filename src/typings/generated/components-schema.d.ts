@@ -225,15 +225,13 @@ export interface CategoryBoxStoryblok {
 export interface ColumnStoryblok {
   body?: any[];
   width_general?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
-  width_desktop?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   width_phone?: "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   width_tablet?: "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
-  order_desktop?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
-  order_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
-  order_phone?: "1" | "2" | "3" | "4";
-  align_vertical?: "top" | "center" | "end" | "stretch";
-  align_horizontal?: "left" | "center" | "right" | "stretch";
+  width_desktop?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   background?: any[];
+  justify?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
+  align_content?: "flex-start" | "flex-end" | "center" | "space-around" | "space-between" | "stretch";
+  align_items?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
   _uid: string;
   component: "column";
   [k: string]: any;
@@ -262,10 +260,10 @@ export interface FlexRowStoryblok {
     [k: string]: any;
   };
   column?: boolean;
-  properties?: ("space-between")[];
+  full_height?: boolean;
   justify?: "space-around" | "center" | "space-between" | "space-evenly" | "flex-start" | "flex-end";
   align_items?: "center" | "baseline" | "flex-start" | "flex-end" | "stretch";
-  full_height?: boolean;
+  align_content?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around";
   _uid: string;
   component: "flex_row";
   [k: string]: any;
@@ -794,9 +792,10 @@ export interface RichTextEditorStoryblok {
 
 export interface RowStoryblok {
   body?: any[];
+  spacing?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
   justify?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "space-around";
   align_content?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
-  spacing?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
+  align_items?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   background?: any[];
   _uid: string;

@@ -115,6 +115,18 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.d-inline-flex': {
         display: 'inline-flex'
       },
+      '.mh-100': {
+        minHeight: '100%'
+      },
+      '.h-100': {
+        height: '100%'
+      },
+      '.mw-100': {
+        minWidth: '100%'
+      },
+      '.w-100': {
+        width: '100%'
+      },
       '.text-left': {
         textAlign: 'left'
       },

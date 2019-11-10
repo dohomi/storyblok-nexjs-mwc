@@ -10,13 +10,14 @@ const FlexRow: FunctionComponent<{ content: FlexRowStoryblok }> = ({ content }) 
   const body = content.body || []
   return (
     <SbEditable content={content}>
-      <Grid container direction={content.column ? 'column' : 'row'}
+      <Grid container
+            direction={content.column ? 'column' : 'row'}
             justify={content.justify ? content.justify : undefined}
-            style={{
-              height: content.full_height ? '100%' : 'auto'
-            }}
             alignItems={content.align_items ? content.align_items : undefined}
-            className={clsx(content.class_names && content.class_names.values)}
+            alignContent={content.align_content ? content.align_content : undefined}
+            className={clsx(content.class_names && content.class_names.values, {
+              'mh-100': content.full_height
+            })}
       >
         {body.map(item => Components(item))}
       </Grid>
