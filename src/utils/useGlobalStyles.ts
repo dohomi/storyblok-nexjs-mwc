@@ -40,13 +40,13 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       }
     }
   }
+  console.log('use main styles!!!!')
   return createStyles({
     '@global': {
       ...getNprogressJss(theme),
       ...spacing,
       'a': {
         textDecoration: 'none'
-
       },
       '.badge, .badge-pill': {
         display: 'inline-block',

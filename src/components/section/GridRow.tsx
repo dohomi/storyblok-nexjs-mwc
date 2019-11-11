@@ -38,18 +38,6 @@ const useStyles = makeStyles((theme: Theme) =>
           },
           '&:last-child': {
             marginBottom: 0
-          },
-          '& .MuiTypography-root': {
-            '& > p': {
-              marginTop: theme.spacing(1),
-              marginBottom: theme.spacing(1),
-              '&:first-child': {
-                marginTop: 0
-              },
-              '&:last-child': {
-                marginBottom: 0
-              }
-            }
           }
         }
       }

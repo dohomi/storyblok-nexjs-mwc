@@ -13,9 +13,8 @@ export type LayoutComponentProps = Pick<AppPageProps, 'settings'> & {
 }
 
 
-
 const Layout: FunctionComponent<LayoutComponentProps> = ({ asPath, settings, children, hasFeature, hasRightDrawer }) => {
-  useGlobalStyles()
+  useGlobalStyles(settings)
   useEffect(
     () => {
       closeNavigationDrawers() // todo needs testing might need a pure close drawer action

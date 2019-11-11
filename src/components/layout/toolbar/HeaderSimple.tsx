@@ -25,6 +25,7 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings,
   return (
     <SbEditable content={content}>
       <TopAppBarWrap transparentToolbar={!!hasFeature}
+                     toolbarHeight={content.toolbar_main_height}
                      toolbarConfig={toolbarConfig}
                      variant={content.toolbar_variant}
                      fixed={toolbarConfig.includes('fixed')}>
@@ -50,7 +51,6 @@ const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings,
           </Grid>
         )}
       </TopAppBarWrap>
-      {!hasFeature && <div className={'space_content'} />}
     </SbEditable>
   )
 }

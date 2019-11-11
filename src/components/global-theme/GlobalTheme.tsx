@@ -66,13 +66,6 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     },
     defaultContainerWidth: defaultContainerWidth,
     overrides: {
-      MuiTypography: {
-        root: {
-          '& > p': {
-            margin: 0
-          }
-        }
-      },
       MuiDrawer: {
         modal: {
           '&.lm-main__drawer .MuiExpansionPanelDetails-root .MuiList-root': {
@@ -94,7 +87,6 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
         // },
         root: {
           '& .lm-logo-header': {
-            maxHeight: '128px',
             height: '100%',
             display: 'inline-block',
             '& .MuiCollapse-wrapper': {

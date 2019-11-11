@@ -55,6 +55,7 @@ const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
     <SbEditable content={content}>
       <TopAppBarWrap transparentToolbar={!!transparentToolbar}
                      variant={content.toolbar_variant}
+                     toolbarHeight={content.toolbar_main_height}
                      toolbarConfig={toolbarConfig}
                      fixed={toolbarConfig.includes('fixed')}>
         {rows.map(p => Child(p, content))}

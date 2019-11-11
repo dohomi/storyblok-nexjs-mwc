@@ -19,7 +19,7 @@ export interface BackgroundStoryblok {
     [k: string]: any;
   };
   image?: string;
-  property?: ("disable_lazy_load")[];
+  property?: "disable_lazy_load"[];
   image_focal_point?: string;
   background_color?: {
     rgba?: string;
@@ -120,7 +120,8 @@ export interface CardListStoryblok {
     | "text_bottom"
     | "text_center"
     | "text_align_center"
-    | "text_align_right")[];
+    | "text_align_right"
+  )[];
   hide_image?: boolean;
   image_ratio?: "16x9" | "1x1" | "4x3" | "3x2";
   image_size?: "cover" | "contain" | "initial" | "auto";
@@ -227,7 +228,6 @@ export interface ColumnStoryblok {
   width_general?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   width_phone?: "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   width_tablet?: "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
-  width_desktop?: "12" | "11" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | "1" | "false" | "auto" | "true";
   background?: any[];
   justify?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
   align_content?: "flex-start" | "flex-end" | "center" | "space-around" | "space-between" | "stretch";
@@ -356,6 +356,7 @@ export interface GlobalStoryblok {
   theme_font_alt3?: string;
   theme_font_alt4?: string;
   theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
+  toolbar_main_height?: number;
   _uid: string;
   component: "global";
   [k: string]: any;
@@ -439,7 +440,7 @@ export interface IframeStoryblok {
   height?: string;
   width?: string;
   display?: "relative" | "absolute";
-  property?: ("allow_fullscreen")[];
+  property?: "allow_fullscreen"[];
   allow?: ("geolocation" | "microphone" | "camera" | "midi" | "encrypted-media")[];
   _uid: string;
   component: "iframe";
@@ -451,7 +452,7 @@ export interface IframeAdvancedStoryblok {
   height?: string;
   width?: string;
   display?: "relative" | "absolute";
-  property?: ("allow_fullscreen")[];
+  property?: "allow_fullscreen"[];
   allow?: ("geolocation" | "microphone" | "camera" | "midi" | "encrypted-media")[];
   post_message_key?: string;
   incoming_message_key?: string;
@@ -666,7 +667,7 @@ export interface NavMenuItemStoryblok {
 
 export interface PageStoryblok {
   real_url?: string;
-  property?: ("has_feature")[];
+  property?: "has_feature"[];
   meta_title?: string;
   meta_description?: string;
   seo_body?: any[];
@@ -824,7 +825,7 @@ export interface RowNestedStoryblok {
 export interface SectionStoryblok {
   body?: any[];
   variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
-  property?: ("is_full_height")[];
+  property?: "is_full_height"[];
   max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   padding?: string;
   background_style?: "fixed_image" | "fixed_cover";
@@ -891,7 +892,8 @@ export interface SliderStoryblok {
     | "hide_pagination"
     | "hide_arrows"
     | "pagination_bottom_right"
-    | "pagination_circle")[];
+    | "pagination_circle"
+  )[];
   slides_per_view?: number;
   background_color?: {
     rgba?: string;

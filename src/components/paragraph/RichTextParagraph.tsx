@@ -6,12 +6,29 @@ import { RichTextEditorStoryblok } from '../../typings/generated/components-sche
 import RteContentRender from './rte/RteContentRender'
 import Typography from '@material-ui/core/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+
+export const useStyles = makeStyles((theme: Theme) => createStyles({
+  richText: {
+    '& > p': {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      '&:first-child': {
+        marginTop: 0
+      },
+      '&:last-child': {
+        marginBottom: 0
+      }
+    }
+  }
+}))
 
 const RichTextParagraph: FunctionComponent<{ content: RichTextEditorStoryblok }> = ({ content }) => {
+  const classes = useStyles()
   return (
     <SbEditable content={content}>
       <Typography
-        className={clsx('lm-markup', content.style, content.class_names && content.class_names.values, {
+        className={clsx('lm-markup', classes.richText, content.style, content.class_names && content.class_names.values, {
           [`lm-font-${content.font}`]: content.font
         })}
         align={content.align ? content.align : undefined}

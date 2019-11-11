@@ -7,48 +7,39 @@ import { GlobalStoryblok, ToolbarLogoStoryblok } from '../../../typings/generate
 import StoriesService from '../../../utils/StoriesService'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
-import { useTheme } from '@material-ui/core/styles'
-import { Collapse } from '@material-ui/core'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+
 
 const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
-  const theme = useTheme()
-  const trigger = useScrollTrigger()
-
-  console.log(theme)
-  const availableHeight = theme.mixins.toolbar
-  console.log(availableHeight)
   const websiteTitle = settings.website_title
-  const websiteLogo = settings.website_logo && imageService(settings.website_logo, '0x' + 48 * 2)
-  const websiteLogoInverted = settings.website_logo_invert && imageService(settings.website_logo_invert, '0x' + 48 * 2)
+  const height = settings.toolbar_main_height ? settings.toolbar_main_height * 2 : 48 * 2
+  const websiteLogo = settings.website_logo && imageService(settings.website_logo, '0x' + height)
+  const websiteLogoInverted = settings.website_logo_invert && imageService(settings.website_logo_invert, '0x' + height)
 
-  const CurrentLink = () => (
+  const Logo = (
     <Link route={StoriesService.locale ? `/${StoriesService.locale}` : '/'} passHref>
-      <MuiLink className="lm-logo-header">
-        <Collapse collapsedHeight={'64px'} in={!trigger}>
-          {!websiteLogo && (
-            <Typography>
-              {websiteTitle}
-            </Typography>
-          )}
-          {websiteLogo &&
-          <img src={websiteLogo}
-               className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
-               alt={websiteTitle || 'website logo'} />}
-          {websiteLogoInverted &&
-          <img src={websiteLogoInverted}
-               className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
-               alt={websiteTitle || 'website logo'} />}
-        </Collapse>
+      <MuiLink className={`lm-logo-header`}>
+        {!websiteLogo && (
+          <Typography>
+            {websiteTitle}
+          </Typography>
+        )}
+        {websiteLogo &&
+        <img src={websiteLogo}
+             className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
+             alt={websiteTitle || 'website logo'} />}
+        {websiteLogoInverted &&
+        <img src={websiteLogoInverted}
+             className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
+             alt={websiteTitle || 'website logo'} />}
       </MuiLink>
     </Link>
   )
   if (!content) {
-    return CurrentLink()
+    return Logo
   }
   return (
     <SbEditable content={content}>
-      {CurrentLink()}
+      {Logo}
     </SbEditable>
   )
 }

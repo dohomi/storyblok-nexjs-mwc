@@ -84,11 +84,19 @@ class StoryblokService {
                 });
             });
             window.storyblok.on('input', (event) => {
+                console.log(event, content);
                 // todo if this is still works after rewrite... maybe add one for settings as well..
                 if (event.story.content._uid === content.page._uid) {
-                    console.log('input::input changed');
+                    console.log('input::input content changed');
                     setContent(Object.assign(Object.assign({}, content), { page: event.story.content }));
                 }
+                // if (event.story.content._uid === content.page._uid && event.story.content.component === 'global') {
+                //   console.log('input::input settings changed')
+                //   setContent({
+                //     ...content,
+                //     settings: event.story.content
+                //   })
+                // }
             });
         }
     }
