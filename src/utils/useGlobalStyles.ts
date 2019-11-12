@@ -76,7 +76,7 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
         color: theme.palette.error.contrastText
       },
       '.badge-light': {
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#ccc',
         color: 'rgba(0, 0, 0, 0.87)'
       },
       '.badge-dark': {

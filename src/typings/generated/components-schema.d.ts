@@ -352,6 +352,8 @@ export interface GlobalStoryblok {
   theme_primary_contrast?: string;
   theme_secondary?: string;
   theme_secondary_contrast?: string;
+  theme_text_primary?: string;
+  theme_text_secondary?: string;
   theme_link?: string;
   theme_link_hover?: string;
   theme_font_default?: string;

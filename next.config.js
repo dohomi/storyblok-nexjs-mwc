@@ -41,5 +41,4 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = config({
   STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
   STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
-
 })

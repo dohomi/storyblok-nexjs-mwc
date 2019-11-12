@@ -126,6 +126,8 @@ export type GlobalComponent = {
   theme_primary_contrast?: Maybe<Scalars['String']>,
   theme_secondary?: Maybe<Scalars['String']>,
   theme_secondary_contrast?: Maybe<Scalars['String']>,
+  theme_text_primary?: Maybe<Scalars['String']>,
+  theme_text_secondary?: Maybe<Scalars['String']>,
   toolbar?: Maybe<Scalars['BlockScalar']>,
   toolbar_color?: Maybe<Scalars['JsonScalar']>,
   toolbar_config?: Maybe<Array<Maybe<Scalars['String']>>>,
