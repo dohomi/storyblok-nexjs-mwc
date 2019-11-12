@@ -12,20 +12,23 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, opt
     [`mdc-elevation--z${options.elevation}`]: options.elevation
   })
   const style: CSSProperties = {
-    borderRadius: options.border_radius
+    borderRadius: options.border_radius ? options.border_radius : undefined
   }
-  const outlined = options.variant && options.variant.includes('outlined')
+
+  const variants = options.variant || []
+
   if (content.body && content.body.length) {
     return <CardWrapWithAction className={className}
                                content={content}
                                style={style}
-                               outlined={!!outlined}
                                options={options}>{children}</CardWrapWithAction>
   }
 
   return (
     <SbEditable content={content}>
       <Card className={className}
+            raised={variants.includes('raised')}
+            elevation={options.elevation ? Number(options.elevation) : undefined}
             style={style}>
         <CardLink {...content}>
           {children}

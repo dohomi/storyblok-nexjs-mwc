@@ -8,8 +8,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 interface CardWrapAction extends CardListItemProps {
   className: string
-  style: CSSProperties,
-  outlined: boolean
+  style: CSSProperties
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -19,14 +18,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, className, style, children }) => {
+const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, className, style, children, options }) => {
   const classes = useStyles()
   let [open, setOpen] = React.useState<boolean>(false)
   const body = content.body || []
+  const variants = options.variant || []
 
   return (
     <SbEditable content={content}>
       <Card className={className}
+            raised={variants.includes('raised')}
+            elevation={options.elevation ? Number(options.elevation) : undefined}
             style={style}>
         <a onClick={() => setOpen(!open)}>
           {children}

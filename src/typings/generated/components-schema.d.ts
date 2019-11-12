@@ -114,7 +114,7 @@ export interface CardListStoryblok {
     | "over_media"
     | "title_top"
     | "font_white"
-    | "outlined"
+    | "raised"
     | "header_top"
     | "text_top_bottom"
     | "text_bottom"
@@ -125,7 +125,7 @@ export interface CardListStoryblok {
   hide_image?: boolean;
   image_ratio?: "16x9" | "1x1" | "4x3" | "3x2";
   image_size?: "cover" | "contain" | "initial" | "auto";
-  elevation?: "0" | "1" | "2" | "4" | "8" | "12" | "16" | "20";
+  elevation?: "0" | "1" | "2" | "4" | "8" | "12" | "16" | "20" | "3" | "5" | "6" | "24" | "22";
   border_radius?: "0" | "2" | "4" | "";
   description_max_character?: number;
   column_count?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
