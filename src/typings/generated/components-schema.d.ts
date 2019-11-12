@@ -337,9 +337,13 @@ export interface GlobalStoryblok {
   website_logo_invert?: string;
   website_logo_invert_xs?: string;
   toolbar_variant?: "primary" | "secondary" | "white" | "dark";
+  toolbar_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   website_title?: string;
   website_slogan?: string;
-  toolbar_config?: ("fixed" | "text_bold" | "fixed_width")[];
+  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated")[];
   footer?: any[];
   footer_config?: ("footer-large" | "footer-small")[];
   seo_body?: any[];
@@ -357,6 +361,7 @@ export interface GlobalStoryblok {
   theme_font_alt4?: string;
   theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   toolbar_main_height?: number;
+  toolbar_font_size?: string;
   _uid: string;
   component: "global";
   [k: string]: any;

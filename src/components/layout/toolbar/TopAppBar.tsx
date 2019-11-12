@@ -7,6 +7,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { Container } from '@material-ui/core'
 import { ContainerProps } from '@material-ui/core/Container'
+import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 
 export type AppHeaderProps = {
   settings: GlobalStoryblok,
@@ -22,6 +23,16 @@ const toolbarHeight = {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   topAppBar: {
+    '&.lm-toolbar__unelevated:not(.lm-toolbar__scrolled)': {
+      boxShadow: 'none'
+    },
+    '&.lm-toolbar__text-bold .MuiButton-root': {
+      fontWeight: 'bold'
+    },
+    '&.lm-toolbar__transparent:not(.lm-toolbar__scrolled)': {
+      backgroundColor: 'transparent',
+      boxShadow: 'none'
+    },
     '&.lm-toolbar__scrolled .MuiToolbar-root': {
       height: toolbarHeight.mobile,
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
@@ -56,10 +67,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       }
     }
   },
+  toolbarCustom: (props: AppHeaderProps) => {
+    const options: CreateCSSProperties<{}> = {}
+    if (props.settings.toolbar_color && props.settings.toolbar_color.rgba) {
+      options.backgroundColor = props.settings.toolbar_color.rgba
+    }
+    return options
+  },
   toolbar: (props: AppHeaderProps) => {
     const toolbarMainHeight = props.settings.toolbar_main_height
-    return {
-      padding: theme.spacing(1),
+    const increasedFontSize = props.settings.toolbar_font_size
+    const options: CreateCSSProperties<{}> = {
+      // padding: theme.spacing(1),
       height: toolbarMainHeight ? Number(toolbarMainHeight) : toolbarHeight.mobile,
       transitionDuration: '500ms',
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
@@ -68,8 +87,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       [theme.breakpoints.up('sm')]: {
         height: toolbarMainHeight ? Math.round(toolbarMainHeight * 1.15) : toolbarHeight.desktop
       }
-
     }
+    if (increasedFontSize) {
+      options['& .MuiButton-root'] = {
+        fontSize: increasedFontSize as string
+      }
+    }
+    return options
   }
 }))
 
@@ -90,13 +114,16 @@ const TopAppBar: FunctionComponent<AppHeaderProps> = (props) => {
   if (toolbarConfig.includes('fixed_width')) {
     toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg'
   }
+  
   return (
     <>
       <AppBar className={clsx(classes.topAppBar, {
-        ['lm-toolbar__bold-text']: toolbarConfig.includes('text_bold'),
+        'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
+        'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
         [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
         'lm-toolbar__transparent': props.hasFeature,
-        'lm-toolbar__scrolled': scrolled
+        'lm-toolbar__scrolled': scrolled,
+        [classes.toolbarCustom]: props.settings.toolbar_color && props.settings.toolbar_color.rgba
       })}
               color={mapToolbarColor[toolbarVariant || 'default']}
               position={toolbarConfig.includes('fixed') ? 'fixed' : 'relative'}>
@@ -106,7 +133,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps> = (props) => {
           </Toolbar>
         </Container>
       </AppBar>
-      <Toolbar className={classes.toolbar} />
+      {!props.hasFeature && <Toolbar className={classes.toolbar} />}
     </>
   )
 }

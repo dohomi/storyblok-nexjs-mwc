@@ -83,6 +83,9 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
       },
       MuiAppBar: {
         root: {
+          '& .MuiToolbar-root': {
+            padding: '12px 0'
+          },
           '& .lm-logo-header': {
             height: '100%',
             display: 'inline-block',
