@@ -1,21 +1,18 @@
 import SbEditable from 'storyblok-react'
 import CardLink from './CardLink'
 import React, { CSSProperties, FunctionComponent } from 'react'
-import clsx from 'clsx'
 import CardWrapWithAction from './CardWrapWithAction'
 import { CardListItemProps } from './cards'
 import Card from '@material-ui/core/Card'
 
 
 const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, options }) => {
-  const className = clsx({
-    [`mdc-elevation--z${options.elevation}`]: options.elevation
-  })
+  const className = 'lm-card'
+  const variants = options.variant || []
   const style: CSSProperties = {
     borderRadius: options.border_radius ? options.border_radius : undefined
   }
 
-  const variants = options.variant || []
 
   if (content.body && content.body.length) {
     return <CardWrapWithAction className={className}

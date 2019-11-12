@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const mapToolbarColor = {
   'primary': 'primary',
   'secondary': 'secondary',
-  'dark': 'primary',
+  'dark': 'inherit',
   'white': 'inherit'
 }
 

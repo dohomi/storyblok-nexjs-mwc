@@ -112,7 +112,9 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
           },
           '& .lm-logo-header': {
             height: '100%',
-            display: 'inline-block',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
             '& .MuiCollapse-wrapper': {
               height: '100%'
             },
@@ -134,11 +136,10 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
           },
           '& .display-none': {
             display: 'none'
-          }
-        },
-        colorPrimary: {
+          },
           '&.lm-toolbar__dark': {
-            backgroundColor: '#424242'
+            backgroundColor: '#424242',
+            color: 'white'
           }
         }
       },

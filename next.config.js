@@ -34,8 +34,12 @@ if (process.env.NODE_ENV === 'production') {
 // STORYBLOK_PREVIEW: 'frxOrvW4RwWV5Xcrg4b3awtt'
 // STORYBLOK_PUBLIC:'g2AKoarFAJ3BRbUkuafWwQtt'
 
+// mike
+// STORYBLOK_PREVIEW: 'UvABqQAdrEMCeCG2N0wePQtt',
+//   STORYBLOK_PUBLIC: 'PhCU8L1FyvZlsW2H522WRQtt'
 
 module.exports = config({
   STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
   STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
+
 })
