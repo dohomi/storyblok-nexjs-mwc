@@ -1,16 +1,11 @@
 import SbEditable from 'storyblok-react'
-import TopAppBarWrap from './TopAppBar'
+import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
 import LmToolbarRow from './ToolbarRow'
 import Divider from '../../divider/Divider'
-import React, { createRef, FunctionComponent, RefObject, useEffect } from 'react'
+import React, { FunctionComponent } from 'react'
 import { DividerStoryblok, GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
-import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
 
-export type AppHeaderProps = {
-  settings: GlobalStoryblok,
-  hasFeature?: boolean
-  hasRightDrawer?: boolean
-}
+
 
 type HeaderComponents = {
   toolbar_row: FunctionComponent<{ content: ToolbarRowStoryblok, settings: GlobalStoryblok }>
@@ -33,34 +28,14 @@ const Child = (blok: any, settings: GlobalStoryblok) => {
 }
 
 const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
-  const dimensions = useWindowDimensions()
   const content = props.settings || {}
-  let toolbarConfig = content.toolbar_config || []
-  const transparentToolbar = props.hasFeature
   const rows = content.multi_toolbar || []
-  const toolbarAdjust: RefObject<HTMLDivElement> = createRef()
-
-  useEffect(
-    () => {
-      // adjust padding top
-      const toolbar = document.querySelector('.lm-toolbar')
-      const toolbarAdjustElement = toolbarAdjust.current
-      toolbarAdjustElement && toolbar && (toolbarAdjustElement.style.paddingTop = `${toolbar.clientHeight + 1}px`)
-    },
-    [dimensions]
-  )
-
 
   return (
     <SbEditable content={content}>
-      <TopAppBarWrap transparentToolbar={!!transparentToolbar}
-                     variant={content.toolbar_variant}
-                     toolbarHeight={content.toolbar_main_height}
-                     toolbarConfig={toolbarConfig}
-                     fixed={toolbarConfig.includes('fixed')}>
+      <TopAppBarWrap {...props}>
         {rows.map(p => Child(p, content))}
       </TopAppBarWrap>
-      {!props.hasFeature && <div ref={toolbarAdjust} />}
     </SbEditable>
   )
 }

@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { FunctionComponent } from 'react'
-import { AppHeaderProps } from './HeaderCustom'
 import SbEditable from 'storyblok-react'
-import TopAppBarWrap from './TopAppBar'
+import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
 import { toggleLeftNavigation, toggleRightNavigation } from '../../../utils/state/actions'
 import ToolbarLogo from './ToolbarLogo'
 import Components from '@components'
@@ -11,24 +10,15 @@ import Icon from '@material-ui/core/Icon'
 import clsx from 'clsx'
 import Grid from '@material-ui/core/Grid'
 
-const HeaderSimple: FunctionComponent<AppHeaderProps> = ({ hasFeature, settings, hasRightDrawer }) => {
+const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
+const  {  settings, hasRightDrawer } = props
   const content = settings || {}
-  let toolbarConfig = content.toolbar_config || []
   const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
   const navRight = content.toolbar || []
-  // const rowClassName = clsx('lm-toolbar-row d-flex justify-content-center', {
-  //   ['mdc-layout-grid--fixed-column-width']: toolbarConfig.includes('fixed_width'),
-  //   ['w-100']: !toolbarConfig.includes('fixed_width')
-  // })
-  //
 
   return (
     <SbEditable content={content}>
-      <TopAppBarWrap transparentToolbar={!!hasFeature}
-                     toolbarHeight={content.toolbar_main_height}
-                     toolbarConfig={toolbarConfig}
-                     variant={content.toolbar_variant}
-                     fixed={toolbarConfig.includes('fixed')}>
+      <TopAppBarWrap {...props}>
         <IconButton className={`${mobileNavBreakpoint}-none`}
                     onClick={() => toggleLeftNavigation()}>
           <Icon>menu</Icon>

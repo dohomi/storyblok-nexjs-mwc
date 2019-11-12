@@ -1,5 +1,6 @@
 import Components from '@components'
 import SbEditable from 'storyblok-react'
+import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 

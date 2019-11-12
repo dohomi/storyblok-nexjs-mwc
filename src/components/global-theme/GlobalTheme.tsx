@@ -82,9 +82,6 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
         }
       },
       MuiAppBar: {
-        // positionFixed: {
-        //   height: 64
-        // },
         root: {
           '& .lm-logo-header': {
             height: '100%',

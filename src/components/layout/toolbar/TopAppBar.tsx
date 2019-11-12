@@ -5,6 +5,14 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+import { Container } from '@material-ui/core'
+import { ContainerProps } from '@material-ui/core/Container'
+
+export type AppHeaderProps = {
+  settings: GlobalStoryblok,
+  hasFeature?: boolean
+  hasRightDrawer?: boolean
+}
 
 const toolbarHeight = {
   mobile: 56,
@@ -14,7 +22,7 @@ const toolbarHeight = {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   topAppBar: {
-    '&.lm-toolbar__scrolled > .MuiToolbar-root': {
+    '&.lm-toolbar__scrolled .MuiToolbar-root': {
       height: toolbarHeight.mobile,
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
         height: toolbarHeight.landscape
@@ -48,29 +56,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       }
     }
   },
-  toolbar: (props: AppTopAppProps) => {
+  toolbar: (props: AppHeaderProps) => {
+    const toolbarMainHeight = props.settings.toolbar_main_height
     return {
       padding: theme.spacing(1),
-      height: props.toolbarHeight ? Number(props.toolbarHeight) : toolbarHeight.mobile,
-      transitionDuration: '300ms',
+      height: toolbarMainHeight ? Number(toolbarMainHeight) : toolbarHeight.mobile,
+      transitionDuration: '500ms',
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: props.toolbarHeight ? Math.round(props.toolbarHeight * 0.86) : toolbarHeight.landscape
+        height: toolbarMainHeight ? Math.round(toolbarMainHeight * 0.86) : toolbarHeight.landscape
       },
       [theme.breakpoints.up('sm')]: {
-        height: props.toolbarHeight ? Math.round(props.toolbarHeight * 1.15) : toolbarHeight.desktop
+        height: toolbarMainHeight ? Math.round(toolbarMainHeight * 1.15) : toolbarHeight.desktop
       }
 
     }
   }
 }))
-
-type AppTopAppProps = {
-  transparentToolbar: boolean
-  toolbarConfig: GlobalStoryblok['toolbar_config']
-  fixed: boolean
-  variant: GlobalStoryblok['toolbar_variant']
-  toolbarHeight: GlobalStoryblok['toolbar_main_height']
-}
 
 const mapToolbarColor = {
   'primary': 'primary',
@@ -79,57 +80,31 @@ const mapToolbarColor = {
   'white': 'inherit'
 }
 
-// function getClassName(props: AppTopAppProps, pos = 0) {
-//   const toolbarConfig = props.toolbarConfig || []
-//   return clsx('lm-toolbar', {
-//     ['lm-toolbar__bold-text']: toolbarConfig.includes('text_bold'),
-//     ['lm-toolbar__fixed-width']: toolbarConfig.includes('fixed_width'),
-//     ['lm-toolbar-transparent']: props.transparentToolbar && pos < 128
-//   })
-// }
-
-// const TopAppBarWrap: FunctionComponent<AppTopAppProps> = (props) => {
-//   const dimensions = useWindowDimensions()
-//   const { asPath } = useRouter()
-//   let scrollPos = scrollPositionHook()
-//   let [className, setClassName] = useState(getClassName(props)) // because of server/client hydration
-//
-//   // let className = getClassName()
-//   useEffect(() => {
-//       setClassName(getClassName(props, scrollPos)) // todo is this necessary? maybe different approach
-//     },
-//     [scrollPos, props.transparentToolbar, dimensions, asPath]
-//   )
-//
-//   return (
-//     <AppBar className={className}
-//             color={mapToolbarColor[props.variant || 'default']}
-//             position={props.fixed ? 'fixed' : 'relative'}>
-//       <Toolbar>
-//         {props.children}
-//       </Toolbar>
-//     </AppBar>
-//   )
-// }
-
-const TopAppBar: FunctionComponent<AppTopAppProps> = (props) => {
+const TopAppBar: FunctionComponent<AppHeaderProps> = (props) => {
   const classes = useStyles(props)
-  const toolbarConfig = props.toolbarConfig || []
+  const { settings } = props
+  const toolbarConfig = settings.toolbar_config || []
   const scrolled = useScrollTrigger({ disableHysteresis: true })
+  const toolbarVariant = settings.toolbar_variant
+  let toolbarWidth: ContainerProps['maxWidth'] = false
+  if (toolbarConfig.includes('fixed_width')) {
+    toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg'
+  }
   return (
     <>
       <AppBar className={clsx(classes.topAppBar, {
         ['lm-toolbar__bold-text']: toolbarConfig.includes('text_bold'),
-        ['lm-toolbar__fixed-width']: toolbarConfig.includes('fixed_width'),
-        [`lm-toolbar__${props.variant}`]: props.variant,
-        'lm-toolbar__transparent': props.transparentToolbar,
+        [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
+        'lm-toolbar__transparent': props.hasFeature,
         'lm-toolbar__scrolled': scrolled
       })}
-              color={mapToolbarColor[props.variant || 'default']}
-              position={props.fixed ? 'fixed' : 'relative'}>
-        <Toolbar className={classes.toolbar}>
-          {props.children}
-        </Toolbar>
+              color={mapToolbarColor[toolbarVariant || 'default']}
+              position={toolbarConfig.includes('fixed') ? 'fixed' : 'relative'}>
+        <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
+          <Toolbar className={classes.toolbar}>
+            {props.children}
+          </Toolbar>
+        </Container>
       </AppBar>
       <Toolbar className={classes.toolbar} />
     </>
