@@ -571,6 +571,10 @@ export interface ListSearchFieldStoryblok {
   placeholder?: string;
   fullwidth?: boolean;
   outlined?: boolean;
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
   _uid: string;
   component: "list_search_field";
   [k: string]: any;

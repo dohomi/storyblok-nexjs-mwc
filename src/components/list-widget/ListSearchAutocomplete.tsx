@@ -143,6 +143,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
         )}
         {items.map(item => (
           <MenuItem
+            onClick={() => setOpen(false)}
             key={item.uuid as string}>{item.content && (item.content.preview_title || item.content.meta_title || item.name)}</MenuItem>
         ))}
       </Menu>

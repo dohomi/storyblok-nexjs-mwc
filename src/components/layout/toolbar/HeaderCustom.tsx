@@ -5,8 +5,6 @@ import Divider from '../../divider/Divider'
 import React, { FunctionComponent } from 'react'
 import { DividerStoryblok, GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
 
-
-
 type HeaderComponents = {
   toolbar_row: FunctionComponent<{ content: ToolbarRowStoryblok, settings: GlobalStoryblok }>
   divider: FunctionComponent<{ content: DividerStoryblok }>

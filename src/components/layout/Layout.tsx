@@ -12,7 +12,6 @@ export type LayoutComponentProps = Pick<AppPageProps, 'settings'> & {
   hasRightDrawer: boolean
 }
 
-
 const Layout: FunctionComponent<LayoutComponentProps> = ({ asPath, settings, children, hasFeature, hasRightDrawer }) => {
   useGlobalStyles(settings)
   useEffect(

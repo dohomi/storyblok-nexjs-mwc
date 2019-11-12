@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { ChangeEvent, FunctionComponent, useState } from 'react'
-// import { TextField, TextFieldProps } from '@rmwc/textfield'
 import { ListSearchFieldStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import { useDebouncedCallback } from 'use-debounce'
 import { onSearchTextChange } from '../../utils/state/actions'
 import { useRouter } from 'next/router'
 import TextField from '@material-ui/core/TextField'
-import { Icon } from '@material-ui/core'
+import Icon from '@material-ui/core/Icon'
+import clsx from 'clsx'
 
 const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> = ({ content }) => {
   const { query } = useRouter()
@@ -20,21 +20,6 @@ const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> 
     // delay in ms
     300
   )
-  // const props = {}
-  //
-  // if (searchText.length > 0) {
-  //   props.trailingIcon = {
-  //     icon: 'close',
-  //     tabIndex: 0,
-  //     onClick: () => {
-  //       setSearchText('')
-  //       debouncedCallback('')
-  //     }
-  //   }
-  // }
-
-
-  // className={clsx({ 'w-100': content.fullwidth })}
 
   function onSearchChange(ev: ChangeEvent<HTMLInputElement>) {
     const value = ev.currentTarget.value
@@ -44,18 +29,20 @@ const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> 
 
   return (
     <SbEditable content={content}>
-      <TextField
-        InputProps={{
-          startAdornment: <Icon>search</Icon>
-        }}
-        id={content._uid}
-        value={searchText}
-        label={content.label}
-        type="search"
-        placeholder={content.placeholder}
-        variant={'outlined'}
-        onChange={onSearchChange}
-      />
+      <div className={clsx(content.class_names && content.class_names.values)}>
+        <TextField
+          InputProps={{
+            startAdornment: <Icon>search</Icon>
+          }}
+          id={content._uid}
+          value={searchText}
+          label={content.label}
+          type="search"
+          placeholder={content.placeholder}
+          variant={'outlined'}
+          onChange={onSearchChange}
+        />
+      </div>
     </SbEditable>
   )
 }

@@ -45,6 +45,10 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
     '@global': {
       ...getNprogressJss(theme),
       ...spacing,
+      '.img-fluid': {
+        maxWidth: '100%',
+        height: 'auto'
+      },
       'a': {
         textDecoration: 'none'
       },

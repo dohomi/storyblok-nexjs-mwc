@@ -15,12 +15,6 @@ export type AppHeaderProps = {
   hasRightDrawer?: boolean
 }
 
-const toolbarHeight = {
-  mobile: 56,
-  landscape: 48,
-  desktop: 64
-}
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
   topAppBar: {
     '&.lm-toolbar__unelevated:not(.lm-toolbar__scrolled)': {
@@ -34,12 +28,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       boxShadow: 'none'
     },
     '&.lm-toolbar__scrolled .MuiToolbar-root': {
-      height: toolbarHeight.mobile,
+      height: theme.toolbar.height.mobile,
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: toolbarHeight.landscape
+        height: theme.toolbar.height.landscape
       },
       [theme.breakpoints.up('sm')]: {
-        height: toolbarHeight.desktop
+        height: theme.toolbar.height.desktop
       }
     },
     [theme.breakpoints.up('sm')]: {
@@ -72,28 +66,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     if (props.settings.toolbar_color && props.settings.toolbar_color.rgba) {
       options.backgroundColor = props.settings.toolbar_color.rgba
     }
-    return options
-  },
-  toolbar: (props: AppHeaderProps) => {
-    const toolbarMainHeight = props.settings.toolbar_main_height
     const increasedFontSize = props.settings.toolbar_font_size
-    const options: CreateCSSProperties<{}> = {
-      // padding: theme.spacing(1),
-      height: toolbarMainHeight ? Number(toolbarMainHeight) : toolbarHeight.mobile,
-      transitionDuration: '500ms',
-      [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: toolbarMainHeight ? Math.round(toolbarMainHeight * 0.86) : toolbarHeight.landscape
-      },
-      [theme.breakpoints.up('sm')]: {
-        height: toolbarMainHeight ? Math.round(toolbarMainHeight * 1.15) : toolbarHeight.desktop
-      }
-    }
     if (increasedFontSize) {
       options['& .MuiButton-root'] = {
         fontSize: increasedFontSize as string
       }
     }
     return options
+  },
+  toolbar: {
+    height: theme.toolbar.height.custom ? Number(theme.toolbar.height.custom) : theme.toolbar.height.mobile,
+    transitionDuration: '500ms',
+    [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
+      height: theme.toolbar.height.custom ? Math.round(theme.toolbar.height.custom * 0.86) : theme.toolbar.height.landscape
+    },
+    [theme.breakpoints.up('sm')]: {
+      height: theme.toolbar.height.custom ? Math.round(theme.toolbar.height.custom * 1.15) : theme.toolbar.height.desktop
+    }
   }
 }))
 
@@ -114,7 +103,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps> = (props) => {
   if (toolbarConfig.includes('fixed_width')) {
     toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg'
   }
-  
+
   return (
     <>
       <AppBar className={clsx(classes.topAppBar, {

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import GlobalTheme from '../global-theme/GlobalTheme'
 import { GlobalStateProvider } from '../../utils/state/state'
-import { CssBaseline } from '@material-ui/core'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppProps } from 'next/app'
 import { NextPage } from 'next'
 

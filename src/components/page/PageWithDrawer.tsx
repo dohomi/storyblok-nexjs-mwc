@@ -5,14 +5,25 @@ import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useGlobalState } from '../../utils/state/state'
 import { closeNavigationDrawers } from '../../utils/state/actions'
 import Drawer from '@material-ui/core/Drawer'
-import { makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import ContentSpace from '../layout/ContentSpace'
 
 const drawerWidth = 254
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   docked: {
-    width: drawerWidth
+    width: drawerWidth,
+    zIndex: theme.zIndex.appBar - 1
+  },
+  modal: {
+    '& .lm-content-space': {
+      display: 'none'
+    }
+  },
+  drawerPaper: {
+    width: drawerWidth,
+    padding: theme.spacing(2)
   },
   content: {
     marginRight: drawerWidth,
@@ -20,7 +31,7 @@ const useStyles = makeStyles({
       marginRight: 0
     }
   }
-})
+}))
 
 const PageWithDrawer: FunctionComponent<{
   rightBody: any[]
@@ -34,11 +45,16 @@ const PageWithDrawer: FunctionComponent<{
     <>
       <Drawer variant={isDrawerModal ? 'temporary' : 'permanent'}
               anchor="right"
-              classes={{ paperAnchorDockedRight: classes.docked }}
+              classes={{
+                paper: classes.drawerPaper,
+                modal: classes.modal,
+                paperAnchorDockedRight: classes.docked
+              }}
               open={isDrawerModal ? rightIsOpen : true}
               onClose={() => closeNavigationDrawers()}
       >
         <>
+          <ContentSpace />
           {rightBody.map((blok) => Components(blok))}
         </>
       </Drawer>

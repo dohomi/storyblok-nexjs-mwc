@@ -15,6 +15,14 @@ const mapThemeType = {
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
     defaultContainerWidth: string | boolean;
+    toolbar: {
+      height: {
+        mobile: number,
+        landscape: number,
+        desktop: number,
+        custom?: number
+      }
+    }
     alternativeFont: {
       alt1: string;
       alt2: string;
@@ -26,6 +34,14 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   // allow configuration using `createMuiTheme`
   interface ThemeOptions {
     defaultContainerWidth?: string | boolean;
+    toolbar: {
+      height: {
+        mobile: number,
+        landscape: number,
+        desktop: number,
+        custom?: number
+      }
+    }
     alternativeFont?: {
       alt1?: string;
       alt2?: string;
@@ -53,6 +69,14 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
       secondary: {
         main: settings.theme_secondary as string,
         contrastText: settings.theme_secondary_contrast as string
+      }
+    },
+    toolbar: {
+      height: {
+        mobile: 56,
+        landscape: 48,
+        desktop: 64,
+        custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined
       }
     },
     typography: {

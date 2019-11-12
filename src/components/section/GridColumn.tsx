@@ -1,11 +1,10 @@
-import React, { CSSProperties, FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { ColumnStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import BackgroundBox, { BackgroundBoxProps } from './BackgroundBox'
 import BackgroundImage from './BackgroundImage'
 import Components from '@components'
 import Grid from '@material-ui/core/Grid'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 const xsSpanMap = {
   1: 3,
@@ -51,33 +50,25 @@ const mdSpanMap = {
 const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }) => {
   // const classes = useStyles(content)
   const background = Array.isArray(content.background) && content.background[0]
-  const { isMobileWidth, isTabletWidth } = useWindowDimensions()
-  let gridWidth = mdSpanMap[content.width_general as string]
-  let order = content.order_desktop
-  // let start = content.start_desktop
+  let mdWidth = mdSpanMap[content.width_general as string]
+  let smWidth = smSpanMap[content.width_tablet as string]
+  if (!smWidth && mdWidth) {
+    smWidth = mdWidth
+    if (typeof mdWidth === 'number' && mdWidth > 8) {
+      smWidth = 12
+    }
+  }
 
-  if (isTabletWidth) {
-    content.order_tablet && (order = content.order_tablet)
-    content.width_tablet && (gridWidth = smSpanMap[content.width_tablet as string])
-  } else if (isMobileWidth) {
-    content.order_phone && (order = content.order_phone)
-    // content.start_phone && (start = content.start_phone)
-  } else {
-    content.width_desktop && (gridWidth = xsSpanMap[content.width_desktop as string])
-  }
-  const gridStyle: CSSProperties = {}
-  if (order) {
-    gridStyle.order = Number(order)
-  }
   return (
     <SbEditable content={content}>
       <BackgroundBox skipBgImage={true} background={background}>
         {({ style, className }: BackgroundBoxProps) => (
           <Grid item
                 xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
-                sm={gridWidth}
+                sm={smWidth}
+                md={mdWidth}
                 className={className}
-                style={{ ...style, ...gridStyle }}>
+                style={style}>
             {background && background.image && <BackgroundImage content={background} />}
             {(content.justify || content.align_content || content.align_items) ? (
               <Grid container
