@@ -34,6 +34,7 @@ const StoriesLayout = (storyFunc: Function) => {
     theme_font_alt3: text('Theme alternative font 3', ''),
     theme_font_alt4: text('Theme alternative font 4', '')
   }
+
   return (
     <WindowDimensionsProvider>
       <GlobalStateProvider>

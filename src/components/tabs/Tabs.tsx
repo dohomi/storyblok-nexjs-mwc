@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab'
 import Icon from '@material-ui/core/Icon'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
-  const { width } = useWindowDimensions()
+  const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
   const [activeTab, setActiveTab] = useState(0)
   const body = content.body || []
-  const orientation = content.vertical_tabs && width > 768 ? 'vertical' : 'horizontal'
+  const orientation = content.vertical_tabs && !isMobile ? 'vertical' : 'horizontal'
   return (
     <div className={clsx(classes.tabContainer, {
       'vertical': orientation === 'vertical'

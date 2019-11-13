@@ -37,7 +37,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   console.log(firstPathSegment, secondPathSegment, slug, settingsPath)
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   StoryblokService.setQuery(query)
-  console.log(slug)
+  console.log(DeviceDetectService.getWebpSupport(), slug)
   try {
     let [page, settings, categories, stories] = await Promise.all([
       StoryblokService.get(`cdn/stories/${slug}`),
@@ -83,7 +83,11 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       pageSeo,
       allStories: stories || [],
       allCategories: categories || [],
-      locale
+      locale,
+      deviceService: {
+        device: DeviceDetectService.getDevice(),
+        hasWebpSupport: DeviceDetectService.getWebpSupport()
+      }
     }
   } catch (e) {
     return await handleErrorContent(e, res as NextApiResponse)

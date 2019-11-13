@@ -1,13 +1,13 @@
 import Components from '@components'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useGlobalState } from '../../utils/state/state'
 import { closeNavigationDrawers } from '../../utils/state/actions'
 import Drawer from '@material-ui/core/Drawer'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import ContentSpace from '../layout/ContentSpace'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const drawerWidth = 254
 
@@ -38,9 +38,9 @@ const PageWithDrawer: FunctionComponent<{
   body: any[]
 }> = ({ rightBody, body }) => {
   const classes = useStyles()
-  const { width } = useWindowDimensions()
+  const { isMobile } = useDeviceDimensions()
   const [rightIsOpen] = useGlobalState('rightNavigationDrawer')
-  const isDrawerModal = width < 600
+  const isDrawerModal = isMobile
   return (
     <>
       <Drawer variant={isDrawerModal ? 'temporary' : 'permanent'}

@@ -4,10 +4,10 @@ import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Fade } from '@material-ui/core'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -40,12 +40,12 @@ const Image: FunctionComponent<{
   content: ImageStoryblok
 }> = ({ content }) => {
   const classes = useStyles()
-  const dimensions = useWindowDimensions()
+  const { isMobile } = useDeviceDimensions()
+  const [loaded, setLoaded] = useState<boolean>(false)
   const fallback = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
-  const [loaded, setLoaded] = useState<boolean>(false)
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView(intersectionDefaultOptions)
 
@@ -61,7 +61,7 @@ const Image: FunctionComponent<{
     let parentElementDimensions = (parentElement && parentElement.getBoundingClientRect()) || { width: 0 }
     const square = property.includes('rounded-circle') || property.includes('square')
     let definedWidth = content.width
-    let definedHeight = content.height_xs && dimensions.width <= 600 ? content.height_xs : content.height
+    let definedHeight = content.height_xs && isMobile ? content.height_xs : content.height
     const width = Math.ceil(parentElementDimensions.width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
@@ -83,6 +83,7 @@ const Image: FunctionComponent<{
         definedHeight = Math.ceil(grandParentDim.height)
       }
     }
+
     const imgAttrs = getImageAttrs({
       originalSource: content.source,
       width: Number(definedWidth || 0),

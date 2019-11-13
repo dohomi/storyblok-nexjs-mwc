@@ -6,7 +6,7 @@ import { CardListStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const useStyles = makeStyles({
     cardBase: {
@@ -61,14 +61,14 @@ const useStyles = makeStyles({
 
 const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }) => {
   const { body, column_gap, column_count, column_count_phone, column_count_tablet, ...rest } = content
-  const { isMobileWidth, isTabletWidth } = useWindowDimensions()
+  const { isMobile, isTablet } = useDeviceDimensions()
   const classes = useStyles()
 
   let gutterSize = content.column_gap ? Number(content.column_gap) : 24
   let columnCount = content.column_count ? Number(content.column_count) : 4
-  if (isTabletWidth && content.column_count_tablet) {
+  if (isTablet && content.column_count_tablet) {
     columnCount = Number(content.column_count_tablet)
-  } else if (isMobileWidth) {
+  } else if (isMobile) {
     columnCount = content.column_count_phone ? Number(content.column_count_phone) : 1
   }
 

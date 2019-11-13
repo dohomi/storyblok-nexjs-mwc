@@ -19,7 +19,7 @@ const  {  settings, hasRightDrawer } = props
   return (
     <SbEditable content={content}>
       <TopAppBarWrap {...props}>
-        <IconButton className={`${mobileNavBreakpoint}-none`}
+        <IconButton className={`d-inline-flex d-${mobileNavBreakpoint}-none`}
                     onClick={() => toggleLeftNavigation()}>
           <Icon>menu</Icon>
         </IconButton>
@@ -27,13 +27,13 @@ const  {  settings, hasRightDrawer } = props
 
         {navRight.length > 0 && (
           <Grid container
-                className={clsx('lm-toolbar__section', 'display-none', { [`${mobileNavBreakpoint}-inline-flex`]: true })}>
+                className={clsx('lm-toolbar__section', 'd-none', { [`d-${mobileNavBreakpoint}-inline-flex`]: true })}>
             {navRight.map(blok => Components(blok))}
           </Grid>
         )}
         {!!hasRightDrawer && (
           <Grid container className={clsx('lm-toolbar__section', {
-            [`${mobileNavBreakpoint}-none`]: true
+            [`d-${mobileNavBreakpoint}-none`]: true
           })}>
             <IconButton onClick={() => toggleRightNavigation()}>
               <Icon>search</Icon>

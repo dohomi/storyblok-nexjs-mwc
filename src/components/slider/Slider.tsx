@@ -4,13 +4,13 @@ import SwipeableViews from 'react-swipeable-views'
 import React, { CSSProperties, FunctionComponent, memo, useState } from 'react'
 import clsx from 'clsx'
 import { SliderStoryblok } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { SectionProps } from '../section/Section'
 import SliderChild from './SliderChild'
 import { makeStyles } from '@material-ui/core/styles'
 import InvertedIndicator from './InvertedIndicator'
 import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const chunkArray = (myArray: Element[], chunkSize: number) => {
   const results = []
@@ -27,10 +27,10 @@ export const useStyles = makeStyles({
       overflow: 'hidden',
       height: '100%',
       width: '100%',
-      '& > div':{
+      '& > div': {
         overflow: 'hidden',
         height: '100%',
-        width: '100%',
+        width: '100%'
       }
     },
     '& .react-swipeable-view-container .MuiContainer-root': {
@@ -71,9 +71,9 @@ export const useStyles = makeStyles({
 
 const Slider: FunctionComponent<{ content: SliderStoryblok }> = ({ content }) => {
   const [slide, setSlide] = useState(0)
-  const dimensions = useWindowDimensions()
+  const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
-  const wrapInColumns = content.slides_per_view && !dimensions.isMobile
+  const wrapInColumns = content.slides_per_view && !isMobile
   const contentBody = content.body || []
   const body = wrapInColumns ? chunkArray(contentBody.slice(0), content.slides_per_view as number) : contentBody
   const properties = content.property || []

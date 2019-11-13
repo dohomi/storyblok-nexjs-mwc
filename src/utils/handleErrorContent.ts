@@ -23,7 +23,7 @@ const handleErrorContent = async (e: any, res: NextApiResponse, languagePrefix =
     console.error('settings page not found')
   }
 
-  const props = {
+  return {
     page: page.data && page.data.story && page.data.story.content || {},
     settings: settings.data && settings.data.story && settings.data.story.content || {},
     error,
@@ -31,7 +31,7 @@ const handleErrorContent = async (e: any, res: NextApiResponse, languagePrefix =
     allCategories: [],
     locale: undefined
   }
-  return props
+
 }
 
 export default handleErrorContent

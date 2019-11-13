@@ -4,6 +4,7 @@ import {
   PageStoryblok,
   SeoOpenGraphStoryblok
 } from '../typings/generated/components-schema'
+import { DeviceDetectModule } from './DeviceDetectService'
 
 export type PageSeoProps = {
   title: string
@@ -20,5 +21,6 @@ export type AppPageProps = {
   error?: any,
   allStories: any[]
   allCategories: CategoryStoryblok[]
-  locale: string | undefined
+  locale: string | undefined,
+  deviceService?: DeviceDetectModule
 }

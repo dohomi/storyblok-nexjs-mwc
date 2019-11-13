@@ -1,5 +1,16 @@
-const nodeParser = require('ua-parser-js')
 import { IncomingMessage, ServerResponse } from 'http'
+
+const nodeParser = require('ua-parser-js')
+
+export type DeviceDetectModule = {
+  device: {
+    os: string,
+    browser: string,
+    device: string,
+    width: number
+  },
+  hasWebpSupport: boolean
+}
 
 class DeviceDetect {
   private device: {
@@ -21,6 +32,13 @@ class DeviceDetect {
 
   getDevice() {
     return this.device
+  }
+
+  reinitAppServices(values: DeviceDetectModule) {
+    if (values) {
+      this.device = values.device
+      this.hasWebpSupport = values.hasWebpSupport
+    }
   }
 
   setAppServices(req?: IncomingMessage) {

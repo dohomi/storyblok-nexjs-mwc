@@ -5,8 +5,11 @@ import { GlobalStateProvider } from '../../utils/state/state'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppProps } from 'next/app'
 import { NextPage } from 'next'
+import DeviceDetectService from '../../utils/DeviceDetectService'
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
+  const { settings, deviceService } = pageProps
+  DeviceDetectService.reinitAppServices(deviceService)
   useEffect(
     () => {
       // Remove the server-side injected CSS.
@@ -14,11 +17,11 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
       if (jssStyles) {
         jssStyles.parentNode!.removeChild(jssStyles)
       }
+      DeviceDetectService.setAppServices()
     },
     []
   )
 
-  const { settings } = pageProps
   return (
     <GlobalStateProvider>
       <WindowDimensionsProvider>

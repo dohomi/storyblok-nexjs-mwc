@@ -2,7 +2,6 @@ import SbEditable from 'storyblok-react'
 import * as React from 'react'
 import { FunctionComponent, memo } from 'react'
 import { NavListStoryblok } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import NavListItem from './NavListItem'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/styles'
@@ -11,6 +10,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import Icon from '@material-ui/core/Icon'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const useStyles = makeStyles({
   root: {
@@ -30,12 +30,12 @@ const useStyles = makeStyles({
 
 const NavList: FunctionComponent<{ content: NavListStoryblok }> = ({ content }) => {
   const classes = useStyles()
-  const dimensions = useWindowDimensions()
+  const { isMobile } = useDeviceDimensions()
   const body = content && content.body || []
   const properties = content.properties || []
   const header = content.header
 
-  if ((dimensions.isMobile && content.collapse_on_mobile) || content.forceCollapse) {
+  if ((isMobile && content.collapse_on_mobile) || content.forceCollapse) {
     const metaIcon = content.collapse_icon && content.collapse_icon.name || 'expand_more'
     return (
       <SbEditable content={content}>

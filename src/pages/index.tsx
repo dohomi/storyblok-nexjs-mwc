@@ -58,7 +58,6 @@ const Index: NextPage<AppPageProps> = (props) => {
   StoriesService.setAllCategories(props.allCategories)
   StoriesService.setLocale(props.locale)
 
-
   if (error) {
     return <Error statusCode={error.status} settings={settings} page={page} />
   }

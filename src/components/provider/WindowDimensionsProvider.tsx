@@ -26,6 +26,7 @@ export const WindowDimensionsCtx = createContext(defaultValue)
 
 const WindowDimensionsProvider = ({ children }: { children: any }) => {
   const currentDevice = DeviceDetectService.getDevice()
+
   let defaultValue: WithWindowDimensionsProps = {
     height: 500,
     width: currentDevice.width,

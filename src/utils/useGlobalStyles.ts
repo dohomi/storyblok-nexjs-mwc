@@ -113,12 +113,6 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
           visibility: 'visible'
         }
       },
-      '.d-none': {
-        display: 'none'
-      },
-      '.d-inline-flex': {
-        display: 'inline-flex'
-      },
       '.mh-100': {
         minHeight: '100%'
       },
@@ -170,6 +164,45 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       },
       '.lm-font-alt4': {
         fontFamily: theme.alternativeFont.alt4 || theme.typography.fontFamily
+      },
+      '.d-none': {
+        display: 'none'
+      },
+      '.d-inline-flex': {
+        display: 'inline-flex'
+      },
+      '.d-block': {
+        display: 'block'
+      },
+      [theme.breakpoints.up('sm')]: {
+        '.d-sm-inline-flex': {
+          display: 'inline-flex'
+        },
+        '.d-sm-none': {
+          display: 'none'
+        },
+        '.d-sm-block': {
+          display: 'block'
+        }
+      },
+      [theme.breakpoints.up('md')]: {
+        '.d-md-inline-flex': {
+          display: 'inline-flex'
+        },
+        '.d-md-none': {
+          display: 'none'
+        },
+        '.d-md-block': {
+          display: 'block'
+        }
+      },
+      [theme.breakpoints.up('lg')]: {
+        '.d-lg-inline-flex': {
+          display: 'inline-flex'
+        },
+        '.d-lg-none': {
+          display: 'none'
+        }
       }
     }
   })

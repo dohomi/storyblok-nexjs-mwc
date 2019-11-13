@@ -38,7 +38,6 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
 //todo
   // sixteenByNine={options.image_ratio !== '1x1'}
   // square={options.image_ratio === '1x1'}
-
   return (
     <Fade in={!!imgSource}>
       <CardMedia style={{

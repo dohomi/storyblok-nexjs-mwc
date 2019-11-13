@@ -17,6 +17,9 @@ export type AppHeaderProps = {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   topAppBar: {
+    '& .MuiIconButton-root': {
+      color: 'inherit'
+    },
     '&.lm-toolbar__unelevated:not(.lm-toolbar__scrolled)': {
       boxShadow: 'none'
     },
@@ -34,30 +37,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       },
       [theme.breakpoints.up('sm')]: {
         height: theme.toolbar.height.desktop
-      }
-    },
-    [theme.breakpoints.up('sm')]: {
-      '& .sm-inline-flex': {
-        display: 'inline-flex'
-      },
-      '& .sm-none': {
-        display: 'none'
-      }
-    },
-    [theme.breakpoints.up('md')]: {
-      '& .md-inline-flex': {
-        display: 'inline-flex'
-      },
-      '& .md-none': {
-        display: 'none'
-      }
-    },
-    [theme.breakpoints.up('lg')]: {
-      '& .lg-inline-flex': {
-        display: 'inline-flex'
-      },
-      '& .lg-none': {
-        display: 'none'
       }
     }
   },

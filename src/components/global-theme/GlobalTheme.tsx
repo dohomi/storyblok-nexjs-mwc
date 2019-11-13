@@ -4,8 +4,10 @@ import * as React from 'react'
 import { FunctionComponent, useEffect } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import Fonts from '@fonts'
-import DeviceDetectService from '../../utils/DeviceDetectService'
 import parseFont from '../../utils/parseFont'
+// @ts-ignore
+import mediaQuery from 'css-mediaquery'
+import DeviceDetectService from '../../utils/DeviceDetectService'
 
 const mapThemeType = {
   'base': 'light',
@@ -52,6 +54,16 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 }
 
 const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = ({ children, settings }) => {
+  const ssrMatchMedia = (query: string) => ({
+    matches: mediaQuery.match(query, {
+      // The estimated CSS width of the browser.
+      width: DeviceDetectService.getDevice().width
+    }),
+    addListener: () => {
+    },
+    removeListener: () => {
+    }
+  })
   if (!settings.theme_font_default) {
     settings.theme_font_default = 'Nunito:300,400,700'
   }
@@ -60,6 +72,7 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     defaultContainerWidth = settings.theme_container_width === 'none' ? false : settings.theme_container_width
   }
   const globalTheme: ThemeOptions = {
+
     palette: {
       type: mapThemeType[settings.theme_base as string || 'base'],
       primary: {
@@ -89,6 +102,11 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
       alt4: settings.theme_font_alt4 && parseFont(settings.theme_font_alt4) as string
     },
     defaultContainerWidth: defaultContainerWidth,
+    props: {
+      MuiUseMediaQuery: {
+        ssrMatchMedia
+      }
+    },
     overrides: {
       MuiDrawer: {
         modal: {
@@ -134,9 +152,6 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
           '& .lm-toolbar__section': {
             justifyContent: 'flex-end'
           },
-          '& .display-none': {
-            display: 'none'
-          },
           '&.lm-toolbar__dark': {
             backgroundColor: '#424242',
             color: 'white'
@@ -169,12 +184,12 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
   useEffect(
     () => {
       Fonts(settings)
-      DeviceDetectService.setAppServices()
     },
     []
   )
 
   const theme = createMuiTheme(globalTheme)
+
   return (
     <ThemeProvider theme={responsiveFontSizes(theme)}>{children}</ThemeProvider>
   )
