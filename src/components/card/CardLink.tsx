@@ -11,7 +11,9 @@ const CardLink: FunctionComponent<CardListItemStoryblok> = (props) => {
   linkHandler(content as LinkPropsType, content.link as LinkType || {}, { openExternal: props.open_external })
   const linkProps = content as LinkPropsType
   return linkProps.to ? (
-    <Link to={linkProps.to} passHref>{props.children}</Link>
+    <Link to={linkProps.to}>
+      <a>{props.children}</a>
+    </Link>
   ) : (
     <a href={linkProps.href}>{props.children}</a>
   )

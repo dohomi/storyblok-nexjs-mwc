@@ -18,19 +18,21 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
   const Logo = (
     <Link route={StoriesService.locale ? `/${StoriesService.locale}` : '/'} passHref>
       <MuiLink className={`lm-logo-header`}>
-        {!websiteLogo && (
-          <Typography>
-            {websiteTitle}
-          </Typography>
-        )}
-        {websiteLogo &&
-        <img src={websiteLogo}
-             className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
-             alt={websiteTitle || 'website logo'} />}
-        {websiteLogoInverted &&
-        <img src={websiteLogoInverted}
-             className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
-             alt={websiteTitle || 'website logo'} />}
+        <>
+          {!websiteLogo && (
+            <Typography>
+              {websiteTitle}
+            </Typography>
+          )}
+          {websiteLogo &&
+          <img src={websiteLogo}
+               className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
+               alt={websiteTitle || 'website logo'} />}
+          {websiteLogoInverted &&
+          <img src={websiteLogoInverted}
+               className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
+               alt={websiteTitle || 'website logo'} />}
+        </>
       </MuiLink>
     </Link>
   )

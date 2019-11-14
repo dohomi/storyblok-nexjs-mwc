@@ -33,7 +33,15 @@ const config = require('./nextjs_basic_config')
 // STORYBLOK_PREVIEW: 'UvABqQAdrEMCeCG2N0wePQtt',
 //   STORYBLOK_PUBLIC: 'PhCU8L1FyvZlsW2H522WRQtt'
 
+
+
+// studentsgoabroad.com
 module.exports = config({
-  STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
-  STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
+  // STORYBLOK_PREVIEW: 'qASJXPT2cwH76pA9vpJbxAtt',
+  // STORYBLOK_PUBLIC: 'm85LRUo0sX4yo9Q96VMQlQtt',
+  STORYBLOK_PREVIEW: "aPQruoQG3ZLTMdWUZQfG3gtt",
+  STORYBLOK_PUBLIC: "rDHPUnIN5mmSuPWL7S3lGgtt",
+
+  // STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
+  // STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
 })
