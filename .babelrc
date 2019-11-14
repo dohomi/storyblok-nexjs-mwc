@@ -1,5 +1,16 @@
 {
   "presets": [
-    "next/babel"
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "targets": {
+            "browsers": [">0.03%"]
+          },
+          "useBuiltIns": "usage",
+          "corejs": 2
+        }
+      }
+    ]
   ]
 }

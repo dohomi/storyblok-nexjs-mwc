@@ -1,4 +1,5 @@
-import FontFaceObserver from 'fontfaceobserver'
+// @ts-ignore
+import FontFaceObserver from 'fontfaceobserver/fontfaceobserver.standalone.js'
 import { GlobalStoryblok } from '../src/typings/generated/components-schema'
 
 const fontHandler = (settings: Partial<GlobalStoryblok>) => {
@@ -20,14 +21,12 @@ const fontHandler = (settings: Partial<GlobalStoryblok>) => {
     })
   }
   // currently only watch on icons
-  Promise.all([
-    fonts.material.load()
-    // fonts.nunito.load()
-  ]).then(() => {
+  fonts.material.load().then(() => {
     document.documentElement.classList.add('fonts-loaded')
-  }).catch(e => {
-    console.error(e)
-    document.documentElement.classList.add('fonts-failed')
+  }).catch((e: Error) => {
+    console.error('ERROR:  ', e)
+    document.documentElement.classList.add('fonts-loaded')
   })
+  // fonts.nunito.load()
 }
 export default fontHandler

@@ -6,7 +6,7 @@ function nextjsConfigGen (env, pathAliasOverwrites = {}) {
   const defaults = {
     target: 'serverless',
     compress: false,
-    transpileModules: ['@lumen/mwc'],
+    // transpileModules: ['@lumen/mwc'],
     env,
     webpack: (config) => {
       // Fixes npm packages that depend on `fs` module
@@ -31,21 +31,14 @@ function nextjsConfigGen (env, pathAliasOverwrites = {}) {
 
       config.resolve.plugins.push(new TsconfigPathsPlugin())
 
-
-      // polyfills
-      const originalEntry = config.entry
+      const originalEntry = config.entry;
       config.entry = async () => {
-        const entries = await originalEntry()
-        if (
-          entries['main.js'] &&
-          !entries['main.js'].includes('@polyfills')
-        ) {
-          entries['main.js'].unshift('@polyfills')
+        const entries = await originalEntry();
+        if (entries['main.js']) {
+          entries['main.js'].unshift('./client/polyfills.js');
         }
-        return entries
-      }
-
-
+        return entries;
+      };
       return config
     }
     // webpack: (config, {buildId, dev, isServer, defaultLoaders}) => config,
