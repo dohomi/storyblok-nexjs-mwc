@@ -8,40 +8,45 @@ import CONFIG from '@config'
 
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
   const { query, req, res } = ctx
-  let slug: string = query.slug as string || 'home'
-  let settingsPath = 'settings'
-  let storiesPath = 'stories'
+  const host: string = req ? req.headers.host as string : window.location.host
+  const initProps = {
+    overwriteDisableRobots: ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i)) || host.endsWith('.now.sh'),
+    slug: query.slug as string || 'home',
+    host,
+    settingsPath: 'settings',
+    seoSlug: query.slug !== 'home' ? query.slug : '' // need to modify on languages and more
+  }
   const filterStoriesAfterLang = { lang: 'default' }
-  if (slug.match(/^.*\.[^\\]+$/) && res) {
+  if (initProps.slug.match(/^.*\.[^\\]+$/) && res) {
     console.log('not found', query)
     // res.writeHead(301, {
     //   Location: slug
     // })
     // res.end()
   }
-  const splitted = slug.split('/')
+  const splitted = initProps.slug.split('/')
   const firstPathSegment = splitted[0]
   const secondPathSegment = splitted[1]
   const locale = CONFIG.languages.find(lang => lang === firstPathSegment) || ''
   if (locale) {
     if (CONFIG.storyblok.activatedLanguages && secondPathSegment && secondPathSegment !== locale) {
-      slug = `${locale}/${slug}`
+      initProps.slug = `${locale}/${initProps.slug}`
     }
     if (CONFIG.storyblok.activatedLanguages && !secondPathSegment) {
-      slug = `${slug}/home`
+      initProps.slug = `${initProps.slug}/home`
     }
-    settingsPath = CONFIG.storyblok.settingsInLangfolder ? `${locale}/${settingsPath}` : settingsPath
+    initProps.settingsPath = CONFIG.storyblok.settingsInLangfolder ? `${locale}/${initProps.settingsPath}` : initProps.settingsPath
     filterStoriesAfterLang.lang = locale
-    storiesPath = `${storiesPath}/${locale}`
   }
-  console.log(firstPathSegment, secondPathSegment, slug, settingsPath)
-  DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   StoryblokService.setQuery(query)
-  console.log(DeviceDetectService.getWebpSupport(), slug)
+  if (typeof CONFIG.hooks.onInitialPageProps === 'function') {
+    CONFIG.hooks.onInitialPageProps(initProps)
+  }
+  DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   try {
     let [page, settings, categories, stories] = await Promise.all([
-      StoryblokService.get(`cdn/stories/${slug}`),
-      StoryblokService.get(`cdn/stories/${settingsPath}`),
+      StoryblokService.get(`cdn/stories/${initProps.slug}`),
+      StoryblokService.get(`cdn/stories/${initProps.settingsPath}`),
       StoryblokService.getAll('cdn/stories', {
         per_page: 100,
         sort_by: 'content.name:asc',
@@ -62,18 +67,15 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
         }
       })
     ])
-    let currentSlug = slug !== 'home' ? slug : '' // need to modify. maybe check if ROOT of storyblok config?
-    const host: string = req ? req.headers.host as string : window.location.host
-    const url = `https://${host}/${currentSlug}` // for seo purpose
+    const url = `https://${host}/${initProps.seoSlug}` // for seo purpose
     const pageProps: PageStoryblok = page.data && page.data.story && page.data.story.content
     const settingsProps: GlobalStoryblok = settings.data && settings.data.story && settings.data.story.content
-    const overwriteDisableRobots = ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i)) || host.endsWith('.now.sh')
     DeviceDetectService.setLanguage(settingsProps.setup_language, settingsProps.setup_supported_languages, res)
 
     const pageSeo = {
       title: pageProps.meta_title as string,
       description: pageProps.meta_description as string,
-      disableRobots: overwriteDisableRobots || !!pageProps.meta_robots,
+      disableRobots: initProps.overwriteDisableRobots || !!pageProps.meta_robots,
       body: pageProps.seo_body || [],
       url: url
     }

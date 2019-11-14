@@ -54,6 +54,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 }
 
 const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = ({ children, settings }) => {
+  if (!settings) return null
   const ssrMatchMedia = (query: string) => ({
     matches: mediaQuery.match(query, {
       // The estimated CSS width of the browser.
@@ -71,8 +72,8 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
   if (settings.theme_container_width) {
     defaultContainerWidth = settings.theme_container_width === 'none' ? false : settings.theme_container_width
   }
-  const globalTheme: ThemeOptions = {
 
+  const globalTheme: ThemeOptions = {
     palette: {
       type: mapThemeType[settings.theme_base as string || 'base'],
       primary: {

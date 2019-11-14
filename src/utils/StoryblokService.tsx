@@ -1,22 +1,16 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 
-const StoryblokToken: {
-  preview: string
-  public: string
-} = {
-  preview: process.env.STORYBLOK_PREVIEW as string,
-  public: process.env.STORYBLOK_PUBLIC as string
-}
-
 class StoryblokService {
   private devMode: boolean
   private token: string
+  private previewToken: string
   private client: StoryblokClient
   private query: any
 
   constructor() {
     this.devMode = false // If true it always loads draft
-    this.token = process.env.NODE_ENV === 'development' ? StoryblokToken.preview as string : StoryblokToken.public as string
+    this.token = ''
+    this.previewToken = ''
     this.client = new StoryblokClient({
       accessToken: this.token,
       cache: {
@@ -28,13 +22,19 @@ class StoryblokService {
     this.query = {}
   }
 
+  initialize({ previewToken, publicToken }: { previewToken: string, publicToken: string }) {
+    this.token = publicToken
+    this.previewToken = previewToken
+    this.client.setToken(process.env.NODE_ENV === 'development' ? previewToken : publicToken)
+  }
+
   setToken(token: string) {
     this.token = token
     this.client.setToken(token)
   }
 
   flushCache() {
-    console.log('flush cashed triggered. ENV Vars:', StoryblokToken.preview, StoryblokToken.public)
+    console.log('flush cashed triggered. ENV Vars:', this.previewToken, this.token)
     console.log('current token:', this.client.getToken())
     this.client.flushCache()
     return true
@@ -49,15 +49,14 @@ class StoryblokService {
   }
 
   getSearch(slug: string, params: any) {
-    this.client.setToken(StoryblokToken.public)
     return this.client.get(slug, { ...params, ...this.getDefaultParams() })
   }
 
   getDefaultParams() {
     const params: StoriesParams = {}
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
-      this.token = StoryblokToken.preview
-      this.client.setToken(StoryblokToken.preview)
+      this.token = this.previewToken
+      this.client.setToken(this.previewToken)
       params.version = 'draft'
     }
 
@@ -98,7 +97,7 @@ class StoryblokService {
           console.log('published triggered')
           fetch(`${location.protocol}//${location.host}/api/clear-cache`)
             .then(() => {
-              console.log('flush cashed successful triggered. ENV Vars:', StoryblokToken.preview, StoryblokToken.public)
+              console.log('flush cashed successful triggered. ENV Vars:', this.previewToken, this.token)
               console.log('after flush: current token:', this.client.getToken())
               location.reload()
             })
