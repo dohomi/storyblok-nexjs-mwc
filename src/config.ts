@@ -1,6 +1,6 @@
 import StoryblokService from './utils/StoryblokService'
 
-type OnInitialPagePropsHook = {
+export type OnInitialPagePropsHook = {
   overwriteDisableRobots: boolean
   slug: string
   host: string
@@ -8,7 +8,7 @@ type OnInitialPagePropsHook = {
   seoSlug: string
 }
 
-interface AppConfigProps {
+export interface AppConfigProps {
   defaultLang: string
   languages: string[]
   storyblok: {
