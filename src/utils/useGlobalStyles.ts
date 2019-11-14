@@ -40,6 +40,7 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       }
     }
   }
+  const dark = '#303030'
   console.log('use main styles!!!!')
   return createStyles({
     '@global': {
@@ -55,7 +56,7 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.badge, .badge-pill': {
         display: 'inline-block',
         padding: '.25em .4em',
-        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : 'rgb(66,66,66)',
+        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
         color: theme.palette.type === 'dark' ? 'rgba(0, 0, 0, 0.87)' : theme.palette.common.white,
         borderRadius: theme.shape.borderRadius,
         transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
@@ -80,7 +81,7 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
         color: 'rgba(0, 0, 0, 0.87)'
       },
       '.badge-dark': {
-        backgroundColor: 'rgb(66,66,66)',
+        backgroundColor: dark,
         color: '#fff'
       },
       '.embed-responsive': {
@@ -170,6 +171,15 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.text-secondary': {
         color: theme.palette.secondary.main
       },
+      '.text-primary-text': {
+        color: theme.palette.text.primary
+      },
+      '.text-primary-secondary': {
+        color: theme.palette.text.secondary
+      },
+      '.text-muted': {
+        color: theme.palette.text.hint
+      },
       '.text-white': {
         color: theme.palette.common.white
       },
@@ -191,6 +201,13 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.bg-black': {
         backgroundColor: theme.palette.common.black
       },
+      '.bg-dark': {
+        backgroundColor: dark
+      },
+      '.bg-light': {
+        backgroundColor: '#ccc'
+      },
+
       'a.lm-link__button': {
         textDecoration: 'none',
         color: 'inherit'
