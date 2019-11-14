@@ -1,9 +1,4 @@
-let config
-if (process.env.NODE_ENV === 'production') {
-  config = require('./config_prod')
-} else {
-  config = require('./config_dev')
-}
+const config = require('./nextjs_basic_config')
 
 // UPC:
 // STORYBLOK_PREVIEW: 'h4irkhjH5C5djHiI8f76rQtt',

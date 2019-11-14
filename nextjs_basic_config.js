@@ -1,7 +1,7 @@
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const withPlugins = require('next-compose-plugins')
-// const withSourceMaps = require('@zeit/next-source-maps')()
-// const withTM = require('next-transpile-modules')
+const withTM = require('next-transpile-modules')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const {BUNDLE_ANALYZE} = process.env
 const bundleAnalyzerConfig = {
   analyzeServer: ['server', 'both'].includes(BUNDLE_ANALYZE),
@@ -18,16 +18,39 @@ const bundleAnalyzerConfig = {
   }
 }
 
-module.exports = function (env = {}, pathAliasOverwrites = {}, plugins = []) {
-  const config = require('./nextjs_config')(env, pathAliasOverwrites)
+module.exports = function (env = {}, plugins = []) {
+  const config = {
+    target: 'serverless',
+    compress: false,
+    transpileModules: ['@lumen/mwc'],
+    env,
+    webpack: (config) => {
+      // Fixes npm packages that depend on `fs` module
+      config.node = {
+        fs: 'empty'
+      }
+
+      config.resolve.plugins.push(new TsconfigPathsPlugin())
+
+      const originalEntry = config.entry
+      config.entry = async () => {
+        const entries = await originalEntry()
+        if (entries['main.js']) {
+          entries['main.js'].unshift('@polyfills')
+        }
+        return entries
+      }
+      return config
+    }
+  }
+
 
   let pluginConfiguration = [
-    [withBundleAnalyzer, bundleAnalyzerConfig]
-    // ,
+    [withBundleAnalyzer, bundleAnalyzerConfig],
     // next-offline
     // [withOffline],
     // [withSourceMaps],
-    // [withTM]
+    [withTM]
   ]
 
   if (plugins.length) {
@@ -38,6 +61,5 @@ module.exports = function (env = {}, pathAliasOverwrites = {}, plugins = []) {
       pluginConfiguration.unshift(plugin)
     })
   }
-  return withPlugins(pluginConfiguration, config
-  )
+  return withPlugins(pluginConfiguration, config)
 }
