@@ -394,6 +394,7 @@ export interface HeadlineStoryblok {
     rgba?: string;
     [k: string]: any;
   };
+  line_height?: string;
   class_names?: {
     values?: string[];
     [k: string]: any;
@@ -801,6 +802,7 @@ export interface RichTextEditorStoryblok {
     rgba?: string;
     [k: string]: any;
   };
+  line_height?: string;
   class_names?: {
     values?: string[];
     [k: string]: any;

@@ -97,6 +97,7 @@ storiesOf('Headline', module)
         <Headline content={{ ...props3, text: 'Secondary', color: 'secondary' }} />
         <Headline content={{ ...props3, text: 'Text Primary', color: 'textPrimary' }} />
         <Headline content={{ ...props3, text: 'Text Secondary', color: 'textSecondary' }} />
+        <Headline content={{ ...props3, text: 'Text Muted', color: 'textSecondary' }} />
         <Headline content={{ ...props3, text: 'Text Error', color: 'error' }} />
         <Headline content={{ ...props3, text: 'Custom', custom_color: { rgba: '#028800' } }} />
         <h3>Class names:</h3>
@@ -115,10 +116,58 @@ storiesOf('Headline', module)
         <Headline
           content={{ ...props3, text: 'Italic', class_names: { values: ['font-italic'] } }} />
         <Headline
-          content={{ ...props3, text: 'Black 50%, Background primary', class_names: { values: ['text-black-50', 'bg-secondary'] } }} />
+          content={{ ...props3, text: 'Muted', class_names: { values: ['text-muted'] } }} />
         <Headline
-          content={{ ...props3, text: 'White 50%, Background secondary', class_names: { values: ['text-white-50', 'bg-primary'] } }} />
-
+          content={{
+            ...props3,
+            text: 'Color black 50%, Background primary',
+            class_names: { values: ['text-black-50', 'bg-primary'] }
+          }} />
+        <Headline
+          content={{
+            ...props3,
+            text: 'Color black 50%, Background error/danger',
+            class_names: { values: ['text-black-50', 'bg-danger'] }
+          }} />
+        <Headline
+          content={{
+            ...props3,
+            text: 'Color white 50%, Background secondary',
+            class_names: { values: ['text-white-50', 'bg-secondary'] }
+          }} />
+        <Headline
+          content={{
+            ...props3,
+            text: 'Color white 50%, Background dark',
+            class_names: { values: ['text-white-50', 'bg-dark'] }
+          }} />
+        <Headline
+          content={{
+            ...props3,
+            text: 'Color black 50%, Background light',
+            class_names: { values: ['text-black-50', 'bg-light'] }
+          }} />
+        <Headline
+          content={{
+            ...props3,
+            text: 'Color black 50%, Background white',
+            class_names: { values: ['text-black-50', 'bg-white'] }
+          }} />
+        <Headline
+          content={{
+            ...props3,
+            text: 'Color white 50%, Background black',
+            class_names: { values: ['text-white-50', 'bg-black'] }
+          }} />
+        <hr />
+        <h2>Example increase line height 2em:</h2>
+        <Headline
+          content={{
+            ...props3,
+            text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam enim nulla, ultricies eget posuere vel, accumsan quis eros. Nulla mattis risus sed sapien feugiat malesuada. Suspendisse porta nisi non risus efficitur, ac blandit orci cursus. Integer congue nulla massa, ac commodo lorem sollicitudin et. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis eget feugiat lacus. Ut vehicula in lectus sed hendrerit.',
+            tag: 'p',
+            line_height: '2em'
+          }} />
       </>
     )
   )
