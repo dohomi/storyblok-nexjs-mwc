@@ -20,7 +20,7 @@ function nextjsConfigGen (env, pathAliasOverwrites = {}) {
       config.entry = async () => {
         const entries = await originalEntry();
         if (entries['main.js']) {
-          entries['main.js'].unshift('./client/polyfills.js');
+          entries['main.js'].unshift('@polyfills');
         }
         return entries;
       };
