@@ -1,4 +1,4 @@
-const path = require('path')
+// const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 function nextjsConfigGen (env, pathAliasOverwrites = {}) {
@@ -13,21 +13,6 @@ function nextjsConfigGen (env, pathAliasOverwrites = {}) {
       config.node = {
         fs: 'empty'
       }
-      // const overwrites = {
-      //   '@components': path.join(__dirname, 'components/ComponentRender.tsx'),
-      //   '@routes': path.join(__dirname, 'server/routes.ts'),
-      //   client: path.join(__dirname, 'client'),
-      //   '@fonts': path.join(__dirname, 'components/fonts.ts'),
-      //   '@initialData': path.join(__dirname, 'src/pages/utils'),
-      //   ...pathAliasOverwrites
-      // }
-
-      // config.resolve.modules.unshift(__dirname)
-
-      // config.resolve.extensions.push('.ts', '.tsx')
-      // Object.keys(overwrites).forEach(key => {
-      //   config.resolve.alias[key] = overwrites[key]
-      // })
 
       config.resolve.plugins.push(new TsconfigPathsPlugin())
 
@@ -41,27 +26,6 @@ function nextjsConfigGen (env, pathAliasOverwrites = {}) {
       };
       return config
     }
-    // webpack: (config, {buildId, dev, isServer, defaultLoaders}) => config,
-    // workboxOpts: {
-    //   swDest: 'static/service-worker.js',
-    //   runtimeCaching: [
-    //     {
-    //       urlPattern: /^https?.*/,
-    //       handler: 'networkFirst',
-    //       options: {
-    //         cacheName: 'https-calls',
-    //         networkTimeoutSeconds: 15,
-    //         expiration: {
-    //           maxEntries: 150,
-    //           maxAgeSeconds: 30 * 24 * 60 * 60 // 1 month
-    //         },
-    //         cacheableResponse: {
-    //           statuses: [0, 200]
-    //         }
-    //       }
-    //     }
-    //   ]
-    // }
   }
   return defaults
 }
