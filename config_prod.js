@@ -1,11 +1,8 @@
 const withPlugins = require('next-compose-plugins')
-const withTM = require('next-transpile-modules')
 
 module.exports = function (env = {}, pathAliasOverwrites = {}, plugins = []) {
   const config = require('./nextjs_config')(env, pathAliasOverwrites)
-  const pluginConfiguration = [
-    [withTM]
-  ]
+  const pluginConfiguration = []
   if (plugins.length) {
     plugins.forEach(plugin => {
       if (!Array.isArray(plugin)) {
