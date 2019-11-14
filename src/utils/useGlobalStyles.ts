@@ -137,8 +137,35 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.font-weight-bold': {
         fontWeight: 'bold'
       },
+      '.font-weight-bolder': {
+        fontWeight: 'bolder'
+      },
+      '.font-weight-light': {
+        fontWeight: 'light'
+      },
+      '.font-weight-lighter': {
+        fontWeight: 'lighter'
+      },
+      '.font-weight-normal': {
+        fontWeight: 'normal'
+      },
+      '.text-uppercase': {
+        textTransform: 'uppercase'
+      },
+      '.text-monospace': {
+        fontFamily: 'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace'
+      },
+      '.font-italic': {
+        fontStyle: 'italic'
+      },
       '.text-primary': {
         color: theme.palette.primary.main
+      },
+      '.text-black-50': {
+        color: 'rgba(0,0,0,0.5)'
+      },
+      '.text-white-50': {
+        color: 'rgba(255,255,255,0.5)'
       },
       '.text-secondary': {
         color: theme.palette.secondary.main
@@ -148,6 +175,21 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       },
       '.text-danger': {
         color: theme.palette.error.main
+      },
+      '.bg-primary': {
+        backgroundColor: theme.palette.primary.main
+      },
+      '.bg-secondary': {
+        backgroundColor: theme.palette.secondary.main
+      },
+      '.bg-danger': {
+        backgroundColor: theme.palette.error.main
+      },
+      '.bg-white': {
+        backgroundColor: theme.palette.common.white
+      },
+      '.bg-black': {
+        backgroundColor: theme.palette.common.black
       },
       'a.lm-link__button': {
         textDecoration: 'none',

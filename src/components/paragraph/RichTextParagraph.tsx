@@ -34,6 +34,9 @@ const RichTextParagraph: FunctionComponent<{ content: RichTextEditorStoryblok }>
         align={content.align ? content.align : undefined}
         color={content.color ? content.color : undefined}
         component="div"
+        style={{
+          color: content.custom_color && content.custom_color.rgba ? content.custom_color.rgba : undefined
+        }}
         variant={mapTypographyVariant[content.typography ? content.typography as string : 'body1']}>
         {content.body && content.body.content.map((blok: any, i: number) => RteContentRender(blok, i))}
       </Typography>

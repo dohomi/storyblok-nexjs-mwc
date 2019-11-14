@@ -18,6 +18,5 @@ module.exports = ({config}) => {
   config.resolve.plugins = config.resolve.plugins || []
   config.resolve.plugins.push(new TsconfigPathsPlugin())
 
-
   return config
 }

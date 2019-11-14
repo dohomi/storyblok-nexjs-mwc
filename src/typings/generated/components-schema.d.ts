@@ -352,8 +352,8 @@ export interface GlobalStoryblok {
   theme_primary_contrast?: string;
   theme_secondary?: string;
   theme_secondary_contrast?: string;
-  theme_text_primary?: string;
-  theme_text_secondary?: string;
+  theme_error?: string;
+  theme_error_contrast?: string;
   theme_link?: string;
   theme_link_hover?: string;
   theme_font_default?: string;
@@ -390,6 +390,10 @@ export interface HeadlineStoryblok {
   color?: "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
   align?: "left" | "center" | "right" | "justify";
   font?: "alt1" | "alt2" | "alt3" | "alt4";
+  custom_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   class_names?: {
     values?: string[];
     [k: string]: any;
@@ -793,6 +797,10 @@ export interface RichTextEditorStoryblok {
   font?: "alt1" | "alt2" | "alt3" | "alt4";
   align?: "left" | "center" | "right" | "justify";
   color?: "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
+  custom_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   class_names?: {
     values?: string[];
     [k: string]: any;

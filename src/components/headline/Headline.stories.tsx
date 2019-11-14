@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/react'
 import Headline from './Headline'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
+// @ts-ignore
 
 const props: HeadlineStoryblok = {
   _uid: '12312',
@@ -53,6 +54,7 @@ const props7: HeadlineStoryblok = {
 }
 
 storiesOf('Headline', module)
+// .addDecorator(withSmartKnobs)
   .add(
     'Headline',
     () => (
@@ -82,6 +84,41 @@ storiesOf('Headline', module)
         <Headline content={{ ...props3, text: 'Font 2', font: 'alt2' }} />
         <Headline content={{ ...props3, text: 'Font 3', font: 'alt3' }} />
         <Headline content={{ ...props3, text: 'Font 4', font: 'alt4' }} />
+      </>
+    )
+  )
+  .add(
+    'Headline customization',
+    () => (
+      <>
+        <h3>Colors:</h3>
+        <Headline content={{ ...props3 }} />
+        <Headline content={{ ...props3, text: 'Primary', color: 'primary' }} />
+        <Headline content={{ ...props3, text: 'Secondary', color: 'secondary' }} />
+        <Headline content={{ ...props3, text: 'Text Primary', color: 'textPrimary' }} />
+        <Headline content={{ ...props3, text: 'Text Secondary', color: 'textSecondary' }} />
+        <Headline content={{ ...props3, text: 'Text Error', color: 'error' }} />
+        <Headline content={{ ...props3, text: 'Custom', custom_color: { rgba: '#028800' } }} />
+        <h3>Class names:</h3>
+        <Headline content={{ ...props3, text: 'Font weight bold', class_names: { values: ['font-weight-bold'] } }} />
+        <Headline
+          content={{ ...props3, text: 'Font weight bolder', class_names: { values: ['font-weight-bolder'] } }} />
+        <Headline content={{ ...props3, text: 'Font weight light', class_names: { values: ['font-weight-light'] } }} />
+        <Headline
+          content={{ ...props3, text: 'Font weight lighter', class_names: { values: ['font-weight-lighter'] } }} />
+        <Headline
+          content={{ ...props3, text: 'Font weight normal', class_names: { values: ['font-weight-normal'] } }} />
+        <Headline
+          content={{ ...props3, text: 'Monospace', class_names: { values: ['text-monospace'] } }} />
+        <Headline
+          content={{ ...props3, text: 'Uppercase', class_names: { values: ['text-uppercase'] } }} />
+        <Headline
+          content={{ ...props3, text: 'Italic', class_names: { values: ['font-italic'] } }} />
+        <Headline
+          content={{ ...props3, text: 'Black 50%, Background primary', class_names: { values: ['text-black-50', 'bg-secondary'] } }} />
+        <Headline
+          content={{ ...props3, text: 'White 50%, Background secondary', class_names: { values: ['text-white-50', 'bg-primary'] } }} />
+
       </>
     )
   )

@@ -17,6 +17,9 @@ const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }
         component={content.tag}
         align={content.align ? content.align : undefined}
         color={content.color ? content.color : undefined}
+        style={{
+          color: content.custom_color && content.custom_color.rgba ? content.custom_color.rgba : undefined
+        }}
         variant={mapTypographyVariant[content.typography ? content.typography as string : 'headline4']}
       >
         {!!content.text_xs && (
