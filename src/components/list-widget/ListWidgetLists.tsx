@@ -9,6 +9,7 @@ import SbEditable from 'storyblok-react'
 import ListItem from '@material-ui/core/ListItem'
 import LmMuiAvatar from '../avatar/LmMuiAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
+import { internalLinkHandler } from '../../utils/linkHandler'
 
 
 const ListWidgetLists: FunctionComponent<{
@@ -25,7 +26,7 @@ const ListWidgetLists: FunctionComponent<{
           const itemContent = item.content as PageComponent
 
           return (
-            <Link to={'/' + item.full_slug}
+            <Link to={internalLinkHandler(item.full_slug as string)}
                   key={item.uuid as string}
                   passHref>
               <ListItem component={'a'}>

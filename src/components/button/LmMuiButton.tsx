@@ -5,12 +5,10 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
-import SbEditable from 'storyblok-react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import LmMuiAvatar from '../avatar/LmMuiAvatar'
-import { Link } from '@routes'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import ContentLink from '../link/ContentLink'
 
 const mapSize = {
   dense: 'small',
@@ -87,27 +85,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const ButtonWrap: FunctionComponent<{ content: ButtonStoryblok }> = ({ content, children }) => {
-  if (content.link) {
-    const { rel, target, ...attrs } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external })
-    if(attrs.href){
-      return (
-        <a {...attrs} rel={rel} target={target} className={'lm-link__button'}>{children}</a>
-      )
-    }
-    return (
-      <Link {...attrs}>
-        <a rel={rel} target={target} className={'lm-link__button'}>{children}</a>
-      </Link>
-    )
-  }
-  return (
-    <SbEditable content={content}>
-      {children}
-    </SbEditable>
-  )
-}
-
 const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content }) => {
   const classes = useStyles()
   const properties = content.properties || []
@@ -124,7 +101,7 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
   })
   if (content.variant === 'fab') {
     return (
-      <ButtonWrap content={content}>
+      <ContentLink content={content} className={'lm-link__button'} passHref={true}>
         <Fab variant={content.label ? 'extended' : undefined}
              className={className}
              size={mapSize[content.size as string] || 'medium'}
@@ -141,12 +118,12 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
             <Icon fontSize={mapIconSize[content.size as string]}>{content.trailing_icon.name}</Icon>
           )}
         </Fab>
-      </ButtonWrap>
+      </ContentLink>
     )
   }
   if (!content.label) {
     return (
-      <ButtonWrap content={content}>
+      <ContentLink content={content} className={'lm-link__button'} passHref={true}>
         <IconButton color={color as IconButtonProps['color']}
                     size={mapIconButtonSize[content.size as string] || 'medium'}
                     disableRipple={disableRipple}
@@ -158,12 +135,12 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
             <LmMuiAvatar src={content.image} size={mapAvatarSize[content.size as string]} />
           )}
         </IconButton>
-      </ButtonWrap>
+      </ContentLink>
     )
   }
 
   return (
-    <ButtonWrap content={content}>
+    <ContentLink content={content} className={'lm-link__button'} passHref={true}>
       <Button size={mapSize[content.size as string]}
               className={className}
               variant={mapVariant[content.variant as string]}
@@ -178,7 +155,7 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
         )}
         {content.label}
       </Button>
-    </ButtonWrap>
+    </ContentLink>
   )
 }
 export default LmMuiButton

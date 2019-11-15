@@ -2,39 +2,14 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import Button from '@material-ui/core/Button'
 import SbEditable from 'storyblok-react'
-import { Link } from '@routes'
-import { linkHandler, LinkPropsType, LinkType } from '../../utils/linkHandler'
-// import CustomMenu from './CustomMenu'
-import { NavMenuItemStoryblok, NavMenuStoryblok } from '../../typings/generated/components-schema'
+import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import Icon from '@material-ui/core/Icon'
 import Menu from '@material-ui/core/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 import Components from '@components'
 
 import MenuItem from '@material-ui/core/MenuItem'
-
-const Child: FunctionComponent<NavMenuItemStoryblok> = (nestedProps) => {
-  const props: LinkPropsType = {}
-  const link = nestedProps.link || {}
-  linkHandler(props, link as LinkType, { openExternal: !!nestedProps.open_external })
-  const to = props.to || props.href
-  if (!to) {
-    return (
-      <MenuItem>
-        {nestedProps.label}
-      </MenuItem>
-    )
-  }
-  return (
-    <Link to={to}>
-      <a>
-        <MenuItem>
-          {nestedProps.label}
-        </MenuItem>
-      </a>
-    </Link>
-  )
-}
+import ContentLink from '../link/ContentLink'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -102,7 +77,13 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
           {isCustom && menuItems.map(blok => Components(blok))}
           {!isCustom && (
             <div>
-              {menuItems.map(nestedProps => <Child key={nestedProps._uid} {...nestedProps} />)}
+              {menuItems.map(nestedProps => (
+                <ContentLink key={nestedProps._uid} className={'lm-nav-men__link'} content={nestedProps}>
+                  <MenuItem>
+                    {nestedProps.label}
+                  </MenuItem>
+                </ContentLink>
+              ))}
             </div>
           )}
         </Menu>

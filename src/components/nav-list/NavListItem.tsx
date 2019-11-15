@@ -18,10 +18,4 @@ const NavListItem: FunctionComponent<NavItemStoryblok> = (props) => {
   )
 }
 
-// {content.to ? (
-//   <Link to={content.to}><a className="nav-link">{content.name}</a></Link>
-// ) : (
-//   <a href={content.href} className="nav-link">{content.name}</a>
-// )}
-
 export default NavListItem

@@ -18,21 +18,25 @@ interface LinkOptions {
   openExternal?: boolean
 }
 
+export const internalLinkHandler = (url: string) => {
+  if (StoriesService.locale) {
+    const searchStr = `/${StoriesService.locale}/${StoriesService.locale}/`
+    if (url.startsWith(searchStr)) {
+      console.log('starts with')
+    } else {
+      console.log('does not starts with')
+    }
+    url = url.replace(searchStr, `/${StoriesService.locale}/`)
+  }
+  return url.startsWith('/') ? `/${url}` : url
+}
+
 export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkOptions) => {
   let isInternalLink = link.linktype === 'story'
   let cachedUrl = link.cached_url as string
 
   if (isInternalLink) {
-    if (StoriesService.locale) {
-      const searchStr = `/${StoriesService.locale}/${StoriesService.locale}/`
-      if (cachedUrl.startsWith(searchStr)) {
-        console.log('starts with')
-      } else {
-        console.log('does not starts with')
-      }
-      cachedUrl = cachedUrl.replace(searchStr, `/${StoriesService.locale}/`)
-    }
-    props.to = !cachedUrl.startsWith('/') ? `/${cachedUrl}` : cachedUrl
+    props.to = internalLinkHandler(cachedUrl)
   } else {
     let href = cachedUrl || ''
     if (href.includes('@')) {
