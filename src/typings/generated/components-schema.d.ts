@@ -399,6 +399,8 @@ export interface HeadlineStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  letter_spacing?: string;
+  font_size?: string;
   _uid: string;
   component: "headline";
   [k: string]: any;
@@ -807,6 +809,8 @@ export interface RichTextEditorStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  font_size?: string;
+  letter_spacing?: string;
   _uid: string;
   component: "rich_text_editor";
   [k: string]: any;
