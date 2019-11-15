@@ -16,7 +16,8 @@ type DrawerContentComponents = {
 
 const Components: DrawerContentComponents = {
   'button': DrawerButton,
-  'nav_menu': CollapsibleListSection
+  'nav_menu': CollapsibleListSection,
+  'list_search_autocomplete': () => null
 }
 
 const Child = (blok: any) => {

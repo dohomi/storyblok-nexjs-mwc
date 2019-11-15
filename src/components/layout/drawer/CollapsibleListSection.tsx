@@ -2,12 +2,11 @@ import DrawerButton from './DrawerButton'
 import React, { FunctionComponent } from 'react'
 import DrawerNavList from './DrawerNavList'
 import { ButtonStoryblok, NavMenuStoryblok } from '../../../typings/generated/components-schema'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Icon from '@material-ui/core/Icon'
-import Typography from '@material-ui/core/Typography'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Collapse from '@material-ui/core/Collapse'
 
 type CollapsibleComponents = {
   button: FunctionComponent<ButtonStoryblok>
@@ -17,6 +16,7 @@ type CollapsibleComponents = {
 }
 
 const Components: CollapsibleComponents = {
+  'list_search_autocomplete': () => null,
   'button': DrawerButton,
   'nav_list': DrawerNavList,
   'nav_menu_item': DrawerButton
@@ -35,9 +35,15 @@ const Child = (blok: any) => {
 const CollapsibleListSection: FunctionComponent<NavMenuStoryblok> = (props) => {
   const body = props.body || []
   const items: any[] = []
+  const [open, setOpen] = React.useState(false)
+
+  const handleClick = () => {
+    setOpen(!open)
+  }
+
   body.forEach(firstLevel => {
     if (firstLevel.body && firstLevel.body.length) {
-      // mega menu // consist of row / column / nav_list | button
+      // mega menu: consist of row / column / nav_list | button
       firstLevel.body.forEach((secondLevel: any) => {
         if (secondLevel.body && secondLevel.body.length) {
           secondLevel.body.forEach((thirdLevel: any) => {
@@ -52,16 +58,17 @@ const CollapsibleListSection: FunctionComponent<NavMenuStoryblok> = (props) => {
   })
 
   return (
-    <ExpansionPanel >
-      <ExpansionPanelSummary expandIcon={<Icon>{'expand_more'}</Icon>}>
-        <Typography>{props.title}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <List>
+    <>
+      <ListItem button onClick={handleClick}>
+        <ListItemText primary={props.title} />
+        <Icon>{open ? 'expand_less' : 'expand_more'}</Icon>
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding style={{ marginLeft: '20px' }}>
           {Array.isArray(items) && items.map(blok => Child(blok))}
         </List>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </Collapse>
+    </>
   )
 }
 

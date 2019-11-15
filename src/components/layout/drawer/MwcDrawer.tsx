@@ -18,8 +18,8 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
             onClose={() => closeNavigationDrawers()}>
       <div>
         <Link route="/">
-          <a className="p-2 d-block">
-            <div>
+          <a>
+            <div className="p-3">
               {!websiteLogo && websiteTitle}
               {websiteLogo &&
               <img src={imageService(websiteLogo, '0x128')} height="48" alt={websiteTitle || 'website logo'} />}

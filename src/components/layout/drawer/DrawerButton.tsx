@@ -17,7 +17,7 @@ const DrawerButton: FunctionComponent<ButtonStoryblok> = (props) => {
 
   return (
     <Link passHref to={to}>
-      <MenuItem>
+      <MenuItem button>
         {buttonProps.text}
       </MenuItem>
     </Link>
