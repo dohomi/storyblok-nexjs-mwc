@@ -6,6 +6,15 @@ import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/componen
 import { AppPageProps } from '../../utils/parsePageProperties'
 import CONFIG from '@config'
 
+function resolveAllPromises(promises: Promise<any>[]) {
+  return Promise.all(
+    promises.map(p => p.catch((e) => {
+      console.log(e)
+      return null
+    }))
+  )
+}
+
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
   const { query, req, res } = ctx
   const host: string = req ? req.headers.host as string : window.location.host
@@ -14,6 +23,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     slug: query.slug as string || 'home',
     host,
     settingsPath: 'settings',
+    rootDirectory: '', // need a trailing "/"
+    categories: '', // need a leading "/"
     seoSlug: query.slug !== 'home' ? query.slug : '' // need to modify on languages and more
   }
   const filterStoriesAfterLang = { lang: 'default' }
@@ -44,10 +55,13 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   }
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   try {
-    let [page, settings, categories, stories] = await Promise.all([
-      StoryblokService.get(`cdn/stories/${initProps.slug}`),
-      StoryblokService.get(`cdn/stories/${initProps.settingsPath}`),
-      StoryblokService.getAll('cdn/stories', {
+    const settingsSlug = `cdn/stories/${initProps.rootDirectory}${initProps.settingsPath}`
+    const pageSlug = `cdn/stories/${initProps.rootDirectory}${initProps.slug}`
+    console.log(initProps, settingsSlug, pageSlug)
+    let [page, settings, categories = [], stories = []] = await resolveAllPromises([
+      StoryblokService.get(pageSlug),
+      StoryblokService.get(settingsSlug),
+      StoryblokService.getAll(`cdn/stories/${initProps.rootDirectory}`, {
         per_page: 100,
         sort_by: 'content.name:asc',
         filter_query: {
@@ -56,7 +70,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
           }
         }
       }),
-      StoryblokService.getAll(`cdn/stories`, {
+      StoryblokService.getAll(`cdn/stories/${initProps.rootDirectory}`, {
         per_page: 100,
         excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
         sort_by: 'published_at:desc',
@@ -78,6 +92,13 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       disableRobots: initProps.overwriteDisableRobots || !!pageProps.meta_robots,
       body: pageProps.seo_body || [],
       url: url
+    }
+    if (!(settingsProps && settingsProps._uid)) {
+      console.log('SETTINGS MISSNG')
+    }
+    if (!pageProps) {
+      console.log('PAGE MISSNG')
+
     }
     return {
       page: pageProps,

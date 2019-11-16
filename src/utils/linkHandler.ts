@@ -18,6 +18,10 @@ interface LinkOptions {
   openExternal?: boolean
 }
 
+export const homepageLinkHandler = () => {
+  return StoriesService.locale ? `/${StoriesService.locale}` : '/'
+}
+
 export const internalLinkHandler = (url: string) => {
   if (StoriesService.locale) {
     const searchStr = `/${StoriesService.locale}/${StoriesService.locale}/`
@@ -28,7 +32,7 @@ export const internalLinkHandler = (url: string) => {
     }
     url = url.replace(searchStr, `/${StoriesService.locale}/`)
   }
-  return url.startsWith('/') ? `/${url}` : url
+  return url.startsWith('/') ? url : `/${url}`
 }
 
 export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkOptions) => {

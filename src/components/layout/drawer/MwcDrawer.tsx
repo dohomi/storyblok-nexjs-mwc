@@ -6,6 +6,7 @@ import { useGlobalState } from '../../../utils/state/state'
 import { closeNavigationDrawers } from '../../../utils/state/actions'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import Drawer from '@material-ui/core/Drawer'
+import { homepageLinkHandler } from '../../../utils/linkHandler'
 
 const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content }) => {
   let [isOpen] = useGlobalState('leftNavigationDrawer')
@@ -17,7 +18,7 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
             className="lm-main__drawer"
             onClose={() => closeNavigationDrawers()}>
       <div>
-        <Link to="/">
+        <Link route={homepageLinkHandler()}>
           <a>
             <div className="p-3">
               {!websiteLogo && websiteTitle}

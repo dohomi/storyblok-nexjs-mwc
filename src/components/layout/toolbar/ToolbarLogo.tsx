@@ -4,9 +4,9 @@ import SbEditable from 'storyblok-react'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { GlobalStoryblok, ToolbarLogoStoryblok } from '../../../typings/generated/components-schema'
-import StoriesService from '../../../utils/StoriesService'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
+import { homepageLinkHandler } from '../../../utils/linkHandler'
 
 
 const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
@@ -16,7 +16,7 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
   const websiteLogoInverted = settings.website_logo_invert && imageService(settings.website_logo_invert, '0x' + height)
 
   const Logo = (
-    <Link route={StoriesService.locale ? `/${StoriesService.locale}` : '/'} passHref>
+    <Link route={homepageLinkHandler()} passHref>
       <MuiLink className={`lm-logo-header`}>
         <>
           {!websiteLogo && (

@@ -6,6 +6,8 @@ export type OnInitialPagePropsHook = {
   host: string
   settingsPath: string
   seoSlug: string
+  rootDirectory: string
+  categories: string
 }
 
 export interface AppConfigProps {
@@ -20,6 +22,19 @@ export interface AppConfigProps {
   }
 }
 
+const projects = {
+  'localhost:3000': {
+    'previewToken': 'UvABqQAdrEMCeCG2N0wePQtt',
+    'publicToken': 'PhCU8L1FyvZlsW2H522WRQtt',
+    'rootDirectory': ''
+  },
+  'localhost:3001': {
+    'previewToken': 'UvABqQAdrEMCeCG2N0wePQtt',
+    'publicToken': 'PhCU8L1FyvZlsW2H522WRQtt',
+    'rootDirectory': 'etherhill/'
+  }
+}
+
 const CONFIG: AppConfigProps = {
   defaultLang: 'en',
   languages: ['en', 'de'],
@@ -29,13 +44,18 @@ const CONFIG: AppConfigProps = {
   },
   hooks: {}
 }
-CONFIG.hooks.onInitialPageProps = (_ctx: OnInitialPagePropsHook) => {
+CONFIG.hooks.onInitialPageProps = (ctx: OnInitialPagePropsHook) => {
+  const { previewToken, publicToken, rootDirectory } = projects[ctx.host]
+
   StoryblokService.initialize({
-    previewToken: process.env.STORYBLOK_PREVIEW as string,
-    publicToken: process.env.STORYBLOK_PUBLIC as string
+    previewToken,
+    publicToken
   })
   // possible to overwrite input context
   // Object.assign(ctx, { slug: ctx + '/test' })
+  Object.assign(ctx, {
+    rootDirectory
+  })
 }
 
 export default CONFIG
