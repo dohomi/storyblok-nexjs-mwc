@@ -32,6 +32,10 @@ const projects = {
     'previewToken': 'UvABqQAdrEMCeCG2N0wePQtt',
     'publicToken': 'PhCU8L1FyvZlsW2H522WRQtt',
     'rootDirectory': 'etherhill/'
+  },
+  'localhost:3002': {
+    'previewToken': 'IQrhrTP6aL0WYgDXmersbgtt',
+    'publicToken': 'Xzl0aUdUwWqtCsD37fHMmQtt'
   }
 }
 
@@ -54,7 +58,7 @@ CONFIG.hooks.onInitialPageProps = (ctx: OnInitialPagePropsHook) => {
   // possible to overwrite input context
   // Object.assign(ctx, { slug: ctx + '/test' })
   Object.assign(ctx, {
-    rootDirectory
+    rootDirectory: rootDirectory ? rootDirectory : ''
   })
 }
 

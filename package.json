@@ -11,6 +11,7 @@
     "__dev": "next",
     "dev": "nodemon",
     "dev2": "PORT=3001 nodemon",
+    "dev3": "PORT=3002 nodemon",
     "_dev": "node server.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "NODE_ENV=production node server/server.ts",
