@@ -40,7 +40,7 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
     }
   }
   const dark = '#303030'
-  console.log('use main styles!!!!')
+  console.log('use main styles!!!!', theme.alternativeFont)
   return createStyles({
     '@global': {
       ...getNprogressJss(theme),
@@ -212,7 +212,7 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
         color: 'inherit'
       },
       '.lm-font-alt1': {
-        fontFamily: theme.alternativeFont.alt1 || theme.typography.fontFamily
+        fontFamily: (theme.alternativeFont && theme.alternativeFont.alt1) || theme.typography.fontFamily
       },
       '.lm-font-alt2': {
         fontFamily: theme.alternativeFont.alt2 || theme.typography.fontFamily
