@@ -1,22 +1,6 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')
 const withPlugins = require('next-compose-plugins')
 const withTM = require('next-transpile-modules')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const {BUNDLE_ANALYZE} = process.env
-const bundleAnalyzerConfig = {
-  analyzeServer: ['server', 'both'].includes(BUNDLE_ANALYZE),
-  analyzeBrowser: ['browser', 'both'].includes(BUNDLE_ANALYZE),
-  bundleAnalyzerConfig: {
-    server: {
-      analyzerMode: 'static',
-      reportFilename: '../../bundles/server.html'
-    },
-    browser: {
-      analyzerMode: 'static',
-      reportFilename: '../bundles/client.html'
-    }
-  }
-}
 
 module.exports = function (env = {}, plugins = []) {
   const config = {
@@ -46,7 +30,6 @@ module.exports = function (env = {}, plugins = []) {
 
 
   let pluginConfiguration = [
-    [withBundleAnalyzer, bundleAnalyzerConfig],
     // next-offline
     // [withOffline],
     // [withSourceMaps],
