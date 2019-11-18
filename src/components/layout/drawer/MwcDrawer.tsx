@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, memo } from 'react'
 import DrawerContentList from './DrawerContentList'
 import { Link } from '@routes'
 import imageService from '../../../utils/ImageService'
@@ -13,6 +13,7 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo
   const websiteSlogan = content.website_slogan
+  console.log('render drawer')
   return (
     <Drawer open={isOpen}
             className="lm-main__drawer"
@@ -36,4 +37,4 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
   )
 }
 
-export default MwcDrawer
+export default memo(MwcDrawer)

@@ -1,8 +1,7 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import getNprogressJss from './jss/npgrogress'
 
 const useGlobalStyles = makeStyles((theme: Theme) => {
-
   const spacing = {}
   const directions = [{ key: 't', val: 'Top' }, { key: 'l', val: 'Left' }, { key: 'r', val: 'Right' }, {
     key: 'b',

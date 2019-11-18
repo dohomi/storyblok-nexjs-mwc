@@ -38,12 +38,6 @@ class MyDocument extends Document {
   }
 
   render() {
-    const injectBodyScript = {
-      __html: `
-      var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}'; 
-      var userDevice = ${JSON.stringify(DeviceDetectService.getDevice())};
-      var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
-    }
     const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
 
     return (
@@ -63,7 +57,12 @@ class MyDocument extends Document {
         </noscript>
       )}
       <Main />
-      <script dangerouslySetInnerHTML={injectBodyScript}></script>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+      var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}'; 
+      var userDevice = ${JSON.stringify(DeviceDetectService.getDevice())};
+      var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
+      }}></script>
 
       <NextScript />
       {GTM && (

@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundColor: '#ccc',
-    zIndex: -1
+    // zIndex: 0
   }
 })
 
