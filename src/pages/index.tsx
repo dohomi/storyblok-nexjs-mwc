@@ -10,6 +10,10 @@ import { AppPageProps, PageSeoProps } from '../utils/parsePageProperties'
 import StoriesService from '../utils/StoriesService'
 import Head from '../components/layout/Head'
 import { closeNavigationDrawers } from '../utils/state/actions'
+import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
+import GlobalTheme from '../components/global-theme/GlobalTheme'
+import { CssBaseline } from '@material-ui/core'
+import { GlobalStateProvider } from '../utils/state/state'
 
 type CoreAppProps = AppPageProps & {
   asPath: string
@@ -24,15 +28,20 @@ const CoreIndex: FunctionComponent<CoreAppProps> = (props) => {
     [asPath]
   )
   return (
-    <>
-      <Head settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page.preview_image} />
-      <Layout hasFeature={!!(page.property && page.property.includes('has_feature'))}
-              settings={settings}
-              hasRightDrawer={!!(page.right_body && page.right_body.length)}
-      >
-        {Components(page)}
-      </Layout>
-    </>
+    <GlobalStateProvider>
+      <WindowDimensionsProvider>
+        <GlobalTheme settings={settings}>
+          <CssBaseline />
+          <Head settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page.preview_image} />
+          <Layout hasFeature={!!(page.property && page.property.includes('has_feature'))}
+                  settings={settings}
+                  hasRightDrawer={!!(page.right_body && page.right_body.length)}
+          >
+            {Components(page)}
+          </Layout>
+        </GlobalTheme>
+      </WindowDimensionsProvider>
+    </GlobalStateProvider>
   )
 }
 
@@ -64,6 +73,9 @@ const Index: NextPage<AppPageProps> = (props) => {
   StoriesService.setLocale(props.locale)
 
   if (error) {
+    if (error.type === 'not_supported') {
+      return null
+    }
     return <Error statusCode={error.status} settings={settings} page={page} />
   }
   console.log('inside of INDEX')

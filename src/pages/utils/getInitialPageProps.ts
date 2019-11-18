@@ -1,19 +1,26 @@
-import { NextApiResponse, NextPageContext } from 'next'
+import { NextPageContext } from 'next'
 import StoryblokService from '../../utils/StoryblokService'
 import DeviceDetectService from '../../utils/DeviceDetectService'
-import handleErrorContent from '../../utils/handleErrorContent'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../utils/parsePageProperties'
 import CONFIG from '@config'
 
-function resolveAllPromises(promises: Promise<any>[]) {
+const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map(p => p.catch((e) => {
-      console.log(e)
+      console.log(e.response)
       return null
     }))
   )
 }
+const returnBaseProps = (error: any): AppPageProps => ({
+  page: { _uid: '', component: 'page' },
+  error,
+  settings: { _uid: '', component: 'global', theme_base: 'base' },
+  allCategories: [],
+  allStories: [],
+  locale: ''
+})
 
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
   const { query, req, res } = ctx
@@ -28,12 +35,16 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     seoSlug: query.slug !== 'home' ? query.slug : '' // need to modify on languages and more
   }
   const filterStoriesAfterLang = { lang: 'default' }
-  if (initProps.slug.match(/^.*\.[^\\]+$/) && res) {
+  if (initProps.slug.match(/^.*\.[^\\]+$/)) {
     console.log('not found', query)
     // res.writeHead(301, {
     //   Location: slug
     // })
-    // res.end()
+
+    return returnBaseProps({
+      type: 'not_supported',
+      url: initProps.slug
+    })
   }
   const splitted = initProps.slug.split('/')
   const firstPathSegment = splitted[0]
@@ -113,7 +124,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       }
     }
   } catch (e) {
-    return await handleErrorContent(e, res as NextApiResponse)
+    console.log(e)
+    return returnBaseProps(e)
   }
 }
 
