@@ -1,4 +1,4 @@
-const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
+const withBundleAnalyzer = require('@next/bundle-analyzer')
 const withPlugins = require('next-compose-plugins')
 const withTM = require('next-transpile-modules')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
@@ -21,7 +21,7 @@ const bundleAnalyzerConfig = {
 module.exports = function (env = {}, plugins = []) {
   const config = {
     target: 'serverless',
-    compress: false,
+    // compress: false,
     transpileModules: ['@lumen/mwc'],
     env,
     webpack: (config) => {

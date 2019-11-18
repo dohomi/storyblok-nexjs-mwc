@@ -35,7 +35,9 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
               key="viewport" />
         <meta key="robots" name="robots" content="noindex" />
       </Head>
-      <Layout settings={settings as GlobalStoryblok || {}} hasFeature={false} hasRightDrawer={false} asPath="">
+      <Layout settings={settings as GlobalStoryblok || {}}
+              hasFeature={false}
+              hasRightDrawer={false}>
         {
           page && page.pageContent && Components(page.pageContent)
         }

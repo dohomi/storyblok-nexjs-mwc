@@ -22,6 +22,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
     []
   )
 
+  console.log("inside of _app")
   return (
     <GlobalStateProvider>
       <WindowDimensionsProvider>
