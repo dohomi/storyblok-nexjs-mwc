@@ -3,9 +3,10 @@ import { AppPageProps } from './parsePageProperties'
 import { NextApiResponse } from 'next'
 
 const handleErrorContent = async (e: any, res: NextApiResponse, languagePrefix = ''): Promise<AppPageProps> => {
+  const response = e && e.response
   const error = {
-    status: e.response.status,
-    url: e.response.config_prod && e.response.config_prod.url
+    status: response.status,
+    url: response.config_prod && response.config_prod.url
   }
   res && (res.statusCode = error.status) // set the response error code
   // in storyblok we only handle 404 for not found and any other error 500 including 400 etc.

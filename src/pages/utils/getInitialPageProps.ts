@@ -16,25 +16,29 @@ function resolveAllPromises(promises: Promise<any>[]) {
 }
 
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
-  const { query, req, res } = ctx
+  const { query, req, res, pathname, asPath } = ctx
   const host: string = req ? req.headers.host as string : window.location.host
+  const initSlug = asPath === '' || asPath === '/' ? 'home' : asPath
+  console.log(JSON.stringify({ initSlug, query, asPath, pathname }))
   const initProps = {
     overwriteDisableRobots: ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i)) || host.endsWith('.now.sh'),
-    slug: query.slug as string || 'home',
+    slug: initSlug as string,
     host,
     settingsPath: 'settings',
     rootDirectory: '', // need a trailing "/"
     categories: '', // need a leading "/"
     seoSlug: query.slug !== 'home' ? query.slug : '' // need to modify on languages and more
   }
+
   const filterStoriesAfterLang = { lang: 'default' }
-  if (initProps.slug.match(/^.*\.[^\\]+$/) && res) {
-    console.log('not found', query)
-    // res.writeHead(301, {
-    //   Location: slug
-    // })
-    // res.end()
-  }
+  // if (initProps.slug.match(/^.*\.[^\\]+$/) && res) {
+  //   console.log('not found', query)
+  // res.writeHead(301, {
+  //   Location: slug
+  // })
+  // res.end()
+  // return {}
+  // }
   const splitted = initProps.slug.split('/')
   const firstPathSegment = splitted[0]
   const secondPathSegment = splitted[1]
@@ -82,23 +86,24 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       })
     ])
     const url = `https://${host}/${initProps.seoSlug}` // for seo purpose
-    const pageProps: PageStoryblok = page.data && page.data.story && page.data.story.content
-    const settingsProps: GlobalStoryblok = settings.data && settings.data.story && settings.data.story.content
+    const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
+    const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
     DeviceDetectService.setLanguage(settingsProps.setup_language, settingsProps.setup_supported_languages, res)
-
-    const pageSeo = {
-      title: pageProps.meta_title as string,
-      description: pageProps.meta_description as string,
-      disableRobots: initProps.overwriteDisableRobots || !!pageProps.meta_robots,
-      body: pageProps.seo_body || [],
-      url: url
+    let pageSeo = {}
+    if (pageProps) {
+      pageSeo = {
+        title: pageProps.meta_title as string,
+        description: pageProps.meta_description as string,
+        disableRobots: initProps.overwriteDisableRobots || !!pageProps.meta_robots,
+        body: pageProps.seo_body || [],
+        url: url
+      }
     }
     if (!(settingsProps && settingsProps._uid)) {
       console.log('SETTINGS MISSNG')
     }
     if (!pageProps) {
       console.log('PAGE MISSNG')
-
     }
     return {
       page: pageProps,
@@ -113,7 +118,9 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       }
     }
   } catch (e) {
+    console.log(e)
     return await handleErrorContent(e, res as NextApiResponse)
+    // throw new Error('error happened')
   }
 }
 

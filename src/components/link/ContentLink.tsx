@@ -11,17 +11,17 @@ const ContentLink: FunctionComponent<{
   if (content.link) {
     const { rel, target, ...attrs } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external })
 
-    if (attrs.to || attrs.href) {
+    if (attrs.href) {
       return (
         <SbEditable content={content}>
-          {attrs.href && <a {...attrs} rel={rel} target={target} className={className}>{children}</a>}
-          {attrs.to && !passHref && (
-            <Link {...attrs}>
+          {/*{attrs.href && <a {...attrs} rel={rel} target={target} className={className}>{children}</a>}*/}
+          {!passHref && (
+            <Link {...attrs} as={attrs.href}>
               <a rel={rel} target={target} className={className}>{children}</a>
             </Link>
           )}
-          {attrs.to && passHref && (
-            <Link {...attrs} passHref>
+          {passHref && (
+            <Link {...attrs} as={attrs.href} passHref>
               {children}
             </Link>
           )}

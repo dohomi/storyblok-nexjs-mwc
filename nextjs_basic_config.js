@@ -5,6 +5,13 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 module.exports = function (env = {}, plugins = []) {
   const config = {
     target: 'serverless',
+    experimental: {
+      async rewrites () {
+        return [
+          {source: '/:slug+', destination: '/index'}
+        ]
+      }
+    },
     // compress: false,
     transpileModules: ['@lumen/mwc'],
     env,

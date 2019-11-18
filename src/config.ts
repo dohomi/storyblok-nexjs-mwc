@@ -36,6 +36,10 @@ const projects = {
   'localhost:3002': {
     'previewToken': 'IQrhrTP6aL0WYgDXmersbgtt',
     'publicToken': 'Xzl0aUdUwWqtCsD37fHMmQtt'
+  },
+  'localhost:3003': {
+    'previewToken': 'qASJXPT2cwH76pA9vpJbxAtt',
+    'publicToken': 'm85LRUo0sX4yo9Q96VMQlQtt'
   }
 }
 

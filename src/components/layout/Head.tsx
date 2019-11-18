@@ -127,9 +127,6 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
           <link rel="icon" sizes={`${size}/${size}`} href={imageService(favicon, `${size}x${size}`)}
                 key={`fav_${size}`} />
         ))}
-        {!favicon && (
-          <link rel="icon" href="/favicon.ico" />
-        )}
         {StoryblokService.insideVisualComposer() && (
           <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${StoryblokService.getToken()}`}></script>
         )}

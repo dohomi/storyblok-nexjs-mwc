@@ -19,7 +19,7 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
             className="lm-main__drawer"
             onClose={() => closeNavigationDrawers()}>
       <div>
-        <Link route={homepageLinkHandler()}>
+        <Link href={homepageLinkHandler()}>
           <a>
             <div className="p-3">
               {!websiteLogo && websiteTitle}

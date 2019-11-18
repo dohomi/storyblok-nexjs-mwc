@@ -16,7 +16,7 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
   const websiteLogoInverted = settings.website_logo_invert && imageService(settings.website_logo_invert, '0x' + height)
 
   const Logo = (
-    <Link route={homepageLinkHandler()} passHref>
+    <Link href={homepageLinkHandler()} passHref>
       <MuiLink className={`lm-logo-header`}>
         <>
           {!websiteLogo && (

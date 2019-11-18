@@ -1,4 +1,5 @@
 import StoriesService from './StoriesService'
+import { LinkProps } from 'next/link'
 
 export type LinkPropsType = {
   to?: string
@@ -35,12 +36,21 @@ export const internalLinkHandler = (url: string) => {
   return url.startsWith('/') ? url : `/${url}`
 }
 
-export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkOptions) => {
+type LinkHandlerProps = {
+  href: LinkProps['href']
+  target?: string
+  rel?: string
+}
+
+export const linkHandler = (link: LinkType, options: LinkOptions): LinkHandlerProps => {
+  const props: LinkHandlerProps = {
+    href: '/'
+  }
   let isInternalLink = link.linktype === 'story'
   let cachedUrl = link.cached_url as string
 
   if (isInternalLink) {
-    props.to = internalLinkHandler(cachedUrl)
+    props.href = internalLinkHandler(cachedUrl)
   } else {
     let href = cachedUrl || ''
     if (href.includes('@')) {
@@ -55,10 +65,9 @@ export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkO
     }
     props.href = href
   }
+  return props
 }
 
-export const getLinkAttrs = (link: LinkType = {} as LinkType, options: LinkOptions = {}): LinkPropsType => {
-  const linkAttrs: LinkPropsType = {}
-  linkHandler(linkAttrs, link, options)
-  return linkAttrs
+export const getLinkAttrs = (link: LinkType = {} as LinkType, options: LinkOptions = {}): LinkHandlerProps => {
+  return linkHandler(link, options)
 }
