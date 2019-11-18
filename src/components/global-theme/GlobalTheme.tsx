@@ -73,6 +73,7 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     []
   )
 
+  const themeUid = settings && settings._uid
   const theme = useMemo(() => {
     if (!settings.theme_font_default) {
       settings.theme_font_default = 'Nunito:300,400,700'
@@ -192,7 +193,7 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     }
 
     return responsiveFontSizes(createMuiTheme(globalTheme))
-  }, [settings._uid])
+  }, [themeUid])
 
   return (
     <ThemeProvider theme={theme}>{children}</ThemeProvider>
