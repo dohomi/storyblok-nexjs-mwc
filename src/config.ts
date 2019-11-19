@@ -13,6 +13,9 @@ export type OnInitialPagePropsHook = {
 export interface AppConfigProps {
   defaultLang: string
   languages: string[]
+  rootDirectory?: string
+  overwriteLocale?: string
+  suppressLangKey?: boolean
   storyblok: {
     activatedLanguages: boolean
     settingsInLangfolder: boolean
@@ -34,19 +37,28 @@ const projects = {
     'rootDirectory': 'etherhill/'
   },
   'localhost:3002': {
-    'previewToken': 'IQrhrTP6aL0WYgDXmersbgtt',
+    'previewToken': 'IQrhrTP6aL0WYgDXmersbgtt', // bi
     'publicToken': 'Xzl0aUdUwWqtCsD37fHMmQtt'
   },
   'localhost:3003': {
-    'previewToken': 'qASJXPT2cwH76pA9vpJbxAtt',
+    'previewToken': 'qASJXPT2cwH76pA9vpJbxAtt', // students
     'publicToken': 'm85LRUo0sX4yo9Q96VMQlQtt',
-    'rootDirectory': 'en/'
+    'rootDirectory': 'en',
+    'overwriteLocale': 'en'
+  },
+  'localhost:3004': {
+    'previewToken': 'frxOrvW4RwWV5Xcrg4b3awtt', // upskill
+    'publicToken': 'g2AKoarFAJ3BRbUkuafWwQtt',
+    'languages': ['en', 'de'],
+    'defaultLanguage': 'en',
+    'suppressLangKey': true
   }
 }
 
 const CONFIG: AppConfigProps = {
   defaultLang: 'en',
   languages: ['en', 'de'],
+  rootDirectory: undefined,
   storyblok: {
     activatedLanguages: false,
     settingsInLangfolder: true
@@ -54,7 +66,7 @@ const CONFIG: AppConfigProps = {
   hooks: {}
 }
 CONFIG.hooks.onInitialPageProps = (ctx: OnInitialPagePropsHook) => {
-  const { previewToken, publicToken, rootDirectory } = projects[ctx.host]
+  const { previewToken, publicToken, ...rest } = projects[ctx.host]
 
   StoryblokService.initialize({
     previewToken,
@@ -62,9 +74,9 @@ CONFIG.hooks.onInitialPageProps = (ctx: OnInitialPagePropsHook) => {
   })
   // possible to overwrite input context
   // Object.assign(ctx, { slug: ctx + '/test' })
-  Object.assign(ctx, {
-    rootDirectory: rootDirectory ? rootDirectory : ''
-  })
+
+  Object.assign(CONFIG, rest)
+
 }
 
 export default CONFIG

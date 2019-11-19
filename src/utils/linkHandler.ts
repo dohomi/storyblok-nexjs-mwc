@@ -1,5 +1,6 @@
 import StoriesService from './StoriesService'
 import { LinkProps } from 'next/link'
+import CONFIG from '@config'
 
 export type LinkPropsType = {
   to?: string
@@ -20,6 +21,9 @@ interface LinkOptions {
 }
 
 export const homepageLinkHandler = () => {
+  if (CONFIG.rootDirectory) {
+    return '/'
+  }
   return StoriesService.locale ? `/${StoriesService.locale}/` : '/'
 }
 
@@ -32,6 +36,13 @@ export const internalLinkHandler = (url: string) => {
       console.log('does not starts with')
     }
     url = url.replace(searchStr, `/${StoriesService.locale}/`)
+  }
+  if (CONFIG.rootDirectory) {
+    const urlArray = url.split('/')
+    if (urlArray[0] === CONFIG.rootDirectory) {
+      urlArray.shift()
+      url = urlArray.join('/')
+    }
   }
   return url.startsWith('/') ? url : `/${url}`
 }

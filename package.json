@@ -12,6 +12,7 @@
     "dev1": "next -p 3001",
     "dev2": "next -p 3002",
     "dev3": "next -p 3003",
+    "dev4": "next -p 3004",
     "__dev": "nodemon",
     "__dev2": "PORT=3001 nodemon",
     "__dev3": "PORT=3002 nodemon",

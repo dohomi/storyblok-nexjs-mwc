@@ -27,6 +27,43 @@ const returnBaseProps = (error: any): AppPageProps => ({
   locale: ''
 })
 
+type ApiProps = {
+  pageSlug: string
+  settingsSlug: string
+  rootDirectory: string
+}
+
+const apiRequestResolver = async (pageArray: ApiProps[]) => {
+  let all: any[] = []
+  pageArray.forEach(item => {
+    all.push(StoryblokService.get(item.pageSlug))
+    all.push(StoryblokService.get(item.settingsSlug))
+    all.push(StoryblokService.getAll(`cdn/stories/${item.rootDirectory}`, {
+      per_page: 100,
+      sort_by: 'content.name:asc',
+      filter_query: {
+        'component': {
+          'in': 'category'
+        }
+      }
+    }))
+    all.push(StoryblokService.getAll(`cdn/stories/${item.rootDirectory}`, {
+      per_page: 100,
+      excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
+      sort_by: 'published_at:desc',
+      filter_query: {
+        'component': {
+          'in': 'page'
+        }
+      }
+    }))
+  })
+
+  const found = await resolveAllPromises(all)
+
+  return found
+}
+
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
   const { query, req, res, pathname, asPath } = ctx
   const host: string = req ? req.headers.host as string : window.location.host
@@ -38,70 +75,71 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     slug: initSlug as string,
     host,
     settingsPath: 'settings',
-    rootDirectory: '', // need a trailing "/"
+    rootDirectory: '', // en, de, etherhill
     categories: '', // need a leading "/"
     seoSlug: initSlug !== 'home' ? initSlug : '' // need to modify on languages and more
   }
 
-  const filterStoriesAfterLang = { lang: 'default' }
 
-  if (initProps.slug.match(/^.*\.[^\\]+$/)) {
-    console.log('not found', query)
-    // res.writeHead(301, {
-    //   Location: slug
-    // })
+  // const filterStoriesAfterLang = { lang: 'default' }
 
-    return returnBaseProps({
-      type: 'not_supported',
-      url: initProps.slug
-    })
-  }
-  const splitted = initProps.slug.split('/')
-  const firstPathSegment = splitted[0]
-  const secondPathSegment = splitted[1]
-  const locale = CONFIG.languages.find(lang => lang === firstPathSegment) || ''
-  if (locale) {
-    if (CONFIG.storyblok.activatedLanguages && secondPathSegment && secondPathSegment !== locale) {
-      initProps.slug = `${locale}/${initProps.slug}`
-    }
-    if (CONFIG.storyblok.activatedLanguages && !secondPathSegment) {
-      initProps.slug = `${initProps.slug}/home`
-    }
-    initProps.settingsPath = CONFIG.storyblok.settingsInLangfolder ? `${locale}/${initProps.settingsPath}` : initProps.settingsPath
-    filterStoriesAfterLang.lang = locale
-  }
+  // const splitted = initProps.slug.split('/')
+  // const firstPathSegment = splitted[0]
+  // const secondPathSegment = splitted[1]
+  // const locale = CONFIG.languages.find(lang => lang === firstPathSegment) || ''
+  let locale = 'en' // todo
+  // if (locale) {
+  //   if (CONFIG.storyblok.activatedLanguages && secondPathSegment && secondPathSegment !== locale) {
+  //     initProps.slug = `${locale}/${initProps.slug}`
+  //   }
+  //   if (CONFIG.storyblok.activatedLanguages && !secondPathSegment) {
+  //     initProps.slug = `${initProps.slug}/home`
+  //   }
+  //   initProps.settingsPath = CONFIG.storyblok.settingsInLangfolder ? `${locale}/${initProps.settingsPath}` : initProps.settingsPath
+  //   filterStoriesAfterLang.lang = locale
+  // }
+
   StoryblokService.setQuery(query)
   if (typeof CONFIG.hooks.onInitialPageProps === 'function') {
     CONFIG.hooks.onInitialPageProps(initProps)
   }
+
+
+  let slugAsArray = Array.isArray(query.index) ? query.index : [query.index]
+  if (asPath === '/') {
+    slugAsArray = ['home']
+  }
+  if (CONFIG.rootDirectory) {
+    if (slugAsArray[0] !== CONFIG.rootDirectory) {
+      // if the first entry is not root directory append root directory
+      slugAsArray.unshift(CONFIG.rootDirectory)
+    }
+    console.log('ROOOOOOOOOT', CONFIG.rootDirectory)
+  }
+
+  const pageSlug = `cdn/stories/${slugAsArray.join('/')}`
+  console.log('SLUG ARRAY PAGE:', pageSlug)
+
+  // start locale handling
+
+
+  if (CONFIG.overwriteLocale) {
+    locale = CONFIG.overwriteLocale
+  }
+
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   try {
-    const settingsSlug = `cdn/stories/${initProps.rootDirectory}${initProps.settingsPath}`
-    const pageSlug = `cdn/stories/${initProps.rootDirectory}${initProps.slug}`
+    const settingsSlug = `cdn/stories/${CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''}${initProps.settingsPath}`
     console.log(initProps, settingsSlug, pageSlug)
-    let [page, settings, categories = [], stories = []] = await resolveAllPromises([
-      StoryblokService.get(pageSlug),
-      StoryblokService.get(settingsSlug),
-      StoryblokService.getAll(`cdn/stories/${initProps.rootDirectory}`, {
-        per_page: 100,
-        sort_by: 'content.name:asc',
-        filter_query: {
-          'component': {
-            'in': 'category'
-          }
-        }
-      }),
-      StoryblokService.getAll(`cdn/stories/${initProps.rootDirectory}`, {
-        per_page: 100,
-        excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
-        sort_by: 'published_at:desc',
-        filter_query: {
-          'component': {
-            'in': 'page'
-          }
-        }
-      })
-    ])
+    const apiResolver = [{
+      pageSlug,
+      settingsSlug,
+      rootDirectory: CONFIG.rootDirectory || ''
+    }]
+    if (CONFIG.suppressLangKey && CONFIG.languages) {
+      console.log(CONFIG.languages)
+    }
+    let [page, settings, categories = [], stories = []] = await apiRequestResolver(apiResolver)
     const url = `https://${host}/${initProps.seoSlug}` // for seo purpose
     const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
     const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
