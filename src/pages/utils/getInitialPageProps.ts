@@ -105,7 +105,9 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     const url = `https://${host}/${initProps.seoSlug}` // for seo purpose
     const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
     const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
-    DeviceDetectService.setLanguage(settingsProps.setup_language, settingsProps.setup_supported_languages, res)
+    if (settingsProps) {
+      DeviceDetectService.setLanguage(settingsProps.setup_language, settingsProps.setup_supported_languages, res)
+    }
     let pageSeo: PageSeoProps = {
       url: url,
       disableRobots: initProps.overwriteDisableRobots || !!pageProps.meta_robots,
