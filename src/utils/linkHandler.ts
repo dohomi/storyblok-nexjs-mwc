@@ -20,7 +20,7 @@ interface LinkOptions {
 }
 
 export const homepageLinkHandler = () => {
-  return StoriesService.locale ? `/${StoriesService.locale}` : '/'
+  return StoriesService.locale ? `/${StoriesService.locale}/` : '/'
 }
 
 export const internalLinkHandler = (url: string) => {

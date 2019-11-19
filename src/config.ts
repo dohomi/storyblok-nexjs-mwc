@@ -39,12 +39,8 @@ const projects = {
   },
   'localhost:3003': {
     'previewToken': 'qASJXPT2cwH76pA9vpJbxAtt',
-<<<<<<< HEAD
-    'publicToken': 'm85LRUo0sX4yo9Q96VMQlQtt'
-=======
     'publicToken': 'm85LRUo0sX4yo9Q96VMQlQtt',
     'rootDirectory': 'en/'
->>>>>>> develop
   }
 }
 

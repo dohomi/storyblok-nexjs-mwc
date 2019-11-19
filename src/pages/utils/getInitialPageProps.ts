@@ -30,8 +30,9 @@ const returnBaseProps = (error: any): AppPageProps => ({
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
   const { query, req, res, pathname, asPath } = ctx
   const host: string = req ? req.headers.host as string : window.location.host
-  const initSlug = asPath === '' || asPath === '/' ? 'home' : asPath
-  console.log(JSON.stringify({ initSlug, query, asPath, pathname }))
+  const initSlug = asPath === '' || asPath === '/' || asPath === 'index' ? 'home' : asPath
+  console.log(JSON.stringify({ query }))
+  console.log(JSON.stringify({ initSlug, asPath, pathname }))
   const initProps = {
     overwriteDisableRobots: ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i)) || host.endsWith('.now.sh'),
     slug: initSlug as string,
@@ -39,7 +40,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     settingsPath: 'settings',
     rootDirectory: '', // need a trailing "/"
     categories: '', // need a leading "/"
-    seoSlug: query.slug !== 'home' ? query.slug : '' // need to modify on languages and more
+    seoSlug: initSlug !== 'home' ? initSlug : '' // need to modify on languages and more
   }
 
   const filterStoriesAfterLang = { lang: 'default' }

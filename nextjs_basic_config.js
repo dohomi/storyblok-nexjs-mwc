@@ -6,11 +6,13 @@ module.exports = function (env = {}, plugins = []) {
   const config = {
     target: 'serverless',
     experimental: {
-      async rewrites () {
-        return [
-          {source: '/:slug+', destination: '/index'}
-        ]
-      }
+      modern: true,
+      // async rewrites () {
+      //   return [
+      //     {source: '/', destination: '/[...index]'}
+      //   ]
+      // },
+      catchAllRouting: true
     },
     // compress: false,
     transpileModules: ['@lumen/mwc'],
