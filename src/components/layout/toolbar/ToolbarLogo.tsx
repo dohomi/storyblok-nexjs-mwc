@@ -18,7 +18,7 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
   const as = homepageLinkHandler()
   console.log(as)
   const Logo = (
-    <Link as={as} href={as} passHref>
+    <Link as={homepageLinkHandler()} href="/[...index]" passHref>
       <MuiLink className={`lm-logo-header`}>
         <>
           {!websiteLogo && (

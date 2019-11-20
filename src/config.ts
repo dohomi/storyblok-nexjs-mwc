@@ -11,15 +11,13 @@ export type OnInitialPagePropsHook = {
 }
 
 export interface AppConfigProps {
-  defaultLang: string
+  defaultLocale: string
   languages: string[]
   rootDirectory?: string
   overwriteLocale?: string
-  suppressLangKey?: boolean
-  storyblok: {
-    activatedLanguages: boolean
-    settingsInLangfolder: boolean
-  }
+  suppressSlugLocale?: boolean
+  previewToken: string
+  publicToken: string
   hooks: {
     onInitialPageProps?: Function
   }
@@ -38,7 +36,9 @@ const projects = {
   },
   'localhost:3002': {
     'previewToken': 'IQrhrTP6aL0WYgDXmersbgtt', // bi
-    'publicToken': 'Xzl0aUdUwWqtCsD37fHMmQtt'
+    'publicToken': 'Xzl0aUdUwWqtCsD37fHMmQtt',
+    'languages': ['en', 'de'],
+    'defaultLanguage': 'en'
   },
   'localhost:3003': {
     'previewToken': 'qASJXPT2cwH76pA9vpJbxAtt', // students
@@ -51,32 +51,26 @@ const projects = {
     'publicToken': 'g2AKoarFAJ3BRbUkuafWwQtt',
     'languages': ['en', 'de'],
     'defaultLanguage': 'en',
-    'suppressLangKey': true
+    'suppressSlugLocale': true
   }
 }
 
 const CONFIG: AppConfigProps = {
-  defaultLang: 'en',
-  languages: ['en', 'de'],
+  defaultLocale: 'en',
+  languages: [],
   rootDirectory: undefined,
-  storyblok: {
-    activatedLanguages: false,
-    settingsInLangfolder: true
-  },
+  previewToken: '',
+  publicToken: '',
   hooks: {}
 }
 CONFIG.hooks.onInitialPageProps = (ctx: OnInitialPagePropsHook) => {
-  const { previewToken, publicToken, ...rest } = projects[ctx.host]
+  const rest = projects[ctx.host]
 
-  StoryblokService.initialize({
-    previewToken,
-    publicToken
-  })
   // possible to overwrite input context
   // Object.assign(ctx, { slug: ctx + '/test' })
 
   Object.assign(CONFIG, rest)
-
+  StoryblokService.initialize()
 }
 
 export default CONFIG

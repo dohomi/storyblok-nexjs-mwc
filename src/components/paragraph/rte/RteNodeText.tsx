@@ -27,12 +27,17 @@ const RteNodeText: FunctionComponent<{ content: RteContentProps }> = ({ content 
       return InlineClassMapping[type]
     }))
     if (link) {
-      const { rel, target, ...rest } = getLinkAttrs({
+      const { rel, target, external, ...rest } = getLinkAttrs({
         cached_url: link.attrs.href,
         linktype: link.attrs.linktype
       }, {})
+      if (external) {
+        return (
+          <MuiLink href={rest.href as string} rel={rel} target={target}>{content.text}</MuiLink>
+        )
+      }
       return (
-        <Link {...rest} passHref>
+        <Link href="/[...index]" as={rest.href} passHref>
           <MuiLink rel={rel} target={target}>{content.text}</MuiLink>
         </Link>
       )

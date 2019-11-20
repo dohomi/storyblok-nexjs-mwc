@@ -24,22 +24,19 @@ export const homepageLinkHandler = () => {
   if (CONFIG.rootDirectory) {
     return '/'
   }
-  return StoriesService.locale ? `/${StoriesService.locale}/` : '/'
+  return StoriesService.locale && StoriesService.locale !== CONFIG.defaultLocale ? `/${StoriesService.locale}/home` : '/home'
 }
 
 export const internalLinkHandler = (url: string) => {
-  if (StoriesService.locale) {
-    const searchStr = `/${StoriesService.locale}/${StoriesService.locale}/`
-    if (url.startsWith(searchStr)) {
-      console.log('starts with')
-    } else {
-      console.log('does not starts with')
-    }
-    url = url.replace(searchStr, `/${StoriesService.locale}/`)
-  }
   if (CONFIG.rootDirectory) {
     const urlArray = url.split('/')
     if (urlArray[0] === CONFIG.rootDirectory) {
+      urlArray.shift()
+      url = urlArray.join('/')
+    }
+  } else if (CONFIG.suppressSlugLocale) {
+    const urlArray = url.split('/')
+    if (urlArray.length > 1 && CONFIG.languages.includes(urlArray[0])) {
       urlArray.shift()
       url = urlArray.join('/')
     }
@@ -51,6 +48,7 @@ type LinkHandlerProps = {
   href: LinkProps['href']
   target?: string
   rel?: string
+  external?: boolean
 }
 
 export const linkHandler = (link: LinkType, options: LinkOptions): LinkHandlerProps => {
@@ -74,6 +72,7 @@ export const linkHandler = (link: LinkType, options: LinkOptions): LinkHandlerPr
       props.target = '_blank'
       props.rel = 'noopener noreferrer'
     }
+    props.external = true
     props.href = href
   }
   return props

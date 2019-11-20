@@ -26,7 +26,8 @@ const ListWidgetLists: FunctionComponent<{
           const itemContent = item.content as PageComponent
 
           return (
-            <Link href={internalLinkHandler(item.full_slug as string)}
+            <Link href="/[...index]"
+                  as={internalLinkHandler(item.full_slug as string)}
                   key={item.uuid as string}
                   passHref>
               <ListItem component={'a'}>
