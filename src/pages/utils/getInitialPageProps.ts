@@ -155,19 +155,19 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     categories: '' // need a leading "/"
   }
   StoryblokService.setQuery(query)
-  if (req) {
-    const rest = projects[host]
-    if (rest) {
-      CONFIG = {
-        ...CONFIG,
-        ...rest
-      }
-      StoriesService.setConfig(rest)
-      StoryblokService.initialize(rest)
-    } else {
-      throw Error(`config not found for host: ${host}`)
+
+  const rest = projects[host]
+  if (rest) {
+    CONFIG = {
+      ...CONFIG,
+      ...rest
     }
+    StoriesService.setConfig(rest)
+    StoryblokService.initialize(rest)
+  } else {
+    throw Error(`config not found for host: ${host}`)
   }
+
   let knownLocale = undefined
   let isLandingPage = undefined
   let slugAsArray = Array.isArray(query.index) ? query.index : [query.index]
