@@ -2,10 +2,10 @@ import { NextPageContext } from 'next'
 import StoryblokService from '../../utils/StoryblokService'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
-import { AppPageProps, PageSeoProps } from '../../utils/parsePageProperties'
+import { AppConfigProps, AppPageProps, PageSeoProps } from '../../utils/parsePageProperties'
 import projects from '@projects'
 import { StoriesParams } from 'storyblok-js-client'
-import CONFIG from '../../config'
+import StoriesService from '../../utils/StoriesService'
 
 export type OnInitialPagePropsHook = {
   overwriteDisableRobots: boolean
@@ -35,17 +35,17 @@ const returnBaseProps = (error: any): AppPageProps => ({
   settings: { _uid: '', component: 'global', theme_base: 'base' },
   allCategories: [],
   allStories: [],
-  config: CONFIG,
+  config: StoriesService.getConfig(),
   locale: ''
 })
 
 
-const getSettingsPath = ({ locale }: { locale?: string }) => {
+const getSettingsPath = ({ locale, CONFIG }: { locale?: string, CONFIG: AppConfigProps }) => {
   const directory = CONFIG.rootDirectory || locale || ''
   return `cdn/stories/${directory ? `${directory}/` : ''}settings`
 }
 
-const getCategoryParams = ({ locale }: { locale?: string }) => {
+const getCategoryParams = ({ locale, CONFIG }: { locale?: string, CONFIG: AppConfigProps }) => {
   const params: StoriesParams = {
     per_page: 100,
     sort_by: 'content.name:asc',
@@ -63,7 +63,7 @@ const getCategoryParams = ({ locale }: { locale?: string }) => {
   return params
 }
 
-const getStoriesParams = ({ locale }: { locale?: string }) => {
+const getStoriesParams = ({ locale, CONFIG }: { locale?: string, CONFIG: AppConfigProps }) => {
   const params: StoriesParams = {
     per_page: 100,
     excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
@@ -86,15 +86,15 @@ type ApiProps = {
   pageSlug: string
   locale?: string
   isLandingPage?: boolean
+  CONFIG: AppConfigProps
 }
 
-const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps) => {
-
+const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, CONFIG }: ApiProps) => {
   const all: any[] = [
     StoryblokService.get(`cdn/stories/${pageSlug}`),
-    StoryblokService.get(getSettingsPath({ locale })),
-    StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    StoryblokService.getAll('cdn/stories', getStoriesParams({ locale }))
+    StoryblokService.get(getSettingsPath({ locale, CONFIG })),
+    StoryblokService.getAll('cdn/stories', getCategoryParams({ locale, CONFIG })),
+    StoryblokService.getAll('cdn/stories', getStoriesParams({ locale, CONFIG }))
   ]
 
   if (CONFIG.suppressSlugLocale && CONFIG.languages.length > 1 && !isLandingPage) {
@@ -116,9 +116,9 @@ const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps)
 
     // make 2nd API calls to fetch locale based settings and other values
     let [localizedSettings, localizedCategories, localizedStories] = await resolveAllPromises([
-      StoryblokService.get(getSettingsPath({ locale })),
-      StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-      StoryblokService.getAll('cdn/stories', getStoriesParams({ locale }))
+      StoryblokService.get(getSettingsPath({ locale, CONFIG })),
+      StoryblokService.getAll('cdn/stories', getCategoryParams({ locale, CONFIG })),
+      StoryblokService.getAll('cdn/stories', getStoriesParams({ locale, CONFIG }))
     ])
     settings = localizedSettings
     categories = localizedCategories
@@ -135,6 +135,12 @@ const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps)
 }
 
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
+  let CONFIG: AppConfigProps = {
+    publicToken: '',
+    previewToken: '',
+    defaultLocale: '',
+    languages: []
+  }
   const { query, req, res, pathname, asPath } = ctx
   const host: string = req ? req.headers.host as string : window.location.host
   const initSlug = asPath === '' || asPath === '/' || asPath === 'index' ? 'home' : asPath
@@ -152,8 +158,12 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   if (req) {
     const rest = projects[host]
     if (rest) {
-      Object.assign(CONFIG, rest)
-      StoryblokService.initialize()
+      CONFIG = {
+        ...CONFIG,
+        ...rest
+      }
+      StoriesService.setConfig(rest)
+      StoryblokService.initialize(rest)
     } else {
       throw Error(`config not found for host: ${host}`)
     }
@@ -188,7 +198,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
         slugAsArray.shift() // remove locale from path
       }
     }
-  } else if (Array.isArray(CONFIG.languages) && CONFIG.languages.includes(slugAsArray[0])) {
+  } else if (CONFIG.languages.includes(slugAsArray[0])) {
     // activated multi lang handling
     knownLocale = slugAsArray[0]
     if (slugAsArray.length === 1) {
@@ -205,7 +215,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     let { page, settings, categories = [], stories = [], locale } = await apiRequestResolver({
       pageSlug,
       locale: knownLocale,
-      isLandingPage
+      isLandingPage,
+      CONFIG
     })
 
     if (CONFIG.defaultLocale && !locale) {
@@ -219,7 +230,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     const url = `https://${host}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
     const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
     const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
-    if (CONFIG.languages) {
+    if (CONFIG.languages.length) {
       DeviceDetectService.setLanguage(locale, CONFIG.languages, res)
     }
     let pageSeo: PageSeoProps = {

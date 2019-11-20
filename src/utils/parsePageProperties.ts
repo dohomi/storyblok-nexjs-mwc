@@ -22,15 +22,12 @@ type ErrorProps = {
 
 export interface AppConfigProps {
   defaultLocale: string
+  publicToken: string
+  previewToken: string
   languages: string[]
   rootDirectory?: string
   overwriteLocale?: string
   suppressSlugLocale?: boolean
-  previewToken: string
-  publicToken: string
-  hooks: {
-    onInitialPageProps?: Function
-  }
 }
 
 export type AppPageProps = {

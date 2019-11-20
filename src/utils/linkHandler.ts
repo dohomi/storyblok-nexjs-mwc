@@ -1,6 +1,5 @@
 import StoriesService from './StoriesService'
 import { LinkProps } from 'next/link'
-import CONFIG from '../config'
 
 export type LinkPropsType = {
   to?: string
@@ -21,6 +20,7 @@ interface LinkOptions {
 }
 
 export const homepageLinkHandler = () => {
+  const CONFIG = StoriesService.getConfig()
   if (CONFIG.rootDirectory) {
     return '/'
   }
@@ -28,6 +28,7 @@ export const homepageLinkHandler = () => {
 }
 
 export const internalLinkHandler = (url: string) => {
+  const CONFIG = StoriesService.getConfig()
   if (CONFIG.rootDirectory) {
     const urlArray = url.split('/')
     if (urlArray[0] === CONFIG.rootDirectory) {

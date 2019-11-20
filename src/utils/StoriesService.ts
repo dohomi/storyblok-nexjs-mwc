@@ -1,10 +1,12 @@
 import { CategoryStoryblok } from '../typings/generated/components-schema'
 import { PageItem } from '../typings/generated/schema'
+import { AppConfigProps } from './parsePageProperties'
 
 class StoriesModule {
   stories: any[]
   categories: CategoryStoryblok[]
   urlMapping: any
+  config: AppConfigProps
   public locale: string | undefined
 
   constructor() {
@@ -12,6 +14,20 @@ class StoriesModule {
     this.categories = []
     this.urlMapping = {}
     this.locale = undefined
+    this.config = {
+      defaultLocale: 'de',
+      previewToken: '',
+      publicToken: '',
+      languages: []
+    }
+  }
+
+  setConfig(config: AppConfigProps) {
+    this.config = config
+  }
+
+  getConfig() {
+    return this.config
   }
 
   setAllCategories(categories: CategoryStoryblok[]) {
