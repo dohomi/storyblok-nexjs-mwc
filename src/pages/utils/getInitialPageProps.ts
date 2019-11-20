@@ -6,6 +6,15 @@ import { AppPageProps, PageSeoProps } from '../../utils/parsePageProperties'
 import CONFIG from '@config'
 import { StoriesParams } from 'storyblok-js-client'
 
+export type OnInitialPagePropsHook = {
+  overwriteDisableRobots: boolean
+  slug: string
+  host: string
+  settingsPath: string
+  rootDirectory: string
+  categories: string
+}
+
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map(p => p.catch((e) => {
@@ -130,7 +139,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   const initSlug = asPath === '' || asPath === '/' || asPath === 'index' ? 'home' : asPath
   console.log(JSON.stringify({ query }))
   console.log(JSON.stringify({ initSlug, asPath, pathname }))
-  const initProps = {
+  const initProps: OnInitialPagePropsHook = {
     overwriteDisableRobots: ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i)) || host.endsWith('.now.sh'),
     slug: initSlug as string,
     host,
