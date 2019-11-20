@@ -50,7 +50,7 @@ class DeviceDetect {
     return this.language
   }
 
-  setLanguage(language?: string, audienceLanguages?: string, res?: ServerResponse) {
+  setLanguage(language?: string, audienceLanguages?: string | string[], res?: ServerResponse) {
     if (language) {
       this.language = language
     }

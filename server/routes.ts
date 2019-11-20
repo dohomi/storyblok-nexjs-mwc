@@ -1,20 +1,24 @@
-import routes, { LinkProps } from 'next-routes'
-import { ComponentType } from 'react'
+// import routes, { LinkProps } from 'next-routes'
+import Link from 'next/link'
+import Router from 'next/router'
 
-const appRoutes = new routes()
-  .add('index', '/:slug+')
 
-const { Link: NextRoutesLink, Router } = appRoutes
+// import { ComponentType } from 'react'
 
-export type NextLinkProps = Omit<LinkProps, 'route'> & {
-  to?: string
-  route?: string
-  params?: { [k: string]: string | number }
-  passHref?: boolean
-  prefetch?: boolean
-}
+// const appRoutes = new routes()
+//   .add('index', '/:slug+')
 
-const Link = NextRoutesLink as ComponentType<NextLinkProps>
+// const { Link: NextRoutesLink, Router } = appRoutes
+
+// export type NextLinkProps = Omit<LinkProps, 'route'> & {
+//   to?: string
+//   route?: string
+//   params?: { [k: string]: string | number }
+//   passHref?: boolean
+//   prefetch?: boolean
+// }
+
+// const Link = NextRoutesLink as ComponentType<NextLinkProps>
 
 export { Link, Router }
-export default appRoutes
+// export default appRoutes

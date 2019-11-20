@@ -41,7 +41,7 @@ class MyDocument extends Document {
     const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
 
     return (
-      <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLang}>
+      <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLocale}>
       <Head>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
               key="viewport" />

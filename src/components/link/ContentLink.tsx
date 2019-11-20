@@ -9,19 +9,24 @@ const ContentLink: FunctionComponent<{
   passHref?: boolean
 }> = ({ children, className, content, passHref }) => {
   if (content.link) {
-    const { rel, target, ...attrs } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external })
-
-    if (attrs.to || attrs.href) {
+    const { rel, target, external, ...attrs } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external })
+    if (attrs.href) {
+      if (external) {
+        return (
+          <SbEditable content={content}>
+            <a href={attrs.href as string} rel={rel} target={target} className={className}>{children}</a>
+          </SbEditable>
+        )
+      }
       return (
         <SbEditable content={content}>
-          {attrs.href && <a {...attrs} rel={rel} target={target} className={className}>{children}</a>}
-          {attrs.to && !passHref && (
-            <Link {...attrs}>
+          {!passHref && (
+            <Link {...attrs} href="/[...index]" as={attrs.href}>
               <a rel={rel} target={target} className={className}>{children}</a>
             </Link>
           )}
-          {attrs.to && passHref && (
-            <Link {...attrs} passHref>
+          {passHref && (
+            <Link {...attrs} href="/[...index]" as={attrs.href} passHref>
               {children}
             </Link>
           )}

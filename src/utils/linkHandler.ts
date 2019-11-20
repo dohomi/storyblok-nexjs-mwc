@@ -1,4 +1,6 @@
 import StoriesService from './StoriesService'
+import { LinkProps } from 'next/link'
+import CONFIG from '@config'
 
 export type LinkPropsType = {
   to?: string
@@ -19,28 +21,45 @@ interface LinkOptions {
 }
 
 export const homepageLinkHandler = () => {
-  return StoriesService.locale ? `/${StoriesService.locale}` : '/'
+  if (CONFIG.rootDirectory) {
+    return '/'
+  }
+  return StoriesService.locale && StoriesService.locale !== CONFIG.defaultLocale ? `/${StoriesService.locale}/home` : '/home'
 }
 
 export const internalLinkHandler = (url: string) => {
-  if (StoriesService.locale) {
-    const searchStr = `/${StoriesService.locale}/${StoriesService.locale}/`
-    if (url.startsWith(searchStr)) {
-      console.log('starts with')
-    } else {
-      console.log('does not starts with')
+  if (CONFIG.rootDirectory) {
+    const urlArray = url.split('/')
+    if (urlArray[0] === CONFIG.rootDirectory) {
+      urlArray.shift()
+      url = urlArray.join('/')
     }
-    url = url.replace(searchStr, `/${StoriesService.locale}/`)
+  } else if (CONFIG.suppressSlugLocale) {
+    const urlArray = url.split('/')
+    if (urlArray.length > 1 && CONFIG.languages.includes(urlArray[0])) {
+      urlArray.shift()
+      url = urlArray.join('/')
+    }
   }
   return url.startsWith('/') ? url : `/${url}`
 }
 
-export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkOptions) => {
+type LinkHandlerProps = {
+  href: LinkProps['href']
+  target?: string
+  rel?: string
+  external?: boolean
+}
+
+export const linkHandler = (link: LinkType, options: LinkOptions): LinkHandlerProps => {
+  const props: LinkHandlerProps = {
+    href: '/'
+  }
   let isInternalLink = link.linktype === 'story'
   let cachedUrl = link.cached_url as string
 
   if (isInternalLink) {
-    props.to = internalLinkHandler(cachedUrl)
+    props.href = internalLinkHandler(cachedUrl)
   } else {
     let href = cachedUrl || ''
     if (href.includes('@')) {
@@ -53,12 +72,12 @@ export const linkHandler = (props: LinkPropsType, link: LinkType, options: LinkO
       props.target = '_blank'
       props.rel = 'noopener noreferrer'
     }
+    props.external = true
     props.href = href
   }
+  return props
 }
 
-export const getLinkAttrs = (link: LinkType = {} as LinkType, options: LinkOptions = {}): LinkPropsType => {
-  const linkAttrs: LinkPropsType = {}
-  linkHandler(linkAttrs, link, options)
-  return linkAttrs
+export const getLinkAttrs = (link: LinkType = {} as LinkType, options: LinkOptions = {}): LinkHandlerProps => {
+  return linkHandler(link, options)
 }
