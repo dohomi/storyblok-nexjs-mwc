@@ -41,8 +41,8 @@
       "@initialData/*": [
         "./src/pages/utils/*"
       ],
-      "@config": [
-        "./src/config.ts"
+      "@projects": [
+        "./src/projects.json"
       ]
     },
     "allowJs": false

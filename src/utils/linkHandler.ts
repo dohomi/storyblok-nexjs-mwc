@@ -1,6 +1,6 @@
 import StoriesService from './StoriesService'
 import { LinkProps } from 'next/link'
-import CONFIG from '@config'
+import CONFIG from '../config'
 
 export type LinkPropsType = {
   to?: string

@@ -14,7 +14,7 @@ import WindowDimensionsProvider from '../components/provider/WindowDimensionsPro
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import { CssBaseline } from '@material-ui/core'
 import { GlobalStateProvider } from '../utils/state/state'
-import CONFIG from '@config'
+import CONFIG from '../config'
 
 type CoreAppProps = AppPageProps & {
   asPath: string

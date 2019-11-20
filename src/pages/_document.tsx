@@ -4,7 +4,7 @@ import DeviceDetectService from '../utils/DeviceDetectService'
 import React from 'react'
 import StoriesService from '../utils/StoriesService'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import CONFIG from '@config'
+import CONFIG from '../config'
 
 function getGoogleTagManager() {
   if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {

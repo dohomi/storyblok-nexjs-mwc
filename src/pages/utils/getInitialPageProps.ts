@@ -3,8 +3,9 @@ import StoryblokService from '../../utils/StoryblokService'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps, PageSeoProps } from '../../utils/parsePageProperties'
-import CONFIG from '@config'
+import projects from '@projects'
 import { StoriesParams } from 'storyblok-js-client'
+import CONFIG from '../../config'
 
 export type OnInitialPagePropsHook = {
   overwriteDisableRobots: boolean
@@ -148,8 +149,14 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     categories: '' // need a leading "/"
   }
   StoryblokService.setQuery(query)
-  if (typeof CONFIG.hooks.onInitialPageProps === 'function' && req) {
-    CONFIG.hooks.onInitialPageProps(initProps)
+  if (req) {
+    const rest = projects[host]
+    if (rest) {
+      Object.assign(CONFIG, rest)
+      StoryblokService.initialize()
+    } else {
+      throw Error(`config not found for host: ${host}`)
+    }
   }
   let knownLocale = undefined
   let isLandingPage = undefined

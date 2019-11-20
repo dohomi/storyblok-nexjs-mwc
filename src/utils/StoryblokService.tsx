@@ -1,5 +1,5 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
-import CONFIG from '@config'
+import CONFIG from '../config'
 
 class StoryblokService {
   private devMode: boolean
