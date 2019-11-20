@@ -7,15 +7,6 @@ import projects from '@projects'
 import { StoriesParams } from 'storyblok-js-client'
 import StoriesService from '../../utils/StoriesService'
 
-export type OnInitialPagePropsHook = {
-  overwriteDisableRobots: boolean
-  slug: string
-  host: string
-  settingsPath: string
-  rootDirectory: string
-  categories: string
-}
-
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map(p => p.catch((e) => {
@@ -141,19 +132,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     defaultLocale: '',
     languages: []
   }
-  const { query, req, res, pathname, asPath } = ctx
+  const { query, req, res, asPath } = ctx
   const host: string = req ? req.headers.host as string : window.location.host
-  const initSlug = asPath === '' || asPath === '/' || asPath === 'index' ? 'home' : asPath
-  console.log(JSON.stringify({ query }))
-  console.log(JSON.stringify({ initSlug, asPath, pathname }))
-  const initProps: OnInitialPagePropsHook = {
-    overwriteDisableRobots: ['dev.', 'test.', 'preview.', 'prev.', 'beta.', 'localhost:'].some(i => host.startsWith(i)) || host.endsWith('.now.sh'),
-    slug: initSlug as string,
-    host,
-    settingsPath: 'settings',
-    rootDirectory: '', // en, de, etherhill
-    categories: '' // need a leading "/"
-  }
   StoryblokService.setQuery(query)
 
   const rest = projects[host]
@@ -171,9 +151,10 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   let knownLocale = undefined
   let isLandingPage = undefined
   let slugAsArray = Array.isArray(query.index) ? query.index : [query.index]
-  if (asPath === '/') {
+  if (asPath === '/' || !asPath) {
     slugAsArray = ['home']
   }
+  console.log('GET_INTIAL_PAGE_PROPS:', JSON.stringify({ query, asPath, slugAsArray }))
   let seoSlug = slugAsArray.join('/')
   if (seoSlug.endsWith('home')) {
     seoSlug = seoSlug.replace('home', '')
@@ -235,7 +216,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     }
     let pageSeo: PageSeoProps = {
       url: url,
-      disableRobots: initProps.overwriteDisableRobots || !!pageProps.meta_robots,
+      disableRobots: CONFIG.overwriteDisableIndex || !!pageProps.meta_robots,
       title: '',
       description: '',
       body: []
