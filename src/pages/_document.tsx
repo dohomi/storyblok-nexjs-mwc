@@ -4,7 +4,6 @@ import DeviceDetectService from '../utils/DeviceDetectService'
 import React from 'react'
 import StoriesService from '../utils/StoriesService'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import CONFIG from '../config'
 
 function getGoogleTagManager() {
   if (process.env.GTM_CONTAINER && process.env.NODE_ENV === 'production') {
@@ -41,7 +40,7 @@ class MyDocument extends Document {
     const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
 
     return (
-      <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLocale}>
+      <html lang={StoriesService.locale ? StoriesService.locale : StoriesService.config.defaultLocale}>
       <Head>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
               key="viewport" />

@@ -29,8 +29,8 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
     console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.NODE_ENV, process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
   }
   console.log('ERROR', statusCode, page, settings)
-  if (!props.settings) {
-    return <h3>Error Occured</h3>
+  if (!(props.settings && props.settings._uid)) {
+    return <h3>No settings found</h3>
   }
 
   return (

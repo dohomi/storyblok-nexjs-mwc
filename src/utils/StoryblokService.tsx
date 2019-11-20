@@ -1,5 +1,5 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
-import CONFIG from '../config'
+import { AppConfigProps } from './parsePageProperties'
 
 class StoryblokService {
   private devMode: boolean
@@ -23,9 +23,9 @@ class StoryblokService {
     this.query = {}
   }
 
-  initialize() {
-    this.token = CONFIG.publicToken
-    this.previewToken = CONFIG.previewToken
+  initialize(config: AppConfigProps) {
+    this.token = config.publicToken
+    this.previewToken = config.previewToken
     this.client.setToken(process.env.NODE_ENV === 'development' ? this.previewToken : this.token)
   }
 

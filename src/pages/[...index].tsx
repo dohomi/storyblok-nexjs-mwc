@@ -14,7 +14,6 @@ import WindowDimensionsProvider from '../components/provider/WindowDimensionsPro
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import { CssBaseline } from '@material-ui/core'
 import { GlobalStateProvider } from '../utils/state/state'
-import CONFIG from '../config'
 
 type CoreAppProps = AppPageProps & {
   asPath: string
@@ -69,11 +68,11 @@ const StoryblokIndex: FunctionComponent<CoreAppProps> = (props) => {
 const Index: NextPage<AppPageProps> = (props) => {
   const { asPath, query } = useRouter()
   const { settings, page, error } = props
+  StoriesService.setConfig(props.config)
+  StoryblokService.initialize(props.config)
   StoriesService.setAllStories(props.allStories)
   StoriesService.setAllCategories(props.allCategories)
   StoriesService.setLocale(props.locale)
-  Object.assign(CONFIG, props.config)
-  StoryblokService.initialize()
   if (error) {
     if (error.type === 'not_supported') {
       return null
