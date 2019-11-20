@@ -38,7 +38,7 @@ const projects = {
     'previewToken': 'IQrhrTP6aL0WYgDXmersbgtt', // bi
     'publicToken': 'Xzl0aUdUwWqtCsD37fHMmQtt',
     'languages': ['en', 'de'],
-    'defaultLanguage': 'en'
+    'defaultLocale': 'en'
   },
   'localhost:3003': {
     'previewToken': 'qASJXPT2cwH76pA9vpJbxAtt', // students
@@ -50,7 +50,7 @@ const projects = {
     'previewToken': 'frxOrvW4RwWV5Xcrg4b3awtt', // upskill
     'publicToken': 'g2AKoarFAJ3BRbUkuafWwQtt',
     'languages': ['en', 'de'],
-    'defaultLanguage': 'en',
+    'defaultLocale': 'en',
     'suppressSlugLocale': true
   }
 }
