@@ -5,7 +5,6 @@ import {
   SeoOpenGraphStoryblok
 } from '../typings/generated/components-schema'
 import { DeviceDetectModule } from './DeviceDetectService'
-import { AppConfigProps } from '@config'
 
 export type PageSeoProps = {
   title: string
@@ -19,6 +18,19 @@ type ErrorProps = {
   type: 'not_supported' | 'page_not_found' | 'settings_not_found' | 'server_error',
   status: number,
   url: string
+}
+
+export interface AppConfigProps {
+  defaultLocale: string
+  languages: string[]
+  rootDirectory?: string
+  overwriteLocale?: string
+  suppressSlugLocale?: boolean
+  previewToken: string
+  publicToken: string
+  hooks: {
+    onInitialPageProps?: Function
+  }
 }
 
 export type AppPageProps = {

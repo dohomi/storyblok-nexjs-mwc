@@ -1,4 +1,5 @@
 import StoryblokService from './utils/StoryblokService'
+import { AppConfigProps } from './utils/parsePageProperties'
 
 export type OnInitialPagePropsHook = {
   overwriteDisableRobots: boolean
@@ -8,19 +9,6 @@ export type OnInitialPagePropsHook = {
   seoSlug: string
   rootDirectory: string
   categories: string
-}
-
-export interface AppConfigProps {
-  defaultLocale: string
-  languages: string[]
-  rootDirectory?: string
-  overwriteLocale?: string
-  suppressSlugLocale?: boolean
-  previewToken: string
-  publicToken: string
-  hooks: {
-    onInitialPageProps?: Function
-  }
 }
 
 const projects = {
@@ -65,10 +53,6 @@ const CONFIG: AppConfigProps = {
 }
 CONFIG.hooks.onInitialPageProps = (ctx: OnInitialPagePropsHook) => {
   const rest = projects[ctx.host]
-
-  // possible to overwrite input context
-  // Object.assign(ctx, { slug: ctx + '/test' })
-
   Object.assign(CONFIG, rest)
   StoryblokService.initialize()
 }
