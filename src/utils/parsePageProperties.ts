@@ -28,6 +28,7 @@ export interface AppConfigProps {
   rootDirectory?: string
   overwriteLocale?: string
   suppressSlugLocale?: boolean
+  overwriteDisableIndex?: boolean
 }
 
 export type AppPageProps = {
