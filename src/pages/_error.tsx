@@ -24,14 +24,15 @@ const statusCodes = {
 
 const Error: NextPage<ErrorComponentProps> = (props) => {
   let { statusCode, page, settings } = props
-  console.log('inside of error')
   const title = (statusCodes as any)[statusCode] || 'An unexpected error has occurred'
   if (statusCode === 401) {
     console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.NODE_ENV, process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
   }
+  console.log('ERROR', statusCode, page, settings)
   if (!props.settings) {
     return <h3>Error Occured</h3>
   }
+
   return (
     <GlobalStateProvider>
       <WindowDimensionsProvider>

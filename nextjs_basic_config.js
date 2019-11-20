@@ -7,11 +7,11 @@ module.exports = function (env = {}, plugins = []) {
     target: 'serverless',
     experimental: {
       modern: true,
-      // async rewrites () {
-      //   return [
-      //     {source: '/', destination: '/[...index]'}
-      //   ]
-      // },
+      async rewrites () {
+        return [
+          {source: '/', destination: '/[...index]'}
+        ]
+      },
       catchAllRouting: true
     },
     // compress: false,

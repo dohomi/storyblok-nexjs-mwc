@@ -30,6 +30,7 @@ type SeoMetaTypes = {
     appId: string;
   }
   twitter?: Twitter
+  canonical?: string
 }
 
 
@@ -56,7 +57,7 @@ const parseOpenGraph = (settingsOpenGraph: SeoOpenGraphStoryblok, pageOpenGraph:
   const openGraph: OpenGraph = {
     title: pageOpenGraph.title || seoMeta.title || settingsOpenGraph.title,
     description: pageOpenGraph.description || seoMeta.description || settingsOpenGraph.description,
-    url: pageOpenGraph.url || url || settingsOpenGraph.url,
+    url: pageOpenGraph.url || settingsOpenGraph.url || url,
     type: pageOpenGraph.type || settingsOpenGraph.type,
     site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
     locale: pageOpenGraph.locale || settingsOpenGraph.locale
@@ -119,6 +120,7 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
   if (settingsTwitter) {
     seo.twitter = parseTwitter(settingsTwitter)
   }
+  seo.canonical = pageSeo.url
   return (
     <>
       <NextSeo {...seo} />

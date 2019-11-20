@@ -192,6 +192,10 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       isLandingPage
     })
 
+    if (CONFIG.defaultLocale && !locale) {
+      locale = CONFIG.defaultLocale
+    }
+
     if (CONFIG.overwriteLocale) {
       locale = CONFIG.overwriteLocale
     }
@@ -199,8 +203,8 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     const url = `https://${host}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
     const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
     const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
-    if (settingsProps) {
-      DeviceDetectService.setLanguage(settingsProps.setup_language, settingsProps.setup_supported_languages, res)
+    if (CONFIG.languages) {
+      DeviceDetectService.setLanguage(locale, CONFIG.languages, res)
     }
     let pageSeo: PageSeoProps = {
       url: url,
