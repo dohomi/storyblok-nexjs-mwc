@@ -1,15 +1,6 @@
 import StoryblokService from './utils/StoryblokService'
 import { AppConfigProps } from './utils/parsePageProperties'
-
-export type OnInitialPagePropsHook = {
-  overwriteDisableRobots: boolean
-  slug: string
-  host: string
-  settingsPath: string
-  seoSlug: string
-  rootDirectory: string
-  categories: string
-}
+import { OnInitialPagePropsHook } from '@initialData/getInitialPageProps'
 
 const projects = {
   'localhost:3000': {
