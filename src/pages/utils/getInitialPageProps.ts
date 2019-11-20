@@ -216,7 +216,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     }
     let pageSeo: PageSeoProps = {
       url: url,
-      disableRobots: CONFIG.overwriteDisableIndex || !!pageProps.meta_robots,
+      disableRobots: CONFIG.overwriteDisableIndex || !!(pageProps && pageProps.meta_robots),
       title: '',
       description: '',
       body: []
