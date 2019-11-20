@@ -1,4 +1,5 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
+import CONFIG from '@config'
 
 class StoryblokService {
   private devMode: boolean
@@ -22,10 +23,10 @@ class StoryblokService {
     this.query = {}
   }
 
-  initialize({ previewToken, publicToken }: { previewToken: string, publicToken: string }) {
-    this.token = publicToken
-    this.previewToken = previewToken
-    this.client.setToken(process.env.NODE_ENV === 'development' ? previewToken : publicToken)
+  initialize() {
+    this.token = CONFIG.publicToken
+    this.previewToken = CONFIG.previewToken
+    this.client.setToken(process.env.NODE_ENV === 'development' ? this.previewToken : this.token)
   }
 
   setToken(token: string) {

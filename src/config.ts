@@ -11,12 +11,13 @@ export type OnInitialPagePropsHook = {
 }
 
 export interface AppConfigProps {
-  defaultLang: string
+  defaultLocale: string
   languages: string[]
-  storyblok: {
-    activatedLanguages: boolean
-    settingsInLangfolder: boolean
-  }
+  rootDirectory?: string
+  overwriteLocale?: string
+  suppressSlugLocale?: boolean
+  previewToken: string
+  publicToken: string
   hooks: {
     onInitialPageProps?: Function
   }
@@ -34,37 +35,42 @@ const projects = {
     'rootDirectory': 'etherhill/'
   },
   'localhost:3002': {
-    'previewToken': 'IQrhrTP6aL0WYgDXmersbgtt',
-    'publicToken': 'Xzl0aUdUwWqtCsD37fHMmQtt'
+    'previewToken': 'IQrhrTP6aL0WYgDXmersbgtt', // bi
+    'publicToken': 'Xzl0aUdUwWqtCsD37fHMmQtt',
+    'languages': ['en', 'de'],
+    'defaultLocale': 'en'
   },
   'localhost:3003': {
-    'previewToken': 'qASJXPT2cwH76pA9vpJbxAtt',
+    'previewToken': 'qASJXPT2cwH76pA9vpJbxAtt', // students
     'publicToken': 'm85LRUo0sX4yo9Q96VMQlQtt',
-    'rootDirectory': 'en/'
+    'rootDirectory': 'en',
+    'overwriteLocale': 'en'
+  },
+  'localhost:3004': {
+    'previewToken': 'frxOrvW4RwWV5Xcrg4b3awtt', // upskill
+    'publicToken': 'g2AKoarFAJ3BRbUkuafWwQtt',
+    'languages': ['en', 'de'],
+    'defaultLocale': 'en',
+    'suppressSlugLocale': true
   }
 }
 
 const CONFIG: AppConfigProps = {
-  defaultLang: 'en',
-  languages: ['en', 'de'],
-  storyblok: {
-    activatedLanguages: false,
-    settingsInLangfolder: true
-  },
+  defaultLocale: 'en',
+  languages: [],
+  rootDirectory: undefined,
+  previewToken: '',
+  publicToken: '',
   hooks: {}
 }
 CONFIG.hooks.onInitialPageProps = (ctx: OnInitialPagePropsHook) => {
-  const { previewToken, publicToken, rootDirectory } = projects[ctx.host]
+  const rest = projects[ctx.host]
 
-  StoryblokService.initialize({
-    previewToken,
-    publicToken
-  })
   // possible to overwrite input context
   // Object.assign(ctx, { slug: ctx + '/test' })
-  Object.assign(ctx, {
-    rootDirectory: rootDirectory ? rootDirectory : ''
-  })
+
+  Object.assign(CONFIG, rest)
+  StoryblokService.initialize()
 }
 
 export default CONFIG

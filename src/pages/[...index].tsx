@@ -14,6 +14,7 @@ import WindowDimensionsProvider from '../components/provider/WindowDimensionsPro
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import { CssBaseline } from '@material-ui/core'
 import { GlobalStateProvider } from '../utils/state/state'
+import CONFIG from '@config'
 
 type CoreAppProps = AppPageProps & {
   asPath: string
@@ -32,7 +33,7 @@ const CoreIndex: FunctionComponent<CoreAppProps> = (props) => {
       <WindowDimensionsProvider>
         <GlobalTheme settings={settings}>
           <CssBaseline />
-          <Head settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page.preview_image} />
+          <Head settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
           <Layout hasFeature={!!(page.property && page.property.includes('has_feature'))}
                   settings={settings}
                   hasRightDrawer={!!(page.right_body && page.right_body.length)}
@@ -71,12 +72,21 @@ const Index: NextPage<AppPageProps> = (props) => {
   StoriesService.setAllStories(props.allStories)
   StoriesService.setAllCategories(props.allCategories)
   StoriesService.setLocale(props.locale)
-
+  Object.assign(CONFIG, props.config)
+  StoryblokService.initialize()
   if (error) {
     if (error.type === 'not_supported') {
       return null
     }
     return <Error statusCode={error.status} settings={settings} page={page} />
+  }
+
+  if (!page && !settings) {
+    return <h3>No page or settings found</h3>
+  }
+
+  if (!page) {
+    return <Error statusCode={404} settings={settings} page={page} />
   }
   console.log('inside of INDEX')
 
