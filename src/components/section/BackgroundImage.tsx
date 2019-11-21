@@ -47,12 +47,21 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
     () => {
       const current = anchorRef && anchorRef.target as HTMLDivElement
       if (current && inView) {
-        const width = current.clientWidth
-        const height = current.clientHeight
+        let currentWidth = current.clientWidth
+        let currentHeight = current.clientHeight
+        if (isDesktop) {
+          if (backgroundStyle === 'fixed_cover') {
+            currentWidth = width
+            currentHeight = height
+          } else if (backgroundStyle === 'fixed_image') {
+            currentHeight = currentHeight + 200
+            currentWidth = currentWidth + 200
+          }
+        }
         const img = getImageAttrs({
           originalSource: image,
-          width: isFixedBackground ? width + 200 : width,
-          height: isFixedBackground ? height + 200 : height,
+          width: currentWidth,
+          height: currentHeight,
           smart: true
         })
         getImage({
@@ -65,7 +74,7 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
         })
       }
     },
-    [width, height, image, anchorRef, inView]
+    [width, height, image, anchorRef, inView, isDesktop, backgroundStyle]
   )
   return (
     <>
@@ -75,7 +84,6 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
           'lm-fixed-bg': isFixedBackground,
           'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
           'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
-
         })}
              style={{
                backgroundImage: imgSrc && `url('${imgSrc}')`

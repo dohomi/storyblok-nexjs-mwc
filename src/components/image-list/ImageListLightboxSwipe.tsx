@@ -45,8 +45,10 @@ const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
                       onChangeIndex={handleChangeIndex}>
         {props.elements.map(item => (
           <div key={item._uid} className="carousel-item">
-            <img {...getImageSource(item.source as string)}
-                 className='img-fluid' />
+            <figure className="d-block">
+              <img {...getImageSource(item.source as string)}
+                   className='img-fluid' />
+            </figure>
           </div>
         ))}
       </SwipeableViews>
