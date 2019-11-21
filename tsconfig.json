@@ -32,9 +32,6 @@
       "@fonts": [
         "./components/fonts.ts"
       ],
-      "@routes": [
-        "./server/routes.ts"
-      ],
       "@polyfills": [
         "./client/polyfills.js"
       ],

@@ -2,7 +2,7 @@ import { RteContentProps } from './rte_typings'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import clsx from 'clsx'
-import { Link } from '@routes'
+import Link from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 import { getLinkAttrs } from '../../../utils/linkHandler'
 
