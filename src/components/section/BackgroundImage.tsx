@@ -68,7 +68,6 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
           src: img.src,
           srcSet: img.srcSet,
           onReady(imageSource: string) {
-            console.log(imageSource)
             setImgSrc(imageSource)
           }
         })

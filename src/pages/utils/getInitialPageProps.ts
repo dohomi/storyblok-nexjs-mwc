@@ -26,6 +26,7 @@ const returnBaseProps = (error: any): AppPageProps => ({
   settings: { _uid: '', component: 'global', theme_base: 'base' },
   allCategories: [],
   allStories: [],
+  allStaticContent: [],
   config: StoriesService.getConfig(),
   locale: ''
 })
@@ -43,6 +44,24 @@ const getCategoryParams = ({ locale, CONFIG }: { locale?: string, CONFIG: AppCon
     filter_query: {
       'component': {
         'in': 'category'
+      }
+    }
+  }
+  if (CONFIG.rootDirectory) {
+    params.starts_with = `${CONFIG.rootDirectory}/`
+  } else if (locale) {
+    params.starts_with = `${locale}/`
+  }
+  return params
+}
+
+const getStaticContainer = ({ locale, CONFIG }: { locale?: string, CONFIG: AppConfigProps }) => {
+  const params: StoriesParams = {
+    per_page: 30,
+    sort_by: 'content.name:asc',
+    filter_query: {
+      'component': {
+        'in': 'static_container'
       }
     }
   }
@@ -85,7 +104,8 @@ const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, CONFIG }: A
     StoryblokService.get(`cdn/stories/${pageSlug}`),
     StoryblokService.get(getSettingsPath({ locale, CONFIG })),
     StoryblokService.getAll('cdn/stories', getCategoryParams({ locale, CONFIG })),
-    StoryblokService.getAll('cdn/stories', getStoriesParams({ locale, CONFIG }))
+    StoryblokService.getAll('cdn/stories', getStoriesParams({ locale, CONFIG })),
+    StoryblokService.getAll('cdn/stories', getStaticContainer({ locale, CONFIG }))
   ]
 
   if (CONFIG.suppressSlugLocale && CONFIG.languages.length > 1 && !isLandingPage) {
@@ -95,7 +115,7 @@ const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, CONFIG }: A
     })
   }
 
-  let [page, settings, categories, stories, ...otherPageLanguages] = await resolveAllPromises(all)
+  let [page, settings, categories, stories, staticContent, ...otherPageLanguages] = await resolveAllPromises(all)
 
   if (page === null && otherPageLanguages.length) {
     otherPageLanguages.forEach((value, index) => {
@@ -106,14 +126,20 @@ const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, CONFIG }: A
     })
 
     // make 2nd API calls to fetch locale based settings and other values
-    let [localizedSettings, localizedCategories, localizedStories] = await resolveAllPromises([
+    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await resolveAllPromises([
       StoryblokService.get(getSettingsPath({ locale, CONFIG })),
       StoryblokService.getAll('cdn/stories', getCategoryParams({ locale, CONFIG })),
-      StoryblokService.getAll('cdn/stories', getStoriesParams({ locale, CONFIG }))
+      StoryblokService.getAll('cdn/stories', getStoriesParams({ locale, CONFIG })),
+      StoryblokService.getAll('cdn/stories', getStaticContainer({ locale, CONFIG }))
     ])
-    settings = localizedSettings
-    categories = localizedCategories
-    stories = localizedStories
+    return {
+      page,
+      locale,
+      settings: localizedSettings,
+      categories: localizedCategories,
+      stories: localizedStories,
+      staticContent: localizedStaticContent
+    }
   }
 
   return {
@@ -121,7 +147,8 @@ const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, CONFIG }: A
     settings,
     categories,
     stories,
-    locale
+    locale,
+    staticContent
   }
 }
 
@@ -193,7 +220,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   // start locale handling
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   try {
-    let { page, settings, categories = [], stories = [], locale } = await apiRequestResolver({
+    let { page, settings, categories = [], stories = [], locale, staticContent = [] } = await apiRequestResolver({
       pageSlug,
       locale: knownLocale,
       isLandingPage,
@@ -239,8 +266,9 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       page: pageProps,
       settings: settingsProps,
       pageSeo,
-      allStories: stories || [],
-      allCategories: categories || [],
+      allStories: stories,
+      allCategories: categories,
+      allStaticContent: staticContent,
       locale,
       config: CONFIG,
       deviceService: {

@@ -72,6 +72,7 @@ const Index: NextPage<AppPageProps> = (props) => {
   StoryblokService.initialize(props.config)
   StoriesService.setAllStories(props.allStories)
   StoriesService.setAllCategories(props.allCategories)
+  StoriesService.setAllStaticContent(props.allStaticContent)
   StoriesService.setLocale(props.locale)
   if (error) {
     if (error.type === 'not_supported') {
