@@ -30,6 +30,7 @@ import RichTextParagraph from './paragraph/RichTextParagraph'
 import LmMuiButton from './button/LmMuiButton'
 import GridRow from './section/GridRow'
 import GridColumn from './section/GridColumn'
+import StaticSection from './static-section/StaticSection'
 // import HubspotForm from './hubspot/HubspotForm'
 // import Form from './form/Form'
 // import Pricing from './pricing/Pricing'
@@ -40,6 +41,7 @@ const Components = {
   'table': Table,
   'accordion': Accordion,
   // 'promotion': Promotion,
+  'static_section': StaticSection,
   'divider': Divider,
   'html': Html,
   // 'pricing': Pricing,

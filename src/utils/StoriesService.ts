@@ -1,10 +1,11 @@
 import { CategoryStoryblok } from '../typings/generated/components-schema'
-import { PageItem } from '../typings/generated/schema'
+import { PageItem, StaticcontainerItem } from '../typings/generated/schema'
 import { AppConfigProps } from './parsePageProperties'
 
 class StoriesModule {
   stories: any[]
   categories: CategoryStoryblok[]
+  staticContent: StaticcontainerItem[]
   urlMapping: any
   config: AppConfigProps
   public locale: string | undefined
@@ -12,6 +13,7 @@ class StoriesModule {
   constructor() {
     this.stories = []
     this.categories = []
+    this.staticContent = []
     this.urlMapping = {}
     this.locale = undefined
     this.config = {
@@ -41,6 +43,15 @@ class StoriesModule {
   getAllCategories() {
     return this.categories
   }
+
+  setAllStaticContent(staticContent: StaticcontainerItem[]) {
+    this.staticContent = staticContent
+  }
+
+  getStaticContent(uid: string): StaticcontainerItem | undefined {
+    return this.staticContent.find((item) => item.uuid === uid)
+  }
+
 
   setAllStories(stories: PageItem[]) {
     this.stories = stories

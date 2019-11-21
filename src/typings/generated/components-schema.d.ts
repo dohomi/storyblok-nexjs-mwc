@@ -684,7 +684,6 @@ export interface NavMenuItemStoryblok {
 }
 
 export interface PageStoryblok {
-  real_url?: string;
   property?: "has_feature"[];
   meta_title?: string;
   meta_description?: string;
@@ -927,6 +926,24 @@ export interface SliderStoryblok {
   section_variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   _uid: string;
   component: "slider";
+  [k: string]: any;
+}
+
+export interface StaticContainerStoryblok {
+  body?: any[];
+  _uid: string;
+  component: "static_container";
+  [k: string]: any;
+}
+
+export interface StaticSectionStoryblok {
+  container?: string;
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
+  _uid: string;
+  component: "static_section";
   [k: string]: any;
 }
 
