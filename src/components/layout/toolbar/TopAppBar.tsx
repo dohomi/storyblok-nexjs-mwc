@@ -83,6 +83,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps> = (props) => {
     toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg'
   }
 
+  const isFixedTop = toolbarConfig.includes('fixed')
   return (
     <>
       <AppBar className={clsx(classes.topAppBar, {
@@ -94,14 +95,14 @@ const TopAppBar: FunctionComponent<AppHeaderProps> = (props) => {
         [classes.toolbarCustom]: props.settings.toolbar_color && props.settings.toolbar_color.rgba
       })}
               color={mapToolbarColor[toolbarVariant || 'default']}
-              position={toolbarConfig.includes('fixed') ? 'fixed' : 'relative'}>
+              position={isFixedTop ? 'fixed' : 'relative'}>
         <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
           <Toolbar className={classes.toolbar}>
             {props.children}
           </Toolbar>
         </Container>
       </AppBar>
-      {!props.hasFeature && <Toolbar className={classes.toolbar} />}
+      {isFixedTop && !props.hasFeature && <Toolbar className={classes.toolbar} />}
     </>
   )
 }
