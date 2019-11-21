@@ -9,6 +9,7 @@ module.exports = function (env = {}, plugins = []) {
       modern: true,
       async rewrites () {
         return [
+          {source: '/sitemap.xml', destination: '/api/sitemap'},
           {source: '/', destination: '/[...index]'}
         ]
       },

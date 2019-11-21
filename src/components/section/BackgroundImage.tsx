@@ -7,6 +7,8 @@ import { intersectionDefaultOptions } from '../../utils/intersectionObserverConf
 import { makeStyles } from '@material-ui/styles'
 import Fade from '@material-ui/core/Fade'
 import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
+import Skeleton from '@material-ui/lab/Skeleton'
+import clsx from 'clsx'
 
 const useStyles = makeStyles({
   root: {
@@ -20,6 +22,13 @@ const useStyles = makeStyles({
     backgroundPosition: 'center',
     backgroundColor: '#ccc',
     // zIndex: 0
+    '&.lm-fixed-bg': {
+      backgroundAttachment: 'fixed',
+      backgroundSize: 'initial',
+      '&.lm-fixed-bg__top': {
+        backgroundPosition: 'top'
+      }
+    }
   }
 })
 
@@ -29,9 +38,11 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
   }
   const image = content.image as string
   const classes = useStyles()
-  const { isMobile, width, height } = useWindowDimensions()
+  const { isDesktop, width, height } = useWindowDimensions()
+  const isFixedBackground = isDesktop && (backgroundStyle === 'fixed_image' || backgroundStyle === 'fixed_cover')
+
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
-  const [imgSrc, setImgSrc] = useState<string>('')
+  const [imgSrc, setImgSrc] = useState<string | undefined>(undefined)
   useEffect(
     () => {
       const current = anchorRef && anchorRef.target as HTMLDivElement
@@ -40,14 +51,15 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
         const height = current.clientHeight
         const img = getImageAttrs({
           originalSource: image,
-          width,
-          height,
+          width: isFixedBackground ? width + 200 : width,
+          height: isFixedBackground ? height + 200 : height,
           smart: true
         })
         getImage({
           src: img.src,
           srcSet: img.srcSet,
           onReady(imageSource: string) {
+            console.log(imageSource)
             setImgSrc(imageSource)
           }
         })
@@ -56,17 +68,22 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
     [width, height, image, anchorRef, inView]
   )
   return (
-    <Fade in={!!imgSrc} timeout={1000}>
-      <div className={classes.root}
-           style={{
-             backgroundImage: imgSrc && `url('${imgSrc}')`,
-             backgroundAttachment: !isMobile && (backgroundStyle === 'fixed_image' || backgroundStyle === 'fixed_cover')
-               ? 'fixed'
-               : 'inherit'
-           }}
-           ref={viewRef}>
-      </div>
-    </Fade>
+    <>
+      {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} />}
+      <Fade in={!!imgSrc} timeout={1000}>
+        <div className={clsx(classes.root, {
+          'lm-fixed-bg': isFixedBackground,
+          'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
+          'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
+
+        })}
+             style={{
+               backgroundImage: imgSrc && `url('${imgSrc}')`
+             }}
+             ref={viewRef}>
+        </div>
+      </Fade>
+    </>
   )
 }
 

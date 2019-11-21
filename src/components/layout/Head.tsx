@@ -1,6 +1,6 @@
 import NextHead from 'next/head'
 import NProgress from 'nprogress'
-import { Router } from '@routes'
+import Router from 'next/router'
 import StoryblokService from '../../utils/StoryblokService'
 import { NextSeo } from 'next-seo'
 import imageService, { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'

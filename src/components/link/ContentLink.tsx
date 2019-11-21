@@ -1,7 +1,7 @@
 import { default as React, FunctionComponent } from 'react'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import SbEditable from 'storyblok-react'
-import { Link } from '@routes'
+import Link from 'next/link'
 
 const ContentLink: FunctionComponent<{
   className: string

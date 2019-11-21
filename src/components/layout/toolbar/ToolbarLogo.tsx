@@ -1,5 +1,5 @@
 import imageService from '../../../utils/ImageService'
-import { Link } from '@routes'
+import Link from 'next/link'
 import SbEditable from 'storyblok-react'
 import * as React from 'react'
 import { FunctionComponent } from 'react'

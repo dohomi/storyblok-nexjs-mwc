@@ -1,6 +1,6 @@
 import React, { FunctionComponent, memo } from 'react'
 import DrawerContentList from './DrawerContentList'
-import { Link } from '@routes'
+import Link from 'next/link'
 import imageService from '../../../utils/ImageService'
 import { useGlobalState } from '../../../utils/state/state'
 import { closeNavigationDrawers } from '../../../utils/state/actions'

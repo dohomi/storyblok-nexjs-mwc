@@ -4,7 +4,7 @@ import { ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/com
 import { PageComponent, PageItem } from '../../typings/generated/schema'
 import List from '@material-ui/core/List'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import { Link } from '@routes'
+import Link from 'next/link'
 import SbEditable from 'storyblok-react'
 import ListItem from '@material-ui/core/ListItem'
 import LmMuiAvatar from '../avatar/LmMuiAvatar'
