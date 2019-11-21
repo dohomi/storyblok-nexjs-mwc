@@ -7,11 +7,10 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import GlobalTheme from '../../src/components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../src/typings/generated/components-schema'
 import { boolean, color, text } from '@storybook/addon-knobs'
-import useGlobalStyles from '../../src/utils/useGlobalStyles'
 import { CONFIG_STORYBOOK } from './configStorybook'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
-  useGlobalStyles()
+  // useGlobalStyles()
   return (
     <>{children}</>
   )
@@ -23,6 +22,8 @@ const StoriesLayout = (storyFunc: Function) => {
   // $primary: #4db6ac;
   // $secondary: #37474F;
   const settings: Partial<GlobalStoryblok> = {
+    _uid: '1234',
+    component: 'global',
     toolbar_variant: 'dark',
     theme_base: isDark ? 'dark' : 'base',
     theme_primary: color('Theme primary color', '#4db6ac', CONFIG_STORYBOOK.KNOBS.THEME),
@@ -39,20 +40,22 @@ const StoriesLayout = (storyFunc: Function) => {
   }
 
   return (
-    <WindowDimensionsProvider>
-      <GlobalStateProvider>
+    <GlobalStateProvider>
+      <WindowDimensionsProvider>
         <GlobalTheme settings={settings}>
-          <CssBaseline />
-          <Layout>
-            <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
-              <>
-                {storyFunc()}
-              </>
-            </Container>
-          </Layout>
+          <div>
+            <CssBaseline />
+            <Layout>
+              <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
+                <>
+                  {storyFunc()}
+                </>
+              </Container>
+            </Layout>
+          </div>
         </GlobalTheme>
-      </GlobalStateProvider>
-    </WindowDimensionsProvider>
+      </WindowDimensionsProvider>
+    </GlobalStateProvider>
   )
 }
 

@@ -84,7 +84,6 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
           'lm-fixed-bg': isFixedBackground,
           'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
           'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
-
         })}
              style={{
                backgroundImage: imgSrc && `url('${imgSrc}')`

@@ -12,7 +12,7 @@ import Head from '../components/layout/Head'
 import { closeNavigationDrawers } from '../utils/state/actions'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
-import { CssBaseline } from '@material-ui/core'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import { GlobalStateProvider } from '../utils/state/state'
 
 type CoreAppProps = AppPageProps & {
