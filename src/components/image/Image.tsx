@@ -8,12 +8,14 @@ import { intersectionDefaultOptions } from '../../utils/intersectionObserverConf
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Fade } from '@material-ui/core'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
+import { Skeleton } from '@material-ui/lab'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'inline-block',
     margin: 0,
-    padding: 0
+    padding: 0,
+    position: 'relative'
   },
   image: {
     maxWidth: '100%',
@@ -42,7 +44,7 @@ const Image: FunctionComponent<{
   const classes = useStyles()
   const { isMobile } = useDeviceDimensions()
   const [loaded, setLoaded] = useState<boolean>(false)
-  const fallback = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
+  const fallback = ''
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
@@ -111,14 +113,15 @@ const Image: FunctionComponent<{
 
   return (
     <SbEditable content={content}>
-      <Fade in={loaded}>
-        <figure ref={refIntersectionObserver}
-                className={classes.root}>
+      <figure ref={refIntersectionObserver}
+              className={classes.root}>
+        {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant={property.includes('rounded-circle') ? 'circle' : 'rect'} />}
+        <Fade in={loaded}>
           <img {...imgProps}
                className={clsx(classes.image, content.property)}
                onLoad={onImageLoaded} />
-        </figure>
-      </Fade>
+        </Fade>
+      </figure>
     </SbEditable>
   )
 }

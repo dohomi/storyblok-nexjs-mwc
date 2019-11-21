@@ -8,9 +8,10 @@ import GlobalTheme from '../../src/components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../src/typings/generated/components-schema'
 import { boolean, color, text } from '@storybook/addon-knobs'
 import { CONFIG_STORYBOOK } from './configStorybook'
+import useGlobalStyles from '../../src/utils/useGlobalStyles'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
-  // useGlobalStyles()
+  useGlobalStyles()
   return (
     <>{children}</>
   )
@@ -19,8 +20,6 @@ const Layout: FunctionComponent<{}> = ({ children }) => {
 const StoriesLayout = (storyFunc: Function) => {
   const isDark = boolean('Dark mode', false, CONFIG_STORYBOOK.KNOBS.THEME)
 
-  // $primary: #4db6ac;
-  // $secondary: #37474F;
   const settings: Partial<GlobalStoryblok> = {
     _uid: '1234',
     component: 'global',

@@ -7,6 +7,7 @@ import { intersectionDefaultOptions } from '../../utils/intersectionObserverConf
 import { CardListItemProps } from './cards'
 import CardMedia from '@material-ui/core/CardMedia'
 import { Fade } from '@material-ui/core'
+import Skeleton from '@material-ui/lab/Skeleton'
 
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, content, options }) => {
   const [reference, inView, intersecRef] = useInView(intersectionDefaultOptions)
@@ -14,7 +15,6 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
   const contentImage = content.image
   useEffect(
     () => {
-
       if (inView && contentImage && intersecRef && intersecRef.target) {
         const mediaEl = intersecRef && intersecRef.target as HTMLDivElement
         const currentWidth = mediaEl.clientWidth || 0
@@ -35,22 +35,22 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
     },
     [inView, intersecRef, contentImage]
   )
-//todo
-  // sixteenByNine={options.image_ratio !== '1x1'}
-  // square={options.image_ratio === '1x1'}
   return (
-    <Fade in={!!imgSource}>
-      <CardMedia style={{
-        color: options.variant && options.variant.includes('font_white') ? 'white' : 'inherit',
-        backgroundSize: options.image_size || 'cover'
-      }}
-                 image={imgSource}
-                 ref={reference}
-      >
-        {!imgSource && <div></div>}
-        {children}
-      </CardMedia>
-    </Fade>
+    <>
+      {!imgSource && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} />}
+      <Fade in={!!imgSource}>
+        <CardMedia style={{
+          color: options.variant && options.variant.includes('font_white') ? 'white' : 'inherit',
+          backgroundSize: options.image_size || 'cover'
+        }}
+                   image={imgSource}
+                   ref={reference}
+        >
+          {!imgSource && <div></div>}
+          {children}
+        </CardMedia>
+      </Fade>
+    </>
   )
 }
 export default CardMediaElement
