@@ -14,16 +14,15 @@ import {
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 import LmMuiButton from '../../button/LmMuiButton'
-import { Grid } from '@material-ui/core'
+import Grid from '@material-ui/core/Grid'
+import clsx from 'clsx'
 
-const NaviButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
-  const mobileNavBreakpoint = settings.mobile_nav_breakpoint || 'sm'
-  const iconName = content.icon && content.icon.name || 'menu'
+const NaviButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }> = ({ content }) => {
   return (
     <SbEditable content={content}>
-      <IconButton className={`d-${mobileNavBreakpoint}-none`}
+      <IconButton className={clsx(content.class_names && content.class_names.values)}
                   onClick={() => toggleLeftNavigation()}>
-        <Icon>{iconName}</Icon>
+        <Icon>{(content.icon && content.icon.name) || 'menu'}</Icon>
       </IconButton>
     </SbEditable>
   )
@@ -59,10 +58,19 @@ const ToolbarSection: FunctionComponent<{ content: ToolbarRowSectionStoryblok, s
   const body = content.body || []
   return (
     <SbEditable content={content}>
-      <Grid container className="lm-toolbar__section" style={{
-        justifyContent: content.align_end ? 'right' : 'left'
-      }}>
+      <Grid item
+            className={clsx(content.class_names && content.class_names.values, {
+              'h-100': !content.align,
+              'd-inline-flex': !content.align
+            })}
+            style={{
+              alignItems: !content.align ? 'center' : undefined,
+              alignSelf: content.align ? content.align : 'center'
+            }}
+      >
+
         {body.map(blok => Child(blok, settings))}
+
       </Grid>
     </SbEditable>
   )

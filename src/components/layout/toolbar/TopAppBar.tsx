@@ -5,8 +5,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import { Container } from '@material-ui/core'
-import { ContainerProps } from '@material-ui/core/Container'
+import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 
 export type AppHeaderProps = {
@@ -17,6 +16,11 @@ export type AppHeaderProps = {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   topAppBar: {
+    '& .lm-system-bar': {
+      height: '40px',
+      transitionDuration: '500ms',
+      overflow: 'hidden'
+    },
     '& .MuiIconButton-root': {
       color: 'inherit'
     },
@@ -30,13 +34,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       backgroundColor: 'transparent',
       boxShadow: 'none'
     },
-    '&.lm-toolbar__scrolled .MuiToolbar-root': {
-      height: theme.toolbar.height.mobile,
-      [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: theme.toolbar.height.landscape
+    '&.lm-toolbar__scrolled': {
+      '& .lm-system-bar': {
+        height: 0
       },
-      [theme.breakpoints.up('sm')]: {
-        height: theme.toolbar.height.desktop
+      '& .MuiToolbar-root': {
+        height: theme.toolbar.height.mobile,
+        [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
+          height: theme.toolbar.height.landscape
+        },
+        [theme.breakpoints.up('sm')]: {
+          height: theme.toolbar.height.desktop
+        }
       }
     }
   },
@@ -72,7 +81,9 @@ const mapToolbarColor = {
   'white': 'inherit'
 }
 
-const TopAppBar: FunctionComponent<AppHeaderProps> = (props) => {
+const TopAppBar: FunctionComponent<AppHeaderProps & {
+  SystemBar?: React.ReactNode
+}> = (props) => {
   const classes = useStyles(props)
   const { settings } = props
   const toolbarConfig = settings.toolbar_config || []
@@ -96,6 +107,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps> = (props) => {
       })}
               color={mapToolbarColor[toolbarVariant || 'default']}
               position={isFixedTop ? 'fixed' : 'relative'}>
+        {props.SystemBar}
         <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
           <Toolbar className={classes.toolbar}>
             {props.children}

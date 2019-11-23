@@ -232,6 +232,9 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.d-block': {
         display: 'block'
       },
+      '.d-inline-block': {
+        display: 'inline-block'
+      },
       [theme.breakpoints.up('sm')]: {
         '.d-sm-inline-flex': {
           display: 'inline-flex'

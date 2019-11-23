@@ -1010,6 +1010,10 @@ export interface ToolbarNaviButtonStoryblok {
     name?: string;
     [k: string]: any;
   };
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
   _uid: string;
   component: "toolbar_navi_button";
   [k: string]: any;
@@ -1017,6 +1021,8 @@ export interface ToolbarNaviButtonStoryblok {
 
 export interface ToolbarRowStoryblok {
   body?: any[];
+  is_system_bar?: boolean;
+  justify?: "space-between" | "space-around" | "space-evenly" | "flex-start" | "flex-end" | "center";
   class_names?: {
     values?: string[];
     [k: string]: any;
@@ -1028,7 +1034,7 @@ export interface ToolbarRowStoryblok {
 
 export interface ToolbarRowSectionStoryblok {
   body?: any[];
-  align_end?: boolean;
+  align?: "flex-start" | "flex-end" | "center";
   class_names?: {
     values?: string[];
     [k: string]: any;

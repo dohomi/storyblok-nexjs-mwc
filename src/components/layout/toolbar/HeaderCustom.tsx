@@ -27,11 +27,21 @@ const Child = (blok: any, settings: GlobalStoryblok) => {
 
 const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
   const content = props.settings || {}
-  const rows = content.multi_toolbar || []
+  let rows = content.multi_toolbar || []
 
+  let SystemBar = null
+  const systemBarProps = rows.find(item => item.is_system_bar)
+  console.log(systemBarProps)
+  console.log('inside blabblar', rows)
+  if (systemBarProps) {
+    console.log('has systemBar', systemBarProps)
+    SystemBar = Child(systemBarProps, content)
+    // rows.splice(systemBarProps, 1)
+    rows = rows.filter(i => i._uid !== systemBarProps._uid)
+  }
   return (
     <SbEditable content={content}>
-      <TopAppBarWrap {...props}>
+      <TopAppBarWrap {...props} SystemBar={SystemBar}>
         {rows.map(p => Child(p, content))}
       </TopAppBarWrap>
     </SbEditable>

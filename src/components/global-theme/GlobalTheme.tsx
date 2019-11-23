@@ -145,9 +145,10 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
             },
             '& .lm-logo-header': {
               height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
+              display: 'inline-block',
+              '& figure': {
+                boxSizing: 'border-box'
+              },
               '& .MuiCollapse-wrapper': {
                 height: '100%'
               },
