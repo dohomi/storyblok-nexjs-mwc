@@ -343,7 +343,7 @@ export interface GlobalStoryblok {
   };
   website_title?: string;
   website_slogan?: string;
-  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated" | "scroll_collapse")[];
+  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated" | "scroll_collapse" | "enable_system_bar")[];
   footer?: any[];
   footer_config?: ("footer-large" | "footer-small")[];
   seo_body?: any[];
@@ -1023,7 +1023,10 @@ export interface ToolbarRowStoryblok {
   body?: any[];
   is_system_bar?: boolean;
   justify?: "space-between" | "space-around" | "space-evenly" | "flex-start" | "flex-end" | "center";
-  height?: number;
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   class_names?: {
     values?: string[];
     [k: string]: any;

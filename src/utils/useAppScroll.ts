@@ -4,7 +4,6 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger/useScrollTrigge
 import { setScrollTop, setScrollTriggered } from './state/actions'
 
 export default function useAppScroll({ settings }: { settings: GlobalStoryblok }) {
-  console.log(settings)
   const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
   const scrolledWithHysteresis = useScrollTrigger({ disableHysteresis: false })
   const isScrollCollapse = settings.toolbar_config && settings.toolbar_config.includes('scroll_collapse')

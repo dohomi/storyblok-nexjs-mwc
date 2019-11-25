@@ -9,12 +9,6 @@ import Grid from '@material-ui/core/Grid'
 
 const ToolbarRow: FunctionComponent<{ content: ToolbarRowStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
   const body = content.body || []
-  // let toolbarConfig = settings.toolbar_config || []
-  // const childClassName = clsx('lm-toolbar-row d-flex justify-content-center', {
-  //   ['mdc-layout-grid--fixed-column-width']: toolbarConfig.includes('fixed_width'),
-  //   ['w-100']: !toolbarConfig.includes('fixed_width')
-  // })
-
 
   if (content.is_system_bar) {
     const toolbarConfig = settings.toolbar_config || []
@@ -23,7 +17,9 @@ const ToolbarRow: FunctionComponent<{ content: ToolbarRowStoryblok, settings: Gl
       toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg'
     }
     return (
-      <div className={clsx('lm-system-bar', 'bg-primary')}>
+      <div className={clsx('lm-system-bar', 'bg-primary')} style={{
+        backgroundColor: (content.background_color && content.background_color.rgba) || undefined
+      }}>
         <Container className="h-100" maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
           <Grid container className="h-100" justify={content.justify} alignContent={'center'} alignItems={'center'}>
             {body.map(p => <ToolbarSection content={p} settings={settings} key={p._uid} />)}

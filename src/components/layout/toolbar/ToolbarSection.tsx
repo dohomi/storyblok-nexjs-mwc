@@ -16,6 +16,7 @@ import Icon from '@material-ui/core/Icon'
 import LmMuiButton from '../../button/LmMuiButton'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
+import ListSearchAutocomplete from '../../list-widget/ListSearchAutocomplete'
 
 const NaviButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }> = ({ content }) => {
   return (
@@ -42,7 +43,8 @@ const ToolbarComponents: ToolbarSectionComponents = {
   'nav_menu': Menu,
   'toolbar_logo': ToolbarLogo,
   'toolbar_navi_button': NaviButton,
-  'toolbar_right_navi_button': NaviButton
+  'toolbar_right_navi_button': NaviButton,
+  'list_search_autocomplete': ListSearchAutocomplete
 }
 
 const Child = (blok: any, settings: GlobalStoryblok) => {

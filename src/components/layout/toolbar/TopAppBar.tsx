@@ -7,6 +7,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import { useGlobalState } from '../../../utils/state/state'
+import ContentSpace from '../ContentSpace'
 
 export type AppHeaderProps = {
   settings: GlobalStoryblok,
@@ -50,18 +51,23 @@ const useStyles = makeStyles((theme: Theme) => {
             }
           }
         },
-        '&.lm-toolbar__scroll-collapse.lm-toolbar__collapsed': {
+        '&.lm-toolbar__scroll-collapse.lm-toolbar__collapsed .MuiToolbar-root': {
           height: 0,
+          minHeight: 0,
+          padding: 0,
           overflow: 'hidden',
-          transition: 'height 700ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-          transitionDuration: '700ms'
+          transitionDuration: '300ms'
         }
       },
-      toolbarCustom: (props: AppHeaderProps) => {
+      topAppBarCustom: (props: AppHeaderProps) => {
         const options: CreateCSSProperties<{}> = {}
         if (props.settings.toolbar_color && props.settings.toolbar_color.rgba) {
           options.backgroundColor = props.settings.toolbar_color.rgba
         }
+        return options
+      },
+      toolbarCustom: (props: AppHeaderProps) => {
+        const options: CreateCSSProperties<{}> = {}
         const increasedFontSize = props.settings.toolbar_font_size
         if (increasedFontSize) {
           options['& .MuiButton-root'] = {
@@ -120,18 +126,21 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
         'lm-toolbar__collapsed': collapsed,
         'lm-toolbar__scroll-collapse': isScrollCollapse,
         'lm-toolbar__with-system-bar': !!props.SystemBar,
-        [classes.toolbarCustom]: (props.settings.toolbar_color && props.settings.toolbar_color.rgba) || props.settings.toolbar_font_size
+        [classes.topAppBarCustom]: (props.settings.toolbar_color && props.settings.toolbar_color.rgba)
+
       })}
               color={mapToolbarColor[toolbarVariant || 'default']}
               position={isFixedTop ? 'fixed' : 'relative'}>
         {props.SystemBar}
         <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
-          <Toolbar className={classes.toolbar}>
+          <Toolbar className={clsx(classes.toolbar, {
+            [classes.toolbarCustom]: props.settings.toolbar_font_size
+          })}>
             {props.children}
           </Toolbar>
         </Container>
       </AppBar>
-      {isFixedTop && !props.hasFeature && <Toolbar className={classes.toolbar} />}
+      {isFixedTop && !props.hasFeature && <ContentSpace />}
     </>
   )
 }

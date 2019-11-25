@@ -113,7 +113,7 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
           landscape: 48,
           desktop: 64,
           custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined,
-          systemBar: settings.multi_toolbar && settings.multi_toolbar.find(item => item.is_system_bar) ? 40 : 0
+          systemBar: (settings.toolbar_config && settings.toolbar_config.includes('enable_system_bar')) ? 40 : 0
         }
       },
       typography: {
