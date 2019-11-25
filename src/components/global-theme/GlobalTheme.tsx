@@ -8,6 +8,7 @@ import parseFont from '../../utils/parseFont'
 // @ts-ignore
 import mediaQuery from 'css-mediaquery'
 import DeviceDetectService from '../../utils/DeviceDetectService'
+import useGlobalStyles from '../../utils/useGlobalStyles'
 
 const mapThemeType = {
   'base': 'light',
@@ -22,7 +23,8 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         mobile: number,
         landscape: number,
         desktop: number,
-        custom?: number
+        custom?: number,
+        systemBar: number
       }
     }
     alternativeFont: {
@@ -42,6 +44,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         landscape: number,
         desktop: number,
         custom?: number
+        systemBar: number
       }
     }
     alternativeFont?: {
@@ -51,6 +54,11 @@ declare module '@material-ui/core/styles/createMuiTheme' {
       alt4?: string;
     };
   }
+}
+
+const GlobalStyles = () => {
+  useGlobalStyles()
+  return null
 }
 
 const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = ({ children, settings }) => {
@@ -104,7 +112,8 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
           mobile: 56,
           landscape: 48,
           desktop: 64,
-          custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined
+          custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined,
+          systemBar: (settings.toolbar_config && settings.toolbar_config.includes('enable_system_bar')) ? 40 : 0
         }
       },
       typography: {
@@ -145,9 +154,10 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
             },
             '& .lm-logo-header': {
               height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
+              display: 'inline-block',
+              '& figure': {
+                boxSizing: 'border-box'
+              },
               '& .MuiCollapse-wrapper': {
                 height: '100%'
               },
@@ -199,8 +209,12 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     return responsiveFontSizes(createMuiTheme(globalTheme))
   }, [themeUid])
 
+
   return (
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      {children}
+    </ThemeProvider>
   )
 }
 export default GlobalTheme

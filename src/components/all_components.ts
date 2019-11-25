@@ -31,6 +31,7 @@ import LmMuiButton from './button/LmMuiButton'
 import GridRow from './section/GridRow'
 import GridColumn from './section/GridColumn'
 import StaticSection from './static-section/StaticSection'
+import StaticContainer from './static-section/StaticContainer'
 // import HubspotForm from './hubspot/HubspotForm'
 // import Form from './form/Form'
 // import Pricing from './pricing/Pricing'
@@ -42,6 +43,7 @@ const Components = {
   'accordion': Accordion,
   // 'promotion': Promotion,
   'static_section': StaticSection,
+  'static_container': StaticContainer,
   'divider': Divider,
   'html': Html,
   // 'pricing': Pricing,

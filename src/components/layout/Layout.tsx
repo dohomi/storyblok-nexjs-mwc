@@ -3,7 +3,7 @@ import Footer from './Footer'
 import React, { FunctionComponent } from 'react'
 import MwcDrawer from './drawer/MwcDrawer'
 import { AppPageProps } from '../../utils/parsePageProperties'
-import useGlobalStyles from '../../utils/useGlobalStyles'
+import useAppScroll from '../../utils/useAppScroll'
 
 export type LayoutComponentProps = Pick<AppPageProps, 'settings'> & {
   hasFeature: boolean
@@ -13,7 +13,7 @@ export type LayoutComponentProps = Pick<AppPageProps, 'settings'> & {
 
 const Layout: FunctionComponent<LayoutComponentProps> = ({ settings, children, hasFeature, hasRightDrawer }) => {
   console.log('inside of LAYOUT')
-  useGlobalStyles()
+  useAppScroll({ settings })
   return (
     <>
       <MwcDrawer content={settings} />

@@ -7,11 +7,13 @@ import {
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
 } from '../../src/typings/generated/components-schema'
+import { darkSectionWithColumns } from './section'
+import { toolbarRow } from './layout/toolbar'
 
 const menuItem: NavMenuStoryblok = {
   _uid: '1231231',
   component: 'nav_menu',
-  border_radius: "0px",
+  border_radius: '0px',
   title: 'Menu',
   body: [{
     _uid: '3243',
@@ -60,7 +62,39 @@ const multiToolbar = [{
   }] as ToolbarRowSectionStoryblok[]
 }] as ToolbarRowStoryblok []
 
+
+const multiToolbarWithSystemBar = [{
+  ...toolbarRow,
+  body: [{
+    _uid: '123',
+    component: 'toolbar_row_section',
+    align_end: true,
+    body: toolbarItems
+  }] as ToolbarRowSectionStoryblok[]
+}, {
+  _uid: '23',
+  component: 'toolbar_row',
+  body: [{
+    _uid: '123',
+    component: 'toolbar_row_section',
+    align_end: true,
+    body: toolbarItems
+  }] as ToolbarRowSectionStoryblok[]
+}] as ToolbarRowStoryblok []
+
+
 export const customSettings: GlobalStoryblok = {
   ...simpleSettings,
-  multi_toolbar: multiToolbar
+  multi_toolbar: multiToolbar,
+  footer: [darkSectionWithColumns]
 }
+
+export const customSettingsSystemBar: GlobalStoryblok = {
+  ...simpleSettings,
+  multi_toolbar: multiToolbarWithSystemBar,
+  footer: [darkSectionWithColumns]
+}
+
+
+
+

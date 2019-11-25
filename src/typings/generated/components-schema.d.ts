@@ -343,7 +343,7 @@ export interface GlobalStoryblok {
   };
   website_title?: string;
   website_slogan?: string;
-  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated")[];
+  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated" | "scroll_collapse" | "enable_system_bar")[];
   footer?: any[];
   footer_config?: ("footer-large" | "footer-small")[];
   seo_body?: any[];
@@ -1010,6 +1010,10 @@ export interface ToolbarNaviButtonStoryblok {
     name?: string;
     [k: string]: any;
   };
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
   _uid: string;
   component: "toolbar_navi_button";
   [k: string]: any;
@@ -1017,6 +1021,12 @@ export interface ToolbarNaviButtonStoryblok {
 
 export interface ToolbarRowStoryblok {
   body?: any[];
+  is_system_bar?: boolean;
+  justify?: "space-between" | "space-around" | "space-evenly" | "flex-start" | "flex-end" | "center";
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   class_names?: {
     values?: string[];
     [k: string]: any;
@@ -1028,7 +1038,7 @@ export interface ToolbarRowStoryblok {
 
 export interface ToolbarRowSectionStoryblok {
   body?: any[];
-  align_end?: boolean;
+  align?: "flex-start" | "flex-end" | "center";
   class_names?: {
     values?: string[];
     [k: string]: any;

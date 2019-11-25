@@ -18,25 +18,26 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
   const as = homepageLinkHandler()
   console.log(as)
   const Logo = (
-    <Link as={homepageLinkHandler()} href="/[...index]" passHref>
-      <MuiLink className={`lm-logo-header`}>
-        <>
-          {!websiteLogo && (
-            <Typography>
-              {websiteTitle}
-            </Typography>
-          )}
-          {websiteLogo &&
-          <img src={websiteLogo}
-               className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
-               alt={websiteTitle || 'website logo'} />}
-          {websiteLogoInverted &&
-          <img src={websiteLogoInverted}
-               className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
-               alt={websiteTitle || 'website logo'} />}
-        </>
-      </MuiLink>
-    </Link>
+    <div className="h-100 d-inline-block">
+      <Link as={homepageLinkHandler()} href="/[...index]" passHref>
+        <MuiLink className={`lm-logo-header`}>
+          <>
+            {!websiteLogo && (
+              <Typography>
+                {websiteTitle}
+              </Typography>
+            )}
+            {websiteLogo &&
+            <img src={websiteLogo}
+                 className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
+                 alt={websiteTitle || 'website logo'} />}
+            {websiteLogoInverted && <img src={websiteLogoInverted}
+                                         className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
+                                         alt={websiteTitle || 'website logo'} />}
+          </>
+        </MuiLink>
+      </Link>
+    </div>
   )
   if (!content) {
     return Logo

@@ -94,6 +94,7 @@
     "@storybook/addon-knobs": "^5.2.6",
     "@storybook/react": "^5.2.6",
     "@types/storybook__react": "^4.0.2",
+    "@types/uuid": "^3.4.6",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-module-resolver": "^3.2.0",
@@ -107,6 +108,7 @@
     "pretty-quick": "^2.0.1",
     "react-docgen-typescript-loader": "^3.5.0",
     "storybook-addon-smart-knobs": "^6.0.0",
+    "uuid": "^3.3.3",
     "webpack": "^4.39.1",
     "webpack-bundle-analyzer": "^3.4.1"
   }

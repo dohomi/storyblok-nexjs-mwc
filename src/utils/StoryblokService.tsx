@@ -108,7 +108,7 @@ class StoryblokService {
         }
       )
       window.storyblok.on('input', (event: any) => {
-        console.log(event, content)
+        // console.log( content, event.story.content)
 
         // todo if this is still works after rewrite... maybe add one for settings as well..
         if (event.story.content._uid === content.page._uid && event.story.content.component === 'page') {
@@ -125,6 +125,15 @@ class StoryblokService {
             settings: event.story.content
           })
         }
+        // if (event.story.content.component === 'static_container') {
+        //   const newContainerContent = content.allStaticContent.filter((el:any) => el._uid !== event.story.content._uid)
+        //   newContainerContent.push(event.story.content)
+        //   console.log('input::input static container changed',newContainerContent)
+        //   setContent({
+        //     ...content,
+        //     allStaticContent: newContainerContent
+        //   })
+        // }
       })
     }
   }

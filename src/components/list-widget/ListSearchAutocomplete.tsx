@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     search: {
       position: 'relative',
+      display: 'inline-block',
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade('rgba(0,0,0,.05)', 0.15),
       '&:hover': {
