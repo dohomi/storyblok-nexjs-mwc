@@ -3,7 +3,8 @@ import {
   ColumnStoryblok,
   HeadlineStoryblok,
   ParagraphStoryblok,
-  RowStoryblok
+  RowStoryblok,
+  SectionStoryblok
 } from '../../src/typings/generated/components-schema'
 
 const backgroundItem = {
@@ -20,7 +21,7 @@ const items: (HeadlineStoryblok | ParagraphStoryblok | ButtonStoryblok)[] = [{
   component: 'paragraph',
   _uid: '789'
 }, {
-  text: '<h4>Another Paragraph</h4>',
+  text: '<h4>Some Paragraph</h4>',
   _uid: '987',
   component: 'paragraph'
 }, {
@@ -91,6 +92,7 @@ export const columns: ColumnStoryblok[] = [{
   width_general: 'true'
 }]
 
+
 export const columnsWithImage: ColumnStoryblok[] = [{
   body: items,
   _uid: '23424324432',
@@ -115,6 +117,20 @@ export const row: RowStoryblok[] = [{
   _uid: 'qdfaefa',
   component: 'row'
 }]
+
+export const rowWithColumns: RowStoryblok[] = [{
+  body: columns,
+  _uid: 'qw1223',
+  component: 'row'
+}]
+
+export const darkSectionWithColumns: SectionStoryblok = {
+  body: rowWithColumns,
+  variant: 'dark',
+  _uid: '234212dfe',
+  component: 'section'
+}
+
 
 export const rowWithImage: RowStoryblok[] = [{
   body: column,

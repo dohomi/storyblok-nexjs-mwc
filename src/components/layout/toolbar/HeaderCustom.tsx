@@ -31,10 +31,7 @@ const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
 
   let SystemBar = null
   const systemBarProps = rows.find(item => item.is_system_bar)
-  console.log(systemBarProps)
-  console.log('inside blabblar', rows)
   if (systemBarProps) {
-    console.log('has systemBar', systemBarProps)
     SystemBar = Child(systemBarProps, content)
     // rows.splice(systemBarProps, 1)
     rows = rows.filter(i => i._uid !== systemBarProps._uid)

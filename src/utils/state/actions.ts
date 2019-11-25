@@ -47,6 +47,14 @@ export const setSearchCategory = (categories: string[]) => {
   addSearchParamsToUrl({ categories })
 }
 
+export const setScrollTop = (value: boolean) => {
+  setGlobalState('isScrollTop', value)
+}
+
+export const setScrollTriggered = (value: boolean) => {
+  setGlobalState('isScrollTriggered', value)
+}
+
 // todo this is used somewhere else.. or not in use any longer?
 export const setMegaMenu = (v: any, shouldClose: any) => {
   if (shouldClose) {

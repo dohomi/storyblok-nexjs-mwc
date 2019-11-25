@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import Page from './Page'
 import {
+  GlobalStoryblok,
   HeadlineStoryblok,
   PageStoryblok,
   ParagraphStoryblok,
@@ -10,6 +11,8 @@ import {
 import { columns } from '../../../.storybook/dummy/section'
 import * as React from 'react'
 import { toggleRightNavigation } from '../../utils/state/actions'
+import { customSettings } from '../../../.storybook/dummy/toolbar'
+import Layout from '../layout/Layout'
 
 
 const columnSection: SectionStoryblok = {
@@ -31,7 +34,7 @@ const props: PageStoryblok = {
 const propsDrawer: PageStoryblok = {
   _uid: '123',
   component: 'page',
-  body: [columnSection],
+  body: [columnSection, { ...columnSection, _uid: '12321311' }],
   right_body: [{
     component: 'headline',
     _uid: '12312414',
@@ -43,9 +46,9 @@ const propsDrawer: PageStoryblok = {
   }] as (HeadlineStoryblok | ParagraphStoryblok)[]
 }
 
-storiesOf('Page', module)
+storiesOf('Layout', module)
   .add(
-    'Page',
+    'Simple Page',
     () => (
       <Page content={props} />
     )
@@ -60,4 +63,24 @@ storiesOf('Page', module)
         <Page content={propsDrawer} />
       </>
     )
+  )
+  .add(
+    'Playground',
+    // @ts-ignore
+    ({ settings }: { settings: GlobalStoryblok }) => {
+      return (
+        <>
+          <Layout settings={{
+            ...settings,
+            multi_toolbar: customSettings.multi_toolbar,
+            footer: customSettings.footer,
+
+          }}
+                  hasFeature={false}
+                  hasRightDrawer={true}>
+            <Page content={propsDrawer} />
+          </Layout>
+        </>
+      )
+    }
   )

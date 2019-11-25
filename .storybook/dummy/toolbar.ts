@@ -7,11 +7,12 @@ import {
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
 } from '../../src/typings/generated/components-schema'
+import { darkSectionWithColumns } from './section'
 
 const menuItem: NavMenuStoryblok = {
   _uid: '1231231',
   component: 'nav_menu',
-  border_radius: "0px",
+  border_radius: '0px',
   title: 'Menu',
   body: [{
     _uid: '3243',
@@ -62,5 +63,7 @@ const multiToolbar = [{
 
 export const customSettings: GlobalStoryblok = {
   ...simpleSettings,
-  multi_toolbar: multiToolbar
+  multi_toolbar: multiToolbar,
+  footer: [darkSectionWithColumns]
 }
+
