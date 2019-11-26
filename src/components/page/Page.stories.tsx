@@ -28,11 +28,7 @@ import {
 import { CONFIG_STORYBOOK } from '../../../.storybook/components/configStorybook'
 
 
-const props: PageStoryblok = {
-  _uid: '123',
-  component: 'page',
-  body: [get3ColumnsSection({ knob: 'Body Section 1' })]
-}
+
 
 const getPropsDrawer = (): PageStoryblok => ({
   _uid: '123',
@@ -105,7 +101,11 @@ storiesOf('Layout', module)
   .add(
     'Simple Page',
     () => (
-      <Page content={props} />
+      <Page content={{
+        _uid: '123',
+        component: 'page',
+        body: [get3ColumnsSection({ knob: 'Body Section 1' })]
+      }} />
     )
   )
   .add(
