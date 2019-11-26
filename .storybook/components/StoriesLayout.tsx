@@ -54,7 +54,11 @@ const StoriesLayout = (storyFunc: Function) => {
       white: 'white'
     }, 'secondary', CONFIG_STORYBOOK.KNOBS.TOOLBAR) as GlobalStoryblok['toolbar_variant'],
     toolbar_font_size: text('Toolbar Font Size', '', CONFIG_STORYBOOK.KNOBS.TOOLBAR),
-    website_logo: text('Logo URL', 'https://a.storyblok.com/f/69529/1076x500/aeb2c104c2/etherhill_logo_white_001.png', CONFIG_STORYBOOK.KNOBS.TOOLBAR)
+    website_logo: select('Logo URL', {
+      etherhill: 'https://a.storyblok.com/f/69529/1076x500/aeb2c104c2/etherhill_logo_white_001.png',
+      bali: 'https://a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png',
+      upskill: 'https://a.storyblok.com/f/67295/256x64/8361be6afc/upskill-logo-primary-upskill-xs.png'
+    }, 'https://a.storyblok.com/f/69529/1076x500/aeb2c104c2/etherhill_logo_white_001.png', CONFIG_STORYBOOK.KNOBS.TOOLBAR)
   }
 
   return (

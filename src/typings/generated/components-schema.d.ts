@@ -18,15 +18,16 @@ export interface BackgroundStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  height?: string;
   image?: string;
   property?: "disable_lazy_load"[];
   image_focal_point?: string;
+  border_size?: number;
   background_color?: {
     rgba?: string;
     [k: string]: any;
   };
   elevation?: number;
-  border_size?: number;
   border_style?: "solid" | "dashed" | "dotted";
   border_color?: {
     rgba?: string;

@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/react'
 import Headline from './Headline'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
+import { storyHeadline } from '../../../.storybook/dummy/core/various'
 // @ts-ignore
 
 const props: HeadlineStoryblok = {
@@ -169,5 +170,15 @@ storiesOf('Headline', module)
             line_height: '2em'
           }} />
       </>
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <div className="p-5 text-center">
+        <Headline content={{
+          ...storyHeadline()
+        }} />
+      </div>
     )
   )

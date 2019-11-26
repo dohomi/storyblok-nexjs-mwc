@@ -8,6 +8,7 @@ import {
   ParagraphStoryblok
 } from '../../typings/generated/components-schema'
 import * as React from 'react'
+import { storyCardList, storyCardListItem } from '../../../.storybook/dummy/core/section'
 
 const cardListBody: CardListItemStoryblok[] = [{
   _uid: '123',
@@ -199,5 +200,26 @@ storiesOf('Cards', module)
         <CardList content={cardListWithAction} />
       </>
     )
+  )
+  .add(
+    'Playground',
+    () => {
+
+      return (
+        <CardList content={{
+          ...storyCardList(),
+          body: [
+            storyCardListItem({ count: 1 }),
+            storyCardListItem({ count: 2 }),
+            storyCardListItem({ count: 3 }),
+            storyCardListItem({ count: 4 }),
+            storyCardListItem({ count: 5 }),
+            storyCardListItem({ count: 6 }),
+            storyCardListItem({ count: 7 }),
+            storyCardListItem({ count: 8 })
+          ]
+        }} />
+      )
+    }
   )
 

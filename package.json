@@ -29,7 +29,7 @@
     "update-storyblok": "yarn fetch-storyblok-components && yarn gen-ts-schema && yarn codegen",
     "codegen": "graphql-codegen --config codegen.yml",
     "storybook": "start-storybook -p 6006 -c .storybook",
-    "build-storybook": "rm -rf public_storybook && build-storybook -c .storybook -o public_storybook && cd public_storybook && now",
+    "deploy-storybook": "rm -rf public_storybook && build-storybook -c .storybook -o public_storybook && cd public_storybook && now",
     "build-prod": "rm -rf dist && tsc -p tsconfig.build.json",
     "build-prod-declare": "rm -rf dist && tsc --declaration module.js.ts tsconfig.build.json"
   },
@@ -103,6 +103,7 @@
     "extract-css-chunks-webpack-plugin": "^4.6.0",
     "graphql": "^14.5.8",
     "json-schema-to-typescript": "^7.1.0",
+    "lorem-ipsum": "^2.0.3",
     "next-offline": "^4.0.6",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",

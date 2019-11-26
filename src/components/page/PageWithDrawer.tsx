@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: drawerWidth,
     padding: theme.spacing(2)
   },
+  rightContent: {
+    overflowY: 'auto'
+  },
   content: {
     marginRight: drawerWidth,
     '&.lm-main__mobile': {
@@ -55,7 +58,9 @@ const PageWithDrawer: FunctionComponent<{
       >
         <>
           <ContentSpace />
-          {rightBody.map((blok) => Components(blok))}
+          <div className={classes.rightContent}>
+            {rightBody.map((blok) => Components(blok))}
+          </div>
         </>
       </Drawer>
       <main className={clsx(classes.content, { 'lm-main__mobile': isDrawerModal })}>

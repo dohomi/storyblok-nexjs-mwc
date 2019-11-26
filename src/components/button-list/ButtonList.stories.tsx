@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/react'
 import ButtonList from './ButtonList'
 import { ButtonListStoryblok, ButtonStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
+import { storyButton, storyButtonList } from '../../../.storybook/dummy/core/various'
 
 const twitterPng = 'https://img2.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
 const fcbkPng = 'https://a.storyblok.com/f/66717/273x256/1af4758e5f/fb-icon.png'
@@ -226,4 +227,22 @@ storiesOf('Button List', module)
         </div>
       </>
     )
+  )
+  .add(
+    'Playground',
+    () => {
+      return (
+        <div className="p-5">
+          <ButtonList content={{
+            ...storyButtonList(),
+            body: [
+              storyButton({count:1}),
+              storyButton({count:2}),
+              storyButton({count:3}),
+              storyButton({count:4})
+            ]
+          }} />
+        </div>
+      )
+    }
   )

@@ -8,7 +8,6 @@ import {
   ToolbarRowStoryblok
 } from '../../src/typings/generated/components-schema'
 import { darkSectionWithColumns } from './section'
-import { toolbarRow } from './layout/toolbar'
 
 const menuItem: NavMenuStoryblok = {
   _uid: '1231231',
@@ -64,7 +63,7 @@ const multiToolbar = [{
 
 
 const multiToolbarWithSystemBar = [{
-  ...toolbarRow,
+
   body: [{
     _uid: '123',
     component: 'toolbar_row_section',

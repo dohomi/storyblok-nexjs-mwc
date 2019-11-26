@@ -57,10 +57,12 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
       }
     }
   }
+  const expandIcon = (content.icon && content.icon.name) || 'expand_more'
+  const closeIcon = (content.icon_collapse && content.icon_collapse.name) || 'expand_less'
   return (
     <SbEditable content={content}>
       <>
-        <Button endIcon={<Icon>expand_more</Icon>}
+        <Button endIcon={<Icon>{Boolean(anchorEl) ? closeIcon : expandIcon}</Icon>}
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 className="lm-default-color"

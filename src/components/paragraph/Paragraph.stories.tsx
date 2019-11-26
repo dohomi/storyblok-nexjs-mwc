@@ -3,6 +3,7 @@ import Paragraph from './Paragraph'
 import { ParagraphStoryblok } from '../../typings/generated/components-schema'
 import RichTextParagraph from './RichTextParagraph'
 import * as React from 'react'
+import { storyParagraph } from '../../../.storybook/dummy/core/various'
 
 const props: ParagraphStoryblok = {
   _uid: '123',
@@ -152,5 +153,13 @@ storiesOf('Paragraph & Rich Text', module)
       <>
         <RichTextParagraph content={{ _uid: '12', component: 'rich_text_editor', body: rte }} />
       </>
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <div className="p-5">
+        <RichTextParagraph content={{...storyParagraph()}} />
+      </div>
     )
   )

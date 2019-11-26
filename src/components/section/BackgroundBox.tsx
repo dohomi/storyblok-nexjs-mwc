@@ -72,11 +72,13 @@ const BackgroundBox: FunctionComponent<{
     borderRadius: background.border_radius,
     color: mapColor[variant as string],
     boxShadow: background.elevation ? theme.shadows[background.elevation] : undefined,
+    minHeight: background.height ? background.height : undefined,
     ...multipleBackgroundComposer(background.background_elements)
   }
   Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
   const className = clsx(background.classNames && background.classNames.values)
+
   return typeof children === 'function' ? children({ className, style }) : children
 }
 

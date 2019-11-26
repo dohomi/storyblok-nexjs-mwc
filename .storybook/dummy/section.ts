@@ -6,6 +6,8 @@ import {
   RowStoryblok,
   SectionStoryblok
 } from '../../src/typings/generated/components-schema'
+import { storyColumn, storyRow, storySection } from './core/section'
+import { storyButton, storyHeadline, storyParagraph } from './core/various'
 
 const backgroundItem = {
   _uid: '2131',
@@ -138,3 +140,37 @@ export const rowWithImage: RowStoryblok[] = [{
   component: 'row',
   background: [backgroundItem]
 }]
+
+export const get3ColumnsSection = ({ count, knob }: { count?: number, knob?: string } = {}) => ({
+  ...storySection({ knob, count }),
+  body: [{
+    ...storyRow({ knob }),
+    body: [{
+      ...storyColumn({ options: { width_general: '4' }, knob }),
+      body: [
+        storyHeadline({ count: 1, knob }),
+        storyHeadline({ count: 2, knob }),
+        storyParagraph({ count: 1, knob }),
+        storyButton({ count: 1, knob }),
+        storyButton({ count: 2, knob })
+      ]
+    }, {
+      ...storyColumn({ options: { width_general: '4' }, knob }),
+      body: [
+        storyHeadline({ count: 3, knob }),
+        storyHeadline({ count: 4, knob }),
+        storyParagraph({ knob, count: 2 }),
+        storyButton({ count: 3, knob }),
+        storyButton({ count: 3, knob, options: { variant: 'outlined', color: 'primary' } })
+      ]
+    }, {
+      ...storyColumn({ options: { width_general: '4' } }),
+      body: [
+        storyHeadline({ count: 5, knob }),
+        storyHeadline({ count: 6, knob }),
+        storyParagraph({ knob, count: 3 }),
+        storyButton({ knob })
+      ]
+    }]
+  }]
+})

@@ -3,6 +3,7 @@ import NavMenu from './NavMenu'
 import { NavMenuItemStoryblok, NavMenuStoryblok, RowStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
 import { columns } from '../../../.storybook/dummy/section'
+import { storyMenu, storyMenuItem } from '../../../.storybook/dummy/core/various'
 
 const props: NavMenuStoryblok = {
   _uid: '123',
@@ -63,5 +64,23 @@ storiesOf('Nav menu', module)
       <>
         <NavMenu content={{ ...columnSection, alignment: 'bottomEnd', border_radius: '16px 0px' }} />
       </>
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <div className="text-center p-5">
+        <NavMenu content={{
+          ...storyMenu(),
+          body: [
+            storyMenuItem({ count: 1 }),
+            storyMenuItem({ count: 2 }),
+            storyMenuItem({ count: 3 }),
+            storyMenuItem({ count: 4 }),
+            storyMenuItem({ count: 5 }),
+            storyMenuItem({ count: 6 })
+          ]
+        }} />
+      </div>
     )
   )
