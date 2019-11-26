@@ -6,6 +6,9 @@ export const CONFIG_STORYBOOK = {
     TOOLBAR_SECTION: 'Toolbar Sections',
     TOOLBAR_SEARCH: 'Toolbar Search',
     BUTTON: 'Buttons',
-    MENU: 'Menus'
+    MENU: 'Menus',
+    HEADLINE: 'Headlines',
+    PARAGRAPH: 'Paragraph',
+    SECTION: 'Section',
   }
 }
