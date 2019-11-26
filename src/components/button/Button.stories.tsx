@@ -2,6 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import LmMuiButton from './LmMuiButton'
+import { storyButton } from '../../../.storybook/dummy/core/various'
 
 const defaultProps: ButtonStoryblok = {
   label: 'Text Button',
@@ -507,5 +508,18 @@ storiesOf('Button', module)
         </div>
       </>
     )
+  )
+  .add(
+    'Playground',
+    () => {
+
+      return (
+        <div className="p-5">
+          <LmMuiButton content={{
+            ...storyButton()
+          }} />
+        </div>
+      )
+    }
   )
 

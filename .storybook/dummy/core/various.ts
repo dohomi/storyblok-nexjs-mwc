@@ -1,5 +1,8 @@
 import { StorybookOptionProps } from './storybook_typing'
 import {
+  AccordionItemStoryblok,
+  AccordionStoryblok,
+  ButtonListStoryblok,
   ButtonStoryblok,
   HeadlineStoryblok,
   NavMenuItemStoryblok,
@@ -17,7 +20,26 @@ export const getUid = () => uuid()
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1)
 
+export function randomIntFromInterval(min: number, max: number) { // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+
+export const storyImageUrls = ['https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png',
+  'https://a.storyblok.com/f/69529/3000x1688/50d31aa864/img_0766.jpg',
+  'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg',
+  'https://a.storyblok.com/f/69529/6000x4000/3c29c3c039/img_5956.jpg']
+
+export const storyImageOptions = () => {
+  const obj = {}
+  storyImageUrls.forEach((url, i) => {
+    obj[`Image ${i + 1}`] = url
+  })
+  return obj
+}
+
 export const getLabel = (words: number = 1) => capitalize(lorem.generateWords(words))
+export const getSentences = (count: number = 2) => lorem.generateSentences(count)
 export const getParagraphs = (paragraphs: number = 2) => lorem.generateParagraphs(paragraphs)
 export const getOptions = (object: any) => {
   const obj = {}
@@ -191,4 +213,23 @@ export const storyParagraph = ({ options = {}, knob, count = '' }: StorybookOpti
     alt1: 'alt1', alt2: 'alt2', alt3: 'alt3', alt4: 'alt4', Empty: undefined
   }, (options.font) || undefined, knob || CONFIG_STORYBOOK.KNOBS.PARAGRAPH),
   font_size: text(`Paragraph Font Size ${count}`, options.font_size || '', knob || CONFIG_STORYBOOK.KNOBS.PARAGRAPH)
+})
+
+export const storyAccordion = ({}: StorybookOptionProps & { options?: Partial<AccordionStoryblok> } = {}): AccordionStoryblok => ({
+  _uid: getUid(),
+  component: 'accordion'
+})
+
+export const storyAccordionItem = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<AccordionItemStoryblok> } = {}): AccordionItemStoryblok => ({
+  _uid: getUid(),
+  component: 'accordion_item',
+  title: text(`Accordion Item Title ${count}`, options.title || getLabel(4), knob || CONFIG_STORYBOOK.KNOBS.ACCORDION)
+})
+
+export const storyButtonList = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ButtonListStoryblok> } = {}): ButtonListStoryblok => ({
+  _uid: getUid(),
+  component: 'button_list',
+  property: optionsKnob(`Button List Properties ${count}`, {
+    'margin-left': 'margin-left', 'align-right': 'align-right', Empty: undefined
+  }, options.property || undefined, { display: 'inline-check' }, knob || CONFIG_STORYBOOK.KNOBS.BUTTON_LIST) as ButtonListStoryblok['property']
 })

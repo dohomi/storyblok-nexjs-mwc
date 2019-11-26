@@ -1,11 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import Page from './Page'
 import {
-  ButtonStoryblok,
   GlobalStoryblok,
-  ListSearchAutocompleteStoryblok,
-  NavMenuItemStoryblok,
-  NavMenuStoryblok,
   PageStoryblok,
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
@@ -29,18 +25,27 @@ import {
   storyMenuItem,
   storyParagraph
 } from '../../../.storybook/dummy/core/various'
+import { CONFIG_STORYBOOK } from '../../../.storybook/components/configStorybook'
 
 
 const props: PageStoryblok = {
   _uid: '123',
   component: 'page',
-  body: [get3ColumnsSection('Body Section 1')]
+  body: [get3ColumnsSection({ knob: 'Body Section 1' })]
 }
 
 const getPropsDrawer = (): PageStoryblok => ({
   _uid: '123',
   component: 'page',
-  body: [get3ColumnsSection('Body Section 1'), get3ColumnsSection('Body Section 1')],
+  body: [
+    get3ColumnsSection({
+      count: 1,
+      knob: 'Body Section 1'
+    }),
+    get3ColumnsSection({
+      count: 2,
+      knob: 'Body Section 1'
+    })],
   right_body: [
     storyHeadline({ count: 1, knob: 'Right Drawer' }),
     storyHeadline({ count: 2, knob: 'Right Drawer' }),
@@ -48,52 +53,52 @@ const getPropsDrawer = (): PageStoryblok => ({
 })
 
 const getToolbarSettings = () => {
-  const menuItem: NavMenuStoryblok = {
-    ...storyMenu(),
-    body: [storyMenuItem({ count: 1 }), storyMenuItem({ count: 2 }), storyMenuItem({ count: 3 }), storyMenuItem({ count: 4 })] as NavMenuItemStoryblok[]
-  }
-  const toolbarItems = [
-    storyButton({ count: 1 }),
-    storyButton({ count: 2 }),
-    menuItem] as (ListSearchAutocompleteStoryblok | ButtonStoryblok | NavMenuStoryblok)[]
-  const multiToolbarWithSystemBar = [{
+  return [{
     ...storyToolbarRow({
       options: { is_system_bar: true, background_color: { rgba: 'rgba(0,0,0,0.3)' } },
-      knob: 'System Bar'
+      knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR
     }),
     body: [{
-      ...storyToolbarSection({ knob: 'System Bar Section' }),
+      ...storyToolbarSection({ knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR }),
       body: [
-        storyButton({ count: 1, knob: 'System Bar Buttons' }),
-        storyButton({ count: 2, knob: 'System Bar Buttons' }),
-        storyButton({ count: 3, knob: 'System Bar Buttons' }),
+        storyButton({ count: 1, knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR }),
+        storyButton({ count: 2, knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR }),
+        storyButton({ count: 3, knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR }),
         {
-          ...storyMenu({ knob: 'System Bar Menu' }),
+          ...storyMenu({ knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR }),
           body: [
-            storyMenuItem({ count: 1, knob: 'System Bar Menu' }),
-            storyMenuItem({ count: 2, knob: 'System Bar Menu' }),
-            storyMenuItem({ count: 3, knob: 'System Bar Menu' })
+            storyMenuItem({ count: 1, knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR }),
+            storyMenuItem({ count: 2, knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR }),
+            storyMenuItem({ count: 3, knob: CONFIG_STORYBOOK.KNOBS.SYSTEM_BAR })
           ]
         }
       ]
     }] as ToolbarRowSectionStoryblok[]
   }, {
-    ...storyToolbarRow(),
+    ...storyToolbarRow({ knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
     body: [{
-      ...storyToolbarSection({ count: 1 }),
+      ...storyToolbarSection({ count: 1, knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
       body: [
-        storyToolbarLogo()
+        storyToolbarLogo({ knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW })
       ]
     }, {
-      ...storyToolbarSection({ count: 2 }),
+      ...storyToolbarSection({ count: 2, knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
       body: [
-        ...toolbarItems,
-        storyListSearchAutocomplete()
+        storyButton({ count: 1, knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
+        storyButton({ count: 2, knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
+        storyButton({ count: 3, knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
+        {
+          ...storyMenu({ knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
+          body: [
+            storyMenuItem({ count: 1, knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
+            storyMenuItem({ count: 2, knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW }),
+            storyMenuItem({ count: 3, knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW })
+          ]
+        },
+        storyListSearchAutocomplete({ knob: CONFIG_STORYBOOK.KNOBS.TOOLBAR_ROW })
       ]
     }] as ToolbarRowSectionStoryblok[]
   }] as ToolbarRowStoryblok []
-
-  return multiToolbarWithSystemBar
 }
 
 storiesOf('Layout', module)

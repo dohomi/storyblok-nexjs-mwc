@@ -141,8 +141,8 @@ export const rowWithImage: RowStoryblok[] = [{
   background: [backgroundItem]
 }]
 
-export const get3ColumnsSection = (knob?: string) => ({
-  ...storySection(),
+export const get3ColumnsSection = ({ count, knob }: { count?: number, knob?: string } = {}) => ({
+  ...storySection({ knob, count }),
   body: [{
     ...storyRow({ knob }),
     body: [{
@@ -160,8 +160,8 @@ export const get3ColumnsSection = (knob?: string) => ({
         storyHeadline({ count: 3, knob }),
         storyHeadline({ count: 4, knob }),
         storyParagraph({ knob, count: 2 }),
-        storyButton({count:3, knob }),
-        storyButton({count:3, knob, options:{variant: 'outlined', color:'primary'} })
+        storyButton({ count: 3, knob }),
+        storyButton({ count: 3, knob, options: { variant: 'outlined', color: 'primary' } })
       ]
     }, {
       ...storyColumn({ options: { width_general: '4' } }),

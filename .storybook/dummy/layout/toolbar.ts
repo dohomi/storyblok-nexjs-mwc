@@ -38,7 +38,7 @@ export const storyToolbarSection = ({ options = {}, knob, count = '' }: Storyboo
   }, options.align || undefined, knob || CONFIG_STORYBOOK.KNOBS.TOOLBAR_SECTION) as ToolbarRowSectionStoryblok['align']
 })
 
-export const storyListSearchAutocomplete = (options: Partial<ListSearchAutocompleteStoryblok> = {}, knob?: string): ListSearchAutocompleteStoryblok => ({
+export const storyListSearchAutocomplete = ({ options = {}, knob }: { options?: Partial<ListSearchAutocompleteStoryblok>, knob?: string } = {}): ListSearchAutocompleteStoryblok => ({
   _uid: getUid(),
   component: 'list_search_autocomplete',
   menu_align_right: boolean('Search Menu Align Right', options.menu_align_right || false, knob || CONFIG_STORYBOOK.KNOBS.TOOLBAR_SEARCH),

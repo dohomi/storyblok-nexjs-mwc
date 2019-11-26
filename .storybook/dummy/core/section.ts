@@ -1,7 +1,13 @@
 import { StorybookOptionProps } from './storybook_typing'
-import { ColumnStoryblok, RowStoryblok, SectionStoryblok } from '../../../src/typings/generated/components-schema'
-import { getUid } from './various'
-import { optionsKnob, select, text } from '@storybook/addon-knobs'
+import {
+  CardListItemStoryblok,
+  CardListStoryblok,
+  ColumnStoryblok,
+  RowStoryblok,
+  SectionStoryblok
+} from '../../../src/typings/generated/components-schema'
+import { getLabel, getSentences, getUid, randomIntFromInterval, storyImageOptions, storyImageUrls } from './various'
+import { number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { CONFIG_STORYBOOK } from '../../components/configStorybook'
 
 export const storySection = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<SectionStoryblok> } = {}): SectionStoryblok => ({
@@ -151,3 +157,60 @@ export const storyColumn = ({ options = {}, knob, count = '' }: StorybookOptionP
     Empty: undefined
   }, options.align_content || undefined, knob || CONFIG_STORYBOOK.KNOBS.SECTION)
 })
+
+export const storyCardList = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<CardListStoryblok> } = {}): CardListStoryblok => ({
+  _uid: getUid(),
+  component: 'card_list',
+  image_ratio: select(`Card List Image Ratio ${count}`, {
+    '16x9': '16x9', '1x1': '1x1', '4x3': '4x3', '3x2': '3x2', Empty: undefined
+  }, options.image_ratio || undefined, knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST),
+  //@ts-ignore
+  variant: optionsKnob(`Card List Variant ${count}`, {
+    'over_media': 'over_media',
+    'title_top': 'title_top',
+    'font_white': 'font_white',
+    'raised': 'raised',
+    'header_top': 'header_top',
+    'text_top_bottom': 'text_top_bottom',
+    'text_bottom': 'text_bottom',
+    'text_center': 'text_center',
+    'text_align_center': 'text_align_center',
+    'text_align_right': 'text_align_right'
+  }, options.variant || [], { display: 'inline-check' }, knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST),
+  column_gap: select(`Card List Image Column Gap ${count}`, {
+    '0': '0', '2': '2', '4': '4', '8': '8', '16': '16', '24': '24', '32': '32', Empty: undefined
+  }, options.column_gap || undefined, knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST),
+  elevation: select(`Card List Elevation ${count}`, {
+    '0': '0', '1': '1', '2': '2', '4': '4', '8': '8', '12': '12', '16': '16', '24': '24', Empty: undefined
+  }, options.elevation || undefined, knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST),
+  column_count: select(`Card List Column Count ${count}`, {
+    '1': '1',
+    '2': '2',
+    '3': '3',
+    '4': '4',
+    '5': '5',
+    '6': '6',
+    '7': '7',
+    '8': '8',
+    '9': '9',
+    '10': '10',
+    '11': '11',
+    '12': '12',
+    Empty: undefined
+  }, options.column_count || undefined, knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST),
+  description_max_character: number(`Card List Max Character ${count}`, options.description_max_character || undefined, {}, knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST)
+})
+
+export const storyCardListItem = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<CardListItemStoryblok> } = {}): CardListItemStoryblok => ({
+  _uid: getUid(),
+  component: 'card_list_item',
+  image: select(`Card List Image ${count}`, {
+    ...storyImageOptions(),
+    Empty: undefined
+  }, options.image || storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)], knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST_ITEM),
+  title: text(`Card List Item Title ${count}`, options.title || getLabel(), knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST_ITEM),
+  subtitle: text(`Card List Item Subtitle ${count}`, options.subtitle || getLabel(), knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST_ITEM),
+  description: text(`Card List Item Description ${count}`, options.description || getSentences(), knob || CONFIG_STORYBOOK.KNOBS.CARD_LIST_ITEM)
+
+})
+
