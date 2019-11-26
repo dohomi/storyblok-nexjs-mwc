@@ -25,6 +25,8 @@ import {
   toolbarRow,
   toolbarSection
 } from '../../../.storybook/dummy/layout/toolbar'
+import { button } from '@storybook/addon-knobs'
+import { storyButton, storyMenu } from '../../../.storybook/dummy/core/various'
 
 
 const columnSection: SectionStoryblok = {
@@ -81,10 +83,7 @@ storiesOf('Layout', module)
     // @ts-ignore
     ({ settings }: { settings: GlobalStoryblok }) => {
       const menuItem: NavMenuStoryblok = {
-        _uid: '1231231',
-        component: 'nav_menu',
-        border_radius: '0px',
-        title: 'Menu',
+        ...storyMenu({}),
         body: [{
           _uid: '3243',
           component: 'nav_menu_item',
@@ -95,32 +94,30 @@ storiesOf('Layout', module)
           label: 'Second'
         }] as NavMenuItemStoryblok[]
       }
-      const toolbarItems = [{
-        _uid: '123',
-        component: 'button',
-        label: 'Button'
-      }, {
-        _uid: '12321',
-        component: 'button',
-        label: 'Another Button'
-      }, menuItem] as (ListSearchAutocompleteStoryblok | ButtonStoryblok | NavMenuStoryblok)[]
+      const toolbarItems = [
+        storyButton({ count: 1 }),
+        storyButton({ count: 2 }),
+        menuItem] as (ListSearchAutocompleteStoryblok | ButtonStoryblok | NavMenuStoryblok)[]
       const multiToolbarWithSystemBar = [{
-        ...toolbarRow({ is_system_bar: true, background_color: { rgba: 'rgba(0,0,0,0.3)' } }, 'System Bar'),
+        ...toolbarRow({
+          options: { is_system_bar: true, background_color: { rgba: 'rgba(0,0,0,0.3)' } },
+          knob: 'System Bar'
+        }),
         body: [{
-          ...toolbarSection({}, 'System Bar Section'),
+          ...toolbarSection({ knob: 'System Bar Section' }),
           body: [
             ...toolbarItems
           ]
         }] as ToolbarRowSectionStoryblok[]
       }, {
-        ...toolbarRow(),
+        ...toolbarRow({}),
         body: [{
-          ...toolbarSection(),
+          ...toolbarSection({ count: 1 }),
           body: [
             toolbarLogo()
           ]
         }, {
-          ...toolbarSection(),
+          ...toolbarSection({ count: 2 }),
           body: [
             ...toolbarItems,
             listSearchAutocomplete()
