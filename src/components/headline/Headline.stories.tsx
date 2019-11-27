@@ -176,9 +176,7 @@ storiesOf('Headline', module)
     'Playground',
     () => (
       <div className="p-5 text-center">
-        <Headline content={{
-          ...storyHeadline()
-        }} />
+        <Headline content={storyHeadline()} />
       </div>
     )
   )

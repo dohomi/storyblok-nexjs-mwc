@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import getNprogressJss from './jss/npgrogress'
 
-const useGlobalStyles = makeStyles((theme: Theme) => {
+export const getCreatedStyles = (theme: Theme) => {
   const spacing = {}
   const directions = [{ key: 't', val: 'Top' }, { key: 'l', val: 'Left' }, { key: 'r', val: 'Right' }, {
     key: 'b',
@@ -52,7 +52,7 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       'a': {
         textDecoration: 'none'
       },
-      '.badge, .badge-pill': {
+      '.badge': {
         display: 'inline-block',
         padding: '.25em .4em',
         backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
@@ -61,6 +61,11 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
         transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
       },
       '.badge-pill': {
+        display: 'inline-block',
+        padding: '.25em .4em',
+        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
+        color: theme.palette.type === 'dark' ? 'rgba(0, 0, 0, 0.87)' : theme.palette.common.white,
+        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
         borderRadius: '2rem'
       },
       '.badge-primary': {
@@ -206,7 +211,6 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       '.bg-light': {
         backgroundColor: '#ccc'
       },
-
       'a.lm-link__button': {
         textDecoration: 'none',
         color: 'inherit'
@@ -267,6 +271,10 @@ const useGlobalStyles = makeStyles((theme: Theme) => {
       }
     }
   })
+}
+
+const useGlobalStyles = makeStyles((theme: Theme) => {
+  return getCreatedStyles(theme)
 })
 
 export default useGlobalStyles
