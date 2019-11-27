@@ -29,7 +29,9 @@ const optionsArrayToObject = (array: KeyValueStoryblok[], addEmpty?: boolean): o
 
 
 const generateUtilityClassNames = (): string[] => {
+
   const globalStyles = getCreatedStyles(createMuiTheme())
+
   const blacklist: string[] = ['.fonts-loaded', '.embed-responsive', '.embed-responsive-item', '.material-icons']
   const classNames: string[] = []
   Object.keys(globalStyles['@global']).forEach((key: string) => {
@@ -47,6 +49,10 @@ const generateUtilityClassNames = (): string[] => {
 }
 
 const utilityClassNames = generateUtilityClassNames()
+const utilityClassNamesObj = {}
+utilityClassNames.forEach((key) => {
+  utilityClassNamesObj[key] = key
+})
 
 const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { componentName: string, options?: any, knob?: string, count?: number | string }) => {
   const findComponents = COMPONENT_JSON.components.find(component => {
@@ -88,7 +94,7 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
       }
     } else if (currentSchema.field_type === 'bootstrap-utility-class-selector') {
       obj[schemaKey] = {
-        name: optionsKnob(name, utilityClassNames, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
+        values: optionsKnob(name, utilityClassNamesObj, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
       }
     } else {
       console.log('MISSING', currentSchema)

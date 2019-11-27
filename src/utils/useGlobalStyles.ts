@@ -1,5 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import getNprogressJss from './jss/npgrogress'
+import { CSSProperties } from 'react'
 
 export const getCreatedStyles = (theme: Theme) => {
   const spacing = {}
@@ -119,97 +120,97 @@ export const getCreatedStyles = (theme: Theme) => {
         }
       },
       '.mh-100': {
-        minHeight: '100%'
+        minHeight: '100% !important'
       },
       '.h-100': {
-        height: '100%'
+        height: '100% !important'
       },
       '.mw-100': {
-        minWidth: '100%'
+        minWidth: '100% !important'
       },
       '.w-100': {
-        width: '100%'
+        width: '100% !important'
       },
       '.text-left': {
-        textAlign: 'left'
+        textAlign: 'left !important'
       },
       '.text-center': {
-        textAlign: 'center'
+        textAlign: 'center !important'
       },
       '.text-right': {
-        textAlign: 'right'
+        textAlign: 'right !important'
       },
       '.font-weight-bold': {
-        fontWeight: 'bold'
+        fontWeight: 'bold !important'
       },
       '.font-weight-bolder': {
-        fontWeight: 'bolder'
+        fontWeight: 'bolder !important'
       },
       '.font-weight-light': {
-        fontWeight: 'light'
+        fontWeight: 'light !important'
       },
       '.font-weight-lighter': {
-        fontWeight: 'lighter'
+        fontWeight: 'lighter !important'
       },
       '.font-weight-normal': {
-        fontWeight: 'normal'
+        fontWeight: 'normal !important'
       },
       '.text-uppercase': {
-        textTransform: 'uppercase'
+        textTransform: 'uppercase !important'
       },
       '.text-monospace': {
-        fontFamily: 'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace'
+        fontFamily: 'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace !important'
       },
       '.font-italic': {
-        fontStyle: 'italic'
+        fontStyle: 'italic !important'
       },
       '.text-primary': {
-        color: theme.palette.primary.main
+        color: `${theme.palette.primary.main} !important`
       },
       '.text-black-50': {
-        color: 'rgba(0,0,0,0.5)'
+        color: 'rgba(0,0,0,0.5) !important'
       },
       '.text-white-50': {
-        color: 'rgba(255,255,255,0.5)'
+        color: 'rgba(255,255,255,0.5) !important'
       },
       '.text-secondary': {
-        color: theme.palette.secondary.main
+        color: `${theme.palette.secondary.main} !important`
       },
       '.text-primary-text': {
-        color: theme.palette.text.primary
+        color: `${theme.palette.text.primary} !important`
       },
       '.text-primary-secondary': {
-        color: theme.palette.text.secondary
+        color: `${theme.palette.text.secondary} !important`
       },
       '.text-muted': {
-        color: theme.palette.text.hint
+        color: `${theme.palette.text.hint} !important`
       },
       '.text-white': {
-        color: theme.palette.common.white
+        color: `${theme.palette.common.white} !important`
       },
       '.text-danger': {
-        color: theme.palette.error.main
+        color: `${theme.palette.error.main} !important`
       },
       '.bg-primary': {
-        backgroundColor: theme.palette.primary.main
+        backgroundColor: `${theme.palette.primary.main} !important`
       },
       '.bg-secondary': {
-        backgroundColor: theme.palette.secondary.main
+        backgroundColor: `${theme.palette.secondary.main} !important`
       },
       '.bg-danger': {
-        backgroundColor: theme.palette.error.main
+        backgroundColor: `${theme.palette.error.main} !important`
       },
       '.bg-white': {
-        backgroundColor: theme.palette.common.white
+        backgroundColor: `${theme.palette.common.white} !important`
       },
       '.bg-black': {
         backgroundColor: theme.palette.common.black
       },
       '.bg-dark': {
-        backgroundColor: dark
+        backgroundColor: `${dark}!important`
       },
       '.bg-light': {
-        backgroundColor: '#ccc'
+        backgroundColor: '#ccc !important'
       },
       'a.lm-link__button': {
         textDecoration: 'none',
@@ -228,16 +229,16 @@ export const getCreatedStyles = (theme: Theme) => {
         fontFamily: (theme.alternativeFont && theme.alternativeFont.alt4) || theme.typography.fontFamily
       },
       '.d-none': {
-        display: 'none'
+        display: 'none '
       },
       '.d-inline-flex': {
-        display: 'inline-flex'
+        display: 'inline-flex '
       },
       '.d-block': {
-        display: 'block'
+        display: 'block '
       },
       '.d-inline-block': {
-        display: 'inline-block'
+        display: 'inline-block '
       },
       [theme.breakpoints.up('sm')]: {
         '.d-sm-inline-flex': {

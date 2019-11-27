@@ -29,7 +29,7 @@
     "update-storyblok": "yarn fetch-storyblok-components && yarn gen-ts-schema && yarn codegen",
     "codegen": "graphql-codegen --config codegen.yml",
     "storybook": "start-storybook -p 6006 -c .storybook",
-    "deploy-storybook": "rm -rf public_storybook && build-storybook -c .storybook -o public_storybook && cd public_storybook && now",
+    "deploy-storybook": "rm -rf public_storybook && build-storybook -c .storybook -o public_storybook && cd public_storybook && now --prod",
     "build-prod": "rm -rf dist && tsc -p tsconfig.build.json",
     "build-prod-declare": "rm -rf dist && tsc --declaration module.js.ts tsconfig.build.json"
   },
