@@ -23,9 +23,15 @@ const generateUtilityClassNames = (): string[] => {
 export const utilityClassNames = generateUtilityClassNames()
 
 // console.log(JSON.stringify(utilityClassNames))
-const obj = {}
-utilityClassNames.forEach((key) => {
-  obj[key] = key
-})
 
-export default obj
+export const getOptions = () => {
+  const obj = {}
+  utilityClassNames.forEach((key) => {
+    obj[key] = key
+  })
+  return obj
+}
+
+export const classNameOpts = getOptions()
+
+

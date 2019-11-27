@@ -1,7 +1,7 @@
 import COMPONENT_JSON from '../../../components.66717.json'
-import { getUid, iconOptions, storyImageOptions } from '../core/various'
+import { allImageOptions, getUid, iconOptions } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
-import utilityClassNamesObj from './utilityClassNamesHelper'
+import { classNameOpts } from './utilityClassNamesHelper'
 
 
 export const camelizeString = (text: string, separator = '_') => (
@@ -55,7 +55,7 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
     } else if (type === 'boolean') {
       obj[schemaKey] = boolean(name, options[schemaKey] || false, knob || camelizeString(componentName))
     } else if (type === 'image') {
-      obj[schemaKey] = optionsKnob(name, storyImageOptions(), options[schemaKey] || undefined, { display: 'select' }, knob || camelizeString(componentName))
+      obj[schemaKey] = select(name, { ...allImageOptions }, options[schemaKey] || undefined, knob || camelizeString(componentName))
     } else if (currentSchema.field_type === 'material-icons-selector') {
       console.log(currentSchema)
       obj[schemaKey] = {
@@ -66,8 +66,13 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
         rgba: color(name, (options[schemaKey] && options[schemaKey].rgba) || undefined, knob || camelizeString(componentName))
       }
     } else if (currentSchema.field_type === 'bootstrap-utility-class-selector') {
+      // if (!utilityClassNamesObj) {
+      //   console.log(schemaKey, knob)
+      //
+      //   return
+      // }
       obj[schemaKey] = {
-        values: optionsKnob(name, utilityClassNamesObj, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
+        values: optionsKnob(name, { ...classNameOpts }, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
       }
     } else {
       console.log('MISSING', currentSchema)

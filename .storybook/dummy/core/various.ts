@@ -40,6 +40,8 @@ export const storyImageOptions = () => {
   return obj
 }
 
+export const allImageOptions = storyImageOptions()
+
 export const getLabel = (words: number = 1) => capitalize(lorem.generateWords(words))
 export const getSentences = (count: number = 2) => lorem.generateSentences(count)
 export const getParagraphs = (paragraphs: number = 2) => lorem.generateParagraphs(paragraphs)
