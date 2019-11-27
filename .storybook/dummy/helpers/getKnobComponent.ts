@@ -1,8 +1,7 @@
 import COMPONENT_JSON from '../../../components.66717.json'
 import { getUid, iconOptions, storyImageOptions } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
-import { getCreatedStyles } from '../../../src/utils/useGlobalStyles'
-import { createMuiTheme } from '@material-ui/core'
+import utilityClassNamesObj from './utilityClassNamesHelper'
 
 
 export const camelizeString = (text: string, separator = '_') => (
@@ -27,32 +26,6 @@ const optionsArrayToObject = (array: KeyValueStoryblok[], addEmpty?: boolean): o
   return obj
 }
 
-
-const generateUtilityClassNames = (): string[] => {
-
-  const globalStyles = getCreatedStyles(createMuiTheme())
-
-  const blacklist: string[] = ['.fonts-loaded', '.embed-responsive', '.embed-responsive-item', '.material-icons']
-  const classNames: string[] = []
-  Object.keys(globalStyles['@global']).forEach((key: string) => {
-    if (key.startsWith('.')) {
-      !blacklist.includes(key) && classNames.push(key.slice(1))
-    } else if (key.startsWith('@media')) {
-      Object.keys(globalStyles['@global'][key]).forEach((subKey: string) => {
-        if (subKey.startsWith('.')) {
-          !blacklist.includes(subKey) && classNames.push(subKey.slice(1))
-        }
-      })
-    }
-  })
-  return classNames
-}
-
-const utilityClassNames = generateUtilityClassNames()
-const utilityClassNamesObj = {}
-utilityClassNames.forEach((key) => {
-  utilityClassNamesObj[key] = key
-})
 
 const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { componentName: string, options?: any, knob?: string, count?: number | string }) => {
   const findComponents = COMPONENT_JSON.components.find(component => {
@@ -82,7 +55,7 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
     } else if (type === 'boolean') {
       obj[schemaKey] = boolean(name, options[schemaKey] || false, knob || camelizeString(componentName))
     } else if (type === 'image') {
-      obj[schemaKey] = select(name, storyImageOptions(), options[schemaKey] || undefined, knob || camelizeString(componentName))
+      obj[schemaKey] = optionsKnob(name, storyImageOptions(), options[schemaKey] || undefined, { display: 'select' }, knob || camelizeString(componentName))
     } else if (currentSchema.field_type === 'material-icons-selector') {
       console.log(currentSchema)
       obj[schemaKey] = {
