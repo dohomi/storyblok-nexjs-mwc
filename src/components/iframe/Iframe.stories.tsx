@@ -3,6 +3,7 @@ import Iframe from './Iframe'
 import { IframeAdvancedStoryblok, IframeStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
 import IframeAdvanced from './IframeAdvanced'
+import { storyIframe } from '../../../.storybook/dummy/core/various'
 
 const props: IframeStoryblok = {
   _uid: '2313',
@@ -46,12 +47,25 @@ storiesOf('Iframe', module)
   .add(
     'Iframe Advanced',
     () => (
-      <IframeAdvanced content={advanced}/>
+      <IframeAdvanced content={advanced} />
     )
   )
   .add(
     'Iframe With Message',
     () => (
-      <IframeAdvanced content={advanced2}/>
+      <IframeAdvanced content={advanced2} />
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <>
+        <Iframe content={storyIframe({
+          options: {
+            responsive_ratio: '16by9',
+            url: 'https://www.youtube.com/embed/tgbNymZ7vqY'
+          }
+        })} />
+      </>
     )
   )

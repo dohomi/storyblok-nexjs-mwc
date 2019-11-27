@@ -2,7 +2,10 @@ import { StorybookOptionProps } from './storybook_typing'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
-  ColumnStoryblok, FlexRowStoryblok,
+  ColumnStoryblok,
+  FlexRowStoryblok,
+  ImageListItemStoryblok,
+  ImageListStoryblok,
   RowStoryblok,
   SectionStoryblok
 } from '../../../src/typings/generated/components-schema'
@@ -59,6 +62,28 @@ export const storyCardListItem = ({ options = {}, knob, count = '' }: StorybookO
     knob,
     count
   }) as CardListItemStoryblok
+}
+
+export const storyImageList = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ImageListStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'image_list',
+    options,
+    knob,
+    count
+  }) as ImageListStoryblok
+}
+
+export const storyImageListItem = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ImageListItemStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'image_list_item',
+    options: {
+      source: storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)],
+      label: getLabel(3),
+      ...options
+    },
+    knob,
+    count
+  }) as ImageListItemStoryblok
 }
 
 export const storyFlexRow = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<FlexRowStoryblok> } = {}) => {

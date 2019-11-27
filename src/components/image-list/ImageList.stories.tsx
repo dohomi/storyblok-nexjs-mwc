@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/react'
 import ImageList from './ImageList'
 import { ImageListItemStoryblok, ImageListStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
+import { storyImageList, storyImageListItem } from '../../../.storybook/dummy/core/section'
 
 const body: ImageListItemStoryblok[] = [
   {
@@ -110,6 +111,26 @@ storiesOf('Image List', module)
         <ImageList content={{ ...content4, aspect_ratio: '3x2', fit_in_color: 'ccc' }} />
         <ImageList content={{ ...content4, aspect_ratio: '2x3', fit_in_color: 'ccc' }} />
       </>
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <div>
+        <ImageList content={{
+          ...storyImageList(),
+          body: [
+            storyImageListItem({ count: 1 }),
+            storyImageListItem({ count: 2 }),
+            storyImageListItem({ count: 3 }),
+            storyImageListItem({ count: 4 }),
+            storyImageListItem({ count: 5 }),
+            storyImageListItem({ count: 6 }),
+            storyImageListItem({ count: 7 }),
+            storyImageListItem({ count: 8 })
+          ]
+        }} />
+      </div>
     )
   )
 

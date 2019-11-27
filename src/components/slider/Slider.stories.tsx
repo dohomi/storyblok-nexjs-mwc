@@ -8,6 +8,7 @@ import {
   SliderStoryblok
 } from '../../typings/generated/components-schema'
 import * as React from 'react'
+import { storySlider } from '../../../.storybook/dummy/core/various'
 
 const items: ParagraphStoryblok[] = [{
   text: '<h3>Hello World</h3>',
@@ -78,14 +79,30 @@ const props2: SliderStoryblok = {
 
 storiesOf('Slider', module)
   .add(
-    'Content Slider',
+    'Playground',
     () => (
-      <Slider content={props} />
+      <Slider content={{
+        ...storySlider({
+          options: {
+            property: ['arrows_dark', 'pagination_dark']
+          }
+        }), body: props.body
+      }} />
     )
   )
   .add(
-    'Dark Slider',
+    'Dark Playground',
     () => (
-      <Slider content={props2} />
+      <Slider content={{
+        ...storySlider({
+          options: {
+            background_color: {
+              rgba: 'black'
+            },
+            section_variant: 'light_text'
+          }
+        }), body: props2.body
+      }} />
     )
   )
+

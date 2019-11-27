@@ -451,7 +451,7 @@ export interface IconStoryblok {
 
 export interface IframeStoryblok {
   url?: string;
-  responsive_ratio?: "16by9" | "4by3";
+  responsive_ratio?: "16by9" | "4by3" | "3by2" | "1by1";
   height?: string;
   width?: string;
   display?: "relative" | "absolute";

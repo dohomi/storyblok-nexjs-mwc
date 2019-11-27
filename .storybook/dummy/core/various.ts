@@ -6,10 +6,13 @@ import {
   ButtonStoryblok,
   DividerStoryblok,
   HeadlineStoryblok,
+  HtmlStoryblok,
   IconStoryblok,
+  IframeStoryblok,
+  ImageStoryblok,
   NavMenuItemStoryblok,
   NavMenuStoryblok,
-  RichTextEditorStoryblok
+  RichTextEditorStoryblok, SliderStoryblok, TableStoryblok
 } from '../../../src/typings/generated/components-schema'
 import uuid from 'uuid/v4'
 import { text } from '@storybook/addon-knobs'
@@ -179,10 +182,54 @@ export const storyDivider = ({ options = {}, knob, count = '' }: StorybookOption
 export const storyIcon = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<IconStoryblok> } = {}): IconStoryblok => {
   return getKnobComponents({
     componentName: 'icon',
+    options,
+    knob,
+    count
+  }) as IconStoryblok
+}
+
+export const storyHtml = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<HtmlStoryblok> } = {}): HtmlStoryblok => {
+  return getKnobComponents({
+    componentName: 'html',
+    options,
+    knob,
+    count
+  }) as HtmlStoryblok
+}
+export const storyIframe = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<IframeStoryblok> } = {}): IframeStoryblok => {
+  return getKnobComponents({
+    componentName: 'iframe',
+    options,
+    knob,
+    count
+  }) as IframeStoryblok
+}
+
+export const storyImage = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ImageStoryblok> } = {}): ImageStoryblok => {
+  return getKnobComponents({
+    componentName: 'image',
     options: {
+      source: storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)],
       ...options
     },
     knob,
     count
-  }) as IconStoryblok
+  }) as ImageStoryblok
+}
+export const storyTable = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<TableStoryblok> } = {}): TableStoryblok => {
+  return getKnobComponents({
+    componentName: 'table',
+    options,
+    knob,
+    count
+  }) as TableStoryblok
+}
+
+export const storySlider = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<SliderStoryblok> } = {}): SliderStoryblok => {
+  return getKnobComponents({
+    componentName: 'slider',
+    options,
+    knob,
+    count
+  }) as SliderStoryblok
 }
