@@ -4,7 +4,9 @@ import {
   AccordionStoryblok,
   ButtonListStoryblok,
   ButtonStoryblok,
+  DividerStoryblok,
   HeadlineStoryblok,
+  IconStoryblok,
   NavMenuItemStoryblok,
   NavMenuStoryblok,
   RichTextEditorStoryblok
@@ -163,4 +165,24 @@ export const storyButtonList = ({ options = {}, knob, count = '' }: StorybookOpt
     knob,
     count
   }) as ButtonListStoryblok
+}
+
+export const storyDivider = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<DividerStoryblok> } = {}): DividerStoryblok => {
+  return getKnobComponents({
+    componentName: 'divider',
+    options,
+    knob,
+    count
+  }) as DividerStoryblok
+}
+
+export const storyIcon = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<IconStoryblok> } = {}): IconStoryblok => {
+  return getKnobComponents({
+    componentName: 'icon',
+    options: {
+      ...options
+    },
+    knob,
+    count
+  }) as IconStoryblok
 }

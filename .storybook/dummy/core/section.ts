@@ -2,7 +2,7 @@ import { StorybookOptionProps } from './storybook_typing'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
-  ColumnStoryblok,
+  ColumnStoryblok, FlexRowStoryblok,
   RowStoryblok,
   SectionStoryblok
 } from '../../../src/typings/generated/components-schema'
@@ -61,3 +61,11 @@ export const storyCardListItem = ({ options = {}, knob, count = '' }: StorybookO
   }) as CardListItemStoryblok
 }
 
+export const storyFlexRow = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<FlexRowStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'flex_row',
+    options,
+    knob,
+    count
+  }) as FlexRowStoryblok
+}

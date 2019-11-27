@@ -1,6 +1,8 @@
 import { storiesOf } from '@storybook/react'
 import Divider from './Divider'
 import { DividerStoryblok } from '../../typings/generated/components-schema'
+import { storyDivider } from '../../../.storybook/dummy/core/various'
+import React from 'react'
 
 const props: DividerStoryblok = {
   _uid: '123',
@@ -35,7 +37,7 @@ storiesOf('Divider', module)
     () => (
       <>
         <div>
-          <Divider content={props} />
+          <Divider content={storyDivider({ options: { icon: { name: 'account_balance' } } })} />
         </div>
         <div>
           <Divider content={props2} />
@@ -44,7 +46,14 @@ storiesOf('Divider', module)
           <Divider content={props3} />
         </div>
         <div>
-          <Divider content={{ ...props3, size: 32, width: 30 }} />
+          <Divider content={storyDivider({
+            knob: 'Divider With Presets',
+            options: {
+              icon: { name: 'shopping_card' },
+              size: 32,
+              width: 30
+            }
+          })} />
         </div>
         <div>
           <Divider content={{ ...props3, size: 40, width: 30 }} />
@@ -53,10 +62,10 @@ storiesOf('Divider', module)
           <Divider content={{ ...props3, size: 50, width: 30 }} />
         </div>
         <div>
-          <Divider content={{ ...props3, size:60, width: 30 }} />
+          <Divider content={{ ...props3, size: 60, width: 30 }} />
         </div>
         <div>
-          <Divider content={{ ...props3, size:79, width: 30 }} />
+          <Divider content={{ ...props3, size: 79, width: 30 }} />
         </div>
       </>
     )
