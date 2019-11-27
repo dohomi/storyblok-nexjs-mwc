@@ -1,6 +1,7 @@
 import COMPONENT_JSON from '../../../components.66717.json'
 import { getUid, iconOptions, storyImageOptions } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
+import utilityClassNamesObj from './utilityClassNamesHelper'
 
 
 export const camelizeString = (text: string, separator = '_') => (
@@ -24,6 +25,7 @@ const optionsArrayToObject = (array: KeyValueStoryblok[], addEmpty?: boolean): o
   })
   return obj
 }
+
 
 const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { componentName: string, options?: any, knob?: string, count?: number | string }) => {
   const findComponents = COMPONENT_JSON.components.find(component => {
@@ -53,7 +55,7 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
     } else if (type === 'boolean') {
       obj[schemaKey] = boolean(name, options[schemaKey] || false, knob || camelizeString(componentName))
     } else if (type === 'image') {
-      obj[schemaKey] = select(name, storyImageOptions(), options[schemaKey] || undefined, knob || camelizeString(componentName))
+      obj[schemaKey] = optionsKnob(name, storyImageOptions(), options[schemaKey] || undefined, { display: 'select' }, knob || camelizeString(componentName))
     } else if (currentSchema.field_type === 'material-icons-selector') {
       console.log(currentSchema)
       obj[schemaKey] = {
@@ -63,8 +65,12 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
       obj[schemaKey] = {
         rgba: color(name, (options[schemaKey] && options[schemaKey].rgba) || undefined, knob || camelizeString(componentName))
       }
+    } else if (currentSchema.field_type === 'bootstrap-utility-class-selector') {
+      obj[schemaKey] = {
+        values: optionsKnob(name, utilityClassNamesObj, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
+      }
     } else {
-      console.log(currentSchema)
+      console.log('MISSING', currentSchema)
     }
   })
 

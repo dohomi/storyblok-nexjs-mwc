@@ -32,7 +32,7 @@ export const storyImageUrls = ['https://a.storyblok.com/f/57008/5000x3334/bae4d2
 
 export const storyImageOptions = () => {
   const obj = {
-    'Please Select': undefined
+    'Select or drop a public url': undefined
   }
   storyImageUrls.forEach((url, i) => {
     obj[url + '_' + i] = url
