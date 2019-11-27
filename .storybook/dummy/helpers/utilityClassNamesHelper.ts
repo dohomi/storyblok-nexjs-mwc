@@ -20,7 +20,7 @@ const generateUtilityClassNames = (): string[] => {
   })
   return classNames
 }
-const utilityClassNames = generateUtilityClassNames()
+export const utilityClassNames = generateUtilityClassNames()
 
 // console.log(JSON.stringify(utilityClassNames))
 const obj = {}
