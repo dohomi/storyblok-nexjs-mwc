@@ -42,7 +42,7 @@
         "./src/projects.json"
       ]
     },
-    "allowJs": false
+    "allowJs": true
   },
   "exclude": [
     "node_modules",
