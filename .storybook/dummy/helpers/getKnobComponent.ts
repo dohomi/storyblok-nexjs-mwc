@@ -52,15 +52,14 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
     } else if (type === 'options') {
       obj[schemaKey] = optionsKnob(name, optionsArrayToObject(currentSchema.options), options[schemaKey] || undefined, { display: 'inline-check' }, knob || camelizeString(componentName))
     } else if (type === 'text' || type === 'markdown' || type === 'textarea') {
-      obj[schemaKey] = text(name, options[schemaKey] || '', knob || camelizeString(componentName))
+      obj[schemaKey] = text(name, options[schemaKey] || (currentSchema.default_value ? currentSchema.default_value : ''), knob || camelizeString(componentName))
     } else if (type === 'number') {
-      obj[schemaKey] = number(name, options[schemaKey] || undefined, {}, knob || camelizeString(componentName))
+      obj[schemaKey] = number(name, options[schemaKey] || (currentSchema.default_value ? Number(currentSchema.default_value) : undefined), {}, knob || camelizeString(componentName))
     } else if (type === 'boolean') {
       obj[schemaKey] = boolean(name, options[schemaKey] || false, knob || camelizeString(componentName))
     } else if (type === 'image') {
       obj[schemaKey] = select(name, { ...allImageOptions }, options[schemaKey] || undefined, knob || camelizeString(componentName))
     } else if (currentSchema.field_type === 'material-icons-selector') {
-      console.log(iconObj)
       obj[schemaKey] = {
         name: optionsKnob(name, { ...iconObj }, (options[schemaKey] && options[schemaKey].name) || undefined, { display: 'select' }, knob || camelizeString(componentName))
       }
