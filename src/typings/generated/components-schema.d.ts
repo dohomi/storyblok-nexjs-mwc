@@ -409,6 +409,7 @@ export interface HeadlineStoryblok {
 
 export interface HtmlStoryblok {
   body?: string;
+  lazy_load?: boolean;
   _uid: string;
   component: "html";
   [k: string]: any;
@@ -440,6 +441,10 @@ export interface IconStoryblok {
     [k: string]: any;
   };
   size?: "xmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "xxxlarge";
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   class_names?: {
     values?: string[];
     [k: string]: any;
@@ -451,7 +456,7 @@ export interface IconStoryblok {
 
 export interface IframeStoryblok {
   url?: string;
-  responsive_ratio?: "16by9" | "4by3";
+  responsive_ratio?: "16by9" | "4by3" | "3by2" | "1by1";
   height?: string;
   width?: string;
   display?: "relative" | "absolute";

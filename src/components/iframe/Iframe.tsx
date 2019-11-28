@@ -12,6 +12,8 @@ const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) =>
   const allowed = content.allow || []
   content.responsive_ratio
 
+
+
   return (
     <SbEditable content={content}>
       <div ref={refIntersectionObserver} className={clsx({

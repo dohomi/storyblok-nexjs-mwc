@@ -5,25 +5,28 @@ import { IconStoryblok } from '../../typings/generated/components-schema'
 import Icon from '@material-ui/core/Icon'
 import { makeStyles } from '@material-ui/styles'
 
-const mapSize = {
-  'small': 'small',
-  'medium': 'default',
-  'large': 'large'
-}
-
 const useStyles = makeStyles({
   icon: {
     '&.xmall': {
       fontSize: '1rem'
     },
+    '&.small': {
+      fontSize: '1.25rem'
+    },
+    '&.medium': {
+      fontSize: '1.5rem'
+    },
+    '&.large': {
+      fontSize: '2.25rem'
+    },
     '&.xlarge': {
-      fontSize: '3rem'
+      fontSize: '2.5rem'
     },
     '&.xxlarge': {
-      fontSize: '3.8rem'
+      fontSize: '3rem'
     },
     '&.xxxlarge': {
-      fontSize: '5rem'
+      fontSize: '4rem'
     }
   }
 })
@@ -32,11 +35,15 @@ const useStyles = makeStyles({
 
 const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => {
   const classes = useStyles()
+  // size of Icon does not work because icons of material overwrite the sizes
+  const iconCustomColor = content.color && content.color.rgba
   return (
     <SbEditable content={content}>
       <div className={clsx(content.class_names && content.class_names.values)}>
         <Icon className={clsx(classes.icon, { [content.size as string]: !!content.size })}
-              fontSize={mapSize[content.size as string]}>{content.name && content.name.name}</Icon>
+              style={{ color: iconCustomColor ? iconCustomColor : undefined }}>
+          {content.name && content.name.name}
+        </Icon>
       </div>
     </SbEditable>
   )

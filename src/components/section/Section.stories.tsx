@@ -3,6 +3,8 @@ import Section from './Section'
 import { BackgroundStoryblok, RowStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
 import { columns, columnsWithImage, row, rowWithImage } from '../../../.storybook/dummy/section'
+import { storyBackground, storyColumn, storyRow, storySection } from '../../../.storybook/dummy/core/section'
+import { storyButton, storyHeadline } from '../../../.storybook/dummy/core/various'
 
 
 const props: SectionStoryblok = {
@@ -227,5 +229,41 @@ storiesOf('Section', module)
           body: [{ ...rowItem, align_content: 'stretch' }] as RowStoryblok[]
         }} />
       </>
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <div>
+        <Section content={
+          {
+            ...storySection(),
+            background: [storyBackground({ knob: 'Section' })],
+            body: [
+              {
+                ...storyRow({ options: { justify: 'center' } }),
+                background: [storyBackground({ knob: 'Row' })],
+                body: [{
+                  ...storyColumn({ knob: 'Column 1', options: { width_general: 'auto' } }),
+                  background: [storyBackground({ knob: 'Column 1' })],
+                  body: [
+                    storyHeadline({ count: 1, knob: 'Column 1' }),
+                    storyHeadline({ count: 2, knob: 'Column 1' }),
+                    storyButton({ knob: 'Column 1' })
+                  ]
+                }, {
+                  ...storyColumn({ knob: 'Column 2', options: { width_general: 'auto' } }),
+                  background: [storyBackground({ knob: 'Column 2' })],
+                  body: [
+                    storyHeadline({ count: 1, knob: 'Column 2' }),
+                    storyHeadline({ count: 2, knob: 'Column 2' }),
+                    storyButton({ knob: 'Column 2' })
+                  ]
+                }]
+              }
+            ]
+          }
+        } />
+      </div>
     )
   )

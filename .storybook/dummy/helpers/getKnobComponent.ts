@@ -1,7 +1,9 @@
 import COMPONENT_JSON from '../../../components.66717.json'
-import { getUid, iconOptions, storyImageOptions } from '../core/various'
+import { allImageOptions, getUid } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
-import utilityClassNamesObj from './utilityClassNamesHelper'
+import { classNameOpts } from './utilityClassNamesHelper'
+import iconObj from './iconListHelper'
+import StoriesService from '../../../src/utils/StoriesService'
 
 
 export const camelizeString = (text: string, separator = '_') => (
@@ -26,6 +28,7 @@ const optionsArrayToObject = (array: KeyValueStoryblok[], addEmpty?: boolean): o
   return obj
 }
 
+let allTags = {}
 
 const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { componentName: string, options?: any, knob?: string, count?: number | string }) => {
   const findComponents = COMPONENT_JSON.components.find(component => {
@@ -49,17 +52,16 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
     } else if (type === 'options') {
       obj[schemaKey] = optionsKnob(name, optionsArrayToObject(currentSchema.options), options[schemaKey] || undefined, { display: 'inline-check' }, knob || camelizeString(componentName))
     } else if (type === 'text' || type === 'markdown' || type === 'textarea') {
-      obj[schemaKey] = text(name, options[schemaKey] || '', knob || camelizeString(componentName))
+      obj[schemaKey] = text(name, options[schemaKey] || (currentSchema.default_value ? currentSchema.default_value : ''), knob || camelizeString(componentName))
     } else if (type === 'number') {
-      obj[schemaKey] = number(name, options[schemaKey] || undefined, {}, knob || camelizeString(componentName))
+      obj[schemaKey] = number(name, options[schemaKey] || (currentSchema.default_value ? Number(currentSchema.default_value) : undefined), {}, knob || camelizeString(componentName))
     } else if (type === 'boolean') {
       obj[schemaKey] = boolean(name, options[schemaKey] || false, knob || camelizeString(componentName))
     } else if (type === 'image') {
-      obj[schemaKey] = optionsKnob(name, storyImageOptions(), options[schemaKey] || undefined, { display: 'select' }, knob || camelizeString(componentName))
+      obj[schemaKey] = select(name, { ...allImageOptions }, options[schemaKey] || undefined, knob || camelizeString(componentName))
     } else if (currentSchema.field_type === 'material-icons-selector') {
-      console.log(currentSchema)
       obj[schemaKey] = {
-        name: select(name, iconOptions, (options[schemaKey] && options[schemaKey].name) || undefined, knob || camelizeString(componentName))
+        name: optionsKnob(name, { ...iconObj }, (options[schemaKey] && options[schemaKey].name) || undefined, { display: 'select' }, knob || camelizeString(componentName))
       }
     } else if (currentSchema.field_type === 'vue-color-picker') {
       obj[schemaKey] = {
@@ -67,10 +69,19 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
       }
     } else if (currentSchema.field_type === 'bootstrap-utility-class-selector') {
       obj[schemaKey] = {
-        values: optionsKnob(name, utilityClassNamesObj, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
+        values: optionsKnob(name, { ...classNameOpts }, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
       }
+    } else if (currentSchema.field_type === 'tags-select') {
+      if (!Object.keys(allTags).length) {
+        StoriesService.getAllTags().forEach(item => allTags[item.label] = item.value)
+      }
+      obj[schemaKey] = {
+        values: optionsKnob(name, { ...allTags }, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
+      }
+    } else if (['bloks', 'section'].includes(type)) {
+      // do nothing
     } else {
-      console.log('MISSING', currentSchema)
+      console.log('MISSING KNOB DECLARATION', currentSchema)
     }
   })
 

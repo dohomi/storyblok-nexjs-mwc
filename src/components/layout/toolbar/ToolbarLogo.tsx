@@ -7,6 +7,7 @@ import { GlobalStoryblok, ToolbarLogoStoryblok } from '../../../typings/generate
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
 import { homepageLinkHandler } from '../../../utils/linkHandler'
+import clsx from 'clsx'
 
 
 const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
@@ -20,7 +21,7 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
   const Logo = (
     <div className="h-100 d-inline-block">
       <Link as={homepageLinkHandler()} href="/[...index]" passHref>
-        <MuiLink className={`lm-logo-header`}>
+        <MuiLink className={clsx('lm-logo-header', { ['lm-logo-text']: !websiteLogo })}>
           <>
             {!websiteLogo && (
               <Typography>

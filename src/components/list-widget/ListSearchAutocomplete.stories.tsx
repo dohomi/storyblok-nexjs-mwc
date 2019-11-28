@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/react'
 import ListSearchAutocomplete from './ListSearchAutocomplete'
 import * as React from 'react'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
+import { storyListSearchAutocomplete } from '../../../.storybook/dummy/layout/toolbar'
 
 const props: ListSearchAutocompleteStoryblok = {
   _uid: '123',
@@ -10,6 +11,7 @@ const props: ListSearchAutocompleteStoryblok = {
   placeholder: 'Some Placeholder',
   not_found_label: 'There is no item found...'
 }
+
 
 storiesOf('List Widget Addons', module)
   .add(
@@ -82,7 +84,6 @@ storiesOf('List Widget Addons', module)
           }} />
         <h3>Align Menu to the right</h3>
         <div className="text-center">
-
           <ListSearchAutocomplete
             content={{
               ...props,
@@ -93,6 +94,19 @@ storiesOf('List Widget Addons', module)
               menu_align_right: true
             }} />
         </div>
+      </div>
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <div className="text-center p-5">
+        <ListSearchAutocomplete
+          content={storyListSearchAutocomplete({
+            options:{
+              placeholder: 'Search..'
+            }
+          })} />
       </div>
     )
   )

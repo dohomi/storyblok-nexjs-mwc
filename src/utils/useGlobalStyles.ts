@@ -1,6 +1,5 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import getNprogressJss from './jss/npgrogress'
-import { CSSProperties } from 'react'
 
 export const getCreatedStyles = (theme: Theme) => {
   const spacing = {}
@@ -97,6 +96,15 @@ export const getCreatedStyles = (theme: Theme) => {
         overflow: 'hidden',
         '&.embed-responsive-16by9': {
           paddingBottom: '56.25%'
+        },
+        '&.embed-responsive-4by3': {
+          paddingBottom: '75%'
+        },
+        '&.embed-responsive-1by1': {
+          paddingBottom: '100%'
+        },
+        '&.embed-responsive-3by2': {
+          paddingBottom: '66.6%'
         }
       },
       '.embed-responsive-item': {

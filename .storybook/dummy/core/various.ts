@@ -4,10 +4,20 @@ import {
   AccordionStoryblok,
   ButtonListStoryblok,
   ButtonStoryblok,
+  DividerStoryblok,
   HeadlineStoryblok,
+  HtmlStoryblok,
+  HubspotMeetingStoryblok,
+  IconStoryblok,
+  IframeStoryblok,
+  ImageStoryblok,
+  NavItemStoryblok,
+  NavListStoryblok,
   NavMenuItemStoryblok,
   NavMenuStoryblok,
-  RichTextEditorStoryblok
+  RichTextEditorStoryblok,
+  SliderStoryblok,
+  TableStoryblok
 } from '../../../src/typings/generated/components-schema'
 import uuid from 'uuid/v4'
 import { text } from '@storybook/addon-knobs'
@@ -40,6 +50,8 @@ export const storyImageOptions = () => {
   return obj
 }
 
+export const allImageOptions = storyImageOptions()
+
 export const getLabel = (words: number = 1) => capitalize(lorem.generateWords(words))
 export const getSentences = (count: number = 2) => lorem.generateSentences(count)
 export const getParagraphs = (paragraphs: number = 2) => lorem.generateParagraphs(paragraphs)
@@ -51,17 +63,6 @@ export const getOptions = (object: any) => {
   return obj
 }
 
-export const iconOptions = {
-  'home': 'home',
-  'app': 'app',
-  'account_balance': 'account_balance',
-  'add_shopping_cart': 'add_shopping_cart',
-  'calendar_today': 'calendar_today',
-  'menu': 'menu',
-  'expand_more': 'expand_more',
-  'expand_less': 'expand_less',
-  Empty: undefined
-}
 export const storyButton = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ButtonStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'button',
@@ -162,3 +163,103 @@ export const storyButtonList = ({ options = {}, knob, count = '' }: StorybookOpt
     count
   }) as ButtonListStoryblok
 }
+
+export const storyDivider = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<DividerStoryblok> } = {}): DividerStoryblok => {
+  return getKnobComponents({
+    componentName: 'divider',
+    options,
+    knob,
+    count
+  }) as DividerStoryblok
+}
+
+export const storyIcon = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<IconStoryblok> } = {}): IconStoryblok => {
+  return getKnobComponents({
+    componentName: 'icon',
+    options,
+    knob,
+    count
+  }) as IconStoryblok
+}
+
+export const storyHtml = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<HtmlStoryblok> } = {}): HtmlStoryblok => {
+  return getKnobComponents({
+    componentName: 'html',
+    options,
+    knob,
+    count
+  }) as HtmlStoryblok
+}
+export const storyIframe = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<IframeStoryblok> } = {}): IframeStoryblok => {
+  return getKnobComponents({
+    componentName: 'iframe',
+    options,
+    knob,
+    count
+  }) as IframeStoryblok
+}
+
+export const storyImage = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ImageStoryblok> } = {}): ImageStoryblok => {
+  return getKnobComponents({
+    componentName: 'image',
+    options: {
+      source: storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)],
+      ...options
+    },
+    knob,
+    count
+  }) as ImageStoryblok
+}
+export const storyTable = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<TableStoryblok> } = {}): TableStoryblok => {
+  return getKnobComponents({
+    componentName: 'table',
+    options,
+    knob,
+    count
+  }) as TableStoryblok
+}
+
+export const storySlider = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<SliderStoryblok> } = {}): SliderStoryblok => {
+  return getKnobComponents({
+    componentName: 'slider',
+    options,
+    knob,
+    count
+  }) as SliderStoryblok
+}
+
+export const storyHubspotMeeting = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<HubspotMeetingStoryblok> } = {}): HubspotMeetingStoryblok => {
+  return getKnobComponents({
+    componentName: 'hubspot_meeting',
+    options,
+    knob,
+    count
+  }) as HubspotMeetingStoryblok
+}
+
+export const storyNavList = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<NavListStoryblok> } = {}): NavListStoryblok => {
+  return getKnobComponents({
+    componentName: 'nav_list',
+    options: {
+      header: getLabel(2),
+      ...options
+    },
+    knob,
+    count
+  }) as NavListStoryblok
+}
+
+export const storyNavItem = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<NavItemStoryblok> } = {}): NavItemStoryblok => {
+  return getKnobComponents({
+    componentName: 'nav_item',
+    options: {
+      name: getLabel(3),
+      ...options
+    },
+    knob,
+    count
+  }) as NavItemStoryblok
+}
+
+
+

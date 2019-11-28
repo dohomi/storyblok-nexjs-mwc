@@ -6,6 +6,9 @@ import {
   TabsItemStoryblok,
   TabsStoryblok
 } from '../../typings/generated/components-schema'
+import { storyTabs, storyTabsItem } from '../../../.storybook/dummy/core/section'
+import { storyHeadline, storyParagraph } from '../../../.storybook/dummy/core/various'
+import React from 'react'
 
 const tabBodyItem = [{
   _uid: '123',
@@ -81,5 +84,34 @@ storiesOf('Tabs', module)
     'Tabs vertical',
     () => (
       <Tabs content={vertical} />
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <div className="p-5">
+        <Tabs content={{
+          ...storyTabs(),
+          body: [{
+            ...storyTabsItem({ knob: 'Tab 1' }),
+            body: [
+              storyHeadline({ knob: 'Tab 1' }),
+              storyParagraph({ knob: 'Tab 1' })
+            ]
+          }, {
+            ...storyTabsItem({ knob: 'Tab 2' }),
+            body: [
+              storyHeadline({ knob: 'Tab 2' }),
+              storyParagraph({ knob: 'Tab 2' })
+            ]
+          }, {
+            ...storyTabsItem({ knob: 'Tab 3' }),
+            body: [
+              storyHeadline({ knob: 'Tab 3' }),
+              storyParagraph({ knob: 'Tab 3' })
+            ]
+          }]
+        }} />
+      </div>
     )
   )

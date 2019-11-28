@@ -1,58 +1,66 @@
 import { storiesOf } from '@storybook/react'
 import IconMwc from './Icon'
-import { IconStoryblok } from '../../typings/generated/components-schema'
-
-const props: IconStoryblok = {
-  _uid: '232123',
-  component: 'icon',
-  name: {
-    name: 'home'
-  },
-  size: 'small'
-}
-
-const props1: IconStoryblok = {
-  ...props,
-  name: {
-    name: 'home'
-  },
-  size: 'large'
-}
-
-const props2: IconStoryblok = {
-  ...props,
-  name: {
-    name: 'home'
-  },
-  size: 'medium',
-  class_names: {
-    values: ['text-secondary']
-  }
-}
-
-const props3: IconStoryblok = {
-  ...props,
-  name: {
-    name: 'home'
-  },
-  size: 'xlarge',
-  class_names: {
-    values: ['text-primary']
-  }
-}
+import { storyIcon } from '../../../.storybook/dummy/core/various'
 
 storiesOf('Icon', module)
   .add(
     'Icon',
     () => (
       <>
-        <IconMwc content={{...props, size: 'xmall'}} />
-        <IconMwc content={props} />
-        <IconMwc content={props2} />
-        <IconMwc content={props1} />
-        <IconMwc content={props3} />
-        <IconMwc content={{...props, size: 'xxlarge'}} />
-        <IconMwc content={{...props, size: 'xxxlarge'}} />
+        <IconMwc content={storyIcon({
+          count: 1, options: {
+            name: {
+              name: 'home'
+            },
+            size: 'xmall'
+          }
+        })} />
+        <IconMwc content={storyIcon({
+          count: 2, options: {
+            name: {
+              name: 'home'
+            },
+            size: 'small'
+          }
+        })} />
+        <IconMwc content={storyIcon({
+          count: 3, options: {
+            name: {
+              name: 'home'
+            },
+            size: 'medium'
+          }
+        })} />
+        <IconMwc content={storyIcon({
+          count: 4, options: {
+            name: {
+              name: 'home'
+            },
+            size: 'large',
+            class_names:{
+              values: ['text-primary']
+            }
+          }
+        })} />
+        <IconMwc content={storyIcon({
+          count: 5, options: {
+            name: {
+              name: 'home'
+            },
+            size: 'xxlarge',
+            class_names:{
+              values: ['text-danger']
+            }
+          }
+        })} />
+        <IconMwc content={storyIcon({
+          count: 6, options: {
+            name: {
+              name: 'home'
+            },
+            size: 'xxxlarge'
+          }
+        })} />
       </>
     )
   )

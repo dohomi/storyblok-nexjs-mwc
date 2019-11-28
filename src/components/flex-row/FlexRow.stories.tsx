@@ -2,6 +2,8 @@ import { storiesOf } from '@storybook/react'
 import FlexRow from './FlexRow'
 import { FlexRowStoryblok, HeadlineStoryblok, IconStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
+import { storyFlexRow } from '../../../.storybook/dummy/core/section'
+import { storyHeadline, storyIcon } from '../../../.storybook/dummy/core/various'
 
 const icon: IconStoryblok = {
   _uid: '232123',
@@ -59,5 +61,19 @@ storiesOf('Flex Row', module)
             content={{ ...props, column: true, align_items: 'center', justify: 'space-between', full_height: true }} />
         </div>
       </>
+    )
+  )
+  .add(
+    'Playground',
+    () => (
+      <div className="bg-light m-5" style={{ height: '50vh' }}>
+        <FlexRow content={{
+          ...storyFlexRow({ options: { align_items: 'center' } }),
+          body: [
+            storyIcon({ options: { name: { name: 'double_arrow' } } }),
+            storyHeadline()
+          ]
+        }} />
+      </div>
     )
   )

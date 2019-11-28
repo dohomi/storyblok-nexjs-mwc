@@ -108,6 +108,7 @@
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
     "react-docgen-typescript-loader": "^3.5.0",
+    "@lumen/storyblok-material-icons": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
     "storybook-addon-smart-knobs": "^6.0.0",
     "uuid": "^3.3.3",
     "webpack": "^4.39.1",

@@ -3,6 +3,7 @@ import ListWidget from './ListWidget'
 import * as React from 'react'
 import { ListsStoryblok, ListWidgetStoryblok, NavListStoryblok } from '../../typings/generated/components-schema'
 import SetStoriesDecorator from '../../../.storybook/components/SetStoriesDecorator'
+import { storyCardList, storyListWidget } from '../../../.storybook/dummy/core/section'
 
 const props: ListWidgetStoryblok = {
   _uid: '123',
@@ -59,4 +60,24 @@ storiesOf('List Widget', module)
         <ListWidget content={{ ...filtered, list_options: [linksOption] }} />
       </div>
     )
+  )
+  .add(
+    'Playground',
+    () => {
+      const listOpts = storyListWidget({
+        options: {
+          tags: {
+            values: ['testimonial']
+          },
+          maximum_items: 10,
+          list_options: [storyCardList()]
+        }
+      })
+
+      return (
+        <div className="p-5">
+          <ListWidget content={{ ...listOpts }} />
+        </div>
+      )
+    }
   )
