@@ -43,11 +43,19 @@ storiesOf('Image', module)
         maxWidth: '500px',
         margin: '0 auto'
       }}>
-        <ImageElement content={svg} />
-        <ImageElement content={{ ...svg, color: { rgba: '#ccc' } }} />
-        <ImageElement content={{ ...svg, color: { rgba: '#eee' } }} />
+        <ImageElement content={{ ...svg, height: 64 }} />
         <ImageElement content={{ ...svg, color: { rgba: '#ccc' }, height: 64 }} />
-        <ImageElement content={{ ...svg, width: 52 }} />
+        <ImageElement content={{ ...svg, color: { rgba: '#eee' }, height: 64 }} />
+        <ImageElement content={{ ...svg, color: { rgba: '#ccc' }, height: 64 }} />
+        <div className="p-4">
+          <h4>Playground:</h4>
+          <ImageElement content={storyImage({
+            options: {
+              source: 'https://a.storyblok.com/f/57008/x/7dea868beb/cc_icons-badge_029.svg'
+            }
+          })} />
+
+        </div>
       </div>
     )
   )

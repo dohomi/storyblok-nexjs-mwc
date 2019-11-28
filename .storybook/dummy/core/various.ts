@@ -6,13 +6,15 @@ import {
   ButtonStoryblok,
   DividerStoryblok,
   HeadlineStoryblok,
-  HtmlStoryblok,
+  HtmlStoryblok, HubspotMeetingStoryblok,
   IconStoryblok,
   IframeStoryblok,
   ImageStoryblok,
   NavMenuItemStoryblok,
   NavMenuStoryblok,
-  RichTextEditorStoryblok, SliderStoryblok, TableStoryblok
+  RichTextEditorStoryblok,
+  SliderStoryblok,
+  TableStoryblok
 } from '../../../src/typings/generated/components-schema'
 import uuid from 'uuid/v4'
 import { text } from '@storybook/addon-knobs'
@@ -58,17 +60,6 @@ export const getOptions = (object: any) => {
   return obj
 }
 
-export const iconOptions = {
-  'home': 'home',
-  'app': 'app',
-  'account_balance': 'account_balance',
-  'add_shopping_cart': 'add_shopping_cart',
-  'calendar_today': 'calendar_today',
-  'menu': 'menu',
-  'expand_more': 'expand_more',
-  'expand_less': 'expand_less',
-  Empty: undefined
-}
 export const storyButton = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ButtonStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'button',
@@ -233,3 +224,13 @@ export const storySlider = ({ options = {}, knob, count = '' }: StorybookOptionP
     count
   }) as SliderStoryblok
 }
+
+export const storyHubspotMeeting = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<HubspotMeetingStoryblok> } = {}): HubspotMeetingStoryblok => {
+  return getKnobComponents({
+    componentName: 'hubspot_meeting',
+    options,
+    knob,
+    count
+  }) as HubspotMeetingStoryblok
+}
+

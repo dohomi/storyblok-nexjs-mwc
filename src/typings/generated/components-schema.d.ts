@@ -441,6 +441,10 @@ export interface IconStoryblok {
     [k: string]: any;
   };
   size?: "xmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "xxxlarge";
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   class_names?: {
     values?: string[];
     [k: string]: any;

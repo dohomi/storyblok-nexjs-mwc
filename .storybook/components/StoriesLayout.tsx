@@ -9,6 +9,8 @@ import { GlobalStoryblok } from '../../src/typings/generated/components-schema'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { CONFIG_STORYBOOK } from './configStorybook'
 import useGlobalStyles from '../../src/utils/useGlobalStyles'
+import { AppConfigProps } from '../../src/utils/parsePageProperties'
+import StoryblokService from '../../src/utils/StoryblokService'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()
@@ -16,8 +18,10 @@ const Layout: FunctionComponent<{}> = ({ children }) => {
     <>{children}</>
   )
 }
-
+const config: AppConfigProps = { ...CONFIG_STORYBOOK.app }
+StoryblokService.initialize(config)
 const StoriesLayout = (storyFunc: Function) => {
+
   const isDark = boolean('Dark mode', false, CONFIG_STORYBOOK.KNOBS.THEME)
 
   const toolbarConfig = optionsKnob('Toolbar Config', {

@@ -1,7 +1,8 @@
 import COMPONENT_JSON from '../../../components.66717.json'
-import { allImageOptions, getUid, iconOptions } from '../core/various'
+import { allImageOptions, getUid } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { classNameOpts } from './utilityClassNamesHelper'
+import iconObj from './iconListHelper'
 
 
 export const camelizeString = (text: string, separator = '_') => (
@@ -57,9 +58,9 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
     } else if (type === 'image') {
       obj[schemaKey] = select(name, { ...allImageOptions }, options[schemaKey] || undefined, knob || camelizeString(componentName))
     } else if (currentSchema.field_type === 'material-icons-selector') {
-      console.log(currentSchema)
+      console.log(iconObj)
       obj[schemaKey] = {
-        name: select(name, iconOptions, (options[schemaKey] && options[schemaKey].name) || undefined, knob || camelizeString(componentName))
+        name: optionsKnob(name, { ...iconObj }, (options[schemaKey] && options[schemaKey].name) || undefined, { display: 'select' }, knob || camelizeString(componentName))
       }
     } else if (currentSchema.field_type === 'vue-color-picker') {
       obj[schemaKey] = {

@@ -152,9 +152,15 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
             '& .MuiToolbar-root': {
               padding: '12px 0'
             },
+
             '& .lm-logo-header': {
               height: '100%',
               display: 'inline-block',
+              '&.lm-logo-text':{
+                height: '100%',
+                display: 'inline-flex',
+                alignItems:'center'
+              },
               '& figure': {
                 boxSizing: 'border-box'
               },

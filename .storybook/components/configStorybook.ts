@@ -1,4 +1,10 @@
 export const CONFIG_STORYBOOK = {
+  app:{
+    previewToken: 'Xzl0aUdUwWqtCsD37fHMmQtt',
+    publicToken: 'Xzl0aUdUwWqtCsD37fHMmQtt',
+    defaultLocale: 'en',
+    languages: ['en']
+  },
   KNOBS: {
     THEME: 'Theme Main',
     TOOLBAR: 'Theme Toolbar',

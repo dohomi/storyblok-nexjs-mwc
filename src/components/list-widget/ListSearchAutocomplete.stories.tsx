@@ -11,6 +11,7 @@ const props: ListSearchAutocompleteStoryblok = {
   not_found_label: 'There is no item found...'
 }
 
+
 storiesOf('List Widget Addons', module)
   .add(
     'Search Autocomplete',
