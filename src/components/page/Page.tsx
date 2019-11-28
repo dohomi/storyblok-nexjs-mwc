@@ -14,6 +14,16 @@ const Page: FunctionComponent<{ content: PageStoryblok }> = (props) => {
     return <div>There is no content yet...</div>
   }
 
+  if (!body.some(i => i.component === 'section_parallax')) {
+    return (
+      <SbEditable content={content}>
+        {rightBody.length > 0 && (
+          <PageWithDrawer rightBody={rightBody} body={body} />
+        )}
+        {!rightBody.length && body.map((blok) => Components(blok))}
+      </SbEditable>
+    )
+  }
   return (
     <SbEditable content={content}>
       <ParallaxProvider>

@@ -42,7 +42,7 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
         onChange={(_, value: number) => setActiveTab(value)}
       >
         {body.map((tab: TabsItemStoryblok) => <Tab label={tab.title}
-                                                   wrapped={!!content.stacked_icons}
+                                                   wrapped={!!content.wrapped}
                                                    icon={tab.icon && tab.icon.name && <Icon>{tab.icon.name}</Icon>}
                                                    key={tab._uid} />)}
       </MuiTabs>

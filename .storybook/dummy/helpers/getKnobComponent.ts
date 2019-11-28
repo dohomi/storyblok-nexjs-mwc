@@ -3,6 +3,7 @@ import { allImageOptions, getUid } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { classNameOpts } from './utilityClassNamesHelper'
 import iconObj from './iconListHelper'
+import StoriesService from '../../../src/utils/StoriesService'
 
 
 export const camelizeString = (text: string, separator = '_') => (
@@ -27,6 +28,7 @@ const optionsArrayToObject = (array: KeyValueStoryblok[], addEmpty?: boolean): o
   return obj
 }
 
+let allTags = {}
 
 const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { componentName: string, options?: any, knob?: string, count?: number | string }) => {
   const findComponents = COMPONENT_JSON.components.find(component => {
@@ -67,16 +69,20 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
         rgba: color(name, (options[schemaKey] && options[schemaKey].rgba) || undefined, knob || camelizeString(componentName))
       }
     } else if (currentSchema.field_type === 'bootstrap-utility-class-selector') {
-      // if (!utilityClassNamesObj) {
-      //   console.log(schemaKey, knob)
-      //
-      //   return
-      // }
       obj[schemaKey] = {
         values: optionsKnob(name, { ...classNameOpts }, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
       }
+    } else if (currentSchema.field_type === 'tags-select') {
+      if (!Object.keys(allTags).length) {
+        StoriesService.getAllTags().forEach(item => allTags[item.label] = item.value)
+      }
+      obj[schemaKey] = {
+        values: optionsKnob(name, { ...allTags }, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
+      }
+    } else if (['bloks', 'section'].includes(type)) {
+      // do nothing
     } else {
-      console.log('MISSING', currentSchema)
+      console.log('MISSING KNOB DECLARATION', currentSchema)
     }
   })
 

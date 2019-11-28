@@ -64,6 +64,7 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
     })
     Promise.all(items)
       .then((layers) => {
+        console.log(layers)
         setLayers(layers as any)
         el.classList.add('loaded')
       })

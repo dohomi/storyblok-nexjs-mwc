@@ -14,7 +14,7 @@ const SetStoriesDecorator = (storyFunc: Function) => {
   useEffect(
     () => {
       const fetch = async () => {
-        let [categories, stories] = await Promise.all([
+        let [categories, stories, tags] = await Promise.all([
           StoryblokService.getAll('cdn/stories', {
             per_page: 100,
             sort_by: 'content.name:asc',
@@ -33,10 +33,16 @@ const SetStoriesDecorator = (storyFunc: Function) => {
                 'in': 'page'
               }
             }
-          })
+          }),
+          StoryblokService.get('cdn/tags')
         ])
         StoriesService.setAllStories(stories || [])
         StoriesService.setAllCategories(categories || [])
+        const tagList = (tags && tags.data.tags && tags.data.tags.map((item: { name: string, taggings_count: number }) => ({
+          value: item.name,
+          label: `${item.name} (${item.taggings_count})`
+        }))) || []
+        StoriesService.setAllTags(tagList)
         setLoaded(true)
       }
 

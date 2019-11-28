@@ -1,5 +1,4 @@
 import { storiesOf } from '@storybook/react'
-import SectionParallax from './SectionParallax'
 import {
   ColumnStoryblok,
   ParagraphStoryblok,
@@ -8,6 +7,10 @@ import {
   SectionParallaxStoryblok
 } from '../../typings/generated/components-schema'
 import * as React from 'react'
+import Page from '../page/Page'
+import { get3ColumnsSection } from '../../../.storybook/dummy/section'
+import { storyParallaxItem, storySectionParallax } from '../../../.storybook/dummy/core/section'
+import { storyHeadline } from '../../../.storybook/dummy/core/various'
 
 const items: ParagraphStoryblok[] = [{
   text: '<h3>Hello World</h3>',
@@ -50,6 +53,26 @@ storiesOf('Section Parallax', module)
   .add(
     'Section Parallax',
     () => (
-      <SectionParallax content={props} />
+      <Page content={{
+        _uid: 'page',
+        component: 'page',
+        body: [{
+          ...storySectionParallax(),
+          body: [
+            storyHeadline()
+          ],
+          elements: [
+            storyParallaxItem({
+              options: {
+                image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+              }
+            })
+          ]
+        },
+          get3ColumnsSection({ knob: '3 Column Section 1' }),
+          get3ColumnsSection({ knob: '3 Column Section 2' }),
+          get3ColumnsSection({ knob: '3 Column Section 3' })
+        ]
+      }} />
     )
   )

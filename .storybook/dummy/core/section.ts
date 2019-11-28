@@ -1,17 +1,32 @@
 import { StorybookOptionProps } from './storybook_typing'
 import {
+  BackgroundStoryblok,
   CardListItemStoryblok,
   CardListStoryblok,
   ColumnStoryblok,
   FlexRowStoryblok,
   ImageListItemStoryblok,
   ImageListStoryblok,
+  ListWidgetStoryblok,
+  ParallaxItemStoryblok,
   RowStoryblok,
-  SectionStoryblok
+  SectionParallaxStoryblok,
+  SectionStoryblok,
+  SectionVideoBgStoryblok,
+  TabsItemStoryblok,
+  TabsStoryblok
 } from '../../../src/typings/generated/components-schema'
 import { getLabel, getSentences, randomIntFromInterval, storyImageUrls } from './various'
 import getKnobComponents from '../helpers/getKnobComponent'
 
+export const storySectionVideoBg = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<SectionVideoBgStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'section_video_bg',
+    options,
+    knob,
+    count
+  }) as SectionVideoBgStoryblok
+}
 
 export const storySection = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<SectionStoryblok> } = {}) => {
   return getKnobComponents({
@@ -93,4 +108,61 @@ export const storyFlexRow = ({ options = {}, knob, count = '' }: StorybookOption
     knob,
     count
   }) as FlexRowStoryblok
+}
+
+export const storyListWidget = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ListWidgetStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'list_widget',
+    options,
+    knob,
+    count
+  }) as ListWidgetStoryblok
+}
+
+export const storyBackground = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<BackgroundStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'background',
+    options,
+    knob,
+    count
+  }) as BackgroundStoryblok
+}
+
+export const storyTabs = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<TabsStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'tabs',
+    options,
+    knob,
+    count
+  }) as TabsStoryblok
+}
+
+export const storyTabsItem = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<TabsItemStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'tabs_item',
+    options: {
+      title: getLabel(),
+      ...options
+    },
+    knob,
+    count
+  }) as TabsItemStoryblok
+}
+
+export const storySectionParallax = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<SectionParallaxStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'section_parallax',
+    options,
+    knob,
+    count
+  }) as SectionParallaxStoryblok
+}
+
+export const storyParallaxItem = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ParallaxItemStoryblok> } = {}) => {
+  return getKnobComponents({
+    componentName: 'parallax_item',
+    options,
+    knob,
+    count
+  }) as ParallaxItemStoryblok
 }

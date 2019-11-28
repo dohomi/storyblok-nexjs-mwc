@@ -6,11 +6,13 @@ class StoriesModule {
   stories: any[]
   categories: CategoryStoryblok[]
   staticContent: StaticcontainerItem[]
+  tags: { value: string, label: string }[]
   urlMapping: any
   config: AppConfigProps
   public locale: string | undefined
 
   constructor() {
+    this.tags = []
     this.stories = []
     this.categories = []
     this.staticContent = []
@@ -32,6 +34,10 @@ class StoriesModule {
     return this.config
   }
 
+  setAllTags(tags: { value: string, label: string }[]) {
+    this.tags = tags
+  }
+
   setAllCategories(categories: CategoryStoryblok[]) {
     this.categories = categories
   }
@@ -42,6 +48,10 @@ class StoriesModule {
 
   getAllCategories() {
     return this.categories
+  }
+
+  getAllTags(): { value: string, label: string }[] {
+    return this.tags
   }
 
   setAllStaticContent(staticContent: StaticcontainerItem[]) {

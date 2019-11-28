@@ -6,10 +6,13 @@ import {
   ButtonStoryblok,
   DividerStoryblok,
   HeadlineStoryblok,
-  HtmlStoryblok, HubspotMeetingStoryblok,
+  HtmlStoryblok,
+  HubspotMeetingStoryblok,
   IconStoryblok,
   IframeStoryblok,
   ImageStoryblok,
+  NavItemStoryblok,
+  NavListStoryblok,
   NavMenuItemStoryblok,
   NavMenuStoryblok,
   RichTextEditorStoryblok,
@@ -233,4 +236,30 @@ export const storyHubspotMeeting = ({ options = {}, knob, count = '' }: Storyboo
     count
   }) as HubspotMeetingStoryblok
 }
+
+export const storyNavList = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<NavListStoryblok> } = {}): NavListStoryblok => {
+  return getKnobComponents({
+    componentName: 'nav_list',
+    options: {
+      header: getLabel(2),
+      ...options
+    },
+    knob,
+    count
+  }) as NavListStoryblok
+}
+
+export const storyNavItem = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<NavItemStoryblok> } = {}): NavItemStoryblok => {
+  return getKnobComponents({
+    componentName: 'nav_item',
+    options: {
+      name: getLabel(3),
+      ...options
+    },
+    knob,
+    count
+  }) as NavItemStoryblok
+}
+
+
 
