@@ -41,6 +41,7 @@ export const getCreatedStyles = (theme: Theme) => {
   }
   const dark = '#303030'
   console.log('use main styles!!!!')
+
   return createStyles({
     '@global': {
       ...getNprogressJss(theme),
@@ -140,13 +141,13 @@ export const getCreatedStyles = (theme: Theme) => {
         width: '100% !important'
       },
       '.text-left': {
-        textAlign: 'left !important'
+        textAlign: 'left'
       },
       '.text-center': {
-        textAlign: 'center !important'
+        textAlign: 'center'
       },
       '.text-right': {
-        textAlign: 'right !important'
+        textAlign: 'right'
       },
       '.font-weight-bold': {
         fontWeight: 'bold !important'
@@ -164,7 +165,7 @@ export const getCreatedStyles = (theme: Theme) => {
         fontWeight: 'normal !important'
       },
       '.text-uppercase': {
-        textTransform: 'uppercase !important'
+        textTransform: 'uppercase'
       },
       '.text-monospace': {
         fontFamily: 'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace !important'
