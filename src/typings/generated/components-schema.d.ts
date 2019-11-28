@@ -409,6 +409,7 @@ export interface HeadlineStoryblok {
 
 export interface HtmlStoryblok {
   body?: string;
+  lazy_load?: boolean;
   _uid: string;
   component: "html";
   [k: string]: any;

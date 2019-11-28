@@ -9,6 +9,7 @@ import {
 } from '../../typings/generated/components-schema'
 import * as React from 'react'
 import { storySlider } from '../../../.storybook/dummy/core/various'
+import { get3ColumnsSection } from '../../../.storybook/dummy/section'
 
 const items: ParagraphStoryblok[] = [{
   text: '<h3>Hello World</h3>',
@@ -86,7 +87,11 @@ storiesOf('Slider', module)
           options: {
             property: ['arrows_dark', 'pagination_dark']
           }
-        }), body: props.body
+        }), body: [
+          get3ColumnsSection({ count: 1 }),
+          get3ColumnsSection({ count: 2 }),
+          get3ColumnsSection({ count: 3 })
+        ]
       }} />
     )
   )
@@ -101,7 +106,11 @@ storiesOf('Slider', module)
             },
             section_variant: 'light_text'
           }
-        }), body: props2.body
+        }), body: [
+          get3ColumnsSection({ count: 1 }),
+          get3ColumnsSection({ count: 2 }),
+          get3ColumnsSection({ count: 3 })
+        ]
       }} />
     )
   )
