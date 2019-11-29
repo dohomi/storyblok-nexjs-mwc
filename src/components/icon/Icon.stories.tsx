@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import IconMwc from './Icon'
 import { storyIcon } from '../../../.storybook/dummy/core/various'
+import IconMdi from './IconMdi'
 
 storiesOf('Icon', module)
   .add(
@@ -37,7 +38,7 @@ storiesOf('Icon', module)
               name: 'home'
             },
             size: 'large',
-            class_names:{
+            class_names: {
               values: ['text-primary']
             }
           }
@@ -48,7 +49,7 @@ storiesOf('Icon', module)
               name: 'home'
             },
             size: 'xxlarge',
-            class_names:{
+            class_names: {
               values: ['text-danger']
             }
           }
@@ -62,5 +63,13 @@ storiesOf('Icon', module)
           }
         })} />
       </>
+    )
+  )
+  .add(
+    'Icon MDI',
+    () => (
+      <div className="p-5">
+        <IconMdi />
+      </div>
     )
   )

@@ -20,6 +20,25 @@ const fontHandler = (settings: Partial<GlobalStoryblok>) => {
       weight: 400
     })
   }
+
+  const mdi = document.createElement('link')
+  mdi.href = `https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/4.4.95/css/materialdesignicons.min.css`
+  mdi.rel = 'stylesheet'
+  document.head.appendChild(mdi)
+  const mdiFont = {
+    mdi: new FontFaceObserver('Material Design Icons', {
+      weight: 400
+    })
+  }
+  console.log('inside of fonts1')
+  mdiFont.mdi.load()
+    .then(() => {
+      document.documentElement.classList.add('mdi-loaded')
+    })
+    .catch((e: any) => {
+      console.error(e)
+    })
+
   // currently only watch on icons
   fonts.material.load().then(() => {
     document.documentElement.classList.add('fonts-loaded')
