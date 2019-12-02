@@ -5,9 +5,10 @@ import { PageItem } from '../../typings/generated/schema'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import Icon from '@material-ui/core/Icon'
 import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
 import InputBase from '@material-ui/core/InputBase'
+import LmIcon from '../icon/LmIcon'
+import { Magnify } from 'mdi-material-ui'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -91,27 +92,11 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
     debounceFunc(value)
   }
 
-
-  // className={clsx('lm-search__autocomplete lm-form', {
-  //   'w-100': content.fullwidth,
-  //     ['lm-form__shaped']: content.shape === 'rounded',
-  //     ['lm-form__square']: content.shape === 'square'
-  // })}
-//
-//   className = { clsx('lm-search__menu'
-//   {
-//     'lm-search__menu-right'
-//   :
-//     content.menu_align_right
-//   }
-// )
-// }
-
   return (
     <>
       <div className={classes.search}>
         <div className={classes.searchIcon}>
-          <Icon>{(content.icon && content.icon.name) || 'search'}</Icon>
+          {content.icon && content.icon.name ? <LmIcon iconName={content.icon.name} /> : <Magnify />}
         </div>
         <InputBase placeholder={content.placeholder || content.label}
                    classes={{

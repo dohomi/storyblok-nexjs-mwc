@@ -6,8 +6,8 @@ import { useDebouncedCallback } from 'use-debounce'
 import { onSearchTextChange } from '../../utils/state/actions'
 import { useRouter } from 'next/router'
 import TextField from '@material-ui/core/TextField'
-import Icon from '@material-ui/core/Icon'
 import clsx from 'clsx'
+import { Magnify } from 'mdi-material-ui'
 
 const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> = ({ content }) => {
   const { query } = useRouter()
@@ -32,7 +32,7 @@ const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> 
       <div className={clsx(content.class_names && content.class_names.values)}>
         <TextField
           InputProps={{
-            startAdornment: <Icon>search</Icon>
+            startAdornment: <Magnify />
           }}
           id={content._uid}
           value={searchText}

@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import IconMwc from './Icon'
 import { storyIcon } from '../../../.storybook/dummy/core/various'
+import React from 'react'
 
 storiesOf('Icon', module)
   .add(
@@ -37,7 +38,7 @@ storiesOf('Icon', module)
               name: 'home'
             },
             size: 'large',
-            class_names:{
+            class_names: {
               values: ['text-primary']
             }
           }
@@ -48,7 +49,7 @@ storiesOf('Icon', module)
               name: 'home'
             },
             size: 'xxlarge',
-            class_names:{
+            class_names: {
               values: ['text-danger']
             }
           }
@@ -58,6 +59,13 @@ storiesOf('Icon', module)
             name: {
               name: 'home'
             },
+            size: 'xxxlarge'
+          }
+        })} />
+        <IconMwc content={storyIcon({
+          count: 7,
+          options: {
+            icon_url: 'https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/airbnb.svg',
             size: 'xxxlarge'
           }
         })} />

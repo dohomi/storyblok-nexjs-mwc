@@ -141,6 +141,8 @@ export type GlobalComponent = {
   setup_supported_languages?: Maybe<Scalars['String']>,
   theme_base?: Maybe<Scalars['String']>,
   theme_container_width?: Maybe<Scalars['String']>,
+  theme_disable_md_icons?: Maybe<Scalars['Boolean']>,
+  theme_enable_mdi_icons?: Maybe<Scalars['Boolean']>,
   theme_error?: Maybe<Scalars['String']>,
   theme_error_contrast?: Maybe<Scalars['String']>,
   theme_font_alt1?: Maybe<Scalars['String']>,

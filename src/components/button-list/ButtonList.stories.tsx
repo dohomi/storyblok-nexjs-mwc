@@ -51,7 +51,7 @@ const icons: ButtonListStoryblok = {
     _uid: '44878',
     component: 'button',
     icon: {
-      name: 'search'
+      name: 'facebook'
     }
   }] as ButtonStoryblok[]
 }

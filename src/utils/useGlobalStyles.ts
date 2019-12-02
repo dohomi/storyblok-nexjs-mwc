@@ -117,17 +117,17 @@ export const getCreatedStyles = (theme: Theme) => {
         height: '100%',
         border: 0
       },
-      '.material-icons': {
-        visibility: 'hidden'
-      },
+      // '.material-icons': {
+      //   visibility: 'hidden'
+      // },
       '.line-through': {
         textDecoration: 'line-through'
       },
-      '.fonts-loaded': {
-        '& .material-icons': {
-          visibility: 'visible'
-        }
-      },
+      // '.fonts-loaded': {
+      //   '& .material-icons': {
+      //     visibility: 'visible'
+      //   }
+      // },
       '.mh-100': {
         minHeight: '100% !important'
       },

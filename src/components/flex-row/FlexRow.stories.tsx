@@ -44,7 +44,7 @@ storiesOf('Flex Row', module)
     'Flex Row',
     () => (
       <>
-        <div style={{ width: '500px', height: '200px', backgroundColor: '#ccc' }}>
+        <div style={{ width: '500px', height: '300px', backgroundColor: '#ccc' }}>
           <FlexRow content={props} />
           <FlexRow content={{ ...props2, justify: 'center' }} />
           <FlexRow content={{ ...props3, justify: 'space-between' }} />

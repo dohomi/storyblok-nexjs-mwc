@@ -2,8 +2,8 @@ import SbEditable from 'storyblok-react'
 import React, { FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { IconStoryblok } from '../../typings/generated/components-schema'
-import Icon from '@material-ui/core/Icon'
 import { makeStyles } from '@material-ui/styles'
+import LmIcon from './LmIcon'
 
 const useStyles = makeStyles({
   icon: {
@@ -30,20 +30,20 @@ const useStyles = makeStyles({
     }
   }
 })
-// "xmall":'',
-// "xlarge" | "xxlarge" | "xxxlarge"
 
 const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => {
   const classes = useStyles()
-  // size of Icon does not work because icons of material overwrite the sizes
-  const iconCustomColor = content.color && content.color.rgba
   return (
     <SbEditable content={content}>
       <div className={clsx(content.class_names && content.class_names.values)}>
-        <Icon className={clsx(classes.icon, { [content.size as string]: !!content.size })}
-              style={{ color: iconCustomColor ? iconCustomColor : undefined }}>
-          {content.name && content.name.name}
-        </Icon>
+        <LmIcon
+          className={clsx(classes.icon, {
+            [content.size as string]: !!content.size
+          })}
+          iconUrl={content.icon_url}
+          style={{ color: (content.color && content.color.rgba) ? content.color.rgba : undefined }}
+          iconName={content.name && content.name.name}
+        />
       </div>
     </SbEditable>
   )

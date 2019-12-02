@@ -1,10 +1,10 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
+import * as React from 'react'
 import { CSSProperties, FunctionComponent } from 'react'
 import { DividerStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/core'
-import Icon from '@material-ui/core/Icon'
-import * as React from 'react'
+import LmIcon from '../icon/LmIcon'
 
 const useStyles = makeStyles({
   hSeparator: {
@@ -111,10 +111,10 @@ const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) 
         <div>
           <div style={{ borderTopWidth: `${content.thickness || 1}px` }}>
             <span>
-              <Icon style={{
+              <LmIcon iconName={iconName} style={{
                 fontSize: iconSize + 'px',
                 marginTop: `${content.thickness || 1}px`
-              }}>{iconName}</Icon>
+              }} />
             </span>
           </div>
         </div>

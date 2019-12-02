@@ -4,7 +4,7 @@ import SwipeableViews from 'react-swipeable-views'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 import { WithWindowDimensionsProps } from '../provider/WindowDimensionsProvider'
 import InvertedIndicator from '../slider/InvertedIndicator'
-import Icon from '@material-ui/core/Icon'
+import { ChevronLeft, ChevronRight } from 'mdi-material-ui'
 
 export type ImageListLightboxProps = {
   elements: ImageListItemStoryblok[]
@@ -55,12 +55,12 @@ const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
       <a className="carousel-control-prev"
          role="button"
          onClick={() => props.onImageClick(currentIndex === 0 ? props.elements[props.elements.length - 1] : props.elements[currentIndex - 1])}>
-        <Icon>keyboard_arrow_left</Icon>
+        <ChevronLeft />
       </a>
       <a className="carousel-control-next"
          role="button"
          onClick={() => props.onImageClick(currentIndex === props.elements.length - 1 ? props.elements[0] : props.elements[currentIndex + 1])}>
-        <Icon>keyboard_arrow_right</Icon>
+        <ChevronRight />
       </a>
       <ol className="carousel-indicators">
         {props.elements.map((item) => (

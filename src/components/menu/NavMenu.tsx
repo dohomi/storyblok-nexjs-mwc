@@ -3,13 +3,14 @@ import { FunctionComponent } from 'react'
 import Button from '@material-ui/core/Button'
 import SbEditable from 'storyblok-react'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
-import Icon from '@material-ui/core/Icon'
 import Menu from '@material-ui/core/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 import Components from '@components'
 
 import MenuItem from '@material-ui/core/MenuItem'
 import ContentLink from '../link/ContentLink'
+import LmIcon from '../icon/LmIcon'
+import { ChevronDown, ChevronUp } from 'mdi-material-ui'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -57,12 +58,13 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
       }
     }
   }
-  const expandIcon = (content.icon && content.icon.name) || 'expand_more'
-  const closeIcon = (content.icon_collapse && content.icon_collapse.name) || 'expand_less'
+  const ExpandIcon = (content.icon && content.icon.name) ? <LmIcon iconName={content.icon.name} /> : <ChevronDown />
+  const CloseIcon = (content.icon_collapse && content.icon_collapse.name) ?
+    <LmIcon iconName={content.icon_collapse.name} /> : <ChevronUp />
   return (
     <SbEditable content={content}>
       <>
-        <Button endIcon={<Icon>{Boolean(anchorEl) ? closeIcon : expandIcon}</Icon>}
+        <Button endIcon={Boolean(anchorEl) ? CloseIcon : ExpandIcon}
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 className="lm-default-color"

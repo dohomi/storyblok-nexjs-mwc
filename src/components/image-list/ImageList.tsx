@@ -37,7 +37,7 @@ const useStyles = makeStyles({
         alignItems: 'center'
       }
     },
-    '& .MuiIcon-root': {
+    '& .MuiSvgIcon-root': {
       color: 'white'
     },
     '& .carousel-indicators': {
@@ -53,7 +53,7 @@ const useStyles = makeStyles({
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
-      '& .MuiIcon-root': {
+      '& .MuiSvgIcon-root': {
         fontSize: '4rem',
         color: 'rgba(255,255,255,0.8)'
       }

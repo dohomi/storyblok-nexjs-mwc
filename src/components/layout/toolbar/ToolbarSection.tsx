@@ -12,18 +12,19 @@ import {
   ToolbarRowSectionStoryblok
 } from '../../../typings/generated/components-schema'
 import IconButton from '@material-ui/core/IconButton'
-import Icon from '@material-ui/core/Icon'
 import LmMuiButton from '../../button/LmMuiButton'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import ListSearchAutocomplete from '../../list-widget/ListSearchAutocomplete'
+import { Menu as MenuUi } from 'mdi-material-ui'
+import LmIcon from '../../icon/LmIcon'
 
 const NaviButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }> = ({ content }) => {
   return (
     <SbEditable content={content}>
       <IconButton className={clsx(content.class_names && content.class_names.values)}
                   onClick={() => toggleLeftNavigation()}>
-        <Icon>{(content.icon && content.icon.name) || 'menu'}</Icon>
+        {content.icon && content.icon.name ? <LmIcon iconName={content.icon.name} /> : <MenuUi />}
       </IconButton>
     </SbEditable>
   )

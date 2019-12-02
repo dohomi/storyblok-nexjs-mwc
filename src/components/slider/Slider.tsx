@@ -9,8 +9,8 @@ import SliderChild from './SliderChild'
 import { makeStyles } from '@material-ui/core/styles'
 import InvertedIndicator from './InvertedIndicator'
 import Typography from '@material-ui/core/Typography'
-import Icon from '@material-ui/core/Icon'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
+import { ChevronLeft, ChevronRight } from 'mdi-material-ui'
 
 const chunkArray = (myArray: Element[], chunkSize: number) => {
   const results = []
@@ -40,7 +40,7 @@ export const useStyles = makeStyles({
     },
 
     '&.carousel__arrows_dark': {
-      '& .MuiIcon-root': {
+      '& .MuiSvgIcon-root': {
         color: 'rgba(0,0,0,0.8)'
       }
     },
@@ -57,7 +57,7 @@ export const useStyles = makeStyles({
       display: 'flex',
       alignItems: 'center',
       cursor: 'pointer',
-      '& .MuiIcon-root': {
+      '& .MuiSvgIcon-root': {
         fontSize: '4rem',
         color: 'rgba(255,255,255,0.8)'
       }
@@ -123,13 +123,13 @@ const Slider: FunctionComponent<{ content: SliderStoryblok }> = ({ content }) =>
         <a className={carouselPrevClasses}
            role="button"
            onClick={() => setSlide(slide === 0 ? body.length - 1 : slide - 1)}>
-          <Icon>keyboard_arrow_left</Icon>
+          <ChevronLeft />
           <Typography variant={'srOnly'}>Previous</Typography>
         </a>
         <a className={carouselNextClasses}
            role="button"
            onClick={() => setSlide(slide === body.length - 1 ? 0 : slide + 1)}>
-          <Icon>keyboard_arrow_right</Icon>
+          <ChevronRight />
           <Typography variant={'srOnly'}>Next</Typography>
         </a>
         <div className={paginationClasses}>
