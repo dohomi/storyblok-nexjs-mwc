@@ -87,7 +87,7 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
 }
 
 
-const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps, previewImage?: string }> = ({ settings, pageSeo, previewImage }) => {
+const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps, previewImage?: string }> = ({ settings, pageSeo, previewImage }) => {
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = pageSeo.body || []
   const seo: SeoMetaTypes = {
@@ -120,4 +120,4 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
   return <NextSeo {...seo} />
 }
 
-export default Head
+export default AppSeo

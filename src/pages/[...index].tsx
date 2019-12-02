@@ -8,7 +8,7 @@ import { NextPage } from 'next'
 import getInitialPageProps from '@initialData/getInitialPageProps'
 import { AppPageProps, PageSeoProps } from '../utils/parsePageProperties'
 import StoriesService from '../utils/StoriesService'
-import Head from '../components/layout/Head'
+import AppSeo from '../components/layout/Head'
 import { closeNavigationDrawers } from '../utils/state/actions'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
@@ -32,7 +32,7 @@ const CoreIndex: FunctionComponent<CoreAppProps> = (props) => {
       <WindowDimensionsProvider>
         <GlobalTheme settings={settings}>
           <CssBaseline />
-          <Head settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
+          <AppSeo settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
           <Layout hasFeature={!!(page.property && page.property.includes('has_feature'))}
                   settings={settings}
                   hasRightDrawer={!!(page.right_body && page.right_body.length)}
