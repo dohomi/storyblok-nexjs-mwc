@@ -1,14 +1,14 @@
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import * as React from 'react'
-import { FunctionComponent, useEffect, useMemo } from 'react'
+import { FunctionComponent, useMemo } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
-import Fonts from '@fonts'
 import parseFont from '../../utils/parseFont'
 // @ts-ignore
 import mediaQuery from 'css-mediaquery'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import useGlobalStyles from '../../utils/useGlobalStyles'
+// import Fonts from '@fonts'
 
 const mapThemeType = {
   'base': 'light',
@@ -74,12 +74,12 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
   })
 
 
-  useEffect(
-    () => {
-      Fonts(settings)
-    },
-    []
-  )
+  // useEffect(
+  //   () => {
+  //     Fonts(settings)
+  //   },
+  //   []
+  // )
 
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
@@ -156,10 +156,10 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
             '& .lm-logo-header': {
               height: '100%',
               display: 'inline-block',
-              '&.lm-logo-text':{
+              '&.lm-logo-text': {
                 height: '100%',
                 display: 'inline-flex',
-                alignItems:'center'
+                alignItems: 'center'
               },
               '& figure': {
                 boxSizing: 'border-box'

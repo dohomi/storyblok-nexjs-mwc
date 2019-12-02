@@ -58,7 +58,7 @@ class MyDocument extends Document {
       <Main />
       <script dangerouslySetInnerHTML={{
         __html: `
-      var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}'; 
+      var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}';
       var userDevice = ${JSON.stringify(DeviceDetectService.getDevice())};
       var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
       }}></script>
