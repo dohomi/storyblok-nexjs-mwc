@@ -13,7 +13,9 @@ const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = 
   const allowed = content.allow || []
   useEffect(
     () => {
-      setSrc(content.url || '')
+      if (inView) {
+        setSrc(content.url || '')
+      }
     },
     [inView]
   )
