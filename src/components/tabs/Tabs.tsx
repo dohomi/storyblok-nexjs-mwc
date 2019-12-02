@@ -5,10 +5,10 @@ import Components from '@components'
 import SwipeableViews from 'react-swipeable-views'
 import MuiTabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
-import Icon from '@material-ui/core/Icon'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
+import LmIcon from '../icon/LmIcon'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
@@ -43,7 +43,8 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
       >
         {body.map((tab: TabsItemStoryblok) => <Tab label={tab.title}
                                                    wrapped={!!content.wrapped}
-                                                   icon={tab.icon && tab.icon.name && <Icon>{tab.icon.name}</Icon>}
+                                                   icon={tab.icon && tab.icon.name &&
+                                                   <LmIcon style={{fontSize: 24}} className={'MuiIcon-root'} iconName={tab.icon.name} />}
                                                    key={tab._uid} />)}
       </MuiTabs>
       <SwipeableViews index={activeTab} onChangeIndex={(i) => setActiveTab(i)}>

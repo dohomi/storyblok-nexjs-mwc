@@ -2,11 +2,11 @@ import DrawerButton from './DrawerButton'
 import React, { FunctionComponent } from 'react'
 import DrawerNavList from './DrawerNavList'
 import { ButtonStoryblok, NavMenuStoryblok } from '../../../typings/generated/components-schema'
-import Icon from '@material-ui/core/Icon'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Collapse from '@material-ui/core/Collapse'
+import { ChevronDown, ChevronUp } from 'mdi-material-ui'
 
 type CollapsibleComponents = {
   button: FunctionComponent<ButtonStoryblok>
@@ -61,7 +61,7 @@ const CollapsibleListSection: FunctionComponent<NavMenuStoryblok> = (props) => {
     <>
       <ListItem button onClick={handleClick}>
         <ListItemText primary={props.title} />
-        <Icon>{open ? 'expand_less' : 'expand_more'}</Icon>
+        {open ? <ChevronUp /> : <ChevronDown />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding style={{ marginLeft: '20px' }}>

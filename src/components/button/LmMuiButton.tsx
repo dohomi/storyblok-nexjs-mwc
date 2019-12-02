@@ -21,12 +21,6 @@ const mapIconButtonSize = {
 }
 
 
-// icon button: small medium, default: medium
-const mapIconSize = {
-  dense: 'small',
-  'lm-button-large': 'large'
-}
-
 const mapAvatarSize = {
   dense: 'small',
   'lm-button-large': 'large',
@@ -50,9 +44,6 @@ const mapColor = {
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
-    '& .lm-svg-icon': {
-      fill: 'currentColor'
-    },
     '&.lm-button-shaped': {
       borderRadius: '2em'
     },
@@ -61,16 +52,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     '&.lm-button-xlarge': {
       fontSize: '20px',
-      paddingLeft: '2rem',
-      paddingRight: '2rem',
       '& .MuiIcon-root': {
         fontSize: '1.8rem'
       },
       '&.MuiFab-root': {
         height: '64px',
-        minHeight: '64px'
+        minHeight: '64px',
+        '&:not(.MuiFab-extended)': {
+          width: '64px'
+        }
       },
       '&.MuiFab-extended': {
+        paddingLeft: '1.8rem',
+        paddingRight: '1.8rem',
         borderRadius: '31px'
       }
     },
@@ -113,12 +107,12 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
              size={mapSize[content.size as string] || 'medium'}
              color={color as FabProps['color']}
              disableRipple={disableRipple}>
-          <LmIcon iconName={content.icon && content.icon.name} />
+          <LmIcon iconName={content.icon && content.icon.name} buttonSize={content.size} />
           {content.image && (
             <LmMuiAvatar src={content.image} size={mapAvatarSize[content.size as string]} />
           )}
           {content.label}
-          <LmIcon iconName={content.trailing_icon && content.trailing_icon.name} />
+          <LmIcon iconName={content.trailing_icon && content.trailing_icon.name} buttonSize={content.size} />
         </Fab>
       </ContentLink>
     )
@@ -130,7 +124,7 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
                     size={mapIconButtonSize[content.size as string] || 'medium'}
                     disableRipple={disableRipple}
                     className={className}>
-          <LmIcon iconName={content.icon && content.icon.name} />
+          <LmIcon iconName={content.icon && content.icon.name} buttonSize={content.size} />
           {content.image && (
             <LmMuiAvatar src={content.image} size={mapAvatarSize[content.size as string]} />
           )}
@@ -146,8 +140,9 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
               variant={mapVariant[content.variant as string]}
               disabled={disableRipple}
               color={color as ButtonProps['color']}
-              startIcon={<LmIcon iconName={content.icon && content.icon.name} />}
-              endIcon={<LmIcon iconName={content.trailing_icon && content.trailing_icon.name} />}>
+              startIcon={<LmIcon iconName={content.icon && content.icon.name} buttonSize={content.size} />}
+              endIcon={<LmIcon iconName={content.trailing_icon && content.trailing_icon.name}
+                               buttonSize={content.size} />}>
         {content.image && (
           <LmMuiAvatar src={content.image} size={mapAvatarSize[content.size as string]} />
         )}

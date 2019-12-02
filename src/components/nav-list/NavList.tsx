@@ -9,8 +9,9 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import Icon from '@material-ui/core/Icon'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
+import { ChevronDown } from 'mdi-material-ui'
+import LmIcon from '../icon/LmIcon'
 
 const useStyles = makeStyles({
   root: {
@@ -36,11 +37,11 @@ const NavList: FunctionComponent<{ content: NavListStoryblok }> = ({ content }) 
   const header = content.header
 
   if ((isMobile && content.collapse_on_mobile) || content.forceCollapse) {
-    const metaIcon = content.collapse_icon && content.collapse_icon.name || 'expand_more'
     return (
       <SbEditable content={content}>
         <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<Icon>{metaIcon}</Icon>}>
+          <ExpansionPanelSummary expandIcon={(content.collapse_icon && content.collapse_icon.name) ?
+            <LmIcon iconName={content.collapse_icon.name} /> : <ChevronDown />}>
             <Typography>{content.header}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>

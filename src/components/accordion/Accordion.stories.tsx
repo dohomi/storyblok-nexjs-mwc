@@ -14,12 +14,12 @@ storiesOf('Accordion', module)
         body: [{
           ...storyAccordionItem({ count: 1 }),
           body: [
-            get3ColumnsSection({ count: 1 })
+            get3ColumnsSection({ count: 1, knob: 'Column Content' })
           ]
         }, {
           ...storyAccordionItem({ count: 2 }),
           body: [
-            get3ColumnsSection({ count: 2 })
+            get3ColumnsSection({ count: 2, knob: 'Column Content' })
           ]
         }]
       }} />

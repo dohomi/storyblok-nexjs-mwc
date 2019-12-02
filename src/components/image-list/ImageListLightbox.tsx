@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import IconButton from '@material-ui/core/IconButton'
-import Icon from '@material-ui/core/Icon'
 import Swipe, { ImageListLightboxProps } from './ImageListLightboxSwipe'
+import { Close } from 'mdi-material-ui'
 
 const ImageListLightbox: FunctionComponent<ImageListLightboxProps> = (props) => {
   return (
@@ -13,8 +13,9 @@ const ImageListLightbox: FunctionComponent<ImageListLightboxProps> = (props) => 
             open={!!props.lightbox}>
       <DialogTitle>
         <IconButton
+          className="text-white"
           onClick={() => props.setLightbox()}>
-          <Icon>clear</Icon>
+          <Close />
         </IconButton>
       </DialogTitle>
       {Swipe(props)}

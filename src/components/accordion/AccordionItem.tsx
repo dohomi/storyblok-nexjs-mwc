@@ -3,16 +3,17 @@ import Components from '@components'
 import { default as React, FunctionComponent } from 'react'
 import { AccordionItemStoryblok } from '../../typings/generated/components-schema'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import Icon from '@material-ui/core/Icon'
 import Typography from '@material-ui/core/Typography'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import { ChevronDown, Plus } from 'mdi-material-ui'
 
 const AccordionItem: FunctionComponent<AccordionItemStoryblok> = (content) => {
+
   return (
     <SbEditable content={content}>
       <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<Icon>{content.metaIcon || 'expand_more'}</Icon>}>
+        <ExpansionPanelSummary expandIcon={content.use_plus_icon ? <Plus /> : <ChevronDown />}>
           <Typography>{content.title}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>

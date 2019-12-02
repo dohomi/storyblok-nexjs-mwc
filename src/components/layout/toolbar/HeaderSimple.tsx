@@ -6,12 +6,12 @@ import { toggleLeftNavigation, toggleRightNavigation } from '../../../utils/stat
 import ToolbarLogo from './ToolbarLogo'
 import Components from '@components'
 import IconButton from '@material-ui/core/IconButton'
-import Icon from '@material-ui/core/Icon'
 import clsx from 'clsx'
 import Grid from '@material-ui/core/Grid'
+import { Magnify, Menu } from 'mdi-material-ui'
 
 const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
-const  {  settings, hasRightDrawer } = props
+  const { settings, hasRightDrawer } = props
   const content = settings || {}
   const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
   const navRight = content.toolbar || []
@@ -21,7 +21,7 @@ const  {  settings, hasRightDrawer } = props
       <TopAppBarWrap {...props}>
         <IconButton className={`d-inline-flex d-${mobileNavBreakpoint}-none`}
                     onClick={() => toggleLeftNavigation()}>
-          <Icon>menu</Icon>
+          <Menu />
         </IconButton>
         <ToolbarLogo settings={content} />
 
@@ -36,7 +36,7 @@ const  {  settings, hasRightDrawer } = props
             [`d-${mobileNavBreakpoint}-none`]: true
           })}>
             <IconButton onClick={() => toggleRightNavigation()}>
-              <Icon>search</Icon>
+              <Magnify />
             </IconButton>
           </Grid>
         )}

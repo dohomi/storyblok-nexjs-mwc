@@ -1,35 +1,8 @@
 import { storiesOf } from '@storybook/react'
 import Divider from './Divider'
-import { DividerStoryblok } from '../../typings/generated/components-schema'
 import { storyDivider } from '../../../.storybook/dummy/core/various'
 import React from 'react'
 
-const props: DividerStoryblok = {
-  _uid: '123',
-  component: 'divider',
-  icon: {
-    name: 'clear'
-  }
-}
-
-const props2: DividerStoryblok = {
-  ...props,
-  icon: {
-    name: 'home'
-  },
-  icon_size: ['xxx-large'],
-  width: 50
-}
-
-const props3: DividerStoryblok = {
-  ...props,
-  icon: {
-    name: 'alarm'
-  },
-  color: {
-    rgba: 'rgba(22,333,1212,1)'
-  }
-}
 
 storiesOf('Divider', module)
   .add(
@@ -37,35 +10,99 @@ storiesOf('Divider', module)
     () => (
       <>
         <div>
-          <Divider content={storyDivider({ options: { icon: { name: 'account_balance' } } })} />
+          <Divider
+            content={storyDivider({ count: 1, options: { icon: { name: 'chevron_down' }, size: 24, width: 70 } })} />
         </div>
         <div>
-          <Divider content={props2} />
+          <Divider content={storyDivider({ count: 2, options: { icon: { name: 'chevron_down' }, size: 30 } })} />
         </div>
         <div>
-          <Divider content={props3} />
+          <Divider content={
+            storyDivider({
+              count: 3,
+              options: {
+                color: {
+                  rgba: 'rgba(121,121,121,1)'
+                }
+              }
+            })
+          } />
         </div>
         <div>
-          <Divider content={storyDivider({
-            knob: 'Divider With Presets',
-            options: {
-              icon: { name: 'shopping_card' },
-              size: 32,
-              width: 30
-            }
-          })} />
+          <Divider content={
+            storyDivider({
+              count: 4,
+              options: {
+                color: {
+                  rgba: 'rgba(121,121,121,1)'
+                },
+                size: 40, width: 70
+              }
+            })
+          } />
         </div>
         <div>
-          <Divider content={{ ...props3, size: 40, width: 30 }} />
+          <Divider content={
+            storyDivider({
+              count: 5,
+              options: {
+                icon: {
+                  name: 'chevron_down'
+                },
+                color: {
+                  rgba: 'rgba(121,121,121,1)'
+                },
+                size: 40, width: 15
+              }
+            })
+          } />
         </div>
         <div>
-          <Divider content={{ ...props3, size: 50, width: 30 }} />
+          <Divider content={
+            storyDivider({
+              count: 6,
+              options: {
+                icon: {
+                  name: 'chevron_down'
+                },
+                color: {
+                  rgba: 'rgba(121,121,121,1)'
+                },
+                size: 50, width: 30
+              }
+            })
+          } />
         </div>
         <div>
-          <Divider content={{ ...props3, size: 60, width: 30 }} />
+          <Divider content={
+            storyDivider({
+              count: 7,
+              options: {
+                icon: {
+                  name: 'chevron_down'
+                },
+                color: {
+                  rgba: 'rgba(22,333,1212,1)'
+                },
+                size: 60, width: 30
+              }
+            })
+          } />
         </div>
         <div>
-          <Divider content={{ ...props3, size: 79, width: 30 }} />
+          <Divider content={
+            storyDivider({
+              count: 8,
+              options: {
+                icon: {
+                  name: 'chevron_down'
+                },
+                color: {
+                  rgba: 'rgba(22,333,1212,1)'
+                },
+                size: 79, width: 30
+              }
+            })} />
         </div>
       </>
     )
