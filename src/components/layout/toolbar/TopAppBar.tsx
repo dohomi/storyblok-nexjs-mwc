@@ -16,7 +16,6 @@ export type AppHeaderProps = {
 }
 
 const useStyles = makeStyles((theme: Theme) => {
-    console.log('MAKE', theme.toolbar)
     return createStyles({
       topAppBar: {
         '& .lm-system-bar': {

@@ -14,6 +14,11 @@ const useStyles = makeStyles({
   }
 })
 
+const iconMap = {
+  call: 'phone',
+  people: 'account-multiple'
+}
+
 const LmIcon: FunctionComponent<{
   className?: string,
   iconUrl?: string
@@ -22,12 +27,16 @@ const LmIcon: FunctionComponent<{
   buttonSize?: ButtonStoryblok['size']
 }> = ({ className, style, iconName, buttonSize, iconUrl }) => {
   const classes = useStyles()
+  iconName = iconName ? iconMap[iconName as string] || iconName : undefined
   return (iconName || iconUrl) ? (
     <InlineSVG
       style={style}
       className={clsx(classes.icon, 'lm-svg-icon', className, { ['size__' + buttonSize]: buttonSize })}
-      onError={e => console.error(e)}
-      src={iconUrl ? iconUrl : `https://cdn.jsdelivr.net/gh/Templarian/MaterialDesign/svg/${underscoreToMinus(iconName as string)}.svg`} />
+      onError={e => {
+        console.error(`Icon not found: ${iconName}`)
+        console.error(e)
+      }}
+      src={iconUrl ? iconUrl : `https://cdn.jsdelivr.net/npm/@mdi/svg/svg/${underscoreToMinus(iconName as string)}.svg`} />
   ) : null
 }
 
