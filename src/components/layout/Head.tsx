@@ -1,9 +1,7 @@
-import NextHead from 'next/head'
 import NProgress from 'nprogress'
 import Router from 'next/router'
-import StoryblokService from '../../utils/StoryblokService'
 import { NextSeo } from 'next-seo'
-import imageService, { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
+import { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import {
@@ -18,8 +16,6 @@ import { PageSeoProps } from '../../utils/parsePageProperties'
 Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
-
-const iconSizes = [16, 32, 96, 192]
 
 type SeoMetaTypes = {
   title: string
@@ -92,7 +88,6 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
 
 
 const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps, previewImage?: string }> = ({ settings, pageSeo, previewImage }) => {
-  const favicon = settings.setup_favicon
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = pageSeo.body || []
   const seo: SeoMetaTypes = {
@@ -121,20 +116,8 @@ const Head: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps
     seo.twitter = parseTwitter(settingsTwitter)
   }
   seo.canonical = pageSeo.url
-  return (
-    <>
-      <NextSeo {...seo} />
-      <NextHead>
-        {favicon && iconSizes.map(size => (
-          <link rel="icon" sizes={`${size}/${size}`} href={imageService(favicon, `${size}x${size}`)}
-                key={`fav_${size}`} />
-        ))}
-        {StoryblokService.insideVisualComposer() && (
-          <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${StoryblokService.getToken()}`}></script>
-        )}
-      </NextHead>
-    </>
-  )
+
+  return <NextSeo {...seo} />
 }
 
 export default Head
