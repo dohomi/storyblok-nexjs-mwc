@@ -262,6 +262,9 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     if (!pageProps) {
       console.log('PAGE MISSNG')
     }
+    if (res) {
+      res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+    }
     return {
       page: pageProps,
       settings: settingsProps,
