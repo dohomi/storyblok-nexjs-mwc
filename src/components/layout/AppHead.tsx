@@ -4,19 +4,13 @@ import NextHead from 'next/head'
 import * as React from 'react'
 import { FunctionComponent, memo } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { getFontBasedOnSetting } from '../../utils/parseFont'
 
 const iconSizes = [16, 32, 96, 192]
 
 const AppHead: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings }) => {
   const favicon = settings.setup_favicon
-
-  const settingsFonts = ['theme_font_default', 'theme_font_alt1', 'theme_font_alt2', 'theme_font_alt3', 'theme_font_alt4']
-  const loadFonts: string[] = []
-  Object.keys(settings).forEach(key => {
-    if (settingsFonts.includes(key) && settings[key]) {
-      loadFonts.push(settings[key])
-    }
-  })
+  const loadFonts: string[] = getFontBasedOnSetting(settings)
 
   return (
     <NextHead>
@@ -27,6 +21,7 @@ const AppHead: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings })
       {StoryblokService.insideVisualComposer() && (
         <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${StoryblokService.getToken()}`}></script>
       )}
+      <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="anonymous" />
       <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`} rel="stylesheet" />
     </NextHead>
   )

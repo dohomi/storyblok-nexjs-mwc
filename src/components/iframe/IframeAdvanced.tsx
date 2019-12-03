@@ -1,24 +1,28 @@
 import SbEditable from 'storyblok-react'
-import React, { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
+import React, { createRef, FunctionComponent, RefObject, useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { IframeAdvancedStoryblok } from '../../typings/generated/components-schema'
 import { intersectionIframeOptions } from '../../utils/intersectionObserverConfig'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = ({ content }) => {
   const [refIntersectionObserver, inView, containerRef] = useInView(intersectionIframeOptions)
   const iframeRef: RefObject<HTMLIFrameElement> = createRef()
-  const [src, setSrc] = useState<string>('')
+  // const [src, setSrc] = useState<string>('')
   const contentId = `iframe_${content._uid}`
   const properties = content.property || []
   const allowed = content.allow || []
-  useEffect(
+  const [loaded, setLoaded] = useState<boolean>(false)
+  const src = useMemo(
     () => {
       if (inView) {
-        setSrc(content.url || '')
+        return content.url
       }
+      return ''
     },
     [inView]
   )
+
   useEffect(
     () => {
       const messageFunc = (message: any) => {
@@ -50,12 +54,14 @@ const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = 
   return (
     <SbEditable content={content}>
       <div ref={refIntersectionObserver}>
+        {!loaded && inView && <div className="p-5"><CircularProgress /></div>}
         <iframe
           ref={iframeRef}
           id={contentId}
           allow={allowed.join(' ')}
           frameBorder={0}
           scrolling="no"
+          onLoad={() => setLoaded(true)}
           allowFullScreen={properties.includes('allow_fullscreen') || false}
           src={src}
           className="border-0"
