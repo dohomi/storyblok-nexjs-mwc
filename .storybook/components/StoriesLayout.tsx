@@ -11,6 +11,7 @@ import { CONFIG_STORYBOOK } from './configStorybook'
 import useGlobalStyles from '../../src/utils/useGlobalStyles'
 import { AppConfigProps } from '../../src/utils/parsePageProperties'
 import StoryblokService from '../../src/utils/StoryblokService'
+import { getFontBasedOnSetting } from '../../src/utils/parseFont'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()
@@ -64,6 +65,7 @@ const StoriesLayout = (storyFunc: Function) => {
       upskill: 'https://a.storyblok.com/f/67295/256x64/8361be6afc/upskill-logo-primary-upskill-xs.png'
     }, 'https://a.storyblok.com/f/69529/1076x500/aeb2c104c2/etherhill_logo_white_001.png', CONFIG_STORYBOOK.KNOBS.TOOLBAR)
   }
+  const loadFonts: string[] = getFontBasedOnSetting(settings)
 
   return (
     <GlobalStateProvider>
@@ -78,6 +80,7 @@ const StoriesLayout = (storyFunc: Function) => {
                 </>
               </Container>
             </Layout>
+            <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`} rel="stylesheet" />
           </div>
         </GlobalTheme>
       </WindowDimensionsProvider>
