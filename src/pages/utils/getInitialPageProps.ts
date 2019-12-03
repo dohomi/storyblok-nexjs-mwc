@@ -137,7 +137,7 @@ const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, CONFIG }: A
       locale,
       settings: localizedSettings,
       categories: localizedCategories,
-      stories: localizedStories,
+      stories: localizedStories.filter((i: any) => i.tag_list.length > 0),
       staticContent: localizedStaticContent
     }
   }
@@ -146,7 +146,7 @@ const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, CONFIG }: A
     page,
     settings,
     categories,
-    stories,
+    stories: stories.filter((i: any) => i.tag_list.length > 0),
     locale,
     staticContent
   }
