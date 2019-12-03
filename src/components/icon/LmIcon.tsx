@@ -32,6 +32,7 @@ const LmIcon: FunctionComponent<{
 }> = ({ className, style, iconName, buttonSize, iconUrl }) => {
   const classes = useStyles()
   const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
+  iconName = iconName ? iconMap[iconName as string] || iconName : undefined
   const iconSrc = useMemo<string>(
     () => {
       console.log('inside of use memo', inView)
@@ -42,7 +43,6 @@ const LmIcon: FunctionComponent<{
     },
     [inView]
   )
-  iconName = iconName ? iconMap[iconName as string] || iconName : undefined
   return (iconName || iconUrl) ? (
     <span ref={refIntersectionObserver}>
       {iconSrc && <InlineSVG
