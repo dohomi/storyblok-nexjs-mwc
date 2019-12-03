@@ -35,7 +35,6 @@ const LmIcon: FunctionComponent<{
   iconName = iconName ? iconMap[iconName as string] || iconName : undefined
   const iconSrc = useMemo<string>(
     () => {
-      console.log('inside of use memo', inView)
       if (inView && (iconUrl || iconName)) {
         return iconUrl ? iconUrl : `https://cdn.jsdelivr.net/npm/@mdi/svg/svg/${underscoreToMinus(iconName as string)}.svg`
       }
