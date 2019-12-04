@@ -8,7 +8,7 @@
     "analyze:browser": "BUNDLE_ANALYZE=browser yarn build",
     "analyze:server": "BUNDLE_ANALYZE=server yarn build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next",
+    "dev": "previewToken=IQrhrTP6aL0WYgDXmersbgtt publicToken=Xzl0aUdUwWqtCsD37fHMmQtt next",
     "dev1": "next -p 3001",
     "dev2": "next -p 3002",
     "dev3": "next -p 3003",

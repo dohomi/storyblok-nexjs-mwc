@@ -2,7 +2,7 @@ import Document, { DocumentContext, Head, Main, NextScript } from 'next/document
 import StoryblokService from '../utils/StoryblokService'
 import DeviceDetectService from '../utils/DeviceDetectService'
 import React from 'react'
-import StoriesService from '../utils/StoriesService'
+import StoriesService, { CONFIG } from '../utils/StoriesService'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 
 function getGoogleTagManager() {
@@ -40,7 +40,7 @@ class MyDocument extends Document {
     const GTM = !StoryblokService.insideVisualComposer() && getGoogleTagManager()
 
     return (
-      <html lang={StoriesService.locale ? StoriesService.locale : StoriesService.config.defaultLocale}>
+      <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLocale}>
       <Head>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
               key="viewport" />

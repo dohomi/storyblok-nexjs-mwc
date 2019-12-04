@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "storyblok-playground-mwc",
+  "name": "storyblok-playground-2-mwc",
   "regions": [
     "bru1"
   ],
@@ -12,10 +12,11 @@
       "defaultLocale": "en"
     }
   },
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@now/next"
+
+  "functions": {
+    "src/pages/[...index].tsx": {
+      "memory": 1024,
+      "maxDuration": 60
     }
-  ]
+  }
 }

@@ -36,7 +36,7 @@
         "./client/polyfills.js"
       ],
       "@initialData/*": [
-        "./src/pages/utils/*"
+        "./src//utils/initial-props/*"
       ],
       "@projects": [
         "./src/projects.json"

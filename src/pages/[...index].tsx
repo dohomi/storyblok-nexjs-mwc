@@ -68,12 +68,11 @@ const StoryblokIndex: FunctionComponent<CoreAppProps> = (props) => {
 const Index: NextPage<AppPageProps> = (props) => {
   const { asPath, query } = useRouter()
   const { settings, page, error } = props
-  StoriesService.setConfig(props.config)
-  StoryblokService.initialize(props.config)
   StoriesService.setAllStories(props.allStories)
   StoriesService.setAllCategories(props.allCategories)
   StoriesService.setAllStaticContent(props.allStaticContent)
   StoriesService.setLocale(props.locale)
+
   if (error) {
     if (error.type === 'not_supported') {
       return null
