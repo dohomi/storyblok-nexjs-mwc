@@ -8,18 +8,21 @@ import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
 import { homepageLinkHandler } from '../../../utils/linkHandler'
 import clsx from 'clsx'
+import { useInView } from 'react-intersection-observer'
+import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
 
 
 const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
   const websiteTitle = settings.website_title
+  const websiteLogo = settings.website_logo
+  const websiteLogoInvert = settings.website_logo_invert
   const height = settings.toolbar_main_height ? settings.toolbar_main_height * 2 : 48 * 2
-  const websiteLogo = settings.website_logo && imageService(settings.website_logo, '0x' + height)
-  const websiteLogoInverted = settings.website_logo_invert && imageService(settings.website_logo_invert, '0x' + height)
+  const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
 
-  const as = homepageLinkHandler()
-  console.log(as)
+  const getImageSrc = (image: string) => imageService(image, '0x' + height)
+
   const Logo = (
-    <div className="h-100 d-inline-block">
+    <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
       <Link as={homepageLinkHandler()} href="/[...index]" passHref>
         <MuiLink className={clsx('lm-logo-header', { ['lm-logo-text']: !websiteLogo })}>
           <>
@@ -28,13 +31,12 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
                 {websiteTitle}
               </Typography>
             )}
-            {websiteLogo &&
-            <img src={websiteLogo}
-                 className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__default' : ''}`}
-                 alt={websiteTitle || 'website logo'} />}
-            {websiteLogoInverted && <img src={websiteLogoInverted}
-                                         className={`lm-logo-img${websiteLogoInverted ? ' lm-logo__inverted' : ''}`}
-                                         alt={websiteTitle || 'website logo'} />}
+            {websiteLogo && inView && <img src={getImageSrc(websiteLogo)}
+                                           className={`lm-logo-img${websiteLogoInvert ? ' lm-logo__default' : ''}`}
+                                           alt={websiteTitle || 'website logo'} />}
+            {websiteLogoInvert && inView && <img src={getImageSrc(websiteLogoInvert)}
+                                                 className={`lm-logo-img${websiteLogoInvert ? ' lm-logo__inverted' : ''}`}
+                                                 alt={websiteTitle || 'website logo'} />}
           </>
         </MuiLink>
       </Link>

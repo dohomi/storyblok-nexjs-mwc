@@ -36,11 +36,11 @@ const config = require('./nextjs_dev_config')
 
 // studentsgoabroad.com
 module.exports = config({
-  // STORYBLOK_PREVIEW: 'qASJXPT2cwH76pA9vpJbxAtt',
-  // STORYBLOK_PUBLIC: 'm85LRUo0sX4yo9Q96VMQlQtt',
-  STORYBLOK_PREVIEW: 'aPQruoQG3ZLTMdWUZQfG3gtt',
-  STORYBLOK_PUBLIC: 'rDHPUnIN5mmSuPWL7S3lGgtt'
-
-  // STORYBLOK_PREVIEW: 'IQrhrTP6aL0WYgDXmersbgtt',
-  // STORYBLOK_PUBLIC: 'Xzl0aUdUwWqtCsD37fHMmQtt'
+  previewToken: process.env.previewToken,
+  publicToken: process.env.publicToken,
+  languages: process.env.languages,
+  defaultLocale: process.env.defaultLocale,
+  rootDirectory: process.env.rootDirectory,
+  overwriteLocale: process.env.overwriteLocale,
+  suppressSlugLocale: process.env.suppressSlugLocale
 })

@@ -66,11 +66,7 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     matches: mediaQuery.match(query, {
       // The estimated CSS width of the browser.
       width: DeviceDetectService.getDevice().width
-    }),
-    addListener: () => {
-    },
-    removeListener: () => {
-    }
+    })
   })
 
 

@@ -1,17 +1,17 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
-import { AppConfigProps } from './parsePageProperties'
+import { CONFIG } from './StoriesService'
 
 class StoryblokService {
-  private devMode: boolean
+  private readonly devMode: boolean
   private token: string
-  private previewToken: string
+  private readonly previewToken: string
   private client: StoryblokClient
   private query: any
 
   constructor() {
     this.devMode = false // If true it always loads draft
-    this.token = ''
-    this.previewToken = ''
+    this.token = process.env.NODE_ENV === 'development' ? CONFIG.previewToken : CONFIG.publicToken
+    this.previewToken = CONFIG.previewToken
     this.client = new StoryblokClient({
       accessToken: this.token,
       cache: {
@@ -21,12 +21,6 @@ class StoryblokService {
     })
 
     this.query = {}
-  }
-
-  initialize(config: AppConfigProps) {
-    this.token = config.publicToken
-    this.previewToken = config.previewToken
-    this.client.setToken(process.env.NODE_ENV === 'development' ? this.previewToken : this.token)
   }
 
   setToken(token: string) {

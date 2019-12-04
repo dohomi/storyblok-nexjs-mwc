@@ -2,13 +2,23 @@ import { CategoryStoryblok } from '../typings/generated/components-schema'
 import { PageItem, StaticcontainerItem } from '../typings/generated/schema'
 import { AppConfigProps } from './parsePageProperties'
 
+export const CONFIG: AppConfigProps = {
+  previewToken: process.env.previewToken || '',
+  publicToken: process.env.publicToken || '',
+  languages: (process.env.languages && process.env.languages.split(',')) || [],
+  defaultLocale: process.env.defaultLocale || 'en',
+  rootDirectory: process.env.rootDirectory,
+  overwriteLocale: process.env.overwriteLocale,
+  suppressSlugLocale: !!process.env.suppressSlugLocale,
+  overwriteDisableIndex: !!process.env.overwriteDisableIndex
+}
+
 class StoriesModule {
   stories: any[]
   categories: CategoryStoryblok[]
   staticContent: StaticcontainerItem[]
   tags: { value: string, label: string }[]
   urlMapping: any
-  config: AppConfigProps
   public locale: string | undefined
 
   constructor() {
@@ -18,20 +28,6 @@ class StoriesModule {
     this.staticContent = []
     this.urlMapping = {}
     this.locale = undefined
-    this.config = {
-      defaultLocale: 'de',
-      previewToken: '',
-      publicToken: '',
-      languages: []
-    }
-  }
-
-  setConfig(config: AppConfigProps) {
-    this.config = config
-  }
-
-  getConfig() {
-    return this.config
   }
 
   setAllTags(tags: { value: string, label: string }[]) {

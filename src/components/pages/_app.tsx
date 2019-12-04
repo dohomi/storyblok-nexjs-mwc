@@ -3,9 +3,10 @@ import { AppProps } from 'next/app'
 import { NextPage } from 'next'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 
-const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
-  const { deviceService } = pageProps
-  DeviceDetectService.reinitAppServices(deviceService) // todo we need it here or move?
+const MyApp: NextPage<AppProps> = ({
+  Component,
+  pageProps
+}) => {
   useEffect(
     () => {
       // Remove the server-side injected CSS.
@@ -13,7 +14,14 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
       if (jssStyles) {
         jssStyles.parentNode!.removeChild(jssStyles)
       }
-      DeviceDetectService.setAppServices()
+    },
+    []
+  )
+  useEffect(
+    () => {
+      if (typeof window !== 'undefined') {
+        DeviceDetectService.setAppServices()
+      }
     },
     []
   )

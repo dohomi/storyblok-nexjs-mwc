@@ -34,13 +34,6 @@ class DeviceDetect {
     return this.device
   }
 
-  reinitAppServices(values: DeviceDetectModule) {
-    if (values) {
-      this.device = values.device
-      this.hasWebpSupport = values.hasWebpSupport
-    }
-  }
-
   setAppServices(req?: IncomingMessage) {
     this.setDevice(req)
     this.setWebpSupport(req)
