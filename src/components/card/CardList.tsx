@@ -6,9 +6,10 @@ import { CardListStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
+import { createStyles, Theme } from '@material-ui/core/styles'
+import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     cardBase: {
       overflowX: 'hidden',
       flexGrow: 1,
@@ -54,23 +55,35 @@ const useStyles = makeStyles({
           flexDirection: 'column'
         }
       }
+    },
+    gridList: (props: CardListStoryblok) => {
+      const opts: CreateCSSProperties<{}> = {
+        '& .MuiGridListTile-root': {
+          width: `${(100 / Number(props.column_count || 4)) * 1}% !important`
+        },
+        [theme.breakpoints.only('xs')]: {
+          width: `${(100 / Number(props.column_count_phone || 1)) * 1}% !important`
+        }
+      }
+
+      if (props.column_count_tablet) {
+        opts[theme.breakpoints.between('sm', 'md')] = {
+          '& .MuiGridListTile-root': {
+            width: `${(100 / Number(props.column_count_tablet)) * 1}% !important`
+          }
+        }
+      }
+      return opts
     }
   }
-)
+))
 
 
 const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }) => {
   const { body, column_gap, column_count, column_count_phone, column_count_tablet, ...rest } = content
-  const { isMobile, isTablet } = useDeviceDimensions()
-  const classes = useStyles()
+  const classes = useStyles(content)
 
   let gutterSize = content.column_gap ? Number(content.column_gap) : 24
-  let columnCount = content.column_count ? Number(content.column_count) : 4
-  if (isTablet && content.column_count_tablet) {
-    columnCount = Number(content.column_count_tablet)
-  } else if (isMobile) {
-    columnCount = content.column_count_phone ? Number(content.column_count_phone) : 1
-  }
 
   const items = body || []
   const variant = content.variant || []
@@ -83,7 +96,9 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
         className={clsx(classes.cardBase, variant.map(i => 'card__' + i), {
           ['ratio-' + content.image_ratio]: content.image_ratio
         })}>
-        <GridList spacing={gutterSize} cellHeight={'auto'} cols={columnCount}>
+        <GridList spacing={gutterSize}
+                  cellHeight={'auto'}
+                  className={classes.gridList}>
           {items.map(item => (
             <GridListTile key={item._uid}>
               <CardListItem content={item} options={rest} />
