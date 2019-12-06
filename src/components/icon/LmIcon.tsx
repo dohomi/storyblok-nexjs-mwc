@@ -20,7 +20,8 @@ const iconMap = {
   call: 'phone',
   people: 'account-multiple',
   access_time: 'clock-outline',
-  compare_arrows: 'compare'
+  compare_arrows: 'compare',
+  keyboard_arrow_down: 'chevron-down'
 }
 
 const LmIcon: FunctionComponent<{
@@ -43,7 +44,7 @@ const LmIcon: FunctionComponent<{
     [inView]
   )
   return (iconName || iconUrl) ? (
-    <span ref={refIntersectionObserver}>
+    <>
       {iconSrc && <InlineSVG
         style={style}
         className={clsx(classes.icon, 'lm-svg-icon', className, { ['size__' + buttonSize]: buttonSize })}
@@ -52,7 +53,8 @@ const LmIcon: FunctionComponent<{
           // console.error(e)
         }}
         src={iconSrc} />}
-    </span>
+      <span ref={refIntersectionObserver} />
+    </>
   ) : null
 }
 

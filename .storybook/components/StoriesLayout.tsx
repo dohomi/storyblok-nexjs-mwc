@@ -9,8 +9,6 @@ import { GlobalStoryblok } from '../../src/typings/generated/components-schema'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { CONFIG_STORYBOOK } from './configStorybook'
 import useGlobalStyles from '../../src/utils/useGlobalStyles'
-import { AppConfigProps } from '../../src/utils/parsePageProperties'
-import StoryblokService from '../../src/utils/StoryblokService'
 import { getFontBasedOnSetting } from '../../src/utils/parseFont'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
@@ -19,8 +17,7 @@ const Layout: FunctionComponent<{}> = ({ children }) => {
     <>{children}</>
   )
 }
-const config: AppConfigProps = { ...CONFIG_STORYBOOK.app }
-StoryblokService.initialize(config)
+
 const StoriesLayout = (storyFunc: Function) => {
 
   const isDark = boolean('Dark mode', false, CONFIG_STORYBOOK.KNOBS.THEME)
@@ -80,7 +77,8 @@ const StoriesLayout = (storyFunc: Function) => {
                 </>
               </Container>
             </Layout>
-            <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`} rel="stylesheet" />
+            <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`}
+                  rel="stylesheet" />
           </div>
         </GlobalTheme>
       </WindowDimensionsProvider>

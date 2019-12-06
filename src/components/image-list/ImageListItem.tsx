@@ -1,11 +1,12 @@
 import SbEditable from 'storyblok-react'
 import * as React from 'react'
-import { FunctionComponent, memo, useState } from 'react'
+import { FunctionComponent, memo, useMemo, useState } from 'react'
 import { ImageListItemStoryblok, ImageListStoryblok } from '../../typings/generated/components-schema'
 import { Fade, GridListTileBar } from '@material-ui/core'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { Skeleton } from '@material-ui/lab'
 
 export type ImageListItemProps =
   Partial<ImageListItemStoryblok>
@@ -21,28 +22,30 @@ const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
   let height = props.masonry || !props.aspect_ratio ? 0 : props.height
   const width = props.width
   const styles = {}
-
-  // if (props.aspect_ratio && !props.masonry) {
-  //   const splitAspectRatio: string[] = props.aspect_ratio.split('x')
-  //   // @ts-ignore
-  //   aspectRatioStyles = { paddingBottom: `${splitAspectRatio[1] / splitAspectRatio[0] * 100}%` }
-  // }
-  let src = '' // getSource(props.source, {width: 42, height: 42})
-  let srcSet = ''
-  if (inView && props.source) {
-    if (props.image_crop) {
-      height = props.height
-    }
-    const imgAttrs = getImageAttrs({
-      originalSource: props.source,
-      width,
-      height,
-      smart: props.image_crop === 'smart',
-      fitInColor: props.fit_in_color
-    })
-    src = imgAttrs.src
-    srcSet = imgAttrs.srcSet
-  }
+  const imageProps = useMemo<{
+    src: string,
+    srcSet: string
+  }>(
+    () => {
+      if (inView && props.source) {
+        if (props.image_crop || (!props.masonry && !props.fit_in_color)) {
+          height = props.height
+        }
+        return getImageAttrs({
+          originalSource: props.source,
+          width,
+          height,
+          smart: props.image_crop === 'smart',
+          fitInColor: props.fit_in_color
+        })
+      }
+      return {
+        src: '',
+        srcSet: ''
+      }
+    },
+    [inView, props.source]
+  )
 
   function onLoad() {
     setLoaded(true)
@@ -51,10 +54,11 @@ const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
   return (
     <SbEditable content={props as ImageListItemStoryblok} key={props._uid}>
       <>
+        {!loaded && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} />}
         <Fade in={loaded}>
-          <img src={src}
+          <img src={imageProps.src}
                ref={inViewRef}
-               srcSet={srcSet}
+               srcSet={imageProps.srcSet}
                style={styles}
                alt={'image list item'}
                onLoad={onLoad} />

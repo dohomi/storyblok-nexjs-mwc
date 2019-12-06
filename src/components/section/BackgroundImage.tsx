@@ -4,13 +4,14 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { makeStyles } from '@material-ui/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Fade from '@material-ui/core/Fade'
 import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
 import Skeleton from '@material-ui/lab/Skeleton'
 import clsx from 'clsx'
+import { Theme } from '@material-ui/core/styles/createMuiTheme'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     position: 'absolute',
     top: 0,
@@ -27,10 +28,16 @@ const useStyles = makeStyles({
       backgroundSize: 'initial',
       '&.lm-fixed-bg__top': {
         backgroundPosition: 'top'
+      },
+      [theme.breakpoints.down('sm') + 'and (orientation: portrait)']: {
+        backgroundAttachment: 'scroll'
+      },
+      [theme.breakpoints.down('sm') + 'and (orientation: landscape)']: {
+        backgroundAttachment: 'scroll'
       }
     }
   }
-})
+}))
 
 const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgroundStyle?: SectionStoryblok['background_style'] }> = ({ content, backgroundStyle }) => {
   if (!content.image) {
@@ -39,7 +46,6 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
   const image = content.image as string
   const classes = useStyles()
   const { isDesktop, width, height } = useWindowDimensions()
-  const isFixedBackground = isDesktop && (backgroundStyle === 'fixed_image' || backgroundStyle === 'fixed_cover')
 
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
   const [imgSrc, setImgSrc] = useState<string | undefined>(undefined)
@@ -80,7 +86,7 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
       {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} />}
       <Fade in={!!imgSrc} timeout={1000}>
         <div className={clsx(classes.root, {
-          'lm-fixed-bg': isFixedBackground,
+          'lm-fixed-bg': backgroundStyle === 'fixed_image' || backgroundStyle === 'fixed_cover',
           'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
           'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
         })}

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import SbEditable from 'storyblok-react'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
@@ -11,6 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ContentLink from '../link/ContentLink'
 import LmIcon from '../icon/LmIcon'
 import { ChevronDown, ChevronUp } from 'mdi-material-ui'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -23,7 +24,14 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const menuItems = content.body || []
   const isCustom = menuItems.length && menuItems[0].component !== 'nav_menu_item'
+  const { asPath } = useRouter()
 
+  useEffect(
+    () => {
+      handleClose()
+    },
+    [asPath]
+  )
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }

@@ -36,11 +36,11 @@ const config = require('./nextjs_dev_config')
 
 // studentsgoabroad.com
 module.exports = config({
-  previewToken: process.env.previewToken,
-  publicToken: process.env.publicToken,
+  previewToken: process.env.previewToken || 'aPQruoQG3ZLTMdWUZQfG3gtt',
+  publicToken: process.env.publicToken || 'rDHPUnIN5mmSuPWL7S3lGgtt',
   languages: process.env.languages,
   defaultLocale: process.env.defaultLocale,
-  rootDirectory: process.env.rootDirectory,
-  overwriteLocale: process.env.overwriteLocale,
+  rootDirectory: process.env.rootDirectory || 'de',
+  overwriteLocale: process.env.overwriteLocale || 'de',
   suppressSlugLocale: process.env.suppressSlugLocale
 })
