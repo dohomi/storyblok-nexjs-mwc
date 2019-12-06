@@ -8,8 +8,9 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { createStyles, Theme } from '@material-ui/core/styles'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
+import { useGridListStyles } from './cardListStyles'
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles({
     cardBase: {
       overflowX: 'hidden',
       flexGrow: 1,
@@ -55,34 +56,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
           flexDirection: 'column'
         }
       }
-    },
-    gridList: (props: CardListStoryblok) => {
-      const opts: CreateCSSProperties<{}> = {
-        '& .MuiGridListTile-root': {
-          width: `${(100 / Number(props.column_count || 4)) * 1}% !important`
-        },
-        [theme.breakpoints.only('xs')]: {
-          width: `${(100 / Number(props.column_count_phone || 1)) * 1}% !important`
-        }
-      }
-
-      if (props.column_count_tablet) {
-        opts[theme.breakpoints.between('sm', 'md')] = {
-          '& .MuiGridListTile-root': {
-            width: `${(100 / Number(props.column_count_tablet)) * 1}% !important`
-          }
-        }
-      }
-      return opts
     }
   }
-))
+)
+
+
+
 
 
 const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }) => {
   const { body, column_gap, column_count, column_count_phone, column_count_tablet, ...rest } = content
   const classes = useStyles(content)
-
+  const gridClasses = useGridListStyles({
+    columnCount: content.column_count,
+    columnCountPhone: content.column_count_phone,
+    columnCountTablet: content.column_count_tablet
+  })
   let gutterSize = content.column_gap ? Number(content.column_gap) : 24
 
   const items = body || []
@@ -98,7 +87,7 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
         })}>
         <GridList spacing={gutterSize}
                   cellHeight={'auto'}
-                  className={classes.gridList}>
+                  className={gridClasses.gridList}>
           {items.map(item => (
             <GridListTile key={item._uid}>
               <CardListItem content={item} options={rest} />
