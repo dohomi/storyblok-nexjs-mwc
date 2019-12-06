@@ -6,8 +6,6 @@ import { CardListStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-import { createStyles, Theme } from '@material-ui/core/styles'
-import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import { useGridListStyles } from './cardListStyles'
 
 const useStyles = makeStyles({
@@ -59,9 +57,6 @@ const useStyles = makeStyles({
     }
   }
 )
-
-
-
 
 
 const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }) => {
