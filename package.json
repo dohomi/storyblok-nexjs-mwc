@@ -1,7 +1,7 @@
 {
   "name": "@lumen/mwc",
   "version": "1.0.0",
-  "description": "Next.js Storyblok Boilerplate",
+  "description": "Next.js full website kit powered by Storyblok",
   "main": "index.js",
   "scripts": {
     "analyze:both": "BUNDLE_ANALYZE=both yarn build",
@@ -36,11 +36,11 @@
   "author": "Dominic Garms <djgarms@gmail.com>",
   "license": "ISC",
   "engines": {
-    "node": "10.x"
+    "node": "12.x"
   },
   "dependencies": {
-    "@material-ui/core": "^4.7.1",
-    "@material-ui/lab": "^4.0.0-alpha.34",
+    "@material-ui/core": "^4.7.2",
+    "@material-ui/lab": "^4.0.0-alpha.35",
     "@mdi/svg": "^4.6.95",
     "@types/js-cookie": "^2.2.3",
     "@types/marked": "^0.7.2",
@@ -59,7 +59,7 @@
     "next": "^9.1.4",
     "next-compose-plugins": "^2.2.0",
     "next-routes": "^1.4.2",
-    "next-seo": "^2.1.2",
+    "next-seo": "^3.1.0",
     "next-transpile-modules": "^2.3.1",
     "nprogress": "^0.2.0",
     "react": "^16.12.0",

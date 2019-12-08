@@ -21,6 +21,7 @@ type SeoMetaTypes = {
   title: string
   description: string
   noindex: boolean
+  nofollow: boolean
   openGraph?: OpenGraph
   facebook?: {
     appId: string;
@@ -86,14 +87,23 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
   return twitter
 }
 
+const getCanonicalUrl = (url: string) => {
+  if (url.endsWith('home')) {
+    url = url.replace('home', '')
+  }
+  return url
+}
+
 
 const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps, previewImage?: string }> = ({ settings, pageSeo, previewImage }) => {
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = pageSeo.body || []
+  const robotsIndexFollow = pageSeo.disableRobots || !settings.seo_robots
   const seo: SeoMetaTypes = {
     title: pageSeo.title || settings.seo_title || 'Website made by Lumen Media',
     description: pageSeo.description || settings.seo_description || 'Website made by Lumen Media',
-    noindex: pageSeo.disableRobots || !settings.seo_robots // important to change if go live
+    noindex: robotsIndexFollow, // important to change if go live
+    nofollow: robotsIndexFollow
   }
 
 
@@ -115,7 +125,8 @@ const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoPro
   if (settingsTwitter) {
     seo.twitter = parseTwitter(settingsTwitter)
   }
-  seo.canonical = pageSeo.url
+
+  seo.canonical = getCanonicalUrl(pageSeo.url)
 
   return <NextSeo {...seo} />
 }
