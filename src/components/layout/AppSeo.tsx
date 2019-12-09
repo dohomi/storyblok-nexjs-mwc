@@ -1,5 +1,3 @@
-import NProgress from 'nprogress'
-import Router from 'next/router'
 import { NextSeo } from 'next-seo'
 import { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
 import * as React from 'react'
@@ -12,10 +10,6 @@ import {
 } from '../../typings/generated/components-schema'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
 import { PageSeoProps } from '../../utils/parsePageProperties'
-
-Router.events.on('routeChangeStart', () => NProgress.start())
-Router.events.on('routeChangeComplete', () => NProgress.done())
-Router.events.on('routeChangeError', () => NProgress.done())
 
 type SeoMetaTypes = {
   title: string
@@ -105,7 +99,6 @@ const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoPro
     noindex: robotsIndexFollow, // important to change if go live
     nofollow: robotsIndexFollow
   }
-
 
   // open graphs
   const settingsOpenGraphs: SeoOpenGraphStoryblok = seoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok

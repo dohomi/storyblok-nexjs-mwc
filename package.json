@@ -26,7 +26,7 @@
     "server": "micro-dev src/api/forwardMail.js -p=4444",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=66717",
-    "update-storyblok": "yarn fetch-storyblok-components && yarn gen-ts-schema && yarn codegen",
+    "update-storyblok": "npm run fetch-storyblok-components && npm run gen-ts-schema && npm run codegen",
     "codegen": "graphql-codegen --config codegen.yml",
     "storybook": "start-storybook -p 6006 -c .storybook",
     "deploy-storybook": "rm -rf public_storybook && build-storybook -c .storybook -o public_storybook && cd public_storybook && now --prod",

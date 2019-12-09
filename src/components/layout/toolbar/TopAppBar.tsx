@@ -21,7 +21,10 @@ const useStyles = makeStyles((theme: Theme) => {
         '& .lm-system-bar': {
           height: '40px',
           transitionDuration: '500ms',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          [theme.breakpoints.only('xs')]: {
+            display: 'none'
+          }
         },
         '& .MuiIconButton-root': {
           color: 'inherit'

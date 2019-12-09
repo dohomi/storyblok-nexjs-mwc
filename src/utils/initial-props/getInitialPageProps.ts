@@ -19,7 +19,6 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   if (asPath === '/' || !asPath) {
     slugAsArray = ['home']
   }
-  console.log('GET_INTIAL_PAGE_PROPS:', JSON.stringify({ query, asPath, slugAsArray }))
   let seoSlug = slugAsArray.join('/')
   if (seoSlug.endsWith('home')) {
     seoSlug = seoSlug.replace('home', '')
@@ -53,7 +52,6 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   }
 
   const pageSlug = slugAsArray.join('/')
-  console.log('SLUG ARRAY PAGE:', pageSlug)
 
   // start locale handling
   DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
@@ -94,12 +92,12 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       }
     }
     if (!(settingsProps && settingsProps._uid)) {
+      res && (res.statusCode = 500)
       console.log('SETTINGS MISSNG')
-    }
-    if (!pageProps) {
+    } else if (!pageProps) {
+      res && (res.statusCode = 404)
       console.log('PAGE MISSNG')
-    }
-    if (res && !StoryblokService.insideVisualComposer()) {
+    } else if (res && !StoryblokService.insideVisualComposer()) {
       res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     }
     return {

@@ -255,6 +255,14 @@ export interface DividerStoryblok {
   [k: string]: any;
 }
 
+export interface ErrorPageStoryblok {
+  title?: string;
+  body?: any[];
+  _uid: string;
+  component: "error_page";
+  [k: string]: any;
+}
+
 export interface FlexRowStoryblok {
   body?: any[];
   class_names?: {
@@ -333,6 +341,7 @@ export interface GlobalStoryblok {
   multi_toolbar?: any[];
   mobile_nav_breakpoint?: "sm" | "md" | "lg" | "xl";
   seo_description?: string;
+  seo_website_url?: string;
   seo_robots?: boolean;
   website_logo?: string;
   website_logo_xs?: string;
@@ -366,8 +375,8 @@ export interface GlobalStoryblok {
   theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   toolbar_main_height?: number;
   toolbar_font_size?: string;
-  theme_enable_mdi_icons?: boolean;
-  theme_disable_md_icons?: boolean;
+  setup_google_analytics?: string;
+  setup_google_site_verification?: string;
   _uid: string;
   component: "global";
   [k: string]: any;

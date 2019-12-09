@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import Head from 'next/head'
 import Components from '@components'
 import Layout from '../components/layout/Layout'
@@ -7,6 +7,9 @@ import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import { GlobalStateProvider } from '../utils/state/state'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
+import StoryblokService from '../utils/StoryblokService'
+import StoriesService, { CONFIG } from '../utils/StoriesService'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 type ErrorComponentProps = {
   statusCode: number
@@ -22,25 +25,84 @@ const statusCodes = {
   501: 'Not Implemented'
 }
 
-const Error: NextPage<ErrorComponentProps> = (props) => {
-  let { statusCode, page, settings } = props
+const getErrorPath = ({ locale, statusCode }: { locale?: string, statusCode: number }) => {
+  const currentLocale = locale !== CONFIG.defaultLocale ? locale : ''
+  const directory = CONFIG.rootDirectory || currentLocale || ''
+  return `cdn/stories/${directory ? `${directory}/` : ''}error-${statusCode}`
+}
+
+const ErrorContent: FunctionComponent<{ statusCode: number }> = ({ statusCode }) => {
+
   const title = (statusCodes as any)[statusCode] || 'An unexpected error has occurred'
+  const [errorContent, setErrorContent] = useState<{ title: string, body: any[] } | null | undefined>(undefined)
+  useEffect(
+    () => {
+      const fetchErrorContent = async () => {
+        return await StoryblokService.get(getErrorPath({ statusCode, locale: StoriesService.locale }))
+      }
+
+      fetchErrorContent()
+        .then(({ data }) => {
+          const errorContext = data && data.story && data.story.content
+          if (errorContext) {
+            setErrorContent(errorContext)
+          } else {
+            setErrorContent(null)
+          }
+        })
+        .catch(e => {
+          console.error(e)
+          setErrorContent(null)
+        })
+    },
+    [statusCode]
+  )
+
+  const errorTitle = (errorContent && errorContent.title) || `${statusCode} - ${title}`
+
+  return (
+    <>
+      <Head>
+        {errorContent !== undefined && <title>{errorTitle}</title>}
+      </Head>
+      <div className="p-5">
+        {
+          errorContent && errorContent.body && errorContent.body.map(blok => Components(blok))
+        }
+        {
+          errorContent === null && (
+            <div>
+              {statusCode ? <h1>{statusCode}</h1> : null}
+              <div>
+                <h2>{title}.</h2>
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </>
+  )
+}
+
+const Error: NextPage<ErrorComponentProps> = (props) => {
+  let { statusCode, settings } = props
+
+
   if (statusCode === 401) {
     console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.NODE_ENV, process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
+    return <h3>Storyblok 401 error received</h3>
   }
-  console.log('ERROR', statusCode, page, settings)
   if (!(props.settings && props.settings._uid)) {
     return <h3>No settings found</h3>
   }
+
 
   return (
     <GlobalStateProvider>
       <WindowDimensionsProvider>
         <GlobalTheme settings={settings}>
+          <CssBaseline />
           <Head>
-            <title>
-              {statusCode}: {title}
-            </title>
             <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
                   key="viewport" />
             <meta key="robots" name="robots" content="noindex" />
@@ -48,20 +110,7 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
           <Layout settings={settings as GlobalStoryblok || {}}
                   hasFeature={false}
                   hasRightDrawer={false}>
-            {
-              page && page.pageContent && Components(page.pageContent)
-            }
-            {
-              !page && (
-                <div>
-                  <style dangerouslySetInnerHTML={{ __html: 'body { margin: 0 }' }} />
-                  {statusCode ? <h1>{statusCode}</h1> : null}
-                  <div>
-                    <h2>{title}.</h2>
-                  </div>
-                </div>
-              )
-            }
+            <ErrorContent statusCode={statusCode} />
           </Layout>
         </GlobalTheme>
       </WindowDimensionsProvider>
@@ -70,7 +119,6 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
 }
 
 Error.getInitialProps = async ({ res, err }): Promise<ErrorComponentProps> => {
-  console.log('get initial error ', err)
   const statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404
   return { statusCode: statusCode as number, settings: { theme_base: 'dark', _uid: '', component: 'global' } }
 }
