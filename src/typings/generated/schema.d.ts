@@ -119,6 +119,45 @@ export type Datasources = {
   items: Array<Datasource>,
 };
 
+export type ErrorpageComponent = {
+   __typename?: 'ErrorpageComponent',
+  _editable?: Maybe<Scalars['String']>,
+  _uid?: Maybe<Scalars['String']>,
+  body?: Maybe<Scalars['BlockScalar']>,
+  component?: Maybe<Scalars['String']>,
+  title?: Maybe<Scalars['String']>,
+};
+
+export type ErrorpageItem = {
+   __typename?: 'ErrorpageItem',
+  alternates?: Maybe<Array<Maybe<Alternate>>>,
+  content?: Maybe<ErrorpageComponent>,
+  created_at?: Maybe<Scalars['String']>,
+  first_published_at?: Maybe<Scalars['String']>,
+  full_slug?: Maybe<Scalars['String']>,
+  group_id?: Maybe<Scalars['Int']>,
+  id?: Maybe<Scalars['Int']>,
+  is_startpage?: Maybe<Scalars['Boolean']>,
+  lang?: Maybe<Scalars['String']>,
+  meta_data?: Maybe<Scalars['JsonScalar']>,
+  name?: Maybe<Scalars['String']>,
+  parent_id?: Maybe<Scalars['Int']>,
+  path?: Maybe<Scalars['String']>,
+  position?: Maybe<Scalars['Int']>,
+  published_at?: Maybe<Scalars['String']>,
+  release_id?: Maybe<Scalars['Int']>,
+  slug?: Maybe<Scalars['String']>,
+  sort_by_date?: Maybe<Scalars['String']>,
+  tag_list?: Maybe<Array<Maybe<Scalars['String']>>>,
+  uuid?: Maybe<Scalars['String']>,
+};
+
+export type ErrorpageItems = {
+   __typename?: 'ErrorpageItems',
+  items?: Maybe<Array<Maybe<ErrorpageItem>>>,
+  total?: Maybe<Scalars['Int']>,
+};
+
 export type GlobalComponent = {
    __typename?: 'GlobalComponent',
   Theme?: Maybe<Scalars['String']>,
@@ -135,14 +174,15 @@ export type GlobalComponent = {
   seo_description?: Maybe<Scalars['String']>,
   seo_robots?: Maybe<Scalars['Boolean']>,
   seo_title?: Maybe<Scalars['String']>,
+  seo_website_url?: Maybe<Scalars['String']>,
   setup?: Maybe<Scalars['String']>,
   setup_favicon?: Maybe<Scalars['String']>,
+  setup_google_analytics?: Maybe<Scalars['String']>,
+  setup_google_site_verification?: Maybe<Scalars['String']>,
   setup_language?: Maybe<Scalars['String']>,
   setup_supported_languages?: Maybe<Scalars['String']>,
   theme_base?: Maybe<Scalars['String']>,
   theme_container_width?: Maybe<Scalars['String']>,
-  theme_disable_md_icons?: Maybe<Scalars['Boolean']>,
-  theme_enable_mdi_icons?: Maybe<Scalars['Boolean']>,
   theme_error?: Maybe<Scalars['String']>,
   theme_error_contrast?: Maybe<Scalars['String']>,
   theme_font_alt1?: Maybe<Scalars['String']>,
@@ -261,6 +301,8 @@ export type QueryType = {
   ContentNodes?: Maybe<ContentItems>,
   DatasourceEntries?: Maybe<DatasourceEntries>,
   Datasources?: Maybe<Datasources>,
+  ErrorpageItem?: Maybe<ErrorpageItem>,
+  ErrorpageItems?: Maybe<ErrorpageItems>,
   GlobalItem?: Maybe<GlobalItem>,
   GlobalItems?: Maybe<GlobalItems>,
   PageItem?: Maybe<PageItem>,
@@ -343,6 +385,36 @@ export type QueryTypeDatasourceEntriesArgs = {
 export type QueryTypeDatasourcesArgs = {
   search?: Maybe<Scalars['String']>,
   by_ids?: Maybe<Array<Maybe<Scalars['String']>>>
+};
+
+
+export type QueryTypeErrorpageItemArgs = {
+  id: Scalars['ID'],
+  find_by?: Maybe<Scalars['String']>,
+  from_release?: Maybe<Scalars['Int']>,
+  resolve_links?: Maybe<Scalars['String']>,
+  resolve_relations?: Maybe<Scalars['String']>,
+  language?: Maybe<Scalars['String']>
+};
+
+
+export type QueryTypeErrorpageItemsArgs = {
+  starts_with?: Maybe<Scalars['String']>,
+  by_uuids?: Maybe<Scalars['String']>,
+  by_uuids_ordered?: Maybe<Scalars['String']>,
+  excluding_ids?: Maybe<Scalars['String']>,
+  excluding_fields?: Maybe<Scalars['String']>,
+  resolve_links?: Maybe<Scalars['String']>,
+  resolve_relations?: Maybe<Scalars['String']>,
+  from_release?: Maybe<Scalars['String']>,
+  sort_by?: Maybe<Scalars['String']>,
+  search_term?: Maybe<Scalars['String']>,
+  is_startpage?: Maybe<Scalars['String']>,
+  language?: Maybe<Scalars['String']>,
+  with_tag?: Maybe<Scalars['String']>,
+  page?: Maybe<Scalars['Int']>,
+  per_page?: Maybe<Scalars['Int']>,
+  filter_query?: Maybe<Scalars['JsonScalar']>
 };
 
 

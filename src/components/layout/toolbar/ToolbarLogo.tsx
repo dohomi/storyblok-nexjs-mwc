@@ -10,7 +10,7 @@ import { homepageLinkHandler } from '../../../utils/linkHandler'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
-
+import { LogoJsonLd } from 'next-seo'
 
 const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
   const websiteTitle = settings.website_title
@@ -23,6 +23,8 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
 
   const Logo = (
     <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
+      {websiteLogo && settings.seo_website_url &&
+      <LogoJsonLd logo={imageService(websiteLogo)} url={settings.seo_website_url} />}
       <Link as={homepageLinkHandler()} href="/[...index]" passHref>
         <MuiLink className={clsx('lm-logo-header', { ['lm-logo-text']: !websiteLogo })}>
           <>

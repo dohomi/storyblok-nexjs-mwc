@@ -3,14 +3,17 @@ import StoryblokService from '../../utils/StoryblokService'
 import { SitemapStream, streamToPromise } from 'sitemap'
 // import { createGzip } from 'zlib'
 import { IncomingMessage, ServerResponse } from 'http'
+import { CONFIG } from '../../utils/StoriesService'
+import { internalLinkHandler } from '../../utils/linkHandler'
 
-export default async function sitemapFunc(req: IncomingMessage, res: ServerResponse) {
+export default async function(req: IncomingMessage, res: ServerResponse) {
 
-  res.setHeader('Content-Type', 'text/xml')
   // res.setHeader('Content-Encoding', 'gzip')
   try {
-    StoryblokService.setToken('Xzl0aUdUwWqtCsD37fHMmQtt')
-    const stories: PageItem[] = await StoryblokService.getAll('cdn/stories', {
+    const params: any = {
+      per_page: 100,
+      excluding_fields: 'body,right_body,meta_robots,property,meta_title,meta_description,seo_body,preview_title,preview_subtitle,preview_image,preview_teaser',
+      sort_by: 'published_at:desc',
       filter_query: {
         component: {
           in: 'page'
@@ -19,28 +22,45 @@ export default async function sitemapFunc(req: IncomingMessage, res: ServerRespo
           not_in: true
         }
       }
-    })
+    }
+    if (CONFIG.rootDirectory) {
+      params.starts_with = `${CONFIG.rootDirectory}/`
+    }
+    const stories: PageItem[] = await StoryblokService.getAll('cdn/stories', params)
     const smStream = new SitemapStream({ hostname: 'https://' + req.headers.host })
-    // const pipeline = smStream.pipe(createGzip())
+    const ignoreList = (process.env.sitemapIgnorePath && process.env.sitemapIgnorePath.split(',')) || []
 
+    ignoreList.push('demo-content')
+    smStream.write({
+      url: '/'
+    })
     for (const story of stories) {
-      // console.log(story.full_slug)
-      smStream.write({
-        url: story.full_slug,
-        lastmod: story.published_at
-      })
+      const fullSlug = story.full_slug as string
+      const shouldIndex = !ignoreList.some((ignorePath: string) => fullSlug.includes(ignorePath))
+      if (shouldIndex) {
+        const isHome = story.slug === 'home'
+        if (isHome) {
+          smStream.write({
+            url: fullSlug.replace('home', ''),
+            lastmod: story.published_at,
+            priority: 1.0
+          })
+        } else {
+          smStream.write({
+            url: internalLinkHandler(fullSlug),
+            lastmod: story.published_at,
+            priority: 0.5
+          })
+        }
+      }
     }
     smStream.end()
-    // streamToPromise(pipeline).then(_sm => {
-    //   console.log('stream to promise')
-    // })
+
     const sitemap = await streamToPromise(smStream)
       .then(sm => sm.toString())
-    // pipeline
-    //   .pipe(res)
-    //   .on('error', e => {
-    //     throw e
-    //   })
+
+    res.setHeader('Content-Type', 'text/xml')
+    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
     res.write(sitemap)
     res.end()
   } catch (e) {

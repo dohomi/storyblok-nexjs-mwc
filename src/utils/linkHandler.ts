@@ -21,7 +21,7 @@ interface LinkOptions {
 
 export const homepageLinkHandler = () => {
   if (CONFIG.rootDirectory) {
-    return '/'
+    return '/home'
   }
   return StoriesService.locale && StoriesService.locale !== CONFIG.defaultLocale ? `/${StoriesService.locale}/home` : '/home'
 }

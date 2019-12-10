@@ -29,6 +29,9 @@ export interface AppConfigProps {
   overwriteLocale?: string
   suppressSlugLocale?: boolean
   overwriteDisableIndex?: boolean
+  sitemapIgnorePath?: string
+  GA?: string
+  TAWKTO?: string
 }
 
 export type AppPageProps = {

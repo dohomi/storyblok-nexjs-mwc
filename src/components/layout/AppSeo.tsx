@@ -1,5 +1,3 @@
-import NProgress from 'nprogress'
-import Router from 'next/router'
 import { NextSeo } from 'next-seo'
 import { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
 import * as React from 'react'
@@ -13,14 +11,11 @@ import {
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
 import { PageSeoProps } from '../../utils/parsePageProperties'
 
-Router.events.on('routeChangeStart', () => NProgress.start())
-Router.events.on('routeChangeComplete', () => NProgress.done())
-Router.events.on('routeChangeError', () => NProgress.done())
-
 type SeoMetaTypes = {
   title: string
   description: string
   noindex: boolean
+  nofollow: boolean
   openGraph?: OpenGraph
   facebook?: {
     appId: string;
@@ -86,16 +81,24 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
   return twitter
 }
 
+const getCanonicalUrl = (url: string) => {
+  if (url.endsWith('home')) {
+    url = url.replace('home', '')
+  }
+  return url
+}
+
 
 const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps, previewImage?: string }> = ({ settings, pageSeo, previewImage }) => {
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = pageSeo.body || []
+  const robotsIndexFollow = pageSeo.disableRobots || !settings.seo_robots
   const seo: SeoMetaTypes = {
     title: pageSeo.title || settings.seo_title || 'Website made by Lumen Media',
     description: pageSeo.description || settings.seo_description || 'Website made by Lumen Media',
-    noindex: pageSeo.disableRobots || !settings.seo_robots // important to change if go live
+    noindex: robotsIndexFollow, // important to change if go live
+    nofollow: robotsIndexFollow
   }
-
 
   // open graphs
   const settingsOpenGraphs: SeoOpenGraphStoryblok = seoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok
@@ -115,7 +118,8 @@ const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoPro
   if (settingsTwitter) {
     seo.twitter = parseTwitter(settingsTwitter)
   }
-  seo.canonical = pageSeo.url
+
+  seo.canonical = getCanonicalUrl(pageSeo.url)
 
   return <NextSeo {...seo} />
 }

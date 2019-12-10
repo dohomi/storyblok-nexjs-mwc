@@ -14,11 +14,7 @@ const MyApp: NextPage<AppProps> = ({
       if (jssStyles) {
         jssStyles.parentNode!.removeChild(jssStyles)
       }
-    },
-    []
-  )
-  useEffect(
-    () => {
+
       if (typeof window !== 'undefined') {
         DeviceDetectService.setAppServices()
       }

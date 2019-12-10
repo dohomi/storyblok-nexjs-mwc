@@ -36,11 +36,18 @@ const config = require('./nextjs_dev_config')
 
 // studentsgoabroad.com
 module.exports = config({
-  previewToken: process.env.previewToken || 'aPQruoQG3ZLTMdWUZQfG3gtt',
-  publicToken: process.env.publicToken || 'rDHPUnIN5mmSuPWL7S3lGgtt',
-  languages: process.env.languages,
-  defaultLocale: process.env.defaultLocale,
-  rootDirectory: process.env.rootDirectory || 'de',
-  overwriteLocale: process.env.overwriteLocale || 'de',
-  suppressSlugLocale: process.env.suppressSlugLocale
+  previewToken: process.env.previewToken || 'IQrhrTP6aL0WYgDXmersbgtt',
+  publicToken: process.env.publicToken || 'Xzl0aUdUwWqtCsD37fHMmQtt',
+//   previewToken: process.env.previewToken || 'aPQruoQG3ZLTMdWUZQfG3gtt',
+//   publicToken: process.env.publicToken || 'rDHPUnIN5mmSuPWL7S3lGgtt',
+//   languages: process.env.languages,
+  languages: process.env.languages || 'en,de',
+  defaultLocale: process.env.defaultLocale || 'en',
+  // defaultLocale: process.env.defaultLocale,
+  //  rootDirectory: process.env.rootDirectory || 'de',
+  rootDirectory: process.env.rootDirectory,
+  overwriteLocale: process.env.overwriteLocale,
+  // overwriteLocale: process.env.overwriteLocale || 'de',
+  suppressSlugLocale: process.env.suppressSlugLocale,
+  TAWKTO: '5923d96d8028bb732704747b'
 })

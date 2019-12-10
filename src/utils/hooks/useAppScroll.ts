@@ -1,7 +1,7 @@
-import { GlobalStoryblok } from '../typings/generated/components-schema'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { useEffect } from 'react'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger/useScrollTrigger'
-import { setScrollTop, setScrollTriggered } from './state/actions'
+import { setScrollTop, setScrollTriggered } from '../state/actions'
 
 export default function useAppScroll({ settings }: { settings: GlobalStoryblok }) {
   const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
@@ -11,7 +11,6 @@ export default function useAppScroll({ settings }: { settings: GlobalStoryblok }
   useEffect(
     () => {
       if (isScrollCollapse) {
-        console.log('set SCROLL triggered', scrolledWithHysteresis)
         setScrollTriggered(scrolledWithHysteresis)
       }
     },
@@ -21,7 +20,6 @@ export default function useAppScroll({ settings }: { settings: GlobalStoryblok }
   useEffect(
     () => {
       if (hasToolbarHeight) {
-        console.log('set TOP triggered', scrolledWithoutHysteresis)
         setScrollTop(!scrolledWithoutHysteresis)
       }
     },

@@ -7,7 +7,7 @@ import parseFont from '../../utils/parseFont'
 // @ts-ignore
 import mediaQuery from 'css-mediaquery'
 import DeviceDetectService from '../../utils/DeviceDetectService'
-import useGlobalStyles from '../../utils/useGlobalStyles'
+import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 // import Fonts from '@fonts'
 
 const mapThemeType = {

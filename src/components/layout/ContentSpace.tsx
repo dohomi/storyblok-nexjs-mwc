@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '&.lm-scrolled': {
       height: theme.toolbar.height.mobile,
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: theme.toolbar.height.landscape
+        height: theme.toolbar.height.landscape + theme.toolbar.height.systemBar
       },
       [theme.breakpoints.up('sm')]: {
-        height: theme.toolbar.height.desktop
+        height: theme.toolbar.height.desktop + theme.toolbar.height.systemBar
       }
     }
   }
