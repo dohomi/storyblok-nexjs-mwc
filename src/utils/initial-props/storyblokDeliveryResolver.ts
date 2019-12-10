@@ -60,7 +60,7 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
 const getStoriesParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
     per_page: 100,
-    excluding_fields: 'body,meta_robots,property,meta_title,meta_description,seo_body',
+    excluding_fields: 'body,right_body,meta_robots,property,meta_title,meta_description,seo_body',
     sort_by: 'published_at:desc',
     filter_query: {
       'component': {

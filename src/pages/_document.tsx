@@ -24,7 +24,7 @@ class MyDocument extends Document {
     }
   }
 
-  setGoogleTags() {
+  setGoogleGTag() {
     return {
       __html: `
         window.dataLayer = window.dataLayer || [];
@@ -62,7 +62,7 @@ class MyDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${CONFIG.GA}`}
           />
-          <script dangerouslySetInnerHTML={this.setGoogleTags()} />
+          <script dangerouslySetInnerHTML={this.setGoogleGTag()} />
         </>
       )}
 

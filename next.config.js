@@ -44,7 +44,7 @@ module.exports = config({
   languages: process.env.languages || 'en,de',
   defaultLocale: process.env.defaultLocale || 'en',
   // defaultLocale: process.env.defaultLocale,
-  // rootDirectory: process.env.rootDirectory || 'de',
+  //  rootDirectory: process.env.rootDirectory || 'de',
   rootDirectory: process.env.rootDirectory,
   overwriteLocale: process.env.overwriteLocale,
   // overwriteLocale: process.env.overwriteLocale || 'de',
