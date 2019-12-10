@@ -48,5 +48,6 @@ module.exports = config({
   rootDirectory: process.env.rootDirectory,
   overwriteLocale: process.env.overwriteLocale,
   // overwriteLocale: process.env.overwriteLocale || 'de',
-  suppressSlugLocale: process.env.suppressSlugLocale
+  suppressSlugLocale: process.env.suppressSlugLocale,
+  TAWKTO: '5923d96d8028bb732704747b'
 })

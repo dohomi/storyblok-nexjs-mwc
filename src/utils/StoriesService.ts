@@ -10,7 +10,10 @@ export const CONFIG: AppConfigProps = {
   rootDirectory: process.env.rootDirectory,
   overwriteLocale: process.env.overwriteLocale,
   suppressSlugLocale: !!process.env.suppressSlugLocale,
-  overwriteDisableIndex: !!process.env.overwriteDisableIndex
+  overwriteDisableIndex: !!process.env.overwriteDisableIndex,
+  sitemapIgnorePath: process.env.sitemapIgnorePath,
+  GA: process.env.GA,
+  TAWKTO: process.env.TAWKTO
 }
 
 class StoriesModule {

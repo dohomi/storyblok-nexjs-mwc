@@ -1,5 +1,5 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import getNprogressJss from './jss/npgrogress'
+import getNprogressJss from '../jss/npgrogress'
 
 export const getCreatedStyles = (theme: Theme) => {
   const spacing = {}

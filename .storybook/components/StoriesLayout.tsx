@@ -8,7 +8,7 @@ import GlobalTheme from '../../src/components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../src/typings/generated/components-schema'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { CONFIG_STORYBOOK } from './configStorybook'
-import useGlobalStyles from '../../src/utils/useGlobalStyles'
+import useGlobalStyles from '../../src/utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../src/utils/parseFont'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {

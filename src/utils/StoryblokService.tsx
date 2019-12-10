@@ -1,7 +1,7 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from './StoriesService'
 
-class StoryblokService {
+class StoryblokServiceClass {
   private readonly devMode: boolean
   private token: string
   private readonly previewToken: string
@@ -145,6 +145,6 @@ class StoryblokService {
   }
 }
 
-const storyblokInstance = new StoryblokService()
+const StoryblokService = new StoryblokServiceClass()
 
-export default storyblokInstance
+export default StoryblokService
