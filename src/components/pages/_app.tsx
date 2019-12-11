@@ -21,8 +21,7 @@ const MyApp: NextPage<AppProps> = ({
     },
     []
   )
-
-  console.log('inside of _app')
+  console.log("inside of _app")
   return <Component {...pageProps} />
 }
 
