@@ -30,7 +30,7 @@ const optionsArrayToObject = (array: KeyValueStoryblok[], addEmpty?: boolean): o
 
 let allTags = {}
 
-const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { componentName: string, options?: any, knob?: string, count?: number | string }) => {
+const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { componentName: any, options?: any, knob?: string, count?: number | string }) => {
   const findComponents = COMPONENT_JSON.components.find(component => {
     return component.name === componentName
   })
