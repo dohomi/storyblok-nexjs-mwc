@@ -515,9 +515,7 @@ storiesOf('Button', module)
 
       return (
         <div className="p-5">
-          <LmMuiButton content={{
-            ...storyButton()
-          }} />
+          <LmMuiButton content={storyButton()} />
         </div>
       )
     }

@@ -54,5 +54,8 @@ module.exports = function (env = {}, plugins = []) {
       pluginConfiguration.unshift(plugin)
     })
   }
+
+  console.log(pluginConfiguration)
+
   return withPlugins(pluginConfiguration, config)
 }
