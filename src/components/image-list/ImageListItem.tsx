@@ -23,8 +23,8 @@ const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
   const width = props.width
   const styles = {}
   const imageProps = useMemo<{
-    src: string,
-    srcSet: string
+    src?: string,
+    srcSet?: string
   }>(
     () => {
       if (inView && props.source) {
@@ -39,10 +39,7 @@ const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
           fitInColor: props.fit_in_color
         })
       }
-      return {
-        src: '',
-        srcSet: ''
-      }
+      return {}
     },
     [inView, props.source]
   )
@@ -56,9 +53,8 @@ const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
       <>
         {!loaded && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} />}
         <Fade in={loaded}>
-          <img src={imageProps.src}
+          <img {...imageProps}
                ref={inViewRef}
-               srcSet={imageProps.srcSet}
                style={styles}
                alt={'image list item'}
                onLoad={onLoad} />
