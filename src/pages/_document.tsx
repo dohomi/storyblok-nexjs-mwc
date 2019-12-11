@@ -1,6 +1,5 @@
 import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
-import DeviceDetectService from '../utils/DeviceDetectService'
 import React from 'react'
 import StoriesService, { CONFIG } from '../utils/StoriesService'
 import { ServerStyleSheets } from '@material-ui/core/styles'
@@ -30,7 +29,7 @@ class MyDocument extends Document {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', ${CONFIG.GA});
+        gtag('config', '${CONFIG.GA}');
       `
     }
   }
@@ -50,11 +49,8 @@ class MyDocument extends Document {
       <Main />
       <script dangerouslySetInnerHTML={{
         __html: `
-      var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}';
-      var userDevice = ${JSON.stringify(DeviceDetectService.getDevice())};
-      var hasWebpSupport = ${DeviceDetectService.getWebpSupport()};`
+      var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}';`
       }}></script>
-
       <NextScript />
       {isProduction && CONFIG.GA && (
         <>
@@ -65,10 +61,6 @@ class MyDocument extends Document {
           <script dangerouslySetInnerHTML={this.setGoogleGTag()} />
         </>
       )}
-
-      <script>
-        /* fix FF initial render */
-      </script>
       </body>
       </html>
     )
