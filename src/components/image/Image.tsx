@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
@@ -44,67 +44,72 @@ const Image: FunctionComponent<{
   const classes = useStyles()
   const { isMobile } = useDeviceDimensions()
   const [loaded, setLoaded] = useState<boolean>(false)
-  const fallback = ''
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView(intersectionDefaultOptions)
 
-  let imgProps = {
-    src: fallback,
-    srcSet: fallback,
-    style: {},
-    alt: content.alt || 'website image'
-  }
+  const imgProperties = useMemo(
+    () => {
+      if (inView && content.source) {
+        const parentElement = intersectionElement && intersectionElement.target.parentElement
+        let parentElementDimensions = (parentElement && parentElement.getBoundingClientRect()) || { width: 0 }
+        const square = property.includes('rounded-circle') || property.includes('square')
+        let definedWidth = content.width
+        let definedHeight = content.height_xs && isMobile ? content.height_xs : content.height
+        const width = Math.ceil(parentElementDimensions.width)
+        if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
+          // default: set available width to the current width either in crop mode
+          definedWidth = definedWidth || width
+        }
+        if (square) {
+          // overwrite if square
+          const iconSize = definedHeight || definedWidth || 64
+          definedWidth = iconSize
+          definedHeight = iconSize
+        }
+        if (content.height_fill) {
+          const grandParentDim = (parentElement && parentElement.parentElement && parentElement.parentElement.getBoundingClientRect()) || {
+            width: 0,
+            height: 0
+          }
+          // with a tolerance of 200 height should fit grandparents height
+          if (grandParentDim.width > parentElementDimensions.width + 200) {
+            definedHeight = Math.ceil(grandParentDim.height)
+          }
+        }
 
-  if (inView && content.source) {
-    const parentElement = intersectionElement && intersectionElement.target.parentElement
-    let parentElementDimensions = (parentElement && parentElement.getBoundingClientRect()) || { width: 0 }
-    const square = property.includes('rounded-circle') || property.includes('square')
-    let definedWidth = content.width
-    let definedHeight = content.height_xs && isMobile ? content.height_xs : content.height
-    const width = Math.ceil(parentElementDimensions.width)
-    if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
-      // default: set available width to the current width either in crop mode
-      definedWidth = definedWidth || width
-    }
-    if (square) {
-      // overwrite if square
-      const iconSize = definedHeight || definedWidth || 64
-      definedWidth = iconSize
-      definedHeight = iconSize
-    }
-    if (content.height_fill) {
-      const grandParentDim = (parentElement && parentElement.parentElement && parentElement.parentElement.getBoundingClientRect()) || {
-        width: 0,
-        height: 0
-      }
-      // with a tolerance of 200 height should fit grandparents height
-      if (grandParentDim.width > parentElementDimensions.width + 200) {
-        definedHeight = Math.ceil(grandParentDim.height)
-      }
-    }
+        const imgAttrs = getImageAttrs({
+          originalSource: content.source,
+          width: Number(definedWidth || 0),
+          height: definedHeight,
+          fitInColor,
+          focalPoint: content.focal_point,
+          smart: imageCrop.includes('smart_crop')
+        })
 
-    const imgAttrs = getImageAttrs({
-      originalSource: content.source,
-      width: Number(definedWidth || 0),
-      height: definedHeight,
-      fitInColor,
-      focalPoint: content.focal_point,
-      smart: imageCrop.includes('smart_crop')
-    })
+        return {
+          ...imgAttrs,
+          style: {
+            width: content.width ? `${content.width}px` : 'auto',
+            maxHeight: 'inherit',
+            height: definedHeight ? `${definedHeight}px` : 'auto'
+          }
+        }
+      } else {
+        return {
+          style: {
+            width: content.width ? `${content.width}px` : 'auto',
+            maxHeight: 'inherit',
+            height: content.height ? `${content.height}px` : 'auto'
+          }
 
-    imgProps = {
-      ...imgProps,
-      ...imgAttrs,
-      style: {
-        width: content.width ? `${content.width}px` : 'auto',
-        maxHeight: 'inherit',
-        height: definedHeight ? `${definedHeight}px` : 'auto'
+        }
       }
-    }
-  }
+    },
+    [inView, content.source]
+  )
 
   function onImageLoaded() {
     setLoaded(true)
@@ -115,9 +120,11 @@ const Image: FunctionComponent<{
     <SbEditable content={content}>
       <figure ref={refIntersectionObserver}
               className={classes.root}>
-        {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant={property.includes('rounded-circle') ? 'circle' : 'rect'} />}
+        {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'}
+                              variant={property.includes('rounded-circle') ? 'circle' : 'rect'} />}
         <Fade in={loaded}>
-          <img {...imgProps}
+          <img {...imgProperties}
+               alt={content.alt || 'website image'}
                className={clsx(classes.image, content.property)}
                onLoad={onImageLoaded} />
         </Fade>
