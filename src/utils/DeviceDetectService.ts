@@ -86,8 +86,6 @@ class DeviceDetect {
       this._supportsWebp()
         .then((can: any) => {
           this.hasWebpSupport = !!can
-          // @ts-ignore
-          window['hasWebpSupport'] = !!can
         })
     }
   }
