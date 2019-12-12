@@ -37,8 +37,7 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
   const [layers, setLayers] = useState<BannerLayer[] | undefined>()
   const disableLazyLoad = content.disable_lazy_load
   const styles = {
-    minHeight: contentHeight ? `${contentHeight}vh` : '50vh',
-    height: '100%'
+    height: contentHeight ? `${contentHeight}vh` : '50vh',
   }
 
   // let [styles, setStyles] = useState(styles)
@@ -63,7 +62,7 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
       const img = getImageAttrs({
         originalSource: item.image,
         width: width,
-        height: imgHeight,
+        height: ~~imgHeight,
         smart: true,
         focalPoint: item.image_focal_point
       })
@@ -88,6 +87,7 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
            style={styles}
            ref={refIntersectionObserver}>
         <ParallaxBanner disabled={false}
+                        style={styles}
                         layers={layers || []}>
           {!layers && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
           <div className={clsx('parallax__content', content.class_names && content.class_names.values)}>
