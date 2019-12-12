@@ -13,7 +13,8 @@ import { Skeleton } from '@material-ui/lab'
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'inline-block',
-    margin: 0,
+    margin: '0 0 -5px 0 !important',
+    overflow: 'auto',
     padding: 0,
     position: 'relative'
   },
@@ -91,6 +92,8 @@ const Image: FunctionComponent<{
 
         return {
           ...imgAttrs,
+          width: content.width ? content.width : undefined,
+          height: definedHeight ? definedHeight : undefined,
           style: {
             width: content.width ? `${content.width}px` : 'auto',
             maxHeight: 'inherit',
@@ -99,12 +102,13 @@ const Image: FunctionComponent<{
         }
       } else {
         return {
+          width: content.width ? content.width : undefined,
+          height: content.height ? content.height : undefined,
           style: {
             width: content.width ? `${content.width}px` : 'auto',
             maxHeight: 'inherit',
             height: content.height ? `${content.height}px` : 'auto'
           }
-
         }
       }
     },
@@ -119,7 +123,11 @@ const Image: FunctionComponent<{
   return (
     <SbEditable content={content}>
       <figure ref={refIntersectionObserver}
-              className={classes.root}>
+              className={classes.root}
+              style={{
+                height: content.height ? `${content.height}px` : undefined,
+                width: content.width ? `${content.width}px` : undefined
+              }}>
         {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'}
                               variant={property.includes('rounded-circle') ? 'circle' : 'rect'} />}
         <Fade in={loaded}>

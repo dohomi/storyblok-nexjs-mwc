@@ -7,7 +7,7 @@ const getNprogressJss = (theme: Theme): CSSProperties => ({
     pointerEvents: 'none',
     '& .bar': {
       position: 'fixed',
-      background: theme.palette.primary.main,
+      background: (theme.toolbar && theme.toolbar.progressColor) ? theme.toolbar.progressColor : theme.palette.primary.main,
       borderRadius: 0,
       zIndex: theme.zIndex.tooltip,
       top: 0,
@@ -19,7 +19,7 @@ const getNprogressJss = (theme: Theme): CSSProperties => ({
       position: 'absolute',
       top: 0,
       height: 2,
-      boxShadow: `${theme.palette.primary.main} 1px 0 6px 1px`,
+      boxShadow: `${(theme.toolbar && theme.toolbar.progressColor) || theme.palette.primary.main} 1px 0 6px 1px`,
       borderRadius: '100%',
       animation: 'nprogress-pulse 2s ease-out 0s infinite'
     },

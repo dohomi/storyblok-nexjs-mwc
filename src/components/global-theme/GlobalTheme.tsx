@@ -19,6 +19,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
     defaultContainerWidth: string | boolean;
     toolbar: {
+      progressColor?: string
       height: {
         mobile: number,
         landscape: number,
@@ -39,6 +40,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   interface ThemeOptions {
     defaultContainerWidth?: string | boolean;
     toolbar: {
+      progressColor?: string
       height: {
         mobile: number,
         landscape: number,
@@ -104,6 +106,7 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
         }
       },
       toolbar: {
+        progressColor: settings.toolbar_progress_color,
         height: {
           mobile: 56,
           landscape: 48,
