@@ -31,13 +31,19 @@ const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
         if (props.image_crop || (!props.masonry && !props.fit_in_color)) {
           height = props.height
         }
-        return getImageAttrs({
+        const imgSrc = getImageAttrs({
           originalSource: props.source,
           width,
           height,
           smart: props.image_crop === 'smart',
           fitInColor: props.fit_in_color
         })
+        return {
+          ...imgSrc,
+          width: width ? width : undefined,
+          height: height ? height : undefined
+        }
+
       }
       return {}
     },

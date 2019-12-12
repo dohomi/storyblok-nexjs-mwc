@@ -2,15 +2,10 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import StoryblokService from '../../src/utils/StoryblokService'
 import StoriesService from '../../src/utils/StoriesService'
-import { AppConfigProps } from '../../src/utils/parsePageProperties'
-import { CONFIG_STORYBOOK } from './configStorybook'
 
 const SetStoriesDecorator = (storyFunc: Function) => {
   const [loaded, setLoaded] = useState<boolean>(false)
   // StoryblokService.setToken('Xzl0aUdUwWqtCsD37fHMmQtt')
-  const config: AppConfigProps = { ...CONFIG_STORYBOOK.app }
-  StoryblokService.initialize(config)
-  StoriesService.setConfig(config)
   useEffect(
     () => {
       const fetch = async () => {

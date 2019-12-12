@@ -377,6 +377,7 @@ export interface GlobalStoryblok {
   toolbar_font_size?: string;
   setup_google_analytics?: string;
   setup_google_site_verification?: string;
+  toolbar_progress_color?: string;
   _uid: string;
   component: "global";
   [k: string]: any;

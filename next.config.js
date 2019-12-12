@@ -33,11 +33,13 @@ const config = require('./nextjs_dev_config')
 // STORYBLOK_PREVIEW: 'UvABqQAdrEMCeCG2N0wePQtt',
 //   STORYBLOK_PUBLIC: 'PhCU8L1FyvZlsW2H522WRQtt'
 
-
 // studentsgoabroad.com
+// lumen
+// Jn1ErBzys8vQOgwKQgeiDQtt
+//riNEK11ti3rXnRU2RCNDqAtt
 module.exports = config({
-  previewToken: process.env.previewToken || 'IQrhrTP6aL0WYgDXmersbgtt',
-  publicToken: process.env.publicToken || 'Xzl0aUdUwWqtCsD37fHMmQtt',
+  previewToken: process.env.previewToken || 'Jn1ErBzys8vQOgwKQgeiDQtt', // Jn1ErBzys8vQOgwKQgeiDQtt
+  publicToken: process.env.publicToken || 'riNEK11ti3rXnRU2RCNDqAtt', //riNEK11ti3rXnRU2RCNDqAtt
 //   previewToken: process.env.previewToken || 'aPQruoQG3ZLTMdWUZQfG3gtt',
 //   publicToken: process.env.publicToken || 'rDHPUnIN5mmSuPWL7S3lGgtt',
 //   languages: process.env.languages,

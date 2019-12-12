@@ -201,6 +201,7 @@ export type GlobalComponent = {
   toolbar_config?: Maybe<Array<Maybe<Scalars['String']>>>,
   toolbar_font_size?: Maybe<Scalars['String']>,
   toolbar_main_height?: Maybe<Scalars['String']>,
+  toolbar_progress_color?: Maybe<Scalars['String']>,
   toolbar_variant?: Maybe<Scalars['String']>,
   top?: Maybe<Scalars['String']>,
   website_logo?: Maybe<Scalars['String']>,
