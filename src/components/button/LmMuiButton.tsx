@@ -139,6 +139,7 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
               className={className}
               variant={mapVariant[content.variant as string]}
               disabled={disableRipple}
+
               color={color as ButtonProps['color']}
               startIcon={<LmIcon iconName={content.icon && content.icon.name} buttonSize={content.size} />}
               endIcon={<LmIcon iconName={content.trailing_icon && content.trailing_icon.name}

@@ -1,6 +1,5 @@
 import Page from './page/Page'
 import Section from './section/Section'
-import Paragraph from './paragraph/Paragraph'
 import Headline from './headline/Headline'
 import Image from './image/ImageElement'
 import ImageList from './image-list/ImageList'
@@ -32,6 +31,12 @@ import GridRow from './section/GridRow'
 import GridColumn from './section/GridColumn'
 import StaticSection from './static-section/StaticSection'
 import StaticContainer from './static-section/StaticContainer'
+import dynamic from 'next/dynamic'
+
+const Paragraph = dynamic(
+  () => import('./paragraph/Paragraph')
+)
+
 // import HubspotForm from './hubspot/HubspotForm'
 // import Form from './form/Form'
 // import Pricing from './pricing/Pricing'

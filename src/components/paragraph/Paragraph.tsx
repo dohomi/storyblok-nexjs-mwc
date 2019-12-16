@@ -6,10 +6,10 @@ import { ParagraphStoryblok } from '../../typings/generated/components-schema'
 import parseMarkdownContent from './markdown-helper'
 import Typography from '@material-ui/core/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
-import { useStyles } from './RichTextParagraph'
+import { useRichTextStyles } from './richTextStyles'
 
 const Paragraph: FunctionComponent<{ content: ParagraphStoryblok }> = ({ content }) => {
-  const classes = useStyles()
+  const classes = useRichTextStyles()
   return (
     <SbEditable content={content}>
       <Typography
