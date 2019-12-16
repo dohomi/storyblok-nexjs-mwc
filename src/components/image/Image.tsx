@@ -13,7 +13,8 @@ import { Skeleton } from '@material-ui/lab'
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'inline-block',
-    margin: '0 0 -5px 0 !important',
+    margin: '0 0 -6px 0 !important',
+    // margin: '0 !important',
     overflow: 'auto',
     padding: 0,
     position: 'relative'
@@ -21,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   image: {
     maxWidth: '100%',
     height: 'auto',
+    display: 'block',
     '&.img-thumbnail': {
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
