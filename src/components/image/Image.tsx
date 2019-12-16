@@ -51,6 +51,7 @@ const Image: FunctionComponent<{
   const property = content.property || []
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color
 
+
   const [refIntersectionObserver, inView, intersectionElement] = useInView(intersectionDefaultOptions)
 
   const imgProperties = useMemo(
@@ -127,8 +128,8 @@ const Image: FunctionComponent<{
       <figure ref={refIntersectionObserver}
               className={classes.root}
               style={{
-                height: content.height ? `${content.height}px` : undefined,
-                width: content.width ? `${content.width}px` : undefined
+                height: content.height ? `${content.height}px` : content.height_fill ? '100%' : undefined,
+                width: content.width ? `${content.width}px` : content.height_fill ? '100%' : undefined
               }}>
         {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'}
                               variant={property.includes('rounded-circle') ? 'circle' : 'rect'} />}
