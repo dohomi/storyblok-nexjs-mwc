@@ -1,28 +1,26 @@
 import { IncomingMessage, ServerResponse } from 'http'
-
-const nodeParser = require('ua-parser-js')
+import { isMobile } from 'is-mobile'
 
 export type DeviceDetectModule = {
   device: {
-    os: string,
-    browser: string,
     device: string,
     width: number
   },
   hasWebpSupport: boolean
 }
 
+type AppDevice = {
+  device?: 'mobile' | 'tablet' | null
+  width: number
+}
+
 class DeviceDetect {
-  private device: {
-    os: any; browser: any; device: any, width: number
-  }
+  private device: AppDevice
   private hasWebpSupport: boolean
   private language: string
 
   constructor() {
     this.device = {
-      os: null,
-      browser: null,
       device: null,
       width: 0
     }
@@ -52,26 +50,21 @@ class DeviceDetect {
     }
   }
 
-  _getDeviceValues(parsed: IUAParser.IResult) {
-    const device = parsed.device.type
-    const obj = {
-      browser: parsed.browser.name,
-      os: parsed.os.name,
-      device: device,
+  setDevice(req?: IncomingMessage) {
+    let userAgent = req && req.headers['user-agent']
+    const mobileDevice = isMobile({ ua: userAgent })
+    const tabletDevice = isMobile({ ua: userAgent, tablet: true })
+    const obj: AppDevice = {
       width: 1080
     }
-    if (device === 'mobile') {
+    if (mobileDevice) {
+      obj.device = 'mobile'
       obj.width = 599
-    } else if (device === 'tablet') {
+    } else if (tabletDevice) {
       obj.width = 959
+      obj.device = 'tablet'
     }
-    return obj
-  }
-
-  setDevice(req?: IncomingMessage) {
-    let userAgent = req ? req.headers['user-agent'] as string : window.navigator.userAgent
-    const parsed = userAgent && nodeParser(userAgent)
-    this.device = this._getDeviceValues(parsed)
+    this.device = obj
   }
 
   getWebpSupport() {
