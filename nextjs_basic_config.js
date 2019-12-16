@@ -55,7 +55,5 @@ module.exports = function (env = {}, plugins = []) {
     })
   }
 
-  console.log(pluginConfiguration)
-
   return withPlugins(pluginConfiguration, config)
 }
