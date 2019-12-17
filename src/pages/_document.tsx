@@ -40,24 +40,7 @@ class MyDocument extends Document {
 
     return (
       <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLocale}>
-      <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com/" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://img2.storyblok.com/" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com/" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com/" />
-        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
-        <link rel="dns-prefetch" href="https://img2.storyblok.com/" />
-        {isProduction && CONFIG.GA && (
-          <>
-            <link rel="preconnect" href="https://www.googletagmanager.com/" crossOrigin="anonymous" />
-            <link rel="preconnect" href="https://www.google-analytics.com/" crossOrigin="anonymous" />
-            <link rel="dns-prefetch" href="https://www.googletagmanager.com/" />
-            <link rel="dns-prefetch" href="https://www.google-analytics.com/" />
-          </>
-        )}
-      </Head>
+      <Head />
       <body className="lm-body__root">
       <Main />
       <script dangerouslySetInnerHTML={{

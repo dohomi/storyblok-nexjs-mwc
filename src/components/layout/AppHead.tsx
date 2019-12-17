@@ -27,9 +27,25 @@ Router.events.on('routeChangeError', () => NProgress.done())
 const AppHead: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings }) => {
   const favicon = settings.setup_favicon
   const loadFonts: string[] = getFontBasedOnSetting(settings)
-
+  const isProduction = !StoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production'
   return (
     <NextHead>
+      <link rel="preconnect" href="https://fonts.googleapis.com/" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossOrigin="anonymous" />
+      <link rel="preconnect" href="https://img2.storyblok.com/" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="https://fonts.googleapis.com/" />
+      <link rel="dns-prefetch" href="https://fonts.gstatic.com/" />
+      <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
+      <link rel="dns-prefetch" href="https://img2.storyblok.com/" />
+      {isProduction && CONFIG.GA && (
+        <>
+          <link rel="preconnect" href="https://www.googletagmanager.com/" crossOrigin="anonymous" />
+          <link rel="preconnect" href="https://www.google-analytics.com/" crossOrigin="anonymous" />
+          <link rel="dns-prefetch" href="https://www.googletagmanager.com/" />
+          <link rel="dns-prefetch" href="https://www.google-analytics.com/" />
+        </>
+      )}
       {favicon && (
         <>
           <link rel="icon" href={imageService(favicon, `32x32`)} sizes="32x32" key={`favicon`} />
