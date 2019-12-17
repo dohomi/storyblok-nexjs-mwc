@@ -37,9 +37,13 @@ const config = require('./nextjs_dev_config')
 // lumen
 // Jn1ErBzys8vQOgwKQgeiDQtt
 //riNEK11ti3rXnRU2RCNDqAtt
+
+// laden
+// kEuZFbB3VdYKrZmSSZttGAtt
+// SQpAKDE8ow7eKpPO0OScUQtt
 module.exports = config({
-  previewToken: process.env.previewToken || 'Jn1ErBzys8vQOgwKQgeiDQtt', // Jn1ErBzys8vQOgwKQgeiDQtt
-  publicToken: process.env.publicToken || 'riNEK11ti3rXnRU2RCNDqAtt', //riNEK11ti3rXnRU2RCNDqAtt
+  previewToken: process.env.previewToken || 'kEuZFbB3VdYKrZmSSZttGAtt', // Jn1ErBzys8vQOgwKQgeiDQtt
+  publicToken: process.env.publicToken || 'SQpAKDE8ow7eKpPO0OScUQtt', //riNEK11ti3rXnRU2RCNDqAtt
 //   previewToken: process.env.previewToken || 'aPQruoQG3ZLTMdWUZQfG3gtt',
 //   publicToken: process.env.publicToken || 'rDHPUnIN5mmSuPWL7S3lGgtt',
 //   languages: process.env.languages,
