@@ -49,6 +49,14 @@ class MyDocument extends Document {
         <link rel="dns-prefetch" href="https://fonts.gstatic.com/" />
         <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
         <link rel="dns-prefetch" href="https://img2.storyblok.com/" />
+        {isProduction && CONFIG.GA && (
+          <>
+            <link rel="preconnect" href="https://www.googletagmanager.com/" crossOrigin="anonymous" />
+            <link rel="preconnect" href="https://www.google-analytics.com/" crossOrigin="anonymous" />
+            <link rel="dns-prefetch" href="https://www.googletagmanager.com/" />
+            <link rel="dns-prefetch" href="https://www.google-analytics.com/" />
+          </>
+        )}
       </Head>
       <body className="lm-body__root">
       <Main />
@@ -59,10 +67,6 @@ class MyDocument extends Document {
       <NextScript />
       {isProduction && CONFIG.GA && (
         <>
-          <link rel="preconnect" href="https://www.googletagmanager.com/" crossOrigin="anonymous" />
-          <link rel="preconnect" href="https://www.google-analytics.com/" crossOrigin="anonymous" />
-          <link rel="dns-prefetch" href="https://www.googletagmanager.com/" />
-          <link rel="dns-prefetch" href="https://www.google-analytics.com/" />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${CONFIG.GA}`}
