@@ -74,7 +74,7 @@ const ImageList: FunctionComponent<{
     // cols: columnCount
   }
   if (content.masonry) {
-    delete gridListProps.spacing
+    gridListProps.spacing = 0
     delete gridListProps.cols
     gridListProps.style = {
       // columnCount: columnCount,
@@ -97,6 +97,9 @@ const ImageList: FunctionComponent<{
         >
           {body.map((item, i) => (
             <GridListTile key={item._uid}
+                          style={{
+                            marginBottom: content.masonry ? `${gutterSize}px` : undefined
+                          }}
                           onClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })}>
               <ImageListItem {...item}
                              {...imageListItemProps} />

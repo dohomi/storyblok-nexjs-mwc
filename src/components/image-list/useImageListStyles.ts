@@ -92,7 +92,9 @@ export const useImageListStyles = makeStyles({
   },
   masonry: {
     '& img': {
-      marginBottom: -4
+      display: 'block',
+      width: '100%',
+      height: 'auto'
     },
     '& .MuiGridList-root': {
       display: 'block'
