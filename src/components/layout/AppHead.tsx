@@ -40,8 +40,6 @@ const AppHead: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings })
       {StoryblokService.insideVisualComposer() && (
         <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${StoryblokService.getToken()}`}></script>
       )}
-      <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="anonymous" />
-      <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossOrigin="anonymous" />
       <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`} rel="stylesheet" />
       {settings.setup_google_site_verification &&
       <meta name="google-site-verification" content={settings.setup_google_site_verification}
