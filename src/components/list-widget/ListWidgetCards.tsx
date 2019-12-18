@@ -13,8 +13,11 @@ const ListWidgetCards: FunctionComponent<{
   items: PageItem[]
   options: CardListStoryblok
 }> = ({ items, content, options }) => {
-  const cardListItems: CardListItemStoryblok[] = items
-    .map((item: PageItem) => {
+  return <CardList content={{
+    ...options,
+    _uid: content._uid,
+    component: 'card_list',
+    body: items.map((item: PageItem) => {
       const itemContent = item.content as PageComponent
       return {
         _uid: item.uuid,
@@ -29,14 +32,7 @@ const ListWidgetCards: FunctionComponent<{
         }
       } as CardListItemStoryblok
     })
-
-  const cardList: CardListStoryblok = {
-    ...options,
-    _uid: content._uid,
-    component: 'card_list',
-    body: cardListItems
-  }
-  return <CardList content={cardList} />
+  }} />
 }
 
 export default ListWidgetCards

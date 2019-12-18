@@ -6,10 +6,10 @@ export const useGridListStyles = makeStyles((theme: Theme) => createStyles({
     if (!props.isMasonry) {
       const opts: CreateCSSProperties<{}> = {
         '& .MuiGridListTile-root': {
-          width: `${(100 / Number(props.columnCount || 4)) * 1}% !important`
-        },
-        [theme.breakpoints.only('xs')]: {
-          width: `${(100 / Number(props.columnCountPhone || 1)) * 1}% !important`
+          width: `${(100 / Number(props.columnCount || 4)) * 1}% !important`,
+          [theme.breakpoints.only('xs')]: {
+            width: `${(100 / Number(props.columnCountPhone || 1)) * 1}% !important`
+          }
         }
       }
       if (props.columnCountTablet) {
@@ -22,9 +22,7 @@ export const useGridListStyles = makeStyles((theme: Theme) => createStyles({
       return opts
     } else {
       const opts: CreateCSSProperties<{}> = {
-        // '& .MuiGridListTile-root': {
         columnCount: Number(props.columnCount || 4),
-        // },
         [theme.breakpoints.only('xs')]: {
           columnCount: Number(props.columnCountPhone || 2)
         }
@@ -37,6 +35,5 @@ export const useGridListStyles = makeStyles((theme: Theme) => createStyles({
       }
       return opts
     }
-
   }
 }))
