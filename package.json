@@ -81,6 +81,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "babel-preset-react-app": "^9.1.0",
+    "dotenv": "^8.2.0",
     "graphql": "^14.5.8",
     "json-schema-to-typescript": "^8.0.0",
     "lorem-ipsum": "^2.0.3",
