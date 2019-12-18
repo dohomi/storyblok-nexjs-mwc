@@ -62,7 +62,6 @@ const useStyles = makeStyles({
 const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }) => {
   const { body, column_gap, column_count, column_count_phone, column_count_tablet, ...rest } = content
   const classes = useStyles(content)
-  console.log('## card list', content.column_count_phone, content.column_count)
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,
