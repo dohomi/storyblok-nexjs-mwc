@@ -57,7 +57,7 @@ const ImageListItem: FunctionComponent<ImageListItemProps> = (props) => {
   return (
     <SbEditable content={props as ImageListItemStoryblok} key={props._uid}>
       <>
-        {!loaded && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} />}
+        {!loaded && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />}
         <Fade in={loaded}>
           <img {...imageProps}
                ref={inViewRef}

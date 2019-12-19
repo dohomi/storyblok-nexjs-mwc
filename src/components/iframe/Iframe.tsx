@@ -29,7 +29,7 @@ const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) =>
         'embed-responsive': !!content.responsive_ratio,
         [`embed-responsive-${content.responsive_ratio}`]: !!content.responsive_ratio
       })}>
-        {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} />}
+        {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
         <iframe allow={allowed.join(' ')}
                 src={urlSrc}
                 aria-hidden={true}
