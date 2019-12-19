@@ -83,7 +83,7 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
   )
   return (
     <>
-      {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} />}
+      {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />}
       <Fade in={!!imgSrc} timeout={1000}>
         <div className={clsx(classes.root, {
           'lm-fixed-bg': backgroundStyle === 'fixed_image' || backgroundStyle === 'fixed_cover',
