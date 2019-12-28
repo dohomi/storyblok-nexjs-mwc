@@ -85,7 +85,7 @@ class StoryblokServiceClass {
       window.storyblok.init({ accessToken: this.token })
       window.storyblok.on(['change'], () => {
           console.log('change::save triggered')
-          // location.reload()
+          location.reload()
         }
       )
       window.storyblok.on(['published', 'unpublished'], () => {
