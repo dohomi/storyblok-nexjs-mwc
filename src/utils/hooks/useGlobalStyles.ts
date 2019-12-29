@@ -164,6 +164,33 @@ export const getCreatedStyles = (theme: Theme) => {
       '.font-weight-normal': {
         fontWeight: 'normal !important'
       },
+      '.font-weight-100': {
+        fontWeight: '100 !important'
+      },
+      '.font-weight-200': {
+        fontWeight: '200 !important'
+      },
+      '.font-weight-300': {
+        fontWeight: '300 !important'
+      },
+      '.font-weight-400': {
+        fontWeight: '400 !important'
+      },
+      '.font-weight-500': {
+        fontWeight: '500 !important'
+      },
+      '.font-weight-600': {
+        fontWeight: '600 !important'
+      },
+      '.font-weight-700': {
+        fontWeight: '700 !important'
+      },
+      '.font-weight-800': {
+        fontWeight: '800 !important'
+      },
+      '.font-weight-900': {
+        fontWeight: '900 !important'
+      },
       '.text-uppercase': {
         textTransform: 'uppercase'
       },

@@ -22,7 +22,7 @@ const generateUtilityClassNames = (): string[] => {
 }
 export const utilityClassNames = generateUtilityClassNames()
 
-// console.log(JSON.stringify(utilityClassNames))
+console.log(JSON.stringify(utilityClassNames))
 
 export const getOptions = () => {
   const obj = {}
