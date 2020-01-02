@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import React, { FunctionComponent } from 'react'
+import React, { ElementType, FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { componentLogger } from '../../utils/componentLogger'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
@@ -8,13 +8,14 @@ import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }) => {
   componentLogger(content)
+  const component = content.tag ? content.tag : undefined
   return (
     <SbEditable content={content}>
       <Typography
         className={clsx(content.style, content.style_props, content.class_names && content.class_names.values, {
           [`lm-font-${content.font}`]: content.font
         })}
-        component={content.tag}
+        component={component as ElementType}
         align={content.align ? content.align : undefined}
         color={content.color ? content.color : undefined}
         style={{
