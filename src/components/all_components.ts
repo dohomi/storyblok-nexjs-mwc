@@ -31,6 +31,8 @@ import GridRow from './section/GridRow'
 import GridColumn from './section/GridColumn'
 import StaticSection from './static-section/StaticSection'
 import StaticContainer from './static-section/StaticContainer'
+import Timeline from './timeline/Timeline'
+
 import dynamic from 'next/dynamic'
 
 const Paragraph = dynamic(
@@ -80,7 +82,8 @@ const Components = {
   'list_search_field': ListSearchField,
   'link': LinkWwrap,
   'list_search_autocomplete': ListSearchAutocomplete,
-  'rich_text_editor': RichTextParagraph
+  'rich_text_editor': RichTextParagraph,
+  'timeline': Timeline
 }
 
 export default Components

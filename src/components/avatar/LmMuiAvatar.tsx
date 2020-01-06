@@ -24,7 +24,10 @@ const useStyles = makeStyles({
   }
 })
 
-const LmMuiAvatar: FunctionComponent<{ src: string, size: 'small' | 'large' | 'xlarge' | 'xsmall' | 'xmall' | 'medium' | undefined }> = ({ src, size }) => {
+const LmMuiAvatar: FunctionComponent<{
+  src: string,
+  size: 'small' | 'large' | 'xlarge' | 'xsmall' | 'xmall' | 'medium' | undefined
+}> = ({ src, size }) => {
   const classes = useStyles()
   const [reference, inView] = useInView(intersectionDefaultOptions)
   const [imageAttrs, setImageSrc] = useState<{ src: string, srcSet: string }>({ src: '', srcSet: '' })
@@ -42,7 +45,7 @@ const LmMuiAvatar: FunctionComponent<{ src: string, size: 'small' | 'large' | 'x
   return (
     <Avatar ref={reference}
             src={imageAttrs.src}
-            srcSet={imageAttrs.src}
+            srcSet={imageAttrs.srcSet}
             className={clsx(classes.avatar, {
               [size as string]: !!size
             })} />
