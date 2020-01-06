@@ -20,7 +20,6 @@ yarn-debug.log*
 yarn-error.log*
 .idea*
 /.idea*
-.env
 
 public_storybook
 

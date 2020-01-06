@@ -14,6 +14,33 @@ export interface AccordionItemStoryblok {
   [k: string]: any;
 }
 
+export interface AvatarStoryblok {
+  icon?: {
+    name?: string;
+    [k: string]: any;
+  };
+  image?: string;
+  letter?: string;
+  variant?: "circle" | "rounded" | "square";
+  size?: "dense" | "large" | "xlarge";
+  custom_size?: number;
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
+  _uid: string;
+  component: "avatar";
+  [k: string]: any;
+}
+
 export interface BackgroundStoryblok {
   classNames?: {
     values?: string[];
@@ -1012,6 +1039,23 @@ export interface TabsItemStoryblok {
   body?: any[];
   _uid: string;
   component: "tabs_item";
+  [k: string]: any;
+}
+
+export interface TimelineStoryblok {
+  body?: any[];
+  _uid: string;
+  component: "timeline";
+  [k: string]: any;
+}
+
+export interface TimelineItemStoryblok {
+  icon?: any[];
+  title?: string;
+  subheader?: string;
+  body?: any[];
+  _uid: string;
+  component: "timeline_item";
   [k: string]: any;
 }
 
