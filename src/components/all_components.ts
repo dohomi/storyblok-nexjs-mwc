@@ -32,6 +32,7 @@ import GridColumn from './section/GridColumn'
 import StaticSection from './static-section/StaticSection'
 import StaticContainer from './static-section/StaticContainer'
 import Timeline from './timeline/Timeline'
+import LmAvatar from './avatar/LmAvatar'
 
 import dynamic from 'next/dynamic'
 
@@ -83,7 +84,8 @@ const Components = {
   'link': LinkWwrap,
   'list_search_autocomplete': ListSearchAutocomplete,
   'rich_text_editor': RichTextParagraph,
-  'timeline': Timeline
+  'timeline': Timeline,
+  'avatar': LmAvatar
 }
 
 export default Components
