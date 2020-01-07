@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent'
 import { TimelineItemStoryblok } from '../../typings/generated/components-schema'
 import Components from '@components'
 import clsx from 'clsx'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import ContentLink from '../link/ContentLink'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   cardContainer: {
@@ -29,6 +31,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
+const CardContentWrap: FunctionComponent<{
+  content: TimelineItemStoryblok
+}> = ({ content, children }) => {
+  if (content.link) {
+    return (
+      <ContentLink content={content} className="lm-timeline__link">
+        <CardActionArea>
+          {children}
+        </CardActionArea>
+      </ContentLink>
+    )
+  }
+  return (
+    <>{children}</>
+  )
+}
+
 const TimelineRowItem: FunctionComponent<{
   isLeft: boolean
   content: TimelineItemStoryblok
@@ -39,8 +58,10 @@ const TimelineRowItem: FunctionComponent<{
     <div className={classes.cardContainer}>
       <div className={clsx(classes.cardDecorator, isLeft ? classes.cardDecoratorLeft : classes.cardDecoratorRight)} />
       <Card>
-        {(content.title || content.subheader) && <CardHeader title={content.title} subheader={content.subheader} />}
-        {body.length > 0 && <CardContent>{body.map(blok => Components(blok))}</CardContent>}
+        <CardContentWrap content={content}>
+          {(content.title || content.subheader) && <CardHeader title={content.title} subheader={content.subheader} />}
+          {body.length > 0 && <CardContent>{body.map(blok => Components(blok))}</CardContent>}
+        </CardContentWrap>
       </Card>
     </div>
   )

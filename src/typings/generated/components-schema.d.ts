@@ -1053,6 +1053,12 @@ export interface TimelineItemStoryblok {
   icon?: any[];
   title?: string;
   subheader?: string;
+  link?: {
+    cached_url?: string;
+    linktype?: string;
+    [k: string]: any;
+  };
+  open_external?: boolean;
   body?: any[];
   _uid: string;
   component: "timeline_item";

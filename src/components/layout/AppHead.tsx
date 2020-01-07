@@ -30,6 +30,11 @@ const AppHead: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings })
   const isProduction = !StoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production'
   return (
     <NextHead>
+      <meta
+        name="viewport"
+        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+        key="viewport"
+      />
       <link rel="preconnect" href="https://fonts.googleapis.com/" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossOrigin="anonymous" />
