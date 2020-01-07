@@ -4,7 +4,7 @@ import { LinkStoryblok } from '../../typings/generated/components-schema'
 import Components from '@components'
 import ContentLink from './ContentLink'
 
-const LinkWwrap: FunctionComponent<{ content: LinkStoryblok }> = ({ content }) => {
+const LinkWrap: FunctionComponent<{ content: LinkStoryblok }> = ({ content }) => {
   const body = content.body || []
 
   return (
@@ -14,4 +14,4 @@ const LinkWwrap: FunctionComponent<{ content: LinkStoryblok }> = ({ content }) =
   )
 }
 
-export default LinkWwrap
+export default LinkWrap
