@@ -65,11 +65,11 @@
     "use-debounce": "^3.3.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.11.0",
-    "@graphql-codegen/typescript": "^1.11.0",
-    "@graphql-codegen/typescript-document-nodes": "^1.11.0",
-    "@graphql-codegen/typescript-graphql-files-modules": "^1.11.0",
-    "@graphql-codegen/typescript-operations": "^1.11.0",
+    "@graphql-codegen/cli": "^1.11.2",
+    "@graphql-codegen/typescript": "^1.11.2",
+    "@graphql-codegen/typescript-document-nodes": "^1.11.2",
+    "@graphql-codegen/typescript-graphql-files-modules": "^1.11.2",
+    "@graphql-codegen/typescript-operations": "^1.11.2",
     "@lumen/storyblok-material-icons": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
     "@next/bundle-analyzer": "^9.1.7",
     "@storybook/addon-actions": "^5.2.8",

@@ -113,8 +113,6 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
     toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg'
   }
 
-  console.log('top app bar', isTop)
-
   const isFixedTop = toolbarConfig.includes('fixed')
   const isScrollCollapse = toolbarConfig.includes('scroll_collapse')
   return (

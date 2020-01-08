@@ -9,7 +9,7 @@ const Page: FunctionComponent<{ content: PageStoryblok }> = (props) => {
   let content = props.content
   const body = content.body || []
   const rightBody = content.right_body || []
-  console.log('inside of page')
+
   if (!body.length) {
     return <div>There is no content yet...</div>
   }

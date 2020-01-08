@@ -62,7 +62,7 @@ export const setMegaMenu = (v: any, shouldClose: any) => {
   } else {
     setGlobalState('megaMenu', (value: any) => {
       const obj = { ...value, [v]: !value[v] }
-      console.log(obj)
+
       return obj
     }) // toggle
   }

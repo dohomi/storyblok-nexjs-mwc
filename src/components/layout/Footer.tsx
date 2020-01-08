@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const Footer: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings }) => {
   const content = settings && settings.footer || []
   const classes = useStyles()
-  console.log('footer render')
+
   return (
     <SbEditable content={settings}>
       <footer className={classes.footer}>
