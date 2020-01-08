@@ -40,7 +40,6 @@ export const getCreatedStyles = (theme: Theme) => {
     }
   }
   const dark = '#303030'
-  console.log('use main styles!!!!')
 
   return createStyles({
     '@global': {

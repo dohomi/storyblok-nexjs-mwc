@@ -13,7 +13,7 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo
   const websiteSlogan = content.website_slogan
-  console.log('render drawer')
+
   return (
     <Drawer open={isOpen}
             className="lm-main__drawer"

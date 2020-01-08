@@ -19,6 +19,13 @@ const Index: NextPage<AppPageProps> = (props) => {
   const { settings, page, error, pageSeo } = useStoryblok(props)
   const { asPath } = useRouter()
 
+  useEffect(
+    () => {
+      closeNavigationDrawers() // todo needs testing might need a pure close drawer action
+    },
+    [asPath]
+  )
+
   StoriesService.setAllStories(props.allStories)
   StoriesService.setAllCategories(props.allCategories)
   StoriesService.setAllStaticContent(props.allStaticContent)
@@ -38,14 +45,7 @@ const Index: NextPage<AppPageProps> = (props) => {
   if (!page) {
     return <Error statusCode={404} settings={settings} page={page} />
   }
-  console.log('inside of INDEX')
 
-  useEffect(
-    () => {
-      closeNavigationDrawers() // todo needs testing might need a pure close drawer action
-    },
-    [asPath]
-  )
   return (
     <GlobalStateProvider>
       <WindowDimensionsProvider>
