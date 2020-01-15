@@ -98,7 +98,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       res && (res.statusCode = 404)
       console.log('PAGE MISSNG')
     } else if (res && !StoryblokService.insideVisualComposer()) {
-      res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+      res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate')
     }
     return {
       page: pageProps,
