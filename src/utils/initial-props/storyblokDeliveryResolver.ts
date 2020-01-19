@@ -93,6 +93,9 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
 
   if (CONFIG.suppressSlugLocale && CONFIG.languages.length > 1 && !isLandingPage) {
     let [, ...languagesWithoutDefault] = CONFIG.languages // make sure default language is always first of array
+    if (CONFIG.suppressSlugIncludeDefault) {
+      languagesWithoutDefault.unshift(CONFIG.defaultLocale)
+    }
     languagesWithoutDefault.forEach((locale) => {
       all.push(StoryblokService.get(`cdn/stories/${locale}/${pageSlug}`))
     })
@@ -103,7 +106,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
   if (page === null && otherPageLanguages.length) {
     otherPageLanguages.forEach((value, index) => {
       if (value) {
-        locale = CONFIG.languages[index + 1] // overwrite locale
+        locale = CONFIG.languages[CONFIG.suppressSlugIncludeDefault ? index : index + 1] // overwrite locale
         page = value // overwrite page values of localized page
       }
     })
