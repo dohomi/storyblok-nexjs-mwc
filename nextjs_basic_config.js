@@ -12,8 +12,7 @@ module.exports = function (env = {}, plugins = []) {
           {source: '/sitemap.xml', destination: '/api/sitemap'},
           {source: '/', destination: '/[...index]'}
         ]
-      },
-      catchAllRouting: true
+      }
     },
     // compress: false,
     transpileModules: ['@lumen/mwc'],
