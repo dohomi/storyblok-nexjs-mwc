@@ -6,7 +6,7 @@ const HubspotMeeting: FunctionComponent<{
   content: HubspotMeetingStoryblok
   disableEmbed?: boolean
 }> = ({ content, disableEmbed }) => {
-  const dataSrc = `https://app.hubspot.com/meetings/${content.meeting_name}?embed=${disableEmbed ? 'false' : 'true'}`
+  const dataSrc = `https://app.hubspot.com/meetings/${content.meeting_name}?embed-true=${disableEmbed ? 'false' : 'true'}`
   useEffect(
     () => {
       const script = document.createElement('script')

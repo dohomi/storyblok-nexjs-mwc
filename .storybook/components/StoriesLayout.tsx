@@ -1,5 +1,4 @@
 import WindowDimensionsProvider from '../../src/components/provider/WindowDimensionsProvider'
-import { GlobalStateProvider } from '../../src/utils/state/state'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import Container from '@material-ui/core/Container'
@@ -65,24 +64,22 @@ const StoriesLayout = (storyFunc: Function) => {
   const loadFonts: string[] = getFontBasedOnSetting(settings)
 
   return (
-    <GlobalStateProvider>
-      <WindowDimensionsProvider>
-        <GlobalTheme settings={settings}>
-          <div>
-            <CssBaseline />
-            <Layout>
-              <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
-                <>
-                  {storyFunc({ settings })}
-                </>
-              </Container>
-            </Layout>
-            <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`}
-                  rel="stylesheet" />
-          </div>
-        </GlobalTheme>
-      </WindowDimensionsProvider>
-    </GlobalStateProvider>
+    <WindowDimensionsProvider>
+      <GlobalTheme settings={settings}>
+        <div>
+          <CssBaseline />
+          <Layout>
+            <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
+              <>
+                {storyFunc({ settings })}
+              </>
+            </Container>
+          </Layout>
+          <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`}
+                rel="stylesheet" />
+        </div>
+      </GlobalTheme>
+    </WindowDimensionsProvider>
   )
 }
 
