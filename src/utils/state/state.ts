@@ -23,7 +23,7 @@ const initialState: State = {
     categories: undefined
   }
 }
-const { GlobalStateProvider, setGlobalState, useGlobalState } = createGlobalState(initialState)
+const { setGlobalState, useGlobalState } = createGlobalState(initialState)
 
 
-export { GlobalStateProvider, useGlobalState, setGlobalState }
+export { useGlobalState, setGlobalState }

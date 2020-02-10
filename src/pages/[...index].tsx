@@ -12,7 +12,6 @@ import { closeNavigationDrawers } from '../utils/state/actions'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { GlobalStateProvider } from '../utils/state/state'
 import { useStoryblok } from '../utils/hooks/useStoryblok'
 
 const Index: NextPage<AppPageProps> = (props) => {
@@ -47,7 +46,6 @@ const Index: NextPage<AppPageProps> = (props) => {
   }
 
   return (
-    <GlobalStateProvider>
       <WindowDimensionsProvider>
         <GlobalTheme settings={settings}>
           <CssBaseline />
@@ -60,7 +58,6 @@ const Index: NextPage<AppPageProps> = (props) => {
           </Layout>
         </GlobalTheme>
       </WindowDimensionsProvider>
-    </GlobalStateProvider>
   )
 }
 
