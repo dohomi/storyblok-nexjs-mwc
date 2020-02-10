@@ -28,6 +28,7 @@ export interface AppConfigProps {
   rootDirectory?: string
   overwriteLocale?: string
   suppressSlugLocale?: boolean
+  suppressSlugIncludeDefault?: boolean
   overwriteDisableIndex?: boolean
   sitemapIgnorePath?: string
   GA?: string

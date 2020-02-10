@@ -5,7 +5,6 @@ import Layout from '../components/layout/Layout'
 import { NextPage } from 'next'
 import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-schema'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
-import { GlobalStateProvider } from '../utils/state/state'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import StoryblokService from '../utils/StoryblokService'
 import StoriesService, { CONFIG } from '../utils/StoriesService'
@@ -98,21 +97,19 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
 
 
   return (
-    <GlobalStateProvider>
-      <WindowDimensionsProvider>
-        <GlobalTheme settings={settings}>
-          <CssBaseline />
-          <Head>
-            <meta key="robots" name="robots" content="noindex" />
-          </Head>
-          <Layout settings={settings as GlobalStoryblok || {}}
-                  hasFeature={false}
-                  hasRightDrawer={false}>
-            <ErrorContent statusCode={statusCode} />
-          </Layout>
-        </GlobalTheme>
-      </WindowDimensionsProvider>
-    </GlobalStateProvider>
+    <WindowDimensionsProvider>
+      <GlobalTheme settings={settings}>
+        <CssBaseline />
+        <Head>
+          <meta key="robots" name="robots" content="noindex" />
+        </Head>
+        <Layout settings={settings as GlobalStoryblok || {}}
+                hasFeature={false}
+                hasRightDrawer={false}>
+          <ErrorContent statusCode={statusCode} />
+        </Layout>
+      </GlobalTheme>
+    </WindowDimensionsProvider>
   )
 }
 
