@@ -1,5 +1,5 @@
 const withPlugins = require('next-compose-plugins')
-const withTM = require('next-transpile-modules')('@lumen/mwc')
+const withTM = require('next-transpile-modules')(['@lumen/mwc'])
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (env = {}, plugins = []) {
