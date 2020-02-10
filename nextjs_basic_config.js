@@ -1,5 +1,5 @@
 const withPlugins = require('next-compose-plugins')
-const withTM = require('next-transpile-modules')
+const withTM = require('next-transpile-modules')('@lumen/mwc')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (env = {}, plugins = []) {
@@ -15,7 +15,6 @@ module.exports = function (env = {}, plugins = []) {
       }
     },
     // compress: false,
-    transpileModules: ['@lumen/mwc'],
     env,
     webpack: (config) => {
       // Fixes npm packages that depend on `fs` module
