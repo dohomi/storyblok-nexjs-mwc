@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger/useScrollTrigger'
 import { setScrollTop, setScrollTriggered } from '../state/actions'
 
-export default function useAppScroll({ settings }: { settings: GlobalStoryblok }) {
+export default function useAppScroll({ settings, hasFeature }: { settings: GlobalStoryblok, hasFeature?: boolean }) {
   const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
   const scrolledWithHysteresis = useScrollTrigger({ disableHysteresis: false })
   const isScrollCollapse = settings.toolbar_config && settings.toolbar_config.includes('scroll_collapse')
-  const hasToolbarHeight = !!settings.toolbar_main_height
+  const needsWatching = !!(settings.toolbar_main_height || hasFeature)
   useEffect(
     () => {
       if (isScrollCollapse) {
@@ -19,10 +19,10 @@ export default function useAppScroll({ settings }: { settings: GlobalStoryblok }
 
   useEffect(
     () => {
-      if (hasToolbarHeight) {
+      if (needsWatching) {
         setScrollTop(!scrolledWithoutHysteresis)
       }
     },
-    [scrolledWithoutHysteresis, hasToolbarHeight]
+    [scrolledWithoutHysteresis, needsWatching]
   )
 }

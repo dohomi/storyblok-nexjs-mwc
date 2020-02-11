@@ -37,7 +37,10 @@ const useStyles = makeStyles((theme: Theme) => {
         },
         '&.lm-toolbar__transparent:not(.lm-toolbar__scrolled)': {
           backgroundColor: 'transparent',
-          boxShadow: 'none'
+          boxShadow: 'none',
+          '& .MuiButtonBase-root':{
+            color: '#fff'
+          }
         },
         '&.lm-toolbar__scrolled': {
           '& .lm-system-bar': {
