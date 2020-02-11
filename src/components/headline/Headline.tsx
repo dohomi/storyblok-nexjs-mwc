@@ -32,6 +32,9 @@ const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }
             <span className="d-block d-sm-none">{content.text_xs}</span>
           </>
         )}
+        <>
+
+         </>
         {!content.text_xs && content.text}
       </Typography>
     </SbEditable>

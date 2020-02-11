@@ -35,6 +35,7 @@ import Timeline from './timeline/Timeline'
 import LmAvatar from './avatar/LmAvatar'
 
 import dynamic from 'next/dynamic'
+import DateHeadline from './headline/DateHeadline'
 
 const Paragraph = dynamic(
   () => import('./paragraph/Paragraph')
@@ -85,7 +86,8 @@ const Components = {
   'list_search_autocomplete': ListSearchAutocomplete,
   'rich_text_editor': RichTextParagraph,
   'timeline': Timeline,
-  'avatar': LmAvatar
+  'avatar': LmAvatar,
+  'date_headline': DateHeadline
 }
 
 export default Components

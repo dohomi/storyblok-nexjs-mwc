@@ -3,7 +3,7 @@ import {
   AccordionItemStoryblok,
   AccordionStoryblok,
   ButtonListStoryblok,
-  ButtonStoryblok,
+  ButtonStoryblok, DateHeadlineStoryblok,
   DividerStoryblok,
   HeadlineStoryblok,
   HtmlStoryblok,
@@ -109,6 +109,17 @@ export const storyHeadline = ({ options = {}, knob, count = '' }: StorybookOptio
     knob,
     count
   }) as HeadlineStoryblok
+}
+export const storyDateHeadline = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<DateHeadlineStoryblok> } = {}): DateHeadlineStoryblok => {
+  return getKnobComponents({
+    componentName: 'headline',
+    options: {
+      text: getLabel(2),
+      ...options
+    },
+    knob,
+    count
+  }) as DateHeadlineStoryblok
 }
 
 export const storyParagraph = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<RichTextEditorStoryblok> } = {}): RichTextEditorStoryblok => {

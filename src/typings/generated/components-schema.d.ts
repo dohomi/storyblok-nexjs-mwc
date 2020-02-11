@@ -266,6 +266,43 @@ export interface ColumnStoryblok {
   [k: string]: any;
 }
 
+export interface DateHeadlineStoryblok {
+  text?: string;
+  text_xs?: string;
+  typography?:
+    | "headline1"
+    | "headline2"
+    | "headline3"
+    | "headline4"
+    | "headline5"
+    | "headline6"
+    | "body1"
+    | "body2"
+    | "button"
+    | "caption"
+    | "subtitle1"
+    | "subtitle2"
+    | "overline";
+  tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
+  color?: "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
+  align?: "left" | "center" | "right" | "justify";
+  font?: "alt1" | "alt2" | "alt3" | "alt4";
+  custom_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  line_height?: string;
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
+  letter_spacing?: string;
+  font_size?: string;
+  _uid: string;
+  component: "date_headline";
+  [k: string]: any;
+}
+
 export interface DividerStoryblok {
   color?: {
     rgba?: string;
