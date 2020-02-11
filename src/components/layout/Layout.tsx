@@ -15,7 +15,7 @@ export type LayoutComponentProps = Pick<AppPageProps, 'settings'> & {
 
 const Layout: FunctionComponent<LayoutComponentProps> = ({ settings, children, hasFeature, hasRightDrawer }) => {
 
-  useAppScroll({ settings })
+  useAppScroll({ settings, hasFeature })
   useExternalScripts()
 
   return (
