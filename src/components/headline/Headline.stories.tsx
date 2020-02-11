@@ -2,7 +2,8 @@ import { storiesOf } from '@storybook/react'
 import Headline from './Headline'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
-import { storyHeadline } from '../../../.storybook/dummy/core/various'
+import { storyDateHeadline, storyHeadline } from '../../../.storybook/dummy/core/various'
+import DateTextField from './DateHeadline'
 // @ts-ignore
 
 const props: HeadlineStoryblok = {
@@ -55,7 +56,7 @@ const props7: HeadlineStoryblok = {
 }
 
 storiesOf('Headline', module)
-// .addDecorator(withSmartKnobs)
+  // .addDecorator(withSmartKnobs)
   .add(
     'Headline',
     () => (
@@ -170,6 +171,16 @@ storiesOf('Headline', module)
             line_height: '2em'
           }} />
       </>
+    )
+  )
+  .add(
+    'Headline with date field',
+    () => (
+      <DateTextField content={storyDateHeadline({
+        options: {
+          text: '© {date} Copyright by Lumen Media'
+        }
+      })} />
     )
   )
   .add(
