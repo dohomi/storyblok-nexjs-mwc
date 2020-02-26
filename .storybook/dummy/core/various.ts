@@ -3,7 +3,8 @@ import {
   AccordionItemStoryblok,
   AccordionStoryblok,
   ButtonListStoryblok,
-  ButtonStoryblok, DateHeadlineStoryblok,
+  ButtonStoryblok,
+  DateHeadlineStoryblok,
   DividerStoryblok,
   HeadlineStoryblok,
   HtmlStoryblok,
@@ -19,14 +20,14 @@ import {
   SliderStoryblok,
   TableStoryblok
 } from '../../../src/typings/generated/components-schema'
-import uuid from 'uuid/v4'
+import { v4 as uuidv4 } from 'uuid'
 import { text } from '@storybook/addon-knobs'
 import { LoremIpsum } from 'lorem-ipsum'
 import getKnobComponents, { camelizeString } from '../helpers/getKnobComponent'
 
 const lorem = new LoremIpsum()
 
-export const getUid = () => uuid()
+export const getUid = () => uuidv4()
 
 const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.slice(1)
 
