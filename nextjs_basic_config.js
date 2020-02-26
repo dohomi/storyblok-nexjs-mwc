@@ -7,6 +7,7 @@ module.exports = function (env = {}, plugins = []) {
     target: 'serverless',
     experimental: {
       modern: true,
+      polyfillsOptimization: true,
       async rewrites () {
         return [
           {source: '/sitemap.xml', destination: '/api/sitemap'},
