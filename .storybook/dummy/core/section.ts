@@ -183,8 +183,9 @@ export const storyTimelineItem = ({ options = {}, knob, count = '' }: StorybookO
     componentName: 'timeline_item',
     options: {
       title: getLabel(),
+      subheader: getLabel(),
       ...options
-    },
+    } as TimelineItemStoryblok,
     knob,
     count
   }) as TimelineItemStoryblok
