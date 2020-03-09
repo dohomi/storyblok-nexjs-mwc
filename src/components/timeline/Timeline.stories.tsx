@@ -2,14 +2,23 @@ import { storiesOf } from '@storybook/react'
 import React from 'react'
 import Timeline from './Timeline'
 import { storyTimeline, storyTimelineItem } from '../../../.storybook/dummy/core/section'
-import { storyIcon } from '../../../.storybook/dummy/core/various'
+import { storyAvatar } from '../../../.storybook/dummy/core/various'
 
 const timelineProps = {
   ...storyTimeline({}),
   body: [
     storyTimelineItem({
-      count: 1, options: {
-        icon: [{}]
+      count: 1,
+      options: {
+        icon: [
+          storyAvatar({
+            options: {
+              icon: {
+                name: 'airport'
+              }
+            }
+          })
+        ]
       }
     }),
     storyTimelineItem({ count: 2 }),
