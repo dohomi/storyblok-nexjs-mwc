@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import Table from './Table'
 import { TableStoryblok } from '../../typings/generated/components-schema'
-import * as React from 'react'
+import React from 'react'
 import { storyTable } from '../../../.storybook/dummy/core/various'
 
 const body = {

@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { TableStoryblok } from '../../typings/generated/components-schema'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
@@ -11,13 +11,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     borderCollapse: 'collapse',
     '&.lm-table__bordered, &.lm-table__bordered-bold': {
       '& td, & th': {
-        border: `1px solid ${theme.palette.type === 'dark'? theme.palette.common.white : theme.palette.common.black}`,
+        border: `1px solid ${theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.common.black}`,
         padding: theme.spacing(3)
       }
     },
     '&.lm-table__bordered-bold': {
       '& td, & th': {
-        border: `2px solid ${theme.palette.type === 'dark'? theme.palette.common.white : theme.palette.common.black}`
+        border: `2px solid ${theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.common.black}`
       },
 
       '& th': {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       }
     },
     '&.lm-table__boxed': {
-      border: `1px solid ${theme.palette.type === 'dark'? theme.palette.common.white : theme.palette.common.black}`,
+      border: `1px solid ${theme.palette.type === 'dark' ? theme.palette.common.white : theme.palette.common.black}`,
       borderCollapse: 'separate',
       backgroundColor: theme.palette.background.paper,
 

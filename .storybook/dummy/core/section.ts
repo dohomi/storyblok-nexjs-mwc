@@ -14,7 +14,9 @@ import {
   SectionStoryblok,
   SectionVideoBgStoryblok,
   TabsItemStoryblok,
-  TabsStoryblok, TimelineItemStoryblok, TimelineStoryblok
+  TabsStoryblok,
+  TimelineItemStoryblok,
+  TimelineStoryblok
 } from '../../../src/typings/generated/components-schema'
 import { getLabel, getSentences, randomIntFromInterval, storyImageUrls } from './various'
 import getKnobComponents from '../helpers/getKnobComponent'
@@ -179,7 +181,10 @@ export const storyTimeline = ({ options = {}, knob, count = '' }: StorybookOptio
 export const storyTimelineItem = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<TimelineItemStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'timeline_item',
-    options,
+    options: {
+      title: getLabel(),
+      ...options
+    },
     knob,
     count
   }) as TimelineItemStoryblok

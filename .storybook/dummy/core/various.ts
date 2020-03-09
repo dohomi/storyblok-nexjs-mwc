@@ -2,6 +2,7 @@ import { StorybookOptionProps } from './storybook_typing'
 import {
   AccordionItemStoryblok,
   AccordionStoryblok,
+  AvatarStoryblok,
   ButtonListStoryblok,
   ButtonStoryblok,
   DateHeadlineStoryblok,
@@ -222,6 +223,16 @@ export const storyImage = ({ options = {}, knob, count = '' }: StorybookOptionPr
     count
   }) as ImageStoryblok
 }
+
+export const storyAvatar = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<AvatarStoryblok> } = {}): AvatarStoryblok => {
+  return getKnobComponents({
+    componentName: 'avatar',
+    options,
+    knob,
+    count
+  }) as AvatarStoryblok
+}
+
 export const storyTable = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<TableStoryblok> } = {}): TableStoryblok => {
   return getKnobComponents({
     componentName: 'table',

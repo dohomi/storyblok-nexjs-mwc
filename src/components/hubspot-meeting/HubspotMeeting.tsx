@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import { FunctionComponent, useEffect } from 'react'
+import React, { FunctionComponent, useEffect } from 'react'
 import { HubspotMeetingStoryblok } from '../../typings/generated/components-schema'
 
 const HubspotMeeting: FunctionComponent<{
@@ -21,7 +21,7 @@ const HubspotMeeting: FunctionComponent<{
     <SbEditable content={content}>
       <div className="lm-hubspot-meeting">
         <div className="meetings-iframe-container"
-             data-src={dataSrc}></div>
+             data-src={dataSrc} />
       </div>
     </SbEditable>
   )

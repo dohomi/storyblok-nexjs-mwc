@@ -7,7 +7,7 @@ import {
   ToolbarRowStoryblok
 } from '../../typings/generated/components-schema'
 import { darkSectionWithColumns, get3ColumnsSection } from '../../../.storybook/dummy/section'
-import * as React from 'react'
+import React from 'react'
 import { toggleRightNavigation } from '../../utils/state/actions'
 import { simpleSettings } from '../../../.storybook/dummy/toolbar'
 import Layout from '../layout/Layout'
@@ -26,8 +26,6 @@ import {
   storyParagraph
 } from '../../../.storybook/dummy/core/various'
 import { CONFIG_STORYBOOK } from '../../../.storybook/components/configStorybook'
-
-
 
 
 const getPropsDrawer = (): PageStoryblok => ({
