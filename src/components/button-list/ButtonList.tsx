@@ -1,7 +1,7 @@
 import SbEditable from 'storyblok-react'
 import Components from '@components'
 import clsx from 'clsx'
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { ButtonListStoryblok } from '../../typings/generated/components-schema'
 
 

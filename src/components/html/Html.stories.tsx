@@ -1,6 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import Html from './Html'
 import { storyHtml } from '../../../.storybook/dummy/core/various'
+import React from 'react'
 
 storiesOf('HTML', module)
   .add(
