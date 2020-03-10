@@ -42,27 +42,28 @@ export interface AvatarStoryblok {
 }
 
 export interface BackgroundStoryblok {
+  border_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  border_size?: number;
+  border_radius?: string;
+  border_style?: "solid" | "dashed" | "dotted";
   classNames?: {
     values?: string[];
     [k: string]: any;
   };
   height?: string;
-  image?: string;
-  property?: "disable_lazy_load"[];
-  image_focal_point?: string;
-  border_size?: number;
   background_color?: {
     rgba?: string;
     [k: string]: any;
   };
   elevation?: number;
-  border_style?: "solid" | "dashed" | "dotted";
-  border_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  border_radius?: string;
+  image?: string;
+  property?: "disable_lazy_load"[];
+  image_focal_point?: string;
   background_elements?: any[];
+  background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
   _uid: string;
   component: "background";
   [k: string]: any;

@@ -1,6 +1,6 @@
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImage } from '../../utils/fetchImageHelper'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -19,13 +19,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: '100%',
     backgroundRepeat: 'no-repeat',
     height: '100%',
-    backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundColor: '#ccc',
+    backgroundSize: 'cover',
     // zIndex: 0
     '&.lm-fixed-bg': {
       backgroundAttachment: 'fixed',
-      backgroundSize: 'initial',
+      // backgroundSize: 'initial', // not sure why this was set before
       '&.lm-fixed-bg__top': {
         backgroundPosition: 'top'
       },
@@ -81,6 +80,12 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
     },
     [width, height, image, anchorRef, inView, isDesktop, backgroundStyle]
   )
+  const style: CSSProperties = {
+    backgroundImage: imgSrc && `url('${imgSrc}')`
+  }
+  if (content.background_size) {
+    style.backgroundSize = content.background_size
+  }
   return (
     <>
       {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />}
@@ -90,9 +95,7 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
           'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
           'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
         })}
-             style={{
-               backgroundImage: imgSrc && `url('${imgSrc}')`
-             }}
+             style={style}
              ref={viewRef}>
         </div>
       </Fade>
