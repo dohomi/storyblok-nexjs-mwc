@@ -127,13 +127,13 @@ storiesOf('Section', module)
         <Section content={{
           _uid: '123123',
           component: 'section',
-          body: rowWithImage,
-        }} /> <br/>
+          body: rowWithImage
+        }} /> <br />
         <Section content={{
           _uid: '231123',
           component: 'section',
           body: rowWithImage
-        }} /><br/>
+        }} /><br />
         <Section content={{
           _uid: '123123',
           component: 'section',
@@ -242,7 +242,12 @@ storiesOf('Section', module)
         <Section content={
           {
             ...storySection(),
-            background: [storyBackground({ knob: 'Section' })],
+            presetVariant: 'dark',
+            background: [storyBackground({
+              knob: 'Section', options: {
+                image: 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
+              }
+            })],
             body: [
               {
                 ...storyRow({ options: { justify: 'center' } }),

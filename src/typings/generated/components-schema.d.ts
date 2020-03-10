@@ -42,6 +42,13 @@ export interface AvatarStoryblok {
 }
 
 export interface BackgroundStoryblok {
+  image?: string;
+  property?: "disable_lazy_load"[];
+  image_focal_point?: string;
+  background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
+  background_position?: string;
+  disable_smart_crop?: boolean;
+  background_elements?: any[];
   border_color?: {
     rgba?: string;
     [k: string]: any;
@@ -59,11 +66,6 @@ export interface BackgroundStoryblok {
     [k: string]: any;
   };
   elevation?: number;
-  image?: string;
-  property?: "disable_lazy_load"[];
-  image_focal_point?: string;
-  background_elements?: any[];
-  background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
   _uid: string;
   component: "background";
   [k: string]: any;

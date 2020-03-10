@@ -1,6 +1,6 @@
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImage } from '../../utils/fetchImageHelper'
-import React, { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: '100%',
     backgroundRepeat: 'no-repeat',
     height: '100%',
-    backgroundPosition: 'center',
     backgroundSize: 'cover',
     // zIndex: 0
     '&.lm-fixed-bg': {
+      backgroundPosition: 'center',
       backgroundAttachment: 'fixed',
       // backgroundSize: 'initial', // not sure why this was set before
       '&.lm-fixed-bg__top': {
@@ -48,6 +48,8 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
 
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
   const [imgSrc, setImgSrc] = useState<string | undefined>(undefined)
+  const disableSmartCrop = content.disable_smart_crop
+  const imageFocalPoint = content.image_focal_point
   useEffect(
     () => {
       const current = anchorRef && anchorRef.target as HTMLDivElement
@@ -67,7 +69,8 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
           originalSource: image,
           width: currentWidth,
           height: currentHeight,
-          smart: true
+          smart: !disableSmartCrop,
+          focalPoint: imageFocalPoint
         })
         getImage({
           src: img.src,
@@ -78,14 +81,9 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
         })
       }
     },
-    [width, height, image, anchorRef, inView, isDesktop, backgroundStyle]
+    [width, height, image, anchorRef, inView, isDesktop, backgroundStyle, disableSmartCrop, imageFocalPoint]
   )
-  const style: CSSProperties = {
-    backgroundImage: imgSrc && `url('${imgSrc}')`
-  }
-  if (content.background_size) {
-    style.backgroundSize = content.background_size
-  }
+
   return (
     <>
       {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />}
@@ -95,7 +93,11 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
           'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
           'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
         })}
-             style={style}
+             style={{
+               backgroundImage: imgSrc && `url('${imgSrc}')`,
+               backgroundSize: content.background_size ? content.background_size : undefined,
+               backgroundPosition: content.background_position ? content.background_position : undefined
+             }}
              ref={viewRef}>
         </div>
       </Fade>
