@@ -16,7 +16,7 @@ const props: SectionStoryblok = {
 const backgroundItem = {
   _uid: '2131',
   component: 'background',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+  image: 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
 }
 const background: SectionStoryblok = {
   ...props,
@@ -127,9 +127,13 @@ storiesOf('Section', module)
         <Section content={{
           _uid: '123123',
           component: 'section',
+          body: rowWithImage,
+        }} /> <br/>
+        <Section content={{
+          _uid: '231123',
+          component: 'section',
           body: rowWithImage
-        }} />
-        <Section content={columnSection} />
+        }} /><br/>
         <Section content={{
           _uid: '123123',
           component: 'section',

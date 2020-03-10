@@ -83,6 +83,15 @@ const Image: FunctionComponent<{
             definedHeight = Math.ceil(grandParentDim.height)
           }
         }
+        if (content.focal_point && parentElement && !definedHeight) {
+          const parentDim = parentElement.getBoundingClientRect() || {
+            width: 0,
+            height: 0
+          }
+          if (parentDim) {
+            definedHeight = Math.ceil(parentDim.height)
+          }
+        }
 
         const imgAttrs = getImageAttrs({
           originalSource: content.source,

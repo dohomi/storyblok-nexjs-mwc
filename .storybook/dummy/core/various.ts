@@ -216,7 +216,7 @@ export const storyImage = ({ options = {}, knob, count = '' }: StorybookOptionPr
   return getKnobComponents({
     componentName: 'image',
     options: {
-      source: storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)],
+      source: options?.source ? options.source : storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)],
       ...options
     },
     knob,
