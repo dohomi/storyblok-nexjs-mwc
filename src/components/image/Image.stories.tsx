@@ -60,6 +60,56 @@ storiesOf('Image', module)
     )
   )
   .add(
+    'Image Focal Point',
+    () => {
+      const src = 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
+      return (
+        <div style={{
+          maxWidth: '500px',
+          margin: '0 auto'
+        }}>
+          <div style={{
+            height: '150px',
+            overflow: 'hidden'
+          }}>
+            <ImageElement content={storyImage({
+              knob: 'Image width/height parent container',
+              options: {
+                source: src,
+                focal_point: '50x0'
+              }
+            })} />
+          </div>
+          <br />
+          <div style={{
+            height: '150px',
+            overflow: 'hidden'
+          }}>
+            <ImageElement content={storyImage({
+              knob: 'Same as 1. image different focal',
+              options: {
+                source: src,
+                focal_point: '0x100'
+              }
+            })} />
+          </div>
+          <br />
+          <div>
+            <ImageElement content={storyImage({
+              knob: 'Image with height & width',
+              options: {
+                source: src,
+                width: 500,
+                height: 150,
+                focal_point: '0x100'
+              }
+            })} />
+          </div>
+        </div>
+      )
+    }
+  )
+  .add(
     'Playground',
     () => (
       <div style={{

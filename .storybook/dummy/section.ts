@@ -1,4 +1,5 @@
 import {
+  BackgroundStoryblok,
   ButtonStoryblok,
   ColumnStoryblok,
   HeadlineStoryblok,
@@ -12,8 +13,9 @@ import { storyButton, storyHeadline, storyParagraph } from './core/various'
 const backgroundItem = {
   _uid: '2131',
   component: 'background',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}
+  image: 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
+} as BackgroundStoryblok
+
 const items: (HeadlineStoryblok | ParagraphStoryblok | ButtonStoryblok)[] = [{
   component: 'headline',
   _uid: 'ododod',
@@ -138,7 +140,7 @@ export const rowWithImage: RowStoryblok[] = [{
   body: column,
   _uid: 'qdfaefa',
   component: 'row',
-  background: [backgroundItem]
+  background: [{...backgroundItem}]
 }]
 
 export const get3ColumnsSection = ({ count, knob }: { count?: number, knob?: string } = {}) => ({

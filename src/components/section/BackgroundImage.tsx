@@ -20,12 +20,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     backgroundRepeat: 'no-repeat',
     height: '100%',
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundColor: '#ccc',
     // zIndex: 0
     '&.lm-fixed-bg': {
+      backgroundPosition: 'center',
       backgroundAttachment: 'fixed',
-      backgroundSize: 'initial',
+      // backgroundSize: 'initial', // not sure why this was set before
       '&.lm-fixed-bg__top': {
         backgroundPosition: 'top'
       },
@@ -49,6 +48,8 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
 
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
   const [imgSrc, setImgSrc] = useState<string | undefined>(undefined)
+  const disableSmartCrop = content.disable_smart_crop
+  const imageFocalPoint = content.image_focal_point
   useEffect(
     () => {
       const current = anchorRef && anchorRef.target as HTMLDivElement
@@ -68,7 +69,8 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
           originalSource: image,
           width: currentWidth,
           height: currentHeight,
-          smart: true
+          smart: !disableSmartCrop,
+          focalPoint: imageFocalPoint
         })
         getImage({
           src: img.src,
@@ -79,8 +81,9 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
         })
       }
     },
-    [width, height, image, anchorRef, inView, isDesktop, backgroundStyle]
+    [width, height, image, anchorRef, inView, isDesktop, backgroundStyle, disableSmartCrop, imageFocalPoint]
   )
+
   return (
     <>
       {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />}
@@ -91,7 +94,9 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
           'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
         })}
              style={{
-               backgroundImage: imgSrc && `url('${imgSrc}')`
+               backgroundImage: imgSrc && `url('${imgSrc}')`,
+               backgroundSize: content.background_size ? content.background_size : undefined,
+               backgroundPosition: content.background_position ? content.background_position : undefined
              }}
              ref={viewRef}>
         </div>

@@ -1,7 +1,7 @@
 import Components from '@components'
 import SbEditable from 'storyblok-react'
 import { ParallaxProvider } from 'react-scroll-parallax'
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { PageStoryblok } from '../../typings/generated/components-schema'
 import PageWithDrawer from './PageWithDrawer'
 

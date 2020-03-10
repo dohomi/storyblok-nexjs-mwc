@@ -31,9 +31,7 @@ export default async function(req: IncomingMessage, res: ServerResponse) {
     const ignoreList = (process.env.sitemapIgnorePath && process.env.sitemapIgnorePath.split(',')) || []
 
     ignoreList.push('demo-content')
-    smStream.write({
-      url: '/'
-    })
+
     for (const story of stories) {
       const fullSlug = story.full_slug as string
       const shouldIndex = !ignoreList.some((ignorePath: string) => fullSlug.includes(ignorePath))
@@ -60,7 +58,7 @@ export default async function(req: IncomingMessage, res: ServerResponse) {
       .then(sm => sm.toString())
 
     res.setHeader('Content-Type', 'text/xml')
-    res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+    res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate')
     res.write(sitemap)
     res.end()
   } catch (e) {
