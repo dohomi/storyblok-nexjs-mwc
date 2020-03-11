@@ -13,8 +13,6 @@ import { storyCardList, storyCardListItem } from '../../../.storybook/dummy/core
 const cardListBody: CardListItemStoryblok[] = [{
   _uid: '123',
   component: 'card_list_item',
-  title: 'Toll',
-  subtitle: 'SubTitle',
   image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
 }, {
   _uid: '123123',
