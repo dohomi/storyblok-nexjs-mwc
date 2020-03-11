@@ -8,18 +8,20 @@ import CardDescriptionText from './CardDescriptionText'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 
-const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }) => {
+const CardListItem: FunctionComponent<CardListItemProps> = (props) => {
+  const { content, options } = props
   const isOverMedia = options.variant && options.variant.includes('over_media')
   const descriptionIsEmpty = isOverMedia && !content.description
+
 
   // without media / text only
   if (!content.image || options.hide_image) {
     return (
-      <CardWrap content={content} options={options}>
+      <CardWrap {...props}>
         <CardActionArea>
           <CardContent>
-            <CardListActionTitles content={content} options={options} />
-            <CardDescriptionText content={content} options={options} />
+            <CardListActionTitles {...props} />
+            <CardDescriptionText {...props} />
           </CardContent>
         </CardActionArea>
       </CardWrap>
@@ -29,15 +31,15 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
   // header on top
   if (options.variant && options.variant.includes('header_top')) {
     return (
-      <CardWrap content={content} options={options}>
+      <CardWrap {...props}>
         <CardContent>
-          <CardListActionTitles content={content} options={options} />
+          <CardListActionTitles {...props} />
         </CardContent>
         <CardActionArea>
-          <CardMediaElement content={content} options={options} />
+          <CardMediaElement {...props} />
           {!descriptionIsEmpty && (
             <CardContent>
-              <CardDescriptionText content={content} options={options} />
+              <CardDescriptionText {...props} />
             </CardContent>
           )}
         </CardActionArea>
@@ -46,19 +48,19 @@ const CardListItem: FunctionComponent<CardListItemProps> = ({ content, options }
   }
   // header over media or title bottom
   return (
-    <CardWrap content={content} options={options}>
+    <CardWrap {...props}>
       <CardActionArea>
-        <CardMediaElement content={content} options={options}>
+        <CardMediaElement {...props}>
           {isOverMedia && (
             <CardContent>
-              <CardListActionTitles content={content} options={options} />
+              <CardListActionTitles {...props} />
             </CardContent>
           )}
         </CardMediaElement>
-        {!descriptionIsEmpty && (
+        {!descriptionIsEmpty && (!isOverMedia && (content.title || content.subtitle)) && (
           <CardContent>
-            {!isOverMedia && <CardListActionTitles content={content} options={options} />}
-            <CardDescriptionText content={content} options={options} />
+            {!isOverMedia && <CardListActionTitles {...props} />}
+            <CardDescriptionText {...props} />
           </CardContent>
         )}
       </CardActionArea>

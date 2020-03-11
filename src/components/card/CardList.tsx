@@ -44,7 +44,6 @@ const useStyles = makeStyles({
       },
       '&.card__over_media .MuiCardMedia-root': {
         position: 'relative',
-        paddingBottom: '56%', // add ratio variants
 
         '& .MuiCardContent-root': {
           position: 'absolute',
