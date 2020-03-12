@@ -1,6 +1,5 @@
 import { getImageAttrs } from '../../utils/ImageService'
-import { getImage } from '../../utils/fetchImageHelper'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -10,6 +9,7 @@ import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/c
 import Skeleton from '@material-ui/lab/Skeleton'
 import clsx from 'clsx'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { useGetSrcHook } from '../../utils/hooks/useGetSrc'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     top: 0,
     left: 0,
     width: '100%',
-    backgroundRepeat: 'no-repeat',
     height: '100%',
+    backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     // zIndex: 0
     '&.lm-fixed-bg': {
@@ -47,42 +47,34 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
   const { isDesktop, width, height } = useWindowDimensions()
 
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
-  const [imgSrc, setImgSrc] = useState<string | undefined>(undefined)
   const disableSmartCrop = content.disable_smart_crop
   const imageFocalPoint = content.image_focal_point
-  useEffect(
-    () => {
-      const current = anchorRef && anchorRef.target as HTMLDivElement
-      if (current && inView) {
-        let currentWidth = current.clientWidth
-        let currentHeight = current.clientHeight
-        if (isDesktop) {
-          if (backgroundStyle === 'fixed_cover') {
-            currentWidth = width
-            currentHeight = height
-          } else if (backgroundStyle === 'fixed_image') {
-            currentHeight = currentHeight + 200
-            currentWidth = currentWidth + 200
-          }
-        }
-        const img = getImageAttrs({
-          originalSource: image,
-          width: currentWidth,
-          height: currentHeight,
-          smart: !disableSmartCrop,
-          focalPoint: imageFocalPoint
-        })
-        getImage({
-          src: img.src,
-          srcSet: img.srcSet,
-          onReady(imageSource: string) {
-            setImgSrc(imageSource)
-          }
-        })
+  const imageAttrs = { src: '', srcSet: '' }
+  const current = anchorRef && anchorRef.target as HTMLDivElement
+  if (current && inView && image) {
+    let currentWidth = current.clientWidth
+    let currentHeight = current.clientHeight
+    if (isDesktop) {
+      if (backgroundStyle === 'fixed_cover') {
+        currentWidth = width
+        currentHeight = height
+      } else if (backgroundStyle === 'fixed_image') {
+        currentHeight = currentHeight + 200
+        currentWidth = currentWidth + 200
       }
-    },
-    [width, height, image, anchorRef, inView, isDesktop, backgroundStyle, disableSmartCrop, imageFocalPoint]
-  )
+    }
+    const iAttrs = getImageAttrs({
+      originalSource: image,
+      width: currentWidth,
+      height: currentHeight,
+      smart: !disableSmartCrop,
+      focalPoint: imageFocalPoint
+    })
+    imageAttrs.src = iAttrs.src
+    imageAttrs.srcSet = iAttrs.srcSet
+  }
+
+  const imgSrc = useGetSrcHook(imageAttrs)
 
   return (
     <>

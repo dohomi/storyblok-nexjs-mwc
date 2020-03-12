@@ -8,6 +8,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
+import BackgroundElements from './BackgroundElements'
 
 export interface SectionProps extends SectionStoryblok {
   presetVariant?: SectionStoryblok['variant']
@@ -68,8 +69,9 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
           return (
             <div className={clsx(classes.background, { [classes.dark]: !!content.variant }, values.className)}
                  style={values.style}>
-              {background && background.image &&
+              {(background?.image || background?.background_elements) &&
               <BackgroundImage content={background} backgroundStyle={content.background_style} />}
+              {background?.background_elements && <BackgroundElements elements={background.background_elements} />}
               <Container style={containerStyles}
                          maxWidth={maxWidth as ContainerProps['maxWidth']}
                          className={clsx(values.className, {

@@ -1,0 +1,15 @@
+{
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default Introspection Endpoint": {
+        "url": "https://gapi.storyblok.com/v1/api",
+        "introspect": true,
+        "headers": {
+          "user-agent": "JS GraphQL",
+          "token": "IQrhrTP6aL0WYgDXmersbgtt"
+        }
+      }
+    }
+  }
+}

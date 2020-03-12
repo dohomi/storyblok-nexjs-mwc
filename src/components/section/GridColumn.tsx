@@ -5,6 +5,7 @@ import BackgroundBox, { BackgroundBoxProps } from './BackgroundBox'
 import BackgroundImage from './BackgroundImage'
 import Components from '@components'
 import Grid from '@material-ui/core/Grid'
+import BackgroundElements from './BackgroundElements'
 
 const xsSpanMap = {
   1: 3,
@@ -69,7 +70,8 @@ const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }
                 md={mdWidth}
                 className={className}
                 style={style}>
-            {background && background.image && <BackgroundImage content={background} />}
+            {background?.image && <BackgroundImage content={background} />}
+            {background?.background_elements && <BackgroundElements elements={background.background_elements} />}
             {(content.justify || content.align_content || content.align_items) ? (
               <Grid container
                     direction={'column'}

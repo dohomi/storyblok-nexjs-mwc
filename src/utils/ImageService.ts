@@ -37,7 +37,7 @@ export function getOriginalImageDimensions(src: string) {
   }
 }
 
-type GetImageAttrs = {
+export type GetImageFuncProps = {
   originalSource: string
   width: number
   height?: number
@@ -47,7 +47,7 @@ type GetImageAttrs = {
   focalPoint?: string
 }
 
-export function getImageAttrs({ originalSource, width = 0, height = 0, filter = '', fitInColor, smart, focalPoint }: GetImageAttrs) {
+export function getImageAttrs({ originalSource, width = 0, height = 0, filter = '', fitInColor, smart, focalPoint }: GetImageFuncProps):{src:string,srcSet:string} {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   if (originalDimensions.width < width) {
     width = originalDimensions.width

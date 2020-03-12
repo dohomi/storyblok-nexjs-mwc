@@ -1,30 +1,8 @@
 import React, { CSSProperties, FunctionComponent } from 'react'
-import {
-  BackgroundElementItemStoryblok,
-  BackgroundStoryblok,
-  SectionStoryblok
-} from '../../typings/generated/components-schema'
+import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
 import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
-import imageService from '../../utils/ImageService'
 
-
-function multipleBackgroundComposer(backgroundElements?: BackgroundElementItemStoryblok[]) {
-  if (!Array.isArray(backgroundElements)) {
-    return {}
-  }
-  const elements = backgroundElements.map(item => {
-    const url = imageService(item.url || '', '')
-    return {
-      background: `url('${url}') ${item.horizontal || 'left'} ${item.vertical || 'top'} ${item.repeat || 'no-repeat'}`,
-      backgroundSize: item.size || 'auto'
-    }
-  })
-  return {
-    background: elements.map(i => i.background).join(','),
-    backgroundSize: elements.map(i => i.backgroundSize).join(',')
-  }
-}
 
 export type BackgroundBoxProps = {
   style?: CSSProperties
@@ -72,8 +50,7 @@ const BackgroundBox: FunctionComponent<{
     borderRadius: background.border_radius,
     color: mapColor[variant as string],
     boxShadow: background.elevation ? theme.shadows[background.elevation] : undefined,
-    minHeight: background.height ? background.height : undefined,
-    ...multipleBackgroundComposer(background.background_elements)
+    minHeight: background.height ? background.height : undefined
   }
   Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
