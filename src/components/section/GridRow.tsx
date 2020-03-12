@@ -69,7 +69,7 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
                 alignContent={content.align_content ? content.align_content : undefined}>
             {background?.image &&
             <BackgroundImage content={background} backgroundStyle={content.background_style} />}
-            {background?.background_elements && <BackgroundElements elements={background.background_elements} />}
+            {background?.background_elements && background.background_elements.length > 0 && <BackgroundElements elements={background.background_elements} />}
             {content.body && content.body.map((blok) => Components(blok))}
           </Grid>
         )}

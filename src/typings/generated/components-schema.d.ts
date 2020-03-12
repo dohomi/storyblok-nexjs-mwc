@@ -81,6 +81,13 @@ export interface BackgroundElementColorStoryblok {
   [k: string]: any;
 }
 
+export interface BackgroundElementGradientStoryblok {
+  value?: string;
+  _uid: string;
+  component: "background_element_gradient";
+  [k: string]: any;
+}
+
 export interface BackgroundElementItemStoryblok {
   url?: string;
   size?: "contain" | "cover";

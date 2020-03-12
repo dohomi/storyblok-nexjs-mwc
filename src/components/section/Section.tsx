@@ -71,7 +71,7 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
                  style={values.style}>
               {(background?.image || background?.background_elements) &&
               <BackgroundImage content={background} backgroundStyle={content.background_style} />}
-              {background?.background_elements && <BackgroundElements elements={background.background_elements} />}
+              {background?.background_elements && background.background_elements.length > 0 && <BackgroundElements elements={background.background_elements} />}
               <Container style={containerStyles}
                          maxWidth={maxWidth as ContainerProps['maxWidth']}
                          className={clsx(values.className, {

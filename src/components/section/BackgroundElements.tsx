@@ -1,59 +1,47 @@
-import React, { FunctionComponent } from 'react'
+import React, { CSSProperties, FunctionComponent } from 'react'
 import {
   BackgroundElementColorStoryblok,
+  BackgroundElementGradientStoryblok,
   BackgroundElementItemStoryblok
 } from '../../typings/generated/components-schema'
 import imageService from '../../utils/ImageService'
-
-function multipleBackgroundComposer(backgroundElements?: (BackgroundElementColorStoryblok | BackgroundElementItemStoryblok)[]) {
-  if (!Array.isArray(backgroundElements)) {
-    return {}
-  }
-  const elements = backgroundElements.map(item => {
-    const elementType = item.component
-    switch (elementType) {
-      case 'background_element_item': {
-        const url = imageService(item.url || '', '')
-        return {
-          background: `url('${url}') ${item.horizontal || 'left'} ${item.vertical || 'top'} ${item.repeat || 'no-repeat'}`,
-          backgroundSize: item.size || 'auto'
-        }
-      }
-      case 'background_element_color': {
-        return {
-          background: item.color && item.color.rgba,
-          backgroundSize: item.size || 'auto'
-        }
-      }
-    }
-
-  })
-  return {
-    background: elements.map(i => i.background).join(','),
-    backgroundSize: elements.map(i => i.backgroundSize).join(',')
-  }
-}
-
+import { useInView } from 'react-intersection-observer'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 const BackgroundElements: FunctionComponent<{
-
-  elements: (BackgroundElementColorStoryblok | BackgroundElementItemStoryblok)[]
+  elements: (BackgroundElementColorStoryblok | BackgroundElementItemStoryblok | BackgroundElementGradientStoryblok)[]
 }> = ({ elements = [] }) => {
+  const [viewRef, inView] = useInView(intersectionDefaultOptions)
 
-  if (!elements.length) {
-    return null
+  let styleElement: CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%'
   }
-  const styleElement = multipleBackgroundComposer(elements)
-  console.log(elements, styleElement)
+
+  if (inView) {
+    styleElement.background = elements.map(item => {
+      const elementType = item.component
+      switch (elementType) {
+        case 'background_element_item': {
+          const url = imageService(item.url || '', '')
+          return `url('${url}') ${item.horizontal || 'left'} ${item.vertical || 'top'}/${item.size || 'auto'} ${item.repeat || 'no-repeat'}`
+        }
+        case 'background_element_color': {
+          return item.color && item.color.rgba
+        }
+        case 'background_element_gradient': {
+          return item.value
+        }
+      }
+    }).filter(i => i).join(',')
+  }
   return (
-    <div style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      ...styleElement
-    }} />
+    <div
+      ref={viewRef}
+      style={styleElement} />
   )
 }
 export default BackgroundElements

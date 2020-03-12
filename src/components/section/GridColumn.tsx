@@ -71,7 +71,7 @@ const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }
                 className={className}
                 style={style}>
             {background?.image && <BackgroundImage content={background} />}
-            {background?.background_elements && <BackgroundElements elements={background.background_elements} />}
+            {background?.background_elements && background.background_elements.length > 0 && <BackgroundElements elements={background.background_elements} />}
             {(content.justify || content.align_content || content.align_items) ? (
               <Grid container
                     direction={'column'}
