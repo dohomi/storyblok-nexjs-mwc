@@ -43,12 +43,12 @@ export interface AvatarStoryblok {
 
 export interface BackgroundStoryblok {
   image?: string;
+  background_elements?: any[];
   property?: "disable_lazy_load"[];
   image_focal_point?: string;
   background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
   background_position?: string;
   disable_smart_crop?: boolean;
-  background_elements?: any[];
   border_color?: {
     rgba?: string;
     [k: string]: any;
@@ -68,6 +68,23 @@ export interface BackgroundStoryblok {
   elevation?: number;
   _uid: string;
   component: "background";
+  [k: string]: any;
+}
+
+export interface BackgroundElementColorStoryblok {
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  _uid: string;
+  component: "background_element_color";
+  [k: string]: any;
+}
+
+export interface BackgroundElementGradientStoryblok {
+  value?: string;
+  _uid: string;
+  component: "background_element_gradient";
   [k: string]: any;
 }
 
@@ -771,16 +788,16 @@ export interface NavMenuItemStoryblok {
 }
 
 export interface PageStoryblok {
-  property?: "has_feature"[];
+  preview_title?: string;
+  preview_subtitle?: string;
+  preview_image?: string;
+  preview_teaser?: string;
   meta_title?: string;
   meta_description?: string;
   seo_body?: any[];
-  body?: any[];
   meta_robots?: boolean;
-  preview_title?: string;
-  preview_subtitle?: string;
-  preview_teaser?: string;
-  preview_image?: string;
+  property?: "has_feature"[];
+  body?: any[];
   right_body?: any[];
   _uid: string;
   component: "page";
@@ -903,13 +920,13 @@ export interface RichTextEditorStoryblok {
 }
 
 export interface RowStoryblok {
-  body?: any[];
+  background?: any[];
   spacing?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
   justify?: "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "space-around";
   align_content?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
   align_items?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
-  background?: any[];
+  body?: any[];
   _uid: string;
   component: "row";
   [k: string]: any;
@@ -934,13 +951,13 @@ export interface RowNestedStoryblok {
 }
 
 export interface SectionStoryblok {
-  body?: any[];
   variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
-  property?: "is_full_height"[];
-  max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
-  padding?: string;
-  background_style?: "fixed_image" | "fixed_cover";
   background?: any[];
+  property?: "is_full_height"[];
+  padding?: string;
+  max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
+  background_style?: "fixed_image" | "fixed_cover";
+  body?: any[];
   _uid: string;
   component: "section";
   [k: string]: any;

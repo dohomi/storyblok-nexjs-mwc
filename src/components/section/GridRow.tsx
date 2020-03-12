@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { FunctionComponent } from 'react'
-import { RowStoryblok } from '../../typings/generated/components-schema'
+import { BackgroundStoryblok, RowStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import Grid, { GridProps } from '@material-ui/core/Grid'
 import { createStyles, makeStyles } from '@material-ui/styles'
@@ -9,6 +9,7 @@ import BackgroundBox, { BackgroundBoxProps } from './BackgroundBox'
 import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
 import { Theme } from '@material-ui/core'
+import BackgroundElements from './BackgroundElements'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,7 +51,7 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
   const classes = useStyles()
   let spacing = content.spacing ? Number(content.spacing) as GridProps['spacing'] : 3
 
-  const background = Array.isArray(content.background) && content.background[0]
+  const background: BackgroundStoryblok | undefined = Array.isArray(content.background) && content.background[0]
   return (
     <SbEditable content={content}>
       <BackgroundBox background={background}>
@@ -66,8 +67,9 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
                 className={clsx(className, classes.gridRow)}
                 justify={content.justify ? content.justify : undefined}
                 alignContent={content.align_content ? content.align_content : undefined}>
-            {background && background.image &&
+            {background?.image &&
             <BackgroundImage content={background} backgroundStyle={content.background_style} />}
+            {background?.background_elements && background.background_elements.length > 0 && <BackgroundElements elements={background.background_elements} />}
             {content.body && content.body.map((blok) => Components(blok))}
           </Grid>
         )}
