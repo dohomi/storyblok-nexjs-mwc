@@ -19,7 +19,6 @@ const useStyles = makeStyles((theme: Theme) => {
     return createStyles({
       topAppBar: {
         '& .lm-system-bar': {
-          height: '40px',
           transitionDuration: '500ms',
           overflow: 'hidden',
           [theme.breakpoints.only('xs')]: {
@@ -38,13 +37,16 @@ const useStyles = makeStyles((theme: Theme) => {
         '&.lm-toolbar__transparent:not(.lm-toolbar__scrolled)': {
           backgroundColor: 'transparent',
           boxShadow: 'none',
-          '& .MuiButtonBase-root':{
+          '& .MuiButtonBase-root': {
             color: '#fff'
+          },
+          '& .lm-system-bar': {
+            backgroundColor: 'transparent !important'
           }
         },
         '&.lm-toolbar__scrolled': {
           '& .lm-system-bar': {
-            height: 0
+            height: '0 !important'
           },
           '& .MuiToolbar-root': {
             height: theme.toolbar.height.mobile,
