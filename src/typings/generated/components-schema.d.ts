@@ -417,6 +417,8 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
+  drawer_variant?: "permanent" | "persistent" | "temporary";
+  drawer_body?: any[];
   website_title?: string;
   website_slogan?: string;
   setup_language?: string;
@@ -462,7 +464,6 @@ export interface GlobalStoryblok {
   };
   toolbar_main_height?: number;
   toolbar_font_size?: string;
-  drawer_body?: any[];
   _uid: string;
   component: "global";
   [k: string]: any;

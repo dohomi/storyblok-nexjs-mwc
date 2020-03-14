@@ -1,4 +1,5 @@
 import { createGlobalState } from 'react-hooks-global-state'
+import { DrawerProps } from '@material-ui/core'
 
 export interface State {
   leftNavigationDrawer: boolean
@@ -12,7 +13,8 @@ export interface State {
   appSetup: {
     hasDrawer: boolean,
     hasFeatureImage: boolean,
-    hasRightDrawer: boolean
+    hasRightDrawer: boolean,
+    drawerVariant: DrawerProps['variant']
   }
 }
 
@@ -28,7 +30,8 @@ const initialState: State = {
   appSetup: {
     hasDrawer: false,
     hasFeatureImage: false,
-    hasRightDrawer: false
+    hasRightDrawer: false,
+    drawerVariant: 'temporary'
   }
 }
 const { setGlobalState, useGlobalState } = createGlobalState(initialState)
