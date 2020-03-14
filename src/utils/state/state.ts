@@ -31,7 +31,7 @@ const initialState: State = {
     hasDrawer: false,
     hasFeatureImage: false,
     hasRightDrawer: false,
-    drawerVariant: 'temporary'
+    drawerVariant: 'temporary',
   }
 }
 const { setGlobalState, useGlobalState } = createGlobalState(initialState)

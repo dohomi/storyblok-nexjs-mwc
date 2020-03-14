@@ -14,12 +14,13 @@ export const closeNavigationDrawers = () => {
 }
 
 export const setAppSetup = ({ page, settings }: { page: PageStoryblok, settings: GlobalStoryblok }) => {
-  setGlobalState('appSetup', {
+  setGlobalState('appSetup', (opts) => ({
+    ...opts,
     hasDrawer: Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0,
     hasFeatureImage: Array.isArray(page.property) && page.property.includes('has_feature'),
     hasRightDrawer: Array.isArray(page.right_body) && page.right_body.length > 0,
     drawerVariant: settings.drawer_variant
-  })
+  }))
 }
 
 const addSearchParamsToUrl = ({ categories, searchText }: { categories?: string[], searchText?: string }) => {

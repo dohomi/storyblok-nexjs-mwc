@@ -10,6 +10,7 @@ import DeviceDetectService from '../../utils/DeviceDetectService'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 // import Fonts from '@fonts'
 
+
 const mapThemeType = {
   'base': 'light',
   'dark': 'dark'
@@ -18,6 +19,10 @@ const mapThemeType = {
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
     defaultContainerWidth: string | boolean;
+    drawer: {
+      left: string
+      right: string
+    }
     toolbar: {
       progressColor?: string
       height: {
@@ -39,6 +44,10 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   // allow configuration using `createMuiTheme`
   interface ThemeOptions {
     defaultContainerWidth?: string | boolean;
+    drawer: {
+      left: string
+      right: string
+    }
     toolbar: {
       progressColor?: string
       height: {
@@ -71,148 +80,146 @@ const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = (
     })
   })
 
-
-  // useEffect(
-  //   () => {
-  //     Fonts(settings)
-  //   },
-  //   []
-  // )
-
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
-    if (!themeUid) {
-      return {}
-    }
+      if (!themeUid) {
+        return {}
+      }
 
-    if (!settings.theme_font_default) {
-      settings.theme_font_default = 'Nunito:300,400,700'
-    }
-    let defaultContainerWidth: ThemeOptions['defaultContainerWidth'] = 'lg'
-    if (settings.theme_container_width) {
-      defaultContainerWidth = settings.theme_container_width === 'none' ? false : settings.theme_container_width
-    }
+      if (!settings.theme_font_default) {
+        settings.theme_font_default = 'Nunito:300,400,700'
+      }
+      let defaultContainerWidth: ThemeOptions['defaultContainerWidth'] = 'lg'
+      if (settings.theme_container_width) {
+        defaultContainerWidth = settings.theme_container_width === 'none' ? false : settings.theme_container_width
+      }
 
-    const globalTheme: ThemeOptions = {
-      palette: {
-        type: mapThemeType[settings.theme_base as string || 'base'],
-        primary: {
-          main: settings.theme_primary as string,
-          contrastText: settings.theme_primary_contrast as string
-        },
-        secondary: {
-          main: settings.theme_secondary as string,
-          contrastText: settings.theme_secondary_contrast as string
-        }
-      },
-      toolbar: {
-        progressColor: settings.toolbar_progress_color,
-        height: {
-          mobile: 56,
-          landscape: 48,
-          desktop: 64,
-          custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined,
-          systemBar: (settings.toolbar_config && settings.toolbar_config.includes('enable_system_bar')) ? 40 : 0
-        }
-      },
-      typography: {
-        fontFamily: settings.theme_font_default && parseFont(settings.theme_font_default) as string
-      },
-      alternativeFont: {
-        alt1: settings.theme_font_alt1 && parseFont(settings.theme_font_alt1) as string,
-        alt2: settings.theme_font_alt2 && parseFont(settings.theme_font_alt2) as string,
-        alt3: settings.theme_font_alt3 && parseFont(settings.theme_font_alt3) as string,
-        alt4: settings.theme_font_alt4 && parseFont(settings.theme_font_alt4) as string
-      },
-      defaultContainerWidth: defaultContainerWidth,
-      props: {
-        MuiUseMediaQuery: {
-          ssrMatchMedia
-        }
-      },
-      overrides: {
-        MuiDrawer: {
-          modal: {
-            '&.lm-main__drawer .MuiExpansionPanelDetails-root .MuiList-root': {
-              width: '100%'
-            }
+      const globalTheme: ThemeOptions = {
+        palette: {
+          type: mapThemeType[settings.theme_base as string || 'base'],
+          primary: {
+            main: settings.theme_primary as string,
+            contrastText: settings.theme_primary_contrast as string
+          },
+          secondary: {
+            main: settings.theme_secondary as string,
+            contrastText: settings.theme_secondary_contrast as string
           }
         },
-        MuiPopover: {
-          paper: {
-            '& a': {
-              color: 'inherit',
-              textDecoration: 'none'
-            }
+        drawer: {
+          left: '300px', // todo make configurable
+          right: '254px'
+        },
+        toolbar: {
+          progressColor: settings.toolbar_progress_color,
+          height: {
+            mobile: 56,
+            landscape: 48,
+            desktop: 64,
+            custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined,
+            systemBar: (settings.toolbar_config && settings.toolbar_config.includes('enable_system_bar')) ? 40 : 0
           }
         },
-        MuiAppBar: {
-          root: {
-            '& .MuiToolbar-root': {
-              padding: '12px 0'
-            },
+        typography: {
+          fontFamily: settings.theme_font_default && parseFont(settings.theme_font_default) as string
+        },
+        alternativeFont: {
+          alt1: settings.theme_font_alt1 && parseFont(settings.theme_font_alt1) as string,
+          alt2: settings.theme_font_alt2 && parseFont(settings.theme_font_alt2) as string,
+          alt3: settings.theme_font_alt3 && parseFont(settings.theme_font_alt3) as string,
+          alt4: settings.theme_font_alt4 && parseFont(settings.theme_font_alt4) as string
+        },
+        defaultContainerWidth: defaultContainerWidth,
+        props: {
+          MuiUseMediaQuery: {
+            ssrMatchMedia
+          }
+        },
+        overrides: {
+          MuiDrawer: {
+            modal: {
+              '&.lm-main__drawer .MuiExpansionPanelDetails-root .MuiList-root': {
+                width: '100%'
+              }
+            }
+          },
+          MuiPopover: {
+            paper: {
+              '& a': {
+                color: 'inherit',
+                textDecoration: 'none'
+              }
+            }
+          },
+          MuiAppBar: {
+            root: {
+              '& .MuiToolbar-root': {
+                padding: '12px 0'
+              },
 
-            '& .lm-logo-header': {
-              height: '100%',
-              display: 'inline-block',
-              '&.lm-logo-text': {
+              '& .lm-logo-header': {
                 height: '100%',
-                display: 'inline-flex',
-                alignItems: 'center'
+                display: 'inline-block',
+                '&.lm-logo-text': {
+                  height: '100%',
+                  display: 'inline-flex',
+                  alignItems: 'center'
+                },
+                '& figure': {
+                  boxSizing: 'border-box'
+                },
+                '& .MuiCollapse-wrapper': {
+                  height: '100%'
+                },
+                '& img': {
+                  display: 'block',
+                  height: '100%'
+                }
               },
-              '& figure': {
-                boxSizing: 'border-box'
+              '& .MuiButtonBase-root.lm-default-color, & a.lm-logo-header': {
+                color: 'inherit',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                '&.MuiButton-outlined,&.lm-outlined': {
+                  borderColor: 'currentColor'
+                }
               },
-              '& .MuiCollapse-wrapper': {
-                height: '100%'
+              '& .lm-toolbar__section': {
+                justifyContent: 'flex-end'
               },
-              '& img': {
-                display: 'block',
-                height: '100%'
+              '&.lm-toolbar__dark': {
+                backgroundColor: '#424242',
+                color: 'white'
               }
-            },
-            '& .MuiButtonBase-root.lm-default-color, & a.lm-logo-header': {
-              color: 'inherit',
-              textDecoration: 'none',
-              whiteSpace: 'nowrap',
-              '&.MuiButton-outlined,&.lm-outlined': {
-                borderColor: 'currentColor'
+            }
+          },
+          MuiCard: {
+            root: {
+              '& > a': {
+                textDecoration: 'none',
+                color: 'inherit'
               }
-            },
-            '& .lm-toolbar__section': {
-              justifyContent: 'flex-end'
-            },
-            '&.lm-toolbar__dark': {
-              backgroundColor: '#424242',
-              color: 'white'
             }
-          }
-        },
-        MuiCard: {
-          root: {
-            '& > a': {
-              textDecoration: 'none',
-              color: 'inherit'
+          },
+          MuiList: {
+            root: {
+              '& > a': {
+                color: 'inherit'
+              }
             }
-          }
-        },
-        MuiList: {
-          root: {
-            '& > a': {
-              color: 'inherit'
+          },
+          MuiButton: {
+            label: {
+              textTransform: 'initial'
             }
-          }
-        },
-        MuiButton: {
-          label: {
-            textTransform: 'initial'
           }
         }
       }
-    }
 
-    return responsiveFontSizes(createMuiTheme(globalTheme))
-  }, [themeUid])
+      return responsiveFontSizes(createMuiTheme(globalTheme))
+    },
+    [themeUid]
+  )
 
 
   return (

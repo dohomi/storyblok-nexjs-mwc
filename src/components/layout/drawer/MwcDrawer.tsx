@@ -7,8 +7,22 @@ import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
 import { homepageLinkHandler } from '../../../utils/linkHandler'
 import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { useRouter } from 'next/router'
+import { closeNavigationDrawers } from '../../../utils/state/actions'
+import clsx from 'clsx'
+
+
+export const useStyles = makeStyles((theme: Theme) => createStyles({
+  leftDrawer: {
+    width: theme.drawer.left
+  }
+}))
 
 const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content }) => {
+  const classes = useStyles()
+  const router = useRouter()
+  const { asPath } = router
   const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
   const [appSetup, setAppSetup] = useGlobalState('appSetup')
   const { isMobile } = useWindowDimensions()
@@ -21,6 +35,16 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
   if (isMobile) {
     drawerProps.variant = 'temporary'
   }
+  useEffect(
+    () => {
+      if (appSetup.drawerVariant === 'temporary') {
+        // todo make this customizable?
+        closeNavigationDrawers() // todo needs testing might need a pure close drawer action
+      }
+    },
+    [asPath, appSetup]
+  )
+
   useEffect(
     () => {
       if (!isMobile) {
@@ -37,7 +61,10 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
 
   return (
     <Drawer open={isOpen}
-            className="lm-main__drawer"
+            className={clsx('lm-main__drawer', classes.leftDrawer)}
+            classes={{
+              paper: classes.leftDrawer
+            }}
             onClose={() => setOpen(false)}
             {...drawerProps}>
       {!appSetup.hasDrawer && (<div>
