@@ -3,13 +3,13 @@ import DrawerContentList from './DrawerContentList'
 import Link from 'next/link'
 import imageService from '../../../utils/ImageService'
 import { useGlobalState } from '../../../utils/state/state'
-import { closeNavigationDrawers } from '../../../utils/state/actions'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import Drawer from '@material-ui/core/Drawer'
 import { homepageLinkHandler } from '../../../utils/linkHandler'
 
 const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content }) => {
-  let [isOpen] = useGlobalState('leftNavigationDrawer')
+  const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
+  const [appSetup] = useGlobalState('appSetup')
   const websiteTitle = content.website_title
   const websiteLogo = content.website_logo
   const websiteSlogan = content.website_slogan
@@ -17,8 +17,8 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
   return (
     <Drawer open={isOpen}
             className="lm-main__drawer"
-            onClose={() => closeNavigationDrawers()}>
-      <div>
+            onClose={() => setOpen(false)}>
+      {!appSetup.hasDrawer && (<div>
         <Link href="/[...index]" as={homepageLinkHandler()}>
           <a>
             <div className="p-3">
@@ -29,10 +29,8 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
           </a>
         </Link>
         {websiteSlogan && <div>{websiteSlogan}</div>}
-      </div>
-      <>
-        <DrawerContentList {...content} />
-      </>
+      </div>)}
+      <DrawerContentList content={content} />
     </Drawer>
   )
 }

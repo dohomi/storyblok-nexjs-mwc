@@ -1,4 +1,5 @@
 import { setGlobalState } from './state'
+import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 
 export const toggleLeftNavigation = () => {
   setGlobalState('leftNavigationDrawer', value => !value)
@@ -10,6 +11,14 @@ export const toggleRightNavigation = () => {
 export const closeNavigationDrawers = () => {
   setGlobalState('leftNavigationDrawer', false)
   setGlobalState('rightNavigationDrawer', false)
+}
+
+export const setAppSetup = ({ page, settings }: { page: PageStoryblok, settings: GlobalStoryblok }) => {
+  setGlobalState('appSetup', {
+    hasDrawer: Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0,
+    hasFeatureImage: Array.isArray(page.property) && page.property.includes('has_feature'),
+    hasRightDrawer: Array.isArray(page.right_body) && page.right_body.length > 0
+  })
 }
 
 const addSearchParamsToUrl = ({ categories, searchText }: { categories?: string[], searchText?: string }) => {
@@ -53,17 +62,4 @@ export const setScrollTop = (value: boolean) => {
 
 export const setScrollTriggered = (value: boolean) => {
   setGlobalState('isScrollTriggered', value)
-}
-
-// todo this is used somewhere else.. or not in use any longer?
-export const setMegaMenu = (v: any, shouldClose: any) => {
-  if (shouldClose) {
-    setGlobalState('megaMenu', { [v]: false }) // close
-  } else {
-    setGlobalState('megaMenu', (value: any) => {
-      const obj = { ...value, [v]: !value[v] }
-
-      return obj
-    }) // toggle
-  }
 }

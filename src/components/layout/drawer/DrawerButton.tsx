@@ -4,14 +4,15 @@ import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 import MenuItem from '@material-ui/core/MenuItem'
 import ContentLink from '../../link/ContentLink'
 
-const DrawerButton: FunctionComponent<ButtonStoryblok> = (props) => {
+const DrawerButton: FunctionComponent<{content: ButtonStoryblok}> = (props) => {
+  const {content} = props
   const buttonProps = {
-    text: props.label || props.name,
-    graphic: props.icon && props.icon.name
+    text: content.label || content.name,
+    graphic: content.icon && content.icon.name
   }
 
   return (
-    <ContentLink content={props} className="lm-drawer__link" passHref={true}>
+    <ContentLink content={content} className="lm-drawer__link" passHref={true}>
       <MenuItem button>
         {buttonProps.text}
       </MenuItem>

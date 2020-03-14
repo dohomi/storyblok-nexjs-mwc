@@ -11,6 +11,7 @@ import WindowDimensionsProvider from '../components/provider/WindowDimensionsPro
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { useStoryblok } from '../utils/hooks/useStoryblok'
+import { setAppSetup } from '../utils/state/actions'
 
 const Index: NextPage<AppPageProps> = (props) => {
   const { settings, page, error, pageSeo } = useStoryblok(props)
@@ -35,6 +36,7 @@ const Index: NextPage<AppPageProps> = (props) => {
     return <Error statusCode={404} settings={settings} page={page} />
   }
 
+  setAppSetup({ page, settings })
   return (
     <WindowDimensionsProvider>
       <GlobalTheme settings={settings}>

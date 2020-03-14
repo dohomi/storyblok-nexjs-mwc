@@ -1,26 +1,34 @@
 import { createGlobalState } from 'react-hooks-global-state'
 
-interface State {
+export interface State {
   leftNavigationDrawer: boolean
   rightNavigationDrawer: boolean
-  megaMenu: any
   isScrollTop: boolean
   isScrollTriggered: boolean
   searchParams: {
     searchText: string | undefined
     categories: string[] | undefined
   }
+  appSetup: {
+    hasDrawer: boolean,
+    hasFeatureImage: boolean,
+    hasRightDrawer: boolean
+  }
 }
 
 const initialState: State = {
   leftNavigationDrawer: false,
   rightNavigationDrawer: false,
-  megaMenu: {},
   isScrollTop: true,
   isScrollTriggered: false,
   searchParams: {
     searchText: undefined,
     categories: undefined
+  },
+  appSetup: {
+    hasDrawer: false,
+    hasFeatureImage: false,
+    hasRightDrawer: false
   }
 }
 const { setGlobalState, useGlobalState } = createGlobalState(initialState)
