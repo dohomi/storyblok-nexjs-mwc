@@ -133,6 +133,8 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
 
   const isFixedTop = toolbarConfig.includes('fixed')
   const isScrollCollapse = toolbarConfig.includes('scroll_collapse')
+  const showLeftShift = appSetup.drawerVariant !== 'temporary' && !appSetup.drawerBelowToolbar && isLeftDrawerOpen
+
   return (
     <>
       <AppBar className={clsx(classes.topAppBar, {
@@ -145,7 +147,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
         'lm-toolbar__scroll-collapse': isScrollCollapse,
         'lm-toolbar__with-system-bar': !!props.SystemBar,
         [classes.topAppBarCustom]: (props.settings.toolbar_color && props.settings.toolbar_color.rgba),
-        [classes.leftShift]: isLeftDrawerOpen
+        [classes.leftShift]: showLeftShift
       })}
               color={mapToolbarColor[toolbarVariant || 'default']}
               position={isFixedTop ? 'fixed' : 'relative'}>

@@ -15,6 +15,7 @@ export type LayoutComponentProps = {
 
 const setAppSetup = (appSetup: State['appSetup']) => {
   const oldState = getGlobalState('appSetup')
+
   if (JSON.stringify(oldState) !== JSON.stringify(appSetup)) {
     setGlobalState('appSetup', appSetup)
   }
@@ -30,7 +31,8 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
 
   setAppSetup({
     ...appSetup,
-    drawerVariant: (isMobile ? 'temporary' : drawerVariant) || 'temporary'
+    drawerVariant: (isMobile ? 'temporary' : drawerVariant) || 'temporary',
+    drawerBelowToolbar: (!isMobile && settings.drawer_below_toolbar)
   })
 
   // console.log('inside layout', isMobile, appSetup)
@@ -40,8 +42,8 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
       <AppHead settings={settings} />
       <Header settings={settings} />
       {children}
-      <MwcDrawer settings={settings}/>
-      <Footer settings={settings}/>
+      <MwcDrawer settings={settings} />
+      <Footer settings={settings} />
       <ExternalScripts />
     </>
   )

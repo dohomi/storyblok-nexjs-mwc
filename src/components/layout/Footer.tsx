@@ -28,9 +28,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const FooterWrap: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
-  console.log('render footer wrap')
+  const [appSetup] = useGlobalState('appSetup')
+
   return (
-    <footer className={clsx(classes.footer, { [classes.leftShift]: isLeftDrawerOpen })}>
+    <footer className={clsx(classes.footer, {
+      [classes.leftShift]: appSetup.drawerVariant !== 'temporary' && isLeftDrawerOpen
+    })}>
       {children}
     </footer>
   )
@@ -40,7 +43,6 @@ const Footer: FunctionComponent<{
   settings: GlobalStoryblok
 }> = ({ settings }) => {
   const content = settings && settings.footer || []
-  console.log('render footer')
 
   return (
     <SbEditable content={settings}>

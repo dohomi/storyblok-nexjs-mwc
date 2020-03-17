@@ -7,7 +7,6 @@ import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 const Header: FunctionComponent<{
   settings: GlobalStoryblok
 }> = ({ settings }) => {
-  console.log('render header')
   if (settings.multi_toolbar && settings.multi_toolbar.length) {
     return <HeaderCustom settings={settings} />
   }

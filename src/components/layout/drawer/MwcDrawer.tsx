@@ -10,16 +10,22 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import ContentSpace from '../ContentSpace'
 
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
   leftDrawer: {
-    width: theme.drawer.left,
-    zIndex: theme.zIndex.drawer + 2 // might need adjustments
+    width: theme.drawer.left
+  },
+  aboveToolbar: { zIndex: theme.zIndex.drawer + 2 },
+  belowToolbar: {
+    zIndex: theme.zIndex.appBar - 1
   }
 }))
 
-const MwcDrawer: FunctionComponent = ({ children }) => {
+const MwcDrawer: FunctionComponent<{
+  settings: GlobalStoryblok
+}> = ({ children, settings }) => {
   const classes = useStyles()
   const router = useRouter()
   const { asPath } = router
@@ -45,9 +51,19 @@ const MwcDrawer: FunctionComponent = ({ children }) => {
 
   return (
     <Drawer open={isOpen}
-            className={clsx('lm-main__drawer', classes.leftDrawer)}
+            className={clsx('lm-main__drawer', classes.leftDrawer, {
+              [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
+              [classes.belowToolbar]: appSetup.drawerBelowToolbar
+            })}
             classes={{
-              paper: classes.leftDrawer
+              paper: clsx(
+                'lm-main__drawer',
+                settings.drawer_class_names && settings.drawer_class_names.values,
+                classes.leftDrawer,
+                {
+                  [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
+                  [classes.belowToolbar]: appSetup.drawerBelowToolbar
+                })
             }}
             onClose={() => setOpen(false)}
             {...drawerProps}>
@@ -64,7 +80,7 @@ const DrawerComponent: FunctionComponent<{
   const websiteLogo = settings.website_logo
   const websiteSlogan = settings.website_slogan
   return (
-    <MwcDrawer>
+    <MwcDrawer settings={settings}>
       {!appSetup.hasDrawer && (<div>
         <Link href="/[...index]" as={homepageLinkHandler()}>
           <a>
@@ -77,6 +93,9 @@ const DrawerComponent: FunctionComponent<{
         </Link>
         {websiteSlogan && <div>{websiteSlogan}</div>}
       </div>)}
+      {appSetup.drawerBelowToolbar && (
+        <ContentSpace />
+      )}
       <DrawerContentList content={settings} />
     </MwcDrawer>
   )

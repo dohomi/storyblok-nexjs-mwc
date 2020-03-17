@@ -417,8 +417,6 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
-  drawer_variant?: "permanent" | "persistent" | "temporary";
-  drawer_body?: any[];
   website_title?: string;
   website_slogan?: string;
   setup_language?: string;
@@ -430,6 +428,9 @@ export interface GlobalStoryblok {
   website_logo_xs?: string;
   website_logo_invert?: string;
   website_logo_invert_xs?: string;
+  drawer_body?: any[];
+  drawer_variant?: "persistent" | "temporary";
+  drawer_below_toolbar?: boolean;
   footer?: any[];
   footer_config?: ("footer-large" | "footer-small")[];
   seo_title?: string;
@@ -464,6 +465,10 @@ export interface GlobalStoryblok {
   };
   toolbar_main_height?: number;
   toolbar_font_size?: string;
+  drawer_class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
   _uid: string;
   component: "global";
   [k: string]: any;

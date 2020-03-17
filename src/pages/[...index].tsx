@@ -20,10 +20,6 @@ const Index: NextPage<AppPageProps> = (props) => {
   StoriesService.setAllStaticContent(props.allStaticContent)
   StoriesService.setLocale(props.locale)
 
-
-  console.log('INSIDE INDEX')
-
-
   if (error) {
     if (error.type === 'not_supported') {
       return null

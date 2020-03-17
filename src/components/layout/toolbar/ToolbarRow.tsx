@@ -18,7 +18,6 @@ const ToolbarRow: FunctionComponent<{ content: ToolbarRowStoryblok, settings: Gl
     if (toolbarConfig.includes('fixed_width')) {
       toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg'
     }
-    console.log('inside system bar')
     return (
       <SbEditable content={content}>
         <div className={clsx('lm-system-bar')}

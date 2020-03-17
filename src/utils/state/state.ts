@@ -13,6 +13,7 @@ export interface State {
     hasFeatureImage?: boolean,
     hasRightDrawer?: boolean,
     drawerVariant?: DrawerProps['variant']
+    drawerBelowToolbar?: boolean
     hasScrollCollapse?: boolean
     toolbarMainHeight?: string | number
   }
@@ -30,6 +31,7 @@ const initialState: State = {
     hasFeatureImage: false,
     hasRightDrawer: false,
     drawerVariant: 'temporary',
+    drawerBelowToolbar: false,
     hasScrollCollapse: false,
     toolbarMainHeight: undefined
   }

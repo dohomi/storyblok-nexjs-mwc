@@ -11,7 +11,7 @@ const MainContenWrap: FunctionComponent = ({ children }) => {
   return <main
     className={clsx(classes.content, {
         [classes.contentWithRight]: appSetup.hasRightDrawer,
-        [classes.leftShift]: isOpen
+        [classes.leftShift]: appSetup.drawerVariant !== 'temporary' && isOpen
       }
     )}>{children}</main>
 }
