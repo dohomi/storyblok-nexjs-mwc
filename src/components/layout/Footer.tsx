@@ -2,25 +2,51 @@ import Components from '@components'
 import SbEditable from 'storyblok-react'
 import * as React from 'react'
 import { FunctionComponent, memo } from 'react'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { useGlobalState } from '../../utils/state/state'
+import clsx from 'clsx'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   footer: {
     position: 'relative',
     zIndex: theme.zIndex.drawer + 1
+  },
+  leftShift: {
+    marginLeft: theme.drawer.left,
+    width: `calc(100% - ${theme.drawer.left})`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    [theme.breakpoints.only('xs')]: {
+      marginLeft: 0
+    }
   }
 }))
 
-const Footer: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings }) => {
-  const content = settings && settings.footer || []
+const FooterWrap: FunctionComponent = ({ children }) => {
   const classes = useStyles()
+  const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
+  console.log('render footer wrap')
+  return (
+    <footer className={clsx(classes.footer, { [classes.leftShift]: isLeftDrawerOpen })}>
+      {children}
+    </footer>
+  )
+}
+
+const Footer: FunctionComponent<{
+  settings: GlobalStoryblok
+}> = ({ settings }) => {
+  const content = settings && settings.footer || []
+  console.log('render footer')
 
   return (
     <SbEditable content={settings}>
-      <footer className={classes.footer}>
+      <FooterWrap>
         {content.map((blok) => Components(blok))}
-      </footer>
+      </FooterWrap>
     </SbEditable>
   )
 }

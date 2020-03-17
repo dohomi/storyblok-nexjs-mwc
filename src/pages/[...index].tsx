@@ -11,7 +11,6 @@ import WindowDimensionsProvider from '../components/provider/WindowDimensionsPro
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { useStoryblok } from '../utils/hooks/useStoryblok'
-import { setAppSetup } from '../utils/state/actions'
 
 const Index: NextPage<AppPageProps> = (props) => {
   const { settings, page, error, pageSeo } = useStoryblok(props)
@@ -20,6 +19,10 @@ const Index: NextPage<AppPageProps> = (props) => {
   StoriesService.setAllCategories(props.allCategories)
   StoriesService.setAllStaticContent(props.allStaticContent)
   StoriesService.setLocale(props.locale)
+
+
+  console.log('INSIDE INDEX')
+
 
   if (error) {
     if (error.type === 'not_supported') {
@@ -36,15 +39,21 @@ const Index: NextPage<AppPageProps> = (props) => {
     return <Error statusCode={404} settings={settings} page={page} />
   }
 
-  setAppSetup({ page, settings })
+  const appSetup = {
+    hasDrawer: !!(Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0),
+    hasFeatureImage: Array.isArray(page.property) && page.property.includes('has_feature'),
+    hasRightDrawer: Array.isArray(page.right_body) && page.right_body.length > 0,
+    hasScrollCollapse: !!(settings.toolbar_config && settings.toolbar_config.includes('scroll_collapse')),
+    toolbarMainHeight: settings.toolbar_main_height
+  }
+
   return (
-    <WindowDimensionsProvider>
+    <WindowDimensionsProvider device={props.device}>
       <GlobalTheme settings={settings}>
         <CssBaseline />
         <AppSeo settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
-        <Layout hasFeature={!!(page.property && page.property.includes('has_feature'))}
+        <Layout appSetup={appSetup}
                 settings={settings}
-                hasRightDrawer={!!(page.right_body && page.right_body.length)}
         >
           {Components(page)}
         </Layout>

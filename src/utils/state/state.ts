@@ -4,25 +4,23 @@ import { DrawerProps } from '@material-ui/core'
 export interface State {
   leftNavigationDrawer: boolean
   rightNavigationDrawer: boolean
-  isScrollTop: boolean
-  isScrollTriggered: boolean
   searchParams: {
     searchText: string | undefined
     categories: string[] | undefined
   }
   appSetup: {
-    hasDrawer: boolean,
-    hasFeatureImage: boolean,
-    hasRightDrawer: boolean,
-    drawerVariant: DrawerProps['variant']
+    hasDrawer?: boolean,
+    hasFeatureImage?: boolean,
+    hasRightDrawer?: boolean,
+    drawerVariant?: DrawerProps['variant']
+    hasScrollCollapse?: boolean
+    toolbarMainHeight?: string | number
   }
 }
 
 const initialState: State = {
   leftNavigationDrawer: false,
   rightNavigationDrawer: false,
-  isScrollTop: true,
-  isScrollTriggered: false,
   searchParams: {
     searchText: undefined,
     categories: undefined
@@ -32,9 +30,11 @@ const initialState: State = {
     hasFeatureImage: false,
     hasRightDrawer: false,
     drawerVariant: 'temporary',
+    hasScrollCollapse: false,
+    toolbarMainHeight: undefined
   }
 }
-const { setGlobalState, useGlobalState } = createGlobalState(initialState)
+const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(initialState)
 
 
-export { useGlobalState, setGlobalState }
+export { useGlobalState, setGlobalState, getGlobalState }

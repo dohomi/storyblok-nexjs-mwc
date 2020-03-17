@@ -4,9 +4,7 @@ import { usePageStyles } from './usePageStyle'
 import clsx from 'clsx'
 import { useGlobalState } from '../../utils/state/state'
 
-const MainContent: FunctionComponent<{
-  body: any[]
-}> = ({ body }) => {
+const MainContenWrap: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
   const [appSetup] = useGlobalState('appSetup')
   const [isOpen] = useGlobalState('leftNavigationDrawer')
@@ -15,7 +13,12 @@ const MainContent: FunctionComponent<{
         [classes.contentWithRight]: appSetup.hasRightDrawer,
         [classes.leftShift]: isOpen
       }
-    )}>{body.map((blok) => Components(blok))}</main>
+    )}>{children}</main>
 }
+
+const MainContent: FunctionComponent<{
+  body: any[]
+}> = ({ body }) => (<MainContenWrap>{body.map((blok) => Components(blok))}</MainContenWrap>)
+
 
 export default MainContent

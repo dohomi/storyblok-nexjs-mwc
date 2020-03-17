@@ -3,11 +3,11 @@ import StoryblokService from '../../utils/StoryblokService'
 import NextHead from 'next/head'
 import * as React from 'react'
 import { FunctionComponent, memo } from 'react'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 import { CONFIG } from '../../utils/StoriesService'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 const trackGA = (url: string) => {
   if (CONFIG.GA && window !== undefined && window['gtag']) {
@@ -24,7 +24,9 @@ Router.events.on('routeChangeComplete', (url) => {
 })
 Router.events.on('routeChangeError', () => NProgress.done())
 
-const AppHead: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings }) => {
+const AppHead: FunctionComponent<{
+  settings: GlobalStoryblok
+}> = ({ settings }) => {
   const favicon = settings.setup_favicon
   const loadFonts: string[] = getFontBasedOnSetting(settings)
   const isProduction = !StoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production'

@@ -10,6 +10,7 @@ const DrawerButton: FunctionComponent<{content: ButtonStoryblok}> = (props) => {
     text: content.label || content.name,
     graphic: content.icon && content.icon.name
   }
+  console.log("inside drawer button")
 
   return (
     <ContentLink content={content} className="lm-drawer__link" passHref={true}>

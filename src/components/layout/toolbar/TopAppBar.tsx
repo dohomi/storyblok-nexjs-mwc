@@ -8,6 +8,7 @@ import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import { useGlobalState } from '../../../utils/state/state'
 import ContentSpace from '../ContentSpace'
+import { useScrollTrigger } from '@material-ui/core'
 
 export type AppHeaderProps = {
   settings: GlobalStoryblok,
@@ -118,9 +119,11 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
   const classes = useStyles(props)
   const { settings } = props
   const toolbarConfig = settings.toolbar_config || []
-  const [isTop] = useGlobalState('isScrollTop')
-  const [collapsed] = useGlobalState('isScrollTriggered')
+  const [appSetup] = useGlobalState('appSetup')
+  const isScrolled = useScrollTrigger({ disableHysteresis: false })
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
+  const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
+
 
   const toolbarVariant = settings.toolbar_variant
   let toolbarWidth: ContainerProps['maxWidth'] = false
@@ -137,8 +140,8 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
         'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
         [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
         'lm-toolbar__transparent': props.hasFeature,
-        'lm-toolbar__scrolled': !isTop,
-        'lm-toolbar__collapsed': collapsed,
+        'lm-toolbar__scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage),
+        'lm-toolbar__collapsed': isScrolled && appSetup.hasScrollCollapse,
         'lm-toolbar__scroll-collapse': isScrollCollapse,
         'lm-toolbar__with-system-bar': !!props.SystemBar,
         [classes.topAppBarCustom]: (props.settings.toolbar_color && props.settings.toolbar_color.rgba),

@@ -32,11 +32,6 @@ class DeviceDetect {
     return this.device
   }
 
-  setAppServices(req?: IncomingMessage) {
-    this.setDevice(req)
-    this.setWebpSupport(req)
-  }
-
   getLanguage() {
     return this.language
   }
@@ -84,6 +79,8 @@ class DeviceDetect {
   }
 
   _supportsWebp() {
+
+
     return new Promise(function(resolve) {
       const image = new Image()
       image.onerror = function() {

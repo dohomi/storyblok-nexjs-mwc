@@ -2,13 +2,16 @@ import * as React from 'react'
 import { FunctionComponent, memo } from 'react'
 import HeaderCustom from './HeaderCustom'
 import HeaderSimple from './HeaderSimple'
-import { AppHeaderProps } from './TopAppBar'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
-const Header: FunctionComponent<AppHeaderProps> = (props) => {
-  if (props.settings.multi_toolbar && props.settings.multi_toolbar.length) {
-    return <HeaderCustom {...props} />
+const Header: FunctionComponent<{
+  settings: GlobalStoryblok
+}> = ({ settings }) => {
+  console.log('render header')
+  if (settings.multi_toolbar && settings.multi_toolbar.length) {
+    return <HeaderCustom settings={settings} />
   }
-  return <HeaderSimple {...props} />
+  return <HeaderSimple settings={settings} />
 }
 
 export default memo(Header)

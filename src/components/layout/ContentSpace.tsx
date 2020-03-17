@@ -3,6 +3,7 @@ import { FunctionComponent } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useGlobalState } from '../../utils/state/state'
+import { useScrollTrigger } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   contentSpace: {
@@ -28,11 +29,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const ContentSpace: FunctionComponent = () => {
   const classes = useStyles()
-  const [isTop] = useGlobalState('isScrollTop')
+  const [appSetup] = useGlobalState('appSetup')
+  const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
 
   return (
     <div className={clsx('lm-content-space', classes.contentSpace, {
-      'lm-scrolled': !isTop
+      'lm-scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
     })} />
   )
 }

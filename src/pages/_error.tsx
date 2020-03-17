@@ -9,6 +9,7 @@ import GlobalTheme from '../components/global-theme/GlobalTheme'
 import StoryblokService from '../utils/StoryblokService'
 import StoriesService, { CONFIG } from '../utils/StoriesService'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { State } from '../utils/state/state'
 
 type ErrorComponentProps = {
   statusCode: number
@@ -94,7 +95,15 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
   if (!(props.settings && props.settings._uid)) {
     return <h3>No settings found</h3>
   }
+  const page: Partial<PageStoryblok> = {}
 
+  const appSetup: Partial<State['appSetup']> = {
+    hasDrawer: !!(Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0),
+    hasFeatureImage: Array.isArray(page.property) && page.property.includes('has_feature'),
+    hasRightDrawer: Array.isArray(page.right_body) && page.right_body.length > 0,
+    hasScrollCollapse: !!(settings.toolbar_config && settings.toolbar_config.includes('scroll_collapse')),
+    toolbarMainHeight: settings.toolbar_main_height
+  }
 
   return (
     <WindowDimensionsProvider>
@@ -103,9 +112,8 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
         <Head>
           <meta key="robots" name="robots" content="noindex" />
         </Head>
-        <Layout settings={settings as GlobalStoryblok || {}}
-                hasFeature={false}
-                hasRightDrawer={false}>
+        <Layout appSetup={appSetup as State['appSetup']}
+                settings={settings}>
           <ErrorContent statusCode={statusCode} />
         </Layout>
       </GlobalTheme>

@@ -19,7 +19,7 @@ storiesOf('Drawer', module)
     () => (
       <>
         <Button onClick={() => toggleLeftNavigation()}>Toggle Drawer</Button>
-        <MwcDrawer content={props} />
+        <MwcDrawer settings={props} />
       </>
     )
   )
@@ -28,7 +28,7 @@ storiesOf('Drawer', module)
     () => (
       <>
         <Button onClick={() => toggleLeftNavigation()}>Toggle Drawer</Button>
-        <MwcDrawer content={custom} />
+        <MwcDrawer settings={custom} />
       </>
     )
   )

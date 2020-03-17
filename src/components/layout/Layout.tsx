@@ -1,35 +1,50 @@
 import Header from './toolbar/Header'
 import Footer from './Footer'
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, memo, ReactNode } from 'react'
 import MwcDrawer from './drawer/MwcDrawer'
-import { AppPageProps } from '../../utils/parsePageProperties'
-import useAppScroll from '../../utils/hooks/useAppScroll'
 import AppHead from './AppHead'
-import useExternalScripts from '../../utils/hooks/useExternalScripts'
+import { getGlobalState, setGlobalState, State } from '../../utils/state/state'
+import ExternalScripts from '../external-scripts/ExternalScripts'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
-export type LayoutComponentProps = Pick<AppPageProps, 'settings'> & {
-  hasFeature: boolean
-  hasRightDrawer: boolean
+export type LayoutComponentProps = {
+  appSetup?: State['appSetup'],
+  settings: GlobalStoryblok
 }
 
+const setAppSetup = (appSetup: State['appSetup']) => {
+  const oldState = getGlobalState('appSetup')
+  if (JSON.stringify(oldState) !== JSON.stringify(appSetup)) {
+    setGlobalState('appSetup', appSetup)
+  }
+}
 
-const Layout: FunctionComponent<LayoutComponentProps> = ({ settings, children, hasFeature, hasRightDrawer }) => {
+const Layout: FunctionComponent<LayoutComponentProps> = ({
+  children,
+  appSetup,
+  settings
+}) => {
+  const { isMobile } = useWindowDimensions()
+  const drawerVariant = settings.drawer_variant
 
-  useAppScroll({ settings, hasFeature })
-  useExternalScripts()
+  setAppSetup({
+    ...appSetup,
+    drawerVariant: (isMobile ? 'temporary' : drawerVariant) || 'temporary'
+  })
 
+  // console.log('inside layout', isMobile, appSetup)
 
   return (
     <>
       <AppHead settings={settings} />
-      <MwcDrawer content={settings} />
-      <Header settings={settings}
-              hasRightDrawer={hasRightDrawer}
-              hasFeature={hasFeature} />
+      <Header settings={settings} />
       {children}
-      <Footer settings={settings} />
+      <MwcDrawer settings={settings}/>
+      <Footer settings={settings}/>
+      <ExternalScripts />
     </>
   )
 }
 
-export default Layout
+export default memo<LayoutComponentProps & { children: ReactNode }>(Layout)

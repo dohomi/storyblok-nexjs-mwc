@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import DeviceDetectService from '../../utils/DeviceDetectService'
+import React, { createContext, FunctionComponent, useContext, useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
+import { AppDevice } from '../../utils/deviceDetect'
 
 export type WithWindowDimensionsProps = {
   width: number
@@ -8,8 +8,6 @@ export type WithWindowDimensionsProps = {
   isMobile: boolean
   isTablet: boolean
   isDesktop: boolean
-  isMobileWidth: boolean
-  isTabletWidth: boolean
 }
 
 let defaultValue: WithWindowDimensionsProps = {
@@ -18,27 +16,26 @@ let defaultValue: WithWindowDimensionsProps = {
   isMobile: true,
   isTablet: false,
   isDesktop: false,
-  isMobileWidth: true,
-  isTabletWidth: false
 }
 
 export const WindowDimensionsCtx = createContext(defaultValue)
 
-const WindowDimensionsProvider = ({ children }: { children: any }) => {
-  const currentDevice = DeviceDetectService.getDevice()
-
+const WindowDimensionsProvider: FunctionComponent<{
+  device?: AppDevice
+}> = ({ device = {}, children }) => {
   let defaultValue: WithWindowDimensionsProps = {
     height: 500,
-    width: currentDevice.width,
-    isMobile: currentDevice.device === 'mobile',
-    isTablet: currentDevice.device === 'tablet',
-    isDesktop: !currentDevice.device,
-    isMobileWidth: currentDevice.device === 'mobile',
-    isTabletWidth: currentDevice.device === 'tablet'
+    width: 599,
+    isMobile: true,
+    isTablet: false,
+    isDesktop: false,
+    ...device
   }
+
   if (typeof window !== 'undefined') {
     defaultValue = getWindowDimensions()
   }
+
 
   const [dimensions, setDimensions] = useState(defaultValue)
   const [debouncedCallback] = useDebouncedCallback(
@@ -67,7 +64,6 @@ const WindowDimensionsProvider = ({ children }: { children: any }) => {
       ...defaultValue,
       height: window.innerHeight,
       width: window.innerWidth,
-      isMobileWidth: window.innerWidth < 600,
       isTabletWidth: window.innerWidth >= 600 && window.innerWidth < 960
     }
     return opts

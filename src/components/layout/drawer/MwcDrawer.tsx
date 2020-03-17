@@ -3,32 +3,30 @@ import DrawerContentList from './DrawerContentList'
 import Link from 'next/link'
 import imageService from '../../../utils/ImageService'
 import { useGlobalState } from '../../../utils/state/state'
-import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
 import { homepageLinkHandler } from '../../../utils/linkHandler'
 import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { useRouter } from 'next/router'
-import { closeNavigationDrawers } from '../../../utils/state/actions'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
   leftDrawer: {
-    width: theme.drawer.left
+    width: theme.drawer.left,
+    zIndex: theme.zIndex.drawer + 2 // might need adjustments
   }
 }))
 
-const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content }) => {
+const MwcDrawer: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   const router = useRouter()
   const { asPath } = router
   const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
-  const [appSetup, setAppSetup] = useGlobalState('appSetup')
+  const [appSetup] = useGlobalState('appSetup')
   const { isMobile } = useWindowDimensions()
-  const websiteTitle = content.website_title
-  const websiteLogo = content.website_logo
-  const websiteSlogan = content.website_slogan
+
   const drawerProps: DrawerProps = {
     variant: appSetup.drawerVariant
   }
@@ -39,24 +37,10 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
     () => {
       if (appSetup.drawerVariant === 'temporary') {
         // todo make this customizable?
-        closeNavigationDrawers() // todo needs testing might need a pure close drawer action
+        setOpen(false) // todo needs testing might need a pure close drawer action
       }
     },
-    [asPath, appSetup]
-  )
-
-  useEffect(
-    () => {
-      if (!isMobile) {
-        setOpen(true) // todo make this customizable?
-      } else {
-        setAppSetup({
-          ...appSetup,
-          drawerVariant: 'temporary' // make sure mobile only has temporary
-        })
-      }
-    },
-    [setOpen, isMobile, appSetup, setAppSetup]
+    [asPath, appSetup, setOpen]
   )
 
   return (
@@ -67,6 +51,20 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
             }}
             onClose={() => setOpen(false)}
             {...drawerProps}>
+      {children}
+    </Drawer>
+  )
+}
+
+const DrawerComponent: FunctionComponent<{
+  settings: GlobalStoryblok
+}> = ({ settings }) => {
+  const [appSetup] = useGlobalState('appSetup')
+  const websiteTitle = settings.website_title
+  const websiteLogo = settings.website_logo
+  const websiteSlogan = settings.website_slogan
+  return (
+    <MwcDrawer>
       {!appSetup.hasDrawer && (<div>
         <Link href="/[...index]" as={homepageLinkHandler()}>
           <a>
@@ -79,9 +77,9 @@ const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content })
         </Link>
         {websiteSlogan && <div>{websiteSlogan}</div>}
       </div>)}
-      <DrawerContentList content={content} />
-    </Drawer>
+      <DrawerContentList content={settings} />
+    </MwcDrawer>
   )
 }
 
-export default memo(MwcDrawer)
+export default memo(DrawerComponent)

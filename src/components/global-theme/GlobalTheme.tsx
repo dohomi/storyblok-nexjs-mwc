@@ -2,12 +2,12 @@ import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import * as React from 'react'
 import { FunctionComponent, useMemo } from 'react'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import parseFont from '../../utils/parseFont'
 // @ts-ignore
 import mediaQuery from 'css-mediaquery'
 import DeviceDetectService from '../../utils/DeviceDetectService'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 // import Fonts from '@fonts'
 
 
@@ -72,7 +72,9 @@ const GlobalStyles = () => {
   return null
 }
 
-const GlobalTheme: FunctionComponent<{ settings: Partial<GlobalStoryblok> }> = ({ children, settings }) => {
+const GlobalTheme: FunctionComponent<{
+  settings: GlobalStoryblok
+}> = ({ children, settings }) => {
   const ssrMatchMedia = (query: string) => ({
     matches: mediaQuery.match(query, {
       // The estimated CSS width of the browser.
