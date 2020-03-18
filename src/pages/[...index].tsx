@@ -12,6 +12,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { useStoryblok } from '../utils/hooks/useStoryblok'
 import { getGlobalState, setGlobalState } from '../utils/state/state'
 import AppProvider from '../components/provider/AppProvider'
+import AppSetupProvider from '../components/provider/AppSetupProvider'
 
 
 const Index: NextPage<AppPageProps> = (props) => {
@@ -19,6 +20,9 @@ const Index: NextPage<AppPageProps> = (props) => {
 
   if (props.locale && getGlobalState('locale') !== props.locale) {
     setGlobalState('locale', props.locale)
+  }
+  if (props.hasWebpSupport !== getGlobalState('hasWebpSupport')) {
+    setGlobalState('hasWebpSupport', props.hasWebpSupport)
   }
 
   if (error) {
@@ -36,13 +40,6 @@ const Index: NextPage<AppPageProps> = (props) => {
     return <Error statusCode={404} settings={settings} page={page} />
   }
 
-  const appSetup = {
-    hasDrawer: !!(Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0),
-    hasFeatureImage: Array.isArray(page.property) && page.property.includes('has_feature'),
-    hasRightDrawer: Array.isArray(page.right_body) && page.right_body.length > 0,
-    hasScrollCollapse: !!(settings.toolbar_config && settings.toolbar_config.includes('scroll_collapse')),
-    toolbarMainHeight: settings.toolbar_main_height
-  }
 
   return (
     <AppProvider content={{
@@ -51,15 +48,15 @@ const Index: NextPage<AppPageProps> = (props) => {
       allStories: props.allStories
     }}>
       <WindowDimensionsProvider device={props.device}>
-        <GlobalTheme settings={settings}>
-          <CssBaseline />
-          <AppSeo settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
-          <Layout appSetup={appSetup}
-                  settings={settings}
-          >
-            {Components(page)}
-          </Layout>
-        </GlobalTheme>
+        <AppSetupProvider settings={settings} page={page}>
+          <GlobalTheme settings={settings} device={props.device}>
+            <CssBaseline />
+            <AppSeo settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
+            <Layout settings={settings}>
+              {Components(page)}
+            </Layout>
+          </GlobalTheme>
+        </AppSetupProvider>
       </WindowDimensionsProvider>
     </AppProvider>
   )

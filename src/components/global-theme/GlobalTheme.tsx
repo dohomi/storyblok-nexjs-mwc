@@ -5,9 +5,10 @@ import { FunctionComponent, useMemo } from 'react'
 import parseFont from '../../utils/parseFont'
 // @ts-ignore
 import mediaQuery from 'css-mediaquery'
-import DeviceDetectService from '../../utils/DeviceDetectService'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { AppPageProps } from '../../utils/parsePageProperties'
+import { useRouter } from 'next/router'
 // import Fonts from '@fonts'
 
 
@@ -74,11 +75,14 @@ const GlobalStyles = () => {
 
 const GlobalTheme: FunctionComponent<{
   settings: GlobalStoryblok
-}> = ({ children, settings }) => {
+  device?: AppPageProps['device']
+}> = ({ children, settings, device }) => {
+  const router = useRouter()
+  const storyblokBackend = router?.query?._storyblok
   const ssrMatchMedia = (query: string) => ({
     matches: mediaQuery.match(query, {
       // The estimated CSS width of the browser.
-      width: DeviceDetectService.getDevice().width
+      width: device?.width || 599
     })
   })
 
@@ -220,7 +224,7 @@ const GlobalTheme: FunctionComponent<{
 
       return responsiveFontSizes(createMuiTheme(globalTheme))
     },
-    [themeUid]
+    [themeUid, storyblokBackend]
   )
 
 

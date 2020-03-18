@@ -11,11 +11,11 @@ import {
   NavMenuStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
-import { useGlobalState } from '../../../utils/state/state'
 import ImageElement from '../../image/ImageElement'
 import Headline from '../../headline/Headline'
 import DateHeadline from '../../headline/DateHeadline'
 import Divider from '../../divider/Divider'
+import { useAppSetup } from '../../provider/AppSetupProvider'
 
 type DrawerContentComponents = {
   button: FunctionComponent<{ content: ButtonStoryblok }>
@@ -47,7 +47,7 @@ const Child = (blok: any) => {
 }
 
 const DrawerContentList: FunctionComponent<{ content: Partial<GlobalStoryblok> }> = ({ content }) => {
-  const [appSetup] = useGlobalState('appSetup')
+  const appSetup = useAppSetup()
   let childs = (appSetup.hasDrawer ? content.drawer_body : content.toolbar) || []
 
   if (!appSetup.hasDrawer && content.multi_toolbar && content.multi_toolbar.length) {

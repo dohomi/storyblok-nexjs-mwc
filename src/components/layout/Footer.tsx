@@ -6,6 +6,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 import { useGlobalState } from '../../utils/state/state'
 import clsx from 'clsx'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { useAppSetup } from '../provider/AppSetupProvider'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   footer: {
@@ -28,8 +29,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const FooterWrap: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
-  const [appSetup] = useGlobalState('appSetup')
-
+  const appSetup = useAppSetup()
   return (
     <footer className={clsx(classes.footer, {
       [classes.leftShift]: appSetup.drawerVariant !== 'temporary' && isLeftDrawerOpen
@@ -43,7 +43,7 @@ const Footer: FunctionComponent<{
   settings: GlobalStoryblok
 }> = ({ settings }) => {
   const content = settings && settings.footer || []
-
+  console.log('footer')
   return (
     <SbEditable content={settings}>
       <FooterWrap>

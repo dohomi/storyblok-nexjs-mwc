@@ -12,7 +12,8 @@ import Checkbox from '@material-ui/core/Checkbox'
 import { useAppContext } from '../provider/AppProvider'
 
 const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ content }) => {
-  const { query } = useRouter()
+  const router = useRouter()
+  const query = router?.query
   let initialValues: string[] = []
   if (query.search__categories) {
     initialValues = Array.isArray(query.search__categories) ? query.search__categories : [query.search__categories]

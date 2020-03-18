@@ -1,4 +1,4 @@
-import { setGlobalState, State } from './state'
+import { setGlobalState } from './state'
 
 export const toggleLeftNavigation = () => {
   setGlobalState('leftNavigationDrawer', value => !value)
@@ -12,9 +12,9 @@ export const closeNavigationDrawers = () => {
   setGlobalState('rightNavigationDrawer', false)
 }
 
-export const setAppSetup = (options: State['appSetup']) => {
-  setGlobalState('appSetup', options)
-}
+// export const setAppSetup = (options: State['appSetup']) => {
+//   setGlobalState('appSetup', options)
+// }
 
 const addSearchParamsToUrl = ({ categories, searchText }: { categories?: string[], searchText?: string }) => {
   const currentUrl = new URL(window.location.href)

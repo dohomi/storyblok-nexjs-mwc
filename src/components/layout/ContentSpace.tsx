@@ -2,8 +2,8 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useGlobalState } from '../../utils/state/state'
 import { useScrollTrigger } from '@material-ui/core'
+import { useAppSetup } from '../provider/AppSetupProvider'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   contentSpace: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const ContentSpace: FunctionComponent = () => {
   const classes = useStyles()
-  const [appSetup] = useGlobalState('appSetup')
+  const appSetup = useAppSetup()
   const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
 
   return (

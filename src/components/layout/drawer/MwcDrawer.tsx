@@ -6,6 +6,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { BackgroundBoxProps } from '../../section/BackgroundBox'
+import { useAppSetup } from '../../provider/AppSetupProvider'
 
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -25,7 +26,7 @@ const MwcDrawer: FunctionComponent<{
   const router = useRouter()
   const asPath = router?.asPath
   const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
-  const [appSetup] = useGlobalState('appSetup')
+  const appSetup = useAppSetup()
   const { isMobile } = useWindowDimensions()
 
   const drawerProps: DrawerProps = {

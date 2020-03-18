@@ -139,9 +139,7 @@ storiesOf('Layout', module)
             multi_toolbar: customSettingsSystemBar.multi_toolbar,
             footer: customSettingsSystemBar.footer
 
-          }}
-                  hasFeature={false}
-                  hasRightDrawer={true}>
+          }}>
             <Page content={getPropsDrawer()} />
           </Layout>
         </>

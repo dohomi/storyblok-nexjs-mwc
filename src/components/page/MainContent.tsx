@@ -3,10 +3,11 @@ import React, { FunctionComponent } from 'react'
 import { usePageStyles } from './usePageStyle'
 import clsx from 'clsx'
 import { useGlobalState } from '../../utils/state/state'
+import { useAppSetup } from '../provider/AppSetupProvider'
 
 const MainContenWrap: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
-  const [appSetup] = useGlobalState('appSetup')
+  const appSetup = useAppSetup()
   const [isOpen] = useGlobalState('leftNavigationDrawer')
   return <main
     className={clsx(classes.content, {

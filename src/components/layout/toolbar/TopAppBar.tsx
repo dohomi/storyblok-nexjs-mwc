@@ -9,6 +9,7 @@ import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import { useGlobalState } from '../../../utils/state/state'
 import ContentSpace from '../ContentSpace'
 import { useScrollTrigger } from '@material-ui/core'
+import { useAppSetup } from '../../provider/AppSetupProvider'
 
 export type AppHeaderProps = {
   settings: GlobalStoryblok,
@@ -119,12 +120,10 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
   const classes = useStyles(props)
   const { settings } = props
   const toolbarConfig = settings.toolbar_config || []
-  const [appSetup] = useGlobalState('appSetup')
+  const appSetup = useAppSetup()
   const isScrolled = useScrollTrigger({ disableHysteresis: false })
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
   const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
-
-
   const toolbarVariant = settings.toolbar_variant
   let toolbarWidth: ContainerProps['maxWidth'] = false
   if (toolbarConfig.includes('fixed_width')) {
@@ -135,6 +134,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
   const isScrollCollapse = toolbarConfig.includes('scroll_collapse')
   const showLeftShift = appSetup.drawerVariant !== 'temporary' && !appSetup.drawerBelowToolbar && isLeftDrawerOpen
 
+  console.log('top app bar')
   return (
     <>
       <AppBar className={clsx(classes.topAppBar, {

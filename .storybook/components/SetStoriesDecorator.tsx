@@ -1,31 +1,24 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import StoryblokService from '../../src/utils/StoryblokService'
-// import StoriesService from '../../src/utils/StoriesService'
 import AppProvider, { AppContextProps } from '../../src/components/provider/AppProvider'
+import { createGlobalState } from 'react-hooks-global-state'
 
-export class StoriesService {
-
-  private tags: any[]
-
-  constructor() {
-    this.tags = []
-  }
-
-  getAllTags() {
-    return this.tags
-  }
-
-  setAllTags(tagList: any[]) {
-    this.tags = tagList
-  }
+interface StorybookState {
+  allTags: { value: string, label: string }[]
 }
+
+const storybookDefault: StorybookState = {
+  allTags: []
+}
+export const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(storybookDefault)
 
 
 const SetStoriesDecorator = (storyFunc: Function) => {
   const [loaded, setLoaded] = useState<boolean>(false)
   // StoryblokService.setToken('Xzl0aUdUwWqtCsD37fHMmQtt')
   const [values, setValues] = useState<AppContextProps>()
+  const [, setAllTags] = useGlobalState('allTags')
   useEffect(
     () => {
       const fetch = async () => {
@@ -58,7 +51,7 @@ const SetStoriesDecorator = (storyFunc: Function) => {
           value: item.name,
           label: `${item.name} (${item.taggings_count})`
         }))) || []
-        StoriesService.setAllTags(tagList)
+        setAllTags(tagList)
         setLoaded(true)
         setValues({
           allStories: stories,
@@ -69,7 +62,7 @@ const SetStoriesDecorator = (storyFunc: Function) => {
 
       fetch()
     },
-    []
+    [setAllTags]
   )
   if (loaded && values) {
     return (

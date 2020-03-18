@@ -2,40 +2,38 @@ import Header from './toolbar/Header'
 import Footer from './Footer'
 import React, { FunctionComponent, memo, ReactNode } from 'react'
 import AppHead from './AppHead'
-import { getGlobalState, setGlobalState, State } from '../../utils/state/state'
 import ExternalScripts from '../external-scripts/ExternalScripts'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
 
 export type LayoutComponentProps = {
-  appSetup?: State['appSetup'],
+  // appSetup?: State['appSetup'],
   settings: GlobalStoryblok
 }
 
-const setAppSetup = (appSetup: State['appSetup']) => {
-  const oldState = getGlobalState('appSetup')
-
-  if (JSON.stringify(oldState) !== JSON.stringify(appSetup)) {
-    setGlobalState('appSetup', appSetup)
-  }
-}
+// const setAppSetup = (appSetup: State['appSetup']) => {
+//   const oldState = getGlobalState('appSetup')
+//
+//   if (JSON.stringify(oldState) !== JSON.stringify(appSetup)) {
+//     setGlobalState('appSetup', appSetup)
+//   }
+// }
 
 const Layout: FunctionComponent<LayoutComponentProps> = ({
   children,
-  appSetup,
+  // appSetup,
   settings
 }) => {
-  const { isMobile } = useWindowDimensions()
-  const drawerVariant = settings.drawer_variant
+  // const { isMobile } = useWindowDimensions()
+  // const drawerVariant = settings.drawer_variant
+  //
+  // setAppSetup({
+  //   ...appSetup,
+  //   drawerVariant: (isMobile ? 'temporary' : drawerVariant) || 'temporary',
+  //   drawerBelowToolbar: (!isMobile && settings.drawer_below_toolbar)
+  // })
 
-  setAppSetup({
-    ...appSetup,
-    drawerVariant: (isMobile ? 'temporary' : drawerVariant) || 'temporary',
-    drawerBelowToolbar: (!isMobile && settings.drawer_below_toolbar)
-  })
-
-  // console.log('inside layout', isMobile, appSetup)
+  console.log('inside layout')
 
   return (
     <>

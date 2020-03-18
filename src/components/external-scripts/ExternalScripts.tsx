@@ -4,8 +4,8 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useRouter } from 'next/router'
 
 const ExternalScripts: FunctionComponent = () => {
-  const { query } = useRouter()
-  const insideStoryblok = !!query._storyblok
+  const router = useRouter()
+  const insideStoryblok = !!router?.query?._storyblok
   const tawkToId = CONFIG.TAWKTO
 
   const scrolled = useScrollTrigger({ disableHysteresis: true })

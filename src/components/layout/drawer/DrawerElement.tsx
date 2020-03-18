@@ -1,6 +1,5 @@
 import React, { FunctionComponent, memo } from 'react'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
-import { useGlobalState } from '../../../utils/state/state'
 import BackgroundBox, { BackgroundBoxProps } from '../../section/BackgroundBox'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
@@ -10,15 +9,17 @@ import imageService from '../../../utils/ImageService'
 import ContentSpace from '../ContentSpace'
 import DrawerContentList from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
+import { useAppSetup } from '../../provider/AppSetupProvider'
 
 const DrawerElement: FunctionComponent<{
   settings: GlobalStoryblok
 }> = ({ settings }) => {
-  const [appSetup] = useGlobalState('appSetup')
+  const appSetup = useAppSetup()
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo
   const websiteSlogan = settings.website_slogan
   const background = Array.isArray(settings.drawer_background) && settings.drawer_background[0]
+  console.log('drawer element')
   return (
     <BackgroundBox background={background}>
       {(backgroundProps: BackgroundBoxProps) => (
