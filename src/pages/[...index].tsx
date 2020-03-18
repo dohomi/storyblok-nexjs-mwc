@@ -5,20 +5,21 @@ import Error from '../pages/_error'
 import { NextPage } from 'next'
 import getInitialPageProps from '@initialData/getInitialPageProps'
 import { AppPageProps, PageSeoProps } from '../utils/parsePageProperties'
-import StoriesService from '../utils/StoriesService'
 import AppSeo from '../components/layout/AppSeo'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { useStoryblok } from '../utils/hooks/useStoryblok'
+import { getGlobalState, setGlobalState } from '../utils/state/state'
+import AppProvider from '../components/provider/AppProvider'
+
 
 const Index: NextPage<AppPageProps> = (props) => {
   const { settings, page, error, pageSeo } = useStoryblok(props)
 
-  StoriesService.setAllStories(props.allStories)
-  StoriesService.setAllCategories(props.allCategories)
-  StoriesService.setAllStaticContent(props.allStaticContent)
-  StoriesService.setLocale(props.locale)
+  if (props.locale && getGlobalState('locale') !== props.locale) {
+    setGlobalState('locale', props.locale)
+  }
 
   if (error) {
     if (error.type === 'not_supported') {
@@ -44,17 +45,23 @@ const Index: NextPage<AppPageProps> = (props) => {
   }
 
   return (
-    <WindowDimensionsProvider device={props.device}>
-      <GlobalTheme settings={settings}>
-        <CssBaseline />
-        <AppSeo settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
-        <Layout appSetup={appSetup}
-                settings={settings}
-        >
-          {Components(page)}
-        </Layout>
-      </GlobalTheme>
-    </WindowDimensionsProvider>
+    <AppProvider content={{
+      allCategories: props.allCategories,
+      allStaticContent: props.allStaticContent,
+      allStories: props.allStories
+    }}>
+      <WindowDimensionsProvider device={props.device}>
+        <GlobalTheme settings={settings}>
+          <CssBaseline />
+          <AppSeo settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
+          <Layout appSetup={appSetup}
+                  settings={settings}
+          >
+            {Components(page)}
+          </Layout>
+        </GlobalTheme>
+      </WindowDimensionsProvider>
+    </AppProvider>
   )
 }
 

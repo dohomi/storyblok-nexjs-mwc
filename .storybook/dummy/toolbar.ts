@@ -14,6 +14,9 @@ const menuItem: NavMenuStoryblok = {
   component: 'nav_menu',
   border_radius: '0px',
   title: 'Menu',
+  start_icon:{
+    name: 'home'
+  },
   body: [{
     _uid: '3243',
     component: 'nav_menu_item',
@@ -39,6 +42,9 @@ const toolbarItems = [{
 }, {
   _uid: '12321',
   component: 'button',
+  icon: {
+    name: 'home'
+  },
   label: 'Another Button'
 }, menuItem] as (ListSearchAutocompleteStoryblok | ButtonStoryblok | NavMenuStoryblok)[]
 

@@ -7,6 +7,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Collapse from '@material-ui/core/Collapse'
 import { ChevronDown, ChevronUp } from 'mdi-material-ui'
+import { ListItemIcon } from '@material-ui/core'
+import LmIcon from '../../icon/LmIcon'
 
 type CollapsibleComponents = {
   button: FunctionComponent<{ content: ButtonStoryblok }>
@@ -61,6 +63,14 @@ const CollapsibleListSection: FunctionComponent<{ content: NavMenuStoryblok }> =
   return (
     <>
       <ListItem button onClick={handleClick}>
+        {content.start_icon && content.start_icon.name && (
+          <ListItemIcon>
+            <LmIcon iconName={content.start_icon.name} style={{
+              width: '1.5rem',
+              height: '1.5rem'
+            }}></LmIcon>
+          </ListItemIcon>
+        )}
         <ListItemText primary={content.title} />
         {open ? <ChevronUp /> : <ChevronDown />}
       </ListItem>

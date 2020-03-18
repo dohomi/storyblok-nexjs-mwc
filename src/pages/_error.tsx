@@ -7,9 +7,9 @@ import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import StoryblokService from '../utils/StoryblokService'
-import StoriesService, { CONFIG } from '../utils/StoriesService'
+import { CONFIG } from '../utils/StoriesService'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { State } from '../utils/state/state'
+import { State, useGlobalState } from '../utils/state/state'
 
 type ErrorComponentProps = {
   statusCode: number
@@ -32,13 +32,13 @@ const getErrorPath = ({ locale, statusCode }: { locale?: string, statusCode: num
 }
 
 const ErrorContent: FunctionComponent<{ statusCode: number }> = ({ statusCode }) => {
-
   const title = (statusCodes as any)[statusCode] || 'An unexpected error has occurred'
+  const [locale] = useGlobalState('locale')
   const [errorContent, setErrorContent] = useState<{ title: string, body: any[] } | null | undefined>(undefined)
   useEffect(
     () => {
       const fetchErrorContent = async () => {
-        return await StoryblokService.get(getErrorPath({ statusCode, locale: StoriesService.locale }))
+        return await StoryblokService.get(getErrorPath({ statusCode, locale }))
       }
 
       fetchErrorContent()

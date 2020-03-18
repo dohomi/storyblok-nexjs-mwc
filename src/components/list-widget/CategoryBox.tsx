@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { ChangeEvent, CSSProperties, FunctionComponent, useState } from 'react'
 import { CategoryBoxStoryblok, CategoryStoryblok } from '../../typings/generated/components-schema'
-import StoriesService from '../../utils/StoriesService'
 // import { Checkbox } from '@rmwc/checkbox'
 import { CategoryItem } from '../../typings/generated/schema'
 import SbEditable from 'storyblok-react'
@@ -10,6 +9,7 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import { useAppContext } from '../provider/AppProvider'
 
 const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ content }) => {
   const { query } = useRouter()
@@ -18,8 +18,9 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
     initialValues = Array.isArray(query.search__categories) ? query.search__categories : [query.search__categories]
   }
   const [selected, setSelected] = useState<string[]>(initialValues)
-  let categories: CategoryItem[] = StoriesService.getAllCategories() || []
 
+  const { allCategories } = useAppContext()
+  let categories = allCategories
   const filterByTags = (content.filter_by_tags && content.filter_by_tags.values) || []
   const filterByCategories = content.filter_categories || []
   if (filterByTags || filterByCategories.length) {

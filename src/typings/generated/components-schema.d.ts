@@ -758,6 +758,10 @@ export interface NavListStoryblok {
 export interface NavMenuStoryblok {
   alignment?: "bottomStart" | "bottomEnd";
   border_radius?: string;
+  start_icon?: {
+    name?: string;
+    [k: string]: any;
+  };
   icon?: {
     name?: string;
     [k: string]: any;

@@ -1,8 +1,9 @@
 import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
 import React from 'react'
-import StoriesService, { CONFIG } from '../utils/StoriesService'
+import { CONFIG } from '../utils/StoriesService'
 import { ServerStyleSheets } from '@material-ui/core/styles'
+import { getGlobalState } from '../utils/state/state'
 
 
 class MyDocument extends Document {
@@ -35,11 +36,13 @@ class MyDocument extends Document {
   }
 
   render() {
+    const locale = getGlobalState('locale')
+
     // @ts-ignore
     const { isProduction } = this.props
 
     return (
-      <html lang={StoriesService.locale ? StoriesService.locale : CONFIG.defaultLocale}>
+      <html lang={locale}>
       <Head />
       <body className="lm-body__root">
       <Main />

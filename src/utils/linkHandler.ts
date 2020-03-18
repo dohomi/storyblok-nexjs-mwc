@@ -1,5 +1,6 @@
-import StoriesService, { CONFIG } from './StoriesService'
+import { CONFIG } from './StoriesService'
 import { LinkProps } from 'next/link'
+import { getGlobalState } from './state/state'
 
 export type LinkPropsType = {
   to?: string
@@ -23,7 +24,8 @@ export const homepageLinkHandler = () => {
   if (CONFIG.rootDirectory) {
     return '/home'
   }
-  return StoriesService.locale && StoriesService.locale !== CONFIG.defaultLocale ? `/${StoriesService.locale}/home` : '/home'
+  const appLocale = getGlobalState('locale')
+  return appLocale && appLocale !== CONFIG.defaultLocale ? `/${appLocale}/home` : '/home'
 }
 
 export const internalLinkHandler = (url: string) => {

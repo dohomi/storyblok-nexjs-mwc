@@ -70,10 +70,13 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
   const ExpandIcon = (content.icon && content.icon.name) ? <LmIcon iconName={content.icon.name} /> : <ChevronDown />
   const CloseIcon = (content.icon_collapse && content.icon_collapse.name) ?
     <LmIcon iconName={content.icon_collapse.name} /> : <ChevronUp />
+  // const StartIcon = content.start_icon?.name ? <LmIcon iconName={content.start_icon.name} /> : null
+
   return (
     <SbEditable content={content}>
       <>
         <Button endIcon={Boolean(anchorEl) ? CloseIcon : ExpandIcon}
+                startIcon={content.start_icon?.name && <LmIcon iconName={content.start_icon.name} />}
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 className="lm-default-color"

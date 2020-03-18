@@ -1,5 +1,6 @@
 import { createGlobalState } from 'react-hooks-global-state'
 import { DrawerProps } from '@material-ui/core'
+import { CONFIG } from '../StoriesService'
 
 export interface State {
   leftNavigationDrawer: boolean
@@ -16,7 +17,8 @@ export interface State {
     drawerBelowToolbar?: boolean
     hasScrollCollapse?: boolean
     toolbarMainHeight?: string | number
-  }
+  },
+  locale: string
 }
 
 const initialState: State = {
@@ -34,7 +36,8 @@ const initialState: State = {
     drawerBelowToolbar: false,
     hasScrollCollapse: false,
     toolbarMainHeight: undefined
-  }
+  },
+  locale: CONFIG.defaultLocale
 }
 const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(initialState)
 
