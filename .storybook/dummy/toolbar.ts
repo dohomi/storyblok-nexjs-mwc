@@ -88,6 +88,12 @@ export const customSettings: GlobalStoryblok = {
   footer: [darkSectionWithColumns]
 }
 
+export const customSettingsWithDrawer: GlobalStoryblok = {
+  ...customSettings,
+  drawer_body: toolbarItems,
+  drawer_class_names:{values: ['bg-primary']}
+}
+
 export const customSettingsSystemBar: GlobalStoryblok = {
   ...simpleSettings,
   multi_toolbar: multiToolbarWithSystemBar,

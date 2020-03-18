@@ -1,16 +1,11 @@
-import React, { FunctionComponent, memo, useEffect } from 'react'
-import DrawerContentList from './DrawerContentList'
-import Link from 'next/link'
-import imageService from '../../../utils/ImageService'
+import React, { FunctionComponent, useEffect } from 'react'
 import { useGlobalState } from '../../../utils/state/state'
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
-import { homepageLinkHandler } from '../../../utils/linkHandler'
 import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { GlobalStoryblok } from '../../../typings/generated/components-schema'
-import ContentSpace from '../ContentSpace'
+import { BackgroundBoxProps } from '../../section/BackgroundBox'
 
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -24,11 +19,11 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
 }))
 
 const MwcDrawer: FunctionComponent<{
-  settings: GlobalStoryblok
-}> = ({ children, settings }) => {
+  backgroundProps?: BackgroundBoxProps
+}> = ({ children, backgroundProps }) => {
   const classes = useStyles()
   const router = useRouter()
-  const { asPath } = router
+  const asPath = router?.asPath
   const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
   const [appSetup] = useGlobalState('appSetup')
   const { isMobile } = useWindowDimensions()
@@ -49,6 +44,7 @@ const MwcDrawer: FunctionComponent<{
     [asPath, appSetup, setOpen]
   )
 
+  const classList = backgroundProps?.className
   return (
     <Drawer open={isOpen}
             className={clsx('lm-main__drawer', classes.leftDrawer, {
@@ -58,12 +54,15 @@ const MwcDrawer: FunctionComponent<{
             classes={{
               paper: clsx(
                 'lm-main__drawer',
-                settings.drawer_class_names && settings.drawer_class_names.values,
+                classList,
                 classes.leftDrawer,
                 {
                   [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
                   [classes.belowToolbar]: appSetup.drawerBelowToolbar
                 })
+            }}
+            PaperProps={{
+              style: backgroundProps?.style ? backgroundProps.style : undefined
             }}
             onClose={() => setOpen(false)}
             {...drawerProps}>
@@ -72,33 +71,4 @@ const MwcDrawer: FunctionComponent<{
   )
 }
 
-const DrawerComponent: FunctionComponent<{
-  settings: GlobalStoryblok
-}> = ({ settings }) => {
-  const [appSetup] = useGlobalState('appSetup')
-  const websiteTitle = settings.website_title
-  const websiteLogo = settings.website_logo
-  const websiteSlogan = settings.website_slogan
-  return (
-    <MwcDrawer settings={settings}>
-      {!appSetup.hasDrawer && (<div>
-        <Link href="/[...index]" as={homepageLinkHandler()}>
-          <a>
-            <div className="p-3">
-              {!websiteLogo && websiteTitle}
-              {websiteLogo &&
-              <img src={imageService(websiteLogo, '0x128')} height="48" alt={websiteTitle || 'website logo'} />}
-            </div>
-          </a>
-        </Link>
-        {websiteSlogan && <div>{websiteSlogan}</div>}
-      </div>)}
-      {appSetup.drawerBelowToolbar && (
-        <ContentSpace />
-      )}
-      <DrawerContentList content={settings} />
-    </MwcDrawer>
-  )
-}
-
-export default memo(DrawerComponent)
+export default MwcDrawer

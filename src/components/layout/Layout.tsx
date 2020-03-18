@@ -1,12 +1,12 @@
 import Header from './toolbar/Header'
 import Footer from './Footer'
 import React, { FunctionComponent, memo, ReactNode } from 'react'
-import MwcDrawer from './drawer/MwcDrawer'
 import AppHead from './AppHead'
 import { getGlobalState, setGlobalState, State } from '../../utils/state/state'
 import ExternalScripts from '../external-scripts/ExternalScripts'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import DrawerElement from './drawer/DrawerElement'
 
 export type LayoutComponentProps = {
   appSetup?: State['appSetup'],
@@ -42,7 +42,7 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
       <AppHead settings={settings} />
       <Header settings={settings} />
       {children}
-      <MwcDrawer settings={settings} />
+      <DrawerElement settings={settings} />
       <Footer settings={settings} />
       <ExternalScripts />
     </>

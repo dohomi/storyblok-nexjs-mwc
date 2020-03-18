@@ -25,7 +25,7 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
   const menuItems = content.body || []
   const isCustom = menuItems.length && menuItems[0].component !== 'nav_menu_item'
   const router = useRouter()
-  const asPath = router && router.asPath
+  const asPath = router?.asPath
 
   useEffect(
     () => {
