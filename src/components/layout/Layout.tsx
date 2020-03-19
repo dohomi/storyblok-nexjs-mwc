@@ -1,44 +1,50 @@
 import Header from './toolbar/Header'
 import Footer from './Footer'
-import React, { FunctionComponent, useEffect } from 'react'
-import MwcDrawer from './drawer/MwcDrawer'
-import { AppPageProps } from '../../utils/parsePageProperties'
-import useAppScroll from '../../utils/hooks/useAppScroll'
+import React, { FunctionComponent, memo, ReactNode } from 'react'
 import AppHead from './AppHead'
-import useExternalScripts from '../../utils/hooks/useExternalScripts'
-import { useRouter } from 'next/router'
-import { closeNavigationDrawers } from '../../utils/state/actions'
+import ExternalScripts from '../external-scripts/ExternalScripts'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import DrawerElement from './drawer/DrawerElement'
 
-export type LayoutComponentProps = Pick<AppPageProps, 'settings'> & {
-  hasFeature: boolean
-  hasRightDrawer: boolean
+export type LayoutComponentProps = {
+  // appSetup?: State['appSetup'],
+  settings: GlobalStoryblok
 }
 
+// const setAppSetup = (appSetup: State['appSetup']) => {
+//   const oldState = getGlobalState('appSetup')
+//
+//   if (JSON.stringify(oldState) !== JSON.stringify(appSetup)) {
+//     setGlobalState('appSetup', appSetup)
+//   }
+// }
 
-const Layout: FunctionComponent<LayoutComponentProps> = ({ settings, children, hasFeature, hasRightDrawer }) => {
+const Layout: FunctionComponent<LayoutComponentProps> = ({
+  children,
+  // appSetup,
+  settings
+}) => {
+  // const { isMobile } = useWindowDimensions()
+  // const drawerVariant = settings.drawer_variant
+  //
+  // setAppSetup({
+  //   ...appSetup,
+  //   drawerVariant: (isMobile ? 'temporary' : drawerVariant) || 'temporary',
+  //   drawerBelowToolbar: (!isMobile && settings.drawer_below_toolbar)
+  // })
 
-  useAppScroll({ settings, hasFeature })
-  useExternalScripts()
-  const router = useRouter()
-  const { asPath } = router
-  useEffect(
-    () => {
-      closeNavigationDrawers() // todo needs testing might need a pure close drawer action
-    },
-    [asPath]
-  )
+  console.log('inside layout')
 
   return (
     <>
       <AppHead settings={settings} />
-      <MwcDrawer content={settings} />
-      <Header settings={settings}
-              hasRightDrawer={hasRightDrawer}
-              hasFeature={hasFeature} />
+      <Header settings={settings} />
       {children}
+      <DrawerElement settings={settings} />
       <Footer settings={settings} />
+      <ExternalScripts />
     </>
   )
 }
 
-export default Layout
+export default memo<LayoutComponentProps & { children: ReactNode }>(Layout)

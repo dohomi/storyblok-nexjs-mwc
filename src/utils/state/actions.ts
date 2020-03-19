@@ -12,6 +12,10 @@ export const closeNavigationDrawers = () => {
   setGlobalState('rightNavigationDrawer', false)
 }
 
+// export const setAppSetup = (options: State['appSetup']) => {
+//   setGlobalState('appSetup', options)
+// }
+
 const addSearchParamsToUrl = ({ categories, searchText }: { categories?: string[], searchText?: string }) => {
   const currentUrl = new URL(window.location.href)
   if (categories) {
@@ -45,25 +49,4 @@ export const setSearchCategory = (categories: string[]) => {
     categories
   }))
   addSearchParamsToUrl({ categories })
-}
-
-export const setScrollTop = (value: boolean) => {
-  setGlobalState('isScrollTop', value)
-}
-
-export const setScrollTriggered = (value: boolean) => {
-  setGlobalState('isScrollTriggered', value)
-}
-
-// todo this is used somewhere else.. or not in use any longer?
-export const setMegaMenu = (v: any, shouldClose: any) => {
-  if (shouldClose) {
-    setGlobalState('megaMenu', { [v]: false }) // close
-  } else {
-    setGlobalState('megaMenu', (value: any) => {
-      const obj = { ...value, [v]: !value[v] }
-
-      return obj
-    }) // toggle
-  }
 }

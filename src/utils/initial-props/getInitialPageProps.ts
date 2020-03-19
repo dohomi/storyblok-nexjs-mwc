@@ -1,11 +1,12 @@
 import { NextPageContext } from 'next'
 import StoryblokService from '../../utils/StoryblokService'
-import DeviceDetectService from '../../utils/DeviceDetectService'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps, PageSeoProps } from '../parsePageProperties'
 import { CONFIG } from '../StoriesService'
 import { apiRequestResolver } from '@initialData/storyblokDeliveryResolver'
 import { getBaseProps } from '@initialData/getBaseProps'
+import hasWebpSupport from '../detectWebpSupport'
+import deviceDetect from '../deviceDetect'
 
 
 const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
@@ -53,8 +54,6 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
 
   const pageSlug = slugAsArray.join('/')
 
-  // start locale handling
-  DeviceDetectService.setAppServices(req) // important to call first, webp is depending on this
   try {
     let { page, settings, categories = [], stories = [], locale, staticContent = [] } = await apiRequestResolver({
       pageSlug,
@@ -73,8 +72,9 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     const url = `https://${host}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
     const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
     const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
-    if (CONFIG.languages.length) {
-      DeviceDetectService.setLanguage(locale, CONFIG.languages, res)
+    if (CONFIG.languages.length && req && res) {
+      res.setHeader('Content-Language', Array.isArray(CONFIG.languages) ? CONFIG.languages.join(',') : CONFIG.languages)
+      // todo check existence of language
     }
     let pageSeo: PageSeoProps = {
       url: url,
@@ -100,6 +100,7 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
     } else if (res && !StoryblokService.insideVisualComposer()) {
       res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate')
     }
+    const hasWebp = await hasWebpSupport(req)
     return {
       page: pageProps,
       settings: settingsProps,
@@ -107,11 +108,13 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
       allStories: stories,
       allCategories: categories,
       allStaticContent: staticContent,
-      locale
+      locale,
+      hasWebpSupport: hasWebp,
+      device: deviceDetect(req)
     }
   } catch (e) {
     console.log(e)
-    return getBaseProps(e)
+    return getBaseProps(e, req)
   }
 }
 

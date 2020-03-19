@@ -1,4 +1,4 @@
-import DeviceDetectService from './DeviceDetectService'
+import { getGlobalState } from './state/state'
 
 function _getImageSource({ image, width, height }: { image: string, width: number, height: number }) {
   let path = ''
@@ -47,7 +47,7 @@ export type GetImageFuncProps = {
   focalPoint?: string
 }
 
-export function getImageAttrs({ originalSource, width = 0, height = 0, filter = '', fitInColor, smart, focalPoint }: GetImageFuncProps):{src:string,srcSet:string} {
+export function getImageAttrs({ originalSource, width = 0, height = 0, filter = '', fitInColor, smart, focalPoint }: GetImageFuncProps): { src: string, srcSet: string } {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   if (originalDimensions.width < width) {
     width = originalDimensions.width
@@ -100,7 +100,7 @@ export default function imageService(image: string, option: string = '', filter:
     return image
   }
   option && (option += '/')
-  if (DeviceDetectService.getWebpSupport()) {
+  if (getGlobalState('hasWebpSupport')) {
     option += 'filters:format(webp)' + filter
   } else if (filter) {
     option += 'filters' + filter

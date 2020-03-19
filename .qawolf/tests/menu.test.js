@@ -1,5 +1,5 @@
 const qawolf = require("qawolf");
-const selectors = require("../selectors/story-1.json");
+const selectors = require("../selectors/menu.json");
 
 let browser;
 let page;
@@ -11,12 +11,13 @@ beforeAll(async () => {
   page = await context.newPage();
 });
 
-afterAll(() => browser.close());
+afterAll(async () => {
+  await qawolf.stopVideos();
+  await browser.close();
+});
 
-test('story-1', async () => {
+test('menu', async () => {
   await page.goto("https://play.lumen.media/");
-  await page.click(selectors[0]);
-  await page.click(selectors[1]);
-  await qawolf.scroll(page, selectors[2], { x: 0, y: 94 });
-  await page.click(selectors[3]);
+  await page.click(selectors["0_explorernav_men_a"]);
+  await page.click(selectors["1_div"]);
 });

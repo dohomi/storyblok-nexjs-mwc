@@ -7,11 +7,13 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Collapse from '@material-ui/core/Collapse'
 import { ChevronDown, ChevronUp } from 'mdi-material-ui'
+import { ListItemIcon } from '@material-ui/core'
+import LmIcon from '../../icon/LmIcon'
 
 type CollapsibleComponents = {
-  button: FunctionComponent<ButtonStoryblok>
-  nav_menu_item: FunctionComponent<ButtonStoryblok>
-  nav_list: FunctionComponent<NavMenuStoryblok>
+  button: FunctionComponent<{ content: ButtonStoryblok }>
+  nav_menu_item: FunctionComponent<{ content: ButtonStoryblok }>
+  nav_list: FunctionComponent<{ content: NavMenuStoryblok }>
   [k: string]: any
 }
 
@@ -24,7 +26,7 @@ const Components: CollapsibleComponents = {
 
 const Child = (blok: any) => {
   if (typeof Components[blok.component] !== 'undefined') {
-    return React.createElement(Components[blok.component], { ...blok, key: blok._uid })
+    return React.createElement(Components[blok.component], { content: blok, key: blok._uid })
   }
   return React.createElement(() => (
     <div style={{ color: 'red' }}>The component {blok.component} has not been created yet at collapsible list
@@ -32,8 +34,9 @@ const Child = (blok: any) => {
   ), { key: blok._uid })
 }
 
-const CollapsibleListSection: FunctionComponent<NavMenuStoryblok> = (props) => {
-  const body = props.body || []
+const CollapsibleListSection: FunctionComponent<{ content: NavMenuStoryblok }> = (props) => {
+  const { content } = props
+  const body = content.body || []
   const items: any[] = []
   const [open, setOpen] = React.useState(false)
 
@@ -60,7 +63,15 @@ const CollapsibleListSection: FunctionComponent<NavMenuStoryblok> = (props) => {
   return (
     <>
       <ListItem button onClick={handleClick}>
-        <ListItemText primary={props.title} />
+        {content.start_icon && content.start_icon.name && (
+          <ListItemIcon>
+            <LmIcon iconName={content.start_icon.name} style={{
+              width: '1.5rem',
+              height: '1.5rem'
+            }}></LmIcon>
+          </ListItemIcon>
+        )}
+        <ListItemText primary={content.title} />
         {open ? <ChevronUp /> : <ChevronDown />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>

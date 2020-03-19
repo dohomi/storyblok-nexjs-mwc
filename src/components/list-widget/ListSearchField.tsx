@@ -10,7 +10,8 @@ import clsx from 'clsx'
 import { Magnify } from 'mdi-material-ui'
 
 const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> = ({ content }) => {
-  const { query } = useRouter()
+  const router = useRouter()
+  const query = router?.query
   const [searchText, setSearchText] = useState<string>(query.search__text as string || '')
   const [debouncedCallback] = useDebouncedCallback(
     // function

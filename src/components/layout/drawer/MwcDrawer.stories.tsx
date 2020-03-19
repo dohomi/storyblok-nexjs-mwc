@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
-import { customSettings, simpleSettings } from '../../../../.storybook/dummy/toolbar'
+import { customSettings, customSettingsWithDrawer, simpleSettings } from '../../../../.storybook/dummy/toolbar'
 import { toggleLeftNavigation } from '../../../utils/state/actions'
-import MwcDrawer from './MwcDrawer'
+import MwcDrawer from './DrawerElement'
 import Button from '@material-ui/core/Button'
 
 const props = {
@@ -19,7 +19,7 @@ storiesOf('Drawer', module)
     () => (
       <>
         <Button onClick={() => toggleLeftNavigation()}>Toggle Drawer</Button>
-        <MwcDrawer content={props} />
+        <MwcDrawer settings={props} />
       </>
     )
   )
@@ -28,7 +28,16 @@ storiesOf('Drawer', module)
     () => (
       <>
         <Button onClick={() => toggleLeftNavigation()}>Toggle Drawer</Button>
-        <MwcDrawer content={custom} />
+        <MwcDrawer settings={custom} />
       </>
+    )
+  )
+  .add(
+    'Drawer with custom drawer',
+    () => (
+      <div>
+        <Button onClick={() => toggleLeftNavigation()}>Toggle Drawer</Button>
+        <MwcDrawer settings={customSettingsWithDrawer} />
+      </div>
     )
   )

@@ -417,6 +417,13 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
+  drawer_body?: any[];
+  drawer_variant?: "persistent" | "temporary";
+  drawer_width?: number;
+  drawer_below_toolbar?: boolean;
+  drawer_below_toolbar_xs?: boolean;
+  drawer_full_width_mobile?: boolean;
+  drawer_background?: any[];
   website_title?: string;
   website_slogan?: string;
   setup_language?: string;
@@ -754,6 +761,10 @@ export interface NavListStoryblok {
 export interface NavMenuStoryblok {
   alignment?: "bottomStart" | "bottomEnd";
   border_radius?: string;
+  start_icon?: {
+    name?: string;
+    [k: string]: any;
+  };
   icon?: {
     name?: string;
     [k: string]: any;

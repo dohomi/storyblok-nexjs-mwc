@@ -5,13 +5,14 @@ import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import List from '@material-ui/core/List'
 import ListSubheader from '@material-ui/core/ListSubheader'
 
-const DrawerNavList: FunctionComponent<NavMenuStoryblok> = (props) => {
-  const body = props.body || []
+const DrawerNavList: FunctionComponent<{ content: NavMenuStoryblok }> = (props) => {
+  const { content } = props
+  const body = content.body || []
   return (
     <List subheader={
-      <ListSubheader>{props.header}</ListSubheader>
+      <ListSubheader>{content.header}</ListSubheader>
     }>
-      {body.map(blok => <DrawerButton {...blok} key={blok._uid} />)}
+      {body.map(blok => <DrawerButton content={blok} key={blok._uid} />)}
     </List>
   )
 }

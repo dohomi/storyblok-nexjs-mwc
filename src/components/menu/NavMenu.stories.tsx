@@ -41,11 +41,11 @@ storiesOf('Nav menu', module)
         <NavMenu content={props} />
         <h3>Bottom Alignment</h3>
 
-        <NavMenu content={{ ...props, alignment: 'bottomStart' }} />
+        <NavMenu content={{ ...props, alignment: 'bottomStart', start_icon: { name: 'home' } }} />
 
         <h3>Bottom Alignment</h3>
         <div className={'text-center'}>
-          <NavMenu content={{ ...props, alignment: 'bottomStart' }} />
+          <NavMenu content={{ ...props, alignment: 'bottomStart', start_icon: { name: 'home' } }} />
         </div>
         <h3>Bottom Right Alignment</h3>
         <div className={'text-center'}>

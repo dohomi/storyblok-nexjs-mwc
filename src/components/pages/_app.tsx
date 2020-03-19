@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import { NextPage } from 'next'
-import DeviceDetectService from '../../utils/DeviceDetectService'
 
 const MyApp: NextPage<AppProps> = ({
   Component,
@@ -13,10 +12,6 @@ const MyApp: NextPage<AppProps> = ({
       const jssStyles = document.querySelector('#jss-server-side')
       if (jssStyles) {
         jssStyles.parentNode!.removeChild(jssStyles)
-      }
-
-      if (typeof window !== 'undefined') {
-        DeviceDetectService.setAppServices()
       }
     },
     []

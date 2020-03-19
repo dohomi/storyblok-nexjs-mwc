@@ -15,7 +15,8 @@ const ListWidgetWithSearch: FunctionComponent<{
   content: ListWidgetStoryblok
   items: PageItem[]
 }> = ({ listOption, content, items }) => {
-  const { query } = useRouter()
+  const router = useRouter()
+  const query = router?.query
   const [searchParams] = useGlobalState('searchParams')
   let searchParamsCategories = searchParams.categories || []
   if (!searchParams.categories && query.search__categories) {

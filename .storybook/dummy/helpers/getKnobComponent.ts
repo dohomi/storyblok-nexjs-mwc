@@ -3,7 +3,7 @@ import { allImageOptions, getUid } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { classNameOpts } from './utilityClassNamesHelper'
 import iconObj from './iconListHelper'
-import StoriesService from '../../../src/utils/StoriesService'
+import { getGlobalState } from '../../components/SetStoriesDecorator'
 
 
 export const camelizeString = (text: string, separator = '_') => (
@@ -73,7 +73,7 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
       }
     } else if (currentSchema.field_type === 'tags-select') {
       if (!Object.keys(allTags).length) {
-        StoriesService.getAllTags().forEach(item => allTags[item.label] = item.value)
+        getGlobalState('allTags').forEach(item => allTags[item.label] = item.value)
       }
       obj[schemaKey] = {
         values: optionsKnob(name, { ...allTags }, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))

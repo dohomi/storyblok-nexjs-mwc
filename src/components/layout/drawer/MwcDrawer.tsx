@@ -1,40 +1,80 @@
-import React, { FunctionComponent, memo } from 'react'
-import DrawerContentList from './DrawerContentList'
-import Link from 'next/link'
-import imageService from '../../../utils/ImageService'
+import React, { FunctionComponent, useEffect } from 'react'
 import { useGlobalState } from '../../../utils/state/state'
-import { closeNavigationDrawers } from '../../../utils/state/actions'
-import { GlobalStoryblok } from '../../../typings/generated/components-schema'
-import Drawer from '@material-ui/core/Drawer'
-import { homepageLinkHandler } from '../../../utils/linkHandler'
+import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import clsx from 'clsx'
+import { useRouter } from 'next/router'
+import { BackgroundBoxProps } from '../../section/BackgroundBox'
+import { useAppSetup } from '../../provider/AppSetupProvider'
 
-const MwcDrawer: FunctionComponent<{ content: GlobalStoryblok }> = ({ content }) => {
-  let [isOpen] = useGlobalState('leftNavigationDrawer')
-  const websiteTitle = content.website_title
-  const websiteLogo = content.website_logo
-  const websiteSlogan = content.website_slogan
 
+export const useStyles = makeStyles((theme: Theme) => createStyles({
+  leftDrawer: {
+    width: theme.drawer.left
+  },
+  aboveToolbar: {
+    zIndex: theme.zIndex.drawer + 2
+  },
+  belowToolbar: {
+    zIndex: theme.zIndex.appBar - 1
+  },
+  fullWidthMobile: {
+    [theme.breakpoints.only('xs')]: {
+      width: '100%'
+    }
+  }
+}))
+
+const MwcDrawer: FunctionComponent<{
+  backgroundProps?: BackgroundBoxProps
+}> = ({ children, backgroundProps }) => {
+  const classes = useStyles()
+  const router = useRouter()
+  const asPath = router?.asPath
+  const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
+  const appSetup = useAppSetup()
+
+  const drawerProps: DrawerProps = {
+    variant: appSetup.drawerVariant
+  }
+
+  useEffect(
+    () => {
+      if (appSetup.drawerVariant === 'temporary') {
+        // todo make this customizable?
+        setOpen(false) // todo needs testing might need a pure close drawer action
+      }
+    },
+    [asPath, appSetup, setOpen]
+  )
+
+  const classList = backgroundProps?.className
   return (
     <Drawer open={isOpen}
-            className="lm-main__drawer"
-            onClose={() => closeNavigationDrawers()}>
-      <div>
-        <Link href="/[...index]" as={homepageLinkHandler()}>
-          <a>
-            <div className="p-3">
-              {!websiteLogo && websiteTitle}
-              {websiteLogo &&
-              <img src={imageService(websiteLogo, '0x128')} height="48" alt={websiteTitle || 'website logo'} />}
-            </div>
-          </a>
-        </Link>
-        {websiteSlogan && <div>{websiteSlogan}</div>}
-      </div>
-      <>
-        <DrawerContentList {...content} />
-      </>
+            className={clsx('lm-main__drawer', classes.leftDrawer, {
+              [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
+              [classes.belowToolbar]: appSetup.drawerBelowToolbar,
+              [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile
+            })}
+            classes={{
+              paper: clsx(
+                'lm-main__drawer',
+                classList,
+                classes.leftDrawer,
+                {
+                  [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
+                  [classes.belowToolbar]: appSetup.drawerBelowToolbar,
+                  [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile
+                })
+            }}
+            PaperProps={{
+              style: backgroundProps?.style ? backgroundProps.style : undefined
+            }}
+            onClose={() => setOpen(false)}
+            {...drawerProps}>
+      {children}
     </Drawer>
   )
 }
 
-export default memo(MwcDrawer)
+export default MwcDrawer

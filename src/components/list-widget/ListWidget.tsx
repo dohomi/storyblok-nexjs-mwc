@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { FunctionComponent } from 'react'
-import StoriesService from '../../utils/StoriesService'
 import {
   CardListStoryblok,
   ListsStoryblok,
@@ -10,12 +9,15 @@ import {
 import { PageComponent, PageItem } from '../../typings/generated/schema'
 import ListWidgetWithSearch from './ListWidgetWithSearch'
 import ListWidgetContainer from './ListWidgetContainer'
+import { useAppContext } from '../provider/AppProvider'
 
 const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
   const filter = (content.tags && content.tags.values) || []
   const sort = content.sort
   const sortDescending = content.sort_descending
-  let items: PageItem[] = StoriesService.getAllStories()
+  const { allStories } = useAppContext()
+
+  let items: PageItem[] = allStories
     .filter((item: PageItem) => {
       const itemCategories = item.tag_list || []
       if (filter.length) {

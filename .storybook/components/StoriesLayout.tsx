@@ -65,7 +65,7 @@ const StoriesLayout = (storyFunc: Function) => {
 
   return (
     <WindowDimensionsProvider>
-      <GlobalTheme settings={settings}>
+      <GlobalTheme settings={settings as GlobalStoryblok}>
         <div>
           <CssBaseline />
           <Layout>
