@@ -8,7 +8,8 @@ import {
   GlobalStoryblok,
   HeadlineStoryblok,
   ImageStoryblok,
-  NavMenuStoryblok, ToolbarNaviButtonStoryblok,
+  NavMenuStoryblok,
+  ToolbarNaviButtonStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 import ImageElement from '../../image/ImageElement'
