@@ -12,6 +12,7 @@ export type AppSetupProps = {
   drawerBelowToolbar?: boolean
   hasScrollCollapse?: boolean
   toolbarMainHeight?: string | number
+  drawerFullWidthMobile?: boolean
 }
 
 const defaultValue: AppSetupProps = {
@@ -29,18 +30,22 @@ const AppSetupProvider: FunctionComponent<{
   page?: PageStoryblok
 }> = ({ children, settings, page }) => {
   const { isMobile } = useWindowDimensions()
-  const value = useMemo(
+  const value = useMemo<AppSetupProps>(
     () => {
-      const drawerVariant = settings.drawer_variant
-      const drawerBelowToolbar = settings.drawer_below_toolbar
+      let drawerVariant: DrawerProps['variant'] = isMobile && settings.drawer_below_toolbar_xs ? 'persistent' : 'temporary'
+      if (!isMobile) {
+        drawerVariant = settings.drawer_below_toolbar ? 'persistent' : settings.drawer_variant || 'temporary'
+      }
+
       return {
         hasDrawer: !!(Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0),
         hasFeatureImage: page && Array.isArray(page.property) && page.property.includes('has_feature'),
         hasRightDrawer: page && Array.isArray(page.right_body) && page.right_body?.length > 0,
         hasScrollCollapse: !!(settings.toolbar_config && settings.toolbar_config.includes('scroll_collapse')),
         toolbarMainHeight: settings.toolbar_main_height,
-        drawerVariant: (isMobile ? 'temporary' : drawerVariant) || 'temporary',
-        drawerBelowToolbar: (!isMobile && drawerBelowToolbar)
+        drawerVariant: drawerVariant,
+        drawerBelowToolbar: settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar,
+        drawerFullWidthMobile: !!settings.drawer_full_width_mobile
       }
     },
     [isMobile]

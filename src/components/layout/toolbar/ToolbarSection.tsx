@@ -1,7 +1,6 @@
 import SbEditable from 'storyblok-react'
 import React, { FunctionComponent } from 'react'
 import Menu from '../../menu/NavMenu'
-import { toggleLeftNavigation } from '../../../utils/state/actions'
 import ToolbarLogo from './ToolbarLogo'
 import {
   ButtonStoryblok,
@@ -11,24 +10,12 @@ import {
   ToolbarNaviButtonStoryblok,
   ToolbarRowSectionStoryblok
 } from '../../../typings/generated/components-schema'
-import IconButton from '@material-ui/core/IconButton'
 import LmMuiButton from '../../button/LmMuiButton'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import ListSearchAutocomplete from '../../list-widget/ListSearchAutocomplete'
-import { Menu as MenuUi } from 'mdi-material-ui'
-import LmIcon from '../../icon/LmIcon'
+import ToggleDrawerButton from './ToggleDrawerButton'
 
-const NaviButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }> = ({ content }) => {
-  return (
-    <SbEditable content={content}>
-      <IconButton className={clsx(content.class_names && content.class_names.values)}
-                  onClick={() => toggleLeftNavigation()}>
-        {content.icon && content.icon.name ? <LmIcon iconName={content.icon.name} /> : <MenuUi />}
-      </IconButton>
-    </SbEditable>
-  )
-}
 
 type ToolbarSectionComponents = {
   button: FunctionComponent<{ content: ButtonStoryblok }>
@@ -43,8 +30,8 @@ const ToolbarComponents: ToolbarSectionComponents = {
   'button': LmMuiButton,
   'nav_menu': Menu,
   'toolbar_logo': ToolbarLogo,
-  'toolbar_navi_button': NaviButton,
-  'toolbar_right_navi_button': NaviButton,
+  'toolbar_navi_button': ToggleDrawerButton,
+  'toolbar_right_navi_button': ToggleDrawerButton,
   'list_search_autocomplete': ListSearchAutocomplete
 }
 

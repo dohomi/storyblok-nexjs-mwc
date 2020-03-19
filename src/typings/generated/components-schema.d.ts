@@ -419,7 +419,10 @@ export interface FormTextfieldStoryblok {
 export interface GlobalStoryblok {
   drawer_body?: any[];
   drawer_variant?: "persistent" | "temporary";
+  drawer_width?: number;
   drawer_below_toolbar?: boolean;
+  drawer_below_toolbar_xs?: boolean;
+  drawer_full_width_mobile?: boolean;
   drawer_background?: any[];
   website_title?: string;
   website_slogan?: string;

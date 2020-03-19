@@ -8,7 +8,7 @@ import {
   GlobalStoryblok,
   HeadlineStoryblok,
   ImageStoryblok,
-  NavMenuStoryblok,
+  NavMenuStoryblok, ToolbarNaviButtonStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 import ImageElement from '../../image/ImageElement'
@@ -16,9 +16,11 @@ import Headline from '../../headline/Headline'
 import DateHeadline from '../../headline/DateHeadline'
 import Divider from '../../divider/Divider'
 import { useAppSetup } from '../../provider/AppSetupProvider'
+import ToggleDrawerButton from '../toolbar/ToggleDrawerButton'
 
 type DrawerContentComponents = {
   button: FunctionComponent<{ content: ButtonStoryblok }>
+  toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
   nav_menu: FunctionComponent<{ content: NavMenuStoryblok }>
   image: FunctionComponent<{ content: ImageStoryblok }>
   headline: FunctionComponent<{ content: HeadlineStoryblok }>
@@ -29,6 +31,7 @@ type DrawerContentComponents = {
 
 const Components: DrawerContentComponents = {
   'button': DrawerButton,
+  'toolbar_navi_button': ToggleDrawerButton,
   'nav_menu': CollapsibleListSection,
   'list_search_autocomplete': () => null,
   'image': ImageElement,

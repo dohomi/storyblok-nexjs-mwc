@@ -113,7 +113,7 @@ const GlobalTheme: FunctionComponent<{
           }
         },
         drawer: {
-          left: '300px', // todo make configurable
+          left: `${settings.drawer_width}px` || '300px', // todo make configurable
           right: '254px'
         },
         toolbar: {

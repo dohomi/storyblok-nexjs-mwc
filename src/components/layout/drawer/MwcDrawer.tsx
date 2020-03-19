@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react'
 import { useGlobalState } from '../../../utils/state/state'
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
-import { useWindowDimensions } from '../../provider/WindowDimensionsProvider'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -13,9 +12,16 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
   leftDrawer: {
     width: theme.drawer.left
   },
-  aboveToolbar: { zIndex: theme.zIndex.drawer + 2 },
+  aboveToolbar: {
+    zIndex: theme.zIndex.drawer + 2
+  },
   belowToolbar: {
     zIndex: theme.zIndex.appBar - 1
+  },
+  fullWidthMobile: {
+    [theme.breakpoints.only('xs')]: {
+      width: '100%'
+    }
   }
 }))
 
@@ -27,14 +33,11 @@ const MwcDrawer: FunctionComponent<{
   const asPath = router?.asPath
   const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
   const appSetup = useAppSetup()
-  const { isMobile } = useWindowDimensions()
 
   const drawerProps: DrawerProps = {
     variant: appSetup.drawerVariant
   }
-  if (isMobile) {
-    drawerProps.variant = 'temporary'
-  }
+
   useEffect(
     () => {
       if (appSetup.drawerVariant === 'temporary') {
@@ -50,7 +53,8 @@ const MwcDrawer: FunctionComponent<{
     <Drawer open={isOpen}
             className={clsx('lm-main__drawer', classes.leftDrawer, {
               [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
-              [classes.belowToolbar]: appSetup.drawerBelowToolbar
+              [classes.belowToolbar]: appSetup.drawerBelowToolbar,
+              [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile
             })}
             classes={{
               paper: clsx(
@@ -59,7 +63,8 @@ const MwcDrawer: FunctionComponent<{
                 classes.leftDrawer,
                 {
                   [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
-                  [classes.belowToolbar]: appSetup.drawerBelowToolbar
+                  [classes.belowToolbar]: appSetup.drawerBelowToolbar,
+                  [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile
                 })
             }}
             PaperProps={{
