@@ -8,7 +8,7 @@
     "dev": "next",
     "build": "next build",
     "start": "NODE_ENV=production next start",
-    "deploy": "NODE_ENV=production now",
+    "deploy-natur": "now --scope lumenmedia --regions bru1 --name storyblok-mui-natur --build-env previewToken=GNtUM3zlkjs7SKbwrJncLgtt --build-env publicToken=QMni9eytproYlHyzSknz2Qtt --build-env defaultLocale=de",
     "server": "micro-dev src/api/forwardMail.js -p=4444",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=66717",

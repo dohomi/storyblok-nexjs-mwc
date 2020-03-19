@@ -37,11 +37,11 @@ const AppHead: FunctionComponent<{
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
         key="viewport"
       />
-      <link rel="preconnect" href="https://fonts.googleapis.com/" crossOrigin="anonymous" />
+      {/*<link rel="preconnect" href="https://fonts.googleapis.com/" crossOrigin="anonymous" />*/}
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://img2.storyblok.com/" crossOrigin="anonymous" />
-      <link rel="dns-prefetch" href="https://fonts.googleapis.com/" />
+      {/*<link rel="dns-prefetch" href="https://fonts.googleapis.com/" />*/}
       <link rel="dns-prefetch" href="https://fonts.gstatic.com/" />
       <link rel="dns-prefetch" href="https://cdn.jsdelivr.net/" />
       <link rel="dns-prefetch" href="https://img2.storyblok.com/" />

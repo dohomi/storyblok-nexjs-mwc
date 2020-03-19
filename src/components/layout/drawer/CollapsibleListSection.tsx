@@ -60,12 +60,13 @@ const CollapsibleListSection: FunctionComponent<{ content: NavMenuStoryblok }> =
     }
   })
 
+  const startIconName = content.start_icon && content.start_icon.name
   return (
     <>
       <ListItem button onClick={handleClick}>
-        {content.start_icon && content.start_icon.name && (
+        {startIconName && (
           <ListItemIcon>
-            <LmIcon iconName={content.start_icon.name} style={{
+            <LmIcon iconName={startIconName} style={{
               width: '1.5rem',
               height: '1.5rem'
             }}></LmIcon>
@@ -75,7 +76,7 @@ const CollapsibleListSection: FunctionComponent<{ content: NavMenuStoryblok }> =
         {open ? <ChevronUp /> : <ChevronDown />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding style={{ marginLeft: '20px' }}>
+        <List component="div" disablePadding style={{ marginLeft: startIconName ? '55px' : '20px' }}>
           {Array.isArray(items) && items.map(blok => Child(blok))}
         </List>
       </Collapse>

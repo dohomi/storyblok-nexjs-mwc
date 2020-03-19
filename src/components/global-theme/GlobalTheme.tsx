@@ -6,7 +6,7 @@ import parseFont from '../../utils/parseFont'
 // @ts-ignore
 import mediaQuery from 'css-mediaquery'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { GlobalStoryblok, ToolbarRowStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../utils/parsePageProperties'
 import { useRouter } from 'next/router'
 // import Fonts from '@fonts'
@@ -100,6 +100,7 @@ const GlobalTheme: FunctionComponent<{
         defaultContainerWidth = settings.theme_container_width === 'none' ? false : settings.theme_container_width
       }
 
+      const firstMultiToolbar: ToolbarRowStoryblok | undefined = Array.isArray(settings.multi_toolbar) && settings.multi_toolbar[0]
       const globalTheme: ThemeOptions = {
         palette: {
           type: mapThemeType[settings.theme_base as string || 'base'],
@@ -123,7 +124,7 @@ const GlobalTheme: FunctionComponent<{
             landscape: 48,
             desktop: 64,
             custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined,
-            systemBar: (settings.toolbar_config && settings.toolbar_config.includes('enable_system_bar')) ? 40 : 0
+            systemBar: !!firstMultiToolbar ? (firstMultiToolbar?.height || 40) : 0
           }
         },
         typography: {
