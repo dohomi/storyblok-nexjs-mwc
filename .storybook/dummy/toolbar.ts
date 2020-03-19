@@ -14,7 +14,7 @@ const menuItem: NavMenuStoryblok = {
   component: 'nav_menu',
   border_radius: '0px',
   title: 'Menu',
-  start_icon:{
+  start_icon: {
     name: 'home'
   },
   body: [{
@@ -26,6 +26,24 @@ const menuItem: NavMenuStoryblok = {
     component: 'nav_menu_item',
     label: 'Second'
   }] as NavMenuItemStoryblok[]
+}
+
+const nestedMenu: NavMenuStoryblok = {
+  ...menuItem,
+  _uid: '123ddw',
+  title: 'Nested Menu',
+  start_icon: {
+    name: 'menu'
+  },
+  body: [{
+    _uid: '3243',
+    component: 'nav_menu_item',
+    label: 'First'
+  }, {
+    _uid: '34234242',
+    component: 'nav_menu_item',
+    label: 'Second'
+  }, {...menuItem, start_icon: null}] as (NavMenuItemStoryblok | NavMenuStoryblok)[]
 }
 
 const toolbarItems = [{
@@ -46,7 +64,7 @@ const toolbarItems = [{
     name: 'home'
   },
   label: 'Another Button'
-}, menuItem] as (ListSearchAutocompleteStoryblok | ButtonStoryblok | NavMenuStoryblok)[]
+}, menuItem, nestedMenu] as (ListSearchAutocompleteStoryblok | ButtonStoryblok | NavMenuStoryblok)[]
 
 export const simpleSettings: GlobalStoryblok = {
   _uid: '123',
@@ -97,7 +115,7 @@ export const customSettings: GlobalStoryblok = {
 export const customSettingsWithDrawer: GlobalStoryblok = {
   ...customSettings,
   drawer_body: toolbarItems,
-  drawer_class_names:{values: ['bg-primary']}
+  drawer_class_names: { values: ['bg-primary'] }
 }
 
 export const customSettingsSystemBar: GlobalStoryblok = {

@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '&.lm-scrolled': {
       height: theme.toolbar.height.mobile,
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: theme.toolbar.height.landscape + theme.toolbar.height.systemBar
+        height: theme.toolbar.height.landscape //+ theme.toolbar.height.systemBar
       },
       [theme.breakpoints.up('sm')]: {
-        height: theme.toolbar.height.desktop + theme.toolbar.height.systemBar
+        height: theme.toolbar.height.desktop //+ theme.toolbar.height.systemBar
       }
     }
   }
@@ -33,7 +33,8 @@ const ContentSpace: FunctionComponent = () => {
   const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
 
   return (
-    <div className={clsx('lm-content-space', classes.contentSpace, {
+    <div className={clsx('lm-content-space',
+      classes.contentSpace, {
       'lm-scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
     })} />
   )

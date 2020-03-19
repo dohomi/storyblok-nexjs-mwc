@@ -20,6 +20,7 @@ const DrawerElement: FunctionComponent<{
   const websiteSlogan = settings.website_slogan
   const background = Array.isArray(settings.drawer_background) && settings.drawer_background[0]
   console.log('drawer element')
+
   return (
     <BackgroundBox background={background}>
       {(backgroundProps: BackgroundBoxProps) => (
@@ -27,22 +28,24 @@ const DrawerElement: FunctionComponent<{
           {(background?.image || background?.background_elements) && <BackgroundImage content={background} />}
           {background?.background_elements && background.background_elements.length > 0 &&
           <BackgroundElements elements={background.background_elements} />}
-          {!appSetup.hasDrawer && (<div>
-            <Link href="/[...index]" as={homepageLinkHandler()}>
-              <a>
-                <div className="p-3">
-                  {!websiteLogo && websiteTitle}
-                  {websiteLogo &&
-                  <img src={imageService(websiteLogo, '0x128')} height="48" alt={websiteTitle || 'website logo'} />}
-                </div>
-              </a>
-            </Link>
-            {websiteSlogan && <div>{websiteSlogan}</div>}
-          </div>)}
-          {appSetup.drawerBelowToolbar && (
-            <ContentSpace />
-          )}
-          <DrawerContentList content={settings} />
+          <div>
+            {!appSetup.hasDrawer && (<div>
+              <Link href="/[...index]" as={homepageLinkHandler()}>
+                <a>
+                  <div className="p-3">
+                    {!websiteLogo && websiteTitle}
+                    {websiteLogo &&
+                    <img src={imageService(websiteLogo, '0x128')} height="48" alt={websiteTitle || 'website logo'} />}
+                  </div>
+                </a>
+              </Link>
+              {websiteSlogan && <div>{websiteSlogan}</div>}
+            </div>)}
+            {appSetup.drawerBelowToolbar && (
+              <ContentSpace />
+            )}
+            <DrawerContentList content={settings} />
+          </div>
         </MwcDrawer>
       )}
     </BackgroundBox>
