@@ -669,6 +669,12 @@ export interface ListsStoryblok {
 }
 
 export interface ListSearchAutocompleteStoryblok {
+  shape?: "rounded" | "square";
+  height?: number;
+  fullwidth?: boolean;
+  outlined?: boolean;
+  menu_align?: "center" | "right";
+  menu_border_radius?: string;
   placeholder?: string;
   label?: string;
   not_found_label?: string;
@@ -676,11 +682,6 @@ export interface ListSearchAutocompleteStoryblok {
     name?: string;
     [k: string]: any;
   };
-  shape?: "rounded" | "square";
-  outlined?: boolean;
-  fullwidth?: boolean;
-  menu_border_radius?: string;
-  menu_align_right?: boolean;
   _uid: string;
   component: "list_search_autocomplete";
   [k: string]: any;

@@ -15,7 +15,7 @@ storiesOf('Nav List', module)
             ...storyNavList(),
             forceCollapse,
             body: [
-              storyNavItem({ count: 1 }),
+              {...storyNavItem({ count: 1 }), link:{cached_url: 'https://google.com', linktype: 'external'}},
               storyNavItem({ count: 2 }),
               storyNavItem({ count: 3 }),
               storyNavItem({ count: 4 }),
