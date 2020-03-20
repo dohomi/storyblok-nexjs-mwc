@@ -16,7 +16,6 @@ export const { setGlobalState, useGlobalState, getGlobalState } = createGlobalSt
 
 const SetStoriesDecorator = (storyFunc: Function) => {
   const [loaded, setLoaded] = useState<boolean>(false)
-  // StoryblokService.setToken('Xzl0aUdUwWqtCsD37fHMmQtt')
   const [values, setValues] = useState<AppContextProps>()
   const [, setAllTags] = useGlobalState('allTags')
   useEffect(
@@ -44,9 +43,6 @@ const SetStoriesDecorator = (storyFunc: Function) => {
           }),
           StoryblokService.get('cdn/tags')
         ])
-
-        // StoriesService.setAllStories(stories || [])
-        // StoriesService.setAllCategories(categories || [])
         const tagList = (tags && tags.data.tags && tags.data.tags.map((item: { name: string, taggings_count: number }) => ({
           value: item.name,
           label: `${item.name} (${item.taggings_count})`

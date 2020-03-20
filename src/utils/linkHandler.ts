@@ -2,13 +2,6 @@ import { CONFIG } from './StoriesService'
 import { LinkProps } from 'next/link'
 import { getGlobalState } from './state/state'
 
-export type LinkPropsType = {
-  to?: string
-  href?: string
-  rel?: string
-  target?: string
-}
-
 export interface LinkType {
   cached_url: string
   linktype: string

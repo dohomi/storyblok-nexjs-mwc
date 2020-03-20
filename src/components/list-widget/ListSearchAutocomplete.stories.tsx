@@ -3,6 +3,7 @@ import ListSearchAutocomplete from './ListSearchAutocomplete'
 import * as React from 'react'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { storyListSearchAutocomplete } from '../../../.storybook/dummy/layout/toolbar'
+import SetStoriesDecorator from '../../../.storybook/components/SetStoriesDecorator'
 
 const props: ListSearchAutocompleteStoryblok = {
   _uid: '123',
@@ -14,6 +15,7 @@ const props: ListSearchAutocompleteStoryblok = {
 
 
 storiesOf('List Widget Addons', module)
+  .addDecorator(SetStoriesDecorator)
   .add(
     'Search Autocomplete',
     () => (
@@ -103,7 +105,7 @@ storiesOf('List Widget Addons', module)
       <div className="text-center p-5">
         <ListSearchAutocomplete
           content={storyListSearchAutocomplete({
-            options:{
+            options: {
               placeholder: 'Search..'
             }
           })} />

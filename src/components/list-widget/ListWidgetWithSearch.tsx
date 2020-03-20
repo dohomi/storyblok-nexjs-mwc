@@ -38,7 +38,7 @@ const ListWidgetWithSearch: FunctionComponent<{
       const pageContent = item.content as PageStoryblok
       const inSearchText = searchText
         // @ts-ignore
-        ? item.full_slug.includes(searchText) || pageContent.preview_title.includes(searchText)
+        ? [item.full_slug,pageContent.preview_title].some((term) => term && term.search(new RegExp(searchText, 'i')) !== -1)
         : undefined
       if (inSearchText === undefined) {
         return false
