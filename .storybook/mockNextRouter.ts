@@ -1,11 +1,12 @@
 import Router from 'next/router'
 
-const actionWithPromise = () => new Promise((_, reject) => reject())
+const actionWithPromise = (): Promise<boolean> => new Promise((_, reject) => reject())
+const actionWithPromiseVoid = (): Promise<void> => new Promise((_, reject) => reject())
+
 Router.router = {
   push: actionWithPromise,
   replace: actionWithPromise,
-  prefetch: () => {
-  },
+  prefetch: actionWithPromiseVoid,
   route: '/mock-route',
   pathname: 'mock-path'
 }
