@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FunctionComponent, useState } from 'react'
+import React, { ChangeEvent, CSSProperties, FunctionComponent, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { PageItem } from '../../typings/generated/schema'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
@@ -123,14 +123,17 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
     debounceFunc(value)
   }
 
+  const additionalDivStyles: CSSProperties = {}
+  if (content.shape === 'rounded' && content.height) {
+    additionalDivStyles.borderRadius = content.height ? `${content.height / 1.5}px` : undefined
+    additionalDivStyles.paddingLeft = content.height ? `${content.height / 2}px` : undefined
+    additionalDivStyles.paddingRight = content.height ? `${content.height / 2}px` : undefined
+
+  }
   return (
     <>
       <div
-        style={{
-          borderRadius: content.height ? `${content.height / 1.5}px` : undefined,
-          paddingLeft: content.height ? `${content.height / 2}px` : undefined,
-          paddingRight: content.height ? `${content.height / 2}px` : undefined
-        }}
+        style={additionalDivStyles}
         className={clsx(classes.search, {
           [classes.inputFullWidth]: content.fullwidth,
           [classes.borderSquare]: content.shape === 'square',
@@ -159,7 +162,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
                      'aria-label': 'search',
                      type: 'search',
                      style: {
-                       height: content.height ? content.height : undefined
+                       height: content.height ? `${content.height}px` : undefined
                      }
                    }}
         />
