@@ -83,9 +83,10 @@ type ApiProps = {
 }
 
 export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps) => {
+  const settingsPath = getSettingsPath({ locale })
   const all: any[] = [
     StoryblokService.get(`cdn/stories/${pageSlug}`),
-    StoryblokService.get(getSettingsPath({ locale })),
+    StoryblokService.get(settingsPath),
     StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
     StoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
     StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
@@ -113,11 +114,12 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
 
     // make 2nd API calls to fetch locale based settings and other values
     let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await resolveAllPromises([
-      StoryblokService.get(getSettingsPath({ locale })),
+      StoryblokService.get(settingsPath),
       StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
       StoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
       StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
     ])
+
     return {
       page,
       locale,

@@ -6,27 +6,33 @@ import { IncomingMessage, ServerResponse } from 'http'
 import { CONFIG } from '../../utils/StoriesService'
 import { internalLinkHandler } from '../../utils/linkHandler'
 
+export function getStoryblokPagesConfig() {
+
+  const params: any = {
+    per_page: 100,
+    excluding_fields: 'body,right_body,meta_robots,property,meta_title,meta_description,seo_body,preview_title,preview_subtitle,preview_image,preview_teaser',
+    sort_by: 'published_at:desc',
+    filter_query: {
+      component: {
+        in: 'page'
+      },
+      meta_robots: {
+        not_in: true
+      }
+    }
+  }
+  if (CONFIG.rootDirectory) {
+    params.starts_with = `${CONFIG.rootDirectory}/`
+  }
+  return params
+}
+
 export default async function(req: IncomingMessage, res: ServerResponse) {
 
   // res.setHeader('Content-Encoding', 'gzip')
   try {
-    const params: any = {
-      per_page: 100,
-      excluding_fields: 'body,right_body,meta_robots,property,meta_title,meta_description,seo_body,preview_title,preview_subtitle,preview_image,preview_teaser',
-      sort_by: 'published_at:desc',
-      filter_query: {
-        component: {
-          in: 'page'
-        },
-        meta_robots: {
-          not_in: true
-        }
-      }
-    }
-    if (CONFIG.rootDirectory) {
-      params.starts_with = `${CONFIG.rootDirectory}/`
-    }
-    const stories: PageItem[] = await StoryblokService.getAll('cdn/stories', params)
+
+    const stories: PageItem[] = await StoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
     const smStream = new SitemapStream({ hostname: 'https://' + req.headers.host })
     const ignoreList = (process.env.sitemapIgnorePath && process.env.sitemapIgnorePath.split(',')) || []
 

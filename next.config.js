@@ -4,6 +4,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
+console.log('hallo: ', process.env.previewToken)
+
 module.exports = config({
   previewToken: process.env.previewToken,
   publicToken: process.env.publicToken,

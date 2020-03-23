@@ -6,7 +6,7 @@
   "scripts": {
     "analyze": "BUNDLE_ANALYZE=true npm run build",
     "dev": "next",
-    "build": "next build",
+    "build": "NODE_ENV=build next build",
     "start": "NODE_ENV=production next start",
     "deploy-natur": "now --scope lumenmedia --regions bru1 --name storyblok-mui-natur --build-env previewToken=GNtUM3zlkjs7SKbwrJncLgtt --build-env publicToken=QMni9eytproYlHyzSknz2Qtt --build-env defaultLocale=de",
     "server": "micro-dev src/api/forwardMail.js -p=4444",

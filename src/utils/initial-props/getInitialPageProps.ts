@@ -8,18 +8,13 @@ import { getBaseProps } from '@initialData/getBaseProps'
 import hasWebpSupport from '../detectWebpSupport'
 import deviceDetect from '../deviceDetect'
 
-
-const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
-  const { query, req, res, asPath } = ctx
-  const host: string = req ? req.headers.host as string : window.location.host
-  StoryblokService.setQuery(query)
-
+export const prepareForStoryblok = (slug: string | string[] = 'home') => {
   let knownLocale = undefined
   let isLandingPage = undefined
-  let slugAsArray = Array.isArray(query.index) ? query.index : [query.index]
-  if (asPath === '/' || !asPath) {
-    slugAsArray = ['home']
-  }
+  let slugAsArray = Array.isArray(slug) ? slug : [slug]
+  // if (asPath === '/' || !asPath) {
+  //   slugAsArray = ['home']
+  // }
   let seoSlug = slugAsArray.join('/')
   if (seoSlug.endsWith('home')) {
     seoSlug = seoSlug.replace('home', '')
@@ -53,6 +48,21 @@ const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> 
   }
 
   const pageSlug = slugAsArray.join('/')
+  return {
+    pageSlug,
+    knownLocale,
+    isLandingPage,
+    seoSlug
+  }
+}
+
+const getInitialPageProps = async (ctx: NextPageContext): Promise<AppPageProps> => {
+  const { query, req, res } = ctx
+  const host: string = req ? req.headers.host as string : window.location.host
+  StoryblokService.setQuery(query)
+
+  const { isLandingPage, knownLocale, pageSlug, seoSlug } = prepareForStoryblok(query.index)
+
 
   try {
     let { page, settings, categories = [], stories = [], locale, staticContent = [] } = await apiRequestResolver({

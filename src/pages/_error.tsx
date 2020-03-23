@@ -114,9 +114,9 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
   )
 }
 
-Error.getInitialProps = async ({ res, err }): Promise<ErrorComponentProps> => {
-  const statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404
-  return { statusCode: statusCode as number, settings: { theme_base: 'dark', _uid: '', component: 'global' } }
-}
+// Error.getInitialProps = async ({ res, err }): Promise<ErrorComponentProps> => {
+//   const statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404
+//   return { statusCode: statusCode as number, settings: { theme_base: 'dark', _uid: '', component: 'global' } }
+// }
 
 export default Error
