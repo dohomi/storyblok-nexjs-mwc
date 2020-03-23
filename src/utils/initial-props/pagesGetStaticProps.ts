@@ -3,7 +3,8 @@ import { CONFIG } from '../StoriesService'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { PageSeoProps } from '../parsePageProperties'
 import { GetStaticProps } from 'next'
-import { prepareForStoryblok } from '@initialData/getInitialPageProps'
+import { prepareForStoryblok } from '@initialData/prepareStoryblokRequest'
+
 
 const pagesGetStaticProps: GetStaticProps = async ({ params, preview, previewData }) => {
   console.log('preview', params, preview, previewData)

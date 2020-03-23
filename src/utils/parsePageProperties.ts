@@ -45,6 +45,6 @@ export type AppPageProps = {
   allCategories: CategoryStoryblok[]
   allStaticContent: StaticcontainerItem[]
   locale: string | undefined
-  hasWebpSupport: boolean
-  device: AppDevice
+  hasWebpSupport?: boolean
+  device?: AppDevice
 }
