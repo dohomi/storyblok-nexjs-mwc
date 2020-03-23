@@ -11,7 +11,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import AppSeo from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import Components from '@components'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import hasWebpSupport from '../../utils/detectWebpSupport'
 
@@ -47,6 +47,16 @@ const Index: NextPage<AppPageProps> = (props) => {
     return <Error statusCode={404} settings={settings} page={page} />
   }
 
+  useEffect(
+    () => {
+      // Remove the server-side injected CSS.
+      const jssStyles = document.querySelector('#jss-server-side')
+      if (jssStyles && jssStyles.parentElement) {
+        jssStyles.parentElement.removeChild(jssStyles)
+      }
+    },
+    []
+  )
 
   return (
     <AppProvider content={{
