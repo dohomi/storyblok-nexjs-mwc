@@ -4,13 +4,11 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (env = {}, plugins = []) {
   const config = {
-    target: 'serverless',
     experimental: {
       modern: true,
       async rewrites () {
         return [
-          {source: '/sitemap.xml', destination: '/api/sitemap'},
-          {source: '/', destination: '/[...index]'}
+          {source: '/sitemap.xml', destination: '/api/sitemap'}
         ]
       }
     },

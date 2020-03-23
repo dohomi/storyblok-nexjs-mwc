@@ -21,14 +21,14 @@ const MyApp: NextPage<AppProps> = ({
 }
 
 // need to check if its still needed.. maybe move layout to this component!
-MyApp.getInitialProps = async ({ Component, ctx }: any): Promise<any> => {
-  let pageProps = {}
-
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx)
-  }
-
-  return { pageProps }
-}
-
+// MyApp.getInitialProps = async ({ Component, ctx }: any): Promise<any> => {
+//   let pageProps = {}
+//
+//   if (Component.getInitialProps) {
+//     pageProps = await Component.getInitialProps(ctx)
+//   }
+//
+//   return { pageProps }
+// }
+//
 export default MyApp
