@@ -13,6 +13,7 @@ import Layout from '../layout/Layout'
 import Components from '@components'
 import React from 'react'
 import { useRouter } from 'next/router'
+import hasWebpSupport from '../../utils/detectWebpSupport'
 
 const Index: NextPage<AppPageProps> = (props) => {
   const { settings, page, error, pageSeo } = useStoryblok(props)
@@ -26,8 +27,9 @@ const Index: NextPage<AppPageProps> = (props) => {
   if (props.locale && getGlobalState('locale') !== props.locale) {
     setGlobalState('locale', props.locale)
   }
-  if (props.hasWebpSupport !== getGlobalState('hasWebpSupport')) {
-    setGlobalState('hasWebpSupport', props.hasWebpSupport)
+  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
+    hasWebpSupport()
+      .then((has) => setGlobalState('hasWebpSupport', has))
   }
 
   if (error) {
@@ -52,7 +54,7 @@ const Index: NextPage<AppPageProps> = (props) => {
       allStaticContent: props.allStaticContent,
       allStories: props.allStories
     }}>
-      <WindowDimensionsProvider device={props.device}>
+      <WindowDimensionsProvider>
         <AppSetupProvider settings={settings} page={page}>
           <GlobalTheme settings={settings} device={props.device}>
             <CssBaseline />

@@ -163,22 +163,25 @@ export type ErrorpageItems = {
 
 export type GlobalComponent = {
    __typename?: 'GlobalComponent';
-  Theme?: Maybe<Scalars['String']>;
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
-  bottom?: Maybe<Scalars['String']>;
   component?: Maybe<Scalars['String']>;
+  drawer_background?: Maybe<Scalars['BlockScalar']>;
+  drawer_below_toolbar?: Maybe<Scalars['Boolean']>;
+  drawer_below_toolbar_xs?: Maybe<Scalars['Boolean']>;
+  drawer_body?: Maybe<Scalars['BlockScalar']>;
+  drawer_full_width_mobile?: Maybe<Scalars['Boolean']>;
+  drawer_variant?: Maybe<Scalars['String']>;
+  drawer_width?: Maybe<Scalars['String']>;
   footer?: Maybe<Scalars['BlockScalar']>;
   footer_config?: Maybe<Array<Maybe<Scalars['String']>>>;
   mobile_nav_breakpoint?: Maybe<Scalars['String']>;
   multi_toolbar?: Maybe<Scalars['BlockScalar']>;
-  seo?: Maybe<Scalars['String']>;
   seo_body?: Maybe<Scalars['BlockScalar']>;
   seo_description?: Maybe<Scalars['String']>;
   seo_robots?: Maybe<Scalars['Boolean']>;
   seo_title?: Maybe<Scalars['String']>;
   seo_website_url?: Maybe<Scalars['String']>;
-  setup?: Maybe<Scalars['String']>;
   setup_favicon?: Maybe<Scalars['String']>;
   setup_google_analytics?: Maybe<Scalars['String']>;
   setup_google_site_verification?: Maybe<Scalars['String']>;
@@ -206,7 +209,6 @@ export type GlobalComponent = {
   toolbar_main_height?: Maybe<Scalars['String']>;
   toolbar_progress_color?: Maybe<Scalars['String']>;
   toolbar_variant?: Maybe<Scalars['String']>;
-  top?: Maybe<Scalars['String']>;
   website_logo?: Maybe<Scalars['String']>;
   website_logo_invert?: Maybe<Scalars['String']>;
   website_logo_invert_xs?: Maybe<Scalars['String']>;
@@ -253,8 +255,6 @@ export type PageComponent = {
   _uid?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['BlockScalar']>;
   component?: Maybe<Scalars['String']>;
-  list_preview?: Maybe<Scalars['String']>;
-  meta?: Maybe<Scalars['String']>;
   meta_description?: Maybe<Scalars['String']>;
   meta_robots?: Maybe<Scalars['Boolean']>;
   meta_title?: Maybe<Scalars['String']>;

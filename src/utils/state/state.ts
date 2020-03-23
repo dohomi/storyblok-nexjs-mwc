@@ -18,7 +18,7 @@ export interface State {
   //   toolbarMainHeight?: string | number
   // },
   locale: string,
-  hasWebpSupport: boolean
+  hasWebpSupport?: boolean
 }
 
 const initialState: State = {
@@ -28,17 +28,8 @@ const initialState: State = {
     searchText: undefined,
     categories: undefined
   },
-  // appSetup: {
-  //   hasDrawer: false,
-  //   hasFeatureImage: false,
-  //   hasRightDrawer: false,
-  //   drawerVariant: 'temporary',
-  //   drawerBelowToolbar: false,
-  //   hasScrollCollapse: false,
-  //   toolbarMainHeight: undefined
-  // },
   locale: CONFIG.defaultLocale,
-  hasWebpSupport: true
+  hasWebpSupport: undefined
 }
 const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(initialState)
 

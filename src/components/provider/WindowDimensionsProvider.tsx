@@ -1,6 +1,6 @@
 import React, { createContext, FunctionComponent, useContext, useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
-import { AppDevice } from '../../utils/deviceDetect'
+import deviceDetect from '../../utils/deviceDetect'
 
 export type WithWindowDimensionsProps = {
   width: number
@@ -15,21 +15,19 @@ let defaultValue: WithWindowDimensionsProps = {
   width: 599, // mobile
   isMobile: true,
   isTablet: false,
-  isDesktop: false,
+  isDesktop: false
 }
 
 export const WindowDimensionsCtx = createContext(defaultValue)
 
-const WindowDimensionsProvider: FunctionComponent<{
-  device?: AppDevice
-}> = ({ device = {}, children }) => {
+const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
   let defaultValue: WithWindowDimensionsProps = {
     height: 500,
     width: 599,
     isMobile: true,
     isTablet: false,
     isDesktop: false,
-    ...device
+    ...deviceDetect()
   }
 
   if (typeof window !== 'undefined') {
