@@ -8,5 +8,5 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   console.log("inside preview", req.query.slug)
   res.writeHead(307, { Location: req.query.slug/*post.slug*/ })
 
-  res.end('Preview mode enabled')
+  res.end()
 }
