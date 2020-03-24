@@ -6,16 +6,15 @@ import { prepareForStoryblok } from '@initialData/prepareStoryblokRequest'
 
 
 const pagesGetStaticProps: GetStaticProps = async ({ params, preview, previewData }) => {
-  console.log('preview', params, preview, previewData)
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
 
   try {
     const slug = params?.index || 'home'
-    if (preview && Array.isArray(slug) && slug[0] === 'api') {
-      // remove first entry (which is api)
-      slug.shift()
-    }
-    console.log(preview)
+    // if (preview && Array.isArray(slug) && slug[0] === 'api') {
+    //   // remove first entry (which is api)
+    //   slug.shift()
+    // }
+    console.log('preview', slug, params, preview, previewData)
     const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
 
