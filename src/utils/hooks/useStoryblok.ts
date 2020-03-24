@@ -4,8 +4,12 @@ import { useEffect, useState } from 'react'
 import StoryblokService from '../StoryblokService'
 
 export const useStoryblok = (props: AppPageProps) => {
-  const { asPath, query } = useRouter()
-  const insideStoryblok = !!query._storyblok
+  const { asPath } = useRouter()
+  const { query } = props
+  if (query) {
+    StoryblokService.setQuery(query)
+  }
+  const insideStoryblok = !!query?._storyblok
   console.log('use storyblok', query)
   if (typeof document !== 'undefined') {
     console.log(document.location)

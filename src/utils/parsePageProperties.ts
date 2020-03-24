@@ -5,7 +5,6 @@ import {
   SeoOpenGraphStoryblok
 } from '../typings/generated/components-schema'
 import { StaticcontainerItem } from '../typings/generated/schema'
-import { AppDevice } from './deviceDetect'
 
 export type PageSeoProps = {
   title: string
@@ -44,6 +43,5 @@ export type AppPageProps = {
   allCategories: CategoryStoryblok[]
   allStaticContent: StaticcontainerItem[]
   locale: string | undefined
-  hasWebpSupport?: boolean
-  device?: AppDevice
+  query?: any
 }
