@@ -1,12 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  if (/* req.query.secret !== 'MY_SECRET_TOKEN' || */!req.query.slug) {
+  const currentSlug = req.query.slug
+  if (/* req.query.secret !== 'MY_SECRET_TOKEN' || */!currentSlug || typeof currentSlug !== 'string') {
     return res.status(401).json({ message: 'Invalid token/slug' })
   }
-  res.setPreviewData({slug: req.query.slug})
-  console.log("inside preview", req.query.slug)
-  res.writeHead(307, { Location: req.query.slug/*post.slug*/ })
+
+  res.setPreviewData({})
+  console.log('inside preview', currentSlug)
+  res.writeHead(307, { Location: currentSlug.startsWith('/') ? currentSlug : `/${currentSlug}`/*post.slug*/ })
 
   res.end()
 }
