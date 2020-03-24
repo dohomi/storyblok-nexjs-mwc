@@ -50,7 +50,8 @@ const pagesGetStaticProps: GetStaticProps = async (props) => {
         allStories: stories,
         allCategories: categories,
         allStaticContent: staticContent,
-        locale
+        locale,
+        query: previewData?.query
       }
     }
   } catch (e) {
