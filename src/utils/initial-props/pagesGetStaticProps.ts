@@ -1,7 +1,6 @@
 import { apiRequestResolver } from '@initialData/storyblokDeliveryResolver'
 import { CONFIG } from '../StoriesService'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
-import { PageSeoProps } from '../parsePageProperties'
 import { GetStaticProps } from 'next'
 import { prepareForStoryblok } from '@initialData/prepareStoryblokRequest'
 
@@ -11,7 +10,13 @@ const pagesGetStaticProps: GetStaticProps = async ({ params, preview, previewDat
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
 
   try {
-    const { isLandingPage, knownLocale, pageSlug, seoSlug } = prepareForStoryblok(params && params.index || 'home')
+    const slug = params?.index || 'home'
+    // if (preview && Array.isArray(slug)) {
+    //   // remove first entry (which is api)
+    //   slug.shift()
+    // }
+    // console.log(preview)
+    const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
 
     let { page, settings, categories = [], stories = [], locale, staticContent = [] } = await apiRequestResolver({
@@ -28,25 +33,10 @@ const pagesGetStaticProps: GetStaticProps = async ({ params, preview, previewDat
       locale = CONFIG.overwriteLocale
     }
 
-    const url = `https://${process.env.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
+    // const url = `https://${process.env.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
     const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
     const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
 
-    let pageSeo: PageSeoProps = {
-      url: url,
-      disableRobots: CONFIG.overwriteDisableIndex || !!(pageProps && pageProps.meta_robots),
-      title: '',
-      description: '',
-      body: []
-    }
-    if (pageProps) {
-      pageSeo = {
-        ...pageSeo,
-        title: pageProps.meta_title as string,
-        description: pageProps.meta_description as string,
-        body: pageProps.seo_body || []
-      }
-    }
     if (!(settingsProps && settingsProps._uid)) {
       console.log('SETTINGS MISSNG')
     } else if (!pageProps) {
@@ -57,13 +47,10 @@ const pagesGetStaticProps: GetStaticProps = async ({ params, preview, previewDat
       props: {
         page: pageProps,
         settings: settingsProps,
-        pageSeo,
         allStories: stories,
         allCategories: categories,
         allStaticContent: staticContent,
-        locale,
-        hasWebpSupport: true, // todo
-        device: {} // todo
+        locale
       }
     }
   } catch (e) {

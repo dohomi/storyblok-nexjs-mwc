@@ -4,10 +4,7 @@ export const prepareForStoryblok = (slug: string | string[] = 'home') => {
   let knownLocale = undefined
   let isLandingPage = undefined
   let slugAsArray = Array.isArray(slug) ? slug : [slug]
-  let seoSlug = slugAsArray.join('/')
-  if (seoSlug.endsWith('home')) {
-    seoSlug = seoSlug.replace('home', '')
-  }
+
   if (CONFIG.rootDirectory) {
     // if the first entry is not root directory append root directory
     slugAsArray[0] !== CONFIG.rootDirectory && slugAsArray.unshift(CONFIG.rootDirectory)
@@ -40,7 +37,6 @@ export const prepareForStoryblok = (slug: string | string[] = 'home') => {
   return {
     pageSlug,
     knownLocale,
-    isLandingPage,
-    seoSlug
+    isLandingPage
   }
 }

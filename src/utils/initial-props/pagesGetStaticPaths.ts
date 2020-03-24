@@ -15,6 +15,7 @@ const pagesGetStaticPaths: GetStaticPaths = async () => {
     }
   })
 
+  // todo: different loading mode for root folder and language handling
   // paths = paths.slice(0, 3)
   //
   // console.log(paths[0], paths[1], paths[2])
