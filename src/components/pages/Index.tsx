@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { AppPageProps, PageSeoProps } from '../../utils/parsePageProperties'
+import { AppPageProps } from '../../utils/parsePageProperties'
 import { useStoryblok } from '../../utils/hooks/useStoryblok'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import Error from '../../pages/_error'
@@ -16,10 +16,22 @@ import { useRouter } from 'next/router'
 import hasWebpSupport from '../../utils/detectWebpSupport'
 
 const Index: NextPage<AppPageProps> = (props) => {
-  const { settings, page, error, pageSeo } = useStoryblok(props)
+  const { settings, page, error } = useStoryblok(props)
   const { isFallback } = useRouter()
+  console.log('inside index')
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
+  useEffect(
+    () => {
+      // Remove the server-side injected CSS.
+      const jssStyles = document.querySelector('#jss-server-side')
+      if (jssStyles && jssStyles.parentElement) {
+        jssStyles.parentElement.removeChild(jssStyles)
+      }
+    },
+    []
+  )
+
   if (isFallback) {
     return <div>Loading...</div>
   }
@@ -47,17 +59,6 @@ const Index: NextPage<AppPageProps> = (props) => {
     return <Error statusCode={404} settings={settings} page={page} />
   }
 
-  useEffect(
-    () => {
-      // Remove the server-side injected CSS.
-      const jssStyles = document.querySelector('#jss-server-side')
-      if (jssStyles && jssStyles.parentElement) {
-        jssStyles.parentElement.removeChild(jssStyles)
-      }
-    },
-    []
-  )
-
   return (
     <AppProvider content={{
       allCategories: props.allCategories,
@@ -68,7 +69,7 @@ const Index: NextPage<AppPageProps> = (props) => {
         <AppSetupProvider settings={settings} page={page}>
           <GlobalTheme settings={settings} device={props.device}>
             <CssBaseline />
-            <AppSeo settings={settings} pageSeo={pageSeo as PageSeoProps} previewImage={page && page.preview_image} />
+            <AppSeo settings={settings} page={page} previewImage={page && page.preview_image} />
             <Layout settings={settings}>
               {Components(page)}
             </Layout>

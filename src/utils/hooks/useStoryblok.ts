@@ -5,23 +5,22 @@ import StoryblokService from '../StoryblokService'
 
 export const useStoryblok = (props: AppPageProps) => {
   const { asPath, query } = useRouter()
-  if (!query._storyblok) {
-    return props
-  }
+  const insideStoryblok = !!query._storyblok
+
   let [content, setContent] = useState<AppPageProps>(props)
-
   useEffect(
     () => {
-      setContent(props)
+      insideStoryblok && setContent(props)
+
     },
-    [asPath]
+    [asPath, insideStoryblok]
   )
 
   useEffect(
     () => {
-      StoryblokService.initEditor(content, setContent)
+      insideStoryblok && StoryblokService.initEditor(content, setContent)
     },
-    []
+    [insideStoryblok]
   )
-  return content
+  return !insideStoryblok ? props : content
 }

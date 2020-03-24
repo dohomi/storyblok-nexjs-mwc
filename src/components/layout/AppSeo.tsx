@@ -5,11 +5,13 @@ import { FunctionComponent } from 'react'
 import {
   GlobalStoryblok,
   ImageCoreStoryblok,
+  PageStoryblok,
   SeoOpenGraphStoryblok,
   SeoTwitterStoryblok
 } from '../../typings/generated/components-schema'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
-import { PageSeoProps } from '../../utils/parsePageProperties'
+import { CONFIG } from '../../utils/StoriesService'
+import { useRouter } from 'next/router'
 
 type SeoMetaTypes = {
   title: string
@@ -43,12 +45,12 @@ const mapOpenGraphImage = (item: ImageCoreStoryblok): OpenGraphImages | undefine
   }
 }
 
-const parseOpenGraph = (settingsOpenGraph: SeoOpenGraphStoryblok, pageOpenGraph: SeoOpenGraphStoryblok, seoMeta: SeoMetaTypes, url: string): OpenGraph => {
+const parseOpenGraph = (settingsOpenGraph: SeoOpenGraphStoryblok, pageOpenGraph: SeoOpenGraphStoryblok, seoMeta: SeoMetaTypes): OpenGraph => {
   // set some defaults of seoMeta
   const openGraph: OpenGraph = {
     title: pageOpenGraph.title || seoMeta.title || settingsOpenGraph.title,
     description: pageOpenGraph.description || seoMeta.description || settingsOpenGraph.description,
-    url: pageOpenGraph.url || settingsOpenGraph.url || url,
+    url: pageOpenGraph.url || settingsOpenGraph.url,
     type: pageOpenGraph.type || settingsOpenGraph.type,
     site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
     locale: pageOpenGraph.locale || settingsOpenGraph.locale
@@ -84,18 +86,21 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
 const getCanonicalUrl = (url: string) => {
   if (url.endsWith('home')) {
     url = url.replace('home', '')
+  } else if (url.endsWith('home/')) {
+    url = url.replace('home/', '')
   }
   return url
 }
 
 
-const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoProps, previewImage?: string }> = ({ settings, pageSeo, previewImage }) => {
+const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, page: PageStoryblok, previewImage?: string }> = ({ settings, page, previewImage }) => {
+  const router = useRouter()
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
-  const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = pageSeo.body || []
-  const robotsIndexFollow = pageSeo.disableRobots || !settings.seo_robots
+  const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = page.seo_body || []
+  const robotsIndexFollow = CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots // todo additionally disable .now.sh domains
   const seo: SeoMetaTypes = {
-    title: pageSeo.title || settings.seo_title || 'Website made by Lumen Media',
-    description: pageSeo.description || settings.seo_description || 'Website made by Lumen Media',
+    title: page.meta_title || settings.seo_title || 'Website made by Lumen Media',
+    description: page.meta_description || settings.seo_description || 'Website made by Lumen Media',
     noindex: robotsIndexFollow, // important to change if go live
     nofollow: robotsIndexFollow
   }
@@ -107,8 +112,9 @@ const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoPro
     pageOpenGraphs.images = pageOpenGraphs.images || []
     pageOpenGraphs.images.push({ url: previewImage })
   }
+
   if (settingsOpenGraphs || pageOpenGraphs) {
-    seo.openGraph = parseOpenGraph(settingsOpenGraphs || {}, pageOpenGraphs, seo, pageSeo.url)
+    seo.openGraph = parseOpenGraph(settingsOpenGraphs || {}, pageOpenGraphs, seo)
     const facebookAppId = (settingsOpenGraphs && settingsOpenGraphs.app_id) || (pageOpenGraphs && pageOpenGraphs.app_id)
     facebookAppId && (seo.facebook = { appId: facebookAppId })
   }
@@ -119,7 +125,9 @@ const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, pageSeo: PageSeoPro
     seo.twitter = parseTwitter(settingsTwitter)
   }
 
-  seo.canonical = getCanonicalUrl(pageSeo.url)
+  if (settings.seo_website_url) {
+    seo.canonical = getCanonicalUrl(settings.seo_website_url + router?.asPath)
+  }
 
   return <NextSeo {...seo} />
 }

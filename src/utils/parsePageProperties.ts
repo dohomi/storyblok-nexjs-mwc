@@ -39,7 +39,6 @@ export interface AppConfigProps {
 export type AppPageProps = {
   settings: GlobalStoryblok
   page: PageStoryblok,
-  pageSeo?: PageSeoProps
   error?: ErrorProps,
   allStories: any[]
   allCategories: CategoryStoryblok[]
