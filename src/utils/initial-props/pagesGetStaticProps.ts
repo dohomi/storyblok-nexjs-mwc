@@ -3,18 +3,19 @@ import { CONFIG } from '../StoriesService'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { GetStaticProps } from 'next'
 import { prepareForStoryblok } from '@initialData/prepareStoryblokRequest'
+import StoryblokService from '../StoryblokService'
 
 
-const pagesGetStaticProps: GetStaticProps = async ({ params, preview, previewData }) => {
+const pagesGetStaticProps: GetStaticProps = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
-
+  const { params, previewData, preview } = props
   try {
     const slug = params?.index || 'home'
-    // if (preview && Array.isArray(slug) && slug[0] === 'api') {
-    //   // remove first entry (which is api)
-    //   slug.shift()
-    // }
-    console.log('preview', slug, params, preview, previewData)
+
+    console.log('pagesGetStaticProps', slug, preview, props)
+    if (previewData && previewData.query) {
+      StoryblokService.setQuery(previewData.query)
+    }
     const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
 
