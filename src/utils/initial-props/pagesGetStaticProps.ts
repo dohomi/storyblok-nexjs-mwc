@@ -11,11 +11,11 @@ const pagesGetStaticProps: GetStaticProps = async ({ params, preview, previewDat
 
   try {
     const slug = params?.index || 'home'
-    // if (preview && Array.isArray(slug)) {
-    //   // remove first entry (which is api)
-    //   slug.shift()
-    // }
-    // console.log(preview)
+    if (preview && Array.isArray(slug) && slug[0] === 'api') {
+      // remove first entry (which is api)
+      slug.shift()
+    }
+    console.log(preview)
     const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
 
