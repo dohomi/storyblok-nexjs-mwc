@@ -12,8 +12,8 @@ const pagesGetStaticProps: GetStaticProps = async (props) => {
   try {
     const slug = params?.index || 'home'
 
-    console.log('pagesGetStaticProps', slug, preview, props)
     if (previewData && previewData.query) {
+      console.log('pagesGetStaticProps', slug, preview, props)
       StoryblokService.setQuery(previewData.query)
     }
     const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
@@ -51,7 +51,7 @@ const pagesGetStaticProps: GetStaticProps = async (props) => {
         allCategories: categories,
         allStaticContent: staticContent,
         locale,
-        query: previewData?.query
+        query: previewData?.query ? previewData.query : null
       }
     }
   } catch (e) {
