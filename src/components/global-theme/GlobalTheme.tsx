@@ -4,11 +4,9 @@ import * as React from 'react'
 import { FunctionComponent, useMemo } from 'react'
 import parseFont from '../../utils/parseFont'
 // @ts-ignore
-import mediaQuery from 'css-mediaquery'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { GlobalStoryblok, ToolbarRowStoryblok } from '../../typings/generated/components-schema'
-import { AppPageProps } from '../../utils/parsePageProperties'
-import { useRouter } from 'next/router'
+import StoryblokService from '../../utils/StoryblokService'
 // import Fonts from '@fonts'
 
 
@@ -75,16 +73,15 @@ const GlobalStyles = () => {
 
 const GlobalTheme: FunctionComponent<{
   settings: GlobalStoryblok
-  device?: AppPageProps['device']
-}> = ({ children, settings, device }) => {
-  const router = useRouter()
-  const storyblokBackend = router?.query?._storyblok
-  const ssrMatchMedia = (query: string) => ({
-    matches: mediaQuery.match(query, {
-      // The estimated CSS width of the browser.
-      width: device?.width || 599
-    })
-  })
+}> = ({ children, settings }) => {
+
+  const storyblokBackend = StoryblokService.insideVisualComposer()
+  // const ssrMatchMedia = (query: string) => ({
+  //   matches: mediaQuery.match(query, {
+  //     // The estimated CSS width of the browser.
+  //     width: device?.width || 599
+  //   })
+  // })
 
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
@@ -137,11 +134,11 @@ const GlobalTheme: FunctionComponent<{
           alt4: settings.theme_font_alt4 && parseFont(settings.theme_font_alt4) as string
         },
         defaultContainerWidth: defaultContainerWidth,
-        props: {
-          MuiUseMediaQuery: {
-            ssrMatchMedia
-          }
-        },
+        // props: {
+        //   MuiUseMediaQuery: {
+        //     ssrMatchMedia
+        //   }
+        // },
         overrides: {
           MuiDrawer: {
             modal: {

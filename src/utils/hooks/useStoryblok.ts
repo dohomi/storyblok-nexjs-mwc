@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import StoryblokService from '../StoryblokService'
 
 export const useStoryblok = (props: AppPageProps) => {
-  const { asPath } = useRouter()
-  const { query } = props
+  const { asPath, query } = useRouter() // query only set in SSR mode
+  // const { query } = props
   if (query) {
     StoryblokService.setQuery(query)
   }
@@ -19,7 +19,6 @@ export const useStoryblok = (props: AppPageProps) => {
   useEffect(
     () => {
       insideStoryblok && setContent(props)
-
     },
     [asPath, insideStoryblok]
   )

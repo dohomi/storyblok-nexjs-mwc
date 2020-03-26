@@ -125,7 +125,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
       locale,
       settings: localizedSettings,
       categories: localizedCategories,
-      stories: localizedStories.filter((i: any) => i.tag_list.length > 0),
+      stories: localizedStories.filter((i: any) => i.tag_list.length > 0), // todo better all stories?
       staticContent: localizedStaticContent
     }
   }
@@ -134,7 +134,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     page,
     settings,
     categories,
-    stories: stories.filter((i: any) => i.tag_list.length > 0),
+    stories: stories.filter((i: any) => i.tag_list.length > 0), // todo better all stories? otherwise autocomplete missing values
     locale,
     staticContent
   }

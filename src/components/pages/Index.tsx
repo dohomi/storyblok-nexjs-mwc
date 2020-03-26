@@ -67,7 +67,7 @@ const Index: NextPage<AppPageProps> = (props) => {
     }}>
       <WindowDimensionsProvider>
         <AppSetupProvider settings={settings} page={page}>
-          <GlobalTheme settings={settings} device={props.device}>
+          <GlobalTheme settings={settings}>
             <CssBaseline />
             <AppSeo settings={settings} page={page} previewImage={page && page.preview_image} />
             <Layout settings={settings}>

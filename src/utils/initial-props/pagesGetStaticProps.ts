@@ -1,58 +1,24 @@
-import { apiRequestResolver } from '@initialData/storyblokDeliveryResolver'
-import { CONFIG } from '../StoriesService'
-import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { GetStaticProps } from 'next'
-import { prepareForStoryblok } from '@initialData/prepareStoryblokRequest'
 import StoryblokService from '../StoryblokService'
+import getPageProps from '@initialData/getPageProps'
+import { getBaseProps } from '@initialData/getBaseProps'
 
 
 const pagesGetStaticProps: GetStaticProps = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, previewData, preview } = props
+  const slug = params?.index || 'home'
+  if (Array.isArray(slug) && slug[0] === '_dev_') {
+    return { props: getBaseProps({ type: 'not_supported' }) }// do nothing _dev_ mode is active
+  }
   try {
-    const slug = params?.index || 'home'
-
     console.log('pagesGetStaticProps', slug, preview, props)
     if (previewData && previewData.query) {
       StoryblokService.setQuery(previewData.query)
     }
-    const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
-
-
-    let { page, settings, categories = [], stories = [], locale, staticContent = [] } = await apiRequestResolver({
-      pageSlug,
-      locale: knownLocale,
-      isLandingPage: isLandingPage
-    })
-
-    if (CONFIG.defaultLocale && !locale) {
-      locale = CONFIG.defaultLocale
-    }
-
-    if (CONFIG.overwriteLocale) {
-      locale = CONFIG.overwriteLocale
-    }
-
-    // const url = `https://${process.env.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
-    const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
-    const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
-
-    if (!(settingsProps && settingsProps._uid)) {
-      console.log('SETTINGS MISSNG')
-    } else if (!pageProps) {
-      console.log('PAGE MISSNG')
-    }
-    // console.log('inside of static props', settingsProps)
+    const pageProps = await getPageProps(slug)
     return {
-      props: {
-        page: pageProps,
-        settings: settingsProps,
-        allStories: stories,
-        allCategories: categories,
-        allStaticContent: staticContent,
-        locale,
-        query: previewData?.query
-      }
+      props: pageProps
     }
   } catch (e) {
     console.log('error', e)
