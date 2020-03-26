@@ -60,6 +60,9 @@ class MyDocument extends Document {
           <script dangerouslySetInnerHTML={this.setGoogleGTag()} />
         </>
       )}
+      {StoryblokService.insideVisualComposer() && (
+        <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${StoryblokService.getToken()}`}></script>
+      )}
       </body>
       </html>
     )

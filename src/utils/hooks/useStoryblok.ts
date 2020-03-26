@@ -11,9 +11,7 @@ export const useStoryblok = (props: AppPageProps) => {
   }
   const insideStoryblok = !!query?._storyblok
   console.log('use storyblok', query)
-  if (typeof document !== 'undefined') {
-    console.log(document.location)
-  }
+
 
   let [content, setContent] = useState<AppPageProps>(props)
   useEffect(
@@ -25,9 +23,9 @@ export const useStoryblok = (props: AppPageProps) => {
 
   useEffect(
     () => {
-      insideStoryblok && StoryblokService.initEditor(content, setContent)
+      StoryblokService.initEditor(content, setContent)
     },
-    [insideStoryblok]
+    []
   )
   return !insideStoryblok ? props : content
 }

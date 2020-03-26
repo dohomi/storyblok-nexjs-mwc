@@ -53,9 +53,6 @@ const AppHead: FunctionComponent<{
                 key={`apple-touch-icon-precomposed`} />
         </>
       )}
-      {StoryblokService.insideVisualComposer() && (
-        <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${StoryblokService.getToken()}`}></script>
-      )}
       <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`} rel="stylesheet" />
       {settings.setup_google_site_verification &&
       <meta name="google-site-verification" content={settings.setup_google_site_verification}
