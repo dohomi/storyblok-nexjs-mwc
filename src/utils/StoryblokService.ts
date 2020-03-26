@@ -129,6 +129,8 @@ class StoryblokServiceClass {
         //   })
         // }
       })
+    } else {
+      console.log('storyblok not initialized')
     }
   }
 
