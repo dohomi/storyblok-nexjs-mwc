@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next'
 import StoryblokService from '../StoryblokService'
 import getPageProps from '@initialData/getPageProps'
-import { setGlobalState } from '../state/state'
 
 
 const pagesGetServerSideProps: GetServerSideProps = async (props) => {
