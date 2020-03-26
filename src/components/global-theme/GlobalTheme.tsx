@@ -6,7 +6,7 @@ import parseFont from '../../utils/parseFont'
 // @ts-ignore
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { GlobalStoryblok, ToolbarRowStoryblok } from '../../typings/generated/components-schema'
-import { useRouter } from 'next/router'
+import StoryblokService from '../../utils/StoryblokService'
 // import Fonts from '@fonts'
 
 
@@ -74,8 +74,8 @@ const GlobalStyles = () => {
 const GlobalTheme: FunctionComponent<{
   settings: GlobalStoryblok
 }> = ({ children, settings }) => {
-  const router = useRouter()
-  const storyblokBackend = router?.query?._storyblok
+
+  const storyblokBackend = StoryblokService.insideVisualComposer()
   // const ssrMatchMedia = (query: string) => ({
   //   matches: mediaQuery.match(query, {
   //     // The estimated CSS width of the browser.

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { createContext, FunctionComponent, useContext, useState } from 'react'
 import { CategoryStoryblok } from '../../typings/generated/components-schema'
 import { PageItem, StaticcontainerItem } from '../../typings/generated/schema'
-import { useRouter } from 'next/router'
+import StoryblokService from '../../utils/StoryblokService'
 
 export type AppContextProps = {
   allStories: PageItem[],
@@ -18,9 +18,9 @@ const defaultValue: AppContextProps = {
 const AppContext = createContext(defaultValue)
 
 const AppProvider: FunctionComponent<{ content: AppContextProps }> = ({ children, content }) => {
-  const router = useRouter()
-  const query = router?.query
-  if (!!(query?._storyblok)) {
+
+  const insideVisualComposer = StoryblokService.insideVisualComposer()
+  if (insideVisualComposer) {
     return <AppContext.Provider value={content}>{children}</AppContext.Provider>
   }
   const [value] = useState<AppContextProps>(content)

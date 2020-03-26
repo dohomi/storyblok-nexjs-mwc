@@ -8,16 +8,7 @@ export interface State {
     searchText: string | undefined
     categories: string[] | undefined
   }
-  // appSetup: {
-  //   hasDrawer?: boolean,
-  //   hasFeatureImage?: boolean,
-  //   hasRightDrawer?: boolean,
-  //   drawerVariant?: DrawerProps['variant']
-  //   drawerBelowToolbar?: boolean
-  //   hasScrollCollapse?: boolean
-  //   toolbarMainHeight?: string | number
-  // },
-  locale: string,
+  locale: string
   hasWebpSupport?: boolean
 }
 

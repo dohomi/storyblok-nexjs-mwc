@@ -1,11 +1,10 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import { CONFIG } from '../../utils/StoriesService'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import { useRouter } from 'next/router'
+import StoryblokService from '../../utils/StoryblokService'
 
 const ExternalScripts: FunctionComponent = () => {
-  const router = useRouter()
-  const insideStoryblok = router?.query?._storyblok
+  const insideStoryblok = StoryblokService.insideVisualComposer()
   const tawkToId = CONFIG.TAWKTO
 
   const scrolled = useScrollTrigger({ disableHysteresis: true })
