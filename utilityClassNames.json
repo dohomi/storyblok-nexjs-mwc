@@ -324,5 +324,9 @@
   "d-lg-none",
   "text-lg-left",
   "text-lg-center",
-  "text-lg-right"
+  "text-lg-right",
+  "text-lg-justify",
+  "text-md-justify",
+  "text-sm-justify",
+  "text-justify"
 ]
