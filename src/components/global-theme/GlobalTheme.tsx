@@ -1,7 +1,7 @@
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import * as React from 'react'
-import { FunctionComponent, useMemo } from 'react'
+import { FunctionComponent, memo, useMemo } from 'react'
 import parseFont from '../../utils/parseFont'
 // @ts-ignore
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
@@ -66,10 +66,11 @@ declare module '@material-ui/core/styles/createMuiTheme' {
   }
 }
 
-const GlobalStyles = () => {
+const GlobalStyles = memo(() => {
   useGlobalStyles()
+  console.log('inside Global Styles')
   return null
-}
+})
 
 const GlobalTheme: FunctionComponent<{
   settings: GlobalStoryblok

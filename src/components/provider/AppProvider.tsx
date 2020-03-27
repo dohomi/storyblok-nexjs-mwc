@@ -7,7 +7,7 @@ import StoryblokService from '../../utils/StoryblokService'
 export type AppContextProps = {
   allStories: PageItem[],
   allCategories: CategoryStoryblok[]
-  allStaticContent: StaticcontainerItem[],
+  allStaticContent: StaticcontainerItem[]
 }
 
 const defaultValue: AppContextProps = {
