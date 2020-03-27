@@ -155,6 +155,9 @@ export const getCreatedStyles = (theme: Theme) => {
       '.text-right': {
         textAlign: 'right'
       },
+      '.text-justify': {
+        textAlign: 'justify'
+      },
       '.font-weight-bold': {
         fontWeight: 'bold !important'
       },
@@ -301,6 +304,9 @@ export const getCreatedStyles = (theme: Theme) => {
         '.text-sm-right': {
           textAlign: 'right'
         },
+        '.text-sm-justify': {
+          textAlign: 'justify'
+        },
         ...genSpacing('-sm')
       },
       [theme.breakpoints.up('md')]: {
@@ -322,6 +328,9 @@ export const getCreatedStyles = (theme: Theme) => {
         '.text-md-right': {
           textAlign: 'right'
         },
+        '.text-md-justify': {
+          textAlign: 'justify'
+        },
         ...genSpacing('-md')
       },
       [theme.breakpoints.up('lg')]: {
@@ -340,6 +349,9 @@ export const getCreatedStyles = (theme: Theme) => {
         '.text-lg-right': {
           textAlign: 'right'
         },
+        '.text-lg-justify': {
+          textAlign: 'justify'
+        }
       }
     }
   })
