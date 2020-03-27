@@ -1,6 +1,6 @@
 import Header from './toolbar/Header'
 import Footer from './Footer'
-import React, { FunctionComponent, memo, ReactNode } from 'react'
+import React, { FunctionComponent } from 'react'
 import AppHead from './AppHead'
 import ExternalScripts from '../external-scripts/ExternalScripts'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
@@ -24,15 +24,6 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
   // appSetup,
   settings
 }) => {
-  // const { isMobile } = useWindowDimensions()
-  // const drawerVariant = settings.drawer_variant
-  //
-  // setAppSetup({
-  //   ...appSetup,
-  //   drawerVariant: (isMobile ? 'temporary' : drawerVariant) || 'temporary',
-  //   drawerBelowToolbar: (!isMobile && settings.drawer_below_toolbar)
-  // })
-
   console.log('inside layout')
 
   return (
@@ -47,4 +38,4 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
   )
 }
 
-export default memo<LayoutComponentProps & { children: ReactNode }>(Layout)
+export default Layout

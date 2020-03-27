@@ -1,50 +1,57 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import getNprogressJss from '../jss/npgrogress'
 
+
 export const getCreatedStyles = (theme: Theme) => {
-  const spacing = {}
-  const directions = [{ key: 't', val: 'Top' }, { key: 'l', val: 'Left' }, { key: 'r', val: 'Right' }, {
-    key: 'b',
-    val: 'Bottom'
-  }]
-  for (let i = 0; i <= 5; i++) {
-    for (const dir of directions) {
-      spacing[`.p${dir.key}-${i}`] = {
-        [`padding${dir.val}`]: `${theme.spacing(i)}px !important`
-      }
-      spacing[`.m${dir.key}-${i}`] = {
-        [`margin${dir.val}`]: `${theme.spacing(i)}px !important`
-      }
-      spacing[`.p-${i}`] = {
-        [`padding`]: `${theme.spacing(i)}px !important`
-      }
-      spacing[`.m-${i}`] = {
-        [`margin`]: `${theme.spacing(i)}px !important`
-      }
-      spacing[`.mx-${i}`] = {
-        [`marginLeft`]: `${theme.spacing(i)}px !important`,
-        [`marginRight`]: `${theme.spacing(i)}px !important`
-      }
-      spacing[`.my-${i}`] = {
-        [`marginTop`]: `${theme.spacing(i)}px !important`,
-        [`marginBottom`]: `${theme.spacing(i)}px !important`
-      }
-      spacing[`.px-${i}`] = {
-        [`paddingLeft`]: `${theme.spacing(i)}px !important`,
-        [`paddingRight`]: `${theme.spacing(i)}px !important`
-      }
-      spacing[`.py-${i}`] = {
-        [`paddingTop`]: `${theme.spacing(i)}px !important`,
-        [`paddingBottom`]: `${theme.spacing(i)}px !important`
+  const genSpacing = (breakpoint: string = '') => {
+    const spacing = {}
+    const directions = [{ key: 't', val: 'Top' }, { key: 'l', val: 'Left' }, { key: 'r', val: 'Right' }, {
+      key: 'b',
+      val: 'Bottom'
+    }]
+    for (let i = 0; i <= 5; i++) {
+      for (const dir of directions) {
+        spacing[`.p${dir.key}${breakpoint}-${i}`] = {
+          [`padding${dir.val}`]: `${theme.spacing(i)}px !important`
+        }
+        spacing[`.m${dir.key}${breakpoint}-${i}`] = {
+          [`margin${dir.val}`]: `${theme.spacing(i)}px !important`
+        }
+        spacing[`.p${breakpoint}-${i}`] = {
+          [`padding`]: `${theme.spacing(i)}px !important`
+        }
+        spacing[`.m${breakpoint}-${i}`] = {
+          [`margin`]: `${theme.spacing(i)}px !important`
+        }
+        spacing[`.mx${breakpoint}-${i}`] = {
+          [`marginLeft`]: `${theme.spacing(i)}px !important`,
+          [`marginRight`]: `${theme.spacing(i)}px !important`
+        }
+        spacing[`.my${breakpoint}-${i}`] = {
+          [`marginTop`]: `${theme.spacing(i)}px !important`,
+          [`marginBottom`]: `${theme.spacing(i)}px !important`
+        }
+        spacing[`.px${breakpoint}-${i}`] = {
+          [`paddingLeft`]: `${theme.spacing(i)}px !important`,
+          [`paddingRight`]: `${theme.spacing(i)}px !important`
+        }
+        spacing[`.py${breakpoint}-${i}`] = {
+          [`paddingTop`]: `${theme.spacing(i)}px !important`,
+          [`paddingBottom`]: `${theme.spacing(i)}px !important`
+        }
       }
     }
+    return spacing
   }
+
+  // const spacing = genSpacing()
+
   const dark = '#303030'
 
   return createStyles({
     '@global': {
       ...getNprogressJss(theme),
-      ...spacing,
+      ...genSpacing(),
       '.img-fluid': {
         maxWidth: '100%',
         height: 'auto'
@@ -284,7 +291,8 @@ export const getCreatedStyles = (theme: Theme) => {
         },
         '.d-sm-block': {
           display: 'block'
-        }
+        },
+        ...genSpacing('-sm')
       },
       [theme.breakpoints.up('md')]: {
         '.d-md-inline-flex': {
@@ -295,7 +303,8 @@ export const getCreatedStyles = (theme: Theme) => {
         },
         '.d-md-block': {
           display: 'block'
-        }
+        },
+        ...genSpacing('-md')
       },
       [theme.breakpoints.up('lg')]: {
         '.d-lg-inline-flex': {
