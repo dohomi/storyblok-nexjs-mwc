@@ -42,6 +42,11 @@ const useStyles = makeStyles((theme: Theme) =>
           }
         }
       }
+    },
+    xsColumnReverse: {
+      [theme.breakpoints.only('xs')]: {
+        flexDirection: 'column-reverse'
+      }
     }
   })
 )
@@ -52,6 +57,8 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
   let spacing = content.spacing ? Number(content.spacing) as GridProps['spacing'] : 3
 
   const background: BackgroundStoryblok | undefined = Array.isArray(content.background) && content.background[0]
+  const direction = content.direction
+
   return (
     <SbEditable content={content}>
       <BackgroundBox background={background}>
@@ -63,13 +70,16 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
                 }}
                 spacing={spacing}
                 alignItems={content.align_items ? content.align_items : undefined}
-                direction={content.direction ? content.direction : undefined}
-                className={clsx(className, classes.gridRow)}
+                direction={direction ? direction : undefined}
+                className={clsx(className, classes.gridRow, {
+                  [classes.xsColumnReverse]: content.reverse_on_mobile
+                })}
                 justify={content.justify ? content.justify : undefined}
                 alignContent={content.align_content ? content.align_content : undefined}>
             {background?.image &&
             <BackgroundImage content={background} backgroundStyle={content.background_style} />}
-            {background?.background_elements && background.background_elements.length > 0 && <BackgroundElements elements={background.background_elements} />}
+            {background?.background_elements && background.background_elements.length > 0 &&
+            <BackgroundElements elements={background.background_elements} />}
             {content.body && content.body.map((blok) => Components(blok))}
           </Grid>
         )}

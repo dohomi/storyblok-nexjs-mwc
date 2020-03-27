@@ -939,6 +939,7 @@ export interface RowStoryblok {
   align_items?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   body?: any[];
+  reverse_on_mobile?: boolean;
   _uid: string;
   component: "row";
   [k: string]: any;
