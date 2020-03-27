@@ -143,6 +143,9 @@
   "d-sm-inline-flex",
   "d-sm-none",
   "d-sm-block",
+  "text-sm-left",
+  "text-sm-center",
+  "text-sm-right",
   "pt-sm-0",
   "mt-sm-0",
   "p-sm-0",
@@ -230,6 +233,9 @@
   "d-md-inline-flex",
   "d-md-none",
   "d-md-block",
+  "text-md-left",
+  "text-md-center",
+  "text-md-right",
   "pt-md-0",
   "mt-md-0",
   "p-md-0",
@@ -315,5 +321,8 @@
   "pb-md-5",
   "mb-md-5",
   "d-lg-inline-flex",
-  "d-lg-none"
+  "d-lg-none",
+  "text-lg-left",
+  "text-lg-center",
+  "text-lg-right"
 ]

@@ -292,6 +292,15 @@ export const getCreatedStyles = (theme: Theme) => {
         '.d-sm-block': {
           display: 'block'
         },
+        '.text-sm-left': {
+          textAlign: 'left'
+        },
+        '.text-sm-center': {
+          textAlign: 'center'
+        },
+        '.text-sm-right': {
+          textAlign: 'right'
+        },
         ...genSpacing('-sm')
       },
       [theme.breakpoints.up('md')]: {
@@ -304,6 +313,15 @@ export const getCreatedStyles = (theme: Theme) => {
         '.d-md-block': {
           display: 'block'
         },
+        '.text-md-left': {
+          textAlign: 'left'
+        },
+        '.text-md-center': {
+          textAlign: 'center'
+        },
+        '.text-md-right': {
+          textAlign: 'right'
+        },
         ...genSpacing('-md')
       },
       [theme.breakpoints.up('lg')]: {
@@ -312,7 +330,16 @@ export const getCreatedStyles = (theme: Theme) => {
         },
         '.d-lg-none': {
           display: 'none'
-        }
+        },
+        '.text-lg-left': {
+          textAlign: 'left'
+        },
+        '.text-lg-center': {
+          textAlign: 'center'
+        },
+        '.text-lg-right': {
+          textAlign: 'right'
+        },
       }
     }
   })
