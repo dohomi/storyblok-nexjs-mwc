@@ -137,7 +137,6 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
   const isScrollCollapse = toolbarConfig.includes('scroll_collapse')
   const showLeftShift = appSetup.drawerVariant !== 'temporary' && !appSetup.drawerBelowToolbar && isLeftDrawerOpen
 
-  console.log('top app bar')
   return (
     <>
       <AppBar className={clsx(classes.topAppBar, {

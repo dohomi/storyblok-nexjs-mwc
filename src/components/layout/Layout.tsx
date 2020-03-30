@@ -24,7 +24,6 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
   // appSetup,
   settings
 }) => {
-  console.log('inside layout')
 
   return (
     <>

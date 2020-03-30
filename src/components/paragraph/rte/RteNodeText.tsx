@@ -37,7 +37,7 @@ const RteNodeText: FunctionComponent<{ content: RteContentProps }> = ({ content 
         )
       }
       return (
-        <Link href="/[...index]" as={rest.href} passHref>
+        <Link href="/[...index]" as={rest.href} passHref prefetch={false}>
           <MuiLink rel={rel} target={target}>{content.text}</MuiLink>
         </Link>
       )

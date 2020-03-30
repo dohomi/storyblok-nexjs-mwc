@@ -46,7 +46,7 @@ const ContentLink: FunctionComponent<{
       return (
         <SbEditable content={content}>
           {!passHref && (
-            <Link {...attrs} href="/[...index]" as={attrs.href}>
+            <Link {...attrs} href="/[...index]" as={attrs.href} prefetch={false}>
               <a rel={rel} target={target} className={className}>{children}</a>
             </Link>
           )}
