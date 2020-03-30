@@ -1,15 +1,13 @@
 {
   "name": "@lumen/mwc",
-  "version": "0.20.5",
+  "version": "0.20.6",
   "description": "Next.js full website kit powered by Storyblok",
   "main": "index.js",
   "scripts": {
     "analyze": "BUNDLE_ANALYZE=true npm run build",
     "dev": "next",
-    "build": "NODE_ENV=build next build",
-    "start": "NODE_ENV=production next start",
-    "deploy-natur": "now --scope lumenmedia --regions bru1 --name storyblok-mui-natur --build-env previewToken=GNtUM3zlkjs7SKbwrJncLgtt --build-env publicToken=QMni9eytproYlHyzSknz2Qtt --build-env defaultLocale=de",
-    "server": "micro-dev src/api/forwardMail.js -p=4444",
+    "build": "next build",
+    "start": "next start",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=66717",
     "update-storyblok": "npm run fetch-storyblok-components && npm run gen-ts-schema && npm run codegen",
