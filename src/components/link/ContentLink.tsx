@@ -34,10 +34,9 @@ const ContentLink: FunctionComponent<{
         )
       }
       if (isMuiLink) {
-        console.log('is inside Mui LInk', isMuiLink)
         return (
           <SbEditable content={content}>
-            <MuiNextLink href="/[...index]" as={attrs.href}>
+            <MuiNextLink href="/[...index]" as={attrs.href} prefetch={false}>
               {children}
             </MuiNextLink>
           </SbEditable>
@@ -51,7 +50,7 @@ const ContentLink: FunctionComponent<{
             </Link>
           )}
           {passHref && (
-            <Link {...attrs} href="/[...index]" as={attrs.href} passHref>
+            <Link {...attrs} href="/[...index]" as={attrs.href} passHref prefetch={false}>
               {children}
             </Link>
           )}
