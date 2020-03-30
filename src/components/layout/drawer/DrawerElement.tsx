@@ -19,7 +19,6 @@ const DrawerElement: FunctionComponent<{
   const websiteLogo = settings.website_logo
   const websiteSlogan = settings.website_slogan
   const background = Array.isArray(settings.drawer_background) && settings.drawer_background[0]
-  console.log('drawer element')
 
   return (
     <BackgroundBox background={background}>

@@ -43,7 +43,6 @@ const Footer: FunctionComponent<{
   settings: GlobalStoryblok
 }> = ({ settings }) => {
   const content = settings && settings.footer || []
-  console.log('footer')
   return (
     <SbEditable content={settings}>
       <FooterWrap>

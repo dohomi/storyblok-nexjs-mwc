@@ -195,7 +195,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
             linktype: 'story'
           }, {})
           return (
-            <Link href="/[...index]" as={rest.href} passHref key={item.uuid as string}>
+            <Link href="/[...index]" as={rest.href} passHref key={item.uuid as string} prefetch={false}>
               <MenuItem
                 onClick={() => setOpen(false)}>{item.content && (item.content.preview_title || item.content.meta_title || item.name)}</MenuItem>
             </Link>
