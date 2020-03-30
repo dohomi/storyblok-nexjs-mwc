@@ -2,8 +2,8 @@ import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useScrollTrigger } from '@material-ui/core'
 import { useAppSetup } from '../provider/AppSetupProvider'
+import useScrollTop from '../../utils/hooks/useScrollTop'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   contentSpace: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const ContentSpace: FunctionComponent = () => {
   const classes = useStyles()
   const appSetup = useAppSetup()
-  const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true, threshold: 140 })
+  const scrolledWithoutHysteresis = useScrollTop()
 
   return (
     <div className={clsx('lm-content-space',
