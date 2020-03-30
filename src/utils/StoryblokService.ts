@@ -2,7 +2,7 @@ import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from './StoriesService'
 
 class StoryblokServiceClass {
-  private readonly devMode: boolean
+  private devMode: boolean
   private token: string
   private readonly previewToken: string
   private client: StoryblokClient
@@ -78,6 +78,10 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     })
+  }
+
+  setDevMode() {
+    this.devMode = true
   }
 
   initEditor(content: any, setContent: Function) {

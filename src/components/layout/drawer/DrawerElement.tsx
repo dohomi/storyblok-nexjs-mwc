@@ -33,7 +33,7 @@ const DrawerElement: FunctionComponent<{
               <ContentSpace />
             )}
             {!appSetup.hasDrawer && !appSetup.drawerBelowToolbar && (<div>
-              <Link href="/[...index]" as={homepageLinkHandler()}>
+              <Link href="/[...index]" as={homepageLinkHandler()} prefetch={false}>
                 <a>
                   <div className="p-3">
                     {!websiteLogo && websiteTitle}

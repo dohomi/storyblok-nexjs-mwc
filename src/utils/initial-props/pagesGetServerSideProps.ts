@@ -10,6 +10,7 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
     const slug = query?.index || 'home'
     console.log('pagesGetServerSideProps', slug)
 
+    StoryblokService.setDevMode()
     StoryblokService.setQuery(query)
 
     const pageProps = await getPageProps(slug)
