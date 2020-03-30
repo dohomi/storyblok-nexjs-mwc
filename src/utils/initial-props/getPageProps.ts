@@ -5,6 +5,7 @@ import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/componen
 
 const getPageProps = async (slug: string | string[]) => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
+  console.log('get page props', pageSlug)
 
   let { page, settings, categories = [], stories = [], locale, staticContent = [] } = await apiRequestResolver({
     pageSlug,

@@ -8,7 +8,7 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
   const { query } = props
   try {
     const slug = query?.index || 'home'
-    console.log('pagesGetServerSideProps', slug, props)
+    console.log('pagesGetServerSideProps', slug)
 
     StoryblokService.setQuery(query)
 
