@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useEffect } from 'react'
 import { useGlobalState } from '../../../utils/state/state'
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { BackgroundBoxProps } from '../../section/BackgroundBox'
 import { useAppSetup } from '../../provider/AppSetupProvider'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -33,6 +34,9 @@ const MwcDrawer: FunctionComponent<{
   const asPath = router?.asPath
   const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
   const appSetup = useAppSetup()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
+
 
   const drawerProps: DrawerProps = {
     variant: appSetup.drawerVariant
@@ -40,12 +44,11 @@ const MwcDrawer: FunctionComponent<{
 
   useEffect(
     () => {
-      if (appSetup.drawerVariant === 'temporary') {
-        // todo make this customizable?
-        setOpen(false) // todo needs testing might need a pure close drawer action
+      if (appSetup.drawerVariant === 'temporary' || isMobile) {
+        setOpen(false)
       }
     },
-    [asPath, appSetup, setOpen]
+    [asPath, appSetup, setOpen, isMobile]
   )
 
   const classList = backgroundProps?.className
