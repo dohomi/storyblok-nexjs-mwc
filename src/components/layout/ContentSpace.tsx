@@ -30,13 +30,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const ContentSpace: FunctionComponent = () => {
   const classes = useStyles()
   const appSetup = useAppSetup()
-  const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
+  const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true, threshold: 140 })
 
   return (
     <div className={clsx('lm-content-space',
       classes.contentSpace, {
-      'lm-scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
-    })} />
+        'lm-scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
+      })} />
   )
 }
 export default ContentSpace
