@@ -123,7 +123,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
   const appSetup = useAppSetup()
   const isScrolled = useScrollTrigger({ disableHysteresis: false })
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
-  const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true })
+  const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true, threshold: 140 })
   const toolbarVariant = settings.toolbar_variant
   let toolbarWidth: ContainerProps['maxWidth'] = false
   if (toolbarConfig.includes('fixed_width')) {
@@ -142,7 +142,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
         'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
         [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
         'lm-toolbar__transparent': props.hasFeature,
-        'lm-toolbar__scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage),
+        'lm-toolbar__scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage || !!props.SystemBar),
         'lm-toolbar__collapsed': isScrolled && appSetup.hasScrollCollapse,
         'lm-toolbar__scroll-collapse': isScrollCollapse,
         'lm-toolbar__with-system-bar': !!props.SystemBar,
