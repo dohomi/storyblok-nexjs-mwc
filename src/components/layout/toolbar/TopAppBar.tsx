@@ -10,6 +10,8 @@ import { useGlobalState } from '../../../utils/state/state'
 import ContentSpace from '../ContentSpace'
 import { useScrollTrigger } from '@material-ui/core'
 import { useAppSetup } from '../../provider/AppSetupProvider'
+import useScrollTop from '../../../utils/hooks/useScrollTop'
+import { useDebounce } from 'use-debounce'
 
 export type AppHeaderProps = {
   settings: GlobalStoryblok,
@@ -121,9 +123,10 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
   const { settings } = props
   const toolbarConfig = settings.toolbar_config || []
   const appSetup = useAppSetup()
-  const isScrolled = useScrollTrigger({ disableHysteresis: false })
+  const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })
+  const [isScrolled] = useDebounce(isScrolledTrigger, 100)
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
-  const scrolledWithoutHysteresis = useScrollTrigger({ disableHysteresis: true, threshold: 140 })
+  const scrolledWithoutHysteresis = useScrollTop()
   const toolbarVariant = settings.toolbar_variant
   let toolbarWidth: ContainerProps['maxWidth'] = false
   if (toolbarConfig.includes('fixed_width')) {
