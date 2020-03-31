@@ -1,6 +1,6 @@
 const {compile} = require('json-schema-to-typescript')
 const fs = require('fs')
-const ComponentsJson = require('./components.66717')
+const ComponentsJson = require('./components.80001')
 
 let tsString = []
 

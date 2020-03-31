@@ -10,8 +10,6 @@ export const useStoryblok = (props: AppPageProps) => {
     StoryblokService.setQuery(query)
   }
   const insideStoryblok = !!query?._storyblok
-  console.log('use storyblok', query)
-
 
   let [content, setContent] = useState<AppPageProps>(props)
   useEffect(

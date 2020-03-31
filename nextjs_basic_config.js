@@ -12,7 +12,7 @@ module.exports = function (env = {}, plugins = []) {
         ]
       }
     },
-    // compress: false,
+    reactStrictMode: true,
     env,
     webpack: (config) => {
       // Fixes npm packages that depend on `fs` module
