@@ -68,7 +68,6 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 
 const GlobalStyles = memo(() => {
   useGlobalStyles()
-  console.log('inside Global Styles')
   return null
 })
 
@@ -122,7 +121,7 @@ const GlobalTheme: FunctionComponent<{
             landscape: 48,
             desktop: 64,
             custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined,
-            systemBar: !!firstMultiToolbar ? (firstMultiToolbar?.height || 40) : 0
+            systemBar: firstMultiToolbar?.is_system_bar ? (firstMultiToolbar?.height || 40) : 0
           }
         },
         typography: {

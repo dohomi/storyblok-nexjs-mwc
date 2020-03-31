@@ -274,16 +274,27 @@ export const getCreatedStyles = (theme: Theme) => {
         fontFamily: (theme.alternativeFont && theme.alternativeFont.alt4) || theme.typography.fontFamily
       },
       '.d-none': {
-        display: 'none '
+        display: 'none'
       },
       '.d-inline-flex': {
-        display: 'inline-flex '
+        display: 'inline-flex'
       },
       '.d-block': {
-        display: 'block '
+        display: 'block'
       },
       '.d-inline-block': {
-        display: 'inline-block '
+        display: 'inline-block'
+      },
+      [theme.breakpoints.only('xs')]:{
+        '.d-xs-inline-flex': {
+          display: 'inline-flex'
+        },
+        '.d-xs-none': {
+          display: 'none'
+        },
+        '.d-xs-block': {
+          display: 'block'
+        },
       },
       [theme.breakpoints.up('sm')]: {
         '.d-sm-inline-flex': {

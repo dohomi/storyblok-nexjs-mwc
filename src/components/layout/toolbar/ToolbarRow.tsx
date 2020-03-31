@@ -26,7 +26,7 @@ const ToolbarRow: FunctionComponent<{ content: ToolbarRowStoryblok, settings: Gl
                height: `${content.height || 40}px`
              }}>
           <Container className="h-100" maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
-            <Grid container className="h-100" justify={content.justify} alignContent={'center'} alignItems={'center'}>
+            <Grid container className="h-100" justify={content.justify || 'space-between'} alignContent={'center'} alignItems={'center'}>
               {body.map(p => <ToolbarSection content={p} settings={settings} key={p._uid} />)}
             </Grid>
           </Container>
@@ -37,7 +37,7 @@ const ToolbarRow: FunctionComponent<{ content: ToolbarRowStoryblok, settings: Gl
 
   return (
     <SbEditable content={content}>
-      <Grid container justify={content.justify} className="h-100" alignItems={'center'}>
+      <Grid container justify={content.justify || 'space-between'} className="h-100" alignItems={'center'}>
         {body.map(p => <ToolbarSection content={p} settings={settings} key={p._uid} />)}
       </Grid>
     </SbEditable>
