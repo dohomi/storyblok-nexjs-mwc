@@ -46,21 +46,20 @@ const Child = (blok: any, settings: GlobalStoryblok) => {
 
 const ToolbarSection: FunctionComponent<{ content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }> = ({ settings, content }) => {
   const body = content.body || []
+  const align = content.align
   return (
     <SbEditable content={content}>
       <Grid item
-            className={clsx(content.class_names && content.class_names.values, {
-              'h-100': !content.align,
+            className={clsx(content.class_names?.values, {
+              'h-100': !align,
               'd-inline-flex': !content.align
             })}
             style={{
-              alignItems: !content.align ? 'center' : undefined,
-              alignSelf: content.align ? content.align : 'center'
+              alignItems: !align ? 'center' : undefined,
+              alignSelf: align ? align : 'center'
             }}
       >
-
         {body.map(blok => Child(blok, settings))}
-
       </Grid>
     </SbEditable>
   )

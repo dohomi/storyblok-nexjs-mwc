@@ -18,7 +18,6 @@ import hasWebpSupport from '../../utils/detectWebpSupport'
 const Index: NextPage<AppPageProps> = (props) => {
   const { settings, page, error } = useStoryblok(props)
   const { isFallback } = useRouter()
-  console.log('inside index')
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   useEffect(
