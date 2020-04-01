@@ -1,6 +1,6 @@
 import { StoriesParams } from 'storyblok-js-client'
 import StoryblokService from '../StoryblokService'
-import { CONFIG } from '../StoriesService'
+import { CONFIG } from '../config'
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(

@@ -1,4 +1,18 @@
-import { AppConfigProps } from './parsePageProperties'
+type AppConfigProps = {
+  defaultLocale: string
+  publicToken: string
+  previewToken: string
+  languages: string[]
+  rootDirectory?: string
+  overwriteLocale?: string
+  suppressSlugLocale?: boolean
+  suppressSlugIncludeDefault?: boolean
+  overwriteDisableIndex?: boolean
+  sitemapIgnorePath?: string
+  GA?: string
+  TAWKTO?: string
+  prefetch: boolean
+}
 
 export const CONFIG: AppConfigProps = {
   previewToken: process.env.previewToken || '',
@@ -11,5 +25,6 @@ export const CONFIG: AppConfigProps = {
   overwriteDisableIndex: !!process.env.overwriteDisableIndex,
   sitemapIgnorePath: process.env.sitemapIgnorePath,
   GA: process.env.GA,
-  TAWKTO: process.env.TAWKTO
+  TAWKTO: process.env.TAWKTO,
+  prefetch: !process.env.disablePrefetch
 }

@@ -6,7 +6,7 @@ import { FunctionComponent, memo } from 'react'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import Router from 'next/router'
 import NProgress from 'nprogress'
-import { CONFIG } from '../../utils/StoriesService'
+import { CONFIG } from '../../utils/config'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 const trackGA = (url: string) => {

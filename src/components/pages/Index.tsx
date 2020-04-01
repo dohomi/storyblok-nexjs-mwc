@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import { AppPageProps } from '../../utils/parsePageProperties'
+import { AppPageProps } from '../../typings/app'
 import { useStoryblok } from '../../utils/hooks/useStoryblok'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import Error from '../../pages/_error'

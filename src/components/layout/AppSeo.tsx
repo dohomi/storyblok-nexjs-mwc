@@ -10,7 +10,7 @@ import {
   SeoTwitterStoryblok
 } from '../../typings/generated/components-schema'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
-import { CONFIG } from '../../utils/StoriesService'
+import { CONFIG } from '../../utils/config'
 import { useRouter } from 'next/router'
 
 type SeoMetaTypes = {

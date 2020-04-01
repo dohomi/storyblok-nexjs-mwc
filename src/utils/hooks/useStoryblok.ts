@@ -1,4 +1,4 @@
-import { AppPageProps } from '../parsePageProperties'
+import { AppPageProps } from '../../typings/app'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import StoryblokService from '../StoryblokService'

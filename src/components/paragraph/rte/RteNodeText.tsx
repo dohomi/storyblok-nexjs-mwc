@@ -2,9 +2,10 @@ import { RteContentProps } from './rte_typings'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import clsx from 'clsx'
-import Link from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 import { getLinkAttrs } from '../../../utils/linkHandler'
+import MuiNextLink, { LinkProps } from '../../link/MuiNextLink'
+import { CONFIG } from '../../../utils/config'
 
 const InlineClassMapping = {
   bold: 'font-weight-bold',
@@ -36,10 +37,14 @@ const RteNodeText: FunctionComponent<{ content: RteContentProps }> = ({ content 
           <MuiLink href={rest.href as string} rel={rel} target={target}>{content.text}</MuiLink>
         )
       }
+      const props: Partial<LinkProps> = {}
+      if (!CONFIG.prefetch) {
+        props.prefetch = false
+      }
       return (
-        <Link href="/[...index]" as={rest.href} passHref prefetch={false}>
-          <MuiLink rel={rel} target={target}>{content.text}</MuiLink>
-        </Link>
+        <MuiNextLink href="/[...index]" as={rest.href} rel={rel} target={target} {...props}>
+          {content.text}
+        </MuiNextLink>
       )
     }
     return <span className={className}>{content.text}</span>

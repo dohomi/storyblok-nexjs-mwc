@@ -1,6 +1,6 @@
 import { prepareForStoryblok } from '@initialData/prepareStoryblokRequest'
 import { apiRequestResolver } from '@initialData/storyblokDeliveryResolver'
-import { CONFIG } from '../StoriesService'
+import { CONFIG } from '../config'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 
 const getPageProps = async (slug: string | string[]) => {

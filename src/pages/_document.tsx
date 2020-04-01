@@ -1,7 +1,7 @@
 import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
 import StoryblokService from '../utils/StoryblokService'
 import React from 'react'
-import { CONFIG } from '../utils/StoriesService'
+import { CONFIG } from '../utils/config'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { getGlobalState } from '../utils/state/state'
 

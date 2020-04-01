@@ -25,7 +25,7 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
     <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
       {websiteLogo && settings.seo_website_url &&
       <LogoJsonLd logo={imageService(websiteLogo)} url={settings.seo_website_url} />}
-      <Link as={homepageLinkHandler()} href="/[...index]" passHref prefetch={false}>
+      <Link as={homepageLinkHandler()} href="/[...index]" passHref>
         <MuiLink className={clsx('lm-logo-header', { ['lm-logo-text']: !websiteLogo })}>
           <>
             {!websiteLogo && (
