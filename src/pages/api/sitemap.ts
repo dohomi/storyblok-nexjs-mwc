@@ -3,7 +3,7 @@ import StoryblokService from '../../utils/StoryblokService'
 import { SitemapStream, streamToPromise } from 'sitemap'
 // import { createGzip } from 'zlib'
 import { IncomingMessage, ServerResponse } from 'http'
-import { CONFIG } from '../../utils/StoriesService'
+import { CONFIG } from '../../utils/config'
 import { internalLinkHandler } from '../../utils/linkHandler'
 
 export function getStoryblokPagesConfig() {

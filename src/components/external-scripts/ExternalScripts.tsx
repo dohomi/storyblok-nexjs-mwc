@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import { CONFIG } from '../../utils/StoriesService'
+import { CONFIG } from '../../utils/config'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import StoryblokService from '../../utils/StoryblokService'
 

@@ -7,7 +7,7 @@ import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import StoryblokService from '../utils/StoryblokService'
-import { CONFIG } from '../utils/StoriesService'
+import { CONFIG } from '../utils/config'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { useGlobalState } from '../utils/state/state'
 import AppSetupProvider from '../components/provider/AppSetupProvider'

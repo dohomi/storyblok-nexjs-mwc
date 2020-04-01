@@ -1,5 +1,5 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
-import { CONFIG } from './StoriesService'
+import { CONFIG } from './config'
 
 class StoryblokServiceClass {
   private devMode: boolean
@@ -133,8 +133,6 @@ class StoryblokServiceClass {
         //   })
         // }
       })
-    } else {
-      console.log('storyblok not initialized')
     }
   }
 

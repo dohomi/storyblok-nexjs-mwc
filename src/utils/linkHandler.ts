@@ -1,4 +1,4 @@
-import { CONFIG } from './StoriesService'
+import { CONFIG } from './config'
 import { LinkProps } from 'next/link'
 import { getGlobalState } from './state/state'
 
@@ -30,7 +30,7 @@ export const internalLinkHandler = (url: string) => {
     }
   } else if (CONFIG.suppressSlugLocale) {
     const urlArray = url.split('/')
-    if (urlArray.length > 1 && CONFIG.languages.includes(urlArray[0])) {
+    if (urlArray.length > 1 && CONFIG.languages.includes(urlArray[0]) && urlArray[1] !== 'home') {
       urlArray.shift()
       url = urlArray.join('/')
     }

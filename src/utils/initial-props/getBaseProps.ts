@@ -1,4 +1,4 @@
-import { AppPageProps } from '../parsePageProperties'
+import { AppPageProps } from '../../typings/app'
 
 export const getBaseProps = (error: any): AppPageProps => ({
   page: { _uid: '', component: 'page' },

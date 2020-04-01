@@ -1,7 +1,7 @@
 import { default as React, FunctionComponent } from 'react'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import SbEditable from 'storyblok-react'
-import Link from 'next/link'
+import Link, { LinkProps } from 'next/link'
 import MuiNextLink from './MuiNextLink'
 import {
   ButtonStoryblok,
@@ -10,6 +10,7 @@ import {
   NavItemStoryblok,
   TimelineItemStoryblok
 } from '../../typings/generated/components-schema'
+import { CONFIG } from '../../utils/config'
 
 const ContentLink: FunctionComponent<{
   className: string
@@ -19,6 +20,7 @@ const ContentLink: FunctionComponent<{
 }> = ({ children, className, content, passHref, isMuiLink }) => {
   if (content.link) {
     const { rel, target, external, ...attrs } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external })
+
     if (attrs.href) {
       if (external) {
         return (
@@ -33,10 +35,14 @@ const ContentLink: FunctionComponent<{
           </SbEditable>
         )
       }
+      const props: Partial<LinkProps> = {}
+      if (!CONFIG.prefetch) {
+        props.prefetch = false
+      }
       if (isMuiLink) {
         return (
           <SbEditable content={content}>
-            <MuiNextLink href="/[...index]" as={attrs.href} prefetch={false}>
+            <MuiNextLink href="/[...index]" as={attrs.href} {...props}>
               {children}
             </MuiNextLink>
           </SbEditable>
@@ -45,12 +51,12 @@ const ContentLink: FunctionComponent<{
       return (
         <SbEditable content={content}>
           {!passHref && (
-            <Link {...attrs} href="/[...index]" as={attrs.href} prefetch={false}>
+            <Link {...attrs} href="/[...index]" as={attrs.href} {...props}>
               <a rel={rel} target={target} className={className}>{children}</a>
             </Link>
           )}
           {passHref && (
-            <Link {...attrs} href="/[...index]" as={attrs.href} passHref prefetch={false}>
+            <Link {...attrs} href="/[...index]" as={attrs.href} passHref {...props}>
               {children}
             </Link>
           )}

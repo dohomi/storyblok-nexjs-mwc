@@ -1,4 +1,4 @@
-import { CONFIG } from '../StoriesService'
+import { CONFIG } from '../config'
 
 export const prepareForStoryblok = (slug: string | string[] = 'home') => {
   let knownLocale = undefined
