@@ -83,13 +83,13 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
   return twitter
 }
 
-const getCanonicalUrl = (url: string) => {
+const getCanonicalUrl = (hostname: string = '', url: string) => {
   if (url.endsWith('home')) {
     url = url.replace('home', '')
   } else if (url.endsWith('home/')) {
     url = url.replace('home/', '')
   }
-  return url
+  return hostname + url
 }
 
 
@@ -126,7 +126,9 @@ const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, page: PageStoryblok
   }
 
   if (settings.seo_website_url) {
-    seo.canonical = getCanonicalUrl(settings.seo_website_url + router?.asPath)
+    seo.canonical = getCanonicalUrl(settings.seo_website_url, router?.asPath)
+  } else {
+    console.warn('set up seo_website_url inside of settings to have a canonical tag')
   }
 
   return <NextSeo {...seo} />

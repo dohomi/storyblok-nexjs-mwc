@@ -1,5 +1,5 @@
 import { getImageAttrs } from '../../utils/ImageService'
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -9,7 +9,7 @@ import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/c
 import Skeleton from '@material-ui/lab/Skeleton'
 import clsx from 'clsx'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
-import { useGetSrcHook } from '../../utils/hooks/useGetSrc'
+import ImageShadow from './ImageShadow'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -45,11 +45,11 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
   const image = content.image as string
   const classes = useStyles()
   const { isDesktop, width, height } = useWindowDimensions()
-
+  const [imgSrc, setImgSrc] = useState<string | undefined>()
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
   const disableSmartCrop = content.disable_smart_crop
   const imageFocalPoint = content.image_focal_point
-  const imageAttrs = { src: '', srcSet: '' }
+  let imageAttrs = { src: '', srcSet: '' }
   const current = anchorRef && anchorRef.target as HTMLDivElement
   if (current && inView && image) {
     let currentWidth = current.clientWidth
@@ -63,22 +63,23 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
         currentWidth = currentWidth + 200
       }
     }
-    const iAttrs = getImageAttrs({
+
+    imageAttrs = getImageAttrs({
       originalSource: image,
       width: currentWidth,
       height: currentHeight,
       smart: !disableSmartCrop,
       focalPoint: imageFocalPoint
     })
-    imageAttrs.src = iAttrs.src
-    imageAttrs.srcSet = iAttrs.srcSet
+
   }
 
-  const imgSrc = useGetSrcHook(imageAttrs)
+  // const imgSrc = useGetSrcHook(imageAttrs)
 
   return (
     <>
       {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />}
+      <ImageShadow src={imageAttrs.src} srcSet={imageAttrs.srcSet} afterLoad={setImgSrc} />
       <Fade in={!!imgSrc} timeout={1000}>
         <div className={clsx(classes.root, {
           'lm-fixed-bg': backgroundStyle === 'fixed_image' || backgroundStyle === 'fixed_cover',
