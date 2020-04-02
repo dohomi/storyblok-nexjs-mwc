@@ -30,6 +30,7 @@ const AppHead: FunctionComponent<{
   const favicon = settings.setup_favicon
   const loadFonts: string[] = getFontBasedOnSetting(settings)
   const isProduction = !StoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production'
+  // console.log('render app head')
   return (
     <NextHead>
       <meta

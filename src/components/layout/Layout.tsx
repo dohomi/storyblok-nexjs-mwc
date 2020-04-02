@@ -11,20 +11,13 @@ export type LayoutComponentProps = {
   settings: GlobalStoryblok
 }
 
-// const setAppSetup = (appSetup: State['appSetup']) => {
-//   const oldState = getGlobalState('appSetup')
-//
-//   if (JSON.stringify(oldState) !== JSON.stringify(appSetup)) {
-//     setGlobalState('appSetup', appSetup)
-//   }
-// }
-
 const Layout: FunctionComponent<LayoutComponentProps> = ({
   children,
   // appSetup,
   settings
 }) => {
 
+  // console.log('layout render')
   return (
     <>
       <AppHead settings={settings} />
@@ -32,9 +25,10 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
       {children}
       <DrawerElement settings={settings} />
       <Footer settings={settings} />
-      <ExternalScripts />
+      <ExternalScripts settings={settings} />
     </>
   )
 }
 
+// export default memo<{children: ReactNode, settings:GlobalStoryblok}>(Layout)
 export default Layout
