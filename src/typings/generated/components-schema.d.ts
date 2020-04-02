@@ -469,6 +469,7 @@ export interface GlobalStoryblok {
   };
   toolbar_main_height?: number;
   toolbar_font_size?: string;
+  tawkto?: string;
   _uid: string;
   component: "global";
   [k: string]: any;

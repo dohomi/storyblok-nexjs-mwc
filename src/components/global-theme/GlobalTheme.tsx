@@ -102,12 +102,12 @@ const GlobalTheme: FunctionComponent<{
         palette: {
           type: mapThemeType[settings.theme_base as string || 'base'],
           primary: {
-            main: settings.theme_primary as string,
-            contrastText: settings.theme_primary_contrast as string
+            main: settings.theme_primary as string || '#1769aa',
+            contrastText: settings.theme_primary_contrast as string || '#fff'
           },
           secondary: {
-            main: settings.theme_secondary as string,
-            contrastText: settings.theme_secondary_contrast as string
+            main: settings.theme_secondary as string || '#ab003c',
+            contrastText: settings.theme_secondary_contrast as string || '#fff'
           }
         },
         drawer: {
