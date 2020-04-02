@@ -145,7 +145,7 @@ const Image: FunctionComponent<{
         <Fade in={loaded}>
           <img {...imgProperties}
                alt={content.alt || 'website image'}
-               className={clsx(classes.image, content.property)}
+               className={clsx(classes.image, content.property, content.class_names?.values)}
                onLoad={onImageLoaded} />
         </Fade>
       </figure>

@@ -12,7 +12,7 @@ const pagesGetStaticProps: GetStaticProps = async (props) => {
     return { props: getBaseProps({ type: 'not_supported' }) }// do nothing _dev_ mode is active
   }
   try {
-    // console.log('pagesGetStaticProps', slug, preview, props)
+    // console.log('pagesGetStaticProps', previewData, preview)
     if (previewData && previewData.query) {
       StoryblokService.setQuery(previewData.query)
     }

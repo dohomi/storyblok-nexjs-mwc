@@ -4,6 +4,7 @@ import React from 'react'
 import { CONFIG } from '../utils/config'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { getGlobalState } from '../utils/state/state'
+import { GlobalStoryblok } from '../typings/generated/components-schema'
 
 
 class MyDocument extends Document {
@@ -40,7 +41,9 @@ class MyDocument extends Document {
 
     // @ts-ignore
     const { isProduction } = this.props
+    const settings: GlobalStoryblok | undefined = this.props.__NEXT_DATA__.props?.settings
 
+    const googleAnalyticsId = CONFIG.GA || settings?.setup_google_analytics
     return (
       <html lang={locale}>
       <Head />
@@ -51,11 +54,11 @@ class MyDocument extends Document {
       var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}';`
       }}></script>
       <NextScript />
-      {isProduction && CONFIG.GA && (
+      {isProduction && googleAnalyticsId && (
         <>
           <script
             async
-            src={`https://www.googletagmanager.com/gtag/js?id=${CONFIG.GA}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
           />
           <script dangerouslySetInnerHTML={this.setGoogleGTag()} />
         </>

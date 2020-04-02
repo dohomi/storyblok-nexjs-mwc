@@ -11,7 +11,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
   leftDrawer: {
-    width: theme.drawer.left
+    width: theme.drawer.left,
+    '& a': {
+      color: 'inherit'
+    }
   },
   aboveToolbar: {
     zIndex: theme.zIndex.drawer + 2
