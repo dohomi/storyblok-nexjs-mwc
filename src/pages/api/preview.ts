@@ -6,17 +6,19 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json({ message: 'Invalid token/slug' })
   }
   currentSlug = currentSlug.startsWith('/') ? currentSlug : `/${currentSlug}`
-  res.setPreviewData({
-    query: req.query
-  })
   const queryParams = req.query
   delete queryParams.slug
-  const searchParams = new URLSearchParams()
-  Object.keys(queryParams).forEach((key) => {
-    searchParams.append(key, queryParams[key] as string)
+
+  res.setPreviewData({
+    query: queryParams
   })
-  console.log('inside preview', queryParams, searchParams.toString())
-  res.writeHead(307, { Location: `${currentSlug}?${searchParams.toString()}` })
+  //  const searchParams = new URLSearchParams()
+  // Object.keys(queryParams).forEach((key) => {
+  //   searchParams.append(key, queryParams[key] as string)
+  // })
+  // console.log('inside preview', queryParams, searchParams.toString())
+  res.writeHead(307, { Location: currentSlug })
+  // res.writeHead(307, { Location: `${currentSlug}?${searchParams.toString()}` })
 
   res.end()
 }
