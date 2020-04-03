@@ -187,6 +187,7 @@ export type GlobalComponent = {
   setup_google_site_verification?: Maybe<Scalars['String']>;
   setup_language?: Maybe<Scalars['String']>;
   setup_supported_languages?: Maybe<Scalars['String']>;
+  tawkto?: Maybe<Scalars['String']>;
   theme_base?: Maybe<Scalars['String']>;
   theme_container_width?: Maybe<Scalars['String']>;
   theme_error?: Maybe<Scalars['String']>;

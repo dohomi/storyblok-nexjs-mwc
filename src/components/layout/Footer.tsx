@@ -30,9 +30,11 @@ const FooterWrap: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
   const appSetup = useAppSetup()
+  const hasLeftShift = appSetup.drawerVariant !== 'temporary' && isLeftDrawerOpen
   return (
     <footer className={clsx(classes.footer, {
-      [classes.leftShift]: appSetup.drawerVariant !== 'temporary' && isLeftDrawerOpen
+      [classes.leftShift]: hasLeftShift,
+      [classes[`left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`]]: hasLeftShift
     })}>
       {children}
     </footer>

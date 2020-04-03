@@ -13,6 +13,8 @@ export type AppSetupProps = {
   hasScrollCollapse?: boolean
   toolbarMainHeight?: string | number
   drawerFullWidthMobile?: boolean
+  rightDrawerMediaBreakpoint?: PageStoryblok['mobile_breakpoint']
+  leftDrawerMediaBreakpoint?: GlobalStoryblok['mobile_nav_breakpoint']
 }
 
 const defaultValue: AppSetupProps = {
@@ -30,25 +32,36 @@ const AppSetupProvider: FunctionComponent<{
   page?: PageStoryblok
 }> = ({ children, settings, page }) => {
   const { isMobile } = useWindowDimensions()
+  const hasDrawer = Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0
+  const hasFeatureImage = page && Array.isArray(page.property) && page.property.includes('has_feature')
+  const hasRightDrawer = page && Array.isArray(page.right_body) && page.right_body?.length > 0
+  const hasScrollCollapse = !!(settings.toolbar_config && settings.toolbar_config.includes('scroll_collapse'))
+  let drawerVariant: DrawerProps['variant'] = isMobile && settings.drawer_below_toolbar_xs ? 'persistent' : 'temporary'
+  if (!isMobile) {
+    drawerVariant = settings.drawer_below_toolbar ? 'persistent' : settings.drawer_variant || 'temporary'
+  }
+  const toolbarMainHeight = settings.toolbar_main_height
+  const drawerBelowToolbar = settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
+  const drawerFullWidthMobile = !!settings.drawer_full_width_mobile
+  const rightDrawerMediaBreakpoint = page?.mobile_breakpoint
+  const leftDrawerMediaBreakpoint = settings?.mobile_nav_breakpoint
+
   const value = useMemo<AppSetupProps>(
     () => {
-      let drawerVariant: DrawerProps['variant'] = isMobile && settings.drawer_below_toolbar_xs ? 'persistent' : 'temporary'
-      if (!isMobile) {
-        drawerVariant = settings.drawer_below_toolbar ? 'persistent' : settings.drawer_variant || 'temporary'
-      }
-
       return {
-        hasDrawer: !!(Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0),
-        hasFeatureImage: page && Array.isArray(page.property) && page.property.includes('has_feature'),
-        hasRightDrawer: page && Array.isArray(page.right_body) && page.right_body?.length > 0,
-        hasScrollCollapse: !!(settings.toolbar_config && settings.toolbar_config.includes('scroll_collapse')),
-        toolbarMainHeight: settings.toolbar_main_height,
-        drawerVariant: drawerVariant,
-        drawerBelowToolbar: settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar,
-        drawerFullWidthMobile: !!settings.drawer_full_width_mobile
+        hasDrawer,
+        hasFeatureImage,
+        hasRightDrawer,
+        hasScrollCollapse,
+        toolbarMainHeight,
+        drawerVariant,
+        drawerBelowToolbar,
+        drawerFullWidthMobile,
+        rightDrawerMediaBreakpoint,
+        leftDrawerMediaBreakpoint
       }
     },
-    [isMobile]
+    [hasDrawer, hasFeatureImage, hasRightDrawer, hasScrollCollapse, toolbarMainHeight, drawerVariant, drawerBelowToolbar, drawerFullWidthMobile, rightDrawerMediaBreakpoint, leftDrawerMediaBreakpoint]
   )
   return (
     <AppSetupContext.Provider value={value}>

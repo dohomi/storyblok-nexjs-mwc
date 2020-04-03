@@ -419,11 +419,23 @@ export interface FormTextfieldStoryblok {
 export interface GlobalStoryblok {
   drawer_body?: any[];
   drawer_variant?: "persistent" | "temporary";
+  mobile_nav_breakpoint?: "sm" | "md" | "lg" | "xl";
   drawer_width?: number;
   drawer_below_toolbar?: boolean;
   drawer_below_toolbar_xs?: boolean;
   drawer_full_width_mobile?: boolean;
   drawer_background?: any[];
+  toolbar?: any[];
+  multi_toolbar?: any[];
+  toolbar_variant?: "primary" | "secondary" | "white" | "dark";
+  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated" | "scroll_collapse" | "enable_system_bar")[];
+  toolbar_progress_color?: string;
+  toolbar_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  toolbar_main_height?: number;
+  toolbar_font_size?: string;
   website_title?: string;
   website_slogan?: string;
   setup_language?: string;
@@ -457,18 +469,6 @@ export interface GlobalStoryblok {
   theme_font_alt3?: string;
   theme_font_alt4?: string;
   theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
-  toolbar?: any[];
-  multi_toolbar?: any[];
-  mobile_nav_breakpoint?: "sm" | "md" | "lg" | "xl";
-  toolbar_variant?: "primary" | "secondary" | "white" | "dark";
-  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated" | "scroll_collapse" | "enable_system_bar")[];
-  toolbar_progress_color?: string;
-  toolbar_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  toolbar_main_height?: number;
-  toolbar_font_size?: string;
   tawkto?: string;
   _uid: string;
   component: "global";
@@ -812,6 +812,8 @@ export interface PageStoryblok {
   property?: "has_feature"[];
   body?: any[];
   right_body?: any[];
+  mobile_breakpoint?: "sm" | "md" | "lg" | "xl";
+  right_drawer_width?: number;
   _uid: string;
   component: "page";
   [k: string]: any;
@@ -1155,6 +1157,7 @@ export interface ToolbarNaviButtonStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  is_right_drawer?: boolean;
   _uid: string;
   component: "toolbar_navi_button";
   [k: string]: any;
@@ -1180,6 +1183,7 @@ export interface ToolbarRowStoryblok {
 
 export interface ToolbarRowSectionStoryblok {
   align?: "flex-start" | "flex-end" | "center";
+  use_media_query?: string;
   body?: any[];
   class_names?: {
     values?: string[];

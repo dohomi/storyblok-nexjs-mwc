@@ -149,7 +149,8 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
         'lm-toolbar__scroll-collapse': isScrollCollapse,
         'lm-toolbar__with-system-bar': !!props.SystemBar,
         [classes.topAppBarCustom]: (props.settings.toolbar_color && props.settings.toolbar_color.rgba),
-        [classes.leftShift]: showLeftShift
+        [classes.leftShift]: showLeftShift,
+        [classes[`left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`]]: showLeftShift
       })}
               color={mapToolbarColor[toolbarVariant || 'default']}
               position={isFixedTop ? 'fixed' : 'relative'}>

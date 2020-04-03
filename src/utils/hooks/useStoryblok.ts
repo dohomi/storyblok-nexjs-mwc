@@ -1,37 +1,58 @@
 import { AppPageProps } from '../../typings/app'
 import { useRouter } from 'next/router'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import StoryblokService from '../StoryblokService'
-import { getBaseProps } from '@initialData/getBaseProps'
+import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 
 export const useStoryblok = (props: AppPageProps) => {
-  const { asPath, query } = useRouter() // query only set in SSR mode
-  // const { query } = props
+  const { query } = useRouter() // query only set in SSR mode
+
+  const { page, settings } = props
   if (query) {
     StoryblokService.setQuery(query)
   }
-  const insideStoryblok = !!query?._storyblok
+  // const insideStoryblok = !!query?._storyblok
+  const settingsUid = props.settings?._uid
+  const pageUid = props.page?._uid
 
-  let [content, setContent] = useState<AppPageProps>(insideStoryblok ? props : getBaseProps(''))
+  const [statePage, setPage] = useState<PageStoryblok>(page)
+  const [stateSettings, setSettings] = useState<GlobalStoryblok>(settings)
+
   useEffect(
     () => {
-      insideStoryblok && setContent(props)
+      if (pageUid !== statePage?._uid) {
+        console.log('different page', settingsUid, stateSettings._uid)
+        setPage(page)
+      }
     },
-    [asPath, insideStoryblok]
+    [pageUid, statePage, page]
   )
 
   useEffect(
     () => {
-      StoryblokService.initEditor(content, setContent)
+      if (settingsUid !== stateSettings?._uid) {
+        console.log('different settings', settingsUid, stateSettings._uid)
+        setSettings(settings)
+      }
+    },
+    [settingsUid, stateSettings, settings]
+  )
+
+
+  useEffect(
+    () => {
+      StoryblokService.initEditor({
+        page, setPage, settings, setSettings
+      })
     },
     []
   )
   // return !insideStoryblok ? props : content
   // return content
   // console.log(props.page._uid)
-  return insideStoryblok ? content : {
-    settings: useMemo(() => props.settings, [props.settings?._uid]),
-    page: props.page,
+  return {
+    page: statePage,
+    settings: stateSettings,
     error: props.error
   }
 }

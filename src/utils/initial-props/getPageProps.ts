@@ -21,17 +21,17 @@ const getPageProps = async (slug: string | string[]) => {
   }
 
   // const url = `https://${process.env.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
-  const pageProps: PageStoryblok = (page && page.data && page.data.story && page.data.story.content) || null
-  const settingsProps: GlobalStoryblok = settings && settings.data && settings.data.story && settings.data.story.content
+  const pageProps: PageStoryblok = page?.data?.story?.content
+  const settingsProps: GlobalStoryblok = settings?.data?.story?.content
 
-  if (!(settingsProps && settingsProps._uid)) {
+  if (!settings) {
     console.log('SETTINGS MISSNG')
   } else if (!pageProps) {
     console.log('PAGE MISSNG')
   }
   return {
-    page: pageProps,
-    settings: settingsProps,
+    page: pageProps ? { ...pageProps, _uid: page?.data?.story?.uuid } : null,
+    settings: settingsProps ? { ...settingsProps, _uid: settings?.data?.story?.uuid } : null,
     allStories: stories,
     allCategories: categories,
     allStaticContent: staticContent,

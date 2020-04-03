@@ -26,7 +26,19 @@ export const usePageStyles = makeStyles((theme: Theme) => createStyles({
   },
   contentWithRight: {
     marginRight: theme.drawer.right,
+  },
+  'right-mobile-sm': {
     [theme.breakpoints.only('xs')]: {
+      marginRight: '0 !important'
+    }
+  },
+  'right-mobile-md': {
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0
+    }
+  },
+  'right-mobile-lg': {
+    [theme.breakpoints.down('md')]: {
       marginRight: 0
     }
   },
@@ -35,9 +47,21 @@ export const usePageStyles = makeStyles((theme: Theme) => createStyles({
     transition: theme.transitions.create(['margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
-    }),
+    })
+  },
+  'left-mobile-sm': {
     [theme.breakpoints.only('xs')]: {
       marginLeft: 0
     }
-  }
+  },
+  'left-mobile-md': {
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0
+    }
+  },
+  'left-mobile-lg': {
+    [theme.breakpoints.down('md')]: {
+      marginLeft: 0
+    }
+  },
 }))

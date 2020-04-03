@@ -16,7 +16,8 @@ import { useRouter } from 'next/router'
 import hasWebpSupport from '../../utils/detectWebpSupport'
 
 const Index: NextPage<AppPageProps> = (props) => {
-  const { settings, page, error } = useStoryblok(props)
+  const { settings, page } = useStoryblok(props)
+  const { error } = props
   const { isFallback } = useRouter()
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
@@ -66,9 +67,9 @@ const Index: NextPage<AppPageProps> = (props) => {
     }}>
       <WindowDimensionsProvider>
         <AppSetupProvider settings={settings} page={page}>
-          <GlobalTheme settings={settings}>
+          <GlobalTheme settings={settings} rightDrawerWidth={page?.right_drawer_width}>
             <CssBaseline />
-            <AppSeo settings={settings} page={page} previewImage={page && page.preview_image} />
+            <AppSeo settings={settings} page={page} previewImage={page?.preview_image} />
             <Layout settings={settings}>
               {Components(page)}
             </Layout>

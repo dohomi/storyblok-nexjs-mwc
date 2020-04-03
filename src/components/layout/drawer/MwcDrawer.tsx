@@ -38,7 +38,7 @@ const MwcDrawer: FunctionComponent<{
   const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
   const appSetup = useAppSetup()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
+  const matches = useMediaQuery(theme.breakpoints.up(appSetup.leftDrawerMediaBreakpoint || 'sm'))
 
 
   const drawerProps: DrawerProps = {
@@ -47,11 +47,11 @@ const MwcDrawer: FunctionComponent<{
 
   useEffect(
     () => {
-      if (appSetup.drawerVariant === 'temporary' || isMobile) {
+      if (appSetup.drawerVariant === 'temporary' || matches) {
         setOpen(false)
       }
     },
-    [asPath, appSetup, setOpen, isMobile]
+    [asPath, appSetup, setOpen, matches]
   )
 
   const classList = backgroundProps?.className
