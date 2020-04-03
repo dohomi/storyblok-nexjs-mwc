@@ -472,6 +472,7 @@ export interface GlobalStoryblok {
   tawkto?: string;
   _uid: string;
   component: "global";
+  uuid: string;
   [k: string]: any;
 }
 
@@ -816,6 +817,7 @@ export interface PageStoryblok {
   right_drawer_width?: number;
   _uid: string;
   component: "page";
+  uuid: string;
   [k: string]: any;
 }
 
@@ -1183,7 +1185,7 @@ export interface ToolbarRowStoryblok {
 
 export interface ToolbarRowSectionStoryblok {
   align?: "flex-start" | "flex-end" | "center";
-  use_media_query?: string;
+  use_media_query?: boolean;
   body?: any[];
   class_names?: {
     values?: string[];

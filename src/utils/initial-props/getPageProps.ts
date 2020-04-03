@@ -30,8 +30,8 @@ const getPageProps = async (slug: string | string[]) => {
     console.log('PAGE MISSNG')
   }
   return {
-    page: pageProps ? { ...pageProps, _uid: page?.data?.story?.uuid } : null,
-    settings: settingsProps ? { ...settingsProps, _uid: settings?.data?.story?.uuid } : null,
+    page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
+    settings: settingsProps ? { ...settingsProps, uuid: settings?.data?.story?.uuid } : null,
     allStories: stories,
     allCategories: categories,
     allStaticContent: staticContent,
