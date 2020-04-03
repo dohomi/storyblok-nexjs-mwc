@@ -73,15 +73,11 @@ const GlobalStyles = memo(() => {
 
 const GlobalTheme: FunctionComponent<{
   settings: GlobalStoryblok
-}> = ({ children, settings }) => {
+  rightDrawerWidth?: number
+}> = ({ children, settings, rightDrawerWidth }) => {
 
   const storyblokBackend = StoryblokService.insideVisualComposer()
-  // const ssrMatchMedia = (query: string) => ({
-  //   matches: mediaQuery.match(query, {
-  //     // The estimated CSS width of the browser.
-  //     width: device?.width || 599
-  //   })
-  // })
+
 
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
@@ -111,8 +107,8 @@ const GlobalTheme: FunctionComponent<{
           }
         },
         drawer: {
-          left: `${settings.drawer_width}px` || '300px', // todo make configurable
-          right: '254px'
+          left: `${settings.drawer_width || 285}px`,
+          right: `${rightDrawerWidth || 254}px`
         },
         toolbar: {
           progressColor: settings.toolbar_progress_color,
@@ -134,11 +130,6 @@ const GlobalTheme: FunctionComponent<{
           alt4: settings.theme_font_alt4 && parseFont(settings.theme_font_alt4) as string
         },
         defaultContainerWidth: defaultContainerWidth,
-        // props: {
-        //   MuiUseMediaQuery: {
-        //     ssrMatchMedia
-        //   }
-        // },
         overrides: {
           MuiDrawer: {
             modal: {

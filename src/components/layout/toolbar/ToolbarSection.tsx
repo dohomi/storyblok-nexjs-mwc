@@ -15,6 +15,9 @@ import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import ListSearchAutocomplete from '../../list-widget/ListSearchAutocomplete'
 import ToggleDrawerButton from './ToggleDrawerButton'
+import { useTheme } from '@material-ui/core/styles'
+import { useAppSetup } from '../../provider/AppSetupProvider'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 
 type ToolbarSectionComponents = {
@@ -22,7 +25,6 @@ type ToolbarSectionComponents = {
   nav_menu: FunctionComponent<{ content: NavMenuStoryblok, settings: GlobalStoryblok }>
   toolbar_logo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }>
   toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
-  toolbar_right_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
   [k: string]: any
 }
 
@@ -31,7 +33,6 @@ const ToolbarComponents: ToolbarSectionComponents = {
   'nav_menu': Menu,
   'toolbar_logo': ToolbarLogo,
   'toolbar_navi_button': ToggleDrawerButton,
-  'toolbar_right_navi_button': ToggleDrawerButton,
   'list_search_autocomplete': ListSearchAutocomplete
 }
 
@@ -44,24 +45,36 @@ const Child = (blok: any, settings: GlobalStoryblok) => {
   ), { key: blok._uid })
 }
 
-const ToolbarSection: FunctionComponent<{ content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }> = ({ settings, content }) => {
-  const body = content.body || []
+const ToolbarSectionWrap: FunctionComponent<{ content: ToolbarRowSectionStoryblok }> = ({ children, content }) => {
   const align = content.align
+  const theme = useTheme()
+  const appSetup = useAppSetup()
+  const matches = useMediaQuery(theme.breakpoints.up(appSetup.leftDrawerMediaBreakpoint || 'sm'))
+
   return (
     <SbEditable content={content}>
       <Grid item
             className={clsx(content.class_names?.values, {
               'h-100': !align,
-              'd-inline-flex': !content.align
+              'd-inline-flex': !content.align,
+              'd-none': content.use_media_query && !matches
             })}
             style={{
               alignItems: !align ? 'center' : undefined,
               alignSelf: align ? align : 'center'
             }}
-      >
-        {body.map(blok => Child(blok, settings))}
+      >{children}
       </Grid>
     </SbEditable>
+  )
+}
+
+const ToolbarSection: FunctionComponent<{ content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }> = ({ settings, content }) => {
+  const body = content.body || []
+  return (
+    <ToolbarSectionWrap content={content}>
+      {body.map(blok => Child(blok, settings))}
+    </ToolbarSectionWrap>
   )
 }
 

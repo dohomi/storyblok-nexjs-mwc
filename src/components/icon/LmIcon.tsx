@@ -1,5 +1,5 @@
 import InlineSVG from 'react-inlinesvg'
-import React, { CSSProperties, FunctionComponent, useMemo } from 'react'
+import React, { CSSProperties, FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/core/styles/'
@@ -34,15 +34,11 @@ const LmIcon: FunctionComponent<{
   const classes = useStyles()
   const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   iconName = iconName ? iconMap[iconName as string] || iconName : undefined
-  const iconSrc = useMemo<string>(
-    () => {
-      if (inView && (iconUrl || iconName)) {
-        return iconUrl ? iconUrl : `https://cdn.jsdelivr.net/npm/@mdi/svg/svg/${underscoreToMinus(iconName as string)}.svg`
-      }
-      return ''
-    },
-    [inView]
-  )
+  let iconSrc = ''
+  if (inView && (iconUrl || iconName)) {
+    iconSrc = iconUrl ? iconUrl : `https://cdn.jsdelivr.net/npm/@mdi/svg/svg/${underscoreToMinus(iconName as string)}.svg`
+  }
+
   return (iconName || iconUrl) ? (
     <>
       {iconSrc && <InlineSVG

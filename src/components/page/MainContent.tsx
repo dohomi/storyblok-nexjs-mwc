@@ -12,7 +12,9 @@ const MainContenWrap: FunctionComponent = ({ children }) => {
   return <main
     className={clsx(classes.content, {
         [classes.contentWithRight]: appSetup.hasRightDrawer,
-        [classes.leftShift]: appSetup.drawerVariant !== 'temporary' && isOpen
+        [classes[`right-mobile-${appSetup.rightDrawerMediaBreakpoint || 'sm'}`]]: true,
+        [classes.leftShift]: appSetup.drawerVariant !== 'temporary' && isOpen,
+        [classes[`left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`]]: appSetup.drawerVariant !== 'temporary' && isOpen
       }
     )}>{children}</main>
 }

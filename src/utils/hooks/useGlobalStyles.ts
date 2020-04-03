@@ -285,7 +285,7 @@ export const getCreatedStyles = (theme: Theme) => {
       '.d-inline-block': {
         display: 'inline-block'
       },
-      [theme.breakpoints.only('xs')]:{
+      [theme.breakpoints.only('xs')]: {
         '.d-xs-inline-flex': {
           display: 'inline-flex'
         },
@@ -294,7 +294,7 @@ export const getCreatedStyles = (theme: Theme) => {
         },
         '.d-xs-block': {
           display: 'block'
-        },
+        }
       },
       [theme.breakpoints.up('sm')]: {
         '.d-sm-inline-flex': {
