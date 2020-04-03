@@ -24,7 +24,7 @@ async function genTsSchema () {
         type: 'string'
       }
     }
-    const requiredFields = ['_uid', 'component', 'uuid']
+    const requiredFields = ['_uid', 'component']
     Object.keys(values.schema).forEach(key => {
       if (values.schema[key].required) {
         requiredFields.push(key)

@@ -472,7 +472,7 @@ export interface GlobalStoryblok {
   tawkto?: string;
   _uid: string;
   component: "global";
-  uuid: string;
+  uuid?: string;
   [k: string]: any;
 }
 
@@ -817,7 +817,7 @@ export interface PageStoryblok {
   right_drawer_width?: number;
   _uid: string;
   component: "page";
-  uuid: string;
+  uuid?: string;
   [k: string]: any;
 }
 

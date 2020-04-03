@@ -7,7 +7,7 @@ import { onSearchTextChange } from '../../utils/state/actions'
 import { useRouter } from 'next/router'
 import TextField from '@material-ui/core/TextField'
 import clsx from 'clsx'
-import { Magnify } from 'mdi-material-ui'
+import Magnify from 'mdi-material-ui/Magnify'
 
 const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> = ({ content }) => {
   const router = useRouter()
@@ -16,7 +16,7 @@ const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> 
   const [debouncedCallback] = useDebouncedCallback(
     // function
     (value) => {
-      onSearchTextChange(value)
+      onSearchTextChange(value || '')
     },
     // delay in ms
     300

@@ -31,6 +31,7 @@ import { CONFIG_STORYBOOK } from '../../../.storybook/components/configStorybook
 const getPropsDrawer = (): PageStoryblok => ({
   _uid: '123',
   component: 'page',
+  uuid: '231231',
   body: [
     get3ColumnsSection({
       count: 1,
