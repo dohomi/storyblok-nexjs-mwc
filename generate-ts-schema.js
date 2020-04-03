@@ -19,7 +19,12 @@ async function genTsSchema () {
       type: 'string',
       enum: [values.name]
     }
-    const requiredFields = ['_uid', 'component']
+    if (values.name === 'global' || values.name === 'page') {
+      obj.properties.uuid = {
+        type: 'string'
+      }
+    }
+    const requiredFields = ['_uid', 'component', 'uuid']
     Object.keys(values.schema).forEach(key => {
       if (values.schema[key].required) {
         requiredFields.push(key)

@@ -110,13 +110,16 @@ class StoryblokServiceClass {
         // console.log( content, event.story.content)
 
         // todo if this is still works after rewrite... maybe add one for settings as well..
-        if (event.story.content._uid === page?._uid && event.story.content.component === 'page') {
+        const newContent = { ...event.story.content, uuid: event.story.uuid }
+        if (event.story.content.component === 'page' && event.story.uuid === page?.uuid) {
           console.log('input::input content changed')
-          setPage(event.story.content)
+          // @ts-ignore
+          setPage(window.storyblok.addComments(newContent, event.story.id))
         }
-        if (event.story.content._uid === settings?._uid && event.story.content.component === 'global') {
+        if (event.story.content.component === 'global' && event.story.uuid === settings?.uuid) {
           console.log('input::input settings changed')
-          setSettings(event.story.content)
+          // @ts-ignore
+          setSettings(window.storyblok.addComments(newContent, event.story.id))
         }
         // if (event.story.content.component === 'static_container') {
         //   const newContainerContent = content.allStaticContent.filter((el:any) => el._uid !== event.story.content._uid)

@@ -10,8 +10,6 @@ const Components: MwcComponents = { ...MwcComponents }
 
 export default (blok: any) => {
   if (typeof Components[blok.component] !== 'undefined') {
-    // console.debug(blok.component, blok._uid)
-
     return React.createElement(Components[blok.component], { key: blok._uid, content: blok })
   }
   return React.createElement(() => (

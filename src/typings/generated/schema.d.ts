@@ -259,6 +259,7 @@ export type PageComponent = {
   meta_description?: Maybe<Scalars['String']>;
   meta_robots?: Maybe<Scalars['Boolean']>;
   meta_title?: Maybe<Scalars['String']>;
+  mobile_breakpoint?: Maybe<Scalars['String']>;
   preview_image?: Maybe<Scalars['String']>;
   preview_publish_date?: Maybe<Scalars['String']>;
   preview_subtitle?: Maybe<Scalars['String']>;
@@ -266,6 +267,7 @@ export type PageComponent = {
   preview_title?: Maybe<Scalars['String']>;
   property?: Maybe<Array<Maybe<Scalars['String']>>>;
   right_body?: Maybe<Scalars['BlockScalar']>;
+  right_drawer_width?: Maybe<Scalars['String']>;
   seo_body?: Maybe<Scalars['BlockScalar']>;
 };
 

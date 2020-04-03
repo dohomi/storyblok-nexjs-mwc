@@ -12,16 +12,16 @@ export const useStoryblok = (props: AppPageProps) => {
     StoryblokService.setQuery(query)
   }
   // const insideStoryblok = !!query?._storyblok
-  const settingsUid = props.settings?._uid
-  const pageUid = props.page?._uid
+  const settingsUid = props.settings?.uuid
+  const pageUid = props.page?.uuid
 
   const [statePage, setPage] = useState<PageStoryblok>(page)
   const [stateSettings, setSettings] = useState<GlobalStoryblok>(settings)
 
   useEffect(
     () => {
-      if (pageUid !== statePage?._uid) {
-        console.log('different page', settingsUid, stateSettings._uid)
+      if (pageUid !== statePage?.uuid) {
+        // console.log('different page', pageUid, statePage.uuid)
         setPage(page)
       }
     },
@@ -30,8 +30,8 @@ export const useStoryblok = (props: AppPageProps) => {
 
   useEffect(
     () => {
-      if (settingsUid !== stateSettings?._uid) {
-        console.log('different settings', settingsUid, stateSettings._uid)
+      if (settingsUid !== stateSettings?.uuid) {
+        // console.log('different settings', settingsUid, stateSettings.uuid)
         setSettings(settings)
       }
     },
@@ -41,9 +41,7 @@ export const useStoryblok = (props: AppPageProps) => {
 
   useEffect(
     () => {
-      StoryblokService.initEditor({
-        page, setPage, settings, setSettings
-      })
+      StoryblokService.initEditor({ page, setPage, settings, setSettings })
     },
     []
   )

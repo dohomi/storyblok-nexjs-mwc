@@ -4,12 +4,12 @@ import { CONFIG } from '../config'
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
-    promises.map(p => p.catch((e) => {
-      const errorObj = {
-        status: e.response && e.response.status,
-        url: e.response && e.response.config && e.response.config.url
-      }
-      console.log(errorObj)
+    promises.map(p => p.catch(() => {
+      // const errorObj = {
+      //   status: e.response && e.response.status,
+      //   url: e.response && e.response.config && e.response.config.url
+      // }
+      // console.log(errorObj)
 
       return null
     }))
