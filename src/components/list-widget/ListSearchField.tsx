@@ -15,8 +15,8 @@ const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> 
   const [searchText, setSearchText] = useState<string>(query.search__text as string || '')
   const [debouncedCallback] = useDebouncedCallback(
     // function
-    (value) => {
-      onSearchTextChange(value || '')
+    (value: string) => {
+      onSearchTextChange(value)
     },
     // delay in ms
     300
