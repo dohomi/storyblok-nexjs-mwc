@@ -5,6 +5,7 @@ import ToolbarLogo from './ToolbarLogo'
 import {
   ButtonStoryblok,
   GlobalStoryblok,
+  HeadlineStoryblok,
   NavMenuStoryblok,
   ToolbarLogoStoryblok,
   ToolbarNaviButtonStoryblok,
@@ -18,6 +19,7 @@ import ToggleDrawerButton from './ToggleDrawerButton'
 import { useTheme } from '@material-ui/core/styles'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import Headline from '../../headline/Headline'
 
 
 type ToolbarSectionComponents = {
@@ -25,6 +27,7 @@ type ToolbarSectionComponents = {
   nav_menu: FunctionComponent<{ content: NavMenuStoryblok, settings: GlobalStoryblok }>
   toolbar_logo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }>
   toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
+  headline: FunctionComponent<{ content: HeadlineStoryblok }>
   [k: string]: any
 }
 
@@ -33,7 +36,8 @@ const ToolbarComponents: ToolbarSectionComponents = {
   'nav_menu': Menu,
   'toolbar_logo': ToolbarLogo,
   'toolbar_navi_button': ToggleDrawerButton,
-  'list_search_autocomplete': ListSearchAutocomplete
+  'list_search_autocomplete': ListSearchAutocomplete,
+  'headline': Headline
 }
 
 const Child = (blok: any, settings: GlobalStoryblok) => {
