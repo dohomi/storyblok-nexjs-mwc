@@ -1191,6 +1191,7 @@ export interface ToolbarRowSectionStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  inv_use_media_query?: boolean;
   _uid: string;
   component: "toolbar_row_section";
   [k: string]: any;
