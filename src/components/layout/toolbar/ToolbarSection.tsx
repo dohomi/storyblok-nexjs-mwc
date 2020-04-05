@@ -55,13 +55,15 @@ const ToolbarSectionWrap: FunctionComponent<{ content: ToolbarRowSectionStoryblo
   const appSetup = useAppSetup()
   const matches = useMediaQuery(theme.breakpoints.up(appSetup.leftDrawerMediaBreakpoint || 'sm'))
 
+  const hideOnMediaQuery = content.use_media_query && !matches
+  const invHideOnMediaQuery = content.inv_use_media_query && matches
   return (
     <SbEditable content={content}>
       <Grid item
             className={clsx(content.class_names?.values, {
               'h-100': !align,
-              'd-inline-flex': !content.align,
-              'd-none': content.use_media_query && !matches
+              'd-inline-flex': !content.align && !hideOnMediaQuery && !invHideOnMediaQuery,
+              'd-none': hideOnMediaQuery || invHideOnMediaQuery
             })}
             style={{
               alignItems: !align ? 'center' : undefined,
