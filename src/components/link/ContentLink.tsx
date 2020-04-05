@@ -5,7 +5,7 @@ import Link, { LinkProps } from 'next/link'
 import MuiNextLink from './MuiNextLink'
 import {
   ButtonStoryblok,
-  CardListItemStoryblok,
+  CardListItemStoryblok, ImageListItemStoryblok,
   LinkStoryblok,
   NavItemStoryblok,
   TimelineItemStoryblok
@@ -14,7 +14,7 @@ import { CONFIG } from '../../utils/config'
 
 const ContentLink: FunctionComponent<{
   className: string
-  content: ButtonStoryblok | CardListItemStoryblok | LinkStoryblok | NavItemStoryblok | TimelineItemStoryblok
+  content: ButtonStoryblok | CardListItemStoryblok | LinkStoryblok | NavItemStoryblok | TimelineItemStoryblok | ImageListItemStoryblok
   passHref?: boolean
   isMuiLink?: boolean
 }> = ({ children, className, content, passHref, isMuiLink }) => {

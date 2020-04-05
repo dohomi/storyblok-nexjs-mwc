@@ -633,14 +633,22 @@ export interface ImageListStoryblok {
   column_count_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
   column_count_phone?: "1" | "2" | "3" | "4";
   body?: any[];
+  label_position?: "top" | "bottom";
   _uid: string;
   component: "image_list";
   [k: string]: any;
 }
 
 export interface ImageListItemStoryblok {
+  link?: {
+    cached_url?: string;
+    linktype?: string;
+    [k: string]: any;
+  };
   source?: string;
   label?: string;
+  sub_title?: string;
+  open_external?: boolean;
   _uid: string;
   component: "image_list_item";
   [k: string]: any;

@@ -1,6 +1,6 @@
 {
   "name": "@lumen/mwc",
-  "version": "0.24.5",
+  "version": "0.25.0",
   "description": "Next.js full website kit powered by Storyblok",
   "main": "index.js",
   "scripts": {
@@ -33,6 +33,7 @@
     "@u-wave/react-vimeo": "^0.8.3",
     "clsx": "^1.1.0",
     "css-mediaquery": "^0.1.2",
+    "element-closest": "^3.0.2",
     "intersection-observer": "^0.7.0",
     "is-mobile": "^2.2.1",
     "js-cookie": "^2.2.1",
