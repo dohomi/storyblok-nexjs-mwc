@@ -47,7 +47,7 @@ const ImageList: FunctionComponent<{
       columnGap: `${gutterSize}px`
     }
   }
-  console.log(gridListProps)
+
   return (
     <SbEditable content={content}>
       <div ref={containerRef}
