@@ -15,12 +15,13 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
   const contentImage = content.image
   let img: { src: string, srcSet: string } = { src: '', srcSet: '' }
   if (inView && contentImage && intersecRef && intersecRef.target) {
-    const mediaEl = intersecRef && intersecRef.target as HTMLDivElement
-    const currentWidth = mediaEl.clientWidth || 0
-    const currentHeight = mediaEl.clientHeight
+    const mediaEl: Partial<HTMLDivElement> | undefined = intersecRef?.target
+
+    const currentWidth = mediaEl?.clientWidth || 0
+    const currentHeight = mediaEl?.clientHeight
     img = getImageAttrs({
       originalSource: contentImage,
-      width: currentWidth || 0,
+      width: currentWidth,
       height: currentHeight,
       smart: true
     })

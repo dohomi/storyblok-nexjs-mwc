@@ -47,6 +47,11 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.only('xs')]: {
         flexDirection: 'column-reverse'
       }
+    },
+    smColumnReverse: {
+      [theme.breakpoints.only('sm')]: {
+        flexDirection: 'column-reverse'
+      }
     }
   })
 )
@@ -72,7 +77,8 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
                 alignItems={content.align_items ? content.align_items : undefined}
                 direction={direction ? direction : undefined}
                 className={clsx(className, classes.gridRow, {
-                  [classes.xsColumnReverse]: content.reverse_on_mobile
+                  [classes.xsColumnReverse]: content.reverse_on_mobile,
+                  [classes.smColumnReverse]: content.reverse_on_tablet
                 })}
                 justify={content.justify ? content.justify : undefined}
                 alignContent={content.align_content ? content.align_content : undefined}>

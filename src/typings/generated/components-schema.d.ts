@@ -594,6 +594,7 @@ export interface ImageStoryblok {
   height_xs?: number;
   width?: number;
   height_fill?: boolean;
+  disable_ratio_correction?: boolean;
   color?: {
     rgba?: string;
     [k: string]: any;
@@ -953,6 +954,7 @@ export interface RowStoryblok {
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   body?: any[];
   reverse_on_mobile?: boolean;
+  reverse_on_tablet?: boolean;
   _uid: string;
   component: "row";
   [k: string]: any;
