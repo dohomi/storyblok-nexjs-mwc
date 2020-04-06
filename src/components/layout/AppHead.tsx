@@ -12,7 +12,8 @@ import { GlobalStoryblok } from '../../typings/generated/components-schema'
 const trackGA = (url: string) => {
   if (CONFIG.GA && window !== undefined && window['gtag']) {
     window['gtag']('config', CONFIG.GA, {
-      page_location: url
+      page_location: url,
+      page_title: window.document.title
     })
   }
 }
