@@ -3,13 +3,14 @@ import React, { FunctionComponent, useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles'
 import Fade from '@material-ui/core/Fade'
 import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
 import Skeleton from '@material-ui/lab/Skeleton'
 import clsx from 'clsx'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import ImageShadow from './ImageShadow'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -42,15 +43,21 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
   if (!content.image) {
     return null
   }
-  const image = content.image as string
+  const image = content.image
   const classes = useStyles()
   const { isDesktop, width, height } = useWindowDimensions()
   const [imgSrc, setImgSrc] = useState<string | undefined>()
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs'))
   const disableSmartCrop = content.disable_smart_crop
   const imageFocalPoint = content.image_focal_point
   let imageAttrs = { src: '', srcSet: '' }
   const current = anchorRef && anchorRef.target as HTMLDivElement
+  if (content.hide_image_on_breakpoint && matches) {
+    return null // don't render if image hidden
+  }
+
   if (current && inView && image) {
     let currentWidth = current.clientWidth
     let currentHeight = current.clientHeight
@@ -64,12 +71,13 @@ const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgro
       }
     }
 
+    const isAlternativeSource = content.alternative_image && height > width
     imageAttrs = getImageAttrs({
-      originalSource: image,
+      originalSource: isAlternativeSource ? content.alternative_image as string : image,
       width: currentWidth,
       height: currentHeight,
       smart: !disableSmartCrop,
-      focalPoint: imageFocalPoint
+      focalPoint: !isAlternativeSource ? imageFocalPoint : undefined
     })
 
   }
