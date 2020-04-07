@@ -4,9 +4,9 @@ import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { BackgroundBoxProps } from '../../section/BackgroundBox'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { UseBackgroundPayload } from '../../section/useBackgroundBox'
 
 
 export const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -30,7 +30,7 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
 }))
 
 const MwcDrawer: FunctionComponent<{
-  backgroundProps?: BackgroundBoxProps
+  backgroundProps?: UseBackgroundPayload
 }> = ({ children, backgroundProps }) => {
   const classes = useStyles()
   const router = useRouter()
