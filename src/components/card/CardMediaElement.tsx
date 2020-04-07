@@ -14,15 +14,15 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
   const [imgSource, setImgSource] = useState<string>('')
   const contentImage = content.image
   let img: { src: string, srcSet: string } = { src: '', srcSet: '' }
+  const imageSize = options.image_size
   if (inView && contentImage && intersecRef && intersecRef.target) {
     const mediaEl: Partial<HTMLDivElement> | undefined = intersecRef?.target
-
     const currentWidth = mediaEl?.clientWidth || 0
     const currentHeight = mediaEl?.clientHeight
     img = getImageAttrs({
       originalSource: contentImage,
       width: currentWidth,
-      height: currentHeight,
+      height: ['contain', 'initial', 'auto'].includes(imageSize) ? 0 : currentHeight,
       smart: true
     })
   }
@@ -33,7 +33,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
       <Fade in={!!imgSource}>
         <CardMedia style={{
           color: options.variant && options.variant.includes('font_white') ? 'white' : 'inherit',
-          backgroundSize: options.image_size || 'cover'
+          backgroundSize: imageSize || 'cover'
         }}
                    image={imgSource}
                    ref={reference}
