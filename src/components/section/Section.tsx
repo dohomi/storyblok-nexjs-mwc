@@ -3,12 +3,12 @@ import SbEditable from 'storyblok-react'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import { SectionStoryblok } from '../../typings/generated/components-schema'
 import Container, { ContainerProps } from '@material-ui/core/Container'
-import BackgroundBox, { BackgroundBoxProps } from './BackgroundBox'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import BackgroundElements from './BackgroundElements'
+import useBackgroundBox from './useBackgroundBox'
 
 export interface SectionProps extends SectionStoryblok {
   presetVariant?: SectionStoryblok['variant']
@@ -40,49 +40,41 @@ const useStyles = makeStyles({
 const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   const classes = useStyles()
   const theme = useTheme()
-  const body = content.body || []
-  let containerStyles: CSSProperties = {
-    paddingTop: '2.5rem', // todo make this customizable through theme?
-    paddingBottom: '2.5rem'
-  }
-  const isFullHeight = !!(content.property && content.property.includes('is_full_height'))
-  if (!isFullHeight && content.padding) {
-    const splitPadding = content.padding.split(' ')
-    containerStyles = {
-      paddingTop: splitPadding[0] ? splitPadding[0] : undefined,
-      paddingBottom: splitPadding[0] ? splitPadding[0] : undefined
-      // paddingLeft: splitPadding[1] ? splitPadding[1] : undefined,
-      // paddingRight: splitPadding[1] ? splitPadding[1] : undefined
-    }
-  }
   const background = Array.isArray(content.background) && content.background[0]
+  const { style, className } = useBackgroundBox({ variant: content.variant, background })
+  const body = content.body || []
+  let containerStyles: CSSProperties = {}
+  const isFullHeight = !!(content.property && content.property.includes('is_full_height'))
+  if (!isFullHeight) {
+    const splittedPadding = content.padding?.split(' ') || []
+    if (splittedPadding.length > 2) {
+      containerStyles.padding = content.padding
+    }
+    containerStyles.paddingTop = splittedPadding[0] || '2.5rem'
+    containerStyles.paddingBottom = splittedPadding[0] || '2.5rem'
+  }
+
   let maxWidth: ThemeOptions['defaultContainerWidth'] = theme.defaultContainerWidth
   if (content.max_width) {
     maxWidth = content.max_width === 'none' ? false : content.max_width
   }
+  // todo className doubled used
   return (
     <SbEditable content={content}>
-      <BackgroundBox variant={content.variant || content.presetVariant}
-                     background={background}
-                     backgroundStyle={content.background_style}>
-        {(values: BackgroundBoxProps) => {
-          return (
-            <div className={clsx(classes.background, { [classes.dark]: !!content.variant }, values.className)}
-                 style={values.style}>
-              {(background?.image || background?.background_elements) &&
-              <BackgroundImage content={background} backgroundStyle={content.background_style} />}
-              {background?.background_elements && background.background_elements.length > 0 && <BackgroundElements elements={background.background_elements} />}
-              <Container style={containerStyles}
-                         maxWidth={maxWidth as ContainerProps['maxWidth']}
-                         className={clsx(values.className, {
-                           [classes.fullHeight]: isFullHeight
-                         })}>
-                {body.map((blok) => Components(blok))}
-              </Container>
-            </div>
-          )
-        }}
-      </BackgroundBox>
+      <div className={clsx(classes.background, { [classes.dark]: !!content.variant }, className)}
+           style={style}>
+        {(background?.image || background?.background_elements) &&
+        <BackgroundImage content={background} backgroundStyle={content.background_style} />}
+        {background?.background_elements && background.background_elements.length > 0 &&
+        <BackgroundElements elements={background.background_elements} />}
+        <Container style={containerStyles}
+                   maxWidth={maxWidth as ContainerProps['maxWidth']}
+                   className={clsx(className, {
+                     [classes.fullHeight]: isFullHeight
+                   })}>
+          {body.map((blok) => Components(blok))}
+        </Container>
+      </div>
     </SbEditable>
   )
 }

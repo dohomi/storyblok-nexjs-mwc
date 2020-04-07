@@ -30,9 +30,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         backgroundPosition: 'top'
       },
       [theme.breakpoints.down('sm') + 'and (orientation: portrait)']: {
+        backgroundPosition: 'center',
         backgroundAttachment: 'scroll'
       },
       [theme.breakpoints.down('sm') + 'and (orientation: landscape)']: {
+        backgroundPosition: 'center',
         backgroundAttachment: 'scroll'
       }
     }

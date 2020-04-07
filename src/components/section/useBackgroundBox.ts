@@ -1,26 +1,25 @@
-import React, { CSSProperties, FunctionComponent } from 'react'
 import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
-import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
+import { CSSProperties } from 'react'
+import clsx from 'clsx'
 
+export type UseBackgroundProps = {
+  background?: BackgroundStoryblok,
+  variant?: SectionStoryblok['variant'],
+}
 
-export type BackgroundBoxProps = {
+export type UseBackgroundPayload = {
   style?: CSSProperties
   className?: string
 }
 
-const BackgroundBox: FunctionComponent<{
-  background?: BackgroundStoryblok,
-  variant?: SectionStoryblok['variant'],
-  skipBgImage?: boolean
-  backgroundStyle?: SectionStoryblok['background_style'],
-}> = ({ children, background, variant }) => {
-  if (!background && !variant) {
-    return (
-      <>{typeof children === 'function' ? children({}) : children}</>
-    )
-  }
+export default function useBackgroundBox(props: UseBackgroundProps): UseBackgroundPayload {
+  let { background, variant } = props
   const theme = useTheme()
+
+  if (!background && !variant) {
+    return {}
+  }
 
   const mapBgColor = {
     dark: '#303030',
@@ -36,6 +35,7 @@ const BackgroundBox: FunctionComponent<{
     primary: theme.palette.common.white,
     secondary: theme.palette.common.white
   }
+
   background = background || {} as BackgroundStoryblok
   let border = undefined
   if (background.border_color && background.border_color.rgba) {
@@ -55,8 +55,5 @@ const BackgroundBox: FunctionComponent<{
   Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
   const className = clsx(background.classNames && background.classNames.values)
-
-  return typeof children === 'function' ? children({ className, style }) : children
+  return { className, style }
 }
-
-export default BackgroundBox

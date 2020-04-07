@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react'
 import { ColumnStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
-import BackgroundBox, { BackgroundBoxProps } from './BackgroundBox'
 import BackgroundImage from './BackgroundImage'
 import Components from '@components'
 import Grid from '@material-ui/core/Grid'
 import BackgroundElements from './BackgroundElements'
+import useBackgroundBox from './useBackgroundBox'
 
 const xsSpanMap = {
   1: 3,
@@ -51,6 +51,7 @@ const mdSpanMap = {
 const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }) => {
   // const classes = useStyles(content)
   const background = Array.isArray(content.background) && content.background[0]
+  const { className, style } = useBackgroundBox({ background })
   let mdWidth = mdSpanMap[content.width_general as string]
   let smWidth = smSpanMap[content.width_tablet as string]
   if (!smWidth && mdWidth) {
@@ -60,32 +61,30 @@ const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }
     }
   }
 
+
   return (
     <SbEditable content={content}>
-      <BackgroundBox skipBgImage={true} background={background}>
-        {({ style, className }: BackgroundBoxProps) => (
-          <Grid item
-                xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
-                sm={smWidth}
-                md={mdWidth}
-                className={className}
-                style={style}>
-            {background?.image && <BackgroundImage content={background} />}
-            {background?.background_elements && background.background_elements.length > 0 && <BackgroundElements elements={background.background_elements} />}
-            {(content.justify || content.align_content || content.align_items) ? (
-              <Grid container
-                    direction={'column'}
-                    className={'mh-100'}
-                    justify={content.justify ? content.justify : undefined}
-                    alignItems={content.align_items ? content.align_items : undefined}
-                    alignContent={content.align_content ? content.align_content : undefined}
-              >
-                {content.body && content.body.map((blok) => Components(blok))}
-              </Grid>
-            ) : content.body && content.body.map((blok) => Components(blok))}
+      <Grid item
+            xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
+            sm={smWidth}
+            md={mdWidth}
+            className={className}
+            style={style}>
+        {background?.image && <BackgroundImage content={background} />}
+        {background?.background_elements && background.background_elements.length > 0 &&
+        <BackgroundElements elements={background.background_elements} />}
+        {(content.justify || content.align_content || content.align_items) ? (
+          <Grid container
+                direction={'column'}
+                className={'mh-100'}
+                justify={content.justify ? content.justify : undefined}
+                alignItems={content.align_items ? content.align_items : undefined}
+                alignContent={content.align_content ? content.align_content : undefined}
+          >
+            {content.body && content.body.map((blok) => Components(blok))}
           </Grid>
-        )}
-      </BackgroundBox>
+        ) : content.body && content.body.map((blok) => Components(blok))}
+      </Grid>
     </SbEditable>
   )
 }
