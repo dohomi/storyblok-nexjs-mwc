@@ -11,7 +11,8 @@ import ContentLink from '../link/ContentLink'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   cardContainer: {
-    position: 'relative'
+    position: 'relative',
+    padding: `${theme.spacing(1)}px 0`
   },
   cardDecorator: {
     position: 'absolute',
