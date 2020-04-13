@@ -1,8 +1,15 @@
 import { storiesOf } from '@storybook/react'
 import ImageElement from './ImageElement'
-import { ImageStoryblok } from '../../typings/generated/components-schema'
+import {
+  ColumnStoryblok,
+  HeadlineStoryblok,
+  ImageStoryblok,
+  RowStoryblok
+} from '../../typings/generated/components-schema'
 import * as React from 'react'
-import { storyImage } from '../../../.storybook/dummy/core/various'
+import { storyHeadline, storyImage } from '../../../.storybook/dummy/core/various'
+import Section from '../section/Section'
+import { storyColumn, storyRow, storySection } from '../../../.storybook/dummy/core/section'
 
 const props: ImageStoryblok = {
   _uid: '123',
@@ -108,6 +115,31 @@ storiesOf('Image', module)
         </div>
       )
     }
+  )
+  .add(
+    'Image in Sections',
+    () => (
+      <Section content={{
+        ...storySection(),
+        body: [{
+          ...storyRow(),
+          body: [{
+            ...storyColumn({ count: 1 }),
+            width_general: 'auto',
+            body: [{
+              ...storyHeadline()
+            } as HeadlineStoryblok]
+          }, {
+            ...storyColumn({ count: 2 }),
+            width_general: 'auto',
+            body: [{
+              ...storyImage()
+            } as ImageStoryblok]
+          }] as ColumnStoryblok[]
+        } as RowStoryblok]
+      }}>
+      </Section>
+    )
   )
   .add(
     'Playground',

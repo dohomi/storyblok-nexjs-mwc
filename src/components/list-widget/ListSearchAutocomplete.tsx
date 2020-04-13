@@ -168,12 +168,16 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
         />
       </div>
       <Menu open={open}
+            autoFocus={false}
+            disableAutoFocusItem={true}
+            variant={'menu'}
             anchorEl={anchorEl}
             onClose={() => setOpen(false)}
             getContentAnchorEl={null}
             PaperProps={{
               style: {
-                borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
+                borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined,
+                height: '400px'
               }
             }}
             anchorOrigin={{
