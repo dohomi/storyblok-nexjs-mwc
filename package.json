@@ -26,6 +26,7 @@
     "@mdi/svg": "^5.0.45",
     "@types/js-cookie": "^2.2.6",
     "@types/marked": "^0.7.3",
+    "@types/match-sorter": "^4.0.0",
     "@types/node": "^13.11.1",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^16.9.34",
