@@ -2,21 +2,21 @@ import React, { FunctionComponent } from 'react'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
 import { useAppContext } from '../provider/AppProvider'
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import { TextField } from '@material-ui/core'
 import { getLinkAttrs } from '../../utils/linkHandler'
 import MuiNextLink from '../link/MuiNextLink'
 import LmIcon from '../icon/LmIcon'
 import { Magnify } from 'mdi-material-ui'
 import clsx from 'clsx'
-import matchSorter from 'match-sorter'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import Paper from '@material-ui/core/Paper'
 
-// @ts-ignore
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: 'inline-flex',
+      verticalAlign: 'middle',
       '& .MuiInputLabel-root.Mui-focused': {
         color: 'inherit'
       }
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     inputRoot: {
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade('rgba(0,0,0,.05)', 0.15),
-
+      color: 'inherit',
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: theme.palette.divider
       },
@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1, 3, 1, 3)
     },
     inputDefaultWidth: {
+      color: 'inherit',
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('sm')]: {
@@ -75,17 +76,25 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }))
 
+const filterOptions = createFilterOptions({
+  startAfter: 2,
+  matchFrom: 'any',
+  stringify: (option: any) => option.label
+})
 
 const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocompleteStoryblok }> = ({ content }) => {
   const { allStories } = useAppContext()
-
-  // @ts-ignore
   const classes = useStyles()
 
   // console.log(options)
+
   return (
     <Autocomplete
-      options={allStories}
+      options={allStories.map(option => ({
+        uuid: option.uuid,
+        full_slug: option.full_slug,
+        label: option.content?.preview_title || option.content?.meta_title || option.name || ''
+      })).sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))}
       classes={{
         root: classes.root,
         listbox: classes.listbox
@@ -113,28 +122,25 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
         />
       )}
       noOptionsText={content.not_found_label}
-      getOptionLabel={(option) => (option.content?.preview_title || option.content?.meta_title || option.name) as string}
-      filterOptions={(options, { inputValue }) =>
-        matchSorter(options, inputValue, { keys: ['content.preview_title', 'content.meta_title', 'name'] })
-        // .filter(story =>
-        //   [story.content?.preview_title, story.full_slug, story.content?.meta_title, story.name]
-        //     .some((term) => term && term.search(new RegExp(state.inputValue, 'i')) !== -1)
-        // )
-      }
-      PaperComponent={props => <Paper {...props}
-                                      style={{
-                                        borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
-                                      }}
-                                      classes={{}}
+      getOptionLabel={(option) => option.label}
+      filterOptions={filterOptions}
+      PaperComponent={(props) => <Paper {...props}
+                                        style={{
+                                          ...props.style,
+                                          borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
+                                        }}
       />}
-      renderOption={(item) => {
+      renderOption={(item, { inputValue }) => {
+        if (inputValue.length < 2) {
+          return null
+        }
         const { rel, target, external, ...rest } = getLinkAttrs({
           cached_url: item.full_slug as string,
           linktype: 'story'
         }, {})
         return (
           <MuiNextLink href="/[...index]" as={rest.href} passHref key={item.uuid as string} prefetch={false}>
-            {item.content && (item.content.preview_title || item.content.meta_title || item.name)}
+            {item.label}
           </MuiNextLink>
         )
       }}
