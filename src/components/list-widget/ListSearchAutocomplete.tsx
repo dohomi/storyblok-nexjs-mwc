@@ -76,7 +76,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocompleteStoryblok }> = ({ content }) => {
   const { allStories } = useAppContext()
   const classes = useStyles()
+
   const filterOptions = createFilterOptions({
+    // @ts-ignore
     startAfter: 2,
     matchFrom: 'any',
     stringify: (option: any) => option.label
