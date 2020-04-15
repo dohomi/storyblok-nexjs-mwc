@@ -34,14 +34,23 @@ storiesOf('Button', module)
           <LmMuiButton content={defaultProps} />
           <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, color: 'primary' }} />
           <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, color: 'secondary' }} />
+          <LmMuiButton content={{ ...defaultProps, icon: { name: 'home' }, custom_color: { rgba: '#219' } }} />
           <LmMuiButton content={{ ...iconProps, color: 'secondary' }} />
+          <LmMuiButton content={{ ...iconProps, custom_color: { rgba: '#219' } }} />
         </div>
         <h3>Fab</h3>
         <div className="p-2">
           <LmMuiButton content={{ ...defaultProps, variant: 'fab' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'fab', icon: { name: 'home' }, color: 'primary' }} />
-          <LmMuiButton content={{ ...defaultProps, variant: 'fab', icon: { name: 'home' }, color: 'secondary' }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            variant: 'fab',
+            icon: { name: 'home' },
+            color: 'secondary',
+            custom_color: { rgba: '#219' }
+          }} />
           <LmMuiButton content={{ ...iconProps, variant: 'fab', color: 'secondary' }} />
+          <LmMuiButton content={{ ...iconProps, variant: 'fab', color: 'secondary', custom_color: { rgba: '#219' } }} />
         </div>
         <h3>Dense</h3>
         <div className="p-2">
@@ -98,13 +107,31 @@ storiesOf('Button', module)
           <LmMuiButton content={{ ...defaultProps, variant: 'raised' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'raised', icon: { name: 'home' }, color: 'primary' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'raised', icon: { name: 'home' }, color: 'secondary' }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            variant: 'raised',
+            icon: { name: 'home' },
+            color: 'secondary',
+            custom_color: { rgba: '#219' }
+          }} />
           <LmMuiButton content={{ ...iconProps, variant: 'raised', color: 'secondary' }} />
+          <LmMuiButton
+            content={{ ...iconProps, variant: 'raised', color: 'secondary', custom_color: { rgba: '#219' } }} />
         </div>
         <div className="p-2">
           <LmMuiButton content={{ ...defaultProps, variant: 'outlined' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'outlined', icon: { name: 'home' }, color: 'primary' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'outlined', icon: { name: 'home' }, color: 'secondary' }} />
+          <LmMuiButton content={{
+            ...defaultProps,
+            variant: 'outlined',
+            icon: { name: 'home' },
+            color: 'secondary',
+            custom_color: { rgba: '#219' }
+          }} />
           <LmMuiButton content={{ ...iconProps, variant: 'outlined', color: 'secondary' }} />
+          <LmMuiButton
+            content={{ ...iconProps, variant: 'outlined', color: 'secondary', custom_color: { rgba: '#219' } }} />
         </div>
         <div className="p-2">
           <LmMuiButton content={{ ...defaultProps, variant: 'outlined', corners: 'lm-button-shaped' }} />
@@ -359,11 +386,23 @@ storiesOf('Button', module)
             content={{ ...defaultProps, label: 'dark', icon: { name: 'home' }, color: 'dark', variant: 'raised' }} />
           <LmMuiButton content={{ ...defaultProps, label: 'unelevated', color: 'secondary', variant: 'unelevated' }} />
           <LmMuiButton content={{ ...defaultProps, label: 'unelevated', color: 'primary', variant: 'unelevated' }} />
+          <LmMuiButton content={{
+            ...defaultProps, label: 'unelevated', color: 'primary', variant: 'unelevated',
+            custom_color: { rgba: '#219' }
+          }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'fab' }} />
           <LmMuiButton content={{ ...defaultProps, variant: 'fab', color: 'dark', properties: ['disable-shadow'] }} />
           <LmMuiButton content={{ ...iconProps, color: 'secondary', variant: 'fab', properties: ['disable-ripple'] }} />
           <LmMuiButton content={{ ...iconProps, color: 'secondary', variant: 'fab', properties: ['disable-shadow'] }} />
+          <LmMuiButton content={{
+            ...iconProps,
+            color: 'secondary',
+            variant: 'fab',
+            properties: ['disable-shadow'],
+            custom_color: { rgba: '#219' }
+          }} />
         </div>
+
         <div className="p-2">
           <LmMuiButton content={defaultProps} />
           <LmMuiButton content={{

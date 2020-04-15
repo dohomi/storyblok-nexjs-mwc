@@ -101,13 +101,11 @@ const ListSearchAutocompleteWrap: FunctionComponent<{
   const [visible, setVisible] = useState<boolean>(false)
   const classes = useStyles()
   const [bgColor, setBgColor] = useState<string | undefined>()
-  console.info(content.mobile_breakpoint, isMobileAction)
   useEffect(
     () => {
       if (isMobileAction) {
         const toolbar: HTMLDivElement | null | undefined = inputRef.current?.closest('.MuiAppBar-root')
         const bg = toolbar && window.getComputedStyle(toolbar, null).backgroundColor
-        console.info(toolbar, bg)
         setBgColor(bg ? bg : undefined)
       }
     },
@@ -206,7 +204,6 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
                          setOpen(true)
                        },
                        onBlur: () => {
-                         console.log('on blur')
                          setOpen(false)
                        },
                        autoComplete: 'new-password',
