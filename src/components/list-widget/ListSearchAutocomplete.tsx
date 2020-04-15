@@ -219,7 +219,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
         getOptionLabel={(option) => option.label}
         filterOptions={createFilterOptions({
           // @ts-ignore
-          startAfter: 2,
+          startAfter: isMobileAction ? 0 : 1,
           matchFrom: 'any',
           stringify: (option: any) => option.label
         })}
