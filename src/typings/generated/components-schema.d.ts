@@ -118,6 +118,10 @@ export interface ButtonStoryblok {
   variant?: "outlined" | "raised" | "unelevated" | "fab";
   size?: "dense" | "lm-button-large" | "lm-button-xlarge";
   color?: "primary" | "secondary" | "primary_text" | "secondary_text" | "light" | "dark";
+  custom_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   corners?: "lm-button-shaped" | "lm-button-square";
   font?: "alt1" | "alt2" | "alt3" | "alt4";
   properties?: ("disable-ripple" | "disable-shadow")[];
@@ -683,7 +687,7 @@ export interface ListsStoryblok {
 export interface ListSearchAutocompleteStoryblok {
   shape?: "rounded" | "square";
   height?: number;
-  mobile_breakpoint?: "sm" | "md" | "lg";
+  mobile_breakpoint?: "xs" | "sm" | "md" | "lg";
   fullwidth?: boolean;
   outlined?: boolean;
   menu_border_radius?: string;

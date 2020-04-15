@@ -99,11 +99,16 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
     [content.size as string]: !!content.size,
     [`lm-font-${content.font}`]: content.font
   })
+
   if (content.variant === 'fab') {
+
     return (
       <ContentLink content={content} className={'lm-link__button'} passHref={true}>
         <Fab variant={content.label ? 'extended' : undefined}
              className={className}
+             style={{
+               backgroundColor: content.custom_color?.rgba ? content.custom_color.rgba : undefined
+             }}
              size={mapSize[content.size as string] || 'medium'}
              color={color as FabProps['color']}
              disableRipple={disableRipple}>
@@ -123,6 +128,10 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
         <IconButton color={color as IconButtonProps['color']}
                     size={mapIconButtonSize[content.size as string] || 'medium'}
                     disableRipple={disableRipple}
+                    style={{
+                      color: content.custom_color?.rgba ? content.custom_color.rgba : undefined,
+                      borderColor: content.variant === 'outlined' && content.custom_color?.rgba ? content.custom_color.rgba : undefined
+                    }}
                     className={className}>
           <LmIcon iconName={content.icon && content.icon.name} buttonSize={content.size} />
           {content.image && (
@@ -139,8 +148,12 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
               className={className}
               variant={mapVariant[content.variant as string]}
               disabled={disableRipple}
-
               color={color as ButtonProps['color']}
+              style={{
+                color: !['raised', 'unelevated'].includes(content.variant || '') && content.custom_color?.rgba ? content.custom_color.rgba : undefined,
+                backgroundColor: ['raised', 'unelevated'].includes(content.variant || '') && content.custom_color?.rgba ? content.custom_color.rgba : undefined,
+                borderColor: content.variant === 'outlined' && content.custom_color?.rgba ? content.custom_color.rgba : undefined
+              }}
               startIcon={<LmIcon iconName={content.icon && content.icon.name} buttonSize={content.size} />}
               endIcon={<LmIcon iconName={content.trailing_icon && content.trailing_icon.name}
                                buttonSize={content.size} />}>
