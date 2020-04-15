@@ -1,16 +1,18 @@
-import React, { FunctionComponent } from 'react'
+import React, { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
-import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, fade, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import { useAppContext } from '../provider/AppProvider'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
-import { TextField } from '@material-ui/core'
+import { TextField, useMediaQuery } from '@material-ui/core'
 import { getLinkAttrs } from '../../utils/linkHandler'
 import MuiNextLink from '../link/MuiNextLink'
 import LmIcon from '../icon/LmIcon'
 import { Magnify } from 'mdi-material-ui'
 import clsx from 'clsx'
-import InputAdornment from '@material-ui/core/InputAdornment'
 import Paper from '@material-ui/core/Paper'
+import IconButton from '@material-ui/core/IconButton'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import SbEditable from 'storyblok-react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +21,19 @@ const useStyles = makeStyles((theme: Theme) =>
       verticalAlign: 'middle',
       '& .MuiInputLabel-root.Mui-focused': {
         color: 'inherit'
+      }
+    },
+    mobile: {
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      width: '100%',
+      zIndex: 1,
+      height: '100%',
+      verticalAlign: 'middle',
+      backgroundColor: 'inherit',
+      '& .MuiFormControl-root': {
+        alignSelf: 'center'
       }
     },
     inputRoot: {
@@ -52,12 +67,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inputDefaultWidth: {
       color: 'inherit',
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: 120,
-        '&:focus,&:active': {
-          width: 200
+      transition: theme.transitions.create('width')
+    },
+    variableWidth: {
+      '&.MuiAutocomplete-input': {
+        [theme.breakpoints.up('sm')]: {
+          width: 120,
+          '&:focus,&:active': {
+            width: 200
+          }
         }
       }
     },
@@ -73,73 +91,157 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }))
 
+const ListSearchAutocompleteWrap: FunctionComponent<{
+  content: ListSearchAutocompleteStoryblok,
+  popperActive?: boolean,
+  inputRef: RefObject<HTMLInputElement>,
+  isMobileAction: boolean
+}> = ({ content, children, popperActive, inputRef, isMobileAction }) => {
+
+  const [visible, setVisible] = useState<boolean>(false)
+  const classes = useStyles()
+  const [bgColor, setBgColor] = useState<string | undefined>()
+  console.info(content.mobile_breakpoint, isMobileAction)
+  useEffect(
+    () => {
+      if (isMobileAction) {
+        const toolbar: HTMLDivElement | null | undefined = inputRef.current?.closest('.MuiAppBar-root')
+        const bg = toolbar && window.getComputedStyle(toolbar, null).backgroundColor
+        console.info(toolbar, bg)
+        setBgColor(bg ? bg : undefined)
+      }
+    },
+    [isMobileAction, inputRef]
+  )
+  useEffect(
+    () => {
+      if (!isMobileAction) {
+        return
+      }
+      inputRef.current?.focus()
+    },
+    [visible, inputRef, isMobileAction]
+  )
+  useEffect(
+    () => {
+      if (!isMobileAction) {
+        return
+      }
+      if (!popperActive) {
+        setVisible(false)
+      }
+    },
+    [popperActive, isMobileAction]
+  )
+  const onOpen = () => {
+    setVisible(true)
+  }
+  if (isMobileAction) {
+    return (
+      <SbEditable content={content}>
+        {!visible && (
+          <IconButton onClick={onOpen}>{content.icon?.name ? <LmIcon iconName={content.icon.name} /> :
+            <Magnify />}</IconButton>
+        )}
+
+        <div style={{
+          display: !visible ? 'none' : 'inline-flex',
+          backgroundColor: bgColor
+        }} className={classes.mobile}>
+          {children}
+        </div>
+      </SbEditable>
+    )
+  }
+  return <SbEditable content={content}>{children}</SbEditable>
+}
+
 const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocompleteStoryblok }> = ({ content }) => {
   const { allStories } = useAppContext()
   const classes = useStyles()
-
-  const filterOptions = createFilterOptions({
-    // @ts-ignore
-    startAfter: 2,
-    matchFrom: 'any',
-    stringify: (option: any) => option.label
-  })
-
-  // console.log(options)
+  const inputRef: RefObject<HTMLInputElement> = createRef()
+  const [open, setOpen] = useState<boolean | undefined>()
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down(content.mobile_breakpoint || 'xs'))
+  const isMobileAction = content.mobile_breakpoint && matches
 
   return (
-    <Autocomplete
-      options={allStories.map(option => ({
-        uuid: option.uuid,
-        full_slug: option.full_slug,
-        label: option.content?.preview_title || option.content?.meta_title || option.name || ''
-      })).sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))}
+    <ListSearchAutocompleteWrap content={content}
+                                popperActive={open}
+                                inputRef={inputRef}
+                                isMobileAction={!!isMobileAction}>
+      <Autocomplete
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        style={{ width: isMobileAction ? '100%' : undefined }}
+        options={allStories.map(option => ({
+          uuid: option.uuid,
+          full_slug: option.full_slug,
+          label: option.content?.preview_title || option.content?.meta_title || option.name || ''
+        })).sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))}
 
-      freeSolo
-      classes={{
-        root: classes.root,
-        listbox: classes.listbox,
-        inputRoot: clsx(classes.inputRoot, {
-          [classes.borderSquare]: content.shape === 'square',
-          [classes.borderRounded]: content.shape === 'rounded'
-        }),
-        input: classes.inputDefaultWidth
-      }}
-      renderInput={(params) => (
-        <TextField {...params}
-                   size={'small'}
-                   variant={'outlined'}
-                   label={content.label || undefined}
-                   placeholder={content.placeholder}
-                   fullWidth={content.fullwidth ? true : false}
-                   InputProps={{
-                     ...params.InputProps,
-                     autoComplete: 'new-password',
-                     startAdornment: <InputAdornment position="start"> {content.icon?.name ?
-                       <LmIcon iconName={content.icon.name} /> : <Magnify />}</InputAdornment>
-                   }}
-        />
-      )}
-      noOptionsText={content.not_found_label}
-      getOptionLabel={(option) => option.label}
-      filterOptions={filterOptions}
-      PaperComponent={(props) => <Paper {...props}
-                                        style={{
-                                          ...props.style,
-                                          borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
-                                        }}
-      />}
-      renderOption={(item) => {
-        const { rel, target, external, ...rest } = getLinkAttrs({
-          cached_url: item.full_slug as string,
-          linktype: 'story'
-        }, {})
-        return (
-          <MuiNextLink href="/[...index]" as={rest.href} passHref key={item.uuid as string} prefetch={false}>
-            {item.label}
-          </MuiNextLink>
-        )
-      }}
-    />
+        freeSolo
+        classes={{
+          root: classes.root,
+          listbox: classes.listbox,
+          inputRoot: clsx(classes.inputRoot, {
+            [classes.borderSquare]: content.shape === 'square',
+            [classes.borderRounded]: content.shape === 'rounded'
+          }),
+          input: clsx(classes.inputDefaultWidth, {
+            [classes.variableWidth]: !isMobileAction
+          })
+        }}
+        renderInput={(params) => (
+          <TextField {...params}
+                     size={'small'}
+                     variant={'outlined'}
+                     label={content.label || undefined}
+                     placeholder={content.placeholder}
+                     fullWidth={content.fullwidth || isMobileAction ? true : false}
+                     inputRef={inputRef}
+                     InputProps={{
+                       ...params.InputProps,
+                       onFocus: () => {
+                         setOpen(true)
+                       },
+                       onBlur: () => {
+                         console.log('on blur')
+                         setOpen(false)
+                       },
+                       autoComplete: 'new-password',
+                       startAdornment: <InputAdornment position="start"> {content.icon?.name ?
+                         <LmIcon iconName={content.icon.name} /> : <Magnify />}</InputAdornment>
+                     }}
+          />
+        )}
+        noOptionsText={content.not_found_label}
+        getOptionLabel={(option) => option.label}
+        filterOptions={createFilterOptions({
+          // @ts-ignore
+          startAfter: 2,
+          matchFrom: 'any',
+          stringify: (option: any) => option.label
+        })}
+        PaperComponent={(props) => <Paper {...props}
+                                          style={{
+                                            ...props.style,
+                                            borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
+                                          }}
+        />}
+        renderOption={(item) => {
+          const { rel, target, external, ...rest } = getLinkAttrs({
+            cached_url: item.full_slug as string,
+            linktype: 'story'
+          }, {})
+          return (
+            <MuiNextLink href="/[...index]" as={rest.href} passHref key={item.uuid as string} prefetch={false}>
+              {item.label}
+            </MuiNextLink>
+          )
+        }}
+      />
+    </ListSearchAutocompleteWrap>
   )
 }
 

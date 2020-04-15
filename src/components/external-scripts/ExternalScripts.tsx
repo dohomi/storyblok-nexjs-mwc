@@ -3,6 +3,7 @@ import { CONFIG } from '../../utils/config'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import StoryblokService from '../../utils/StoryblokService'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { useScript } from '../../utils/hooks/useScript'
 
 const ExternalScripts: FunctionComponent<{ settings: GlobalStoryblok }> = ({ settings }) => {
   const insideStoryblok = StoryblokService.insideVisualComposer()
@@ -19,25 +20,11 @@ const ExternalScripts: FunctionComponent<{ settings: GlobalStoryblok }> = ({ set
     },
     [scrolled]
   )
-  useEffect(
-    () => {
-      if (!insideStoryblok && tawkToId && isScrolled && !document.getElementById('tawkToScript')) {
-        const s1 = document.createElement('script')
-        s1.id = 'tawkToScript'
-        s1.async = true
-        s1.src = 'https://embed.tawk.to/' + tawkToId + '/default'
-        s1.setAttribute('crossorigin', '*')
-        const s0 = document.getElementsByTagName('script')[0]
-        if (!s0 || !s0.parentNode) {
-          throw new Error('DOM is missing')
-        }
-        s0.parentNode.insertBefore(s1, s0)
-        document.body.appendChild(s0)
-        document.body.appendChild(s1)
-      }
-    },
-    [isScrolled, tawkToId, insideStoryblok]
-  )
+  const tawkToScriptName = !insideStoryblok && tawkToId && isScrolled ? 'https://embed.tawk.to/' + tawkToId + '/default' : ''
+  const tawkToScript = useScript(tawkToScriptName)
+  if (tawkToScriptName && tawkToScript.error) {
+    console.error('Tawkto script could not load')
+  }
   return null
 }
 

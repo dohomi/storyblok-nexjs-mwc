@@ -9,6 +9,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   const queryParams = req.query
   delete queryParams.slug
 
+  console.log('inside preview', queryParams)
   res.setPreviewData({
     query: queryParams
   })

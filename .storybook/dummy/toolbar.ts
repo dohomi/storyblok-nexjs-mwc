@@ -43,7 +43,7 @@ const nestedMenu: NavMenuStoryblok = {
     _uid: '34234242',
     component: 'nav_menu_item',
     label: 'Second'
-  }, {...menuItem, start_icon: null}] as (NavMenuItemStoryblok | NavMenuStoryblok)[]
+  }, { ...menuItem, start_icon: null }] as (NavMenuItemStoryblok | NavMenuStoryblok)[]
 }
 
 const toolbarItems = [{
@@ -52,7 +52,8 @@ const toolbarItems = [{
   placeholder: 'Search...',
   outlined: true,
   shape: 'square',
-  not_found_label: 'We could not find any page..'
+  not_found_label: 'We could not find any page..',
+  mobile_breakpoint: 'lg'
 }, {
   _uid: '123',
   component: 'button',
