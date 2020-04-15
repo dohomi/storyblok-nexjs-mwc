@@ -14,7 +14,7 @@ const props: ListSearchAutocompleteStoryblok = {
 }
 
 
-storiesOf('List Widget Addons', module)
+storiesOf('Search Autocomplete', module)
   .addDecorator(SetStoriesDecorator)
   .add(
     'Search Autocomplete',
@@ -41,26 +41,13 @@ storiesOf('List Widget Addons', module)
     )
   )
   .add(
-    'Outlined Autocomplete',
+    'Mobile',
     () => (
-      <div className="p-3">
-        <h3>Default:</h3>
-        <ListSearchAutocomplete content={{ ...props, label: 'Search', outlined: true }} />
-        <h3>Default without label:</h3>
-        <ListSearchAutocomplete content={{ ...props, label: undefined, outlined: true }} />
-        <h3>Fullwidth:</h3>
-        <ListSearchAutocomplete content={{ ...props, label: undefined, fullwidth: true, outlined: true }} />
-        <h3>Square:</h3>
-        <ListSearchAutocomplete content={{ ...props, label: undefined, outlined: true, shape: 'square' }} />
-        <h3>Square fullwidth:</h3>
-        <ListSearchAutocomplete
-          content={{ ...props, label: undefined, fullwidth: true, outlined: true, shape: 'square' }} />
-        <h3>Rounded:</h3>
-        <ListSearchAutocomplete
-          content={{ ...props, label: undefined, outlined: true, shape: 'rounded' }} />
-        <h3>Rounded fullwidth:</h3>
-        <ListSearchAutocomplete
-          content={{ ...props, label: undefined, fullwidth: true, outlined: true, shape: 'rounded' }} />
+      <div>
+        <h3>Mobile sm:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: undefined, mobile_breakpoint: 'sm' }} />
+        <h3>Mobile lg:</h3>
+        <ListSearchAutocomplete content={{ ...props, label: undefined, mobile_breakpoint: 'lg' }} />
       </div>
     )
   )

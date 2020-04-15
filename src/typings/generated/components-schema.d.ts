@@ -44,9 +44,9 @@ export interface AvatarStoryblok {
 export interface BackgroundStoryblok {
   image?: string;
   alternative_image?: string;
-  property?: "disable_lazy_load"[];
-  image_focal_point?: string;
+  hide_image_on_breakpoint?: "xs" | "sm" | "md";
   background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
+  image_focal_point?: string;
   background_position?: string;
   disable_smart_crop?: boolean;
   background_elements?: any[];
@@ -67,7 +67,6 @@ export interface BackgroundStoryblok {
     [k: string]: any;
   };
   elevation?: number;
-  hide_image_on_breakpoint?: "xs" | "sm" | "md";
   _uid: string;
   component: "background";
   [k: string]: any;
@@ -684,9 +683,9 @@ export interface ListsStoryblok {
 export interface ListSearchAutocompleteStoryblok {
   shape?: "rounded" | "square";
   height?: number;
+  mobile_breakpoint?: "sm" | "md" | "lg";
   fullwidth?: boolean;
   outlined?: boolean;
-  menu_align?: "center" | "right";
   menu_border_radius?: string;
   placeholder?: string;
   label?: string;

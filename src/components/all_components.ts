@@ -37,10 +37,6 @@ import LmAvatar from './avatar/LmAvatar'
 import dynamic from 'next/dynamic'
 import DateHeadline from './headline/DateHeadline'
 
-const Paragraph = dynamic(
-  () => import('./paragraph/Paragraph')
-)
-
 // import HubspotForm from './hubspot/HubspotForm'
 // import Form from './form/Form'
 // import Pricing from './pricing/Pricing'
@@ -61,7 +57,7 @@ const Components = {
   'button_list': ButtonList,
   'section': Section,
   'headline': Headline,
-  'paragraph': Paragraph,
+  'paragraph': dynamic(() => import('./paragraph/Paragraph')),
   'row': GridRow, // MatRow, GridRow
   'column': GridColumn, // Column, GridColumn
   'image': Image,

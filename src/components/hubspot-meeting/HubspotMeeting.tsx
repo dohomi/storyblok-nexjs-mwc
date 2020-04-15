@@ -1,27 +1,22 @@
 import SbEditable from 'storyblok-react'
-import React, { FunctionComponent, useEffect } from 'react'
+import React, { FunctionComponent } from 'react'
 import { HubspotMeetingStoryblok } from '../../typings/generated/components-schema'
+import { useScript } from '../../utils/hooks/useScript'
 
 const HubspotMeeting: FunctionComponent<{
   content: HubspotMeetingStoryblok
   disableEmbed?: boolean
 }> = ({ content, disableEmbed }) => {
   const dataSrc = `https://app.hubspot.com/meetings/${content.meeting_name}?embed-true=${disableEmbed ? 'false' : 'true'}`
-  useEffect(
-    () => {
-      const script = document.createElement('script')
-      script.src = 'https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js'
-      script.async = true
-      document.body.appendChild(script)
-    },
-    []
-  )
-
+  const { error } = useScript(content.meeting_name ? `https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=${new Date().getTime()}` : '')
+  if (error) {
+    console.error('script of hubspot not loaded')
+  }
   return (
     <SbEditable content={content}>
       <div className="lm-hubspot-meeting">
-        <div className="meetings-iframe-container"
-             data-src={dataSrc} />
+        {content.meeting_name}
+        <div className="meetings-iframe-container" data-src={dataSrc} />
       </div>
     </SbEditable>
   )
