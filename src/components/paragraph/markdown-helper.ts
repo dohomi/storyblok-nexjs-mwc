@@ -2,7 +2,10 @@ import marked from 'marked'
 
 const renderer = new marked.Renderer()
 
-renderer.link = function(href, title, text) {
+renderer.link = function(href = '', title = '', text = '') {
+  if (!href) {
+    return text
+  }
   if (href.includes('@')) {
     href = `mailto:${href}`
   } else if (href.includes('+')) {

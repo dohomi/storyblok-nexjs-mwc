@@ -50,9 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
         borderRadius: '25px'
       }
     },
-    inputPadding: {
-      padding: theme.spacing(1, 3, 1, 3)
-    },
     inputDefaultWidth: {
       color: 'inherit',
       transition: theme.transitions.create('width'),
@@ -76,15 +73,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }))
 
-const filterOptions = createFilterOptions({
-  startAfter: 2,
-  matchFrom: 'any',
-  stringify: (option: any) => option.label
-})
-
 const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocompleteStoryblok }> = ({ content }) => {
   const { allStories } = useAppContext()
   const classes = useStyles()
+  const filterOptions = createFilterOptions({
+    startAfter: 2,
+    matchFrom: 'any',
+    stringify: (option: any) => option.label
+  })
 
   // console.log(options)
 
@@ -95,9 +91,16 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
         full_slug: option.full_slug,
         label: option.content?.preview_title || option.content?.meta_title || option.name || ''
       })).sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))}
+
+      freeSolo
       classes={{
         root: classes.root,
-        listbox: classes.listbox
+        listbox: classes.listbox,
+        inputRoot: clsx(classes.inputRoot, {
+          [classes.borderSquare]: content.shape === 'square',
+          [classes.borderRounded]: content.shape === 'rounded'
+        }),
+        input: classes.inputDefaultWidth
       }}
       renderInput={(params) => (
         <TextField {...params}
@@ -110,14 +113,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
                      ...params.InputProps,
                      autoComplete: 'new-password',
                      startAdornment: <InputAdornment position="start"> {content.icon?.name ?
-                       <LmIcon iconName={content.icon.name} /> : <Magnify />}</InputAdornment>,
-                     classes: {
-                       root: clsx(classes.inputRoot, {
-                         [classes.borderSquare]: content.shape === 'square',
-                         [classes.borderRounded]: content.shape === 'rounded'
-                       }),
-                       input: classes.inputDefaultWidth
-                     }
+                       <LmIcon iconName={content.icon.name} /> : <Magnify />}</InputAdornment>
                    }}
         />
       )}
@@ -130,10 +126,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
                                           borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
                                         }}
       />}
-      renderOption={(item, { inputValue }) => {
-        if (inputValue.length < 2) {
-          return null
-        }
+      renderOption={(item) => {
         const { rel, target, external, ...rest } = getLinkAttrs({
           cached_url: item.full_slug as string,
           linktype: 'story'
