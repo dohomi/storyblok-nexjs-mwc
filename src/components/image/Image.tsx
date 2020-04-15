@@ -7,8 +7,8 @@ import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { Fade } from '@material-ui/core'
-import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { Skeleton } from '@material-ui/lab'
+import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -48,7 +48,8 @@ const Image: FunctionComponent<{
   content: ImageStoryblok
 }> = ({ content }) => {
   const classes = useStyles()
-  const { isMobile } = useDeviceDimensions()
+  const winDims = useWindowDimensions()
+  const { isMobile } = winDims
   const [loaded, setLoaded] = useState<boolean>(false)
   const imageCrop = content.image_crop || []
   const property = content.property || []
@@ -63,15 +64,24 @@ const Image: FunctionComponent<{
   }
 
   let definedHeight = content.height_xs && isMobile ? content.height_xs : content.height
-  if (inView && content.source) {
-    const parentElement = intersectionElement && intersectionElement.target.parentElement
-    let parentElementDimensions = (parentElement && parentElement.getBoundingClientRect()) || { width: 0 }
+  if (inView && content.source && intersectionElement) {
+    const parentElement = intersectionElement.target.parentElement
+    const grandparentElement = intersectionElement.target.parentElement?.parentElement
+    // console.log('parent element', hasDefinedSize, isInGrid, parentElement?.clientWidth, parentElement?.clientHeight, grandparentElement?.clientWidth, grandparentElement?.clientHeight)
+    const parentDim = {
+      width: parentElement?.clientWidth || 0,
+      height: parentElement?.clientHeight || 0
+    }
+    const grandParentDim = {
+      width: grandparentElement?.clientWidth || 0,
+      height: grandparentElement?.clientHeight || 0
+    }
     const square = property.includes('rounded-circle') || property.includes('square')
     let definedWidth = content.width
-    const width = Math.ceil(parentElementDimensions.width)
+    const width = Math.ceil(parentDim.width || winDims.width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
-      definedWidth = definedWidth || width
+      definedWidth = definedWidth || (parentDim.height / parentDim.width) * 100 > 300 ? grandParentDim.width :  width
     }
     if (square) {
       // overwrite if square
@@ -80,29 +90,26 @@ const Image: FunctionComponent<{
       definedHeight = iconSize
     }
     if (content.height_fill) {
-      const grandParentDim = (parentElement && parentElement.parentElement && parentElement.parentElement.getBoundingClientRect()) || {
-        width: 0,
-        height: 0
-      }
       // with a tolerance of 200 height should fit grandparents height
-      if (grandParentDim.width > parentElementDimensions.width + 200) {
+      if (grandParentDim.height === parentDim.height) {
         definedHeight = Math.ceil(grandParentDim.height)
       }
     }
     if (content.focal_point && parentElement && !definedHeight) {
-      const parentDim = parentElement.getBoundingClientRect() || {
-        width: 0,
-        height: 0
-      }
+
       if (parentDim) {
         definedHeight = Math.ceil(parentDim.height)
       }
     }
 
+    const imgRatio = {
+      width: Number(definedWidth || 0),
+      height: definedHeight
+    }
+
     imgProperties = getImageAttrs({
       originalSource: content.source,
-      width: Number(definedWidth || 0),
-      height: definedHeight,
+      ...imgRatio,
       fitInColor,
       focalPoint: content.focal_point,
       smart: imageCrop.includes('smart_crop')

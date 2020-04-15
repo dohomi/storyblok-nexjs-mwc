@@ -30,10 +30,10 @@ export function imageServiceNoWebp(image: string, option: string = '') {
 
 export function getOriginalImageDimensions(src: string) {
   const splitted = src.split('/')
-  const originalDimension = src.split('/')[splitted.length - 3].split('x')
+  const [originalWidth, originalHeight] = splitted[splitted.length - 3].split('x')
   return {
-    width: parseInt(originalDimension[0]),
-    height: parseInt(originalDimension[1])
+    width: parseInt(originalWidth),
+    height: parseInt(originalHeight)
   }
 }
 
@@ -85,14 +85,38 @@ export function getImageAttrs({ originalSource, width = 0, height = 0, filter = 
   return imgObj
 }
 
+const  boundCoordinate = (value:number, upperBound:number) =>{
+  value = Math.max(0, value);
+  value = Math.min(value, upperBound);
+
+  return Math.ceil(value);
+}
+
+const FOCAL_SQUARE_LENGTH = 100
+
 export function getFocalPoint(src: string, focalPoint: string) {
   const { width, height } = getOriginalImageDimensions(src)
-  const focalSplitted = focalPoint.split('x')
-  const focalPercentX = parseFloat(focalSplitted[0]) / 100
-  const focalPercentY = parseFloat(focalSplitted[1]) / 100
-  const topLeft = `${Math.max(0, width * focalPercentX - 50)}x${Math.max(0, height * focalPercentY - 50)}`
-  const bottomRight = `${Math.min(width * focalPercentX + 50, width)}x${Math.min(height * focalPercentY + 50, height)}`
-  return `:focal(${topLeft}:${bottomRight})`
+  const [focalPointXVal, focalPointYVal] = focalPoint.split('x')
+  const focalPointX = parseInt(focalPointXVal)
+  const focalPointY = parseInt(focalPointYVal)
+  const top = boundCoordinate(
+    (focalPointY / 100) * height - FOCAL_SQUARE_LENGTH / 2,
+    height
+  );
+  const left = boundCoordinate(
+    (focalPointX / 100) * width - FOCAL_SQUARE_LENGTH / 2,
+    width
+  );
+  const bottom = boundCoordinate(
+    top + FOCAL_SQUARE_LENGTH,
+    height
+  );
+  const right = boundCoordinate(
+    left + FOCAL_SQUARE_LENGTH,
+    width
+  );
+
+  return `:focal(${left}x${top}:${right}x${bottom})`
 }
 
 export default function imageService(image: string, option: string = '', filter: string = '') {

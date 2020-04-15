@@ -1,68 +1,57 @@
-import React, { ChangeEvent, CSSProperties, FunctionComponent, useState } from 'react'
-import { useDebouncedCallback } from 'use-debounce'
-import { PageItem } from '../../typings/generated/schema'
+import React, { FunctionComponent } from 'react'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import { createStyles, fade, makeStyles, Theme } from '@material-ui/core/styles'
-import InputBase from '@material-ui/core/InputBase'
+import { useAppContext } from '../provider/AppProvider'
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
+import { TextField } from '@material-ui/core'
+import { getLinkAttrs } from '../../utils/linkHandler'
+import MuiNextLink from '../link/MuiNextLink'
 import LmIcon from '../icon/LmIcon'
 import { Magnify } from 'mdi-material-ui'
-import { useAppContext } from '../provider/AppProvider'
 import clsx from 'clsx'
-import { getLinkAttrs } from '../../utils/linkHandler'
-import Link from 'next/link'
-
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Paper from '@material-ui/core/Paper'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    search: {
-      position: 'relative',
-      display: 'inline-block',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade('rgba(0,0,0,.05)', 0.15),
-      '&:hover': {
-        backgroundColor: fade('rgba(0,0,0,.05)', 0.25)
-      },
-      marginLeft: 0,
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto'
+    root: {
+      display: 'inline-flex',
+      verticalAlign: 'middle',
+      '& .MuiInputLabel-root.Mui-focused': {
+        color: 'inherit'
       }
     },
-    searchOutlined: {
-      border: `1px solid ${theme.palette.divider}`,
-      '&:hover': {
-        border: `1px solid ${theme.palette.action.hover}`
+    inputRoot: {
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade('rgba(0,0,0,.05)', 0.15),
+      color: 'inherit',
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.divider
       },
-      '&:focus': {
-        border: `1px solid ${theme.palette.action.focus}`
+      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.action.focus
+      },
+      '&:hover': {
+        backgroundColor: fade('rgba(0,0,0,.05)', 0.25),
+        '& .MuiOutlinedInput-notchedOutline': {
+          borderColor: theme.palette.action.focus
+        }
       }
     },
     borderSquare: {
-      borderRadius: 0
+      borderRadius: 0,
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderRadius: 0
+      }
     },
     borderRounded: {
-      borderRadius: '25px'
-    },
-    searchIcon: {
-      width: theme.spacing(7),
-      height: '100%',
-      position: 'absolute',
-      pointerEvents: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
-    inputRoot: {
-      color: 'inherit',
-      position: 'relative'
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 7)
+      borderRadius: '25px',
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderRadius: '25px'
+      }
     },
     inputDefaultWidth: {
+      color: 'inherit',
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('sm')]: {
@@ -72,137 +61,83 @@ const useStyles = makeStyles((theme: Theme) =>
         }
       }
     },
-    inputFullWidth: {
-      width: '100%'
+    listbox: {
+      '& .MuiLink-root': {
+        display: 'block',
+        width: '100%',
+        color: 'inherit',
+        '&:hover': {
+          textDecoration: 'none'
+        }
+      }
     }
   }))
 
-
 const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocompleteStoryblok }> = ({ content }) => {
-  const classes = useStyles()
-  const [items, setItems] = useState<PageItem[]>([])
-  const [open, setOpen] = useState<boolean>(false)
-  const [searchText, setSearchText] = useState<string>('')
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const { allStories } = useAppContext()
+  const classes = useStyles()
+  const filterOptions = createFilterOptions({
+    startAfter: 2,
+    matchFrom: 'any',
+    stringify: (option: any) => option.label
+  })
 
-  const [debounceFunc] = useDebouncedCallback(
-    (value: string) => {
-      if (value.length < 2) {
-        return
-      }
-      const filtered = allStories
-        .filter((story) =>
-          [story.content?.preview_title, story.full_slug, story.content?.meta_title, story.name]
-            .some((term) => term && term.search(new RegExp(value, 'i')) !== -1)
-        )
-      setItems(filtered)
-      setOpen(true)
-      setSearchText(value)
-      // StoryblokService.getSearch(`cdn/stories`, {
-      //   per_page: 25,
-      //   sort_by: 'content.preview_title:desc',
-      //   excluding_fields: 'body,right_body,meta_robots,property,seo_body',
-      //   search_term: value,
-      //   filter_query: {
-      //     'component': {
-      //       'in': 'page'
-      //     }
-      //   }
-      // }).then(res => {
-      //   setItems(res.data.stories)
-      //   setOpen(true)
-      //   setSearchText(value)
-      // })
-    },
-    400
-  )
+  // console.log(options)
 
-  function onSearchChange(value: string) {
-    setSearchText(value)
-    debounceFunc(value)
-  }
-
-  const additionalDivStyles: CSSProperties = {}
-  if (content.shape === 'rounded' && content.height) {
-    additionalDivStyles.borderRadius = content.height ? `${content.height / 1.5}px` : undefined
-    additionalDivStyles.paddingLeft = content.height ? `${content.height / 2}px` : undefined
-    additionalDivStyles.paddingRight = content.height ? `${content.height / 2}px` : undefined
-
-  }
   return (
-    <>
-      <div
-        style={additionalDivStyles}
-        className={clsx(classes.search, {
-          [classes.inputFullWidth]: content.fullwidth,
+    <Autocomplete
+      options={allStories.map(option => ({
+        uuid: option.uuid,
+        full_slug: option.full_slug,
+        label: option.content?.preview_title || option.content?.meta_title || option.name || ''
+      })).sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))}
+
+      freeSolo
+      classes={{
+        root: classes.root,
+        listbox: classes.listbox,
+        inputRoot: clsx(classes.inputRoot, {
           [classes.borderSquare]: content.shape === 'square',
-          [classes.borderRounded]: content.shape === 'rounded',
-          [classes.searchOutlined]: content.outlined
-        })}>
-        <div className={classes.searchIcon}>
-          {content.icon && content.icon.name ? <LmIcon iconName={content.icon.name} /> : <Magnify />}
-        </div>
-        <InputBase placeholder={content.placeholder || content.label}
-                   classes={{
-                     root: clsx(classes.inputRoot, {
-                       [classes.inputFullWidth]: content.fullwidth
-                     }),
-                     input: clsx(classes.inputInput, {
-                       [classes.inputDefaultWidth]: !content.fullwidth,
-                       [classes.inputFullWidth]: content.fullwidth
-                     })
-                   }}
-                   onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                     setAnchorEl(event.currentTarget)
-                     onSearchChange(event.currentTarget.value)
-                   }}
-                   value={searchText}
-                   inputProps={{
-                     'aria-label': 'search',
-                     type: 'search',
-                     style: {
-                       height: content.height ? `${content.height}px` : undefined
-                     }
+          [classes.borderRounded]: content.shape === 'rounded'
+        }),
+        input: classes.inputDefaultWidth
+      }}
+      renderInput={(params) => (
+        <TextField {...params}
+                   size={'small'}
+                   variant={'outlined'}
+                   label={content.label || undefined}
+                   placeholder={content.placeholder}
+                   fullWidth={content.fullwidth ? true : false}
+                   InputProps={{
+                     ...params.InputProps,
+                     autoComplete: 'new-password',
+                     startAdornment: <InputAdornment position="start"> {content.icon?.name ?
+                       <LmIcon iconName={content.icon.name} /> : <Magnify />}</InputAdornment>
                    }}
         />
-      </div>
-      <Menu open={open}
-            anchorEl={anchorEl}
-            onClose={() => setOpen(false)}
-            getContentAnchorEl={null}
-            PaperProps={{
-              style: {
-                borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
-              }
-            }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: content.menu_align || 'left'
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: content.menu_align || 'left'
-            }}
-      >
-        {items.length < 1 && (
-          <MenuItem>{content.not_found_label}</MenuItem>
-        )}
-        {items.map(item => {
-
-          const { rel, target, external, ...rest } = getLinkAttrs({
-            cached_url: item.full_slug as string,
-            linktype: 'story'
-          }, {})
-          return (
-            <Link href="/[...index]" as={rest.href} passHref key={item.uuid as string} prefetch={false}>
-              <MenuItem
-                onClick={() => setOpen(false)}>{item.content && (item.content.preview_title || item.content.meta_title || item.name)}</MenuItem>
-            </Link>
-          )
-        })}
-      </Menu>
-    </>
+      )}
+      noOptionsText={content.not_found_label}
+      getOptionLabel={(option) => option.label}
+      filterOptions={filterOptions}
+      PaperComponent={(props) => <Paper {...props}
+                                        style={{
+                                          ...props.style,
+                                          borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
+                                        }}
+      />}
+      renderOption={(item) => {
+        const { rel, target, external, ...rest } = getLinkAttrs({
+          cached_url: item.full_slug as string,
+          linktype: 'story'
+        }, {})
+        return (
+          <MuiNextLink href="/[...index]" as={rest.href} passHref key={item.uuid as string} prefetch={false}>
+            {item.label}
+          </MuiNextLink>
+        )
+      }}
+    />
   )
 }
 
