@@ -987,13 +987,14 @@ export interface RowNestedStoryblok {
 }
 
 export interface SectionStoryblok {
+  section_identifier?: string;
+  body?: any[];
   variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   background?: any[];
   property?: "is_full_height"[];
   padding?: string;
   max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   background_style?: "fixed_image" | "fixed_cover";
-  body?: any[];
   _uid: string;
   component: "section";
   [k: string]: any;
