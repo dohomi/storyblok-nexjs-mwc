@@ -1,12 +1,10 @@
-import * as React from 'react'
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import {
   CardListStoryblok,
   ListsStoryblok,
   ListWidgetStoryblok,
   NavListStoryblok
 } from '../../typings/generated/components-schema'
-import { PageComponent, PageItem } from '../../typings/generated/schema'
 import ListWidgetWithSearch from './ListWidgetWithSearch'
 import ListWidgetContainer from './ListWidgetContainer'
 import { useAppContext } from '../provider/AppProvider'
@@ -17,8 +15,8 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
   const sortDescending = content.sort_descending
   const { allStories } = useAppContext()
 
-  let items: PageItem[] = allStories
-    .filter((item: PageItem) => {
+  let items = allStories
+    .filter((item) => {
       const itemCategories = item.tag_list || []
       if (filter.length) {
         return content.match_all_tags
@@ -30,28 +28,28 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
       }
       return true
     })
-    .sort((a: PageItem, b: PageItem) => {
-      let sortACriteria = a.published_at as String
-      let sortBCriteria = b.published_at as String
-      const itemContentA = a.content as PageComponent
-      const itemContentB = b.content as PageComponent
+    .sort((a, b) => {
+      let sortACriteria = a.published_at
+      let sortBCriteria = b.published_at
+      const itemContentA = a.content
+      const itemContentB = b.content
       if (sort === 'created') {
-        sortACriteria = a.first_published_at as String
-        sortBCriteria = b.first_published_at as String
+        sortACriteria = a.created_at
+        sortBCriteria = b.created_at
       } else if (sort === 'updated') {
-        sortACriteria = a.published_at as String
-        sortBCriteria = b.published_at as String
+        sortBCriteria = b.published_at
+        sortACriteria = a.published_at
       } else if (sort === 'publish') {
-        sortACriteria = itemContentA.preview_publish_date || a.published_at as String
-        sortBCriteria = itemContentB.preview_publish_date || b.published_at as String
+        sortACriteria = itemContentA.preview_publish_date || a.published_at
+        sortBCriteria = itemContentB.preview_publish_date || b.published_at
       } else if (sort === 'title') {
-        sortACriteria = String(itemContentA.preview_title || a.name).toUpperCase()
-        sortBCriteria = String(itemContentB.preview_title || b.name).toUpperCase()
+        sortACriteria = String(itemContentA.preview_title || a.name).toLowerCase()
+        sortBCriteria = String(itemContentB.preview_title || b.name).toLowerCase()
       }
-      if (sortACriteria < sortBCriteria) {
+      if (String(sortACriteria) < String(sortBCriteria)) {
         return sortDescending ? +1 : -1
       }
-      if (sortACriteria > sortBCriteria) {
+      if (String(sortACriteria) > String(sortBCriteria)) {
         return sortDescending ? -1 : 1
       }
       return 0

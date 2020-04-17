@@ -59,6 +59,10 @@ const Index: NextPage<AppPageProps> = (props) => {
     return <Error statusCode={404} settings={settings} page={page} />
   }
 
+  if (!settings) {
+    return <Error statusCode={404} settings={settings} page={page} />
+  }
+
   return (
     <AppProvider content={{
       allCategories: props.allCategories,

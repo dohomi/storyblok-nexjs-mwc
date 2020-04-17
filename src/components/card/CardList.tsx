@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { useGridListStyles } from './cardListStyles'
+import { useInfiniteScroll } from '../../utils/hooks/useInfiniteScroll'
 
 const useStyles = makeStyles({
     cardBase: {
@@ -68,8 +69,9 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
   })
   let gutterSize = content.column_gap ? Number(content.column_gap) : 24
 
-  const items = body || []
+  const { ref, data, hasMore } = useInfiniteScroll(body || [])
   const variant = content.variant || []
+
   return (
     <SbEditable content={content}>
       <div
@@ -82,12 +84,13 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
         <GridList spacing={gutterSize}
                   cellHeight={'auto'}
                   className={gridClasses.gridList}>
-          {items.map(item => (
+          {data.map(item => (
             <GridListTile key={item._uid}>
               <CardListItem content={item} options={rest} />
             </GridListTile>
           ))}
         </GridList>
+        <div ref={hasMore ? ref : undefined}></div>
       </div>
     </SbEditable>
   )

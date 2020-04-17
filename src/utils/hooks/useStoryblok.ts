@@ -2,7 +2,6 @@ import { AppPageProps } from '../../typings/app'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import StoryblokService from '../StoryblokService'
-import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 
 export const useStoryblok = (props: AppPageProps) => {
   const { query } = useRouter() // query only set in SSR mode
@@ -15,8 +14,8 @@ export const useStoryblok = (props: AppPageProps) => {
   const settingsUid = props.settings?.uuid
   const pageUid = props.page?.uuid
 
-  const [statePage, setPage] = useState<PageStoryblok>(page)
-  const [stateSettings, setSettings] = useState<GlobalStoryblok>(settings)
+  const [statePage, setPage] = useState<AppPageProps['page']>(page)
+  const [stateSettings, setSettings] = useState<AppPageProps['settings']>(settings)
 
   useEffect(
     () => {

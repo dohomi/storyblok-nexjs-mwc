@@ -1,6 +1,7 @@
 import { StoriesParams } from 'storyblok-js-client'
 import StoryblokService from '../StoryblokService'
 import { CONFIG } from '../config'
+import { AppApiRequestPayload } from '../../typings/app'
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
@@ -23,7 +24,7 @@ const getSettingsPath = ({ locale }: { locale?: string }) => {
 
 const getCategoryParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 100,
+    per_page: 25,
     sort_by: 'content.name:asc',
     filter_query: {
       'component': {
@@ -41,7 +42,7 @@ const getCategoryParams = ({ locale }: { locale?: string }) => {
 
 const getStaticContainer = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 30,
+    per_page: 25,
     sort_by: 'content.name:asc',
     filter_query: {
       'component': {
@@ -59,7 +60,7 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
 
 const getStoriesParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 100,
+    per_page: 25,
     excluding_fields: 'body,right_body,meta_robots,property,meta_title,meta_description,seo_body',
     sort_by: 'published_at:desc',
     filter_query: {
@@ -82,7 +83,8 @@ type ApiProps = {
   isLandingPage?: boolean
 }
 
-export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps) => {
+
+export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps): Promise<AppApiRequestPayload> => {
   const settingsPath = getSettingsPath({ locale })
   const all: any[] = [
     StoryblokService.get(`cdn/stories/${pageSlug}`),
@@ -124,18 +126,18 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
       page,
       locale,
       settings: localizedSettings,
-      categories: localizedCategories,
-      stories: localizedStories,
-      staticContent: localizedStaticContent
+      allCategories: localizedCategories,
+      allStories: localizedStories,
+      allStaticContent: localizedStaticContent
     }
   }
 
   return {
     page,
     settings,
-    categories,
-    stories: stories,
+    allCategories: categories,
+    allStories: stories,
     locale,
-    staticContent
+    allStaticContent: staticContent
   }
 }

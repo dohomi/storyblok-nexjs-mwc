@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { ChangeEvent, CSSProperties, FunctionComponent, useState } from 'react'
-import { CategoryBoxStoryblok, CategoryStoryblok } from '../../typings/generated/components-schema'
+import { CategoryBoxStoryblok } from '../../typings/generated/components-schema'
 // import { Checkbox } from '@rmwc/checkbox'
-import { CategoryItem } from '../../typings/generated/schema'
 import SbEditable from 'storyblok-react'
 import { setSearchCategory } from '../../utils/state/actions'
 import clsx from 'clsx'
@@ -25,8 +24,8 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
   const filterByTags = (content.filter_by_tags && content.filter_by_tags.values) || []
   const filterByCategories = content.filter_categories || []
   if (filterByTags || filterByCategories.length) {
-    categories = categories.filter((category: CategoryItem) => {
-      const categoryContent = category.content as CategoryStoryblok
+    categories = categories.filter((category) => {
+      const categoryContent = category.content
       if (!(categoryContent.tag_reference && categoryContent.tag_reference.values)) return false // remove all categories without tag_reference
       let exists = true
       if (filterByTags.length) {
@@ -63,13 +62,13 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
   return (
     <SbEditable content={content}>
       <div style={style} className={clsx(content.class_names && content.class_names.values)}>
-        {categories.map((category: CategoryItem) => {
+        {categories.map((category) => {
           const value = category.content && category.content.tag_reference && category.content.tag_reference.values
           return (
-            <div key={category.uuid as string}>
+            <div key={category.uuid}>
               <FormControlLabel control={
-                <Checkbox id={category.uuid as string}
-                          name={category.uuid as string}
+                <Checkbox id={category.uuid}
+                          name={category.uuid}
                           checked={selected.includes(value)}
                           value={value}
                           onChange={onChange}

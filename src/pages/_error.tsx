@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Components from '@components'
 import Layout from '../components/layout/Layout'
 import { NextPage } from 'next'
-import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-schema'
 import WindowDimensionsProvider from '../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import StoryblokService from '../utils/StoryblokService'
@@ -11,11 +10,12 @@ import { CONFIG } from '../utils/config'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { useGlobalState } from '../utils/state/state'
 import AppSetupProvider from '../components/provider/AppSetupProvider'
+import { AppPageProps } from '../typings/app'
 
 type ErrorComponentProps = {
   statusCode: number
-  page?: PageStoryblok
-  settings: GlobalStoryblok
+  page?: AppPageProps['page']
+  settings: AppPageProps['settings']
 }
 
 const statusCodes = {
@@ -93,7 +93,7 @@ const Error: NextPage<ErrorComponentProps> = (props) => {
     console.log('error on Storyblok PREVIEW and PUBLIC token:', process.env.NODE_ENV, process.env.STORYBLOK_PREVIEW, process.env.STORYBLOK_PUBLIC)
     return <h3>Storyblok 401 error received</h3>
   }
-  if (!(props.settings && props.settings._uid)) {
+  if (!(settings && settings._uid)) {
     return <h3>No settings found</h3>
   }
 

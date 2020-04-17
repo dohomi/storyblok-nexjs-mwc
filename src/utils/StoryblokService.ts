@@ -1,6 +1,6 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from './config'
-import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-schema'
+import { AppPageProps } from '../typings/app'
 
 class StoryblokServiceClass {
   private devMode: boolean
@@ -85,7 +85,7 @@ class StoryblokServiceClass {
     this.devMode = true
   }
 
-  initEditor({ page, setPage, settings, setSettings }: { page?: PageStoryblok, setPage: Function, settings?: GlobalStoryblok, setSettings: Function }) {
+  initEditor({ page, setPage, settings, setSettings }: { page?: AppPageProps['page'], setPage: Function, settings?: AppPageProps['settings'], setSettings: Function }) {
     if (window.storyblok) {
       window.storyblok.init({ accessToken: this.token })
       window.storyblok.on(['change'], () => {

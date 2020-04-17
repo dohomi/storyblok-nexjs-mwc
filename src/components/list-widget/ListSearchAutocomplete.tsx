@@ -221,6 +221,9 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
           stringify: (option: any) => option.label
         })}
         PaperComponent={(props) => <Paper {...props}
+                                          square={content.menu_square}
+                                          variant={content.menu_outlined ? 'outlined' : 'elevation'}
+                                          elevation={content.menu_elevation ? Number(content.menu_elevation) : 1}
                                           style={{
                                             ...props.style,
                                             borderRadius: content.menu_border_radius ? content.menu_border_radius : undefined
