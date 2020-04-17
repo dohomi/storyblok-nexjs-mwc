@@ -8,13 +8,13 @@ import {
   ListWidgetStoryblok,
   NavListStoryblok
 } from '../../typings/generated/components-schema'
-import { PageItem } from '../../typings/generated/schema'
 import ListWidgetLinks from './ListWidgetLinks'
+import { AppApiRequestPayload } from '../../typings/app'
 
 const ListWidgetContainer: FunctionComponent<{
   listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok)
   content: ListWidgetStoryblok
-  items: PageItem[]
+  items: AppApiRequestPayload['allStories']
 }> = ({ listOption, content, items }) => {
   if (listOption.component === 'lists') {
     return <ListWidgetLists content={content} items={items} options={listOption} />

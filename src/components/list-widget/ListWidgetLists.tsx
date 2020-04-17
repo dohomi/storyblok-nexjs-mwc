@@ -1,7 +1,5 @@
-import * as React from 'react'
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
-import { PageComponent, PageItem } from '../../typings/generated/schema'
 import List from '@material-ui/core/List'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Link from 'next/link'
@@ -10,10 +8,11 @@ import ListItem from '@material-ui/core/ListItem'
 import LmMuiAvatar from '../avatar/LmMuiAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import { internalLinkHandler } from '../../utils/linkHandler'
+import { AppApiRequestPayload } from '../../typings/app'
 
 
 const ListWidgetLists: FunctionComponent<{
-  items: PageItem[]
+  items: AppApiRequestPayload['allStories']
   options: ListsStoryblok
   content: ListWidgetStoryblok
 }> = ({ items, options, content }) => {
@@ -22,8 +21,8 @@ const ListWidgetLists: FunctionComponent<{
   return (
     <SbEditable content={content}>
       <List>
-        {items.map((item: PageItem) => {
-          const itemContent = item.content as PageComponent
+        {items.map((item) => {
+          const itemContent = item.content
 
           return (
             <Link href="/[...index]"

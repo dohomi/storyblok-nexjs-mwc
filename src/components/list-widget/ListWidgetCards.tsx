@@ -1,24 +1,26 @@
 import CardList from '../card/CardList'
-import * as React from 'react'
-import { FunctionComponent } from 'react'
-import { PageComponent, PageItem } from '../../typings/generated/schema'
+import React, { FunctionComponent } from 'react'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
+import { AppApiRequestPayload } from '../../typings/app'
 
 const ListWidgetCards: FunctionComponent<{
   content: ListWidgetStoryblok
-  items: PageItem[]
+  items: AppApiRequestPayload['allStories']
   options: CardListStoryblok
 }> = ({ items, content, options }) => {
   return <CardList content={{
     ...options,
     _uid: content._uid,
     component: 'card_list',
-    body: items.map((item: PageItem) => {
-      const itemContent = item.content as PageComponent
+    body: items.map((item) => {
+      const itemContent = item.content
+      if (content.sort === 'publish' && !itemContent.preview_publish_date) {
+        console.info('missing preview publish date:', item.full_slug)
+      }
       return {
         _uid: item.uuid,
         component: 'card_list_item',
@@ -27,7 +29,7 @@ const ListWidgetCards: FunctionComponent<{
         description: itemContent.preview_teaser,
         image: itemContent.preview_image,
         link: {
-          cached_url: item.full_slug || item.slug || item.path,
+          cached_url: item.full_slug || item.slug,
           linktype: 'stories'
         }
       } as CardListItemStoryblok

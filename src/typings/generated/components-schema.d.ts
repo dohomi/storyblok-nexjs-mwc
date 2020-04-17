@@ -685,11 +685,6 @@ export interface ListsStoryblok {
 }
 
 export interface ListSearchAutocompleteStoryblok {
-  shape?: "rounded" | "square";
-  height?: number;
-  mobile_breakpoint?: "xs" | "sm" | "md" | "lg";
-  fullwidth?: boolean;
-  outlined?: boolean;
   menu_border_radius?: string;
   placeholder?: string;
   label?: string;
@@ -698,6 +693,14 @@ export interface ListSearchAutocompleteStoryblok {
     name?: string;
     [k: string]: any;
   };
+  shape?: "rounded" | "square";
+  height?: number;
+  mobile_breakpoint?: "xs" | "sm" | "md" | "lg";
+  fullwidth?: boolean;
+  outlined?: boolean;
+  menu_elevation?: number;
+  menu_square?: boolean;
+  menu_outlined?: boolean;
   _uid: string;
   component: "list_search_autocomplete";
   [k: string]: any;
