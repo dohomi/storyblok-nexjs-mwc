@@ -1015,12 +1015,13 @@ export interface SectionParallaxStoryblok {
 }
 
 export interface SectionVideoBgStoryblok {
-  body?: any[];
+  section_identifier?: string;
   url?: string;
-  height?: number;
-  video_ratio?: "16x9" | "1280x720" | "4x3" | "16x6";
-  property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline")[];
+  body?: any[];
   fallback_image?: string;
+  property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline")[];
+  video_ratio?: "16x9" | "1280x720" | "4x3" | "16x6";
+  height?: number;
   _uid: string;
   component: "section_video_bg";
   [k: string]: any;

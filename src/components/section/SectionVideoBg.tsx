@@ -122,7 +122,9 @@ const SectionVideoBg: FunctionComponent<{ content: SectionVideoBgStoryblok }> = 
     <SbEditable content={content}>
       <div className={classes.videoSection}
            style={containerStyle}
-           ref={intersectionRef}>
+           ref={intersectionRef}
+           id={content.section_identifier || content._uid}
+      >
         {hasSrc && inView && (
           <FullscreenVideoBg {...content}
                              containerDimensions={containerDimensions}
