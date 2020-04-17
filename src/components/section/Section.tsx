@@ -62,7 +62,8 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   return (
     <SbEditable content={content}>
       <div className={clsx(classes.background, { [classes.dark]: !!content.variant }, className)}
-           style={style}>
+           style={style}
+           id={content.section_identifier || content._uid}>
         {(background?.image || background?.background_elements) &&
         <BackgroundImage content={background} backgroundStyle={content.background_style} />}
         {background?.background_elements && background.background_elements.length > 0 &&

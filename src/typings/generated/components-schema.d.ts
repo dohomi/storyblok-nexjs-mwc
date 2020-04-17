@@ -987,13 +987,14 @@ export interface RowNestedStoryblok {
 }
 
 export interface SectionStoryblok {
+  section_identifier?: string;
+  body?: any[];
   variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   background?: any[];
   property?: "is_full_height"[];
   padding?: string;
   max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   background_style?: "fixed_image" | "fixed_cover";
-  body?: any[];
   _uid: string;
   component: "section";
   [k: string]: any;
@@ -1014,12 +1015,13 @@ export interface SectionParallaxStoryblok {
 }
 
 export interface SectionVideoBgStoryblok {
-  body?: any[];
+  section_identifier?: string;
   url?: string;
-  height?: number;
-  video_ratio?: "16x9" | "1280x720" | "4x3" | "16x6";
-  property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline")[];
+  body?: any[];
   fallback_image?: string;
+  property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline")[];
+  video_ratio?: "16x9" | "1280x720" | "4x3" | "16x6";
+  height?: number;
   _uid: string;
   component: "section_video_bg";
   [k: string]: any;
