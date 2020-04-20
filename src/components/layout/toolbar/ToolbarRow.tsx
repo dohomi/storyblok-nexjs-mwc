@@ -22,11 +22,12 @@ const ToolbarRow: FunctionComponent<{ content: ToolbarRowStoryblok, settings: Gl
       <SbEditable content={content}>
         <div className={clsx('lm-system-bar')}
              style={{
-               backgroundColor: (content.background_color && content.background_color.rgba) || theme.palette.primary.main,
-               height: `${content.height || 40}px`
+               backgroundColor: (content.background_color && content.background_color.rgba) || theme.palette.primary.main
+               // height: `${content.height || 40}px`
              }}>
           <Container className="h-100" maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
-            <Grid container className="h-100" justify={content.justify || 'space-between'} alignContent={'center'} alignItems={'center'}>
+            <Grid container className="h-100" justify={content.justify || 'space-between'} alignContent={'center'}
+                  alignItems={'center'}>
               {body.map(p => <ToolbarSection content={p} settings={settings} key={p._uid} />)}
             </Grid>
           </Container>
