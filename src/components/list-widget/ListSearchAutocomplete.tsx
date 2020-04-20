@@ -215,7 +215,6 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
         noOptionsText={content.not_found_label}
         getOptionLabel={(option) => option.label}
         filterOptions={createFilterOptions({
-          // @ts-ignore
           startAfter: isMobileAction ? 0 : 1,
           matchFrom: 'any',
           stringify: (option: any) => option.label
