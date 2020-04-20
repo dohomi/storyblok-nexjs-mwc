@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '& .lm-system-bar': {
       transitionDuration: '500ms',
       overflow: 'hidden',
+      height: theme.toolbar.height.systemBar,
       [theme.breakpoints.only('xs')]: {
         display: 'none'
       }
@@ -49,7 +50,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     '&.lm-toolbar__scrolled': {
       '& .lm-system-bar': {
-        height: '0 !important'
+        marginTop: -1 * theme.toolbar.height.systemBar,
+        // height: '0 !important'
       },
       '& .MuiToolbar-root': {
         height: theme.toolbar.height.mobile,
