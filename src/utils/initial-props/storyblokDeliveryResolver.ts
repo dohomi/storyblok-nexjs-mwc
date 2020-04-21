@@ -2,6 +2,11 @@ import { StoriesParams } from 'storyblok-js-client'
 import StoryblokService from '../StoryblokService'
 import { CONFIG } from '../config'
 import { AppApiRequestPayload } from '../../typings/app'
+import fs from 'fs'
+import { promisify } from 'util'
+
+export const readFile = promisify(fs.readFile)
+export const writeFile = promisify(fs.writeFile)
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
@@ -61,7 +66,7 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
 const getStoriesParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
     per_page: 25,
-    excluding_fields: 'body,right_body,meta_robots,property,meta_title,meta_description,seo_body',
+    excluding_fields: 'body,right_body,meta_robots,property,meta_description,seo_body',
     sort_by: 'published_at:desc',
     filter_query: {
       'component': {
