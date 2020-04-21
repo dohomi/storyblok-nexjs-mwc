@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import { AppPageProps } from '../../typings/app'
 import { useStoryblok } from '../../utils/hooks/useStoryblok'
-import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import Error from '../../pages/_error'
 import AppProvider from '../provider/AppProvider'
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
@@ -13,7 +12,6 @@ import Layout from '../layout/Layout'
 import Components from '@components'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import hasWebpSupport from '../../utils/detectWebpSupport'
 
 const Index: NextPage<AppPageProps> = (props) => {
   const { settings, page } = useStoryblok(props)
@@ -36,13 +34,6 @@ const Index: NextPage<AppPageProps> = (props) => {
     return <div>Loading...</div>
   }
 
-  if (props.locale && getGlobalState('locale') !== props.locale) {
-    setGlobalState('locale', props.locale)
-  }
-  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
-    hasWebpSupport()
-      .then((has) => setGlobalState('hasWebpSupport', has))
-  }
 
   if (error) {
     if (error.type === 'not_supported') {

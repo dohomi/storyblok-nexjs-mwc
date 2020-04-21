@@ -17,8 +17,8 @@ const ListWidgetLinks: FunctionComponent<{
         component: 'nav_item',
         name: (item.content && (item.content.preview_title || item.name)) || '',
         link: {
-          cached_url: '/' + item.full_slug,
-          linktype: 'stories'
+          cached_url: item.full_slug,
+          linktype: 'story'
         }
       }
       return opts
