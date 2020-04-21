@@ -29,8 +29,8 @@ const ListWidgetCards: FunctionComponent<{
         description: itemContent.preview_teaser,
         image: itemContent.preview_image,
         link: {
-          cached_url: item.full_slug || item.slug,
-          linktype: 'stories'
+          cached_url: item.full_slug,
+          linktype: 'story'
         }
       } as CardListItemStoryblok
     })

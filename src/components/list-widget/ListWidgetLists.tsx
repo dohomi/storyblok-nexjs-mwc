@@ -21,27 +21,23 @@ const ListWidgetLists: FunctionComponent<{
   return (
     <SbEditable content={content}>
       <List>
-        {items.map((item) => {
-          const itemContent = item.content
-
-          return (
-            <Link href="/[...index]"
-                  as={internalLinkHandler(item.full_slug as string)}
-                  key={item.uuid as string}
-                  passHref
-                  prefetch={false}>
-              <ListItem component={'a'}>
-                {!hideImage && itemContent.preview_image && (
-                  <ListItemAvatar>
-                    <LmMuiAvatar src={itemContent.preview_image} size={imageSize} />
-                  </ListItemAvatar>
-                )}
-                <ListItemText primary={itemContent.preview_title || item.name}
-                              secondary={!options.hide_subtitle && itemContent.preview_subtitle}></ListItemText>
-              </ListItem>
-            </Link>
-          )
-        })}
+        {items.map((item) => (
+          <Link href="/[...index]"
+                as={internalLinkHandler(item.full_slug)}
+                key={item.uuid}
+                passHref
+                prefetch={false}>
+            <ListItem component={'a'}>
+              {!hideImage && item.content.preview_image && (
+                <ListItemAvatar>
+                  <LmMuiAvatar src={item.content.preview_image} size={imageSize} />
+                </ListItemAvatar>
+              )}
+              <ListItemText primary={item.content.preview_title || item.name}
+                            secondary={!options.hide_subtitle && item.content.preview_subtitle}></ListItemText>
+            </ListItem>
+          </Link>
+        ))}
       </List>
     </SbEditable>
   )
