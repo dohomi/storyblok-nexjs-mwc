@@ -7,7 +7,7 @@ import { AppPageProps } from '../../typings/app'
 const getPageProps = async (slug: string | string[]): Promise<AppPageProps> => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
-  let { page, settings, allCategories = [], allStories = [], locale, allStaticContent = [] } = await apiRequestResolver({
+  let { page, settings, allCategories = [], allStories = [], locale, allStaticContent = [], ...rest } = await apiRequestResolver({
     pageSlug,
     locale: knownLocale,
     isLandingPage: isLandingPage
@@ -36,7 +36,8 @@ const getPageProps = async (slug: string | string[]): Promise<AppPageProps> => {
     allStories: (allStories || []).filter(i => !i.full_slug.includes('demo-content')),
     allCategories,
     allStaticContent,
-    locale
+    locale,
+    ...rest
   }
 }
 

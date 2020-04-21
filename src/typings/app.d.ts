@@ -23,5 +23,6 @@ export type AppPageProps = Pick<AppApiRequestPayload, 'allStories' | 'allStaticC
   page?: PageStoryblok | null,
   settings?: GlobalStoryblok | null
   error?: ErrorProps
-  query?: any
+  query?: any,
+  [k: string]: any
 }
