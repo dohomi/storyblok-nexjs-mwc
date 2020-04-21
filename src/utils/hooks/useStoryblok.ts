@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import StoryblokService from '../StoryblokService'
 
-export const useStoryblok = (props: AppPageProps) => {
+export const useStoryblok = (props: Pick<AppPageProps, 'page' | 'settings'>) => {
   const { query } = useRouter() // query only set in SSR mode
 
   const { page, settings } = props
@@ -48,8 +48,7 @@ export const useStoryblok = (props: AppPageProps) => {
   // return content
   // console.log(props.page._uid)
   return {
-    page: statePage,
-    settings: stateSettings,
-    error: props.error
+    statePage,
+    stateSettings
   }
 }

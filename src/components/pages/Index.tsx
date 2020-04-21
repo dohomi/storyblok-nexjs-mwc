@@ -12,11 +12,21 @@ import Layout from '../layout/Layout'
 import Components from '@components'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { getGlobalState, setGlobalState } from '../../utils/state/state'
+import hasWebpSupport from '../../utils/detectWebpSupport'
 
 const Index: NextPage<AppPageProps> = (props) => {
-  const { settings, page } = useStoryblok(props)
-  const { error } = props
+  const { error, locale, settings, page, ...rest } = props
+  const { stateSettings, statePage } = useStoryblok({ settings, page })
   const { isFallback } = useRouter()
+
+  if (locale && getGlobalState('locale') !== locale) {
+    setGlobalState('locale', locale)
+  }
+  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
+    hasWebpSupport()
+      .then((has) => setGlobalState('hasWebpSupport', has))
+  }
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   useEffect(
@@ -39,34 +49,30 @@ const Index: NextPage<AppPageProps> = (props) => {
     if (error.type === 'not_supported') {
       return null
     }
-    return <Error statusCode={error.status} settings={settings} page={page} />
+    return <Error statusCode={error.status} settings={stateSettings} page={statePage} />
   }
 
-  if (!page && !settings) {
+  if (!statePage && !stateSettings) {
     return <h3>No page or settings found</h3>
   }
 
-  if (!page) {
-    return <Error statusCode={404} settings={settings} page={page} />
+  if (!statePage) {
+    return <Error statusCode={404} settings={stateSettings} page={statePage} />
   }
 
-  if (!settings) {
-    return <Error statusCode={404} settings={settings} page={page} />
+  if (!stateSettings) {
+    return <Error statusCode={404} settings={stateSettings} page={statePage} />
   }
 
   return (
-    <AppProvider content={{
-      allCategories: props.allCategories,
-      allStaticContent: props.allStaticContent,
-      allStories: props.allStories
-    }}>
+    <AppProvider content={rest}>
       <WindowDimensionsProvider>
-        <AppSetupProvider settings={settings} page={page}>
-          <GlobalTheme settings={settings} rightDrawerWidth={page?.right_drawer_width}>
+        <AppSetupProvider settings={stateSettings} page={statePage}>
+          <GlobalTheme settings={stateSettings} rightDrawerWidth={statePage?.right_drawer_width}>
             <CssBaseline />
-            <AppSeo settings={settings} page={page} previewImage={page?.preview_image} />
-            <Layout settings={settings}>
-              {Components(page)}
+            <AppSeo settings={stateSettings} page={statePage} previewImage={statePage?.preview_image} />
+            <Layout settings={stateSettings}>
+              {Components(statePage)}
             </Layout>
           </GlobalTheme>
         </AppSetupProvider>
