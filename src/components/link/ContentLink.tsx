@@ -42,7 +42,7 @@ const ContentLink: FunctionComponent<{
       if (isMuiLink) {
         return (
           <SbEditable content={content}>
-            <MuiNextLink href="/[...index]" as={attrs.href} {...props}>
+            <MuiNextLink href={content.link.nextHref || '/[...index]'} as={attrs.href} {...props}>
               {children}
             </MuiNextLink>
           </SbEditable>
@@ -51,12 +51,12 @@ const ContentLink: FunctionComponent<{
       return (
         <SbEditable content={content}>
           {!passHref && (
-            <Link {...attrs} href="/[...index]" as={attrs.href} {...props}>
+            <Link {...attrs} href={content.link.nextHref || '/[...index]'} as={attrs.href} {...props}>
               <a rel={rel} target={target} className={className}>{children}</a>
             </Link>
           )}
           {passHref && (
-            <Link {...attrs} href="/[...index]" as={attrs.href} passHref {...props}>
+            <Link {...attrs} href={content.link.nextHref || '/[...index]'} as={attrs.href} passHref {...props}>
               {children}
             </Link>
           )}
