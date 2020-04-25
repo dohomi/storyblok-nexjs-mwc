@@ -5,6 +5,7 @@ import { getGlobalState } from './state/state'
 export interface LinkType {
   cached_url: string
   linktype: string
+  nextHref?: string
 
   [k: string]: any
 }
