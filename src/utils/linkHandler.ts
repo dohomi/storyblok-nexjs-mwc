@@ -26,7 +26,6 @@ export const internalLinkHandler = (url: string) => {
   if (CONFIG.rootDirectory) {
     const urlArray = url.split('/')
     if (urlArray[0] === CONFIG.rootDirectory) {
-      console.log('is root dir')
       urlArray.shift()
       url = urlArray.join('/')
     }
