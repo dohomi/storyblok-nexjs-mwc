@@ -128,7 +128,9 @@ const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, page: PageStoryblok
   if (settings.seo_website_url) {
     seo.canonical = getCanonicalUrl(settings.seo_website_url, router?.asPath)
   } else {
-    console.warn('set up seo_website_url inside of settings to have a canonical tag')
+    if (typeof window !== 'undefined') {
+      console.warn('set up seo_website_url inside of settings to have a canonical tag')
+    }
   }
 
   return <NextSeo {...seo} />
