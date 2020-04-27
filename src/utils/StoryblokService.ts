@@ -2,6 +2,8 @@ import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from './config'
 import { AppPageProps } from '../typings/app'
 
+const cv = new Date().getTime()
+
 class StoryblokServiceClass {
   private devMode: boolean
   private token: string
@@ -49,7 +51,9 @@ class StoryblokServiceClass {
   }
 
   getDefaultParams() {
-    const params: StoriesParams = {}
+    const params: StoriesParams = {
+      cv: cv
+    }
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
       this.token = this.previewToken
       this.client.setToken(this.previewToken)

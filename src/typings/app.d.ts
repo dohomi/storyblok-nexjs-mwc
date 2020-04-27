@@ -15,10 +15,12 @@ export type AppApiRequestPayload = {
   settings: Story,
   locale?: string,
   allCategories: StoryData<CategoryComponent>[],
-  allStaticContent: StoryData<StaticcontainerComponent>[]
+  allStaticContent: StoryData<StaticcontainerComponent>[],
+  listWidgetData: { [k: string]: StoryData<PageComponent>[] }
 }
 
-export type AppPageProps = Pick<AppApiRequestPayload, 'allStories' | 'allStaticContent' | 'locale' | 'allCategories'>
+export type AppPageProps =
+  Pick<AppApiRequestPayload, 'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'>
   & {
   page?: PageStoryblok | null,
   settings?: GlobalStoryblok | null
