@@ -1,12 +1,12 @@
 import React, { createContext, FunctionComponent, useContext } from 'react'
 import { AppApiRequestPayload } from '../../typings/app'
 
-export type AppContextProps = Omit<AppApiRequestPayload, 'locale' | 'settings' | 'page'>
+export type AppContextProps = Omit<AppApiRequestPayload, 'locale' | 'settings' | 'page' | 'allStories'>
 
 const defaultValue: AppContextProps = {
   allCategories: [],
-  allStories: [],
-  allStaticContent: []
+  allStaticContent: [],
+  listWidgetData: {}
 }
 const AppContext = createContext<AppContextProps>(defaultValue)
 

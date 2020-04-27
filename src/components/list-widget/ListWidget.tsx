@@ -8,14 +8,14 @@ import {
 import ListWidgetWithSearch from './ListWidgetWithSearch'
 import ListWidgetContainer from './ListWidgetContainer'
 import { useAppContext } from '../provider/AppProvider'
+import { StoryData } from 'storyblok-js-client'
+import { PageComponent } from '../../typings/generated/schema'
 
-const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
+export const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<PageComponent>[] = []) => {
   const filter = (content.tags && content.tags.values) || []
   const sort = content.sort
   const sortDescending = content.sort_descending
-  const { allStories } = useAppContext()
-
-  let items = allStories
+  const stories = allStories
     .filter((item) => {
       const itemCategories = item.tag_list || []
       if (filter.length) {
@@ -55,8 +55,16 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
       return 0
     })
   if (content.maximum_items) {
-    items = items.slice(0, content.maximum_items)
+    return stories.slice(0, content.maximum_items)
   }
+  return stories
+}
+
+const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
+
+  const { listWidgetData } = useAppContext()
+  let items = listWidgetData[content._uid] || []
+
   const listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok) = (content.list_options && content.list_options[0]) || {}
 
   if (content.enable_for_search) {

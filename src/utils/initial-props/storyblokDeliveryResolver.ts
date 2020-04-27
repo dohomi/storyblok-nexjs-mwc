@@ -8,6 +8,18 @@ import { promisify } from 'util'
 export const readFile = promisify(fs.readFile)
 export const writeFile = promisify(fs.writeFile)
 
+const cacheManager = require('cache-manager')
+const fsStore = require('cache-manager-fs')
+export const diskCache = cacheManager.caching({
+  store: fsStore,
+  options: {
+    ttl: 0 /* seconds */,
+    maxsize: 0 /* max size in bytes on disk */,
+    path: '.next/cache/page-props-data/'
+  }
+})
+
+
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map(p => p.catch(() => {
@@ -29,7 +41,7 @@ const getSettingsPath = ({ locale }: { locale?: string }) => {
 
 const getCategoryParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 25,
+    per_page: 100,
     sort_by: 'content.name:asc',
     filter_query: {
       'component': {
@@ -65,7 +77,7 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
 
 const getStoriesParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 25,
+    per_page: 100,
     excluding_fields: 'body,right_body,meta_robots,property,meta_description,seo_body',
     sort_by: 'published_at:desc',
     filter_query: {
@@ -93,10 +105,10 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
   const settingsPath = getSettingsPath({ locale })
   const all: any[] = [
     StoryblokService.get(`cdn/stories/${pageSlug}`),
-    StoryblokService.get(settingsPath),
-    StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    StoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
-    StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
+    diskCache.wrap('settings', () => StoryblokService.get(settingsPath)),
+    diskCache.wrap('categories', () => StoryblokService.getAll('cdn/stories', getCategoryParams({ locale }))),
+    diskCache.wrap('stories', () => StoryblokService.getAll('cdn/stories', getStoriesParams({ locale }))),//    Promise.resolve([])/**/,
+    diskCache.wrap('static_container', () => StoryblokService.getAll('cdn/stories', getStaticContainer({ locale })))
   ]
 
   if (CONFIG.suppressSlugLocale && CONFIG.languages.length > 1 && !isLandingPage) {
@@ -123,7 +135,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await resolveAllPromises([
       StoryblokService.get(settingsPath),
       StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-      StoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
+      Promise.resolve([])/*StoryblokService.getAll('cdn/stories', getStoriesParams({ locale }))*/,
       StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
     ])
 
@@ -133,7 +145,8 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
       settings: localizedSettings,
       allCategories: localizedCategories,
       allStories: localizedStories,
-      allStaticContent: localizedStaticContent
+      allStaticContent: localizedStaticContent,
+      listWidgetData: {}
     }
   }
 
@@ -143,6 +156,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     allCategories: categories,
     allStories: stories,
     locale,
-    allStaticContent: staticContent
+    allStaticContent: staticContent,
+    listWidgetData: {}
   }
 }

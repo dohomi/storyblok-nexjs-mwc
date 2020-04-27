@@ -1,8 +1,7 @@
 import React, { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { createStyles, fade, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
-import { useAppContext } from '../provider/AppProvider'
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import { TextField, useMediaQuery } from '@material-ui/core'
 import { getLinkAttrs } from '../../utils/linkHandler'
 import MuiNextLink from '../link/MuiNextLink'
@@ -11,8 +10,12 @@ import { Magnify } from 'mdi-material-ui'
 import clsx from 'clsx'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
-import InputAdornment from '@material-ui/core/InputAdornment'
 import SbEditable from 'storyblok-react'
+import { StoryData } from 'storyblok-js-client'
+import { PageComponent } from '../../typings/generated/schema'
+import { useDebouncedCallback } from 'use-debounce'
+import StoryblokService from '../../utils/StoryblokService'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -155,13 +158,41 @@ const ListSearchAutocompleteWrap: FunctionComponent<{
 }
 
 const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocompleteStoryblok }> = ({ content }) => {
-  const { allStories } = useAppContext()
+  // const { allStories } = useAppContext()
+  const [allStories, setAllStories] = useState<StoryData<PageComponent>[]>([])
   const classes = useStyles()
   const inputRef: RefObject<HTMLInputElement> = createRef()
   const [open, setOpen] = useState<boolean | undefined>()
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down(content.mobile_breakpoint || 'xs'))
   const isMobileAction = content.mobile_breakpoint && matches
+
+  const [debounceFunc] = useDebouncedCallback(
+    (value: string) => {
+      if (value.length < 2) {
+        return
+      }
+
+      setOpen(true)
+      StoryblokService.getSearch(`cdn/stories`, {
+        per_page: 25,
+        sort_by: 'content.preview_title:desc',
+        excluding_fields: 'body,right_body,meta_robots,property,seo_body',
+        search_term: value,
+        filter_query: {
+          'component': {
+            'in': 'page'
+          }
+        }
+      }).then(res => {
+        console.log("in then", res.data.stories)
+        setAllStories(res.data.stories)
+        setOpen(true)
+        // setSearchText(value)
+      })
+    },
+    400
+  )
 
   return (
     <ListSearchAutocompleteWrap content={content}
@@ -206,6 +237,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
                        onBlur: () => {
                          setOpen(false)
                        },
+                       onChange: (event: React.ChangeEvent<HTMLInputElement>) => debounceFunc(event.currentTarget.value),
                        autoComplete: 'new-password',
                        startAdornment: <InputAdornment position="start"> {content.icon?.name ?
                          <LmIcon iconName={content.icon.name} /> : <Magnify />}</InputAdornment>
@@ -214,11 +246,6 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
         )}
         noOptionsText={content.not_found_label}
         getOptionLabel={(option) => option.label}
-        filterOptions={createFilterOptions({
-          startAfter: isMobileAction ? 0 : 1,
-          matchFrom: 'any',
-          stringify: (option: any) => option.label
-        })}
         PaperComponent={(props) => <Paper {...props}
                                           square={content.menu_square}
                                           variant={content.menu_outlined ? 'outlined' : 'elevation'}
