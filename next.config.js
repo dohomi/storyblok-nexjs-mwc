@@ -1,8 +1,8 @@
 const config = require('./nextjs_dev_config')
 
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+// if (process.env.NODE_ENV !== 'production') {
+require('dotenv').config()
+// }
 
 module.exports = config({
   previewToken: process.env.previewToken,

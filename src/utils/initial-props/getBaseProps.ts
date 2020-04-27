@@ -5,7 +5,7 @@ export const getBaseProps = (error: any): AppPageProps => ({
   error,
   settings: { _uid: '', component: 'global', theme_base: 'base' },
   allCategories: [],
-  allStories: [],
   allStaticContent: [],
-  locale: ''
+  locale: '',
+  listWidgetData: {}
 })
