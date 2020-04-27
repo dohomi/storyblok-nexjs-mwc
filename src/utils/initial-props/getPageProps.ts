@@ -39,15 +39,6 @@ const getPageProps = async (slug: string | string[]): Promise<AppPageProps> => {
   return {
     page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
     settings: settingsProps ? { ...settingsProps, uuid: settings?.data?.story?.uuid } : null,
-    allStories: [] /*(allStories || []).filter(i => !i.full_slug.includes('demo-content')).map(i => ({
-      full_slug: i.full_slug,
-      uuid: i.uuid,
-      created_at: i.created_at,
-      published_at: i.published_at,
-      name: i.name,
-      tag_list: i.tag_list,
-      content: i.content
-    }))*/,
     allCategories: (allCategories || []).map(i => ({
       uuid: i.uuid,
       content: i.content,

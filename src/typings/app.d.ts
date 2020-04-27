@@ -19,7 +19,8 @@ export type AppApiRequestPayload = {
   listWidgetData: { [k: string]: StoryData<PageComponent>[] }
 }
 
-export type AppPageProps = Pick<AppApiRequestPayload, 'allStories' | 'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'>
+export type AppPageProps =
+  Pick<AppApiRequestPayload, 'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'>
   & {
   page?: PageStoryblok | null,
   settings?: GlobalStoryblok | null
