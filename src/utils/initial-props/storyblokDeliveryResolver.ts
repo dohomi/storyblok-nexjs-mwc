@@ -4,20 +4,12 @@ import { CONFIG } from '../config'
 import { AppApiRequestPayload } from '../../typings/app'
 import fs from 'fs'
 import { promisify } from 'util'
+import { diskCache } from '@initialData/fileCache'
 
 export const readFile = promisify(fs.readFile)
 export const writeFile = promisify(fs.writeFile)
 
-const cacheManager = require('cache-manager')
-const fsStore = require('cache-manager-fs')
-export const diskCache = cacheManager.caching({
-  store: fsStore,
-  options: {
-    ttl: 0 /* seconds */,
-    maxsize: 0 /* max size in bytes on disk */,
-    path: '.next/cache/page-props-data/'
-  }
-})
+
 
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
@@ -41,7 +33,7 @@ const getSettingsPath = ({ locale }: { locale?: string }) => {
 
 const getCategoryParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 100,
+    per_page: 25,
     sort_by: 'content.name:asc',
     filter_query: {
       'component': {
@@ -77,7 +69,7 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
 
 const getStoriesParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 100,
+    per_page: 25,
     excluding_fields: 'body,right_body,meta_robots,property,meta_description,seo_body',
     sort_by: 'published_at:desc',
     filter_query: {

@@ -1,12 +1,12 @@
 {
   "name": "@lumen/mwc",
-  "version": "0.29.0",
+  "version": "0.29.1",
   "description": "Next.js full website kit powered by Storyblok",
   "main": "index.js",
   "scripts": {
     "analyze": "BUNDLE_ANALYZE=true npm run build",
     "dev": "next",
-    "build": "next build",
+    "build": "rm -rf .next && next build",
     "start": "next start",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=80001",
@@ -33,7 +33,6 @@
     "@types/react-swipeable-views": "^0.13.0",
     "@u-wave/react-vimeo": "^0.8.3",
     "cache-manager": "^3.2.1",
-    "cache-manager-fs": "^1.0.8",
     "clsx": "^1.1.0",
     "css-mediaquery": "^0.1.2",
     "element-closest": "^3.0.2",
