@@ -11,11 +11,11 @@ import { useAppContext } from '../provider/AppProvider'
 import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
 
-export const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<PageComponent>[] = []) => {
+export const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<PageComponent>[]) => {
   const filter = (content.tags && content.tags.values) || []
   const sort = content.sort
   const sortDescending = content.sort_descending
-  const stories = allStories
+  const stories = (allStories || [])
     .filter((item) => {
       const itemCategories = item.tag_list || []
       if (filter.length) {

@@ -10,8 +10,6 @@ export const readFile = promisify(fs.readFile)
 export const writeFile = promisify(fs.writeFile)
 
 
-
-
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map(p => p.catch(() => {
@@ -125,10 +123,10 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
 
     // make 2nd API calls to fetch locale based settings and other values
     let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await resolveAllPromises([
-      StoryblokService.get(settingsPath),
-      StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-      Promise.resolve([])/*StoryblokService.getAll('cdn/stories', getStoriesParams({ locale }))*/,
-      StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
+      diskCache.wrap(`settings_${locale}`, () => StoryblokService.get(settingsPath)),
+      diskCache.wrap(`categories_${locale}`, () => StoryblokService.getAll('cdn/stories', getCategoryParams({ locale }))),
+      diskCache.wrap(`stories_${locale}`, () => StoryblokService.getAll('cdn/stories', getStoriesParams({ locale }))),
+      diskCache.wrap(`static_container_${locale}`, () => StoryblokService.getAll('cdn/stories', getStaticContainer({ locale })))
     ])
 
     return {

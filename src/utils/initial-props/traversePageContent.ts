@@ -4,11 +4,11 @@ import { CategoryComponent, PageComponent } from '../../typings/generated/schema
 import { listWidgetFilter } from '../../components/list-widget/ListWidget'
 
 
-const traversePageContent = (page: PageStoryblok) => {
+export const traversePageContent = (page: PageStoryblok, lookup = 'list_widget') => {
   const listWidgets: ListWidgetStoryblok[] = []
   const walkArray = (elements: any[]) => {
     elements.forEach(item => {
-      if (item.component === 'list_widget') {
+      if (item.component === lookup) {
         listWidgets.push(item)
       } else if (Array.isArray(item.body)) {
         walkArray(item.body)
@@ -51,7 +51,7 @@ const traversePageContent = (page: PageStoryblok) => {
 export const collectComponentData = async (
   page: PageStoryblok,
   _allCategories: StoryData<CategoryComponent>[],
-  allStories: StoryData<PageComponent>[],
+  allStories: StoryData<PageComponent>[] = [],
   _locale?: string
 ) => {
   const listWidgets = traversePageContent(page)
