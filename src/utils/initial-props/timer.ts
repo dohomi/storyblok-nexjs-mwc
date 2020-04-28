@@ -5,7 +5,7 @@ export function startMeasureTime(message: string) {
   console.log(message || 'start measure time')
 }
 
-export function endMeasureTime() {
+export function endMeasureTime(message: string = '') {
   endTime = new Date().getTime()
   let timeDiff = endTime - startTime //in ms
   // strip the ms
@@ -13,6 +13,6 @@ export function endMeasureTime() {
 
   // get seconds
   const seconds = Math.round(timeDiff)
-  console.log('finish measure time: ' + seconds)
+  console.log(`finish ${message}: ${seconds}`)
 }
 

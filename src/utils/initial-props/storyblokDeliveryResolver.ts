@@ -2,12 +2,8 @@ import { StoriesParams } from 'storyblok-js-client'
 import StoryblokService from '../StoryblokService'
 import { CONFIG } from '../config'
 import { AppApiRequestPayload } from '../../typings/app'
-import fs from 'fs'
-import { promisify } from 'util'
-import { diskCache } from '@initialData/fileCache'
-
-export const readFile = promisify(fs.readFile)
-export const writeFile = promisify(fs.writeFile)
+import { readCacheFile, writeCacheFile } from '@initialData/fileCache'
+import { endMeasureTime, startMeasureTime } from '@initialData/timer'
 
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
@@ -31,7 +27,7 @@ const getSettingsPath = ({ locale }: { locale?: string }) => {
 
 const getCategoryParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 25,
+    per_page: 100,
     sort_by: 'content.name:asc',
     filter_query: {
       'component': {
@@ -67,7 +63,7 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
 
 const getStoriesParams = ({ locale }: { locale?: string }) => {
   const params: StoriesParams = {
-    per_page: 25,
+    per_page: 100,
     excluding_fields: 'body,right_body,meta_robots,property,meta_description,seo_body',
     sort_by: 'published_at:desc',
     filter_query: {
@@ -90,15 +86,49 @@ type ApiProps = {
   isLandingPage?: boolean
 }
 
+export const initSharedContentFromStoryblok = async () => {
+  let [, ...languagesWithoutDefault] = CONFIG.languages || []
+  await Promise.all([
+    fetchSharedContentFromStoryblok(undefined, true),
+    ...languagesWithoutDefault.map((locale => fetchSharedContentFromStoryblok(locale, true)))
+  ]).then(() => console.log('fetch shared is finished!! cache should be set up'))
+}
+
+export const fetchSharedContentFromStoryblok: any | void = async (locale?: string, setCache?: boolean) => {
+  // const all = diskCache.wrap(cacheName, function() {
+  //   console.log(locale, arguments)
+  //   return allPromiseFunc
+  // })
+  const cacheName = `app-content${locale ? '-' + locale : ''}`
+  if (setCache) {
+    const context = await Promise.all([
+      StoryblokService.get(getSettingsPath({ locale })),
+      StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
+      StoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),//    Promise.resolve([])/**/,
+      StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
+    ])
+    await writeCacheFile(cacheName, context)
+  } else {
+    startMeasureTime('start get file cache' + ' ' + locale)
+    try {
+      const data = await readCacheFile(cacheName)
+      return data
+    } catch (e) {
+      console.log('FAILED!!! read cache file failed. Start re-init', cacheName)
+      await initSharedContentFromStoryblok()
+      return await fetchSharedContentFromStoryblok(locale)
+    }
+    endMeasureTime('finish get file cache')
+  }
+}
+
 
 export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps): Promise<AppApiRequestPayload> => {
-  const settingsPath = getSettingsPath({ locale })
+
+  const [settings, categories, stories, staticContent] = await fetchSharedContentFromStoryblok(locale)
+
   const all: any[] = [
-    StoryblokService.get(`cdn/stories/${pageSlug}`),
-    diskCache.wrap('settings', () => StoryblokService.get(settingsPath)),
-    diskCache.wrap('categories', () => StoryblokService.getAll('cdn/stories', getCategoryParams({ locale }))),
-    diskCache.wrap('stories', () => StoryblokService.getAll('cdn/stories', getStoriesParams({ locale }))),//    Promise.resolve([])/**/,
-    diskCache.wrap('static_container', () => StoryblokService.getAll('cdn/stories', getStaticContainer({ locale })))
+    StoryblokService.get(`cdn/stories/${pageSlug}`)
   ]
 
   if (CONFIG.suppressSlugLocale && CONFIG.languages.length > 1 && !isLandingPage) {
@@ -111,7 +141,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     })
   }
 
-  let [page, settings, categories, stories, staticContent, ...otherPageLanguages] = await resolveAllPromises(all)
+  let [page, ...otherPageLanguages] = await resolveAllPromises(all)
 
   if (page === null && otherPageLanguages.length) {
     otherPageLanguages.forEach((value, index) => {
@@ -122,12 +152,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     })
 
     // make 2nd API calls to fetch locale based settings and other values
-    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await resolveAllPromises([
-      diskCache.wrap(`settings_${locale}`, () => StoryblokService.get(settingsPath)),
-      diskCache.wrap(`categories_${locale}`, () => StoryblokService.getAll('cdn/stories', getCategoryParams({ locale }))),
-      diskCache.wrap(`stories_${locale}`, () => StoryblokService.getAll('cdn/stories', getStoriesParams({ locale }))),
-      diskCache.wrap(`static_container_${locale}`, () => StoryblokService.getAll('cdn/stories', getStaticContainer({ locale })))
-    ])
+    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await fetchSharedContentFromStoryblok(locale)
 
     return {
       page,
@@ -149,4 +174,6 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     allStaticContent: staticContent,
     listWidgetData: {}
   }
+
+
 }
