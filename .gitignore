@@ -24,3 +24,4 @@ yarn-error.log*
 public_storybook
 
 components.*.json
+/app-content*.json
