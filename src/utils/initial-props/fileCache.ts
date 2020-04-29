@@ -4,7 +4,7 @@ import { promisify } from 'util'
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 const fileExists = promisify(fs.exists)
-const cacheRootPath = '.next/cache/'
+const cacheRootPath = ''
 const cacheFiles: string[] = []
 
 export const clearFileCache = () => {
