@@ -2,7 +2,7 @@ import { StoriesParams } from 'storyblok-js-client'
 import StoryblokService from '../StoryblokService'
 import { CONFIG } from '../config'
 import { AppApiRequestPayload } from '../../typings/app'
-import { readCacheFile, writeCacheFile } from '@initialData/fileCache'
+import { checkCacheFileExists, readCacheFile, writeCacheFile } from '@initialData/fileCache'
 import { endMeasureTime, startMeasureTime } from '@initialData/timer'
 
 
@@ -101,6 +101,12 @@ export const fetchSharedContentFromStoryblok: any | void = async (locale?: strin
   // })
   const cacheName = `app-content${locale ? '-' + locale : ''}`
   if (setCache) {
+    if (checkCacheFileExists(cacheName)) {
+      //file exists
+      console.log('cache file exists', cacheName)
+      return Promise.resolve(true)
+    }
+    console.log('write cache file', cacheName)
     const context = await Promise.all([
       StoryblokService.get(getSettingsPath({ locale })),
       StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
@@ -108,15 +114,18 @@ export const fetchSharedContentFromStoryblok: any | void = async (locale?: strin
       StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
     ])
     await writeCacheFile(cacheName, context)
+    return context
   } else {
     startMeasureTime('start get file cache' + ' ' + locale)
     try {
-      const data = await readCacheFile(cacheName)
-      return data
+      if (checkCacheFileExists(cacheName)) {
+        const data = await readCacheFile(cacheName)
+        return data
+      } else {
+        return await fetchSharedContentFromStoryblok(locale)
+      }
     } catch (e) {
       console.log('FAILED!!! read cache file failed. Start re-init', cacheName)
-      await initSharedContentFromStoryblok()
-      return await fetchSharedContentFromStoryblok(locale)
     }
     endMeasureTime('finish get file cache')
   }
