@@ -12,6 +12,7 @@ type AppConfigProps = {
   GA?: string
   TAWKTO?: string
   prefetch: boolean
+  hostname?: string
 }
 
 export const CONFIG: AppConfigProps = {
