@@ -4,6 +4,7 @@ import { CONFIG } from '../config'
 import { AppApiRequestPayload } from '../../typings/app'
 import { checkCacheFileExists, readCacheFile, writeCacheFile } from '@initialData/fileCache'
 import { endMeasureTime, startMeasureTime } from '@initialData/timer'
+import fetch from 'node-fetch'
 
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
@@ -84,6 +85,7 @@ type ApiProps = {
   pageSlug: string
   locale?: string
   isLandingPage?: boolean
+  ssrHostname?: string
 }
 
 export const initSharedContentFromStoryblok = async () => {
@@ -92,6 +94,15 @@ export const initSharedContentFromStoryblok = async () => {
     fetchSharedContentFromStoryblok(),
     ...languagesWithoutDefault.map((locale => fetchSharedContentFromStoryblok(locale)))
   ]).then(() => console.log('fetch shared is finished!! cache should be set up'))
+}
+
+export const fetchSharedStoryblokContent = (locale?: string) => {
+  return Promise.all([
+    StoryblokService.get(getSettingsPath({ locale })),
+    StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
+    StoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),//    Promise.resolve([])/**/,
+    StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
+  ])
 }
 
 export const fetchSharedContentFromStoryblok: any | void = async (locale?: string) => {
@@ -105,22 +116,25 @@ export const fetchSharedContentFromStoryblok: any | void = async (locale?: strin
     return data
   } else {
     console.log('write cache file', cacheName)
-    const context = await Promise.all([
-      StoryblokService.get(getSettingsPath({ locale })),
-      StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-      StoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),//    Promise.resolve([])/**/,
-      StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
-    ])
+    const context = await fetchSharedStoryblokContent(locale)
     await writeCacheFile(cacheName, context)
     return context
   }
   endMeasureTime('finish get file cache')
 }
 
+const fetchContentBasedOnRequest = async ({ ssrHostname, locale }: { ssrHostname?: string, locale?: string }) => {
+  if (ssrHostname) {
+    return await fetch(ssrHostname + '/api/shared-data' + (locale ? '/' + locale : ''))
+      .then((res: any) => res.json())
+  } else {
+    return await fetchSharedContentFromStoryblok(locale)
+  }
+}
 
-export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps): Promise<AppApiRequestPayload> => {
+export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, ssrHostname }: ApiProps): Promise<AppApiRequestPayload> => {
 
-  const [settings, categories, stories, staticContent] = await fetchSharedContentFromStoryblok(locale)
+  const [settings, categories, stories, staticContent] = await fetchContentBasedOnRequest({ locale, ssrHostname })
 
   const all: any[] = [
     StoryblokService.get(`cdn/stories/${pageSlug}`)
@@ -147,7 +161,10 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     })
 
     // make 2nd API calls to fetch locale based settings and other values
-    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await fetchSharedContentFromStoryblok(locale)
+    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await fetchContentBasedOnRequest({
+      locale,
+      ssrHostname
+    })
 
     return {
       page,

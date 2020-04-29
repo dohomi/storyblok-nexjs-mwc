@@ -6,7 +6,12 @@ import { endMeasureTime, startMeasureTime } from '@initialData/timer'
 
 const pagesGetServerSideProps: GetServerSideProps = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
-  const { query } = props
+  const { query, req } = props
+  let hostname = ''
+  if (req) {
+    const { headers: { host } } = req
+    hostname = host?.includes('localhost') ? `http://${host}` : `https://${host}`
+  }
   try {
     startMeasureTime('start get server side props')
 
@@ -16,7 +21,7 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
     StoryblokService.setDevMode()
     StoryblokService.setQuery(query)
 
-    const pageProps = await getPageProps(slug)
+    const pageProps = await getPageProps(slug, hostname)
     endMeasureTime()
     return {
       props: pageProps

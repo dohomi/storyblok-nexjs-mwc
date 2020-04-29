@@ -5,13 +5,14 @@ import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/componen
 import { AppPageProps } from '../../typings/app'
 import { collectComponentData } from '@initialData/traversePageContent'
 
-const getPageProps = async (slug: string | string[]): Promise<AppPageProps> => {
+const getPageProps = async (slug: string | string[], ssrHostname?: string): Promise<AppPageProps> => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
   let { page, settings, allCategories = [], allStories = [], locale, allStaticContent = [] } = await apiRequestResolver({
     pageSlug,
     locale: knownLocale,
-    isLandingPage: isLandingPage
+    isLandingPage: isLandingPage,
+    ssrHostname
   })
 
   if (CONFIG.defaultLocale && !locale) {
