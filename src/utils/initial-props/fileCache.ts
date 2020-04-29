@@ -16,14 +16,21 @@ export const clearFileCache = () => {
   }
 }
 
+const getFullPath = (filename: string): string => `${cacheRootPath}${filename}.json`
+
+
+export const checkCacheFileExists = (filename: string) => {
+  return fs.existsSync(getFullPath(filename))
+}
+
 export const readCacheFile = async (filename: string) => {
-  const content = await readFile(`${cacheRootPath}${filename}.json`, 'utf8')
+  const content = await readFile(getFullPath(filename), 'utf8')
   const data = JSON.parse(content)
   return data
 }
 
 export const writeCacheFile = async (filename: string, content: any) => {
-  const pathName = `${cacheRootPath}${filename}.json`
+  const pathName = getFullPath(filename)
   try {
     if (!cacheFiles.includes(pathName)) {
       cacheFiles.push(pathName)
