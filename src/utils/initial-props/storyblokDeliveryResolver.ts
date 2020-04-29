@@ -89,19 +89,21 @@ type ApiProps = {
 export const initSharedContentFromStoryblok = async () => {
   let [, ...languagesWithoutDefault] = CONFIG.languages || []
   await Promise.all([
-    fetchSharedContentFromStoryblok(undefined, true),
-    ...languagesWithoutDefault.map((locale => fetchSharedContentFromStoryblok(locale, true)))
+    fetchSharedContentFromStoryblok(),
+    ...languagesWithoutDefault.map((locale => fetchSharedContentFromStoryblok(locale)))
   ]).then(() => console.log('fetch shared is finished!! cache should be set up'))
 }
 
-export const fetchSharedContentFromStoryblok: any | void = async (locale?: string, setCache?: boolean) => {
+export const fetchSharedContentFromStoryblok: any | void = async (locale?: string) => {
   const cacheName = `app-content${locale ? '-' + locale : ''}`
-  if (setCache) {
-    if (await checkCacheFileExists(cacheName)) {
-      //file exists
-      console.log('cache file exists', cacheName)
-      return Promise.resolve(true)
-    }
+  startMeasureTime('start get file cache' + ' ' + cacheName)
+
+  if (await checkCacheFileExists(cacheName)) {
+    //file exists
+    console.log('read existing cache file', cacheName)
+    const data = await readCacheFile(cacheName)
+    return data
+  } else {
     console.log('write cache file', cacheName)
     const context = await Promise.all([
       StoryblokService.get(getSettingsPath({ locale })),
@@ -111,20 +113,8 @@ export const fetchSharedContentFromStoryblok: any | void = async (locale?: strin
     ])
     await writeCacheFile(cacheName, context)
     return context
-  } else {
-    startMeasureTime('start get file cache' + ' ' + locale)
-    try {
-      if (await checkCacheFileExists(cacheName)) {
-        const data = await readCacheFile(cacheName)
-        return data
-      } else {
-        return fetchSharedContentFromStoryblok(locale)
-      }
-    } catch (e) {
-      console.log('FAILED!!! read cache file failed. Start re-init', cacheName)
-    }
-    endMeasureTime('finish get file cache')
   }
+  endMeasureTime('finish get file cache')
 }
 
 
