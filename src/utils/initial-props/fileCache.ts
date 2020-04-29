@@ -3,6 +3,7 @@ import { promisify } from 'util'
 
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
+const fileExists = promisify(fs.exists)
 const cacheRootPath = '.next/cache/'
 const cacheFiles: string[] = []
 
@@ -20,7 +21,7 @@ const getFullPath = (filename: string): string => `${cacheRootPath}${filename}.j
 
 
 export const checkCacheFileExists = (filename: string) => {
-  return fs.existsSync(getFullPath(filename))
+  return fileExists(getFullPath(filename))
 }
 
 export const readCacheFile = async (filename: string) => {

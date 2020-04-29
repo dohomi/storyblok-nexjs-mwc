@@ -95,13 +95,9 @@ export const initSharedContentFromStoryblok = async () => {
 }
 
 export const fetchSharedContentFromStoryblok: any | void = async (locale?: string, setCache?: boolean) => {
-  // const all = diskCache.wrap(cacheName, function() {
-  //   console.log(locale, arguments)
-  //   return allPromiseFunc
-  // })
   const cacheName = `app-content${locale ? '-' + locale : ''}`
   if (setCache) {
-    if (checkCacheFileExists(cacheName)) {
+    if (await checkCacheFileExists(cacheName)) {
       //file exists
       console.log('cache file exists', cacheName)
       return Promise.resolve(true)
@@ -118,11 +114,11 @@ export const fetchSharedContentFromStoryblok: any | void = async (locale?: strin
   } else {
     startMeasureTime('start get file cache' + ' ' + locale)
     try {
-      if (checkCacheFileExists(cacheName)) {
+      if (await checkCacheFileExists(cacheName)) {
         const data = await readCacheFile(cacheName)
         return data
       } else {
-        return await fetchSharedContentFromStoryblok(locale)
+        return fetchSharedContentFromStoryblok(locale)
       }
     } catch (e) {
       console.log('FAILED!!! read cache file failed. Start re-init', cacheName)
