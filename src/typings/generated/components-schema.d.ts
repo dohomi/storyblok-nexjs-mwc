@@ -721,16 +721,17 @@ export interface ListSearchFieldStoryblok {
 }
 
 export interface ListWidgetStoryblok {
+  categories?: any[];
+  enable_for_search?: boolean;
+  sort?: "publish" | "updated" | "created" | "title";
+  sort_descending?: boolean;
+  maximum_items?: number;
   tags?: {
     values?: string[];
     [k: string]: any;
   };
   match_all_tags?: boolean;
   only_tagged?: boolean;
-  enable_for_search?: boolean;
-  sort?: "publish" | "updated" | "created" | "title";
-  sort_descending?: boolean;
-  maximum_items?: number;
   list_options?: any[];
   _uid: string;
   component: "list_widget";
@@ -1120,6 +1121,7 @@ export interface TabsStoryblok {
   vertical_tabs?: boolean;
   variant?: "fullWidth" | "scrollable" | "standard";
   centered?: boolean;
+  dynamic_height?: boolean;
   _uid: string;
   component: "tabs";
   [k: string]: any;
