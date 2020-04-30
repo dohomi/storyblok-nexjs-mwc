@@ -12,7 +12,7 @@ import React from 'react'
 import { loremIpsum } from 'lorem-ipsum'
 
 const tabBodyItem = [{
-  _uid: '123',
+  _uid: '123124',
   component: 'headline',
   text: loremIpsum({ units: 'sentences' })
 }, {
@@ -30,7 +30,11 @@ const tabBody: TabsItemStoryblok[] = [{
   _uid: '123132',
   component: 'tabs_item',
   title: 'Second Tab',
-  body: tabBodyItem
+  body: [...tabBodyItem, {
+    _uid: '1231123',
+    component: 'paragraph',
+    text: loremIpsum({ units: 'sentences', count: 10 })
+  }] as (ParagraphStoryblok | HeadlineStoryblok)[]
 }, {
   _uid: '53453453',
   component: 'tabs_item',
@@ -107,14 +111,6 @@ storiesOf('Tabs', module)
               component: 'headline',
               _uid: 'head-2',
               text: 'Second Headline'
-            }, {
-              component: 'headline',
-              _uid: 'head-3',
-              text: 'Third Headline'
-            }, {
-              component: 'headline',
-              _uid: 'head-4',
-              text: 'Fourth Headline'
             }] as HeadlineStoryblok[]
           }, {
             _uid: 'item-2',
