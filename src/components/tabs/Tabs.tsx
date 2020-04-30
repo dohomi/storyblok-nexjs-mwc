@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&.vertical': {
       flexGrow: 1,
       display: 'flex',
-      borderRight: `1px solid ${theme.palette.divider}`
+      borderRight: `1px solid ${theme.palette.divider}`,
+      '& .lm-slide-content': {
+        alignSelf: 'baseline'
+      }
     }
   }
 }))
@@ -29,9 +32,10 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
   const [activeTab, setActiveTab] = useState(0)
   const body = content.body || []
   const orientation = content.vertical_tabs && !isMobile ? 'vertical' : 'horizontal'
+  const isVertical = orientation === 'vertical'
   return (
     <div className={clsx(classes.tabContainer, {
-      'vertical': orientation === 'vertical'
+      'vertical': isVertical
     })}>
       <MuiTabs
         aria-label="tabs"
@@ -48,8 +52,11 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
                                                            iconName={tab.icon.name} />}
                                                    key={tab._uid} />)}
       </MuiTabs>
-      <SwipeableViews index={activeTab} onChangeIndex={(i) => setActiveTab(i)}
-                      animateHeight={content.dynamic_height || false}>
+      <SwipeableViews index={activeTab}
+                      onChangeIndex={(i) => setActiveTab(i)}
+                      className={'lm-slide-content'}
+                      animateHeight={content.dynamic_height || isVertical || false}
+                      axis={isVertical ? 'y' : 'x'}>
         {body.map((tab: TabsItemStoryblok) => (
           <div key={`content_${tab._uid}`}>
             {tab.body && tab.body.map((blok) => Components(blok))}
