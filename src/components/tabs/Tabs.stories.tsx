@@ -87,6 +87,51 @@ storiesOf('Tabs', module)
     )
   )
   .add(
+    'Tabs dynamic height',
+    () => (
+      <div>
+        <Tabs content={{
+          _uid: '123',
+          component: 'tabs',
+          dynamic_height: true,
+          body: [{
+            _uid: 'item-1',
+            component: 'tabs_item',
+            title: 'First',
+            body: [{
+              component: 'headline',
+              _uid: 'head-1',
+              text: 'First Headline'
+            }, {
+              component: 'headline',
+              _uid: 'head-2',
+              text: 'Second Headline'
+            }, {
+              component: 'headline',
+              _uid: 'head-3',
+              text: 'Third Headline'
+            }, {
+              component: 'headline',
+              _uid: 'head-4',
+              text: 'Fourth Headline'
+            }] as HeadlineStoryblok[]
+          }, {
+            _uid: 'item-2',
+            component: 'tabs_item',
+            title: 'Second',
+            body: tabBodyItem
+          }, {
+            _uid: 'item-3',
+            component: 'tabs_item',
+            title: 'Third',
+            body: tabBodyItem
+          }] as TabsItemStoryblok[]
+        }} />
+        <h3>Next content element.</h3>
+      </div>
+    )
+  )
+  .add(
     'Playground',
     () => (
       <div className="p-5">

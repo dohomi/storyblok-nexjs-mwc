@@ -12,7 +12,7 @@ import LmIcon from '../icon/LmIcon'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
-    '& .react-swipeable-view-container > div': {
+    '& .react-swipeable-view-container > div > div': {
       padding: theme.spacing(3)
     },
     '&.vertical': {
@@ -44,10 +44,12 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
         {body.map((tab: TabsItemStoryblok) => <Tab label={tab.title}
                                                    wrapped={!!content.wrapped}
                                                    icon={tab.icon && tab.icon.name &&
-                                                   <LmIcon style={{fontSize: 24}} className={'MuiIcon-root'} iconName={tab.icon.name} />}
+                                                   <LmIcon style={{ fontSize: 24 }} className={'MuiIcon-root'}
+                                                           iconName={tab.icon.name} />}
                                                    key={tab._uid} />)}
       </MuiTabs>
-      <SwipeableViews index={activeTab} onChangeIndex={(i) => setActiveTab(i)}>
+      <SwipeableViews index={activeTab} onChangeIndex={(i) => setActiveTab(i)}
+                      animateHeight={content.dynamic_height || false}>
         {body.map((tab: TabsItemStoryblok) => (
           <div key={`content_${tab._uid}`}>
             {tab.body && tab.body.map((blok) => Components(blok))}
