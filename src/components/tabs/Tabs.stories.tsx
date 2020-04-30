@@ -9,15 +9,16 @@ import {
 import { storyTabs, storyTabsItem } from '../../../.storybook/dummy/core/section'
 import { storyHeadline, storyParagraph } from '../../../.storybook/dummy/core/various'
 import React from 'react'
+import { loremIpsum } from 'lorem-ipsum'
 
 const tabBodyItem = [{
   _uid: '123',
   component: 'headline',
-  text: 'Some Body Item'
+  text: loremIpsum({ units: 'sentences' })
 }, {
   _uid: '2323',
   component: 'paragraph',
-  text: 'Some Body Paragraph'
+  text: loremIpsum({ units: 'sentences', count: 8 })
 }] as (ParagraphStoryblok | HeadlineStoryblok)[]
 
 const tabBody: TabsItemStoryblok[] = [{
