@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { createRef, FunctionComponent, useState } from 'react'
+import { FunctionComponent, useState } from 'react'
 import { TabsItemStoryblok, TabsStoryblok } from '../../typings/generated/components-schema'
 import Components from '@components'
 import SwipeableViews from 'react-swipeable-views'

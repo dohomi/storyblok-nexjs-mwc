@@ -1,6 +1,6 @@
 {
   "name": "@lumen/mwc",
-  "version": "0.30.3",
+  "version": "0.30.4",
   "description": "Next.js full website kit powered by Storyblok",
   "main": "index.js",
   "scripts": {
