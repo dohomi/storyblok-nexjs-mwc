@@ -11,6 +11,8 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
   if (req) {
     const { headers: { host } } = req
     hostname = host?.includes('localhost') ? `http://${host}` : `https://${host}`
+  } else {
+    hostname = `${location.protocol}//${location.host}`
   }
   try {
     startMeasureTime('start get server side props')
