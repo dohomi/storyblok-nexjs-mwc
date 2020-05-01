@@ -52,8 +52,9 @@ class StoryblokServiceClass {
   }
 
   getDefaultParams() {
-    const params: StoriesParams = {
-      cv: cv
+    const params: StoriesParams = {}
+    if (!this.devMode) {
+      params.cv = cv
     }
     if (this.getQuery('_storyblok') || this.devMode || (typeof window !== 'undefined' && window.storyblok)) {
       this.token = this.previewToken
