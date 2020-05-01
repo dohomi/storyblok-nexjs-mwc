@@ -2,7 +2,7 @@ import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from './config'
 import { AppPageProps } from '../typings/app'
 
-const cv = new Date().getTime()
+let cv = new Date().getTime()
 
 class StoryblokServiceClass {
   private devMode: boolean
@@ -34,6 +34,7 @@ class StoryblokServiceClass {
   flushCache() {
     console.log('flush cashed triggered. ENV Vars:', this.previewToken, this.token)
     console.log('current token:', this.client.getToken())
+    cv = new Date().getTime()
     this.client.flushCache()
     return true
   }
