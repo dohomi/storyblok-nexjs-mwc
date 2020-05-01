@@ -24,12 +24,12 @@ const tabBodyItem = [{
 const tabBody: TabsItemStoryblok[] = [{
   _uid: '1231',
   component: 'tabs_item',
-  title: 'First Tab',
+  title: loremIpsum({ units: 'words', count: 2 }),
   body: tabBodyItem
 }, {
   _uid: '123132',
   component: 'tabs_item',
-  title: 'Second Tab',
+  title: loremIpsum({ units: 'words', count: 2 }),
   body: [...tabBodyItem, {
     _uid: '1231123',
     component: 'paragraph',
@@ -38,7 +38,22 @@ const tabBody: TabsItemStoryblok[] = [{
 }, {
   _uid: '53453453',
   component: 'tabs_item',
-  title: 'Third Tab',
+  title: loremIpsum({ units: 'words', count: 2 }),
+  body: tabBodyItem
+}, {
+  _uid: '3adsfas',
+  component: 'tabs_item',
+  title: loremIpsum({ units: 'words', count: 2 }),
+  body: tabBodyItem
+}, {
+  _uid: 'dgsda',
+  component: 'tabs_item',
+  title: loremIpsum({ units: 'words', count: 2 }),
+  body: tabBodyItem
+}, {
+  _uid: 'jdhfg',
+  component: 'tabs_item',
+  title: loremIpsum({ units: 'words', count: 2 }),
   body: tabBodyItem
 }]
 
