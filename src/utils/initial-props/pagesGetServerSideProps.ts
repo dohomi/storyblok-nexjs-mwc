@@ -18,7 +18,7 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
     startMeasureTime('start get server side props')
 
     const slug = query?.index || 'home'
-    console.log('pagesGetServerSideProps', slug)
+    console.log('pagesGetServerSideProps', hostname, slug)
 
     StoryblokService.setDevMode()
     StoryblokService.setQuery(query)

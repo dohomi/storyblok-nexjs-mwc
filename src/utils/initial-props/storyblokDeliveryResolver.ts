@@ -125,6 +125,7 @@ export const fetchSharedContentFromStoryblok: any | void = async (locale?: strin
 
 const fetchContentBasedOnRequest = async ({ ssrHostname, locale }: { ssrHostname?: string, locale?: string }) => {
   if (ssrHostname) {
+    console.log('hostname:::SSR', ssrHostname)
     return await fetch(ssrHostname + '/api/shared-data' + (locale ? '/' + locale : ''))
       .then((res: any) => res.json())
   } else {
