@@ -63,6 +63,7 @@ const AppSetupProvider: FunctionComponent<{
     },
     [hasDrawer, hasFeatureImage, hasRightDrawer, hasScrollCollapse, toolbarMainHeight, drawerVariant, drawerBelowToolbar, drawerFullWidthMobile, rightDrawerMediaBreakpoint, leftDrawerMediaBreakpoint]
   )
+
   return (
     <AppSetupContext.Provider value={value}>
       {children}

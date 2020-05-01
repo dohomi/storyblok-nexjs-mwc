@@ -14,9 +14,7 @@ import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { useDebounce } from 'use-debounce'
 
 export type AppHeaderProps = {
-  settings: GlobalStoryblok,
-  hasFeature?: boolean
-  hasRightDrawer?: boolean
+  settings: GlobalStoryblok
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -50,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     '&.lm-toolbar__scrolled': {
       '& .lm-system-bar': {
-        marginTop: -1 * theme.toolbar.height.systemBar,
+        marginTop: -1 * theme.toolbar.height.systemBar
         // height: '0 !important'
       },
       '& .MuiToolbar-root': {
@@ -145,7 +143,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
         'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
         'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
         [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
-        'lm-toolbar__transparent': props.hasFeature,
+        'lm-toolbar__transparent': appSetup.hasFeatureImage,
         'lm-toolbar__scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage || !!props.SystemBar),
         'lm-toolbar__collapsed': isScrolled && appSetup.hasScrollCollapse,
         'lm-toolbar__scroll-collapse': isScrollCollapse,
@@ -165,7 +163,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
           </Toolbar>
         </Container>
       </AppBar>
-      {isFixedTop && !props.hasFeature && <ContentSpace />}
+      {isFixedTop && !appSetup.hasFeatureImage && <ContentSpace />}
     </>
   )
 }

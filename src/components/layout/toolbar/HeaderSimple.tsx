@@ -9,13 +9,14 @@ import IconButton from '@material-ui/core/IconButton'
 import clsx from 'clsx'
 import Grid from '@material-ui/core/Grid'
 import { Magnify, Menu } from 'mdi-material-ui'
+import { useAppSetup } from '../../provider/AppSetupProvider'
 
 const HeaderSimple: FunctionComponent<AppHeaderProps> = (props) => {
-  const { settings, hasRightDrawer } = props
+  const { settings } = props
   const content = settings || {}
   const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
   const navRight = content.toolbar || []
-
+  const { hasRightDrawer } = useAppSetup()
   return (
     <SbEditable content={content}>
       <TopAppBarWrap {...props}>
