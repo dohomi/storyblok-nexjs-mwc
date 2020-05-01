@@ -40,8 +40,9 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
         <MuiTabs
           aria-label="tabs"
           value={activeTab}
-          centered={!!content.centered}
-          variant={content.variant || 'fullWidth'}
+          scrollButtons="on"
+          centered={!!content.centered && !isMobile}
+          variant={isMobile ? 'scrollable' : (content.variant || 'fullWidth')}
           orientation={orientation}
           onChange={(_, value: number) => {
             setActiveTab(value)
