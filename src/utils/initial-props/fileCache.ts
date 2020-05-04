@@ -1,8 +1,7 @@
-import { promises, unlinkSync } from 'fs'
+import { existsSync, promises, unlinkSync } from 'fs'
 
 const readFile = promises.readFile
 const writeFile = promises.writeFile
-const fileStats = promises.stat
 const cacheRootPath = ''
 const cacheFiles: string[] = []
 
@@ -20,8 +19,7 @@ const getFullPath = (filename: string): string => `${cacheRootPath}${filename}.j
 
 
 export const checkCacheFileExists = (filename: string) => {
-  return fileStats(getFullPath(filename))
-    .then(r => r.isFile())
+  return existsSync(getFullPath(filename))
 }
 
 export const readCacheFile = async (filename: string) => {

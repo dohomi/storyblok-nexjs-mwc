@@ -109,7 +109,7 @@ export const fetchSharedContentFromStoryblok: any | void = async (locale?: strin
   const cacheName = `app-content${locale ? '-' + locale : ''}`
   startMeasureTime('start get file cache' + ' ' + cacheName)
 
-  if (await checkCacheFileExists(cacheName)) {
+  if (checkCacheFileExists(cacheName)) {
     //file exists
     console.log('read existing cache file', cacheName)
     const data = await readCacheFile(cacheName)
