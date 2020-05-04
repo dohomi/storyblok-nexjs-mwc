@@ -74,6 +74,9 @@ const vertical: TabsStoryblok = {
   _uid: '123',
   component: 'tabs',
   vertical_tabs: true,
+  tabs_width: '3',
+  content_width: '9',
+  mobile_breakpoint: 'xs',
   body: withIcons
 }
 

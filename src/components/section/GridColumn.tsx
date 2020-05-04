@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { ColumnStoryblok } from '../../typings/generated/components-schema'
+import { BackgroundStoryblok, ColumnStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import BackgroundImage from './BackgroundImage'
 import Components from '@components'
@@ -50,7 +50,7 @@ const mdSpanMap = {
 
 const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }) => {
   // const classes = useStyles(content)
-  const background = Array.isArray(content.background) && content.background[0]
+  const background: BackgroundStoryblok | undefined = (Array.isArray(content.background) && content.background[0] as BackgroundStoryblok) || undefined
   const { className, style } = useBackgroundBox({ background })
   let mdWidth = mdSpanMap[content.width_general as string]
   let smWidth = smSpanMap[content.width_tablet as string]
