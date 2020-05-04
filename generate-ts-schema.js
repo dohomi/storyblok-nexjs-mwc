@@ -8,10 +8,10 @@ async function genTsSchema () {
 
   for (const values of ComponentsJson.components) {
     const obj = {}
-    obj.$id = values.name
+    obj.$id = '/' + values.name
     obj.title = values.name + '_storyblok'
     obj.type = 'object'
-    obj.properties = typeMapper(values.schema)
+    obj.properties = typeMapper(values.schema, obj.title)
     obj.properties._uid = {
       type: 'string'
     }
@@ -34,7 +34,10 @@ async function genTsSchema () {
       obj.required = requiredFields
     }
     try {
-      const ts = await compile(obj, values.name, {bannerComment: ''})
+      const ts = await compile(obj, values.name, {
+        unknownAny: false,
+        bannerComment: ''
+      })
       tsString.push(ts)
     } catch (e) {
       console.log(e)
@@ -43,7 +46,7 @@ async function genTsSchema () {
 
 }
 
-function typeMapper (schema = {}) {
+function typeMapper (schema = {}, title) {
   const parseObj = {}
   Object.keys(schema).forEach((key) => {
     const obj = {}
@@ -71,6 +74,7 @@ function typeMapper (schema = {}) {
     if (!schemaType) {
       return
     }
+
     obj[key] = {
       type: schemaType
     }
@@ -83,6 +87,30 @@ function typeMapper (schema = {}) {
           enum: items
         }
       }
+    }
+    if (type === 'bloks' && schemaElement.restrict_components && schemaElement.component_whitelist && schemaElement.component_whitelist.length) {
+      // console.log(schemaElement, title)
+      // obj[key].anyOf = schemaElement.component_whitelist.map(item => {
+      //   return {'$ref': '#/' + item}
+      // })
+      // obj[key].items = [
+      //   {
+      //     enum: schemaElement.component_whitelist.map((_item, i) => {
+      //       return i
+      //     }),
+      //     title: title,
+      //     tsEnumNames: schemaElement.component_whitelist.map(item => {
+      //       return item
+      //     })
+      //   }
+      // ]
+      // obj[key].items.enum = schemaElement.component_whitelist.map(item => {
+      //   return item
+      // })
+      // obj[key].items.tsEnumNames = schemaElement.component_whitelist.map(item => {
+      //   return item
+      // })
+      // obj.additionalItems = true
     }
     Object.assign(parseObj, obj)
   })

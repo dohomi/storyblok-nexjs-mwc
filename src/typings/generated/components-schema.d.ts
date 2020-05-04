@@ -1116,12 +1116,15 @@ export interface TableStoryblok {
 }
 
 export interface TabsStoryblok {
-  body?: any[];
-  wrapped?: boolean;
   vertical_tabs?: boolean;
+  mobile_breakpoint?: "xs" | "sm" | "md";
+  tabs_width?: "2" | "3" | "4" | "5" | "6" | "auto";
+  content_width?: "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "auto" | "true";
+  wrapped?: boolean;
   variant?: "fullWidth" | "scrollable" | "standard";
   centered?: boolean;
   dynamic_height?: boolean;
+  body?: any[];
   _uid: string;
   component: "tabs";
   [k: string]: any;
