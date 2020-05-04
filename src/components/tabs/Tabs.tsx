@@ -66,6 +66,8 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
 
           <MuiTabs
             aria-label="tabs"
+            indicatorColor={content.indicator_color ? content.indicator_color : undefined}
+            textColor={content.text_color ? content.text_color : undefined}
             value={activeTab}
             scrollButtons="on"
             centered={!!content.centered && !isMobile}

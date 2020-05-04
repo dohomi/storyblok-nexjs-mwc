@@ -1125,6 +1125,8 @@ export interface TabsStoryblok {
   centered?: boolean;
   dynamic_height?: boolean;
   body?: any[];
+  text_color?: "secondary" | "primary" | "inherit";
+  indicator_color?: "secondary" | "primary";
   _uid: string;
   component: "tabs";
   [k: string]: any;
