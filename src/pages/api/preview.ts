@@ -9,7 +9,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   const queryParams = req.query
   delete queryParams.slug
 
-  console.log('inside preview', queryParams)
+  console.log('inside preview', queryParams, currentSlug)
   res.setPreviewData({
     query: queryParams
   })
@@ -18,8 +18,13 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   //   searchParams.append(key, queryParams[key] as string)
   // })
   // console.log('inside preview', queryParams, searchParams.toString())
-  res.writeHead(307, { Location: currentSlug })
+  // res.writeHead(307, { Location: currentSlug })
   // res.writeHead(307, { Location: `${currentSlug}?${searchParams.toString()}` })
 
+  res.write(
+    `<!DOCTYPE html><html><head><meta http-equiv="Refresh" content="0; url=${currentSlug}" />
+    <script>window.location.href = '${currentSlug}'</script>
+    </head>`
+  )
   res.end()
 }
