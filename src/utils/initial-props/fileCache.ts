@@ -1,16 +1,15 @@
-import fs from 'fs'
-import { promisify } from 'util'
+import { promises, unlinkSync } from 'fs'
 
-const readFile = promisify(fs.readFile)
-const writeFile = promisify(fs.writeFile)
-const fileExists = promisify(fs.exists)
+const readFile = promises.readFile
+const writeFile = promises.writeFile
+const fileStats = promises.stat
 const cacheRootPath = ''
 const cacheFiles: string[] = []
 
 export const clearFileCache = () => {
   for (const filename of cacheFiles) {
     try {
-      fs.unlinkSync(filename)
+      unlinkSync(filename)
     } catch (e) {
       console.log('filecache file does not exist: ' + filename)
     }
@@ -21,7 +20,8 @@ const getFullPath = (filename: string): string => `${cacheRootPath}${filename}.j
 
 
 export const checkCacheFileExists = (filename: string) => {
-  return fileExists(getFullPath(filename))
+  return fileStats(getFullPath(filename))
+    .then(r => r.isFile())
 }
 
 export const readCacheFile = async (filename: string) => {

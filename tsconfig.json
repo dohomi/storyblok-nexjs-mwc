@@ -37,9 +37,6 @@
       ],
       "@initialData/*": [
         "./src//utils/initial-props/*"
-      ],
-      "@projects": [
-        "./src/projects.json"
       ]
     },
     "allowJs": true
