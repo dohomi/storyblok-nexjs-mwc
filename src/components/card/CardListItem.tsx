@@ -8,11 +8,11 @@ import CardDescriptionText from './CardDescriptionText'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 
+
 const CardListItem: FunctionComponent<CardListItemProps> = (props) => {
   const { content, options } = props
   const isOverMedia = options.variant && options.variant.includes('over_media')
   const descriptionIsEmpty = isOverMedia && !content.description
-
 
   // without media / text only
   if (!content.image || options.hide_image) {
