@@ -227,6 +227,7 @@ export interface CardListStoryblok {
     [k: string]: any;
   };
   body?: any[];
+  shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft";
   _uid: string;
   component: "card_list";
   [k: string]: any;
