@@ -1,5 +1,8 @@
 export interface AccordionStoryblok {
   body?: any[];
+  use_plus?: boolean;
+  square?: boolean;
+  restrict_one?: boolean;
   _uid: string;
   component: "accordion";
   [k: string]: any;
