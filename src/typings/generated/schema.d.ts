@@ -241,10 +241,10 @@ export type QueryTypeTagsArgs = {
   starts_with?: Maybe<Scalars['String']>;
 };
 
-export type GlobalItem = {
-   __typename?: 'GlobalItem';
+export type CategoryItem = {
+   __typename?: 'CategoryItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
-  content?: Maybe<GlobalComponent>;
+  content?: Maybe<CategoryComponent>;
   created_at?: Maybe<Scalars['String']>;
   first_published_at?: Maybe<Scalars['String']>;
   full_slug?: Maybe<Scalars['String']>;
@@ -284,6 +284,47 @@ export type TranslatedSlug = {
   path?: Maybe<Scalars['String']>;
 };
 
+
+export type CategoryComponent = {
+   __typename?: 'CategoryComponent';
+  _editable?: Maybe<Scalars['String']>;
+  _uid?: Maybe<Scalars['String']>;
+  component?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  tag_reference?: Maybe<Scalars['JsonScalar']>;
+};
+
+export type CategoryItems = {
+   __typename?: 'CategoryItems';
+  items?: Maybe<Array<Maybe<CategoryItem>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
+export type GlobalItem = {
+   __typename?: 'GlobalItem';
+  alternates?: Maybe<Array<Maybe<Alternate>>>;
+  content?: Maybe<GlobalComponent>;
+  created_at?: Maybe<Scalars['String']>;
+  first_published_at?: Maybe<Scalars['String']>;
+  full_slug?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  is_startpage?: Maybe<Scalars['Boolean']>;
+  lang?: Maybe<Scalars['String']>;
+  meta_data?: Maybe<Scalars['JsonScalar']>;
+  name?: Maybe<Scalars['String']>;
+  parent_id?: Maybe<Scalars['Int']>;
+  path?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['String']>;
+  release_id?: Maybe<Scalars['Int']>;
+  slug?: Maybe<Scalars['String']>;
+  sort_by_date?: Maybe<Scalars['String']>;
+  tag_list?: Maybe<Array<Maybe<Scalars['String']>>>;
+  translated_slugs?: Maybe<Array<Maybe<TranslatedSlug>>>;
+  uuid?: Maybe<Scalars['String']>;
+};
 
 export type GlobalComponent = {
    __typename?: 'GlobalComponent';
@@ -477,47 +518,6 @@ export type PageComponent = {
 export type PageItems = {
    __typename?: 'PageItems';
   items?: Maybe<Array<Maybe<PageItem>>>;
-  total?: Maybe<Scalars['Int']>;
-};
-
-export type CategoryItem = {
-   __typename?: 'CategoryItem';
-  alternates?: Maybe<Array<Maybe<Alternate>>>;
-  content?: Maybe<CategoryComponent>;
-  created_at?: Maybe<Scalars['String']>;
-  first_published_at?: Maybe<Scalars['String']>;
-  full_slug?: Maybe<Scalars['String']>;
-  group_id?: Maybe<Scalars['Int']>;
-  id?: Maybe<Scalars['Int']>;
-  is_startpage?: Maybe<Scalars['Boolean']>;
-  lang?: Maybe<Scalars['String']>;
-  meta_data?: Maybe<Scalars['JsonScalar']>;
-  name?: Maybe<Scalars['String']>;
-  parent_id?: Maybe<Scalars['Int']>;
-  path?: Maybe<Scalars['String']>;
-  position?: Maybe<Scalars['Int']>;
-  published_at?: Maybe<Scalars['String']>;
-  release_id?: Maybe<Scalars['Int']>;
-  slug?: Maybe<Scalars['String']>;
-  sort_by_date?: Maybe<Scalars['String']>;
-  tag_list?: Maybe<Array<Maybe<Scalars['String']>>>;
-  translated_slugs?: Maybe<Array<Maybe<TranslatedSlug>>>;
-  uuid?: Maybe<Scalars['String']>;
-};
-
-export type CategoryComponent = {
-   __typename?: 'CategoryComponent';
-  _editable?: Maybe<Scalars['String']>;
-  _uid?: Maybe<Scalars['String']>;
-  component?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  tag_reference?: Maybe<Scalars['JsonScalar']>;
-};
-
-export type CategoryItems = {
-   __typename?: 'CategoryItems';
-  items?: Maybe<Array<Maybe<CategoryItem>>>;
   total?: Maybe<Scalars['Int']>;
 };
 

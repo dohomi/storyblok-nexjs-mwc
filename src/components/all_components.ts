@@ -36,6 +36,7 @@ import LmAvatar from './avatar/LmAvatar'
 
 import dynamic from 'next/dynamic'
 import DateHeadline from './headline/DateHeadline'
+import Motion from './motion/Motion'
 
 // import HubspotForm from './hubspot/HubspotForm'
 // import Form from './form/Form'
@@ -83,7 +84,8 @@ const Components = {
   'rich_text_editor': RichTextParagraph,
   'timeline': Timeline,
   'avatar': LmAvatar,
-  'date_headline': DateHeadline
+  'date_headline': DateHeadline,
+  'motion': Motion
 }
 
 export default Components
