@@ -163,11 +163,6 @@ export interface ButtonListStoryblok {
 }
 
 export interface CardListStoryblok {
-  column_gap?: "0" | "2" | "4" | "8" | "16" | "24" | "32";
-  column_count?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
-  column_count_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
-  column_count_phone?: "1" | "2" | "3" | "4";
-  description_max_character?: number;
   variant?: (
     | "over_media"
     | "title_top"
@@ -184,7 +179,13 @@ export interface CardListStoryblok {
   image_ratio?: "16x9" | "1x1" | "4x3" | "3x2";
   hide_image?: boolean;
   border_radius?: "0" | "2" | "4" | "";
+  shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft";
   elevation?: "0" | "1" | "2" | "4" | "8" | "12" | "16" | "20" | "3" | "5" | "6" | "24" | "22";
+  column_gap?: "0" | "2" | "4" | "8" | "16" | "24" | "32";
+  column_count?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
+  column_count_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
+  column_count_phone?: "1" | "2" | "3" | "4";
+  description_max_character?: number;
   title_typography?:
     | "headline2"
     | "headline3"
@@ -227,7 +228,6 @@ export interface CardListStoryblok {
     [k: string]: any;
   };
   body?: any[];
-  shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft";
   _uid: string;
   component: "card_list";
   [k: string]: any;
@@ -745,6 +745,17 @@ export interface LogoStoryblok {
   alt?: string;
   _uid: string;
   component: "logo";
+  [k: string]: any;
+}
+
+export interface MotionStoryblok {
+  body?: any[];
+  type?: "fade" | "grow" | "slide" | "zoom" | "collapse";
+  duration?: number;
+  slide_direction?: "left" | "right" | "down" | "up";
+  threshold?: number;
+  _uid: string;
+  component: "motion";
   [k: string]: any;
 }
 

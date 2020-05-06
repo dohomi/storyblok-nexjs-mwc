@@ -12,7 +12,7 @@ import {
   HubspotMeetingStoryblok,
   IconStoryblok,
   IframeStoryblok,
-  ImageStoryblok,
+  ImageStoryblok, MotionStoryblok,
   NavItemStoryblok,
   NavListStoryblok,
   NavMenuItemStoryblok,
@@ -284,5 +284,13 @@ export const storyNavItem = ({ options = {}, knob, count = '' }: StorybookOption
   }) as NavItemStoryblok
 }
 
+export const storyMotion = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<MotionStoryblok> } = {}): MotionStoryblok => {
+  return getKnobComponents({
+    componentName: 'motion',
+    options,
+    knob,
+    count
+  }) as MotionStoryblok
+}
 
 
