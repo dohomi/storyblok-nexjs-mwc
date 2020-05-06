@@ -11,21 +11,19 @@ import { Collapse, CollapseProps } from '@material-ui/core'
 import SbEditable from 'storyblok-react'
 
 const Motion: FunctionComponent<{ content: MotionStoryblok }> = ({ content }) => {
-  // console.log(content)
-  const type = content.type || 'collapse'
+  const type = content.type || 'fade'
   const options: IntersectionOptions = {
     triggerOnce: true
   }
   if (content.threshold) {
-    options.threshold = Number((content.threshold / 100).toFixed(2))
+    options.threshold = Number((Number(content.threshold) / 100).toFixed(2))
   }
   const [viewRef, inView] = useInView(options)
 
   const transitionProps: FadeProps | SlideProps | ZoomProps | GrowProps = {}
   if (content.duration) {
-    transitionProps.timeout = content.duration
+    transitionProps.timeout = Number(content.duration)
   }
-
   return (
     <SbEditable content={content}>
       <div ref={viewRef}>
