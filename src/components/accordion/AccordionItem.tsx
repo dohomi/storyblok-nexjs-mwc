@@ -6,7 +6,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import { ChevronDown, Plus } from 'mdi-material-ui'
+import ChevronDown from 'mdi-material-ui/ChevronDown'
+import Plus from 'mdi-material-ui/Plus'
 
 const AccordionItem: FunctionComponent<AccordionItemStoryblok> = (content) => {
 
@@ -17,7 +18,9 @@ const AccordionItem: FunctionComponent<AccordionItemStoryblok> = (content) => {
           <Typography>{content.title}</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          {Array.isArray(content.body) && content.body.map(blok => Components(blok))}
+          <div>
+            {(content.body || []).map(blok => Components(blok))}
+          </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </SbEditable>
