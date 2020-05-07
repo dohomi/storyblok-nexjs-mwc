@@ -1,7 +1,9 @@
 import React, { createContext, FunctionComponent, useContext } from 'react'
 import { AppApiRequestPayload } from '../../typings/app'
 
-export type AppContextProps = Omit<AppApiRequestPayload, 'locale' | 'settings' | 'page' | 'allStories'>
+export type AppContextProps = Omit<AppApiRequestPayload, 'locale' | 'settings' | 'page' | 'allStories'> & {
+  [k: string]: any
+}
 
 const defaultValue: AppContextProps = {
   allCategories: [],
