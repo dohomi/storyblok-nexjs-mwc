@@ -12,7 +12,8 @@ import {
   HubspotMeetingStoryblok,
   IconStoryblok,
   IframeStoryblok,
-  ImageStoryblok, MotionStoryblok,
+  ImageStoryblok,
+  MotionStoryblok,
   NavItemStoryblok,
   NavListStoryblok,
   NavMenuItemStoryblok,
@@ -64,6 +65,7 @@ export const getOptions = (object: any) => {
   })
   return obj
 }
+export const getRandomImage = () => storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)]
 
 export const storyButton = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<ButtonStoryblok> } = {}) => {
   return getKnobComponents({
@@ -216,7 +218,7 @@ export const storyImage = ({ options = {}, knob, count = '' }: StorybookOptionPr
   return getKnobComponents({
     componentName: 'image',
     options: {
-      source: options?.source ? options.source : storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)],
+      source: options?.source ? options.source : getRandomImage(),
       ...options
     },
     knob,

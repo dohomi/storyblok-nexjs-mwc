@@ -3,12 +3,15 @@ import CardList from './CardList'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
+  FlexRowStoryblok,
   HeadlineStoryblok,
   ImageStoryblok,
   ParagraphStoryblok
 } from '../../typings/generated/components-schema'
 import * as React from 'react'
 import { storyCardList, storyCardListItem } from '../../../.storybook/dummy/core/section'
+import { loremIpsum } from 'lorem-ipsum'
+import { getRandomImage } from '../../../.storybook/dummy/core/various'
 
 const cardListBody: CardListItemStoryblok[] = [{
   _uid: '123',
@@ -181,6 +184,51 @@ storiesOf('Cards', module)
         <CardList content={{ ...cardList, body: cardListLongDescription, description_max_character: 0 }} />
       </>
     )
+  )
+  .add(
+    'Cards of travels',
+    () => {
+      const elements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+      return (
+        <div>
+          <CardList content={{
+            _uid: '23123',
+            component: 'card_list',
+            shadow_effect: 'soft',
+            variant: ['over_media', 'text_bottom', 'overlay_content_no_space'],
+            description_max_character: 40,
+            title_class_name: { values: ['badge-square', 'badge-dark-transparent'] },
+            card_actions_disable_spacing: true,
+            body: elements.map(num => {
+              return {
+                _uid: 'elem-' + num,
+                component: 'card_list_item',
+                title: loremIpsum({ count: 1, units: 'words' }),
+                image: getRandomImage(),
+                description: loremIpsum({ count: 1, units: 'sentence' }),
+                card_actions_body: [{
+                  _uid: 'asdfa',
+                  component: 'flex_row',
+                  justify: 'space-between',
+                  align_items: 'center',
+                  body: [{
+                    _uid: '123',
+                    component: 'headline',
+                    typography: 'body1',
+                    text: loremIpsum({ count: 1, units: 'words' })
+                  }, {
+                    _uid: '123',
+                    component: 'headline',
+                    typography: 'body2',
+                    text: loremIpsum({ count: 1, units: 'words' })
+                  }] as HeadlineStoryblok[]
+                }] as FlexRowStoryblok[]
+              } as CardListItemStoryblok
+            })
+          }} />
+        </div>
+      )
+    }
   )
   .add(
     'Card Icons',

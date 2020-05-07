@@ -75,6 +75,13 @@ export const getCreatedStyles = (theme: Theme) => {
         transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
         borderRadius: '2rem'
       },
+      '.badge-square': {
+        display: 'inline-block',
+        padding: '.25em .4em',
+        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
+        color: theme.palette.type === 'dark' ? 'rgba(0, 0, 0, 0.87)' : theme.palette.common.white,
+        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+      },
       '.badge-primary': {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText
@@ -94,6 +101,14 @@ export const getCreatedStyles = (theme: Theme) => {
       '.badge-dark': {
         backgroundColor: dark,
         color: '#fff'
+      },
+      '.badge-dark-transparent': {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        color: '#fff'
+      },
+      '.badge-light-transparent': {
+        backgroundColor: 'rgba(0,0,0,0.2)',
+        color: 'rgba(0, 0, 0, 0.87)'
       },
       '.embed-responsive': {
         position: 'relative',
