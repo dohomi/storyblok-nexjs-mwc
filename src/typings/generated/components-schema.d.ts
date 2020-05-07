@@ -45,6 +45,17 @@ export interface AvatarStoryblok {
 }
 
 export interface BackgroundStoryblok {
+  classNames?: {
+    values?: string[];
+    [k: string]: any;
+  };
+  height?: string;
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  shadow_effect?: "faded" | "float" | "hover" | "light-top" | "bouncy" | "soft";
+  elevation?: number;
   image?: string;
   alternative_image?: string;
   hide_image_on_breakpoint?: "xs" | "sm" | "md";
@@ -60,16 +71,6 @@ export interface BackgroundStoryblok {
   border_size?: number;
   border_radius?: string;
   border_style?: "solid" | "dashed" | "dotted";
-  classNames?: {
-    values?: string[];
-    [k: string]: any;
-  };
-  height?: string;
-  background_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  elevation?: number;
   _uid: string;
   component: "background";
   [k: string]: any;

@@ -107,7 +107,12 @@ export const columnsWithImage: ColumnStoryblok[] = [{
   body: items,
   _uid: '252435131',
   component: 'column',
-  width_general: '4'
+  width_general: '4',
+  background: [{
+    _uid: 'fsdfs',
+    component: 'background',
+    shadow_effect: 'bouncy'
+  }] as BackgroundStoryblok[]
 }, {
   body: items,
   _uid: '341531545',
@@ -140,7 +145,7 @@ export const rowWithImage: RowStoryblok[] = [{
   body: column,
   _uid: 'qdfaefa',
   component: 'row',
-  background: [{...backgroundItem}]
+  background: [{ ...backgroundItem }]
 }]
 
 export const get3ColumnsSection = ({ count, knob }: { count?: number, knob?: string } = {}) => ({
