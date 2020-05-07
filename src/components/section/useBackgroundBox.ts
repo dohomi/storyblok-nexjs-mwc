@@ -2,6 +2,7 @@ import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/c
 import { useTheme } from '@material-ui/core/styles'
 import { CSSProperties } from 'react'
 import clsx from 'clsx'
+import useShadowStyles from '../jss/shadowStyles'
 
 export type UseBackgroundProps = {
   background?: BackgroundStoryblok,
@@ -16,6 +17,7 @@ export type UseBackgroundPayload = {
 export default function useBackgroundBox(props: UseBackgroundProps): UseBackgroundPayload {
   let { background, variant } = props
   const theme = useTheme()
+  const styles = useShadowStyles()
 
   if (!background && !variant) {
     return {}
@@ -54,6 +56,8 @@ export default function useBackgroundBox(props: UseBackgroundProps): UseBackgrou
   }
   Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
-  const className = clsx(background.classNames && background.classNames.values)
+  const className = clsx(background.classNames?.values, {
+    [styles[background.shadow_effect || '']]: !!background.shadow_effect
+  })
   return { className, style }
 }
