@@ -1,4 +1,6 @@
-import { NextPage } from 'next';
-import { AppPageProps } from '@initialData/getInitialPageProps';
-declare const Index: NextPage<AppPageProps>;
+/// <reference types="node" />
+import Index from '../components/pages/Index';
+export declare const getStaticProps: import("next").GetStaticProps<{
+    [key: string]: any;
+}, import("querystring").ParsedUrlQuery>;
 export default Index;

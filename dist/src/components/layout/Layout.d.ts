@@ -1,9 +1,7 @@
 import { FunctionComponent } from 'react';
 import { GlobalStoryblok } from '../../typings/generated/components-schema';
-declare type LayoutProps = {
-    hasFeature?: boolean;
+export declare type LayoutComponentProps = {
     settings: GlobalStoryblok;
-    asPath?: string;
 };
-declare const Layout: FunctionComponent<LayoutProps>;
+declare const Layout: FunctionComponent<LayoutComponentProps>;
 export default Layout;

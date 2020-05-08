@@ -1,6 +1,5 @@
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import { CategoryComponent, PageComponent, StaticcontainerComponent } from './generated/schema'
-import { AppApiRequestPayload } from '@initialData/storyblokDeliveryResolver'
 import { Story, StoryData } from 'storyblok-js-client'
 
 type ErrorProps = {
@@ -16,7 +15,9 @@ export type AppApiRequestPayload = {
   locale?: string,
   allCategories: StoryData<CategoryComponent>[],
   allStaticContent: StoryData<StaticcontainerComponent>[],
-  listWidgetData: { [k: string]: StoryData<PageComponent>[] }
+  listWidgetData: {
+    [k: string]: StoryData<PageComponent>[]
+  } | null
 }
 
 export type AppPageProps =

@@ -1,4 +1,7 @@
-import { ImageListItemProps } from './ImageListItemImg';
-import * as React from 'react';
-declare const _default: React.NamedExoticComponent<ImageListItemProps>;
-export default _default;
+import { FunctionComponent } from 'react';
+import { ImageListItemStoryblok, ImageListStoryblok } from '../../typings/generated/components-schema';
+declare const ImageListItem: FunctionComponent<{
+    content: ImageListItemStoryblok;
+    listProps: ImageListStoryblok;
+}>;
+export default ImageListItem;

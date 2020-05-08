@@ -1,92 +1,120 @@
 /// <reference types="react" />
 /// <reference types="next" />
-/// <reference types="@emotion/core" />
 declare const Components: {
-    'page': import("react").FunctionComponent<{
+    page: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").PageStoryblok;
     }>;
-    'table': import("react").FunctionComponent<{
+    table: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").TableStoryblok;
     }>;
-    'accordion': import("react").FunctionComponent<{
+    accordion: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").AccordionStoryblok;
     }>;
-    'promotion': import("react").FunctionComponent<{
-        content: import("../typings/generated/components-schema").PromotionStoryblok;
+    static_section: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").StaticSectionStoryblok;
     }>;
-    'divider': import("react").FunctionComponent<{
+    static_container: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").StaticContainerStoryblok;
+    }>;
+    divider: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").DividerStoryblok;
     }>;
-    'html': import("react").FunctionComponent<{
+    html: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").HtmlStoryblok;
     }>;
-    'pricing': import("react").FunctionComponent<{
-        content: import("../typings/generated/components-schema").PricingStoryblok;
-    }>;
-    'hubspot_form': import("react").FunctionComponent<{
-        content: import("../typings/generated/components-schema").HubspotFormStoryblok;
-    }>;
-    'hubspot_meeting': import("react").FunctionComponent<{
+    hubspot_meeting: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").HubspotMeetingStoryblok;
         disableEmbed?: boolean | undefined;
     }>;
-    'button_list': import("react").FunctionComponent<{
+    button_list: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").ButtonListStoryblok;
     }>;
-    'section': import("react").FunctionComponent<{
+    section: import("react").FunctionComponent<{
         content: import("./section/Section").SectionProps;
     }>;
-    'headline': import("react").FunctionComponent<{
+    headline: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").HeadlineStoryblok;
     }>;
-    'paragraph': import("react").FunctionComponent<{
+    paragraph: import("react").ComponentType<{
         content: import("../typings/generated/components-schema").ParagraphStoryblok;
     }>;
-    'row': import("react").FunctionComponent<{
+    row: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").RowStoryblok;
     }>;
-    'column': import("react").FunctionComponent<{
+    column: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").ColumnStoryblok;
     }>;
-    'image': import("react").FunctionComponent<{
+    image: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").ImageStoryblok;
     }>;
-    'image_list': import("react").FunctionComponent<{
+    image_list: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").ImageListStoryblok;
     }>;
-    'button': import("react").FunctionComponent<{
+    button: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").ButtonStoryblok;
     }>;
-    'nav_list': import("react").NamedExoticComponent<{
+    nav_list: import("react").NamedExoticComponent<{
         content: import("../typings/generated/components-schema").NavListStoryblok;
     }>;
-    'row_nested': import("react").FunctionComponent<{
-        content: import("../typings/generated/components-schema").RowNestedStoryblok;
-    }>;
-    'nav_menu': import("react").FunctionComponent<{
+    nav_menu: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").NavMenuStoryblok;
     }>;
-    'icon': import("react").FunctionComponent<{
+    icon: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").IconStoryblok;
     }>;
-    'iframe': import("react").FunctionComponent<{
+    iframe: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").IframeStoryblok;
     }>;
-    'slider': import("react").NamedExoticComponent<{
+    slider: import("react").NamedExoticComponent<{
         content: import("../typings/generated/components-schema").SliderStoryblok;
     }>;
-    'section_video_bg': import("react").FunctionComponent<{
+    section_video_bg: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").SectionVideoBgStoryblok;
     }>;
-    'card_list': import("react").FunctionComponent<{
+    card_list: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").CardListStoryblok;
     }>;
-    'section_parallax': import("react").FunctionComponent<{
+    section_parallax: import("react").FunctionComponent<{
         content: import("../typings/generated/components-schema").SectionParallaxStoryblok;
     }>;
-    'form': import("react").FunctionComponent<{
-        content: import("../typings/generated/components-schema").FormStoryblok;
-        customData?: any;
+    tabs: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").TabsStoryblok;
+    }>;
+    list_widget: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").ListWidgetStoryblok;
+    }>;
+    flex_row: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").FlexRowStoryblok;
+    }>;
+    iframe_advanced: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").IframeAdvancedStoryblok;
+    }>;
+    category_box: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").CategoryBoxStoryblok;
+    }>;
+    list_search_field: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").ListSearchFieldStoryblok;
+    }>;
+    link: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").LinkStoryblok;
+    }>;
+    list_search_autocomplete: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").ListSearchAutocompleteStoryblok;
+    }>;
+    rich_text_editor: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").RichTextEditorStoryblok;
+    }>;
+    timeline: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").TimelineStoryblok;
+    }>;
+    avatar: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").AvatarStoryblok;
+    }>;
+    date_headline: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").DateHeadlineStoryblok;
+    }>;
+    motion: import("react").FunctionComponent<{
+        content: import("../typings/generated/components-schema").MotionStoryblok;
     }>;
 };
 export default Components;

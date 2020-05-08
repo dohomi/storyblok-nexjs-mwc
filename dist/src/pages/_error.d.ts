@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
-import { GlobalStoryblok, PageStoryblok } from '../typings/generated/components-schema';
+import { AppPageProps } from '../typings/app';
 declare type ErrorComponentProps = {
     statusCode: number;
-    page?: PageStoryblok;
-    settings?: GlobalStoryblok;
+    page?: AppPageProps['page'];
+    settings: AppPageProps['settings'];
 };
 declare const Error: NextPage<ErrorComponentProps>;
 export default Error;

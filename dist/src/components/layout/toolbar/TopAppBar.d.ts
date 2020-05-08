@@ -1,9 +1,9 @@
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import { GlobalStoryblok } from '../../../typings/generated/components-schema';
-declare type AppTopAppProps = {
-    transparentToolbar: boolean;
-    toolbarConfig: GlobalStoryblok['toolbar_config'];
-    fixed: boolean;
+export declare type AppHeaderProps = {
+    settings: GlobalStoryblok;
 };
-declare const TopAppBarBridge: FunctionComponent<AppTopAppProps>;
-export default TopAppBarBridge;
+declare const TopAppBar: FunctionComponent<AppHeaderProps & {
+    SystemBar?: React.ReactNode;
+}>;
+export default TopAppBar;

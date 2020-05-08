@@ -1,9 +1,9 @@
 import { GetStaticProps } from 'next'
 import StoryblokService from '../StoryblokService'
-import getPageProps from '@initialData/getPageProps'
-import { getBaseProps } from '@initialData/getBaseProps'
 import { AppPageProps } from '../../typings/app'
-import { endMeasureTime, startMeasureTime } from '@initialData/timer'
+import { endMeasureTime, startMeasureTime } from './timer'
+import { getBaseProps } from './getBaseProps'
+import getPageProps from './getPageProps'
 
 const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppPageProps }> => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug

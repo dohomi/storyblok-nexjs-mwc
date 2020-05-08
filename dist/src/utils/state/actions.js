@@ -1,33 +1,41 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 import { setGlobalState } from './state';
-export var toggleLeftNavigation = function () {
-    setGlobalState('leftNavigationDrawer', function (value) { return !value; });
+export const toggleLeftNavigation = () => {
+    setGlobalState('leftNavigationDrawer', value => !value);
 };
-export var closeNavigationDrawers = function () {
+export const toggleRightNavigation = () => {
+    setGlobalState('rightNavigationDrawer', value => !value);
+};
+export const closeNavigationDrawers = () => {
     setGlobalState('leftNavigationDrawer', false);
+    setGlobalState('rightNavigationDrawer', false);
 };
-// todo this is used somewhere else.. or not in use any longer?
-export var setMegaMenu = function (v, shouldClose) {
-    var _a;
-    if (shouldClose) {
-        setGlobalState('megaMenu', (_a = {}, _a[v] = false, _a)); // close
+// export const setAppSetup = (options: State['appSetup']) => {
+//   setGlobalState('appSetup', options)
+// }
+const addSearchParamsToUrl = ({ categories, searchText }) => {
+    const currentUrl = new URL(window.location.href);
+    if (categories) {
+        currentUrl.searchParams.delete('search__categories');
+        categories.forEach((category) => {
+            currentUrl.searchParams.append('search__categories', category);
+        });
     }
-    else {
-        setGlobalState('megaMenu', function (value) {
-            var _a;
-            var obj = __assign(__assign({}, value), (_a = {}, _a[v] = !value[v], _a));
-            console.log(obj);
-            return obj;
-        }); // toggle
+    if (searchText !== undefined) {
+        if (!searchText) {
+            currentUrl.searchParams.delete('search__text');
+        }
+        else {
+            currentUrl.searchParams.set('search__text', searchText);
+        }
     }
+    window.history.pushState({ path: currentUrl.href }, '', currentUrl.href);
+    window.scrollTo(0, 0);
+};
+export const onSearchTextChange = (searchText) => {
+    setGlobalState('searchParams', (v) => (Object.assign(Object.assign({}, v), { searchText })));
+    addSearchParamsToUrl({ searchText });
+};
+export const setSearchCategory = (categories) => {
+    setGlobalState('searchParams', (v) => (Object.assign(Object.assign({}, v), { categories })));
+    addSearchParamsToUrl({ categories });
 };
