@@ -1,4 +1,6 @@
-import { FunctionComponent } from 'react';
-import { AppHeaderProps } from './HeaderCustom';
-declare const Header: FunctionComponent<AppHeaderProps>;
-export default Header;
+import * as React from 'react';
+import { GlobalStoryblok } from '../../../typings/generated/components-schema';
+declare const _default: React.NamedExoticComponent<{
+    settings: GlobalStoryblok;
+}>;
+export default _default;

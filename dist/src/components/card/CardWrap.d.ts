@@ -1,10 +1,4 @@
-import { CardProps } from '@rmwc/card';
-import { CSSProperties, FunctionComponent } from 'react';
-import { CardListItemProps } from './CardLinkActionTitle';
-declare type CardWrapProps = CardProps & {
-    className: string;
-    style: CSSProperties;
-    content: CardListItemProps;
-};
-declare const CardWrap: FunctionComponent<CardWrapProps>;
+import { FunctionComponent } from 'react';
+import { CardListItemProps } from './cards';
+declare const CardWrap: FunctionComponent<CardListItemProps>;
 export default CardWrap;

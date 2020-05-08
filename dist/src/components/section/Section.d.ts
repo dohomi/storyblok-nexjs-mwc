@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { SectionStoryblok } from '../../typings/generated/components-schema';
 export interface SectionProps extends SectionStoryblok {
-    presetVariant?: Pick<SectionStoryblok, 'variant'>;
+    presetVariant?: SectionStoryblok['variant'];
 }
 declare const Section: FunctionComponent<{
     content: SectionProps;

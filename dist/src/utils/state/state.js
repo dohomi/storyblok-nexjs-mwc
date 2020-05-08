@@ -1,7 +1,14 @@
 import { createGlobalState } from 'react-hooks-global-state';
-var initialState = {
+import { CONFIG } from '../config';
+const initialState = {
     leftNavigationDrawer: false,
-    megaMenu: {}
+    rightNavigationDrawer: false,
+    searchParams: {
+        searchText: undefined,
+        categories: undefined
+    },
+    locale: CONFIG.defaultLocale,
+    hasWebpSupport: undefined
 };
-var _a = createGlobalState(initialState), GlobalStateProvider = _a.GlobalStateProvider, setGlobalState = _a.setGlobalState, useGlobalState = _a.useGlobalState;
-export { GlobalStateProvider, useGlobalState, setGlobalState };
+const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(initialState);
+export { useGlobalState, setGlobalState, getGlobalState };

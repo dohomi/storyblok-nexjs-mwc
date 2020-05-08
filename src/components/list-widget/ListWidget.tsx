@@ -63,7 +63,7 @@ export const listWidgetFilter = (content: ListWidgetStoryblok, allStories: Story
 const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
 
   const { listWidgetData } = useAppContext()
-  let items = listWidgetData[content._uid] || []
+  let items = (listWidgetData && listWidgetData[content._uid]) || []
 
   const listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok) = (content.list_options && content.list_options[0]) || {}
 

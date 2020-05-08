@@ -5,8 +5,7 @@ type MwcComponents = {
   [k: string]: any
 }
 // merge all potential components of storyblok. setup components alias in Webpack
-const Components: MwcComponents = { ...MwcComponents }
-
+let Components: MwcComponents = { ...MwcComponents }
 
 export default (blok: any) => {
   if (typeof Components[blok.component] !== 'undefined') {

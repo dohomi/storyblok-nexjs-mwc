@@ -1,6 +1,16 @@
 export default function parseFont(string) {
     if (!string)
         return null;
-    var name = string.split(':')[0];
-    return name.replace('+', ' ');
+    const name = string.split(':')[0];
+    return name.replace(/\+/g, ' ');
 }
+export const getFontBasedOnSetting = (settings) => {
+    const settingsFonts = ['theme_font_default', 'theme_font_alt1', 'theme_font_alt2', 'theme_font_alt3', 'theme_font_alt4'];
+    const loadFonts = [];
+    Object.keys(settings).forEach(key => {
+        if (settingsFonts.includes(key) && settings[key]) {
+            loadFonts.push(settings[key]);
+        }
+    });
+    return loadFonts;
+};

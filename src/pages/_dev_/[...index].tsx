@@ -1,5 +1,5 @@
 import Index from '../../components/pages/Index'
-import pagesGetServerSideProps from '@initialData/pagesGetServerSideProps'
+import pagesGetServerSideProps from '../../utils/initial-props/pagesGetServerSideProps'
 
 export const getServerSideProps = pagesGetServerSideProps
 

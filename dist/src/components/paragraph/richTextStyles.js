@@ -1,0 +1,15 @@
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+export const useRichTextStyles = makeStyles((theme) => createStyles({
+    richText: {
+        '& > p': {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
+            '&:first-child': {
+                marginTop: 0
+            },
+            '&:last-child': {
+                marginBottom: 0
+            }
+        }
+    }
+}));

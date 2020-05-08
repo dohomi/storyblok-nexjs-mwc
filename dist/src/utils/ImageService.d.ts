@@ -4,7 +4,7 @@ export declare function getOriginalImageDimensions(src: string): {
     width: number;
     height: number;
 };
-declare type GetImageAttrs = {
+export declare type GetImageFuncProps = {
     originalSource: string;
     width: number;
     height?: number;
@@ -13,10 +13,9 @@ declare type GetImageAttrs = {
     smart?: boolean;
     focalPoint?: string;
 };
-export declare function getImageAttrs({ originalSource, width, height, filter, fitInColor, smart, focalPoint }: GetImageAttrs): {
+export declare function getImageAttrs({ originalSource, width, height, filter, fitInColor, smart, focalPoint }: GetImageFuncProps): {
     src: string;
     srcSet: string;
 };
 export declare function getFocalPoint(src: string, focalPoint: string): string;
-declare function imageService(image: string, option?: string, filter?: string): string;
-export default imageService;
+export default function imageService(image: string, option?: string, filter?: string): string;

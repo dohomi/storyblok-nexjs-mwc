@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
-import { GlobalStoryblok } from '../../../typings/generated/components-schema';
+import { UseBackgroundPayload } from '../../section/useBackgroundBox';
+export declare const useStyles: (props?: any) => Record<"leftDrawer" | "aboveToolbar" | "belowToolbar" | "fullWidthMobile", string>;
 declare const MwcDrawer: FunctionComponent<{
-    content: GlobalStoryblok;
+    backgroundProps?: UseBackgroundPayload;
 }>;
 export default MwcDrawer;

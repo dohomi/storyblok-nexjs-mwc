@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "analyze": "BUNDLE_ANALYZE=true npm run build",
-    "dev": "next",
-    "build": "rm -rf .next && next build",
+    "dev": "rm app-content*.jon && next",
+    "build": "rm app-content*.jon && rm -rf .next && next build",
+    "build-components": "rimraf dist && tsc -p tsconfig.build.json",
     "start": "next start",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=80001",
