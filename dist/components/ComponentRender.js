@@ -1,5 +1,5 @@
 import React from 'react';
-import MwcComponents from '../src/components/all_components';
+import MwcComponents from './all_components';
 // merge all potential components of storyblok. setup components alias in Webpack
 let Components = Object.assign({}, MwcComponents);
 export default (blok) => {

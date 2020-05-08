@@ -4,6 +4,6 @@ schema:
       headers:
         Token: IQrhrTP6aL0WYgDXmersbgtt
 generates:
-  src/typings/generated/schema.d.ts:
+  src/typings/generated/schema.ts:
     plugins:
       - "typescript"
