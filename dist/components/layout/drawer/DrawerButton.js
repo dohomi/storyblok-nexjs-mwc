@@ -4,10 +4,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LmIcon from '../../icon/LmIcon';
-const DrawerButton = (props) => {
+var DrawerButton = function (props) {
     var _a;
-    const { content } = props;
-    const buttonProps = {
+    var content = props.content;
+    var buttonProps = {
         text: content.label || content.name,
         graphic: (_a = content.icon) === null || _a === void 0 ? void 0 : _a.name
     };

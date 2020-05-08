@@ -5,7 +5,7 @@ import Components from '@components';
 import Grid from '@material-ui/core/Grid';
 import BackgroundElements from './BackgroundElements';
 import useBackgroundBox from './useBackgroundBox';
-const xsSpanMap = {
+var xsSpanMap = {
     1: 3,
     2: 6,
     3: 9,
@@ -14,7 +14,7 @@ const xsSpanMap = {
     'auto': 'auto',
     'true': true
 };
-const smSpanMap = {
+var smSpanMap = {
     1: 1,
     2: 2,
     3: 4,
@@ -27,7 +27,7 @@ const smSpanMap = {
     'auto': 'auto',
     'true': true
 };
-const mdSpanMap = {
+var mdSpanMap = {
     1: 1,
     2: 2,
     3: 3,
@@ -44,12 +44,13 @@ const mdSpanMap = {
     'auto': 'auto',
     'true': true
 };
-const GridColumn = ({ content }) => {
+var GridColumn = function (_a) {
+    var content = _a.content;
     // const classes = useStyles(content)
-    const background = (Array.isArray(content.background) && content.background[0]) || undefined;
-    const { className, style } = useBackgroundBox({ background });
-    let mdWidth = mdSpanMap[content.width_general];
-    let smWidth = smSpanMap[content.width_tablet];
+    var background = (Array.isArray(content.background) && content.background[0]) || undefined;
+    var _b = useBackgroundBox({ background: background }), className = _b.className, style = _b.style;
+    var mdWidth = mdSpanMap[content.width_general];
+    var smWidth = smSpanMap[content.width_tablet];
     if (!smWidth && mdWidth) {
         smWidth = mdWidth;
         if (typeof mdWidth === 'number' && mdWidth > 8) {
@@ -61,6 +62,6 @@ const GridColumn = ({ content }) => {
             (background === null || background === void 0 ? void 0 : background.image) && React.createElement(BackgroundImage, { content: background }),
             (background === null || background === void 0 ? void 0 : background.background_elements) && background.background_elements.length > 0 &&
                 React.createElement(BackgroundElements, { elements: background.background_elements }),
-            (content.justify || content.align_content || content.align_items) ? (React.createElement(Grid, { container: true, direction: 'column', className: 'mh-100', justify: content.justify ? content.justify : undefined, alignItems: content.align_items ? content.align_items : undefined, alignContent: content.align_content ? content.align_content : undefined }, content.body && content.body.map((blok) => Components(blok)))) : content.body && content.body.map((blok) => Components(blok)))));
+            (content.justify || content.align_content || content.align_items) ? (React.createElement(Grid, { container: true, direction: 'column', className: 'mh-100', justify: content.justify ? content.justify : undefined, alignItems: content.align_items ? content.align_items : undefined, alignContent: content.align_content ? content.align_content : undefined }, content.body && content.body.map(function (blok) { return Components(blok); }))) : content.body && content.body.map(function (blok) { return Components(blok); }))));
 };
 export default GridColumn;

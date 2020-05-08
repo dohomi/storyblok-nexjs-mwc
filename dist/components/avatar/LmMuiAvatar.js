@@ -6,7 +6,7 @@ import { intersectionDefaultOptions } from '../../utils/intersectionObserverConf
 import { getImageAttrs } from '../../utils/ImageService';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-const useStyles = makeStyles({
+var useStyles = makeStyles({
     avatar: {
         '&.small': {
             width: 24,
@@ -22,19 +22,21 @@ const useStyles = makeStyles({
         }
     }
 });
-const LmMuiAvatar = ({ src, size }) => {
-    const classes = useStyles();
-    const [reference, inView] = useInView(intersectionDefaultOptions);
-    const [imageAttrs, setImageSrc] = useState({ src: '', srcSet: '' });
-    useEffect(() => {
+var LmMuiAvatar = function (_a) {
+    var _b;
+    var src = _a.src, size = _a.size;
+    var classes = useStyles();
+    var _c = useInView(intersectionDefaultOptions), reference = _c[0], inView = _c[1];
+    var _d = useState({ src: '', srcSet: '' }), imageAttrs = _d[0], setImageSrc = _d[1];
+    useEffect(function () {
         if (!inView) {
             return;
         }
-        const imgAttrs = getImageAttrs({ originalSource: src, width: 128 });
+        var imgAttrs = getImageAttrs({ originalSource: src, width: 128 });
         setImageSrc(imgAttrs);
     }, [inView]);
-    return (React.createElement(Avatar, { ref: reference, src: imageAttrs.src, srcSet: imageAttrs.srcSet, className: clsx(classes.avatar, {
-            [size]: !!size
-        }) }));
+    return (React.createElement(Avatar, { ref: reference, src: imageAttrs.src, srcSet: imageAttrs.srcSet, className: clsx(classes.avatar, (_b = {},
+            _b[size] = !!size,
+            _b)) }));
 };
 export default LmMuiAvatar;

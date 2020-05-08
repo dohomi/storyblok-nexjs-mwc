@@ -2,9 +2,10 @@ import SbEditable from 'storyblok-react';
 import React, { useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig';
-const Html = ({ content }) => {
-    const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions);
-    const htmlContent = useMemo(() => {
+var Html = function (_a) {
+    var content = _a.content;
+    var _b = useInView(intersectionDefaultOptions), refIntersectionObserver = _b[0], inView = _b[1];
+    var htmlContent = useMemo(function () {
         if (content.lazy_load) {
             if (inView) {
                 return content.body || '';

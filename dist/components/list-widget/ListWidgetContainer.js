@@ -2,7 +2,8 @@ import ListWidgetLists from './ListWidgetLists';
 import ListWidgetCards from './ListWidgetCards';
 import * as React from 'react';
 import ListWidgetLinks from './ListWidgetLinks';
-const ListWidgetContainer = ({ listOption, content, items }) => {
+var ListWidgetContainer = function (_a) {
+    var listOption = _a.listOption, content = _a.content, items = _a.items;
     if (listOption.component === 'lists') {
         return React.createElement(ListWidgetLists, { content: content, items: items, options: listOption });
     }

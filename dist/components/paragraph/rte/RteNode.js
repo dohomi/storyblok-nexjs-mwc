@@ -1,6 +1,6 @@
 import * as React from 'react';
 import RteContentRender from './RteContentRender';
-const ElementMap = {
+var ElementMap = {
     'paragraph': 'p',
     'blockquote': 'blockquote',
     'bullet_list': 'ul',
@@ -11,7 +11,8 @@ const ElementMap = {
     // 'image': '',
     'code_block': 'code'
 };
-const RteNode = ({ content }) => {
-    return React.createElement(content.type === 'heading' ? `h${content.attrs.level || '3'}` : ElementMap[content.type], {}, content.content && content.content.map((blok, i) => RteContentRender(blok, i)));
+var RteNode = function (_a) {
+    var content = _a.content;
+    return React.createElement(content.type === 'heading' ? "h" + (content.attrs.level || '3') : ElementMap[content.type], {}, content.content && content.content.map(function (blok, i) { return RteContentRender(blok, i); }));
 };
 export default RteNode;
