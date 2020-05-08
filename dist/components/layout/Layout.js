@@ -4,9 +4,10 @@ import React from 'react';
 import AppHead from './AppHead';
 import ExternalScripts from '../external-scripts/ExternalScripts';
 import DrawerElement from './drawer/DrawerElement';
-const Layout = ({ children, 
-// appSetup,
-settings }) => {
+var Layout = function (_a) {
+    var children = _a.children, 
+    // appSetup,
+    settings = _a.settings;
     // console.log('layout render')
     return (React.createElement(React.Fragment, null,
         React.createElement(AppHead, { settings: settings }),

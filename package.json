@@ -1,6 +1,6 @@
 {
   "name": "@lumen/mwc",
-  "version": "0.35.3",
+  "version": "0.35.4",
   "description": "Next.js full website kit powered by Storyblok",
   "main": "index.js",
   "scripts": {
@@ -47,6 +47,7 @@
     "next-compose-plugins": "2.2.0",
     "next-routes": "1.4.2",
     "next-seo": "4.4.0",
+    "next-transpile-modules": "3.3.0",
     "node-fetch": "2.6.0",
     "nprogress": "0.2.0",
     "react": "16.13.1",

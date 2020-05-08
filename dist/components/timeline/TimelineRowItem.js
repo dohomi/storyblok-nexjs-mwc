@@ -7,10 +7,10 @@ import Components from '@components';
 import clsx from 'clsx';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import ContentLink from '../link/ContentLink';
-const useStyles = makeStyles((theme) => createStyles({
+var useStyles = makeStyles(function (theme) { return createStyles({
     cardContainer: {
         position: 'relative',
-        padding: `${theme.spacing(1)}px 0`
+        padding: theme.spacing(1) + "px 0"
     },
     cardDecorator: {
         position: 'absolute',
@@ -28,22 +28,24 @@ const useStyles = makeStyles((theme) => createStyles({
         borderRight: '16px solid' + theme.palette.grey.A100,
         right: '100%'
     }
-}));
-const CardContentWrap = ({ content, children }) => {
+}); });
+var CardContentWrap = function (_a) {
+    var content = _a.content, children = _a.children;
     if (content.link) {
         return (React.createElement(ContentLink, { content: content, className: "lm-timeline__link" },
             React.createElement(CardActionArea, null, children)));
     }
     return (React.createElement(React.Fragment, null, children));
 };
-const TimelineRowItem = ({ isLeft, content }) => {
-    const classes = useStyles();
-    const body = content.body || [];
+var TimelineRowItem = function (_a) {
+    var isLeft = _a.isLeft, content = _a.content;
+    var classes = useStyles();
+    var body = content.body || [];
     return (React.createElement("div", { className: classes.cardContainer },
         React.createElement("div", { className: clsx(classes.cardDecorator, isLeft ? classes.cardDecoratorLeft : classes.cardDecoratorRight) }),
         React.createElement(Card, null,
             React.createElement(CardContentWrap, { content: content },
                 (content.title || content.subheader) && React.createElement(CardHeader, { title: content.title, subheader: content.subheader }),
-                body.length > 0 && React.createElement(CardContent, null, body.map(blok => Components(blok)))))));
+                body.length > 0 && React.createElement(CardContent, null, body.map(function (blok) { return Components(blok); }))))));
 };
 export default TimelineRowItem;

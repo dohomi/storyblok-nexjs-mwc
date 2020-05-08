@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import useOnResize from './useOnResize';
-const style = {
+var style = {
     display: 'block',
     opacity: 0,
     position: 'absolute',
@@ -16,9 +16,10 @@ const style = {
 // This automatically attaches to itself the resize event listener
 // and adds onResize as callback
 // @ts-ignore
-export default ({ onResize }) => {
-    const ref = React.useRef();
-    useOnResize(ref, () => onResize(ref));
+export default (function (_a) {
+    var onResize = _a.onResize;
+    var ref = React.useRef();
+    useOnResize(ref, function () { return onResize(ref); });
     // @ts-ignore
     return React.createElement("iframe", { style: style, src: "about:blank", ref: ref, "aria-hidden": true, "aria-label": "resize-listener", tabIndex: -1, frameBorder: 0 });
-};
+});

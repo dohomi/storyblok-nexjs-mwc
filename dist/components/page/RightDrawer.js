@@ -8,23 +8,25 @@ import { usePageStyles } from './usePageStyle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { useAppSetup } from '../provider/AppSetupProvider';
-const RightDrawerWrap = ({ children }) => {
-    const classes = usePageStyles();
-    const theme = useTheme();
-    const appSetup = useAppSetup();
-    const matches = useMediaQuery(theme.breakpoints.up(appSetup.rightDrawerMediaBreakpoint || 'sm'));
+var RightDrawerWrap = function (_a) {
+    var children = _a.children;
+    var classes = usePageStyles();
+    var theme = useTheme();
+    var appSetup = useAppSetup();
+    var matches = useMediaQuery(theme.breakpoints.up(appSetup.rightDrawerMediaBreakpoint || 'sm'));
     // const { isMobile } = useDeviceDimensions()
-    const [rightIsOpen] = useGlobalState('rightNavigationDrawer');
+    var rightIsOpen = useGlobalState('rightNavigationDrawer')[0];
     return React.createElement(Drawer, { variant: !matches ? 'temporary' : 'permanent', anchor: "right", classes: {
             paper: classes.rightDrawerPaper,
             modal: classes.rightModal,
             paperAnchorDockedRight: classes.rightDocked
-        }, open: !matches ? rightIsOpen : true, onClose: () => closeNavigationDrawers() }, children);
+        }, open: !matches ? rightIsOpen : true, onClose: function () { return closeNavigationDrawers(); } }, children);
 };
-const RightDrawer = ({ rightBody }) => {
-    const classes = usePageStyles();
+var RightDrawer = function (_a) {
+    var rightBody = _a.rightBody;
+    var classes = usePageStyles();
     return (React.createElement(RightDrawerWrap, null,
         React.createElement(ContentSpace, null),
-        React.createElement("div", { className: classes.rightContent }, rightBody.map((blok) => Components(blok)))));
+        React.createElement("div", { className: classes.rightContent }, rightBody.map(function (blok) { return Components(blok); }))));
 };
 export default RightDrawer;

@@ -4,30 +4,31 @@ import { memo, useMemo } from 'react';
 import parseFont from '../../utils/parseFont';
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles';
 import StoryblokService from '../../utils/StoryblokService';
-const mapThemeType = {
+var mapThemeType = {
     'base': 'light',
     'dark': 'dark'
 };
-const GlobalStyles = memo(() => {
+var GlobalStyles = memo(function () {
     useGlobalStyles();
     return null;
 });
-const GlobalTheme = ({ children, settings, rightDrawerWidth }) => {
-    const storyblokBackend = StoryblokService.insideVisualComposer();
-    const themeUid = settings && settings._uid;
-    const theme = useMemo(() => {
+var GlobalTheme = function (_a) {
+    var children = _a.children, settings = _a.settings, rightDrawerWidth = _a.rightDrawerWidth;
+    var storyblokBackend = StoryblokService.insideVisualComposer();
+    var themeUid = settings && settings._uid;
+    var theme = useMemo(function () {
         if (!themeUid) {
             return {};
         }
         if (!settings.theme_font_default) {
             settings.theme_font_default = 'Nunito:300,400,700';
         }
-        let defaultContainerWidth = 'lg';
+        var defaultContainerWidth = 'lg';
         if (settings.theme_container_width) {
             defaultContainerWidth = settings.theme_container_width === 'none' ? false : settings.theme_container_width;
         }
-        const firstMultiToolbar = Array.isArray(settings.multi_toolbar) && settings.multi_toolbar[0];
-        const globalTheme = {
+        var firstMultiToolbar = Array.isArray(settings.multi_toolbar) && settings.multi_toolbar[0];
+        var globalTheme = {
             palette: {
                 type: mapThemeType[settings.theme_base || 'base'],
                 primary: {
@@ -40,8 +41,8 @@ const GlobalTheme = ({ children, settings, rightDrawerWidth }) => {
                 }
             },
             drawer: {
-                left: `${settings.drawer_width || 285}px`,
-                right: `${rightDrawerWidth || 254}px`
+                left: (settings.drawer_width || 285) + "px",
+                right: (rightDrawerWidth || 254) + "px"
             },
             toolbar: {
                 progressColor: settings.toolbar_progress_color,

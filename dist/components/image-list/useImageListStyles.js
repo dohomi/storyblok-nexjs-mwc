@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-export const useImageListStyles = makeStyles({
+export var useImageListStyles = makeStyles({
     lightbox: {
         '& .MuiPaper-root': {
             backgroundColor: 'rgba(0,0,0,0.9)'

@@ -40,7 +40,7 @@ import Motion from './motion/Motion';
 // import Form from './form/Form'
 // import Pricing from './pricing/Pricing'
 // import Promotion from './promotion/Promotion'
-const Components = {
+var Components = {
     'page': Page,
     'table': Table,
     'accordion': Accordion,
@@ -55,7 +55,7 @@ const Components = {
     'button_list': ButtonList,
     'section': Section,
     'headline': Headline,
-    'paragraph': dynamic(() => import('./paragraph/Paragraph')),
+    'paragraph': dynamic(function () { return import('./paragraph/Paragraph'); }),
     'row': GridRow,
     'column': GridColumn,
     'image': Image,

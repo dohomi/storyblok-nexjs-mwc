@@ -1,5 +1,5 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-export const useRichTextStyles = makeStyles((theme) => createStyles({
+export var useRichTextStyles = makeStyles(function (theme) { return createStyles({
     richText: {
         '& > p': {
             marginTop: theme.spacing(1),
@@ -12,4 +12,4 @@ export const useRichTextStyles = makeStyles((theme) => createStyles({
             }
         }
     }
-}));
+}); });

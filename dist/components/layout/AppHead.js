@@ -7,7 +7,7 @@ import { getFontBasedOnSetting } from '../../utils/parseFont';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { CONFIG } from '../../utils/config';
-const trackGA = (url) => {
+var trackGA = function (url) {
     if (CONFIG.GA && window !== undefined && window['gtag']) {
         window['gtag']('config', CONFIG.GA, {
             page_location: url,
@@ -15,16 +15,17 @@ const trackGA = (url) => {
         });
     }
 };
-Router.events.on('routeChangeStart', () => NProgress.start());
-Router.events.on('routeChangeComplete', (url) => {
+Router.events.on('routeChangeStart', function () { return NProgress.start(); });
+Router.events.on('routeChangeComplete', function (url) {
     NProgress.done();
     trackGA(url);
 });
-Router.events.on('routeChangeError', () => NProgress.done());
-const AppHead = ({ settings }) => {
-    const favicon = settings.setup_favicon;
-    const loadFonts = getFontBasedOnSetting(settings);
-    const isProduction = !StoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production';
+Router.events.on('routeChangeError', function () { return NProgress.done(); });
+var AppHead = function (_a) {
+    var settings = _a.settings;
+    var favicon = settings.setup_favicon;
+    var loadFonts = getFontBasedOnSetting(settings);
+    var isProduction = !StoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production';
     if (process.env.NODE_ENV === 'development') {
         console.log('render app head');
     }
@@ -37,9 +38,9 @@ const AppHead = ({ settings }) => {
             React.createElement("link", { rel: "preconnect", href: "https://www.googletagmanager.com/", crossOrigin: "anonymous" }),
             React.createElement("link", { rel: "preconnect", href: "https://www.google-analytics.com/", crossOrigin: "anonymous" }))),
         favicon && (React.createElement(React.Fragment, null,
-            React.createElement("link", { rel: "icon", href: imageService(favicon, `32x32`), sizes: "32x32", key: `favicon` }),
-            React.createElement("link", { rel: "apple-touch-icon-precomposed", href: imageService(favicon, `152x152`), key: `apple-touch-icon-precomposed` }))),
-        React.createElement("link", { href: `https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`, rel: "stylesheet" }),
+            React.createElement("link", { rel: "icon", href: imageService(favicon, "32x32"), sizes: "32x32", key: "favicon" }),
+            React.createElement("link", { rel: "apple-touch-icon-precomposed", href: imageService(favicon, "152x152"), key: "apple-touch-icon-precomposed" }))),
+        React.createElement("link", { href: "https://fonts.googleapis.com/css?family=" + loadFonts.join('|') + "&display=swap", rel: "stylesheet" }),
         settings.setup_google_site_verification &&
             React.createElement("meta", { name: "google-site-verification", content: settings.setup_google_site_verification, key: "google-site-verification" })));
 };

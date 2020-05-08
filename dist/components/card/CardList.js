@@ -18,7 +18,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { useGridListStyles } from './cardListStyles';
 import { useInfiniteScroll } from '../../utils/hooks/useInfiniteScroll';
-const useStyles = makeStyles({
+var useStyles = makeStyles({
     cardBase: {
         overflowX: 'hidden',
         flexGrow: 1,
@@ -64,25 +64,27 @@ const useStyles = makeStyles({
         }
     }
 });
-const CardList = ({ content }) => {
-    const { body, column_gap, column_count, column_count_phone, column_count_tablet } = content, rest = __rest(content, ["body", "column_gap", "column_count", "column_count_phone", "column_count_tablet"]);
-    const classes = useStyles(content);
-    const gridClasses = useGridListStyles({
+var CardList = function (_a) {
+    var _b;
+    var content = _a.content;
+    var body = content.body, column_gap = content.column_gap, column_count = content.column_count, column_count_phone = content.column_count_phone, column_count_tablet = content.column_count_tablet, rest = __rest(content, ["body", "column_gap", "column_count", "column_count_phone", "column_count_tablet"]);
+    var classes = useStyles(content);
+    var gridClasses = useGridListStyles({
         columnCount: content.column_count,
         columnCountPhone: content.column_count_phone,
         columnCountTablet: content.column_count_tablet
     });
-    let gutterSize = content.column_gap ? Number(content.column_gap) : 24;
-    const { ref, data, hasMore } = useInfiniteScroll(body || []);
-    const variant = content.variant || [];
+    var gutterSize = content.column_gap ? Number(content.column_gap) : 24;
+    var _c = useInfiniteScroll(body || []), ref = _c.ref, data = _c.data, hasMore = _c.hasMore;
+    var variant = content.variant || [];
     return (React.createElement(SbEditable, { content: content },
         React.createElement("div", { style: {
-                padding: `${gutterSize / 2}px`
-            }, className: clsx(classes.cardBase, variant.map(i => 'card__' + i), {
-                ['ratio-' + content.image_ratio]: content.image_ratio
-            }) },
-            React.createElement(GridList, { spacing: gutterSize, cellHeight: 'auto', className: gridClasses.gridList }, data.map(item => (React.createElement(GridListTile, { key: item._uid },
-                React.createElement(CardListItem, { content: item, options: rest }))))),
+                padding: gutterSize / 2 + "px"
+            }, className: clsx(classes.cardBase, variant.map(function (i) { return 'card__' + i; }), (_b = {},
+                _b['ratio-' + content.image_ratio] = content.image_ratio,
+                _b)) },
+            React.createElement(GridList, { spacing: gutterSize, cellHeight: 'auto', className: gridClasses.gridList }, data.map(function (item) { return (React.createElement(GridListTile, { key: item._uid },
+                React.createElement(CardListItem, { content: item, options: rest }))); })),
             React.createElement("div", { ref: hasMore ? ref : undefined }))));
 };
 export default CardList;
