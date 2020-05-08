@@ -27,9 +27,10 @@
     "outDir": "./dist",
     "declaration": true,
     "baseUrl": ".",
+    "rootDir": "src/",
     "paths": {
       "@components": [
-        "./components/ComponentRender.tsx"
+        "./src/components/ComponentRender.tsx"
       ],
       "@polyfills": [
         "./client/polyfills.js"
@@ -42,9 +43,6 @@
     "src/**/*.js"
   ],
   "exclude": [
-    "src/**/*.stories.*",
-    "src/**/*.test.*",
-    "node_modules",
-    "dist"
+    "src/**/*.stories.*"
   ]
 }

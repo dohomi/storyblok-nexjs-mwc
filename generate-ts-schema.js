@@ -233,5 +233,5 @@ function customTypeParser (key, obj) {
 
 genTsSchema()
   .then(() => {
-    fs.writeFileSync('src/typings/generated/components-schema.d.ts', tsString.join('\n'))
+    fs.writeFileSync('src/typings/generated/components-schema.ts', tsString.join('\n'))
   })
