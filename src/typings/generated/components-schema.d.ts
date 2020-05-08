@@ -1206,6 +1206,7 @@ export interface ToolbarNaviButtonStoryblok {
     [k: string]: any;
   };
   is_right_drawer?: boolean;
+  force_show?: boolean;
   _uid: string;
   component: "toolbar_navi_button";
   [k: string]: any;
