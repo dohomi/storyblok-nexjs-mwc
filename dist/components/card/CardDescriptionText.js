@@ -2,10 +2,9 @@ import { default as React } from 'react';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { mapTypographyVariant } from '../../utils/muiMapProps';
-var CardDescriptionText = function (_a) {
-    var content = _a.content, options = _a.options;
-    var description = content.description;
-    var descriptionMaxCharacter = options.description_max_character;
+const CardDescriptionText = ({ content, options }) => {
+    let description = content.description;
+    const descriptionMaxCharacter = options.description_max_character;
     if (!description || descriptionMaxCharacter === 0) {
         return null;
     }

@@ -5,13 +5,12 @@ import clsx from 'clsx';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { useTheme } from '@material-ui/core/styles';
-var ToolbarRow = function (_a) {
-    var content = _a.content, settings = _a.settings;
-    var body = content.body || [];
-    var theme = useTheme();
+const ToolbarRow = ({ content, settings }) => {
+    const body = content.body || [];
+    const theme = useTheme();
     if (content.is_system_bar) {
-        var toolbarConfig = settings.toolbar_config || [];
-        var toolbarWidth = false;
+        const toolbarConfig = settings.toolbar_config || [];
+        let toolbarWidth = false;
         if (toolbarConfig.includes('fixed_width')) {
             toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg';
         }
@@ -21,9 +20,9 @@ var ToolbarRow = function (_a) {
                     // height: `${content.height || 40}px`
                 } },
                 React.createElement(Container, { className: "h-100", maxWidth: toolbarWidth },
-                    React.createElement(Grid, { container: true, className: "h-100", justify: content.justify || 'space-between', alignContent: 'center', alignItems: 'center' }, body.map(function (p) { return React.createElement(ToolbarSection, { content: p, settings: settings, key: p._uid }); }))))));
+                    React.createElement(Grid, { container: true, className: "h-100", justify: content.justify || 'space-between', alignContent: 'center', alignItems: 'center' }, body.map(p => React.createElement(ToolbarSection, { content: p, settings: settings, key: p._uid })))))));
     }
     return (React.createElement(SbEditable, { content: content },
-        React.createElement(Grid, { container: true, justify: content.justify || 'space-between', className: "h-100", alignItems: 'center' }, body.map(function (p) { return React.createElement(ToolbarSection, { content: p, settings: settings, key: p._uid }); }))));
+        React.createElement(Grid, { container: true, justify: content.justify || 'space-between', className: "h-100", alignItems: 'center' }, body.map(p => React.createElement(ToolbarSection, { content: p, settings: settings, key: p._uid })))));
 };
 export default ToolbarRow;

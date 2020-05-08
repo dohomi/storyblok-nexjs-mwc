@@ -23,22 +23,22 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getGlobalState, setGlobalState } from '../../utils/state/state';
 import hasWebpSupport from '../../utils/detectWebpSupport';
-var Index = function (props) {
-    var error = props.error, locale = props.locale, settings = props.settings, page = props.page, rest = __rest(props, ["error", "locale", "settings", "page"]);
-    var _a = useStoryblok({ settings: settings, page: page }), stateSettings = _a.stateSettings, statePage = _a.statePage;
-    var isFallback = useRouter().isFallback;
+const Index = (props) => {
+    const { error, locale, settings, page } = props, rest = __rest(props, ["error", "locale", "settings", "page"]);
+    const { stateSettings, statePage } = useStoryblok({ settings, page });
+    const { isFallback } = useRouter();
     if (locale && getGlobalState('locale') !== locale) {
         setGlobalState('locale', locale);
     }
     if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
         hasWebpSupport()
-            .then(function (has) { return setGlobalState('hasWebpSupport', has); });
+            .then((has) => setGlobalState('hasWebpSupport', has));
     }
     // If the page is not yet generated, this will be displayed
     // initially until getStaticProps() finishes running
-    useEffect(function () {
+    useEffect(() => {
         // Remove the server-side injected CSS.
-        var jssStyles = document.querySelector('#jss-server-side');
+        const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles && jssStyles.parentElement) {
             jssStyles.parentElement.removeChild(jssStyles);
         }

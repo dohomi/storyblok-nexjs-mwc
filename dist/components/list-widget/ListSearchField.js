@@ -7,20 +7,19 @@ import { useRouter } from 'next/router';
 import TextField from '@material-ui/core/TextField';
 import clsx from 'clsx';
 import Magnify from 'mdi-material-ui/Magnify';
-var ListSearchField = function (_a) {
-    var content = _a.content;
-    var router = useRouter();
-    var query = router === null || router === void 0 ? void 0 : router.query;
-    var _b = useState(query.search__text || ''), searchText = _b[0], setSearchText = _b[1];
-    var debouncedCallback = useDebouncedCallback(
+const ListSearchField = ({ content }) => {
+    const router = useRouter();
+    const query = router === null || router === void 0 ? void 0 : router.query;
+    const [searchText, setSearchText] = useState(query.search__text || '');
+    const [debouncedCallback] = useDebouncedCallback(
     // function
-    function (value) {
+    (value) => {
         onSearchTextChange(value);
     }, 
     // delay in ms
-    300)[0];
+    300);
     function onSearchChange(ev) {
-        var value = ev.currentTarget.value;
+        const value = ev.currentTarget.value;
         setSearchText(value);
         debouncedCallback(value);
     }

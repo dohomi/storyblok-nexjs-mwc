@@ -1,9 +1,8 @@
 import { CONFIG } from '../config';
-export var prepareForStoryblok = function (slug) {
-    if (slug === void 0) { slug = 'home'; }
-    var knownLocale = undefined;
-    var isLandingPage = undefined;
-    var slugAsArray = Array.isArray(slug) ? slug : [slug];
+export const prepareForStoryblok = (slug = 'home') => {
+    let knownLocale = undefined;
+    let isLandingPage = undefined;
+    let slugAsArray = Array.isArray(slug) ? slug : [slug];
     if (CONFIG.rootDirectory) {
         // if the first entry is not root directory append root directory
         slugAsArray[0] !== CONFIG.rootDirectory && slugAsArray.unshift(CONFIG.rootDirectory);
@@ -35,10 +34,10 @@ export var prepareForStoryblok = function (slug) {
             slugAsArray.push('home');
         }
     }
-    var pageSlug = slugAsArray.join('/');
+    const pageSlug = slugAsArray.join('/');
     return {
-        pageSlug: pageSlug,
-        knownLocale: knownLocale,
-        isLandingPage: isLandingPage
+        pageSlug,
+        knownLocale,
+        isLandingPage
     };
 };

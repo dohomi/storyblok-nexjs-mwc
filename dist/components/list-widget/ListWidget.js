@@ -2,28 +2,28 @@ import React from 'react';
 import ListWidgetWithSearch from './ListWidgetWithSearch';
 import ListWidgetContainer from './ListWidgetContainer';
 import { useAppContext } from '../provider/AppProvider';
-export var listWidgetFilter = function (content, allStories) {
-    var filter = (content.tags && content.tags.values) || [];
-    var sort = content.sort;
-    var sortDescending = content.sort_descending;
-    var stories = (allStories || [])
-        .filter(function (item) {
-        var itemCategories = item.tag_list || [];
+export const listWidgetFilter = (content, allStories) => {
+    const filter = (content.tags && content.tags.values) || [];
+    const sort = content.sort;
+    const sortDescending = content.sort_descending;
+    const stories = (allStories || [])
+        .filter((item) => {
+        const itemCategories = item.tag_list || [];
         if (filter.length) {
             return content.match_all_tags
-                ? filter.every(function (element) { return itemCategories.includes(element); })
-                : filter.some(function (element) { return itemCategories.includes(element); });
+                ? filter.every(element => itemCategories.includes(element))
+                : filter.some(element => itemCategories.includes(element));
         }
         if (content.only_tagged) {
             return !!itemCategories.length;
         }
         return true;
     })
-        .sort(function (a, b) {
-        var sortACriteria = a.published_at;
-        var sortBCriteria = b.published_at;
-        var itemContentA = a.content;
-        var itemContentB = b.content;
+        .sort((a, b) => {
+        let sortACriteria = a.published_at;
+        let sortBCriteria = b.published_at;
+        const itemContentA = a.content;
+        const itemContentB = b.content;
         if (sort === 'created') {
             sortACriteria = a.created_at;
             sortBCriteria = b.created_at;
@@ -53,11 +53,10 @@ export var listWidgetFilter = function (content, allStories) {
     }
     return stories;
 };
-var ListWidget = function (_a) {
-    var content = _a.content;
-    var listWidgetData = useAppContext().listWidgetData;
-    var items = (listWidgetData && listWidgetData[content._uid]) || [];
-    var listOption = (content.list_options && content.list_options[0]) || {};
+const ListWidget = ({ content }) => {
+    const { listWidgetData } = useAppContext();
+    let items = (listWidgetData && listWidgetData[content._uid]) || [];
+    const listOption = (content.list_options && content.list_options[0]) || {};
     if (content.enable_for_search) {
         return React.createElement(ListWidgetWithSearch, { listOption: listOption, content: content, items: items });
     }

@@ -1,13 +1,12 @@
 import React, { createContext, useContext } from 'react';
-var defaultValue = {
+const defaultValue = {
     allCategories: [],
     allStaticContent: [],
     listWidgetData: {}
 };
-var AppContext = createContext(defaultValue);
-var AppProvider = function (_a) {
-    var children = _a.children, content = _a.content;
+const AppContext = createContext(defaultValue);
+const AppProvider = ({ children, content }) => {
     return React.createElement(AppContext.Provider, { value: content }, children);
 };
-export var useAppContext = function () { return useContext(AppContext); };
+export const useAppContext = () => useContext(AppContext);
 export default AppProvider;

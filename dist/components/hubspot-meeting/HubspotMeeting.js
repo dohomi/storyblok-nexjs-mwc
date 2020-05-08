@@ -1,10 +1,9 @@
 import SbEditable from 'storyblok-react';
 import React from 'react';
 import { useScript } from '../../utils/hooks/useScript';
-var HubspotMeeting = function (_a) {
-    var content = _a.content, disableEmbed = _a.disableEmbed;
-    var dataSrc = "https://app.hubspot.com/meetings/" + content.meeting_name + "?embed-true=" + (disableEmbed ? 'false' : 'true');
-    var error = useScript(content.meeting_name ? "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=" + new Date().getTime() : '').error;
+const HubspotMeeting = ({ content, disableEmbed }) => {
+    const dataSrc = `https://app.hubspot.com/meetings/${content.meeting_name}?embed-true=${disableEmbed ? 'false' : 'true'}`;
+    const { error } = useScript(content.meeting_name ? `https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=${new Date().getTime()}` : '');
     if (error) {
         console.error('script of hubspot not loaded');
     }

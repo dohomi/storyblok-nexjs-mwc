@@ -1,9 +1,9 @@
 import { isMobile } from 'is-mobile';
-var deviceDetect = function (req) {
-    var userAgent = req && req.headers['user-agent'];
-    var mobileDevice = isMobile({ ua: userAgent });
-    var tabletDevice = isMobile({ ua: userAgent, tablet: true });
-    var obj = {
+const deviceDetect = (req) => {
+    let userAgent = req && req.headers['user-agent'];
+    const mobileDevice = isMobile({ ua: userAgent });
+    const tabletDevice = isMobile({ ua: userAgent, tablet: true });
+    const obj = {
         width: 1080,
         isTablet: false,
         isMobile: false,

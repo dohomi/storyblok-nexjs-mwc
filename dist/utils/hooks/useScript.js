@@ -1,13 +1,13 @@
 // Hook
 import { useEffect, useState } from 'react';
-var cachedScripts = [];
+const cachedScripts = [];
 export function useScript(src) {
     // Keeping track of script loaded and error state
-    var _a = useState({
+    const [state, setState] = useState({
         loaded: false,
         error: false
-    }), state = _a[0], setState = _a[1];
-    useEffect(function () {
+    });
+    useEffect(() => {
         // If cachedScripts array already includes src that means another instance ...
         // ... of this hook already loaded this script, so no need to load again.
         if (!src) {
@@ -23,36 +23,36 @@ export function useScript(src) {
         else {
             cachedScripts.push(src);
             // Create script
-            var script_1 = document.createElement('script');
-            script_1.src = src;
-            script_1.async = true;
-            script_1.setAttribute('crossorigin', '*');
+            let script = document.createElement('script');
+            script.src = src;
+            script.async = true;
+            script.setAttribute('crossorigin', '*');
             // Script event listener callbacks for load and error
-            var onScriptLoad_1 = function () {
+            const onScriptLoad = () => {
                 setState({
                     loaded: true,
                     error: false
                 });
             };
-            var onScriptError_1 = function () {
+            const onScriptError = () => {
                 // Remove from cachedScripts we can try loading again
-                var index = cachedScripts.indexOf(src);
+                const index = cachedScripts.indexOf(src);
                 if (index >= 0)
                     cachedScripts.splice(index, 1);
-                script_1.remove();
+                script.remove();
                 setState({
                     loaded: true,
                     error: true
                 });
             };
-            script_1.addEventListener('load', onScriptLoad_1);
-            script_1.addEventListener('error', onScriptError_1);
+            script.addEventListener('load', onScriptLoad);
+            script.addEventListener('error', onScriptError);
             // Add script to document body
-            document.body.appendChild(script_1);
+            document.body.appendChild(script);
             // Remove event listeners on cleanup
-            return function () {
-                script_1.removeEventListener('load', onScriptLoad_1);
-                script_1.removeEventListener('error', onScriptError_1);
+            return () => {
+                script.removeEventListener('load', onScriptLoad);
+                script.removeEventListener('error', onScriptError);
             };
         }
     }, [src] // Only re-run effect if script src changes

@@ -1,4 +1,4 @@
-export var mapTypographyVariant = {
+export const mapTypographyVariant = {
     headline1: 'h1',
     headline2: 'h2',
     headline3: 'h3',

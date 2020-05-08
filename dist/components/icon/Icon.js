@@ -3,7 +3,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import LmIcon from './LmIcon';
-var useStyles = makeStyles({
+const useStyles = makeStyles({
     icon: {
         '&.xmall': {
             fontSize: '1rem'
@@ -28,14 +28,12 @@ var useStyles = makeStyles({
         }
     }
 });
-var IconMwc = function (_a) {
-    var _b;
-    var content = _a.content;
-    var classes = useStyles();
+const IconMwc = ({ content }) => {
+    const classes = useStyles();
     return (React.createElement(SbEditable, { content: content },
         React.createElement("div", { className: clsx(content.class_names && content.class_names.values) },
-            React.createElement(LmIcon, { className: clsx(classes.icon, (_b = {},
-                    _b[content.size] = !!content.size,
-                    _b)), iconUrl: content.icon_url, style: { color: (content.color && content.color.rgba) ? content.color.rgba : undefined }, iconName: content.name && content.name.name }))));
+            React.createElement(LmIcon, { className: clsx(classes.icon, {
+                    [content.size]: !!content.size
+                }), iconUrl: content.icon_url, style: { color: (content.color && content.color.rgba) ? content.color.rgba : undefined }, iconName: content.name && content.name.name }))));
 };
 export default IconMwc;

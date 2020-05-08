@@ -3,15 +3,15 @@ import * as React from 'react';
 // to a target HTMLObjectElement or HTMLIFrameElement
 // The real Hook is `useResizeAware.js`
 //@ts-ignore
-export default (function (ref, onResize) {
-    var getTarget = function () { return ref.current && ref.current.contentDocument && ref.current.contentDocument.defaultView; };
+export default (ref, onResize) => {
+    const getTarget = () => ref.current && ref.current.contentDocument && ref.current.contentDocument.defaultView;
     function run() {
         // trigger onResize event on mount to provide initial sizes
         onResize();
         var target = getTarget();
         target && target.addEventListener('resize', onResize);
     }
-    React.useEffect(function () {
+    React.useEffect(() => {
         if (getTarget()) {
             run();
         }
@@ -19,13 +19,13 @@ export default (function (ref, onResize) {
             ref.current.addEventListener('load', run);
         }
         // clean event listener on unmount
-        return function () {
+        return () => {
             // Ensure the target exists and is in fact an event listener
             // this fixes an issue where contentDocument.defaultView is not a real window object
             // as can be the case when used with React portals
-            var target = getTarget();
-            var isListener = target && typeof target.removeEventListener === 'function';
+            const target = getTarget();
+            const isListener = target && typeof target.removeEventListener === 'function';
             isListener && target.removeEventListener('resize', onResize);
         };
     }, []);
-});
+};

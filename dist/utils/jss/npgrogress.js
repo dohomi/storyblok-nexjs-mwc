@@ -1,4 +1,4 @@
-var getNprogressJss = function (theme) { return ({
+const getNprogressJss = (theme) => ({
     // NProgress
     '#nprogress': {
         pointerEvents: 'none',
@@ -16,7 +16,7 @@ var getNprogressJss = function (theme) { return ({
             position: 'absolute',
             top: 0,
             height: 2,
-            boxShadow: ((theme.toolbar && theme.toolbar.progressColor) || theme.palette.primary.main) + " 1px 0 6px 1px",
+            boxShadow: `${(theme.toolbar && theme.toolbar.progressColor) || theme.palette.primary.main} 1px 0 6px 1px`,
             borderRadius: '100%',
             animation: 'nprogress-pulse 2s ease-out 0s infinite'
         },
@@ -44,5 +44,5 @@ var getNprogressJss = function (theme) { return ({
             opacity: 0.6
         }
     }
-}); };
+});
 export default getNprogressJss;

@@ -1,14 +1,3 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -18,82 +7,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 import { CONFIG } from '../config';
 import { prepareForStoryblok } from './prepareStoryblokRequest';
 import { apiRequestResolver } from './storyblokDeliveryResolver';
 import { collectComponentData } from './traversePageContent';
-var getPageProps = function (slug, ssrHostname) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, isLandingPage, knownLocale, pageSlug, _b, page, settings, _c, allCategories, _d, allStories, locale, _e, allStaticContent, pageProps, settingsProps, componentData;
-    var _f, _g, _h, _j, _k, _l, _m, _o;
-    return __generator(this, function (_p) {
-        switch (_p.label) {
-            case 0:
-                _a = prepareForStoryblok(slug), isLandingPage = _a.isLandingPage, knownLocale = _a.knownLocale, pageSlug = _a.pageSlug;
-                return [4 /*yield*/, apiRequestResolver({
-                        pageSlug: pageSlug,
-                        locale: knownLocale,
-                        isLandingPage: isLandingPage,
-                        ssrHostname: ssrHostname
-                    })];
-            case 1:
-                _b = _p.sent(), page = _b.page, settings = _b.settings, _c = _b.allCategories, allCategories = _c === void 0 ? [] : _c, _d = _b.allStories, allStories = _d === void 0 ? [] : _d, locale = _b.locale, _e = _b.allStaticContent, allStaticContent = _e === void 0 ? [] : _e;
-                if (CONFIG.defaultLocale && !locale) {
-                    locale = CONFIG.defaultLocale;
-                }
-                if (CONFIG.overwriteLocale) {
-                    locale = CONFIG.overwriteLocale;
-                }
-                pageProps = (_g = (_f = page === null || page === void 0 ? void 0 : page.data) === null || _f === void 0 ? void 0 : _f.story) === null || _g === void 0 ? void 0 : _g.content;
-                settingsProps = (_j = (_h = settings === null || settings === void 0 ? void 0 : settings.data) === null || _h === void 0 ? void 0 : _h.story) === null || _j === void 0 ? void 0 : _j.content;
-                if (!settings) {
-                    console.log('SETTINGS MISSNG');
-                }
-                else if (!pageProps) {
-                    console.log('PAGE MISSNG');
-                }
-                componentData = null;
-                if (!pageProps) return [3 /*break*/, 3];
-                return [4 /*yield*/, collectComponentData(pageProps, allCategories, allStories, knownLocale)];
-            case 2:
-                // traverse content and fetch list widget data
-                componentData = _p.sent();
-                _p.label = 3;
-            case 3: return [2 /*return*/, {
-                    page: pageProps ? __assign(__assign({}, pageProps), { uuid: (_l = (_k = page === null || page === void 0 ? void 0 : page.data) === null || _k === void 0 ? void 0 : _k.story) === null || _l === void 0 ? void 0 : _l.uuid }) : null,
-                    settings: settingsProps ? __assign(__assign({}, settingsProps), { uuid: (_o = (_m = settings === null || settings === void 0 ? void 0 : settings.data) === null || _m === void 0 ? void 0 : _m.story) === null || _o === void 0 ? void 0 : _o.uuid }) : null,
-                    allCategories: allCategories,
-                    allStaticContent: allStaticContent,
-                    locale: locale,
-                    listWidgetData: componentData || null
-                }];
-        }
+const getPageProps = (slug, ssrHostname) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c, _d, _e, _f, _g, _h;
+    const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug);
+    let { page, settings, allCategories = [], allStories = [], locale, allStaticContent = [] } = yield apiRequestResolver({
+        pageSlug,
+        locale: knownLocale,
+        isLandingPage: isLandingPage,
+        ssrHostname
     });
-}); };
+    if (CONFIG.defaultLocale && !locale) {
+        locale = CONFIG.defaultLocale;
+    }
+    if (CONFIG.overwriteLocale) {
+        locale = CONFIG.overwriteLocale;
+    }
+    // const url = `https://${process.env.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
+    const pageProps = (_b = (_a = page === null || page === void 0 ? void 0 : page.data) === null || _a === void 0 ? void 0 : _a.story) === null || _b === void 0 ? void 0 : _b.content;
+    const settingsProps = (_d = (_c = settings === null || settings === void 0 ? void 0 : settings.data) === null || _c === void 0 ? void 0 : _c.story) === null || _d === void 0 ? void 0 : _d.content;
+    if (!settings) {
+        console.log('SETTINGS MISSNG');
+    }
+    else if (!pageProps) {
+        console.log('PAGE MISSNG');
+    }
+    let componentData = null;
+    if (pageProps) {
+        // traverse content and fetch list widget data
+        componentData = yield collectComponentData(pageProps, allCategories, allStories, knownLocale);
+    }
+    return {
+        page: pageProps ? Object.assign(Object.assign({}, pageProps), { uuid: (_f = (_e = page === null || page === void 0 ? void 0 : page.data) === null || _e === void 0 ? void 0 : _e.story) === null || _f === void 0 ? void 0 : _f.uuid }) : null,
+        settings: settingsProps ? Object.assign(Object.assign({}, settingsProps), { uuid: (_h = (_g = settings === null || settings === void 0 ? void 0 : settings.data) === null || _g === void 0 ? void 0 : _g.story) === null || _h === void 0 ? void 0 : _h.uuid }) : null,
+        allCategories,
+        allStaticContent,
+        locale,
+        listWidgetData: componentData || null
+    };
+});
 export default getPageProps;

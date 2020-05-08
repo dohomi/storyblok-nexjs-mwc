@@ -4,15 +4,13 @@ import clsx from 'clsx';
 import { componentLogger } from '../../utils/componentLogger';
 import Typography from '@material-ui/core/Typography';
 import { mapTypographyVariant } from '../../utils/muiMapProps';
-var Headline = function (_a) {
-    var _b;
-    var content = _a.content;
+const Headline = ({ content }) => {
     componentLogger(content);
-    var component = content.tag ? content.tag : undefined;
+    const component = content.tag ? content.tag : undefined;
     return (React.createElement(SbEditable, { content: content },
-        React.createElement(Typography, { className: clsx(content.style, content.style_props, content.class_names && content.class_names.values, (_b = {},
-                _b["lm-font-" + content.font] = content.font,
-                _b)), component: component, align: content.align ? content.align : undefined, color: content.color ? content.color : undefined, style: {
+        React.createElement(Typography, { className: clsx(content.style, content.style_props, content.class_names && content.class_names.values, {
+                [`lm-font-${content.font}`]: content.font
+            }), component: component, align: content.align ? content.align : undefined, color: content.color ? content.color : undefined, style: {
                 color: content.custom_color && content.custom_color.rgba ? content.custom_color.rgba : undefined,
                 lineHeight: content.line_height ? content.line_height : undefined,
                 fontSize: content.font_size ? content.font_size : undefined,

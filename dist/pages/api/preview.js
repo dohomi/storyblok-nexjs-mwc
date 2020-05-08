@@ -1,10 +1,10 @@
-export default (function (req, res) {
-    var currentSlug = req.query.slug;
+export default (req, res) => {
+    let currentSlug = req.query.slug;
     if (!currentSlug || typeof currentSlug !== 'string') {
         return res.status(401).json({ message: 'Invalid token/slug' });
     }
-    currentSlug = currentSlug.startsWith('/') ? currentSlug : "/" + currentSlug;
-    var queryParams = req.query;
+    currentSlug = currentSlug.startsWith('/') ? currentSlug : `/${currentSlug}`;
+    const queryParams = req.query;
     delete queryParams.slug;
     console.log('inside preview', queryParams, currentSlug);
     res.setPreviewData({
@@ -17,6 +17,8 @@ export default (function (req, res) {
     // console.log('inside preview', queryParams, searchParams.toString())
     // res.writeHead(307, { Location: currentSlug })
     // res.writeHead(307, { Location: `${currentSlug}?${searchParams.toString()}` })
-    res.write("<!DOCTYPE html><html><head><meta http-equiv=\"Refresh\" content=\"0; url=" + currentSlug + "\" />\n    <script>window.location.href = '" + currentSlug + "'</script>\n    </head>");
+    res.write(`<!DOCTYPE html><html><head><meta http-equiv="Refresh" content="0; url=${currentSlug}" />
+    <script>window.location.href = '${currentSlug}'</script>
+    </head>`);
     res.end();
-});
+};

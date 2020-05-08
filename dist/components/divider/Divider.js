@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 import { makeStyles } from '@material-ui/core';
 import LmIcon from '../icon/LmIcon';
-var useStyles = makeStyles({
+const useStyles = makeStyles({
     hSeparator: {
         clear: 'both',
         width: '100%',
@@ -68,39 +68,35 @@ var useStyles = makeStyles({
         }
     }
 });
-var Wrap = function (_a) {
-    var content = _a.content, children = _a.children, style = _a.style, className = _a.className, childStyle = _a.childStyle;
-    return (React.createElement(SbEditable, { content: content },
-        React.createElement("div", { className: className, style: style },
-            React.createElement("div", { style: childStyle }, children))));
-};
-var Divider = function (_a) {
-    var content = _a.content;
-    var classes = useStyles();
-    var style = {};
-    var iconName = content.icon && content.icon.name;
-    var iconSize = content.size;
+const Wrap = ({ content, children, style, className, childStyle }) => (React.createElement(SbEditable, { content: content },
+    React.createElement("div", { className: className, style: style },
+        React.createElement("div", { style: childStyle }, children))));
+const Divider = ({ content }) => {
+    const classes = useStyles();
+    const style = {};
+    const iconName = content.icon && content.icon.name;
+    const iconSize = content.size;
     if (content.color && content.color.rgba) {
         style.color = content.color.rgba;
     }
     if (iconSize) {
-        style.height = iconSize + "px";
+        style.height = `${iconSize}px`;
     }
-    var className = clsx(classes.hSeparator, iconName && classes.hSeparatorIcon, content.class_names && content.class_names.values);
-    var childStyle = {
-        borderTopWidth: (content.thickness || 1) + "px"
+    const className = clsx(classes.hSeparator, iconName && classes.hSeparatorIcon, content.class_names && content.class_names.values);
+    const childStyle = {
+        borderTopWidth: `${content.thickness || 1}px`
     };
     if (content.width) {
-        childStyle.width = content.width + "%";
+        childStyle.width = `${content.width}%`;
     }
     if (iconName) {
         return (React.createElement(Wrap, { content: content, style: style, childStyle: childStyle, className: className },
             React.createElement("div", null,
-                React.createElement("div", { style: { borderTopWidth: (content.thickness || 1) + "px" } },
+                React.createElement("div", { style: { borderTopWidth: `${content.thickness || 1}px` } },
                     React.createElement("span", null,
                         React.createElement(LmIcon, { iconName: iconName, style: {
                                 fontSize: iconSize + 'px',
-                                marginTop: (content.thickness || 1) + "px"
+                                marginTop: `${content.thickness || 1}px`
                             } }))))));
     }
     return (React.createElement(Wrap, { content: content, style: style, childStyle: childStyle, className: className },

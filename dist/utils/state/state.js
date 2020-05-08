@@ -1,6 +1,6 @@
 import { createGlobalState } from 'react-hooks-global-state';
 import { CONFIG } from '../config';
-var initialState = {
+const initialState = {
     leftNavigationDrawer: false,
     rightNavigationDrawer: false,
     searchParams: {
@@ -10,5 +10,5 @@ var initialState = {
     locale: CONFIG.defaultLocale,
     hasWebpSupport: undefined
 };
-var _a = createGlobalState(initialState), setGlobalState = _a.setGlobalState, useGlobalState = _a.useGlobalState, getGlobalState = _a.getGlobalState;
+const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(initialState);
 export { useGlobalState, setGlobalState, getGlobalState };

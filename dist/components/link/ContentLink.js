@@ -1,14 +1,3 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -26,26 +15,25 @@ import SbEditable from 'storyblok-react';
 import Link from 'next/link';
 import MuiNextLink from './MuiNextLink';
 import { CONFIG } from '../../utils/config';
-var ContentLink = function (_a) {
-    var children = _a.children, className = _a.className, content = _a.content, passHref = _a.passHref, isMuiLink = _a.isMuiLink;
+const ContentLink = ({ children, className, content, passHref, isMuiLink }) => {
     if (content.link) {
-        var _b = getLinkAttrs(content.link, { openExternal: !!content.open_external }), rel = _b.rel, target = _b.target, external_1 = _b.external, attrs = __rest(_b, ["rel", "target", "external"]);
+        const _a = getLinkAttrs(content.link, { openExternal: !!content.open_external }), { rel, target, external } = _a, attrs = __rest(_a, ["rel", "target", "external"]);
         if (attrs.href) {
-            if (external_1) {
+            if (external) {
                 return (React.createElement(SbEditable, { content: content }, isMuiLink ? (React.createElement(MuiNextLink, { href: attrs.href, rel: rel, target: target, className: className }, children)) : (React.createElement("a", { href: attrs.href, rel: rel, target: target, className: className }, children))));
             }
-            var props = {};
+            const props = {};
             if (!CONFIG.prefetch) {
                 props.prefetch = false;
             }
             if (isMuiLink) {
                 return (React.createElement(SbEditable, { content: content },
-                    React.createElement(MuiNextLink, __assign({ href: content.link.nextHref || '/[...index]', as: attrs.href }, props), children)));
+                    React.createElement(MuiNextLink, Object.assign({ href: content.link.nextHref || '/[...index]', as: attrs.href }, props), children)));
             }
             return (React.createElement(SbEditable, { content: content },
-                !passHref && (React.createElement(Link, __assign({}, attrs, { href: content.link.nextHref || '/[...index]', as: attrs.href }, props),
+                !passHref && (React.createElement(Link, Object.assign({}, attrs, { href: content.link.nextHref || '/[...index]', as: attrs.href }, props),
                     React.createElement("a", { rel: rel, target: target, className: className }, children))),
-                passHref && (React.createElement(Link, __assign({}, attrs, { href: content.link.nextHref || '/[...index]', as: attrs.href, passHref: true }, props), children))));
+                passHref && (React.createElement(Link, Object.assign({}, attrs, { href: content.link.nextHref || '/[...index]', as: attrs.href, passHref: true }, props), children))));
         }
     }
     return (React.createElement(SbEditable, { content: content }, children));

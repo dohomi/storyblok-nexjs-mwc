@@ -7,17 +7,16 @@ import CardMedia from '@material-ui/core/CardMedia';
 import { Fade } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import ImageShadow from '../section/ImageShadow';
-var CardMediaElement = function (_a) {
-    var children = _a.children, content = _a.content, options = _a.options;
-    var _b = useInView(intersectionDefaultOptions), reference = _b[0], inView = _b[1], intersecRef = _b[2];
-    var _c = useState(''), imgSource = _c[0], setImgSource = _c[1];
-    var contentImage = content.image;
-    var img = { src: '', srcSet: '' };
-    var imageSize = options.image_size;
+const CardMediaElement = ({ children, content, options }) => {
+    const [reference, inView, intersecRef] = useInView(intersectionDefaultOptions);
+    const [imgSource, setImgSource] = useState('');
+    const contentImage = content.image;
+    let img = { src: '', srcSet: '' };
+    const imageSize = options.image_size;
     if (inView && contentImage && intersecRef && intersecRef.target) {
-        var mediaEl = intersecRef === null || intersecRef === void 0 ? void 0 : intersecRef.target;
-        var currentWidth = (mediaEl === null || mediaEl === void 0 ? void 0 : mediaEl.clientWidth) || 0;
-        var currentHeight = mediaEl === null || mediaEl === void 0 ? void 0 : mediaEl.clientHeight;
+        const mediaEl = intersecRef === null || intersecRef === void 0 ? void 0 : intersecRef.target;
+        const currentWidth = (mediaEl === null || mediaEl === void 0 ? void 0 : mediaEl.clientWidth) || 0;
+        const currentHeight = mediaEl === null || mediaEl === void 0 ? void 0 : mediaEl.clientHeight;
         img = getImageAttrs({
             originalSource: contentImage,
             width: currentWidth,

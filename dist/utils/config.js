@@ -1,4 +1,4 @@
-export var CONFIG = {
+export const CONFIG = {
     previewToken: process.env.previewToken || '',
     publicToken: process.env.publicToken || '',
     languages: (process.env.languages && process.env.languages.split(',')) || [],

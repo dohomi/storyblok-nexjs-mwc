@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "noUnusedLocals": false,
     "noImplicitAny": true,
-    "target": "es5",
+    "target": "es2015",
     "module": "esnext",
     "strict": true,
     "jsx": "react",
