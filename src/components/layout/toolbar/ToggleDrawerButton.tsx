@@ -18,9 +18,12 @@ const ToggleDrawerButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblo
   }
 
   const breakpointClass = rightDrawer ? (rightDrawerMediaBreakpoint || 'sm') : (leftDrawerMediaBreakpoint || 'sm')
+
   return (
     <SbEditable content={content}>
-      <IconButton className={clsx(content.class_names?.values, `d-${breakpointClass}-none`)}
+      <IconButton className={clsx(content.class_names?.values, {
+        [`d-${breakpointClass}-none`]: !content.force_show
+      })}
                   style={{
                     width: 'max-content'
                   }}
