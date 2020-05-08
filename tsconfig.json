@@ -29,9 +29,6 @@
       "@components": [
         "./components/ComponentRender.tsx"
       ],
-      "@fonts": [
-        "./components/fonts.ts"
-      ],
       "@polyfills": [
         "./client/polyfills.js"
       ],
