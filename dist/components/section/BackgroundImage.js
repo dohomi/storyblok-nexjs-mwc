@@ -9,55 +9,60 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import clsx from 'clsx';
 import ImageShadow from './ImageShadow';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-const useStyles = makeStyles((theme) => createStyles({
-    root: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        // zIndex: 0
-        '&.lm-fixed-bg': {
-            backgroundPosition: 'center',
-            backgroundAttachment: 'fixed',
-            // backgroundSize: 'initial', // not sure why this was set before
-            '&.lm-fixed-bg__top': {
-                backgroundPosition: 'top'
-            },
-            [theme.breakpoints.down('sm') + 'and (orientation: portrait)']: {
-                backgroundPosition: 'center',
-                backgroundAttachment: 'scroll'
-            },
-            [theme.breakpoints.down('sm') + 'and (orientation: landscape)']: {
-                backgroundPosition: 'center',
-                backgroundAttachment: 'scroll'
-            }
+var useStyles = makeStyles(function (theme) {
+    var _a;
+    return createStyles({
+        root: {
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            // zIndex: 0
+            '&.lm-fixed-bg': (_a = {
+                    backgroundPosition: 'center',
+                    backgroundAttachment: 'fixed',
+                    // backgroundSize: 'initial', // not sure why this was set before
+                    '&.lm-fixed-bg__top': {
+                        backgroundPosition: 'top'
+                    }
+                },
+                _a[theme.breakpoints.down('sm') + 'and (orientation: portrait)'] = {
+                    backgroundPosition: 'center',
+                    backgroundAttachment: 'scroll'
+                },
+                _a[theme.breakpoints.down('sm') + 'and (orientation: landscape)'] = {
+                    backgroundPosition: 'center',
+                    backgroundAttachment: 'scroll'
+                },
+                _a)
         }
-    }
-}));
-const BackgroundImage = ({ content, backgroundStyle }) => {
+    });
+});
+var BackgroundImage = function (_a) {
+    var content = _a.content, backgroundStyle = _a.backgroundStyle;
     if (!content.image) {
         return null;
     }
-    const image = content.image;
-    const classes = useStyles();
-    const { isDesktop, width, height } = useWindowDimensions();
-    const [imgSrc, setImgSrc] = useState();
-    const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions);
-    const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs'));
-    const disableSmartCrop = content.disable_smart_crop;
-    const imageFocalPoint = content.image_focal_point;
-    let imageAttrs = { src: '', srcSet: '' };
-    const current = anchorRef && anchorRef.target;
+    var image = content.image;
+    var classes = useStyles();
+    var _b = useWindowDimensions(), isDesktop = _b.isDesktop, width = _b.width, height = _b.height;
+    var _c = useState(), imgSrc = _c[0], setImgSrc = _c[1];
+    var _d = useInView(intersectionDefaultOptions), viewRef = _d[0], inView = _d[1], anchorRef = _d[2];
+    var theme = useTheme();
+    var matches = useMediaQuery(theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs'));
+    var disableSmartCrop = content.disable_smart_crop;
+    var imageFocalPoint = content.image_focal_point;
+    var imageAttrs = { src: '', srcSet: '' };
+    var current = anchorRef && anchorRef.target;
     if (content.hide_image_on_breakpoint && matches) {
         return null; // don't render if image hidden
     }
     if (current && inView && image) {
-        let currentWidth = current.clientWidth;
-        let currentHeight = current.clientHeight;
+        var currentWidth = current.clientWidth;
+        var currentHeight = current.clientHeight;
         if (isDesktop) {
             if (backgroundStyle === 'fixed_cover') {
                 currentWidth = width;
@@ -68,7 +73,7 @@ const BackgroundImage = ({ content, backgroundStyle }) => {
                 currentWidth = currentWidth + 200;
             }
         }
-        const isAlternativeSource = content.alternative_image && height > width;
+        var isAlternativeSource = content.alternative_image && height > width;
         imageAttrs = getImageAttrs({
             originalSource: isAlternativeSource ? content.alternative_image : image,
             width: currentWidth,
@@ -87,7 +92,7 @@ const BackgroundImage = ({ content, backgroundStyle }) => {
                     'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
                     'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
                 }), style: {
-                    backgroundImage: imgSrc && `url('${imgSrc}')`,
+                    backgroundImage: imgSrc && "url('" + imgSrc + "')",
                     backgroundSize: content.background_size ? content.background_size : undefined,
                     backgroundPosition: content.background_position ? content.background_position : undefined
                 }, ref: viewRef }))));

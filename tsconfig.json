@@ -27,7 +27,7 @@
     "baseUrl": ".",
     "paths": {
       "@components": [
-        "./components/ComponentRender.tsx"
+        "./src/components/ComponentRender.tsx"
       ],
       "@polyfills": [
         "./client/polyfills.js"

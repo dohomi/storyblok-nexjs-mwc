@@ -1,44 +1,44 @@
 import { CONFIG } from './config';
 import { getGlobalState } from './state/state';
-export const homepageLinkHandler = () => {
+export var homepageLinkHandler = function () {
     if (CONFIG.rootDirectory) {
         return '/home';
     }
-    const appLocale = getGlobalState('locale');
-    return appLocale && appLocale !== CONFIG.defaultLocale ? `/${appLocale}/home` : '/home';
+    var appLocale = getGlobalState('locale');
+    return appLocale && appLocale !== CONFIG.defaultLocale ? "/" + appLocale + "/home" : '/home';
 };
-export const internalLinkHandler = (url) => {
+export var internalLinkHandler = function (url) {
     if (CONFIG.rootDirectory) {
-        const urlArray = url.split('/');
+        var urlArray = url.split('/');
         if (urlArray[0] === CONFIG.rootDirectory) {
             urlArray.shift();
             url = urlArray.join('/');
         }
     }
     else if (CONFIG.suppressSlugLocale) {
-        const urlArray = url.split('/');
+        var urlArray = url.split('/');
         if (urlArray.length > 1 && CONFIG.languages.includes(urlArray[0]) && urlArray[1] !== 'home') {
             urlArray.shift();
             url = urlArray.join('/');
         }
     }
-    return url.startsWith('/') ? url : `/${url}`;
+    return url.startsWith('/') ? url : "/" + url;
 };
-export const linkHandler = (link, options) => {
-    const props = {
+export var linkHandler = function (link, options) {
+    var props = {
         href: '/'
     };
-    let cachedUrl = link.cached_url;
+    var cachedUrl = link.cached_url;
     if (link.linktype === 'story') {
         props.href = internalLinkHandler(cachedUrl);
     }
     else {
-        let href = cachedUrl || '';
+        var href = cachedUrl || '';
         if (href.includes('@')) {
-            href = `mailto:${href.replace('mailto:', '')}`;
+            href = "mailto:" + href.replace('mailto:', '');
         }
         else if (href.includes('+')) {
-            href = `tel:${href.replace('+', '')}`;
+            href = "tel:" + href.replace('+', '');
         }
         if (options.openExternal) {
             props.target = '_blank';
@@ -49,6 +49,8 @@ export const linkHandler = (link, options) => {
     }
     return props;
 };
-export const getLinkAttrs = (link = {}, options = {}) => {
+export var getLinkAttrs = function (link, options) {
+    if (link === void 0) { link = {}; }
+    if (options === void 0) { options = {}; }
     return linkHandler(link, options);
 };

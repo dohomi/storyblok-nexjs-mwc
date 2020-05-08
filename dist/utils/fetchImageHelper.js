@@ -1,27 +1,29 @@
-export function getImagePromise({ src, srcSet }) {
-    return new Promise((resolve, reject) => {
+export function getImagePromise(_a) {
+    var src = _a.src, srcSet = _a.srcSet;
+    return new Promise(function (resolve, reject) {
         getImage({
-            src,
-            srcSet,
-            onReady(src) {
+            src: src,
+            srcSet: srcSet,
+            onReady: function (src) {
                 resolve(src);
             },
-            onError(e) {
+            onError: function (e) {
                 reject(e);
             }
         });
     });
 }
-export function getImage({ src = '', srcSet = '', onReady, onError }) {
-    let img = new Image();
+export function getImage(_a) {
+    var _b = _a.src, src = _b === void 0 ? '' : _b, _c = _a.srcSet, srcSet = _c === void 0 ? '' : _c, onReady = _a.onReady, onError = _a.onError;
+    var img = new Image();
     img.src = src;
     img.srcset = srcSet || src;
     // img.crossOrigin = 'anonymous'
-    img.onload = () => {
+    img.onload = function () {
         onReady && onReady(img && (img.currentSrc || img.src)); // return current selected source
         img = null; // dispose image element
     };
-    img.onerror = (e) => {
+    img.onerror = function (e) {
         onError && onError(e);
         img = null;
     };

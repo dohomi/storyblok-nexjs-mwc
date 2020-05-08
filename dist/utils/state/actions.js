@@ -1,22 +1,34 @@
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 import { setGlobalState } from './state';
-export const toggleLeftNavigation = () => {
-    setGlobalState('leftNavigationDrawer', value => !value);
+export var toggleLeftNavigation = function () {
+    setGlobalState('leftNavigationDrawer', function (value) { return !value; });
 };
-export const toggleRightNavigation = () => {
-    setGlobalState('rightNavigationDrawer', value => !value);
+export var toggleRightNavigation = function () {
+    setGlobalState('rightNavigationDrawer', function (value) { return !value; });
 };
-export const closeNavigationDrawers = () => {
+export var closeNavigationDrawers = function () {
     setGlobalState('leftNavigationDrawer', false);
     setGlobalState('rightNavigationDrawer', false);
 };
 // export const setAppSetup = (options: State['appSetup']) => {
 //   setGlobalState('appSetup', options)
 // }
-const addSearchParamsToUrl = ({ categories, searchText }) => {
-    const currentUrl = new URL(window.location.href);
+var addSearchParamsToUrl = function (_a) {
+    var categories = _a.categories, searchText = _a.searchText;
+    var currentUrl = new URL(window.location.href);
     if (categories) {
         currentUrl.searchParams.delete('search__categories');
-        categories.forEach((category) => {
+        categories.forEach(function (category) {
             currentUrl.searchParams.append('search__categories', category);
         });
     }
@@ -31,11 +43,11 @@ const addSearchParamsToUrl = ({ categories, searchText }) => {
     window.history.pushState({ path: currentUrl.href }, '', currentUrl.href);
     window.scrollTo(0, 0);
 };
-export const onSearchTextChange = (searchText) => {
-    setGlobalState('searchParams', (v) => (Object.assign(Object.assign({}, v), { searchText })));
-    addSearchParamsToUrl({ searchText });
+export var onSearchTextChange = function (searchText) {
+    setGlobalState('searchParams', function (v) { return (__assign(__assign({}, v), { searchText: searchText })); });
+    addSearchParamsToUrl({ searchText: searchText });
 };
-export const setSearchCategory = (categories) => {
-    setGlobalState('searchParams', (v) => (Object.assign(Object.assign({}, v), { categories })));
-    addSearchParamsToUrl({ categories });
+export var setSearchCategory = function (categories) {
+    setGlobalState('searchParams', function (v) { return (__assign(__assign({}, v), { categories: categories })); });
+    addSearchParamsToUrl({ categories: categories });
 };
