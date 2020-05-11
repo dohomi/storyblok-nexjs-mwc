@@ -307,19 +307,19 @@ export const getCreatedStyles = (theme: Theme) => {
       },
       '.text-2-rows-max': {
         display: '-webkit-box',
-        webkitLineClamp: 2,
         textOverflow: 'ellipsis',
+        minHeight: '3rem',
         overflow: 'hidden',
-        webkitBoxOrient: 'vertical',
-        minHeight: '3rem'
+        '-webkit-box-orient': 'vertical',
+        '-webkit-line-clamp': 2
       },
       '.text-3-rows-max': {
         display: '-webkit-box',
-        webkitLineClamp: 3,
         textOverflow: 'ellipsis',
         overflow: 'hidden',
-        webkitBoxOrient: 'vertical',
-        minHeight: '4.5rem'
+        minHeight: '4.5rem',
+        '-webkit-line-clamp': 3,
+        '-webkit-box-orient': 'vertical'
       },
       [theme.breakpoints.only('xs')]:
         {
