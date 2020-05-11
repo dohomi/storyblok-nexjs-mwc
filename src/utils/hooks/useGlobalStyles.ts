@@ -300,85 +300,159 @@ export const getCreatedStyles = (theme: Theme) => {
       '.d-inline-block': {
         display: 'inline-block'
       },
-      [theme.breakpoints.only('xs')]: {
-        '.d-xs-inline-flex': {
-          display: 'inline-flex'
-        },
-        '.d-xs-none': {
-          display: 'none'
-        },
-        '.d-xs-block': {
-          display: 'block'
+      '.text-1-row-max': {
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap'
+      },
+      '.text-2-rows-max': {
+        display: '-webkit-box',
+        webkitLineClamp: 2,
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        webkitBoxOrient: 'vertical',
+        minHeight: '3rem'
+      },
+      '.text-3-rows-max': {
+        display: '-webkit-box',
+        webkitLineClamp: 3,
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        webkitBoxOrient: 'vertical',
+        minHeight: '4.5rem'
+      },
+      [theme.breakpoints.only('xs')]:
+        {
+          '.d-xs-inline-flex':
+            {
+              display: 'inline-flex'
+            }
+          ,
+          '.d-xs-none':
+            {
+              display: 'none'
+            }
+          ,
+          '.d-xs-block':
+            {
+              display: 'block'
+            }
         }
-      },
-      [theme.breakpoints.up('sm')]: {
-        '.d-sm-inline-flex': {
-          display: 'inline-flex'
-        },
-        '.d-sm-none': {
-          display: 'none'
-        },
-        '.d-sm-block': {
-          display: 'block'
-        },
-        '.text-sm-left': {
-          textAlign: 'left'
-        },
-        '.text-sm-center': {
-          textAlign: 'center'
-        },
-        '.text-sm-right': {
-          textAlign: 'right'
-        },
-        '.text-sm-justify': {
-          textAlign: 'justify'
-        },
-        ...genSpacing('-sm')
-      },
-      [theme.breakpoints.up('md')]: {
-        '.d-md-inline-flex': {
-          display: 'inline-flex'
-        },
-        '.d-md-none': {
-          display: 'none'
-        },
-        '.d-md-block': {
-          display: 'block'
-        },
-        '.text-md-left': {
-          textAlign: 'left'
-        },
-        '.text-md-center': {
-          textAlign: 'center'
-        },
-        '.text-md-right': {
-          textAlign: 'right'
-        },
-        '.text-md-justify': {
-          textAlign: 'justify'
-        },
-        ...genSpacing('-md')
-      },
-      [theme.breakpoints.up('lg')]: {
-        '.d-lg-inline-flex': {
-          display: 'inline-flex'
-        },
-        '.d-lg-none': {
-          display: 'none'
-        },
-        '.text-lg-left': {
-          textAlign: 'left'
-        },
-        '.text-lg-center': {
-          textAlign: 'center'
-        },
-        '.text-lg-right': {
-          textAlign: 'right'
-        },
-        '.text-lg-justify': {
-          textAlign: 'justify'
+      ,
+      [theme.breakpoints.up('sm')]:
+        {
+          '.d-sm-inline-flex':
+            {
+              display: 'inline-flex'
+            }
+          ,
+          '.d-sm-none':
+            {
+              display: 'none'
+            }
+          ,
+          '.d-sm-block':
+            {
+              display: 'block'
+            }
+          ,
+          '.text-sm-left':
+            {
+              textAlign: 'left'
+            }
+          ,
+          '.text-sm-center':
+            {
+              textAlign: 'center'
+            }
+          ,
+          '.text-sm-right':
+            {
+              textAlign: 'right'
+            }
+          ,
+          '.text-sm-justify':
+            {
+              textAlign: 'justify'
+            }
+          ,
+          ...
+            genSpacing('-sm')
         }
-      }
+      ,
+      [theme.breakpoints.up('md')]:
+        {
+          '.d-md-inline-flex':
+            {
+              display: 'inline-flex'
+            }
+          ,
+          '.d-md-none':
+            {
+              display: 'none'
+            }
+          ,
+          '.d-md-block':
+            {
+              display: 'block'
+            }
+          ,
+          '.text-md-left':
+            {
+              textAlign: 'left'
+            }
+          ,
+          '.text-md-center':
+            {
+              textAlign: 'center'
+            }
+          ,
+          '.text-md-right':
+            {
+              textAlign: 'right'
+            }
+          ,
+          '.text-md-justify':
+            {
+              textAlign: 'justify'
+            }
+          ,
+          ...
+            genSpacing('-md')
+        }
+      ,
+      [theme.breakpoints.up('lg')]:
+        {
+          '.d-lg-inline-flex':
+            {
+              display: 'inline-flex'
+            }
+          ,
+          '.d-lg-none':
+            {
+              display: 'none'
+            }
+          ,
+          '.text-lg-left':
+            {
+              textAlign: 'left'
+            }
+          ,
+          '.text-lg-center':
+            {
+              textAlign: 'center'
+            }
+          ,
+          '.text-lg-right':
+            {
+              textAlign: 'right'
+            }
+          ,
+          '.text-lg-justify':
+            {
+              textAlign: 'justify'
+            }
+        }
     }
   })
 }
