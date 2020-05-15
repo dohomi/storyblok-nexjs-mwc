@@ -1,11 +1,11 @@
 {
   "name": "@lumen/mwc",
-  "version": "0.37.0",
+  "version": "0.38.0",
   "description": "Next.js full website kit powered by Storyblok",
   "main": "index.js",
   "scripts": {
     "analyze": "BUNDLE_ANALYZE=true npm run build",
-    "dev": "next",
+    "dev": "rimraf app-content*json && next",
     "build": "rm -rf .next && next build",
     "start": "next start",
     "gen-ts-schema": "node generate-ts-schema.js",

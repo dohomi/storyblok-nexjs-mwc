@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { ChangeEvent, CSSProperties, FunctionComponent, useState } from 'react'
 import { CategoryBoxStoryblok } from '../../typings/generated/components-schema'
-// import { Checkbox } from '@rmwc/checkbox'
 import SbEditable from 'storyblok-react'
 import { setSearchCategory } from '../../utils/state/actions'
 import clsx from 'clsx'
