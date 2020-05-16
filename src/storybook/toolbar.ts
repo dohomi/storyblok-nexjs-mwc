@@ -6,7 +6,7 @@ import {
   NavMenuStoryblok,
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
-} from '../../src/typings/generated/components-schema'
+} from '../typings/generated/components-schema'
 import { darkSectionWithColumns } from './section'
 
 const menuItem: NavMenuStoryblok = {

@@ -21,7 +21,7 @@ import {
   RichTextEditorStoryblok,
   SliderStoryblok,
   TableStoryblok
-} from '../../../src/typings/generated/components-schema'
+} from '../../typings/generated/components-schema'
 import { v4 as uuidv4 } from 'uuid'
 import { text } from '@storybook/addon-knobs'
 import { LoremIpsum } from 'lorem-ipsum'

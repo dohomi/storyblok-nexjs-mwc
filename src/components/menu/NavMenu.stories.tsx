@@ -2,8 +2,8 @@ import { storiesOf } from '@storybook/react'
 import NavMenu from './NavMenu'
 import { NavMenuItemStoryblok, NavMenuStoryblok, RowStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
-import { columns } from '../../../.storybook/dummy/section'
-import { storyMenu, storyMenuItem } from '../../../.storybook/dummy/core/various'
+import { columns } from '../../storybook/section'
+import { storyMenu, storyMenuItem } from '../../storybook/core/various'
 
 const props: NavMenuStoryblok = {
   _uid: '123',

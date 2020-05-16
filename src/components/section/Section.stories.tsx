@@ -2,9 +2,9 @@ import { storiesOf } from '@storybook/react'
 import Section from './Section'
 import { BackgroundStoryblok, RowStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
 import * as React from 'react'
-import { columns, columnsWithImage, row, rowWithImage } from '../../../.storybook/dummy/section'
-import { storyBackground, storyColumn, storyRow, storySection } from '../../../.storybook/dummy/core/section'
-import { storyButton, storyHeadline } from '../../../.storybook/dummy/core/various'
+import { columns, columnsWithImage, row, rowWithImage } from '../../storybook/section'
+import { storyBackground, storyColumn, storyRow, storySection } from '../../storybook/core/section'
+import { storyButton, storyHeadline } from '../../storybook/core/various'
 
 
 const props: SectionStoryblok = {

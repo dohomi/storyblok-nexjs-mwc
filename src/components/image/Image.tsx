@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import React, { FunctionComponent, useState } from 'react'
+import React, { useState } from 'react'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
@@ -44,9 +44,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 
-const Image: FunctionComponent<{
+type LmImageProps = {
   content: ImageStoryblok
-}> = ({ content }) => {
+}
+
+export default function LmImage({ content }: LmImageProps): JSX.Element {
   const classes = useStyles()
   const winDims = useWindowDimensions()
   const { isMobile } = winDims
@@ -81,7 +83,7 @@ const Image: FunctionComponent<{
     const width = Math.ceil(parentDim.width || winDims.width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
-      definedWidth = definedWidth || (parentDim.height / parentDim.width) * 100 > 300 ? grandParentDim.width :  width
+      definedWidth = definedWidth || (parentDim.height / parentDim.width) * 100 > 300 ? grandParentDim.width : width
     }
     if (square) {
       // overwrite if square
@@ -151,5 +153,3 @@ const Image: FunctionComponent<{
     </SbEditable>
   )
 }
-
-export default Image

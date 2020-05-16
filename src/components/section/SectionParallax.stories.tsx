@@ -1,15 +1,15 @@
 import { storiesOf } from '@storybook/react'
 import * as React from 'react'
 import Page from '../page/Page'
-import { get3ColumnsSection } from '../../../.storybook/dummy/section'
+import { get3ColumnsSection } from '../../storybook/section'
 import {
   storyBackground,
   storyColumn,
   storyParallaxItem,
   storyRow,
   storySectionParallax
-} from '../../../.storybook/dummy/core/section'
-import { storyHeadline } from '../../../.storybook/dummy/core/various'
+} from '../../storybook/core/section'
+import { storyHeadline } from '../../storybook/core/various'
 
 
 storiesOf('Section Parallax', module)

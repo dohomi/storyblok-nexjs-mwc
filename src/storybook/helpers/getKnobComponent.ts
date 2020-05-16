@@ -3,7 +3,7 @@ import { allImageOptions, getUid } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { classNameOpts } from './utilityClassNamesHelper'
 import iconObj from './iconListHelper'
-import { getGlobalState } from '../../components/SetStoriesDecorator'
+import { getGlobalState } from '../components/SetStoriesDecorator'
 
 
 export const camelizeString = (text: string, separator = '_') => (

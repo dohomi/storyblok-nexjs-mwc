@@ -6,17 +6,17 @@ import {
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
 } from '../../typings/generated/components-schema'
-import { darkSectionWithColumns, get3ColumnsSection } from '../../../.storybook/dummy/section'
+import { darkSectionWithColumns, get3ColumnsSection } from '../../storybook/section'
 import React from 'react'
 import { toggleRightNavigation } from '../../utils/state/actions'
-import { simpleSettings } from '../../../.storybook/dummy/toolbar'
+import { simpleSettings } from '../../storybook/toolbar'
 import Layout from '../layout/Layout'
 import {
   storyListSearchAutocomplete,
   storyToolbarLogo,
   storyToolbarRow,
   storyToolbarSection
-} from '../../../.storybook/dummy/layout/toolbar'
+} from '../../storybook/layout/toolbar'
 import { boolean } from '@storybook/addon-knobs'
 import {
   storyButton,
@@ -24,8 +24,8 @@ import {
   storyMenu,
   storyMenuItem,
   storyParagraph
-} from '../../../.storybook/dummy/core/various'
-import { CONFIG_STORYBOOK } from '../../../.storybook/components/configStorybook'
+} from '../../storybook/core/various'
+import { CONFIG_STORYBOOK } from '../../storybook/components/configStorybook'
 
 
 const getPropsDrawer = (): PageStoryblok => ({

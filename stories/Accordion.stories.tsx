@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { Accordion } from '../src/'
-import { storyAccordion, storyAccordionItem } from '../.storybook/dummy/core/various'
-import { get3ColumnsSection } from '../.storybook/dummy/section'
+import { LmAccordion } from '../src/'
+import { storyAccordion, storyAccordionItem } from '../src/storybook/core/various'
+import { get3ColumnsSection } from '../src/storybook/section'
 
 export default {
   title: 'Accordion'
 }
 
 export const Playground = () => (
-  <Accordion content={{
+  <LmAccordion content={{
     ...storyAccordion(),
     body: [{
       ...storyAccordionItem({ count: 1 }),

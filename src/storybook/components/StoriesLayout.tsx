@@ -1,14 +1,14 @@
-import WindowDimensionsProvider from '../../src/components/provider/WindowDimensionsProvider'
+import WindowDimensionsProvider from '../../components/provider/WindowDimensionsProvider'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import GlobalTheme from '../../src/components/global-theme/GlobalTheme'
-import { GlobalStoryblok } from '../../src/typings/generated/components-schema'
+import GlobalTheme from '../../components/global-theme/GlobalTheme'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { CONFIG_STORYBOOK } from './configStorybook'
-import useGlobalStyles from '../../src/utils/hooks/useGlobalStyles'
-import { getFontBasedOnSetting } from '../../src/utils/parseFont'
+import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
+import { getFontBasedOnSetting } from '../../utils/parseFont'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()

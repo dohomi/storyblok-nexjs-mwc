@@ -1,4 +1,4 @@
-import CardList from '../card/CardList'
+import {LmCardList} from '../card/CardList'
 import React, { FunctionComponent } from 'react'
 import {
   CardListItemStoryblok,
@@ -12,7 +12,7 @@ const ListWidgetCards: FunctionComponent<{
   items: AppApiRequestPayload['allStories']
   options: CardListStoryblok
 }> = ({ items, content, options }) => {
-  return <CardList content={{
+  return <LmCardList content={{
     ...options,
     _uid: content._uid,
     component: 'card_list',

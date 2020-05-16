@@ -4,7 +4,7 @@ import SbEditable from 'storyblok-react'
 import Grid from '@material-ui/core/Grid'
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import TimelineRowItem from './TimelineRowItem'
-import LmAvatar from '../avatar/LmAvatar'
+import { LmAvatar } from '../avatar/LmAvatar'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

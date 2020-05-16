@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/react'
 import React from 'react'
 import Timeline from './Timeline'
-import { storyTimeline, storyTimelineItem } from '../../../.storybook/dummy/core/section'
-import { randomIntFromInterval, storyAvatar, storyImageUrls } from '../../../.storybook/dummy/core/various'
+import { storyTimeline, storyTimelineItem } from '../../storybook/core/section'
+import { randomIntFromInterval, storyAvatar, storyImageUrls } from '../../storybook/core/various'
 
 
 storiesOf('Timeline', module)

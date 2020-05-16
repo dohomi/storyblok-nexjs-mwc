@@ -1,5 +1,4 @@
-import { storiesOf } from '@storybook/react'
-import CardList from './CardList'
+import {LmCardList} from '../src/'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
@@ -7,11 +6,11 @@ import {
   HeadlineStoryblok,
   ImageStoryblok,
   ParagraphStoryblok
-} from '../../typings/generated/components-schema'
+} from '../src/typings/generated/components-schema'
 import * as React from 'react'
-import { storyCardList, storyCardListItem } from '../../../.storybook/dummy/core/section'
+import { storyCardList, storyCardListItem } from '../src/storybook/core/section'
 import { loremIpsum } from 'lorem-ipsum'
-import { getRandomImage } from '../../../.storybook/dummy/core/various'
+import { getRandomImage } from '../src/storybook/core/various'
 
 const cardListBody: CardListItemStoryblok[] = [{
   _uid: '123',
@@ -138,134 +137,114 @@ const cardListWithAction: CardListStoryblok = {
   }))
 }
 
-storiesOf('Cards', module)
-  .add(
-    'Card List',
-    () => (
-      <CardList content={cardList} />
-    )
-  )
-  .add(
-    'Card List Over Image',
-    () => (
-      <>
-        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'title_top'] }} />
-        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_top_bottom'] }} />
-        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_bottom'] }} />
-        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_center'] }} />
-        <CardList
-          content={{ ...cardList, variant: ['over_media', 'font_white', 'text_center', 'text_align_center'] }} />
-        <CardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_bottom', 'text_align_right'] }} />
-      </>
-    )
-  )
-  .add(
-    'Card List Responsive',
-    () => (
-      <>
-        <CardList content={{ ...cardList }} />
-        <div style={{ height: '300px' }}>Some spacing</div>
-        <CardList content={{ ...cardList, image_ratio: '1x1' }} />
-        <div style={{ height: '300px' }}>Some spacing</div>
-        <CardList content={{ ...cardList }} />
-        <div style={{ height: '300px' }}>Some spacing</div>
-        <CardList content={{ ...cardList, column_gap: '8' }} />
-      </>
-    )
-  )
-  .add(
-    'Card List Crop Description',
-    () => (
-      <>
-        <CardList content={{ ...cardList, body: cardListLongDescription }} />
-        <h3>Only 120 character</h3>
-        <CardList content={{ ...cardList, body: cardListLongDescription, description_max_character: 120 }} />
-        <h3>No description with value "0"</h3>
-        <CardList content={{ ...cardList, body: cardListLongDescription, description_max_character: 0 }} />
-      </>
-    )
-  )
-  .add(
-    'Cards of travels',
-    () => {
-      const elements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-      return (
-        <div>
-          <CardList content={{
-            _uid: '23123',
-            component: 'card_list',
-            shadow_effect: 'soft',
-            variant: ['over_media', 'text_bottom', 'overlay_content_no_space'],
-            description_max_character: 40,
-            title_class_name: { values: ['badge-square', 'badge-dark-transparent'] },
-            card_actions_disable_spacing: true,
-            body: elements.map(num => {
-              return {
-                _uid: 'elem-' + num,
-                component: 'card_list_item',
-                title: loremIpsum({ count: 1, units: 'words' }),
-                image: getRandomImage(),
-                description: loremIpsum({ count: 1, units: 'sentence' }),
-                card_actions_body: [{
-                  _uid: 'asdfa',
-                  component: 'flex_row',
-                  justify: 'space-between',
-                  align_items: 'center',
-                  body: [{
-                    _uid: '123',
-                    component: 'headline',
-                    typography: 'body1',
-                    text: loremIpsum({ count: 1, units: 'words' })
-                  }, {
-                    _uid: '123',
-                    component: 'headline',
-                    typography: 'body2',
-                    text: loremIpsum({ count: 1, units: 'words' })
-                  }] as HeadlineStoryblok[]
-                }] as FlexRowStoryblok[]
-              } as CardListItemStoryblok
-            })
-          }} />
-        </div>
-      )
-    }
-  )
-  .add(
-    'Card Icons',
-    () => (
-      <>
-        <CardList
-          content={{ ...cardList, elevation: '0', image_size: 'contain', image_ratio: '1x1', body: cardListIcons }} />
-      </>
-    )
-  )
-  .add(
-    'Card with actions',
-    () => (
-      <>
-        <CardList content={cardListWithAction} />
-      </>
-    )
-  )
-  .add(
-    'Playground',
-    () => {
+export default {
+  title: 'Cards'
+}
 
-      return (
-        <CardList content={{
-          ...storyCardList(),
-          body: [
-            storyCardListItem({ count: 1 }),
-            storyCardListItem({ count: 2 }),
-            storyCardListItem({ count: 3 }),
-            storyCardListItem({ count: 4 }),
-            storyCardListItem({ count: 5 }),
-            storyCardListItem({ count: 6 }),
-            storyCardListItem({ count: 7 }),
-            storyCardListItem({ count: 8 })
-          ]
-        }} />
-      )
-    }
+export const CardList = () => (
+  <LmCardList content={cardList} />
+)
+export const CardListOverImage = () => (
+  <>
+    <LmCardList content={{ ...cardList, variant: ['over_media', 'font_white', 'title_top'] }} />
+    <LmCardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_top_bottom'] }} />
+    <LmCardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_bottom'] }} />
+    <LmCardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_center'] }} />
+    <LmCardList
+      content={{ ...cardList, variant: ['over_media', 'font_white', 'text_center', 'text_align_center'] }} />
+    <LmCardList content={{ ...cardList, variant: ['over_media', 'font_white', 'text_bottom', 'text_align_right'] }} />
+  </>
+)
+export const CardListResponsive = () => (
+  <>
+    <LmCardList content={{ ...cardList }} />
+    <div style={{ height: '300px' }}>Some spacing</div>
+    <LmCardList content={{ ...cardList, image_ratio: '1x1' }} />
+    <div style={{ height: '300px' }}>Some spacing</div>
+    <LmCardList content={{ ...cardList }} />
+    <div style={{ height: '300px' }}>Some spacing</div>
+    <LmCardList content={{ ...cardList, column_gap: '8' }} />
+  </>
+)
+export const CardListCroppedDescription = () => (
+  <>
+    <LmCardList content={{ ...cardList, body: cardListLongDescription }} />
+    <h3>Only 120 character</h3>
+    <LmCardList content={{ ...cardList, body: cardListLongDescription, description_max_character: 120 }} />
+    <h3>No description with value "0"</h3>
+    <LmCardList content={{ ...cardList, body: cardListLongDescription, description_max_character: 0 }} />
+  </>
+)
+export const CardsOfTravels = () => {
+  const elements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  return (
+    <div>
+      <LmCardList content={{
+        _uid: '23123',
+        component: 'card_list',
+        shadow_effect: 'soft',
+        variant: ['over_media', 'text_bottom', 'overlay_content_no_space'],
+        description_max_character: 40,
+        title_class_name: { values: ['badge-square', 'badge-dark-transparent'] },
+        card_actions_disable_spacing: true,
+        body: elements.map(num => {
+          return {
+            _uid: 'elem-' + num,
+            component: 'card_list_item',
+            title: loremIpsum({ count: 1, units: 'words' }),
+            image: getRandomImage(),
+            description: loremIpsum({ count: 1, units: 'sentence' }),
+            card_actions_body: [{
+              _uid: 'asdfa',
+              component: 'flex_row',
+              justify: 'space-between',
+              align_items: 'center',
+              body: [{
+                _uid: '123',
+                component: 'headline',
+                typography: 'body1',
+                text: loremIpsum({ count: 1, units: 'words' })
+              }, {
+                _uid: '123',
+                component: 'headline',
+                typography: 'body2',
+                text: loremIpsum({ count: 1, units: 'words' })
+              }] as HeadlineStoryblok[]
+            }] as FlexRowStoryblok[]
+          } as CardListItemStoryblok
+        })
+      }} />
+    </div>
   )
+}
+export const CardIcons = () => (
+  <>
+    <LmCardList
+      content={{ ...cardList, elevation: '0', image_size: 'contain', image_ratio: '1x1', body: cardListIcons }} />
+  </>
+)
+export const CardActions = () => (
+  <>
+    <LmCardList content={cardListWithAction} />
+  </>
+)
+export const Playground = () => {
+
+  return (
+    <LmCardList content={{
+      ...storyCardList(),
+      body: [
+        storyCardListItem({ count: 1 }),
+        storyCardListItem({ count: 2 }),
+        storyCardListItem({ count: 3 }),
+        storyCardListItem({ count: 4 }),
+        storyCardListItem({ count: 5 }),
+        storyCardListItem({ count: 6 }),
+        storyCardListItem({ count: 7 }),
+        storyCardListItem({ count: 8 })
+      ]
+    }} />
+  )
+}
+
 

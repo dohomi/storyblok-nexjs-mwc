@@ -11,7 +11,7 @@ import {
   ToolbarNaviButtonStoryblok,
   ToolbarRowSectionStoryblok
 } from '../../../typings/generated/components-schema'
-import LmMuiButton from '../../button/LmMuiButton'
+import LmMuiButton from '../../button/Button'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import ListSearchAutocomplete from '../../list-widget/ListSearchAutocomplete'

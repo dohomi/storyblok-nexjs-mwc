@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import React, { FunctionComponent, RefObject, useState } from 'react'
+import React, { RefObject, useState } from 'react'
 import ImageListItem from './ImageListItem'
 import ImageListLightbox from './ImageListLightbox'
 import { ImageListStoryblok } from '../../typings/generated/components-schema'
@@ -10,10 +10,11 @@ import clsx from 'clsx'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 
-
-const ImageList: FunctionComponent<{
+export type LmImageListProps = {
   content: ImageListStoryblok
-}> = (props) => {
+}
+
+export function LmImageList(props: LmImageListProps): JSX.Element {
   const content = props.content
   const classes = useImageListStyles()
   const gridClasses = useGridListStyles({
@@ -89,5 +90,3 @@ const ImageList: FunctionComponent<{
     </SbEditable>
   )
 }
-
-export default ImageList

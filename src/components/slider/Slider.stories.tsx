@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/react'
 import Slider from './Slider'
 import * as React from 'react'
-import { storySlider } from '../../../.storybook/dummy/core/various'
-import { get3ColumnsSection } from '../../../.storybook/dummy/section'
+import { storySlider } from '../../storybook/core/various'
+import { get3ColumnsSection } from '../../storybook/section'
 
 storiesOf('Slider', module)
   .add(

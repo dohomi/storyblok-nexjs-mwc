@@ -2,7 +2,7 @@ import React from 'react'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import { loremIpsum } from 'lorem-ipsum'
 import Motion from './Motion'
-import { storyMotion } from '../../../.storybook/dummy/core/various'
+import { storyMotion } from '../../storybook/core/various'
 
 export default { title: 'Animations' }
 

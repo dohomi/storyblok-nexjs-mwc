@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import Header from './Header'
 import * as React from 'react'
-import { customSettings, simpleSettings } from '../../../../.storybook/dummy/toolbar'
+import { customSettings, simpleSettings } from '../../../storybook/toolbar'
 
 storiesOf('Toolbar', module)
   .add(

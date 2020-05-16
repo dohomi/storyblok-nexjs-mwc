@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -24,10 +24,12 @@ const useStyles = makeStyles({
   }
 })
 
-const LmMuiAvatar: FunctionComponent<{
+export type LmMuiAvatarProps = {
   src: string,
   size: 'small' | 'large' | 'xlarge' | 'xsmall' | 'xmall' | 'medium' | undefined
-}> = ({ src, size }) => {
+}
+
+export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
   const classes = useStyles()
   const [reference, inView] = useInView(intersectionDefaultOptions)
   const [imageAttrs, setImageSrc] = useState<{ src: string, srcSet: string }>({ src: '', srcSet: '' })
@@ -51,5 +53,3 @@ const LmMuiAvatar: FunctionComponent<{
             })} />
   )
 }
-
-export default LmMuiAvatar

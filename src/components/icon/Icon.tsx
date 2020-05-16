@@ -1,9 +1,9 @@
 import SbEditable from 'storyblok-react'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import clsx from 'clsx'
 import { IconStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/styles'
-import LmIcon from './LmIcon'
+import LmIconMwc from './LmIcon'
 
 const useStyles = makeStyles({
   icon: {
@@ -31,12 +31,14 @@ const useStyles = makeStyles({
   }
 })
 
-const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => {
+export type LmIconProps = { content: IconStoryblok }
+
+export function LmIcon({ content }: LmIconProps): JSX.Element {
   const classes = useStyles()
   return (
     <SbEditable content={content}>
       <div className={clsx(content.class_names && content.class_names.values)}>
-        <LmIcon
+        <LmIconMwc
           className={clsx(classes.icon, {
             [content.size as string]: !!content.size
           })}
@@ -48,5 +50,3 @@ const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => 
     </SbEditable>
   )
 }
-
-export default IconMwc

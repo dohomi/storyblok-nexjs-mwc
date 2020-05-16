@@ -3,7 +3,7 @@ import {
   ToolbarLogoStoryblok,
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
-} from '../../../src/typings/generated/components-schema'
+} from '../../typings/generated/components-schema'
 import { StorybookOptionProps } from '../core/storybook_typing'
 import { getUid } from '../core/various'
 import getKnobComponents from '../helpers/getKnobComponent'

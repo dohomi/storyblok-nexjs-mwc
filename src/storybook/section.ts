@@ -6,7 +6,7 @@ import {
   ParagraphStoryblok,
   RowStoryblok,
   SectionStoryblok
-} from '../../src/typings/generated/components-schema'
+} from '../typings/generated/components-schema'
 import { storyColumn, storyRow, storySection } from './core/section'
 import { storyButton, storyHeadline, storyParagraph } from './core/various'
 

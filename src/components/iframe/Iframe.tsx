@@ -1,12 +1,15 @@
 import SbEditable from 'storyblok-react'
 import { useInView } from 'react-intersection-observer'
-import React, { FunctionComponent, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { IframeStoryblok } from '../../typings/generated/components-schema'
 import clsx from 'clsx'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import Skeleton from '@material-ui/lab/Skeleton'
 
-const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) => {
+export type  LmIframeProps = { content: IframeStoryblok }
+
+
+export function LmIframe({ content }: LmIframeProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const [loaded, setLoaded] = useState<boolean>(false)
   const urlSrc = useMemo(
@@ -51,5 +54,3 @@ const Iframe: FunctionComponent<{ content: IframeStoryblok }> = ({ content }) =>
     </SbEditable>
   )
 }
-
-export default Iframe

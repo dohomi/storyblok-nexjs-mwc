@@ -1,11 +1,13 @@
 import SbEditable from 'storyblok-react'
-import React, { createRef, FunctionComponent, RefObject, useEffect, useMemo, useState } from 'react'
+import React, { createRef, RefObject, useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { IframeAdvancedStoryblok } from '../../typings/generated/components-schema'
 import { intersectionIframeOptions } from '../../utils/intersectionObserverConfig'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = ({ content }) => {
+export type LmIframeAdvancedProps = { content: IframeAdvancedStoryblok }
+
+export function LmIframeAdvanced({ content }: LmIframeAdvancedProps): JSX.Element {
   const [refIntersectionObserver, inView, containerRef] = useInView(intersectionIframeOptions)
   const iframeRef: RefObject<HTMLIFrameElement> = createRef()
   // const [src, setSrc] = useState<string>('')
@@ -77,5 +79,3 @@ const IframeAdvanced: FunctionComponent<{ content: IframeAdvancedStoryblok }> = 
     </SbEditable>
   )
 }
-
-export default IframeAdvanced

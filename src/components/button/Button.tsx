@@ -1,12 +1,11 @@
 import Button, { ButtonProps } from '@material-ui/core/Button'
 import Fab, { FabProps } from '@material-ui/core/Fab'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import LmMuiAvatar from '../avatar/LmMuiAvatar'
+import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import ContentLink from '../link/ContentLink'
 import LmIcon from '../icon/LmIcon'
 
@@ -85,7 +84,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content }) => {
+export type LmButtonProps = { content: ButtonStoryblok }
+
+export function LmButton({ content }: LmButtonProps): JSX.Element {
   const classes = useStyles()
   const properties = content.properties || []
   const disableRipple = !!properties.find(i => i === 'disable-ripple')
@@ -165,4 +166,4 @@ const LmMuiButton: FunctionComponent<{ content: ButtonStoryblok }> = ({ content 
     </ContentLink>
   )
 }
-export default LmMuiButton
+

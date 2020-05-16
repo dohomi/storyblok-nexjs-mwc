@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react'
 import Table from './Table'
 import { TableStoryblok } from '../../typings/generated/components-schema'
 import React from 'react'
-import { storyTable } from '../../../.storybook/dummy/core/various'
+import { storyTable } from '../../storybook/core/various'
 
 const body = {
   tbody: [[

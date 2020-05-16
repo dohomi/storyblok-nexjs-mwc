@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import StoryblokService from '../../src/utils/StoryblokService'
-import AppProvider, { AppContextProps } from '../../src/components/provider/AppProvider'
+import StoryblokService from '../../utils/StoryblokService'
+import AppProvider, { AppContextProps } from '../../components/provider/AppProvider'
 import { createGlobalState } from 'react-hooks-global-state'
 
 interface StorybookState {

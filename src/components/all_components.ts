@@ -1,41 +1,41 @@
 import Page from './page/Page'
 import Section from './section/Section'
-import Headline from './headline/Headline'
-import Image from './image/ImageElement'
-import ImageList from './image-list/ImageList'
+import { LmHeadline } from './headline/Headline'
+import { LmImage } from './image/ImageElement'
+import { LmImageList } from './image-list/ImageList'
 import NavList from './nav-list/NavList'
 import Menu from './menu/NavMenu'
-import Icon from './icon/Icon'
+import { LmIcon } from './icon/Icon'
 import SectionVideoBg from './section/SectionVideoBg'
 import Slider from './slider/Slider'
-import Iframe from './iframe/Iframe'
-import CardList from './card/CardList'
+import { LmIframe } from './iframe/Iframe'
+import { LmCardList } from './card/CardList'
 import SectionParallax from './section/SectionParallax'
-import ButtonList from './button-list/ButtonList'
-import Html from './html/Html'
-import HubspotMeeting from './hubspot-meeting/HubspotMeeting'
-import Divider from './divider/Divider'
-import { Accordion } from './accordion/Accordion'
+import { LmButtonList } from './button-list/ButtonList'
+import { LmHtml } from './html/Html'
+import { LmHubspotMeeting } from './hubspot-meeting/HubspotMeeting'
+import { LmDivider } from './divider/Divider'
+import { LmAccordion } from './accordion/Accordion'
 import Table from './table/Table'
 import Tabs from './tabs/Tabs'
-import ListWidget from './list-widget/ListWidget'
-import FlexRow from './flex-row/FlexRow'
-import IframeAdvanced from './iframe/IframeAdvanced'
+import { LmListWidget } from './list-widget/ListWidget'
+import { LmFlexRow } from './flex-row/FlexRow'
+import { LmIframeAdvanced } from './iframe/IframeAdvanced'
 import CategoryBox from './list-widget/CategoryBox'
 import ListSearchField from './list-widget/ListSearchField'
 import LinkWwrap from './link/Link'
-import ListSearchAutocomplete from './list-widget/ListSearchAutocomplete'
+import {LmListSearchAutocomplete} from './list-widget/ListSearchAutocomplete'
 import RichTextParagraph from './paragraph/RichTextParagraph'
-import LmMuiButton from './button/LmMuiButton'
+import { LmButton } from './button/Button'
 import GridRow from './section/GridRow'
 import GridColumn from './section/GridColumn'
 import StaticSection from './static-section/StaticSection'
 import StaticContainer from './static-section/StaticContainer'
 import Timeline from './timeline/Timeline'
-import LmAvatar from './avatar/LmAvatar'
+import { LmAvatar } from './avatar/LmAvatar'
 
 import dynamic from 'next/dynamic'
-import DateHeadline from './headline/DateHeadline'
+import { LmDateHeadline } from './headline/DateHeadline'
 import Motion from './motion/Motion'
 
 // import HubspotForm from './hubspot/HubspotForm'
@@ -46,45 +46,45 @@ import Motion from './motion/Motion'
 const Components = {
   'page': Page,
   'table': Table,
-  'accordion': Accordion,
+  'accordion': LmAccordion,
   // 'promotion': Promotion,
   'static_section': StaticSection,
   'static_container': StaticContainer,
-  'divider': Divider,
-  'html': Html,
+  'divider': LmDivider,
+  'html': LmHtml,
   // 'pricing': Pricing,
   // 'hubspot_form': HubspotForm,
-  'hubspot_meeting': HubspotMeeting,
-  'button_list': ButtonList,
+  'hubspot_meeting': LmHubspotMeeting,
+  'button_list': LmButtonList,
   'section': Section,
-  'headline': Headline,
+  'headline': LmHeadline,
   'paragraph': dynamic(() => import('./paragraph/Paragraph')),
   'row': GridRow, // MatRow, GridRow
   'column': GridColumn, // Column, GridColumn
-  'image': Image,
-  'image_list': ImageList,
-  'button': LmMuiButton,
+  'image': LmImage,
+  'image_list': LmImageList,
+  'button': LmButton,
   'nav_list': NavList,
   'nav_menu': Menu,
-  'icon': Icon,
-  'iframe': Iframe,
+  'icon': LmIcon,
+  'iframe': LmIframe,
   'slider': Slider,
   'section_video_bg': SectionVideoBg,
-  'card_list': CardList,
+  'card_list': LmCardList,
   'section_parallax': SectionParallax,
   // 'form': Form,
   'tabs': Tabs,
-  'list_widget': ListWidget,
-  'flex_row': FlexRow,
-  'iframe_advanced': IframeAdvanced,
+  'list_widget': LmListWidget,
+  'flex_row': LmFlexRow,
+  'iframe_advanced': LmIframeAdvanced,
   'category_box': CategoryBox,
   'list_search_field': ListSearchField,
   'link': LinkWwrap,
-  'list_search_autocomplete': ListSearchAutocomplete,
+  'list_search_autocomplete': LmListSearchAutocomplete,
   'rich_text_editor': RichTextParagraph,
   'timeline': Timeline,
   'avatar': LmAvatar,
-  'date_headline': DateHeadline,
+  'date_headline': LmDateHeadline,
   'motion': Motion
 }
 

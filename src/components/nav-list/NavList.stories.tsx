@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import NavList from './NavList'
 import * as React from 'react'
-import { storyNavItem, storyNavList } from '../../../.storybook/dummy/core/various'
+import { storyNavItem, storyNavList } from '../../storybook/core/various'
 import { boolean } from '@storybook/addon-knobs'
 
 

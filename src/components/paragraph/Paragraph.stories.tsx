@@ -3,7 +3,7 @@ import Paragraph from './Paragraph'
 import { ParagraphStoryblok } from '../../typings/generated/components-schema'
 import RichTextParagraph from './RichTextParagraph'
 import * as React from 'react'
-import { storyParagraph } from '../../../.storybook/dummy/core/various'
+import { storyParagraph } from '../../storybook/core/various'
 
 const props: ParagraphStoryblok = {
   _uid: '123',

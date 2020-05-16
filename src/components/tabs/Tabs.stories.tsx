@@ -6,8 +6,8 @@ import {
   TabsItemStoryblok,
   TabsStoryblok
 } from '../../typings/generated/components-schema'
-import { storyTabs, storyTabsItem } from '../../../.storybook/dummy/core/section'
-import { storyHeadline, storyParagraph } from '../../../.storybook/dummy/core/various'
+import { storyTabs, storyTabsItem } from '../../storybook/core/section'
+import { storyHeadline, storyParagraph } from '../../storybook/core/various'
 import React from 'react'
 import { loremIpsum } from 'lorem-ipsum'
 

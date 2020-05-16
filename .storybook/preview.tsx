@@ -1,6 +1,6 @@
 import { addDecorator, addParameters } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
-import StoriesLayout from './components/StoriesLayout'
+import StoriesLayout from '../src/storybook/components/StoriesLayout'
 import './mockNextRouter'
 
 addParameters({

@@ -1,12 +1,14 @@
 import SbEditable from 'storyblok-react'
-import React, { ElementType, FunctionComponent } from 'react'
+import React, { ElementType } from 'react'
 import clsx from 'clsx'
 import { componentLogger } from '../../utils/componentLogger'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import Typography from '@material-ui/core/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 
-const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }) => {
+export type LmHeadlineProps = { content: HeadlineStoryblok }
+
+export function LmHeadline({ content }: LmHeadlineProps): JSX.Element {
   componentLogger(content)
   const component = content.tag ? content.tag : undefined
   return (
@@ -34,12 +36,10 @@ const Headline: FunctionComponent<{ content: HeadlineStoryblok }> = ({ content }
         )}
         <>
 
-         </>
+        </>
         {!content.text_xs && content.text}
       </Typography>
     </SbEditable>
   )
 }
 
-
-export default Headline

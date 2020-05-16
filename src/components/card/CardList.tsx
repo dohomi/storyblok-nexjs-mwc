@@ -1,7 +1,7 @@
 import SbEditable from 'storyblok-react'
 import CardListItem from './CardListItem'
 import clsx from 'clsx'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { CardListStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/styles'
 import GridList from '@material-ui/core/GridList'
@@ -59,7 +59,9 @@ const useStyles = makeStyles({
 )
 
 
-const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }) => {
+export type LmCardListProps = { content: CardListStoryblok }
+
+export function LmCardList({ content }: LmCardListProps): JSX.Element {
   const { body, column_gap, column_count, column_count_phone, column_count_tablet, ...rest } = content
   const classes = useStyles(content)
   const gridClasses = useGridListStyles({
@@ -95,5 +97,3 @@ const CardList: FunctionComponent<{ content: CardListStoryblok }> = ({ content }
     </SbEditable>
   )
 }
-
-export default CardList

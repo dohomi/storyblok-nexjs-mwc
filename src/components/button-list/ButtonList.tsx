@@ -1,11 +1,12 @@
 import SbEditable from 'storyblok-react'
 import Components from '@components'
 import clsx from 'clsx'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { ButtonListStoryblok } from '../../typings/generated/components-schema'
 
+export type LmButtonListProps = { content: ButtonListStoryblok }
 
-const ButtonList: FunctionComponent<{ content: ButtonListStoryblok }> = ({ content }) => {
+export function LmButtonList({ content }: LmButtonListProps): JSX.Element {
   const body = content.body || []
   const properties = content.property || []
   const classNames = clsx('d-flex', content.class_names && content.class_names.values, {
@@ -20,5 +21,3 @@ const ButtonList: FunctionComponent<{ content: ButtonListStoryblok }> = ({ conte
     </SbEditable>
   )
 }
-
-export default ButtonList

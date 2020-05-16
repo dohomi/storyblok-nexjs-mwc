@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/react'
 import SectionVideoBg from './SectionVideoBg'
 import * as React from 'react'
-import { storyBackground, storyColumn, storyRow, storySectionVideoBg } from '../../../.storybook/dummy/core/section'
-import { storyHeadline } from '../../../.storybook/dummy/core/various'
+import { storyBackground, storyColumn, storyRow, storySectionVideoBg } from '../../storybook/core/section'
+import { storyHeadline } from '../../storybook/core/various'
 
 
 storiesOf('Section Video', module)

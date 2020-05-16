@@ -1,4 +1,4 @@
-import { getCreatedStyles } from '../../../src/utils/hooks/useGlobalStyles'
+import { getCreatedStyles } from '../../utils/hooks/useGlobalStyles'
 import { createMuiTheme } from '@material-ui/core/styles'
 
 const generateUtilityClassNames = (): string[] => {

@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
+import React, { CSSProperties, useEffect, useState } from 'react'
 import SbEditable from 'storyblok-react'
 import { AvatarStoryblok } from '../../typings/generated/components-schema'
 import Avatar from '@material-ui/core/Avatar'
@@ -23,9 +23,11 @@ const sizeMap = {
   }
 }
 
-const LmAvatar: FunctionComponent<{
+export type LmAvatarProps = {
   content: AvatarStoryblok
-}> = ({ content }) => {
+}
+
+export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const iconName = content.icon && content.icon.name
   const imageSrc = content.image
@@ -78,5 +80,3 @@ const LmAvatar: FunctionComponent<{
     </SbEditable>
   )
 }
-
-export default LmAvatar

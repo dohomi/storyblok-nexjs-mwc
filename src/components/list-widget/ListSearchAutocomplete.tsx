@@ -157,7 +157,9 @@ const ListSearchAutocompleteWrap: FunctionComponent<{
   return <SbEditable content={content}>{children}</SbEditable>
 }
 
-const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocompleteStoryblok }> = ({ content }) => {
+export type LmListSearchAutocompleteProps = { content: ListSearchAutocompleteStoryblok }
+
+export function LmListSearchAutocomplete({ content }: LmListSearchAutocompleteProps): JSX.Element {
   // const { allStories } = useAppContext()
   const [allStories, setAllStories] = useState<StoryData<PageComponent>[]>([])
   const classes = useStyles()
@@ -185,7 +187,7 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
           }
         }
       }).then(res => {
-        console.log("in then", res.data.stories)
+        console.log('in then', res.data.stories)
         setAllStories(res.data.stories)
         setOpen(true)
         // setSearchText(value)
@@ -271,4 +273,3 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
   )
 }
 
-export default ListSearchAutocomplete

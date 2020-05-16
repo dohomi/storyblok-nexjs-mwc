@@ -9,7 +9,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
 
-type AccordionItemProps = {
+type LmAccordionItemProps = {
   content: AccordionItemStoryblok,
   options: AccordionStoryblok,
   opened: string,
@@ -17,7 +17,7 @@ type AccordionItemProps = {
   iteration: number
 }
 
-export function AccordionItem({ content, options, setOpen, opened, iteration }: AccordionItemProps): JSX.Element {
+export function LmAccordionItem({ content, options, setOpen, opened, iteration }: LmAccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
 
   const handleChange = (panel: string) => (_: React.ChangeEvent<{}>, isExpanded: boolean) => {

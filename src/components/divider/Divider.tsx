@@ -86,7 +86,9 @@ const Wrap: FunctionComponent<{
   </SbEditable>
 )
 
-const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) => {
+export type LmDividerProps = { content: DividerStoryblok }
+
+export function LmDivider({ content }: LmDividerProps): JSX.Element {
   const classes = useStyles()
 
   const style: CSSProperties = {}
@@ -127,5 +129,3 @@ const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) 
     </Wrap>
   )
 }
-
-export default Divider

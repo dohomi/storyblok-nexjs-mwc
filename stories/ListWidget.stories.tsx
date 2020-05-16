@@ -1,9 +1,9 @@
 import { storiesOf } from '@storybook/react'
-import ListWidget from './ListWidget'
+import {LmListWidget} from '../src/'
 import * as React from 'react'
-import { ListsStoryblok, ListWidgetStoryblok, NavListStoryblok } from '../../typings/generated/components-schema'
-import SetStoriesDecorator from '../../../.storybook/components/SetStoriesDecorator'
-import { storyCardList, storyListWidget } from '../../../.storybook/dummy/core/section'
+import { ListsStoryblok, ListWidgetStoryblok, NavListStoryblok } from '../src/typings/generated/components-schema'
+import SetStoriesDecorator from '../src/storybook/components/SetStoriesDecorator'
+import { storyCardList, storyListWidget } from '../src/storybook/core/section'
 
 const props: ListWidgetStoryblok = {
   _uid: '123',
@@ -39,11 +39,11 @@ storiesOf('List Widget', module)
       <div className="p-3">
         <h2>Limit is set to 4:</h2>
         <h4>Default:</h4>
-        <ListWidget content={props} />
+        <LmListWidget content={props} />
         <h4>List type:</h4>
-        <ListWidget content={{ ...props, list_options: [listsOption] }} />
+        <LmListWidget content={{ ...props, list_options: [listsOption] }} />
         <h4>Links type:</h4>
-        <ListWidget content={{ ...props, list_options: [linksOption] }} />
+        <LmListWidget content={{ ...props, list_options: [linksOption] }} />
       </div>
     )
   )
@@ -53,11 +53,11 @@ storiesOf('List Widget', module)
       <div className="p-3">
         <h2>Limit is set to 10:</h2>
         <h4>Default:</h4>
-        <ListWidget content={filtered} />
+        <LmListWidget content={filtered} />
         <h4>List type:</h4>
-        <ListWidget content={{ ...filtered, list_options: [listsOption] }} />
+        <LmListWidget content={{ ...filtered, list_options: [listsOption] }} />
         <h4>Links type:</h4>
-        <ListWidget content={{ ...filtered, list_options: [linksOption] }} />
+        <LmListWidget content={{ ...filtered, list_options: [linksOption] }} />
       </div>
     )
   )
@@ -76,7 +76,7 @@ storiesOf('List Widget', module)
 
       return (
         <div className="p-5">
-          <ListWidget content={{ ...listOpts }} />
+          <LmListWidget content={{ ...listOpts }} />
         </div>
       )
     }

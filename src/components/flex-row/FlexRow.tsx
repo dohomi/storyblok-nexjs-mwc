@@ -1,12 +1,13 @@
 import SbEditable from 'storyblok-react'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { FlexRowStoryblok } from '../../typings/generated/components-schema'
 import Components from '@components'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 
-const FlexRow: FunctionComponent<{ content: FlexRowStoryblok }> = ({ content }) => {
+export type LmFlexRowProps = { content: FlexRowStoryblok }
+
+export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {
   const body = content.body || []
   return (
     <SbEditable content={content}>
@@ -24,5 +25,3 @@ const FlexRow: FunctionComponent<{ content: FlexRowStoryblok }> = ({ content }) 
     </SbEditable>
   )
 }
-
-export default FlexRow

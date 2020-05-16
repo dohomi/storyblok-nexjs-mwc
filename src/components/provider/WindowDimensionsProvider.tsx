@@ -23,10 +23,6 @@ export const WindowDimensionsCtx = createContext(defaultValue)
 const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
   let defaultValue: WithWindowDimensionsProps = {
     height: 500,
-    width: 599,
-    isMobile: true,
-    isTablet: false,
-    isDesktop: false,
     ...deviceDetect()
   }
 

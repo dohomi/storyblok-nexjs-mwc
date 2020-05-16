@@ -1,10 +1,12 @@
 import SbEditable from 'storyblok-react'
-import React, { FunctionComponent, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { HtmlStoryblok } from '../../typings/generated/components-schema'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
-const Html: FunctionComponent<{ content: HtmlStoryblok }> = ({ content }) => {
+export type LmHtmlProps = { content: HtmlStoryblok }
+
+export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const htmlContent = useMemo<string>(
     () => {
@@ -29,5 +31,3 @@ const Html: FunctionComponent<{ content: HtmlStoryblok }> = ({ content }) => {
     </SbEditable>
   )
 }
-
-export default Html

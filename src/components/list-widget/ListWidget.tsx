@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import {
   CardListStoryblok,
   ListsStoryblok,
@@ -60,7 +60,9 @@ export const listWidgetFilter = (content: ListWidgetStoryblok, allStories: Story
   return stories
 }
 
-const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ content }) => {
+export type LmListWidgetProps = { content: ListWidgetStoryblok }
+
+export function LmListWidget({ content }: LmListWidgetProps): JSX.Element {
 
   const { listWidgetData } = useAppContext()
   let items = listWidgetData[content._uid] || []
@@ -72,5 +74,3 @@ const ListWidget: FunctionComponent<{ content: ListWidgetStoryblok }> = ({ conte
   }
   return <ListWidgetContainer listOption={listOption} content={content} items={items} />
 }
-
-export default ListWidget

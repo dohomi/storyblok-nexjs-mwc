@@ -17,7 +17,7 @@ import {
   TabsStoryblok,
   TimelineItemStoryblok,
   TimelineStoryblok
-} from '../../../src/typings/generated/components-schema'
+} from '../../typings/generated/components-schema'
 import { getLabel, getSentences, randomIntFromInterval, storyImageUrls } from './various'
 import getKnobComponents from '../helpers/getKnobComponent'
 
