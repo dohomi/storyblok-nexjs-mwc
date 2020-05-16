@@ -1,9 +1,13 @@
 import SbEditable from 'storyblok-react'
-import AccordionItem from './AccordionItem'
-import React, { FunctionComponent, useState } from 'react'
+import { AccordionItem } from './AccordionItem'
+import React, { useState } from 'react'
 import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
 
-const Accordion: FunctionComponent<{ content: AccordionStoryblok }> = ({ content }) => {
+export type AccordionProps = {
+  content: AccordionStoryblok
+}
+
+export function Accordion({ content }: AccordionProps): JSX.Element {
   const [opened, setOpen] = useState<string>('')
 
   return (
@@ -19,5 +23,3 @@ const Accordion: FunctionComponent<{ content: AccordionStoryblok }> = ({ content
     </SbEditable>
   )
 }
-
-export default Accordion

@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import Components from '@components'
-import { default as React, FunctionComponent, useState } from 'react'
+import { default as React, useState } from 'react'
 import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
@@ -9,13 +9,15 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
 
-const AccordionItem: FunctionComponent<{
+type AccordionItemProps = {
   content: AccordionItemStoryblok,
   options: AccordionStoryblok,
   opened: string,
   setOpen: Function,
   iteration: number
-}> = ({ content, options, setOpen, opened, iteration }) => {
+}
+
+export function AccordionItem({ content, options, setOpen, opened, iteration }: AccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
 
   const handleChange = (panel: string) => (_: React.ChangeEvent<{}>, isExpanded: boolean) => {
@@ -40,5 +42,3 @@ const AccordionItem: FunctionComponent<{
     </SbEditable>
   )
 }
-
-export default AccordionItem
