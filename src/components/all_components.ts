@@ -1,4 +1,4 @@
-import Page from './page/Page'
+import {LmPage} from './page/Page'
 import Section from './section/Section'
 import { LmHeadline } from './headline/Headline'
 import { LmImage } from './image/ImageElement'
@@ -44,7 +44,7 @@ import {LmMotion} from './motion/Motion'
 // import Promotion from './promotion/Promotion'
 
 const Components = {
-  'page': Page,
+  'page': LmPage,
   'table': Table,
   'accordion': LmAccordion,
   // 'promotion': Promotion,

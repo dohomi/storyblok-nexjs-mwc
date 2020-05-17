@@ -12,10 +12,10 @@ import {
   ToolbarNaviButtonStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
-import ImageElement from '../../image/ImageElement'
-import Headline from '../../headline/Headline'
-import DateHeadline from '../../headline/DateHeadline'
-import Divider from '../../divider/Divider'
+import {LmImage} from '../../image/ImageElement'
+import {LmHeadline} from '../../headline/Headline'
+import {LmDateHeadline} from '../../headline/DateHeadline'
+import {LmDivider} from '../../divider/Divider'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 import ToggleDrawerButton from '../toolbar/ToggleDrawerButton'
 
@@ -35,10 +35,10 @@ const Components: DrawerContentComponents = {
   'toolbar_navi_button': ToggleDrawerButton,
   'nav_menu': CollapsibleListSection,
   'list_search_autocomplete': () => null,
-  'image': ImageElement,
-  'headline': Headline,
-  'date_headline': DateHeadline,
-  'divider': Divider
+  'image': LmImage,
+  'headline': LmHeadline,
+  'date_headline': LmDateHeadline,
+  'divider': LmDivider
 }
 
 const Child = (blok: any) => {

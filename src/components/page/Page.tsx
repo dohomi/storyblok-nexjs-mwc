@@ -1,11 +1,13 @@
 import SbEditable from 'storyblok-react'
 import { ParallaxProvider } from 'react-scroll-parallax'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { PageStoryblok } from '../../typings/generated/components-schema'
 import RightDrawer from './RightDrawer'
 import MainContent from './MainContent'
 
-const Page: FunctionComponent<{ content: PageStoryblok }> = (props) => {
+export type LmPageProps = { content: PageStoryblok }
+
+export function LmPage(props: LmPageProps): JSX.Element {
   let content = props.content
   const body = content.body || []
   const rightBody = content.right_body || []
@@ -31,5 +33,3 @@ const Page: FunctionComponent<{ content: PageStoryblok }> = (props) => {
     </SbEditable>
   )
 }
-
-export default Page

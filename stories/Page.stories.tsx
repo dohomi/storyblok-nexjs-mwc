@@ -1,31 +1,24 @@
-import { storiesOf } from '@storybook/react'
-import Page from './Page'
+import { LmPage } from '../src/'
 import {
   GlobalStoryblok,
   PageStoryblok,
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
-} from '../../typings/generated/components-schema'
-import { darkSectionWithColumns, get3ColumnsSection } from '../../storybook/section'
+} from '../src/typings/generated/components-schema'
+import { darkSectionWithColumns, get3ColumnsSection } from '../src/storybook/section'
 import React from 'react'
-import { toggleRightNavigation } from '../../utils/state/actions'
-import { simpleSettings } from '../../storybook/toolbar'
-import Layout from '../layout/Layout'
+import { toggleRightNavigation } from '../src/utils/state/actions'
+import { simpleSettings } from '../src/storybook/toolbar'
+import Layout from '../src/components/layout/Layout'
 import {
   storyListSearchAutocomplete,
   storyToolbarLogo,
   storyToolbarRow,
   storyToolbarSection
-} from '../../storybook/layout/toolbar'
+} from '../src/storybook/layout/toolbar'
 import { boolean } from '@storybook/addon-knobs'
-import {
-  storyButton,
-  storyHeadline,
-  storyMenu,
-  storyMenuItem,
-  storyParagraph
-} from '../../storybook/core/various'
-import { CONFIG_STORYBOOK } from '../../storybook/components/configStorybook'
+import { storyButton, storyHeadline, storyMenu, storyMenuItem, storyParagraph } from '../src/storybook/core/various'
+import { CONFIG_STORYBOOK } from '../src/storybook/components/configStorybook'
 
 
 const getPropsDrawer = (): PageStoryblok => ({
@@ -96,55 +89,46 @@ const getToolbarSettings = () => {
   }] as ToolbarRowStoryblok []
 }
 
-storiesOf('Layout', module)
-  .add(
-    'Simple Page',
-    () => (
-      <Page content={{
-        _uid: '123',
-        component: 'page',
-        body: [get3ColumnsSection({ knob: 'Body Section 1' })]
-      }} />
-    )
-  )
-  .add(
-    'Page with drawer',
-    () => (
-      <>
-        <button onClick={() => toggleRightNavigation()}>
-          open if mobile
-        </button>
-        <Page content={getPropsDrawer()} />
-      </>
-    )
-  )
-  .add(
-    'Playground',
-    // @ts-ignore
-    ({ settings }: { settings: GlobalStoryblok }) => {
+export default {
+  title: 'Page'
+}
 
+export const Basic = () => (
+  <LmPage content={{
+    _uid: '123',
+    component: 'page',
+    body: [get3ColumnsSection({ knob: 'Body Section 1' })]
+  }} />
+)
+export const WithDrawer = () => (
+  <>
+    <button onClick={() => toggleRightNavigation()}>
+      open if mobile
+    </button>
+    <LmPage content={getPropsDrawer()} />
+  </>
+)
+export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
+  const show = boolean('Show System Bar', true, 'System Bar')
+  const customSettingsSystemBar: GlobalStoryblok = {
+    ...simpleSettings,
+    multi_toolbar: getToolbarSettings(),
+    footer: [darkSectionWithColumns]
+  }
+  if (!show) {
+    customSettingsSystemBar.multi_toolbar && customSettingsSystemBar.multi_toolbar.shift()
+  }
+  return (
+    <>
+      <Layout settings={{
+        ...settings,
+        multi_toolbar: customSettingsSystemBar.multi_toolbar,
+        footer: customSettingsSystemBar.footer
 
-      const show = boolean('Show System Bar', true, 'System Bar')
-      const customSettingsSystemBar: GlobalStoryblok = {
-        ...simpleSettings,
-        multi_toolbar: getToolbarSettings(),
-        footer: [darkSectionWithColumns]
-      }
-      if (!show) {
-        customSettingsSystemBar.multi_toolbar && customSettingsSystemBar.multi_toolbar.shift()
-      }
-      return (
-        <>
-          <Layout settings={{
-            ...settings,
-            multi_toolbar: customSettingsSystemBar.multi_toolbar,
-            footer: customSettingsSystemBar.footer
-
-          }}>
-            <Page content={getPropsDrawer()} />
-          </Layout>
-        </>
-      )
-    }
+      }}>
+        <LmPage content={getPropsDrawer()} />
+      </Layout>
+    </>
   )
+}
 

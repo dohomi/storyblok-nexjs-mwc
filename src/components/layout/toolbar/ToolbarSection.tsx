@@ -1,6 +1,6 @@
 import SbEditable from 'storyblok-react'
 import React, { FunctionComponent } from 'react'
-import Menu from '../../menu/NavMenu'
+import {LmMenu} from '../../menu/NavMenu'
 import ToolbarLogo from './ToolbarLogo'
 import {
   ButtonStoryblok,
@@ -11,15 +11,15 @@ import {
   ToolbarNaviButtonStoryblok,
   ToolbarRowSectionStoryblok
 } from '../../../typings/generated/components-schema'
-import LmMuiButton from '../../button/Button'
+import {LmButton} from '../../button/Button'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
-import ListSearchAutocomplete from '../../list-widget/ListSearchAutocomplete'
+import {LmListSearchAutocomplete} from '../../list-widget/ListSearchAutocomplete'
 import ToggleDrawerButton from './ToggleDrawerButton'
 import { useTheme } from '@material-ui/core/styles'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import Headline from '../../headline/Headline'
+import {LmHeadline} from '../../headline/Headline'
 
 
 type ToolbarSectionComponents = {
@@ -32,12 +32,12 @@ type ToolbarSectionComponents = {
 }
 
 const ToolbarComponents: ToolbarSectionComponents = {
-  'button': LmMuiButton,
-  'nav_menu': Menu,
+  'button': LmButton,
+  'nav_menu': LmMenu,
   'toolbar_logo': ToolbarLogo,
   'toolbar_navi_button': ToggleDrawerButton,
-  'list_search_autocomplete': ListSearchAutocomplete,
-  'headline': Headline
+  'list_search_autocomplete': LmListSearchAutocomplete,
+  'headline': LmHeadline
 }
 
 const Child = (blok: any, settings: GlobalStoryblok) => {
