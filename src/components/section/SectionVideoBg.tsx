@@ -3,7 +3,7 @@ import SbEditable from 'storyblok-react'
 import dynamic from 'next/dynamic'
 import { useInView } from 'react-intersection-observer'
 import * as React from 'react'
-import { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
+import { CSSProperties, useEffect, useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -73,7 +73,9 @@ const useStyles = makeStyles({
 // }
 })
 
-const SectionVideoBg: FunctionComponent<{ content: SectionVideoBgStoryblok }> = ({ content }) => {
+export type LmSectionVideoProps = { content: SectionVideoBgStoryblok }
+
+export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
   const classes = useStyles()
   const dimensions = useWindowDimensions()
   const [intersectionRef, inView, intersectionElement] = useInView(intersectionDefaultOptions)
@@ -137,5 +139,3 @@ const SectionVideoBg: FunctionComponent<{ content: SectionVideoBgStoryblok }> = 
     </SbEditable>
   )
 }
-
-export default SectionVideoBg

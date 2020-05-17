@@ -130,7 +130,9 @@ const TableRow: FunctionComponent<{ content: string[], index: number }> = ({ con
   )
 }
 
-const Table: FunctionComponent<{ content: TableStoryblok }> = ({ content }) => {
+export type LmTableProps = { content: TableStoryblok }
+
+export function LmTable({ content }: LmTableProps): JSX.Element {
   const classes = useStyles()
   const className = clsx(classes.tables, 'lm-table', content.class_names && content.class_names.values, {
     [`lm-table__${content.variant}`]: !!content.variant
@@ -157,5 +159,3 @@ const Table: FunctionComponent<{ content: TableStoryblok }> = ({ content }) => {
     </SbEditable>
   )
 }
-
-export default Table

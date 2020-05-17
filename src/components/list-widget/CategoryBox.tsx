@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChangeEvent, CSSProperties, FunctionComponent, useState } from 'react'
+import { ChangeEvent, CSSProperties, useState } from 'react'
 import { CategoryBoxStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import { setSearchCategory } from '../../utils/state/actions'
@@ -9,7 +9,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { useAppContext } from '../provider/AppProvider'
 
-const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ content }) => {
+export type LmCategoryBoxProps = { content: CategoryBoxStoryblok }
+
+export function LmCategoryBox({ content }: LmCategoryBoxProps): JSX.Element {
   const router = useRouter()
   const query = router?.query
   let initialValues: string[] = []
@@ -81,5 +83,3 @@ const CategoryBox: FunctionComponent<{ content: CategoryBoxStoryblok }> = ({ con
     </SbEditable>
   )
 }
-
-export default CategoryBox

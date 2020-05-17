@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { BackgroundStoryblok, ColumnStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import BackgroundImage from './BackgroundImage'
@@ -48,7 +48,9 @@ const mdSpanMap = {
   'true': true
 }
 
-const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }) => {
+export type LmGridColumnProps = { content: ColumnStoryblok }
+
+export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
   // const classes = useStyles(content)
   const background: BackgroundStoryblok | undefined = (Array.isArray(content.background) && content.background[0] as BackgroundStoryblok) || undefined
   const { className, style } = useBackgroundBox({ background })
@@ -88,5 +90,3 @@ const GridColumn: FunctionComponent<{ content: ColumnStoryblok }> = ({ content }
     </SbEditable>
   )
 }
-
-export default GridColumn

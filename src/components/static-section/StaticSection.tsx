@@ -1,11 +1,13 @@
 import Components from '@components'
 import { StaticSectionStoryblok } from '../../typings/generated/components-schema'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import { useAppContext } from '../provider/AppProvider'
 
-const StaticSection: FunctionComponent<{ content: StaticSectionStoryblok }> = ({ content }) => {
+export type LmStaticSectionProps = { content: StaticSectionStoryblok }
+
+export function LmStaticSection({ content }: LmStaticSectionProps): JSX.Element | null {
   if (!content.container) {
     return null
   }
@@ -22,5 +24,3 @@ const StaticSection: FunctionComponent<{ content: StaticSectionStoryblok }> = ({
     </SbEditable>
   )
 }
-
-export default StaticSection

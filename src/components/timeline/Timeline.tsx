@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { TimelineStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import TimelineRow from './TimelineRow'
@@ -13,7 +13,9 @@ const useStyles = makeStyles({
   }
 })
 
-const Timeline: FunctionComponent<{ content: TimelineStoryblok }> = ({ content }) => {
+export type LmTimelineProps = { content: TimelineStoryblok }
+
+export function LmTimeline({ content }: LmTimelineProps): JSX.Element {
   const classes = useStyles()
   const body = content.body || []
   return (
@@ -26,5 +28,3 @@ const Timeline: FunctionComponent<{ content: TimelineStoryblok }> = ({ content }
     </SbEditable>
   )
 }
-
-export default Timeline

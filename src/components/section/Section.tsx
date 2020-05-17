@@ -1,6 +1,6 @@
 import Components from '@components'
 import SbEditable from 'storyblok-react'
-import React, { CSSProperties, FunctionComponent } from 'react'
+import React, { CSSProperties } from 'react'
 import { SectionStoryblok } from '../../typings/generated/components-schema'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
@@ -37,7 +37,9 @@ const useStyles = makeStyles({
   }
 })
 
-const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
+export type LmSectionProps = { content: SectionProps }
+
+export function LmSection({ content }: LmSectionProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
   const background = Array.isArray(content.background) && content.background[0]
@@ -80,4 +82,3 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   )
 }
 
-export default Section

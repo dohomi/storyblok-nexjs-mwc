@@ -1,7 +1,7 @@
 import SbEditable from 'storyblok-react'
 import Components from '@components'
 import SwipeableViews from 'react-swipeable-views'
-import React, { CSSProperties, FunctionComponent, memo, useState } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
 import { SliderStoryblok } from '../../typings/generated/components-schema'
 import { SectionProps } from '../section/Section'
@@ -69,7 +69,9 @@ export const useStyles = makeStyles({
 })
 
 
-const Slider: FunctionComponent<{ content: SliderStoryblok }> = ({ content }) => {
+export type LmSliderProps = { content: SliderStoryblok }
+
+export function LmSlider({ content }: LmSliderProps): JSX.Element {
   const [slide, setSlide] = useState(0)
   const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
@@ -145,5 +147,3 @@ const Slider: FunctionComponent<{ content: SliderStoryblok }> = ({ content }) =>
     </SbEditable>
   )
 }
-
-export default memo<{ content: SliderStoryblok }>(Slider)

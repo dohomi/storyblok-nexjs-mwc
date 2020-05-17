@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ChangeEvent, FunctionComponent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { ListSearchFieldStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import { useDebouncedCallback } from 'use-debounce'
@@ -9,7 +9,9 @@ import TextField from '@material-ui/core/TextField'
 import clsx from 'clsx'
 import Magnify from 'mdi-material-ui/Magnify'
 
-const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> = ({ content }) => {
+export type LmListSearchFieldProps = { content: ListSearchFieldStoryblok }
+
+export function LmListSearchField({ content }: LmListSearchFieldProps): JSX.Element {
   const router = useRouter()
   const query = router?.query
   const [searchText, setSearchText] = useState<string>(query.search__text as string || '')
@@ -47,4 +49,3 @@ const ListSearchField: FunctionComponent<{ content: ListSearchFieldStoryblok }> 
     </SbEditable>
   )
 }
-export default ListSearchField

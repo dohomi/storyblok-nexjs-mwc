@@ -1,14 +1,15 @@
 import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { RichTextEditorStoryblok } from '../../typings/generated/components-schema'
 import RteContentRender from './rte/RteContentRender'
 import Typography from '@material-ui/core/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
 
-const RichTextParagraph: FunctionComponent<{ content: RichTextEditorStoryblok }> = ({ content }) => {
+export type LmRichTextParagraphProps = { content: RichTextEditorStoryblok }
+
+export function LmRichTextParagraph({ content }: LmRichTextParagraphProps): JSX.Element {
   const classes = useRichTextStyles()
   return (
     <SbEditable content={content}>
@@ -32,4 +33,3 @@ const RichTextParagraph: FunctionComponent<{ content: RichTextEditorStoryblok }>
   )
 }
 
-export default RichTextParagraph

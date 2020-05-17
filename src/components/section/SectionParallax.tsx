@@ -2,7 +2,7 @@ import Components from '@components'
 import SbEditable from 'storyblok-react'
 import { ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
@@ -26,7 +26,9 @@ const useStyles = makeStyles({
   }
 })
 
-const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> = ({ content }) => {
+export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
+
+export function LmSectionParallax({ content }: LmSectionParallaxProps): JSX.Element {
   const dimensions = useWindowDimensions()
   const classes = useStyles()
   const [refIntersectionObserver, inView, refElement] = useInView(intersectionDefaultOptions)
@@ -37,7 +39,7 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
   const [layers, setLayers] = useState<BannerLayer[] | undefined>()
   const disableLazyLoad = content.disable_lazy_load
   const styles = {
-    height: contentHeight ? `${contentHeight}vh` : '50vh',
+    height: contentHeight ? `${contentHeight}vh` : '50vh'
   }
 
   // let [styles, setStyles] = useState(styles)
@@ -98,5 +100,3 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
     </SbEditable>
   )
 }
-
-export default SectionParallax

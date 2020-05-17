@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { BackgroundStoryblok, RowStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import Grid, { GridProps } from '@material-ui/core/Grid'
@@ -56,7 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
+export type LmGridRowProps = { content: RowStoryblok }
+
+export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   // const theme = useTheme()
   const classes = useStyles()
   let spacing = content.spacing ? Number(content.spacing) as GridProps['spacing'] : 3
@@ -89,5 +90,3 @@ const GridRow: FunctionComponent<{ content: RowStoryblok }> = ({ content }) => {
     </SbEditable>
   )
 }
-
-export default GridRow

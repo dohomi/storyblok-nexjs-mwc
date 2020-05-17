@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FunctionComponent, useState } from 'react'
+import { useState } from 'react'
 import { TabsItemStoryblok, TabsStoryblok } from '../../typings/generated/components-schema'
 import Components from '@components'
 import SwipeableViews from 'react-swipeable-views'
@@ -46,7 +46,9 @@ const widthMap = {
   'true': true
 }
 
-const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
+export type LmTabsProps = { content: TabsStoryblok }
+
+export function LmTabs({ content }: LmTabsProps): JSX.Element {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down(content.mobile_breakpoint || 'xs'))
 
@@ -109,5 +111,3 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
     </Grid>
   )
 }
-
-export default Tabs

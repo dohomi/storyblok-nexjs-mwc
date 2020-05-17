@@ -1,9 +1,7 @@
-import { storiesOf } from '@storybook/react'
-import Paragraph from './Paragraph'
-import { ParagraphStoryblok } from '../../typings/generated/components-schema'
-import RichTextParagraph from './RichTextParagraph'
+import { LmParagraph, LmRichTextParagraph } from '../src/'
+import { ParagraphStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
-import { storyParagraph } from '../../storybook/core/various'
+import { storyParagraph } from '../src/storybook/core/various'
 
 const props: ParagraphStoryblok = {
   _uid: '123',
@@ -134,32 +132,27 @@ const rte = {
   }]
 }
 
-storiesOf('Paragraph & Rich Text', module)
-  .add(
-    'Paragraph _DEPRECATED',
-    () => (
-      <>
-        <Paragraph content={props} />
-        <Paragraph content={{ ...props, typography: 'subtitle2' }} />
-        <Paragraph content={{ ...props, typography: 'headline5' }} />
-        <Paragraph content={{ ...props, typography: 'headline5' }} />
-        <Paragraph content={{ ...props, typography: 'body2' }} />
-      </>
-    )
-  )
-  .add(
-    'Rich Text Editor',
-    () => (
-      <>
-        <RichTextParagraph content={{ _uid: '12', component: 'rich_text_editor', body: rte }} />
-      </>
-    )
-  )
-  .add(
-    'Playground',
-    () => (
-      <div className="p-5">
-        <RichTextParagraph content={{...storyParagraph()}} />
-      </div>
-    )
-  )
+export default {
+  title: 'Paragraph'
+}
+
+export const MarkdownParagraph = () => (
+  <>
+    <LmParagraph content={props} />
+    <LmParagraph content={{ ...props, typography: 'subtitle2' }} />
+    <LmParagraph content={{ ...props, typography: 'headline5' }} />
+    <LmParagraph content={{ ...props, typography: 'headline5' }} />
+    <LmParagraph content={{ ...props, typography: 'body2' }} />
+  </>
+)
+export const RichTextParagraph = () => (
+  <>
+    <LmRichTextParagraph content={{ _uid: '12', component: 'rich_text_editor', body: rte }} />
+  </>
+)
+export const Playground = () => (
+  <div className="p-5">
+    <LmRichTextParagraph content={{ ...storyParagraph() }} />
+  </div>
+)
+

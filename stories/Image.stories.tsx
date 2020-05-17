@@ -1,4 +1,4 @@
-import { LmImage } from '../src/'
+import { LmImage, LmSection } from '../src/'
 import {
   ColumnStoryblok,
   HeadlineStoryblok,
@@ -7,7 +7,6 @@ import {
 } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyHeadline, storyImage } from '../src/storybook/core/various'
-import Section from '../src/components/section/Section'
 import { storyColumn, storyRow, storySection } from '../src/storybook/core/section'
 
 const props: ImageStoryblok = {
@@ -109,8 +108,9 @@ export const ImageFocalPoint = () => {
     </div>
   )
 }
+
 export const ImageInSections = () => (
-  <Section content={{
+  <LmSection content={{
     ...storySection(),
     body: [{
       ...storyRow(),
@@ -128,8 +128,7 @@ export const ImageInSections = () => (
         } as ImageStoryblok]
       }] as ColumnStoryblok[]
     } as RowStoryblok]
-  }}>
-  </Section>
+  }} />
 )
 export const Playground = () => (
   <div style={{
