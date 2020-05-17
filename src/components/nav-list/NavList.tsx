@@ -1,8 +1,7 @@
 import SbEditable from 'storyblok-react'
 import * as React from 'react'
-import { FunctionComponent, memo } from 'react'
 import { NavListStoryblok } from '../../typings/generated/components-schema'
-import NavListItem from './NavListItem'
+import { LmNavListItem } from './NavListItem'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/styles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
@@ -29,7 +28,9 @@ const useStyles = makeStyles({
 
 })
 
-const NavList: FunctionComponent<{ content: NavListStoryblok }> = ({ content }) => {
+export type LmNavListProps = { content: NavListStoryblok }
+
+export function LmNavList({ content }: LmNavListProps): JSX.Element {
   const classes = useStyles()
   const { isMobile } = useDeviceDimensions()
   const body = content && content.body || []
@@ -48,7 +49,7 @@ const NavList: FunctionComponent<{ content: NavListStoryblok }> = ({ content }) 
             <div className={clsx('lm-nav-list', content.class_names && content.class_names.values, {
               'lm-nav-list__column': properties.find(i => i === 'flex-column')
             }, classes.root)}>
-              {body.map((blok) => <NavListItem {...blok} key={blok._uid} />)}
+              {body.map((blok) => <LmNavListItem {...blok} key={blok._uid} />)}
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -63,11 +64,9 @@ const NavList: FunctionComponent<{ content: NavListStoryblok }> = ({ content }) 
       }, classes.root)}>
         {header && <h4>{header}</h4>}
         <nav className={navClassNames}>
-          {body.map((blok) => <NavListItem {...blok} key={blok._uid} />)}
+          {body.map((blok) => <LmNavListItem {...blok} key={blok._uid} />)}
         </nav>
       </div>
     </SbEditable>
   )
 }
-
-export default memo<{ content: NavListStoryblok }>(NavList)

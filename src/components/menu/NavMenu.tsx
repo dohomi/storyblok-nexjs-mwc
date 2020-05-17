@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { FunctionComponent, useEffect } from 'react'
+import { useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import SbEditable from 'storyblok-react'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import Menu from '@material-ui/core/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 import Components from '@components'
-
 import MenuItem from '@material-ui/core/MenuItem'
 import ContentLink from '../link/ContentLink'
 import LmIcon from '../icon/LmIcon'
@@ -19,7 +18,9 @@ const useStyles = makeStyles({
   })
 })
 
-const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) => {
+export type LmMenuProps = { content: NavMenuStoryblok }
+
+export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const menuItems = content.body || []
@@ -107,5 +108,3 @@ const NavMenu: FunctionComponent<{ content: NavMenuStoryblok }> = ({ content }) 
     </SbEditable>
   )
 }
-
-export default NavMenu

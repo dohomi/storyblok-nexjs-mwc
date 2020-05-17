@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { ListWidgetStoryblok, NavItemStoryblok, NavListStoryblok } from '../../typings/generated/components-schema'
-import NavList from '../nav-list/NavList'
+import {LmNavList} from '../nav-list/NavList'
 import { AppApiRequestPayload } from '../../typings/app'
 
 const ListWidgetLinks: FunctionComponent<{
@@ -25,7 +25,7 @@ const ListWidgetLinks: FunctionComponent<{
     })
   }
   return (
-    <NavList content={listProps} />
+    <LmNavList content={listProps} />
   )
 }
 export default ListWidgetLinks

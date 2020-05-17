@@ -1,17 +1,15 @@
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { LinkStoryblok } from '../../typings/generated/components-schema'
 import Components from '@components'
 import ContentLink from './ContentLink'
 
-const LinkWrap: FunctionComponent<{ content: LinkStoryblok }> = ({ content }) => {
-  const body = content.body || []
+export type LmLinkProps = { content: LinkStoryblok }
 
+export function LmLink({ content }: LmLinkProps): JSX.Element {
   return (
     <ContentLink className={'lm-wrap-content__link'} content={content}>
-      {body.map(blok => Components(blok))}
+      {(content.body || []).map(blok => Components(blok))}
     </ContentLink>
   )
 }
 
-export default LinkWrap

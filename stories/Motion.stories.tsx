@@ -1,10 +1,10 @@
 import React from 'react'
-import { HeadlineStoryblok } from '../../typings/generated/components-schema'
+import { HeadlineStoryblok } from '../src/typings/generated/components-schema'
 import { loremIpsum } from 'lorem-ipsum'
-import Motion from './Motion'
-import { storyMotion } from '../../storybook/core/various'
+import {LmMotion} from '../src/'
+import { storyMotion } from '../src/storybook/core/various'
 
-export default { title: 'Animations' }
+export default { title: 'Animations: Motion' }
 
 const body = [{
   _uid: '21312',
@@ -23,7 +23,7 @@ export const Overview = () => (
     <div style={{ maxWidth: '60vw' }}>
       <h2>Scroll down to see animations in action</h2>
       <h3>Slide:</h3>
-      <Motion content={{
+      <LmMotion content={{
         _uid: '1231',
         component: 'motion',
         type: 'slide',
@@ -32,7 +32,7 @@ export const Overview = () => (
       }} />
 
       <h3>Collapse:</h3>
-      <Motion content={{
+      <LmMotion content={{
         _uid: '21312',
         type: 'collapse',
         component: 'motion',
@@ -40,7 +40,7 @@ export const Overview = () => (
         body
       }} />
       <h3>Fade:</h3>
-      <Motion content={{
+      <LmMotion content={{
         _uid: '21312',
         type: 'fade',
         component: 'motion',
@@ -48,7 +48,7 @@ export const Overview = () => (
         body
       }} />
       <h3>Grow:</h3>
-      <Motion content={{
+      <LmMotion content={{
         _uid: 'aw3',
         type: 'grow',
         component: 'motion',
@@ -56,7 +56,7 @@ export const Overview = () => (
         body
       }} />
       <h3>Zoom:</h3>
-      <Motion content={{
+      <LmMotion content={{
         _uid: 'adsfa',
         type: 'zoom',
         component: 'motion',
@@ -69,7 +69,7 @@ export const Overview = () => (
 export const Playground = () => (
   <div style={{ textAlign: 'center' }}>
     <div style={{ maxWidth: '60vw' }}>
-      <Motion content={{
+      <LmMotion content={{
         ...storyMotion({options: { duration: 5000 }}),
         body
       }} />

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { MotionStoryblok } from '../../typings/generated/components-schema'
 import Components from '@components'
 // import Fade, { FadeProps } from '@material-ui/core/Fade'
@@ -10,7 +10,9 @@ import Zoom, { ZoomProps } from '@material-ui/core/Zoom'
 import { Collapse, CollapseProps } from '@material-ui/core'
 import SbEditable from 'storyblok-react'
 
-const Motion: FunctionComponent<{ content: MotionStoryblok }> = ({ content }) => {
+export type LmMotionProps = { content: MotionStoryblok }
+
+export function LmMotion({ content }: LmMotionProps): JSX.Element {
   const type = content.type || 'fade'
   const options: IntersectionOptions = {
     triggerOnce: true
@@ -68,5 +70,3 @@ const Motion: FunctionComponent<{ content: MotionStoryblok }> = ({ content }) =>
     </SbEditable>
   )
 }
-
-export default Motion

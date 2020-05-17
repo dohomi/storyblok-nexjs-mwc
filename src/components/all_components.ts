@@ -3,8 +3,8 @@ import Section from './section/Section'
 import { LmHeadline } from './headline/Headline'
 import { LmImage } from './image/ImageElement'
 import { LmImageList } from './image-list/ImageList'
-import NavList from './nav-list/NavList'
-import Menu from './menu/NavMenu'
+import {LmNavList} from './nav-list/NavList'
+import {LmMenu} from './menu/NavMenu'
 import { LmIcon } from './icon/Icon'
 import SectionVideoBg from './section/SectionVideoBg'
 import Slider from './slider/Slider'
@@ -23,7 +23,7 @@ import { LmFlexRow } from './flex-row/FlexRow'
 import { LmIframeAdvanced } from './iframe/IframeAdvanced'
 import CategoryBox from './list-widget/CategoryBox'
 import ListSearchField from './list-widget/ListSearchField'
-import LinkWwrap from './link/Link'
+import {LmLink} from './link/Link'
 import {LmListSearchAutocomplete} from './list-widget/ListSearchAutocomplete'
 import RichTextParagraph from './paragraph/RichTextParagraph'
 import { LmButton } from './button/Button'
@@ -36,7 +36,7 @@ import { LmAvatar } from './avatar/LmAvatar'
 
 import dynamic from 'next/dynamic'
 import { LmDateHeadline } from './headline/DateHeadline'
-import Motion from './motion/Motion'
+import {LmMotion} from './motion/Motion'
 
 // import HubspotForm from './hubspot/HubspotForm'
 // import Form from './form/Form'
@@ -64,8 +64,8 @@ const Components = {
   'image': LmImage,
   'image_list': LmImageList,
   'button': LmButton,
-  'nav_list': NavList,
-  'nav_menu': Menu,
+  'nav_list': LmNavList,
+  'nav_menu': LmMenu,
   'icon': LmIcon,
   'iframe': LmIframe,
   'slider': Slider,
@@ -79,13 +79,13 @@ const Components = {
   'iframe_advanced': LmIframeAdvanced,
   'category_box': CategoryBox,
   'list_search_field': ListSearchField,
-  'link': LinkWwrap,
+  'link': LmLink,
   'list_search_autocomplete': LmListSearchAutocomplete,
   'rich_text_editor': RichTextParagraph,
   'timeline': Timeline,
   'avatar': LmAvatar,
   'date_headline': LmDateHeadline,
-  'motion': Motion
+  'motion': LmMotion
 }
 
 export default Components
