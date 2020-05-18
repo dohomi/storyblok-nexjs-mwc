@@ -1,6 +1,6 @@
 import { default as React } from 'react'
 import { DateHeadlineStoryblok, HeadlineStoryblok } from '../../typings/generated/components-schema'
-import { LmHeadline } from 'components/headline/Headline'
+import { LmHeadline } from './Headline'
 
 export type LmDateHeadlineProps = { content: DateHeadlineStoryblok }
 

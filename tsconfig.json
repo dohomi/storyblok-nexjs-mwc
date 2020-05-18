@@ -32,32 +32,33 @@
     "moduleResolution": "node",
     "jsx": "react",
     "paths": {
-//      "@": [
-//        "./"
-//      ],
-      "*": [
-        "src/*",
-        "node_modules/*"
-      ],
+      //      "@": [
+      //        "./"
+      //      ],
+      //      "*": [
+      //        "src/*",
+      //        "node_modules/*"
+      //      ],
       "@components": [
         "./src/components/ComponentRender.tsx"
       ],
       "@polyfills": [
         "./client/polyfills.js"
-      ],
-      "@initialData/*": [
-        "./src/utils/initial-props/*"
       ]
     },
-    "allowJs": true
+    "allowJs": true,
+    "traceResolution": true
   },
   "exclude": [
     "node_modules",
-    ".next"
+    ".next",
+    "dist"
   ],
   "include": [
     "next-env",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx"
   ]
 }

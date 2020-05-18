@@ -1,9 +1,9 @@
-import { prepareForStoryblok } from '@initialData/prepareStoryblokRequest'
-import { apiRequestResolver } from '@initialData/storyblokDeliveryResolver'
 import { CONFIG } from '../config'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../typings/app'
-import { collectComponentData } from '@initialData/traversePageContent'
+import { prepareForStoryblok } from './prepareStoryblokRequest'
+import { apiRequestResolver } from './storyblokDeliveryResolver'
+import { collectComponentData } from './traversePageContent'
 
 const getPageProps = async (slug: string | string[], ssrHostname?: string): Promise<AppPageProps> => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
@@ -40,11 +40,7 @@ const getPageProps = async (slug: string | string[], ssrHostname?: string): Prom
   return {
     page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
     settings: settingsProps ? { ...settingsProps, uuid: settings?.data?.story?.uuid } : null,
-    allCategories: (allCategories || []).map(i => ({
-      uuid: i.uuid,
-      content: i.content,
-      tag_list: i.tag_list
-    })),
+    allCategories,
     allStaticContent,
     locale,
     listWidgetData: componentData || null

@@ -2,9 +2,9 @@ import { StoriesParams } from 'storyblok-js-client'
 import StoryblokService from '../StoryblokService'
 import { CONFIG } from '../config'
 import { AppApiRequestPayload } from '../../typings/app'
-import { checkCacheFileExists, readCacheFile, writeCacheFile } from '@initialData/fileCache'
-import { endMeasureTime, startMeasureTime } from '@initialData/timer'
 import fetch from 'node-fetch'
+import { endMeasureTime, startMeasureTime } from './timer'
+import { checkCacheFileExists, readCacheFile, writeCacheFile } from './fileCache'
 
 
 const resolveAllPromises = (promises: Promise<any>[]) => {

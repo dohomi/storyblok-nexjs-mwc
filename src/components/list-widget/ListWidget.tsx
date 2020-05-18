@@ -65,7 +65,7 @@ export type LmListWidgetProps = { content: ListWidgetStoryblok }
 export function LmListWidget({ content }: LmListWidgetProps): JSX.Element {
 
   const { listWidgetData } = useAppContext()
-  let items = listWidgetData[content._uid] || []
+  let items = (listWidgetData && listWidgetData[content._uid]) || []
 
   const listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok) = (content.list_options && content.list_options[0]) || {}
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import RteText from './RteNodeText'
-import { RteContentProps, RteProps } from 'components/paragraph/rte/rte_typings'
+import { RteContentProps, RteProps } from './rte_typings'
 
 const ElementMap = {
   'paragraph': 'p',

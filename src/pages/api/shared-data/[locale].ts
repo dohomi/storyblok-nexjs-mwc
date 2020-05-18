@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { fetchSharedStoryblokContent } from '@initialData/storyblokDeliveryResolver'
 import StoryblokService from '../../../utils/StoryblokService'
+import { fetchSharedStoryblokContent } from '../../../utils/initial-props/storyblokDeliveryResolver'
 
 export default async function(req: NextApiRequest, res: NextApiResponse) {
 

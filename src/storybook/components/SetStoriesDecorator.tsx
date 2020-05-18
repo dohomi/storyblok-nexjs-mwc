@@ -50,7 +50,9 @@ const SetStoriesDecorator = (storyFunc: Function) => {
         setAllTags(tagList)
         setLoaded(true)
         setValues({
-          listWidgetData: {},
+          listWidgetData: {
+            'storyblok_list': stories
+          },
           allCategories: categories,
           allStaticContent: []
         })

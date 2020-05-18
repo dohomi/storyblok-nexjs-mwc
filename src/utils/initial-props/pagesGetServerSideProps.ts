@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import StoryblokService from '../StoryblokService'
-import getPageProps from '@initialData/getPageProps'
-import { endMeasureTime, startMeasureTime } from '@initialData/timer'
+import { endMeasureTime, startMeasureTime } from './timer'
+import getPageProps from './getPageProps'
 
 
 const pagesGetServerSideProps: GetServerSideProps = async (props) => {
