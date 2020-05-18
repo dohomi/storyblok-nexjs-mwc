@@ -1,6 +1,5 @@
 import Components from '@components'
 import SbEditable from 'storyblok-react'
-import dynamic from 'next/dynamic'
 import { useInView } from 'react-intersection-observer'
 import * as React from 'react'
 import { CSSProperties, useEffect, useState } from 'react'
@@ -8,11 +7,8 @@ import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/styles'
+import FullscreenVideoBg from './FullscreenVideoBg'
 
-const FullscreenVideoBg = dynamic(
-  () => import('./FullscreenVideoBg'),
-  { ssr: false }
-)
 
 const useStyles = makeStyles({
   videoSection: {

@@ -2,7 +2,7 @@ import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import * as React from 'react'
 import { RichTextEditorStoryblok } from '../../typings/generated/components-schema'
-import RteContentRender from './rte/RteContentRender'
+import {LmRteContentRenderer} from './rte/RteContentRender'
 import Typography from '@material-ui/core/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
@@ -27,7 +27,7 @@ export function LmRichTextParagraph({ content }: LmRichTextParagraphProps): JSX.
           letterSpacing: content.letter_spacing ? content.letter_spacing : undefined
         }}
         variant={mapTypographyVariant[content.typography ? content.typography as string : 'body1']}>
-        {content.body && content.body.content.map((blok: any, i: number) => RteContentRender(blok, i))}
+        {content.body && content.body.content.map((blok: any, i: number) => LmRteContentRenderer(blok, i))}
       </Typography>
     </SbEditable>
   )

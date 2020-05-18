@@ -32,9 +32,9 @@
     "moduleResolution": "node",
     "jsx": "react",
     "paths": {
-      "@": [
-        "./"
-      ],
+//      "@": [
+//        "./"
+//      ],
       "*": [
         "src/*",
         "node_modules/*"

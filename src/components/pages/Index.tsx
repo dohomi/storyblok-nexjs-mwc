@@ -15,7 +15,10 @@ import { useRouter } from 'next/router'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
 
-const Index: NextPage<AppPageProps> = (props) => {
+
+export type LmPagesIndexProps = NextPage<AppPageProps>
+
+const Index: LmPagesIndexProps = (props) => {
   const { error, locale, settings, page, ...rest } = props
   const { stateSettings, statePage } = useStoryblok({ settings, page })
   const { isFallback } = useRouter()
