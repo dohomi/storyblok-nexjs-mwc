@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import List from '@material-ui/core/List'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
@@ -9,13 +9,16 @@ import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import { internalLinkHandler } from '../../utils/linkHandler'
 import { AppApiRequestPayload } from '../../typings/app'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 
-const ListWidgetLists: FunctionComponent<{
+type ListWidgetListsProps = CoreComponentProps & {
   items: AppApiRequestPayload['allStories']
   options: ListsStoryblok
   content: ListWidgetStoryblok
-}> = ({ items, options, content }) => {
+}
+
+function ListWidgetLists({ items, options, content }: ListWidgetListsProps): JSX.Element {
   const imageSize = options.image_size || 'large'
   const hideImage = options.hide_image
   return (

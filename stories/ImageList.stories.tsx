@@ -1,4 +1,4 @@
-import { LmImageList } from '../src/'
+import LmImageList from '../src/'
 import { ImageListItemStoryblok, ImageListStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyImageList, storyImageListItem } from '../src/storybook/core/section'

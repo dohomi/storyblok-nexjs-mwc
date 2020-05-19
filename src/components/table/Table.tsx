@@ -155,7 +155,6 @@ export function LmTable({ content }: LmTableProps): JSX.Element {
           content={row} />)}
         </tbody>
       </table>
-
     </SbEditable>
   )
 }

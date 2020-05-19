@@ -6,8 +6,9 @@ import Card from '@material-ui/core/Card'
 import ContentLink from '../link/ContentLink'
 import clsx from 'clsx'
 import useShadowStyles from '../jss/shadowStyles'
+import GridListTile from '@material-ui/core/GridListTile'
 
-const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, options }) => {
+const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, options, ComponentRender }) => {
   const className = 'lm-card'
   const styles = useShadowStyles()
   const variants = options.variant || []
@@ -20,21 +21,25 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, opt
     return <CardWrapWithAction className={className}
                                content={content}
                                style={style}
+                               ComponentRender={ComponentRender}
                                options={options}>{children}</CardWrapWithAction>
   }
 
   return (
     <SbEditable content={content}>
-      <Card className={clsx(className, {
-        [styles[options.shadow_effect]]: !!options.shadow_effect
-      })}
-            raised={variants.includes('raised')}
-            elevation={options.elevation ? Number(options.elevation) : undefined}
-            style={style}>
-        <ContentLink content={content} className={'lm-card__link'}>
-          {children}
-        </ContentLink>
-      </Card>
+      <GridListTile>
+
+        <Card className={clsx(className, {
+          [styles[options.shadow_effect]]: !!options.shadow_effect
+        })}
+              raised={variants.includes('raised')}
+              elevation={options.elevation ? Number(options.elevation) : undefined}
+              style={style}>
+          <ContentLink content={content} className={'lm-card__link'}>
+            {children}
+          </ContentLink>
+        </Card>
+      </GridListTile>
     </SbEditable>
   )
 }

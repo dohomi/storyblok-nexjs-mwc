@@ -1,4 +1,3 @@
-import Components from '@components'
 import * as React from 'react'
 import { FunctionComponent } from 'react'
 import { useGlobalState } from '../../utils/state/state'
@@ -9,6 +8,7 @@ import { usePageStyles } from './usePageStyle'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 import { useAppSetup } from '../provider/AppSetupProvider'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 
 const RightDrawerWrap: FunctionComponent = ({ children }) => {
@@ -30,16 +30,18 @@ const RightDrawerWrap: FunctionComponent = ({ children }) => {
                  onClose={() => closeNavigationDrawers()}>{children}</Drawer>
 }
 
-const RightDrawer: FunctionComponent<{
+type RightDrawerProps = CoreComponentProps & {
   rightBody: any[]
   body: any[]
-}> = ({ rightBody }) => {
+}
+
+function RightDrawer({ rightBody, ComponentRender }: RightDrawerProps): JSX.Element {
   const classes = usePageStyles()
   return (
     <RightDrawerWrap>
       <ContentSpace />
       <div className={classes.rightContent}>
-        {rightBody.map((blok) => Components(blok))}
+        {rightBody.map((blok) => <ComponentRender content={blok} />)}
       </div>
     </RightDrawerWrap>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import { HeadlineStoryblok } from '../src/typings/generated/components-schema'
 import { loremIpsum } from 'lorem-ipsum'
-import {LmMotion} from '../src/'
+import LmMotion from '../src/'
 import { storyMotion } from '../src/storybook/core/various'
 
 export default { title: 'Animations: Motion' }

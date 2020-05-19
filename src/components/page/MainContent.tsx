@@ -1,9 +1,9 @@
-import Components from '@components'
 import React, { FunctionComponent } from 'react'
 import { usePageStyles } from './usePageStyle'
 import clsx from 'clsx'
 import { useGlobalState } from '../../utils/state/state'
 import { useAppSetup } from '../provider/AppSetupProvider'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const MainContenWrap: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
@@ -19,9 +19,13 @@ const MainContenWrap: FunctionComponent = ({ children }) => {
     )}>{children}</main>
 }
 
-const MainContent: FunctionComponent<{
+type MainContentProps = CoreComponentProps & {
   body: any[]
-}> = ({ body }) => (<MainContenWrap>{body.map((blok) => Components(blok))}</MainContenWrap>)
+}
+
+export function MainContent ({ body, ComponentRender }:MainContentProps):JSX.Element{
+  return (<MainContenWrap>{body.map((blok) => <ComponentRender content={blok} />)}</MainContenWrap>)
+}
 
 
 export default MainContent

@@ -1,4 +1,4 @@
-import { LmNavList } from '../src/'
+import LmNavList from '../src/'
 import * as React from 'react'
 import { storyNavItem, storyNavList } from '../src/storybook/core/various'
 import { boolean } from '@storybook/addon-knobs'

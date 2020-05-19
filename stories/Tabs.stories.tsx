@@ -1,4 +1,4 @@
-import { LmTabs } from '../src/'
+import LmTabs from '../src/'
 import {
   HeadlineStoryblok,
   ParagraphStoryblok,

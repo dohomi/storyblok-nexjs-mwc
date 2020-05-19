@@ -1,4 +1,4 @@
-import { LmHeadline, LmDateHeadline } from '../src/'
+import LmHeadline from '../src/'
 import { HeadlineStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyDateHeadline, storyHeadline } from '../src/storybook/core/various'
@@ -164,7 +164,7 @@ export const AlternativeConfig = () => (
   </>
 )
 export const HeadlineWithDate = () => (
-  <LmDateHeadline content={storyDateHeadline({
+  <LmHeadline content={storyDateHeadline({
     options: {
       text: '© {date} Copyright by Lumen Media'
     }

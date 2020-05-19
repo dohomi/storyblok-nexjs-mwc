@@ -1,4 +1,4 @@
-import { LmImage, LmSection } from '../src/'
+import  LmImage from '../src/'
 import {
   ColumnStoryblok,
   HeadlineStoryblok,
@@ -110,7 +110,7 @@ export const ImageFocalPoint = () => {
 }
 
 export const ImageInSections = () => (
-  <LmSection content={{
+  <LmImage content={{
     ...storySection(),
     body: [{
       ...storyRow(),

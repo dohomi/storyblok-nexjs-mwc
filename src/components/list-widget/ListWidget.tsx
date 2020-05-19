@@ -5,11 +5,12 @@ import {
   ListWidgetStoryblok,
   NavListStoryblok
 } from '../../typings/generated/components-schema'
-import ListWidgetWithSearch from './ListWidgetWithSearch'
+import { useListSearch } from './useListSearch'
 import ListWidgetContainer from './ListWidgetContainer'
 import { useAppContext } from '../provider/AppProvider'
 import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 export const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<PageComponent>[]) => {
   const filter = (content.tags && content.tags.values) || []
@@ -60,17 +61,19 @@ export const listWidgetFilter = (content: ListWidgetStoryblok, allStories: Story
   return stories
 }
 
-export type LmListWidgetProps = { content: ListWidgetStoryblok }
+export type LmListWidgetProps = CoreComponentProps & { content: ListWidgetStoryblok }
 
-export function LmListWidget({ content }: LmListWidgetProps): JSX.Element {
+export function LmListWidget({ content, ComponentRender }: LmListWidgetProps): JSX.Element {
 
   const { listWidgetData } = useAppContext()
-  let items = (listWidgetData && listWidgetData[content._uid]) || []
+  let items = useListSearch((listWidgetData && listWidgetData[content._uid]) || [], !!content.enable_for_search)
 
   const listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok) = (content.list_options && content.list_options[0]) || {}
 
-  if (content.enable_for_search) {
-    return <ListWidgetWithSearch listOption={listOption} content={content} items={items} />
-  }
-  return <ListWidgetContainer listOption={listOption} content={content} items={items} />
+  return <ListWidgetContainer
+    options={listOption}
+    content={content}
+    items={items}
+    ComponentRender={ComponentRender}
+  />
 }

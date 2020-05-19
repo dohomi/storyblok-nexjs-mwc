@@ -1,5 +1,5 @@
 import React from 'react'
-import { LmTimeline } from '../src/'
+import LmTimeline from '../src/'
 import { storyTimeline, storyTimelineItem } from '../src/storybook/core/section'
 import { randomIntFromInterval, storyAvatar, storyImageUrls } from '../src/storybook/core/various'
 

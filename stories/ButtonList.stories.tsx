@@ -1,4 +1,4 @@
-import { LmButtonList } from '../src/'
+import LmButtonList from '../src/'
 import { ButtonListStoryblok, ButtonStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyButton, storyButtonList } from '../src/storybook/core/various'

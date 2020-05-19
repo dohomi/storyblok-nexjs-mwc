@@ -1,4 +1,4 @@
-import { LmListWidget } from '../src/'
+import LmListWidget from '../src/'
 import * as React from 'react'
 import { ListsStoryblok, ListWidgetStoryblok, NavListStoryblok } from '../src/typings/generated/components-schema'
 import SetStoriesDecorator from '../src/storybook/components/SetStoriesDecorator'

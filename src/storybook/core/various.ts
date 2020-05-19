@@ -116,7 +116,7 @@ export const storyHeadline = ({ options = {}, knob, count = '' }: StorybookOptio
 }
 export const storyDateHeadline = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<DateHeadlineStoryblok> } = {}): DateHeadlineStoryblok => {
   return getKnobComponents({
-    componentName: 'headline',
+    componentName: 'date_headline',
     options: {
       text: getLabel(2),
       ...options

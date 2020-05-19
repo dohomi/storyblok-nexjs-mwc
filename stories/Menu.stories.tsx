@@ -1,4 +1,4 @@
-import { LmMenu } from '../src/'
+import LmMenu from '../src/'
 import { NavMenuItemStoryblok, NavMenuStoryblok, RowStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { columns } from '../src/storybook/section'

@@ -1,4 +1,4 @@
-import { LmAvatar } from '../src/'
+import LmAvatar from '../src/'
 import React from 'react'
 import { randomIntFromInterval, storyAvatar, storyImageUrls } from '../src/storybook/core/various'
 

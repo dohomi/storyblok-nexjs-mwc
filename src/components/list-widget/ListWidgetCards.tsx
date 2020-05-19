@@ -1,18 +1,20 @@
-import {LmCardList} from '../card/CardList'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
-const ListWidgetCards: FunctionComponent<{
+type ListWidgetCardsProps = CoreComponentProps & {
   content: ListWidgetStoryblok
   items: AppApiRequestPayload['allStories']
   options: CardListStoryblok
-}> = ({ items, content, options }) => {
-  return <LmCardList content={{
+}
+
+function ListWidgetCards({ items, content, options, ComponentRender }: ListWidgetCardsProps): JSX.Element {
+  return <ComponentRender content={{
     ...options,
     _uid: content._uid,
     component: 'card_list',

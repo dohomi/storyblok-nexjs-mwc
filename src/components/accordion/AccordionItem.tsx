@@ -1,5 +1,5 @@
 import SbEditable from 'storyblok-react'
-import { default as React, useState } from 'react'
+import React, { useState } from 'react'
 import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'

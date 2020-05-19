@@ -1,4 +1,4 @@
-import { LmHtml } from '../src/'
+import LmHtml from '../src/'
 import { storyHtml } from '../src/storybook/core/various'
 import React from 'react'
 

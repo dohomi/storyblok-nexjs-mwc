@@ -1,13 +1,12 @@
 import SbEditable from 'storyblok-react'
-import CardListItem from './CardListItem'
 import clsx from 'clsx'
 import React from 'react'
 import { CardListStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/styles'
 import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
 import { useGridListStyles } from './cardListStyles'
 import { useInfiniteScroll } from '../../utils/hooks/useInfiniteScroll'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const useStyles = makeStyles({
     cardBase: {
@@ -59,9 +58,9 @@ const useStyles = makeStyles({
 )
 
 
-export type LmCardListProps = { content: CardListStoryblok }
+export type LmCardListProps = CoreComponentProps & { content: CardListStoryblok }
 
-export function LmCardList({ content }: LmCardListProps): JSX.Element {
+export function LmCardList({ content, ComponentRender }: LmCardListProps): JSX.Element {
   const { body, column_gap, column_count, column_count_phone, column_count_tablet, ...rest } = content
   const classes = useStyles(content)
   const gridClasses = useGridListStyles({
@@ -86,11 +85,7 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
         <GridList spacing={gutterSize}
                   cellHeight={'auto'}
                   className={gridClasses.gridList}>
-          {data.map(item => (
-            <GridListTile key={item._uid}>
-              <CardListItem content={item} options={rest} />
-            </GridListTile>
-          ))}
+          {data.map(item => <ComponentRender content={item} options={rest} />)}
         </GridList>
         <div ref={hasMore ? ref : undefined}></div>
       </div>

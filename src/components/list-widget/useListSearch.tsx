@@ -1,21 +1,12 @@
-import React, { FunctionComponent } from 'react'
-import {
-  CardListStoryblok,
-  ListsStoryblok,
-  ListWidgetStoryblok,
-  NavListStoryblok
-} from '../../typings/generated/components-schema'
-import ListWidgetContainer from './ListWidgetContainer'
 import { useGlobalState } from '../../utils/state/state'
 import { useRouter } from 'next/router'
 import { AppApiRequestPayload } from '../../typings/app'
 
-const ListWidgetWithSearch: FunctionComponent<{
-  listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok)
-  content: ListWidgetStoryblok
-  items: AppApiRequestPayload['allStories']
-}> = ({ listOption, content, items }) => {
+export function useListSearch(items: AppApiRequestPayload['allStories'], isEnabled: boolean) {
   const router = useRouter()
+  if (!isEnabled) {
+    return items
+  }
   const query = router?.query
   const [searchParams] = useGlobalState('searchParams')
   let searchParamsCategories = searchParams.categories || []
@@ -46,7 +37,5 @@ const ListWidgetWithSearch: FunctionComponent<{
       return inSearchText
     })
   }
-  return <ListWidgetContainer listOption={listOption} content={content} items={items} />
+  return items
 }
-
-export default ListWidgetWithSearch

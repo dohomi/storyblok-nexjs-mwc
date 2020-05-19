@@ -1,4 +1,4 @@
-import { LmPage } from '../src/'
+import LmPage from '../src/'
 import {
   GlobalStoryblok,
   PageStoryblok,

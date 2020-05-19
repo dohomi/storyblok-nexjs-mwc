@@ -1,4 +1,4 @@
-import { LmSection } from '../src/'
+import LmSection from '../src/'
 import { BackgroundStoryblok, RowStoryblok, SectionStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { columns, columnsWithImage, row, rowWithImage } from '../src/storybook/section'

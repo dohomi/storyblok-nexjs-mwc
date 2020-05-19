@@ -5,12 +5,12 @@ import SbEditable from 'storyblok-react'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import Menu from '@material-ui/core/Menu'
 import { makeStyles } from '@material-ui/core/styles'
-import Components from '@components'
 import MenuItem from '@material-ui/core/MenuItem'
 import ContentLink from '../link/ContentLink'
 import LmIcon from '../icon/LmIcon'
 import { ChevronDown, ChevronUp } from 'mdi-material-ui'
 import { useRouter } from 'next/router'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -18,9 +18,9 @@ const useStyles = makeStyles({
   })
 })
 
-export type LmMenuProps = { content: NavMenuStoryblok }
+export type LmMenuProps = CoreComponentProps & { content: NavMenuStoryblok }
 
-export function LmMenu({ content }: LmMenuProps): JSX.Element {
+export function LmMenu({ content, ComponentRender }: LmMenuProps): JSX.Element {
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const menuItems = content.body || []
@@ -91,7 +91,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
                 paper: classes.paper
               }}
               {...addons}>
-          {isCustom && menuItems.map(blok => Components(blok))}
+          {isCustom && menuItems.map(blok => <ComponentRender content={blok} />)}
           {!isCustom && (
             <div>
               {menuItems.map(nestedProps => (

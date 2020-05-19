@@ -10,17 +10,18 @@ import GlobalTheme from '../global-theme/GlobalTheme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppSeo from '../layout/AppSeo'
 import Layout from '../layout/Layout'
-import Components from '@components'
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
 
 
-export type LmPagesIndexProps = NextPage<AppPageProps>
+export type LmPagesIndexProps = NextPage<AppPageProps & {
+  ComponentRender: React.ElementType
+}>
 
 const Index: LmPagesIndexProps = (props) => {
-  const { error, locale, settings, page, ...rest } = props
+  const { error, locale, settings, page, ComponentRender, ...rest } = props
   const { stateSettings, statePage } = useStoryblok({ settings, page })
   const { isFallback } = useRouter()
 
@@ -75,8 +76,8 @@ const Index: LmPagesIndexProps = (props) => {
           <GlobalTheme settings={stateSettings} rightDrawerWidth={statePage?.right_drawer_width}>
             <CssBaseline />
             <AppSeo settings={stateSettings} page={statePage} previewImage={statePage?.preview_image} />
-            <Layout settings={stateSettings}>
-              <Components {...statePage} />
+            <Layout settings={stateSettings} ComponentRender={ComponentRender}>
+              <ComponentRender content={statePage} />
             </Layout>
           </GlobalTheme>
         </AppSetupProvider>

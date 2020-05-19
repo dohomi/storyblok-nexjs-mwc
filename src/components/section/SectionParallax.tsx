@@ -1,4 +1,3 @@
-import Components from '@components'
 import SbEditable from 'storyblok-react'
 import { ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
@@ -12,6 +11,7 @@ import { BannerLayer } from 'react-scroll-parallax/cjs'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { Skeleton } from '@material-ui/lab'
 import { makeStyles } from '@material-ui/core/styles/'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const useStyles = makeStyles({
   parallax: {
@@ -26,9 +26,9 @@ const useStyles = makeStyles({
   }
 })
 
-export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
+export type LmSectionParallaxProps = CoreComponentProps & { content: SectionParallaxStoryblok }
 
-export function LmSectionParallax({ content }: LmSectionParallaxProps): JSX.Element {
+export function LmSectionParallax({ content, ComponentRender }: LmSectionParallaxProps): JSX.Element {
   const dimensions = useWindowDimensions()
   const classes = useStyles()
   const [refIntersectionObserver, inView, refElement] = useInView(intersectionDefaultOptions)
@@ -72,7 +72,7 @@ export function LmSectionParallax({ content }: LmSectionParallaxProps): JSX.Elem
       return {
         image: `"${imgSource}"`,
         amount: Number(item.amount),
-        children: item.children && item.children.length && Components(item.children[0])
+        children: item.children && item.children.length && <ComponentRender content={item.children[0]} />
       }
     })
     Promise.all(items)
@@ -93,7 +93,7 @@ export function LmSectionParallax({ content }: LmSectionParallaxProps): JSX.Elem
                         layers={layers || []}>
           {!layers && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
           <div className={clsx('parallax__content', content.class_names && content.class_names.values)}>
-            {body.map((blok) => Components(blok))}
+            {body.map((blok) => <ComponentRender content={blok} />)}
           </div>
         </ParallaxBanner>
       </div>

@@ -32,12 +32,6 @@
     "moduleResolution": "node",
     "jsx": "react",
     "paths": {
-      "@components": [
-        "./src/components/ComponentRender.tsx"
-      ],
-      "@polyfills": [
-        "./client/polyfills.js"
-      ]
     },
     "allowJs": true,
     "traceResolution": true

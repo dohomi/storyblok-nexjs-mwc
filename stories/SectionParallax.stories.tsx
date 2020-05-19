@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { LmPage } from '../src/'
+import LmPage  from '../src/'
 import { get3ColumnsSection } from '../src/storybook/section'
 import {
   storyBackground,

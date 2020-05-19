@@ -1,4 +1,4 @@
-import { LmParagraph, LmRichTextParagraph } from '../src/'
+import LmParagraph from '../src/'
 import { ParagraphStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyParagraph } from '../src/storybook/core/various'
@@ -147,12 +147,12 @@ export const MarkdownParagraph = () => (
 )
 export const RichTextParagraph = () => (
   <>
-    <LmRichTextParagraph content={{ _uid: '12', component: 'rich_text_editor', body: rte }} />
+    <LmParagraph content={{ _uid: '12', component: 'rich_text_editor', body: rte }} />
   </>
 )
 export const Playground = () => (
   <div className="p-5">
-    <LmRichTextParagraph content={{ ...storyParagraph() }} />
+    <LmParagraph content={{ ...storyParagraph() }} />
   </div>
 )
 

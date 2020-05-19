@@ -1,8 +1,10 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { SectionProps } from '../section/Section'
-import Components from '@components'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
-const SliderChild: FunctionComponent<{ body: any[], sectionVariant: any }> = ({ body, sectionVariant }) => {
+type LmSliderChildProps = CoreComponentProps & { body: any[], sectionVariant: any }
+
+export function LmSliderChild({ body, sectionVariant, ComponentRender }: LmSliderChildProps): JSX.Element {
   return (
     <div className="d-flex h-100 lm-slider__container flex-row justify-content-center">
       {body.map(item => {
@@ -11,12 +13,14 @@ const SliderChild: FunctionComponent<{ body: any[], sectionVariant: any }> = ({ 
             ...item,
             presetVariant: sectionVariant || 'transparent'
           }
-          return Components(newOpts)
+          return <ComponentRender content={newOpts} />
         }
-        return <div key={`child_${item._uid}`} className="flex-grow-1">{Components(item)}</div>
+        return (
+          <div key={`child_${item._uid}`} className="flex-grow-1">
+            <ComponentRender content={item} />
+          </div>
+        )
       })}
     </div>
   )
 }
-
-export default SliderChild

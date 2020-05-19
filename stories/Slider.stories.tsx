@@ -1,4 +1,4 @@
-import { LmSlider } from '../src/'
+import LmSlider from '../src/'
 import * as React from 'react'
 import { storySlider } from '../src/storybook/core/various'
 import { get3ColumnsSection } from '../src/storybook/section'
@@ -27,7 +27,7 @@ export const PlaygroundDark = () => (
         background_color: {
           rgba: 'black'
         },
-        section_variant: 'light_text'
+        section_variant: 'dark'
       }
     }), body: [
       get3ColumnsSection({ count: 1 }),

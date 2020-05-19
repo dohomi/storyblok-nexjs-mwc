@@ -1,16 +1,16 @@
 import SbEditable from 'storyblok-react'
-import Components from '@components'
 import SwipeableViews from 'react-swipeable-views'
 import React, { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
 import { SliderStoryblok } from '../../typings/generated/components-schema'
 import { SectionProps } from '../section/Section'
-import SliderChild from './SliderChild'
+import { LmSliderChild } from './SliderChild'
 import { makeStyles } from '@material-ui/core/styles'
 import InvertedIndicator from './InvertedIndicator'
 import Typography from '@material-ui/core/Typography'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { ChevronLeft, ChevronRight } from 'mdi-material-ui'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const chunkArray = (myArray: Element[], chunkSize: number) => {
   const results = []
@@ -69,9 +69,9 @@ export const useStyles = makeStyles({
 })
 
 
-export type LmSliderProps = { content: SliderStoryblok }
+export type LmSliderProps = CoreComponentProps & { content: SliderStoryblok }
 
-export function LmSlider({ content }: LmSliderProps): JSX.Element {
+export function LmSlider({ content, ComponentRender }: LmSliderProps): JSX.Element {
   const [slide, setSlide] = useState(0)
   const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
@@ -110,16 +110,19 @@ export function LmSlider({ content }: LmSliderProps): JSX.Element {
         <SwipeableViews index={slide}
                         onChangeIndex={(i) => setSlide(i)}>
           {wrapInColumns ? body.map((child, index) => {
-            return <SliderChild key={`swipeable_${index}`} body={child} sectionVariant={content.section_variant} />
+            return <LmSliderChild key={`swipeable_${index}`}
+                                  body={child}
+                                  sectionVariant={content.section_variant}
+                                  ComponentRender={ComponentRender} />
           }) : body.map(item => {
             if (item.component === 'section') {
               let newOpts: SectionProps = {
                 ...item,
                 presetVariant: content.section_variant || 'transparent'
               }
-              return Components(newOpts)
+              return <ComponentRender content={newOpts} />
             }
-            return Components(item)
+            return <ComponentRender content={item} />
           })}
         </SwipeableViews>
         <a className={carouselPrevClasses}

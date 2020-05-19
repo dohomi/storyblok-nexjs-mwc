@@ -1,4 +1,4 @@
-import {LmIframe, LmIframeAdvanced} from '../src/'
+import LmIframe from '../src/'
 import { IframeAdvancedStoryblok, IframeStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyIframe } from '../src/storybook/core/various'
@@ -39,10 +39,10 @@ export const Responsive = () => (
   </>
 )
 export const Advanced = () => (
-  <LmIframeAdvanced content={advanced} />
+  <LmIframe content={advanced} />
 )
 export const WithMessage = () => (
-  <LmIframeAdvanced content={advanced2} />
+  <LmIframe content={advanced2} />
 )
 export const Playground = () => (
   <>

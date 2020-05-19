@@ -1,4 +1,4 @@
-import { LmTable } from '../src/'
+import LmTable from '../src/'
 import { TableStoryblok } from '../src/typings/generated/components-schema'
 import React from 'react'
 import { storyTable } from '../src/storybook/core/various'

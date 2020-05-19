@@ -1,4 +1,3 @@
-import Components from '@components'
 import SbEditable from 'storyblok-react'
 import { useInView } from 'react-intersection-observer'
 import * as React from 'react'
@@ -8,6 +7,7 @@ import { SectionVideoBgStoryblok } from '../../typings/generated/components-sche
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/styles'
 import FullscreenVideoBg from './FullscreenVideoBg'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 
 const useStyles = makeStyles({
@@ -69,9 +69,9 @@ const useStyles = makeStyles({
 // }
 })
 
-export type LmSectionVideoProps = { content: SectionVideoBgStoryblok }
+export type LmSectionVideoProps = CoreComponentProps & { content: SectionVideoBgStoryblok }
 
-export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
+export function LmSectionVideo({ content, ComponentRender }: LmSectionVideoProps): JSX.Element {
   const classes = useStyles()
   const dimensions = useWindowDimensions()
   const [intersectionRef, inView, intersectionElement] = useInView(intersectionDefaultOptions)
@@ -130,7 +130,7 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
                              ratioHeight={ratioHeight}
                              ratioWidth={ratioWidth} />
         )}
-        {hasBody && <div>{body.map((blok) => Components(blok))}</div>}
+        {hasBody && <div>{body.map((blok) => <ComponentRender content={blok} />)}</div>}
       </div>
     </SbEditable>
   )
