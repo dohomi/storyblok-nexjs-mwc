@@ -1,42 +1,44 @@
-import dynamic from 'next/dynamic'
-import { LmPage } from './page/Page'
-import { LmSection } from './section/Section'
-import { LmHeadline } from './headline/Headline'
-import { LmImage } from './image/ImageElement'
-import { LmImageList } from './image-list/ImageList'
-import { LmNavList } from './nav-list/NavList'
-import { LmMenu } from './menu/NavMenu'
-import { LmIcon } from './icon/Icon'
-import { LmSectionVideo } from './section/SectionVideoBg'
-import { LmSlider } from './slider/Slider'
-import { LmIframe } from './iframe/Iframe'
-import { LmCardList } from './card/CardList'
-import { LmSectionParallax } from './section/SectionParallax'
-import { LmButtonList } from './button-list/ButtonList'
-import { LmHtml } from './html/Html'
-import { LmHubspotMeeting } from './hubspot-meeting/HubspotMeeting'
-import { LmDivider } from './divider/Divider'
-import { LmAccordion } from './accordion/Accordion'
-import { LmTable } from './table/Table'
-import { LmTabs } from './tabs/Tabs'
-import { LmListWidget } from './list-widget/ListWidget'
-import { LmFlexRow } from './flex-row/FlexRow'
-import { LmIframeAdvanced } from './iframe/IframeAdvanced'
-import { LmCategoryBox } from './list-widget/CategoryBox'
-import { LmListSearchField } from './list-widget/ListSearchField'
-import { LmLink } from './link/Link'
-import { LmListSearchAutocomplete } from './list-widget/ListSearchAutocomplete'
-import { LmRichTextParagraph } from './paragraph/RichTextParagraph'
-import { LmButton } from './button/Button'
-import { LmGridRow } from './section/GridRow'
-import { LmGridColumn } from './section/GridColumn'
-import { LmStaticSection } from './static-section/StaticSection'
-import { LmStaticContainer } from './static-section/StaticContainer'
-import { LmTimeline } from './timeline/Timeline'
-import { LmAvatar } from './avatar/LmAvatar'
+import {
+  LmAccordion,
+  LmAvatar,
+  LmButton,
+  LmButtonList,
+  LmCardList,
+  LmCategoryBox,
+  LmDateHeadline,
+  LmDivider,
+  LmFlexRow,
+  LmGridColumn,
+  LmGridRow,
+  LmHeadline,
+  LmHtml,
+  LmHubspotMeeting,
+  LmIcon,
+  LmIframe,
+  LmIframeAdvanced,
+  LmImage,
+  LmImageList,
+  LmLink,
+  LmListSearchAutocomplete,
+  LmListSearchField,
+  LmListWidget,
+  LmMenu,
+  LmMotion,
+  LmNavList,
+  LmPage,
+  LmRichTextParagraph,
 
-import { LmDateHeadline } from './headline/DateHeadline'
-import { LmMotion } from './motion/Motion'
+  LmSectionParallax,
+  LmSectionVideo,
+  LmSlider,
+  LmStaticContainer,
+  LmStaticSection,
+  LmTable,
+  LmTabs,
+  LmTimeline,
+  LmParagraph, LmSection
+} from '../index'
+
 
 // import HubspotForm from './hubspot/HubspotForm'
 // import Form from './form/Form'
@@ -58,7 +60,7 @@ const Components = {
   'button_list': LmButtonList,
   'section': LmSection,
   'headline': LmHeadline,
-  'paragraph': dynamic(() => import('./paragraph/Paragraph')),
+  'paragraph': LmParagraph,
   'row': LmGridRow,
   'column': LmGridColumn,
   'image': LmImage,

@@ -3,12 +3,12 @@ import { BackgroundStoryblok, RowStoryblok } from '../../typings/generated/compo
 import SbEditable from 'storyblok-react'
 import Grid, { GridProps } from '@material-ui/core/Grid'
 import { createStyles, makeStyles } from '@material-ui/styles'
-import Components from '@components'
 import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
 import { Theme } from '@material-ui/core'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,9 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export type LmGridRowProps = { content: RowStoryblok }
+export type LmGridRowProps = CoreComponentProps & { content: RowStoryblok }
 
-export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
+export function LmGridRow({ content, ComponentRender }: LmGridRowProps): JSX.Element {
   // const theme = useTheme()
   const classes = useStyles()
   let spacing = content.spacing ? Number(content.spacing) as GridProps['spacing'] : 3
@@ -85,7 +85,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
         <BackgroundImage content={background} backgroundStyle={content.background_style} />}
         {background?.background_elements && background.background_elements.length > 0 &&
         <BackgroundElements elements={background.background_elements} />}
-        {content.body && content.body.map((blok) => Components(blok))}
+        {content.body && content.body.map((blok) => <ComponentRender content={blok} />)}
       </Grid>
     </SbEditable>
   )

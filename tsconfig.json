@@ -32,13 +32,6 @@
     "moduleResolution": "node",
     "jsx": "react",
     "paths": {
-      //      "@": [
-      //        "./"
-      //      ],
-      //      "*": [
-      //        "src/*",
-      //        "node_modules/*"
-      //      ],
       "@components": [
         "./src/components/ComponentRender.tsx"
       ],
@@ -52,13 +45,12 @@
   "exclude": [
     "node_modules",
     ".next",
-    "dist"
+    "dist",
+    "pages/**/*.ts"
   ],
   "include": [
     "next-env",
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx"
+    "src/**/*.tsx"
   ]
 }

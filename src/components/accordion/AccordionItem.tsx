@@ -1,5 +1,4 @@
 import SbEditable from 'storyblok-react'
-import Components from '@components'
 import { default as React, useState } from 'react'
 import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
@@ -8,8 +7,9 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
-type LmAccordionItemProps = {
+type LmAccordionItemProps = CoreComponentProps & {
   content: AccordionItemStoryblok,
   options: AccordionStoryblok,
   opened: string,
@@ -17,7 +17,7 @@ type LmAccordionItemProps = {
   iteration: number
 }
 
-export function LmAccordionItem({ content, options, setOpen, opened, iteration }: LmAccordionItemProps): JSX.Element {
+export function LmAccordionItem({ content, options, setOpen, opened, iteration, ComponentRender }: LmAccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
 
   const handleChange = (panel: string) => (_: React.ChangeEvent<{}>, isExpanded: boolean) => {
@@ -35,7 +35,7 @@ export function LmAccordionItem({ content, options, setOpen, opened, iteration }
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <div>
-            {(content.body || []).map(blok => Components(blok))}
+            {(content.body || []).map(blok => <ComponentRender content={blok} />)}
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>

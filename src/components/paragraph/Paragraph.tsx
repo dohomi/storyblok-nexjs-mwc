@@ -26,5 +26,3 @@ export function LmParagraph({ content }: LmParagraphProps): JSX.Element {
     </SbEditable>
   )
 }
-
-export default LmParagraph

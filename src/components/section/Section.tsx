@@ -1,4 +1,3 @@
-import Components from '@components'
 import SbEditable from 'storyblok-react'
 import React, { CSSProperties } from 'react'
 import { SectionStoryblok } from '../../typings/generated/components-schema'
@@ -9,6 +8,7 @@ import BackgroundImage from './BackgroundImage'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 export interface SectionProps extends SectionStoryblok {
   presetVariant?: SectionStoryblok['variant']
@@ -37,9 +37,11 @@ const useStyles = makeStyles({
   }
 })
 
-export type LmSectionProps = { content: SectionProps }
+export type LmSectionProps = CoreComponentProps & {
+  content: SectionProps
+}
 
-export function LmSection({ content }: LmSectionProps): JSX.Element {
+export function LmSection({ content, ComponentRender }: LmSectionProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
   const background = Array.isArray(content.background) && content.background[0]
@@ -75,7 +77,7 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
                    className={clsx(className, {
                      [classes.fullHeight]: isFullHeight
                    })}>
-          {body.map((blok) => Components(blok))}
+          {body.map((blok) => <ComponentRender content={blok} />)}
         </Container>
       </div>
     </SbEditable>

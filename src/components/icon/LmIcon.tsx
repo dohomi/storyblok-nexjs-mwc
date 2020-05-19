@@ -24,7 +24,7 @@ const iconMap = {
   keyboard_arrow_down: 'chevron-down'
 }
 
-const LmIcon: FunctionComponent<{
+const IconCore: FunctionComponent<{
   className?: string,
   iconUrl?: string
   style?: CSSProperties
@@ -54,4 +54,4 @@ const LmIcon: FunctionComponent<{
   ) : null
 }
 
-export default LmIcon
+export default IconCore

@@ -2,10 +2,10 @@ import React from 'react'
 import { BackgroundStoryblok, ColumnStoryblok } from '../../typings/generated/components-schema'
 import SbEditable from 'storyblok-react'
 import BackgroundImage from './BackgroundImage'
-import Components from '@components'
 import Grid from '@material-ui/core/Grid'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const xsSpanMap = {
   1: 3,
@@ -48,9 +48,9 @@ const mdSpanMap = {
   'true': true
 }
 
-export type LmGridColumnProps = { content: ColumnStoryblok }
+export type LmGridColumnProps = CoreComponentProps & { content: ColumnStoryblok }
 
-export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
+export function LmGridColumn({ content, ComponentRender }: LmGridColumnProps): JSX.Element {
   // const classes = useStyles(content)
   const background: BackgroundStoryblok | undefined = (Array.isArray(content.background) && content.background[0] as BackgroundStoryblok) || undefined
   const { className, style } = useBackgroundBox({ background })
@@ -83,9 +83,9 @@ export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
                 alignItems={content.align_items ? content.align_items : undefined}
                 alignContent={content.align_content ? content.align_content : undefined}
           >
-            {content.body && content.body.map((blok) => Components(blok))}
+            {content.body && content.body.map((blok) => <ComponentRender content={blok} />)}
           </Grid>
-        ) : content.body && content.body.map((blok) => Components(blok))}
+        ) : content.body && content.body.map((blok) => <ComponentRender content={blok} />)}
       </Grid>
     </SbEditable>
   )

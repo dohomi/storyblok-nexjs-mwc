@@ -1,9 +1,9 @@
 import { GetStaticPaths } from 'next'
 import { PageItem } from '../../typings/generated/schema'
 import StoryblokService from '../StoryblokService'
-import { getStoryblokPagesConfig } from '../../pages/api/sitemap'
 import { internalLinkHandler } from '../linkHandler'
 import { initSharedContentFromStoryblok } from './storyblokDeliveryResolver'
+import { getStoryblokPagesConfig } from './storyblokPagesConfig'
 
 const pagesGetStaticPaths: GetStaticPaths = async () => {
   const stories: PageItem[] = await StoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())

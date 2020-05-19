@@ -1,7 +1,8 @@
 import { NextPage } from 'next'
 import { AppPageProps } from '../../typings/app'
 import { useStoryblok } from '../../utils/hooks/useStoryblok'
-import Error from '../../pages/_error'
+// import Error from '../../../pages/_error' @todo
+import Error from 'next/error'
 import AppProvider from '../provider/AppProvider'
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import AppSetupProvider from '../provider/AppSetupProvider'
@@ -75,7 +76,7 @@ const Index: LmPagesIndexProps = (props) => {
             <CssBaseline />
             <AppSeo settings={stateSettings} page={statePage} previewImage={statePage?.preview_image} />
             <Layout settings={stateSettings}>
-              {Components(statePage)}
+              <Components {...statePage} />
             </Layout>
           </GlobalTheme>
         </AppSetupProvider>

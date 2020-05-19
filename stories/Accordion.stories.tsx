@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { LmAccordion } from '../src/'
+import LmAccordion from '../src/'
 import { storyAccordion, storyAccordionItem } from '../src/storybook/core/various'
 import { get3ColumnsSection } from '../src/storybook/section'
 
@@ -7,8 +7,8 @@ export default {
   title: 'Accordion'
 }
 
-export const Playground = () => (
-  <LmAccordion content={{
+export const Playground = () => {
+  const blok = {
     ...storyAccordion(),
     body: [{
       ...storyAccordionItem({ count: 1 }),
@@ -21,6 +21,10 @@ export const Playground = () => (
         get3ColumnsSection({ count: 2, knob: 'Column Content' })
       ]
     }]
-  }} />
-)
+  }
+  console.log(blok)
+  return (
+    <LmAccordion content={blok} />
+  )
+}
 

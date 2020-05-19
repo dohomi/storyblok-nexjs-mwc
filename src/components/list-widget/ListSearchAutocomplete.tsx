@@ -187,7 +187,6 @@ export function LmListSearchAutocomplete({ content }: LmListSearchAutocompletePr
           }
         }
       }).then(res => {
-        console.log('in then', res.data.stories)
         setAllStories(res.data.stories)
         setOpen(true)
         // setSearchText(value)

@@ -1,14 +1,15 @@
 {
-  "name": "@lumen/mwc",
-  "version": "0.38.1",
-  "description": "Next.js full website kit powered by Storyblok",
+  "name": "lumen-cms-core",
+  "version": "0.39.7",
+  "description": "Core website components for the LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "client"
   ],
-  "module": "dist/lumen-mwc.esm.js",
+  "module": "dist/lumen-cms-core.esm.js",
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
@@ -25,6 +26,7 @@
     "dev": "rimraf app-content*json && next",
     "build": "rm -rf .next && next build",
     "build-ts": "tsdx build",
+    "watch": "tsdx watch",
     "start": "next start",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=80001",
@@ -33,8 +35,8 @@
     "storybook": "start-storybook -p 6006 -c .storybook",
     "deploy-storybook": "rm -rf public_storybook && build-storybook -c .storybook -o public_storybook && cd public_storybook && now --prod"
   },
-  "author": "Dominic Garms <djgarms@gmail.com>",
-  "license": "ISC",
+  "author": "Dominic Garms",
+  "license": "MIT",
   "engines": {
     "node": "12.x"
   },
@@ -76,12 +78,14 @@
     "react-scroll-parallax": "2.3.2",
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
-    "sitemap": "6.1.4",
     "storyblok-js-client": "2.5.0",
     "storyblok-react": "0.0.10",
     "tsconfig-paths-webpack-plugin": "3.2.0",
     "typescript": "3.9.2",
     "use-debounce": "3.4.2"
+  },
+  "peerDependencies": {
+    "sitemap": "6.1.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.13.5",
