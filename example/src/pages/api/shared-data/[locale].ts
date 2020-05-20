@@ -1,3 +1,3 @@
-import sharedData from '../shared-data'
+import index from './index'
 
-export default sharedData
+export default index

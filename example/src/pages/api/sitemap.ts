@@ -1,9 +1,8 @@
 import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
-import { LmStoryblokService } from 'lumen-cms-core'
+import { internalLinkHandler, LmStoryblokService } from 'lumen-cms-core'
 import { SitemapStream, streamToPromise } from 'sitemap'
 // import { createGzip } from 'zlib'
 import { IncomingMessage, ServerResponse } from 'http'
-import { internalLinkHandler } from 'lumen-cms-core/src/utils/linkHandler'
 import { getStoryblokPagesConfig } from '../../utils/initial-props/storyblokPagesConfig'
 
 

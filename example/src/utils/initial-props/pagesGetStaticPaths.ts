@@ -1,7 +1,6 @@
 import { GetStaticPaths } from 'next'
 import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
-import {LmStoryblokService} from 'lumen-cms-core'
-import { internalLinkHandler } from 'lumen-cms-core/src/utils/linkHandler'
+import { internalLinkHandler, LmStoryblokService } from 'lumen-cms-core'
 import { initSharedContentFromStoryblok } from './storyblokDeliveryResolver'
 import { getStoryblokPagesConfig } from './storyblokPagesConfig'
 

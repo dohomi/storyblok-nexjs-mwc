@@ -1,7 +1,7 @@
 const withPlugins = require('next-compose-plugins')
-const withTM = require('next-transpile-modules')(['lumen-cms-core'])
-const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin')
-const path = require('path')
+// const withTM = require('next-transpile-modules')(['lumen-cms-core'])
+// const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin')
+// const path = require('path')
 
 module.exports = function (env = {}, plugins = []) {
   const config = {
@@ -30,7 +30,7 @@ module.exports = function (env = {}, plugins = []) {
       //   '@components': path.join(__dirname, 'src/components/ComponentRender.tsx')
       // }
 
-      config.resolve.plugins.push(new TsconfigPathsPlugin())
+      // config.resolve.plugins.push(new TsconfigPathsPlugin())
 
       const originalEntry = config.entry
       config.entry = async () => {
@@ -49,7 +49,7 @@ module.exports = function (env = {}, plugins = []) {
     // next-offline
     // [withOffline],
     // [withSourceMaps],
-    [withTM]
+    // [withTM]
   ]
 
   if (plugins.length) {

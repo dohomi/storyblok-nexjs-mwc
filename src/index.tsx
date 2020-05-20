@@ -88,6 +88,7 @@ export {
 export { default as LmPagesIndex } from './components/pages/PagesIndex'
 export { default as LmLayout } from './components/layout/Layout'
 export { default as LmStoryblokService } from './utils/StoryblokService'
+export { internalLinkHandler } from './utils/linkHandler'
 
 // export { default as pagesGetStaticPaths } from './utils/initial-props/pagesGetStaticPaths'
 // export { default as pagesGetStaticProps } from './utils/initial-props/pagesGetStaticProps'

@@ -11,7 +11,7 @@
   "author": "Dominic Garms",
   "license": "MIT",
   "dependencies": {
-    "lumen-cms-core": "^0.39.14",
+    "lumen-cms-core": "^0.39.17",
     "next": "^9.4.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

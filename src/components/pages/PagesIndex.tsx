@@ -22,8 +22,8 @@ export type LmPagesIndexProps = NextPage<AppPageProps & CoreComponentProps>
 const LmPagesIndex: LmPagesIndexProps = (props) => {
   const { error, locale, settings, page, ComponentRender, ...rest } = props
   const { stateSettings, statePage } = useStoryblok({ settings, page })
-  const { isFallback } = useRouter()
-
+  const router = useRouter()
+  const isFallback = router?.isFallback
   if (locale && getGlobalState('locale') !== locale) {
     setGlobalState('locale', locale)
   }
