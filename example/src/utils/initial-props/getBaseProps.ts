@@ -1,4 +1,4 @@
-import { AppPageProps } from '../../typings/app'
+import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 
 export const getBaseProps = (error: any): AppPageProps => ({
   page: { _uid: '', component: 'page' },

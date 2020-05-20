@@ -1,11 +1,10 @@
 import { StoriesParams } from 'storyblok-js-client'
-import StoryblokService from '../StoryblokService'
-import { CONFIG } from '../config'
-import { AppApiRequestPayload } from '../../typings/app'
-import fetch from 'node-fetch'
+import {LmStoryblokService} from 'lumen-cms-core'
+import { AppApiRequestPayload } from 'lumen-cms-core/src/typings/app'
 import { endMeasureTime, startMeasureTime } from './timer'
 import { checkCacheFileExists, readCacheFile, writeCacheFile } from './fileCache'
 
+const rootDirectory = process.env.rootDirectory
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
@@ -22,7 +21,7 @@ const resolveAllPromises = (promises: Promise<any>[]) => {
 }
 
 const getSettingsPath = ({ locale }: { locale?: string }) => {
-  const directory = CONFIG.rootDirectory || locale || ''
+  const directory = rootDirectory || locale || ''
   return `cdn/stories/${directory ? `${directory}/` : ''}settings`
 }
 
@@ -36,8 +35,8 @@ const getCategoryParams = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (CONFIG.rootDirectory) {
-    params.starts_with = `${CONFIG.rootDirectory}/`
+  if (rootDirectory) {
+    params.starts_with = `${rootDirectory}/`
   } else if (locale) {
     params.starts_with = `${locale}/`
   }
@@ -54,8 +53,8 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (CONFIG.rootDirectory) {
-    params.starts_with = `${CONFIG.rootDirectory}/`
+  if (rootDirectory) {
+    params.starts_with = `${rootDirectory}/`
   } else if (locale) {
     params.starts_with = `${locale}/`
   }
@@ -73,8 +72,8 @@ const getStoriesParams = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (CONFIG.rootDirectory) {
-    params.starts_with = `${CONFIG.rootDirectory}/`
+  if (rootDirectory) {
+    params.starts_with = `${rootDirectory}/`
   } else if (locale) {
     params.starts_with = `${locale}/`
   }
@@ -87,9 +86,11 @@ type ApiProps = {
   isLandingPage?: boolean
   ssrHostname?: string
 }
+const configLanguages = (process.env.languages && process.env.languages.split(',')) || []
 
 export const initSharedContentFromStoryblok = async () => {
-  let [, ...languagesWithoutDefault] = CONFIG.languages || []
+
+  let [, ...languagesWithoutDefault] = configLanguages || []
   await Promise.all([
     fetchSharedContentFromStoryblok(),
     ...languagesWithoutDefault.map((locale => fetchSharedContentFromStoryblok(locale)))
@@ -98,10 +99,10 @@ export const initSharedContentFromStoryblok = async () => {
 
 export const fetchSharedStoryblokContent = (locale?: string) => {
   return Promise.all([
-    StoryblokService.get(getSettingsPath({ locale })),
-    StoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    StoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),//    Promise.resolve([])/**/,
-    StoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
+    LmStoryblokService.get(getSettingsPath({ locale })),
+    LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
+    LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),//    Promise.resolve([])/**/,
+    LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
 }
 
@@ -138,16 +139,16 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, ssrH
   const [settings, categories, stories, staticContent] = await fetchContentBasedOnRequest({ locale, ssrHostname })
 
   const all: any[] = [
-    StoryblokService.get(`cdn/stories/${pageSlug}`)
+    LmStoryblokService.get(`cdn/stories/${pageSlug}`)
   ]
 
-  if (CONFIG.suppressSlugLocale && CONFIG.languages.length > 1 && !isLandingPage) {
-    let [, ...languagesWithoutDefault] = CONFIG.languages // make sure default language is always first of array
-    if (CONFIG.suppressSlugIncludeDefault) {
-      languagesWithoutDefault.unshift(CONFIG.defaultLocale)
+  if (process.env.suppressSlugLocale && configLanguages.length > 1 && !isLandingPage) {
+    let [, ...languagesWithoutDefault] = configLanguages // make sure default language is always first of array
+    if (process.env.suppressSlugIncludeDefault) {
+      languagesWithoutDefault.unshift(process.env.defaultLocale)
     }
     languagesWithoutDefault.forEach((locale) => {
-      all.push(StoryblokService.get(`cdn/stories/${locale}/${pageSlug}`))
+      all.push(LmStoryblokService.get(`cdn/stories/${locale}/${pageSlug}`))
     })
   }
 
@@ -156,7 +157,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, ssrH
   if (page === null && otherPageLanguages.length) {
     otherPageLanguages.forEach((value, index) => {
       if (value) {
-        locale = CONFIG.languages[CONFIG.suppressSlugIncludeDefault ? index : index + 1] // overwrite locale
+        locale = configLanguages[process.env.suppressSlugIncludeDefault ? index : index + 1] // overwrite locale
         page = value // overwrite page values of localized page
       }
     })

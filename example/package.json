@@ -11,13 +11,10 @@
   "author": "Dominic Garms",
   "license": "MIT",
   "dependencies": {
-    "lumen-cms-core": "^0.39.7",
+    "lumen-cms-core": "^0.39.14",
     "next": "^9.4.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
-  },
-  "alias": {
-    "@components": "src/components/ComponentRender.tsx"
   },
   "devDependencies": {
     "@lumen/mwc": "file:../.",

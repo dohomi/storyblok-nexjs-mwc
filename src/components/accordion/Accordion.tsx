@@ -9,19 +9,19 @@ export type LmAccordionProps = CoreComponentProps & {
 
 export function LmAccordion({ content, ComponentRender }: LmAccordionProps): JSX.Element {
   const [opened, setOpen] = useState<string>('')
-  console.log(ComponentRender, content)
 
   return (
     <SbEditable content={content}>
       <div className="lm-accordion">
         {(content.body || [])
           .map((blok: AccordionItemStoryblok, iteration) =>
-            <ComponentRender content={blok}
-                             options={content}
-                             opened={opened}
-                             setOpen={setOpen}
-                             iteration={iteration}
-                             key={blok._uid} />)}
+            ComponentRender({
+              content: blok,
+              options: content,
+              opened: opened,
+              setOpen: setOpen,
+              iteration
+            }, iteration))}
       </div>
     </SbEditable>
   )

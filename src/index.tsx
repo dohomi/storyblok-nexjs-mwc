@@ -85,6 +85,10 @@ export {
   LmCardListItem
 }
 
+export { default as LmPagesIndex } from './components/pages/PagesIndex'
+export { default as LmLayout } from './components/layout/Layout'
+export { default as LmStoryblokService } from './utils/StoryblokService'
+
 // export { default as pagesGetStaticPaths } from './utils/initial-props/pagesGetStaticPaths'
 // export { default as pagesGetStaticProps } from './utils/initial-props/pagesGetStaticProps'
 // export { default as pagesGetServerSideProps } from './utils/initial-props/pagesGetServerSideProps'
@@ -140,22 +144,25 @@ const CoreComponentsNamed = {
 
 export type LmComponentRenderProps = {
   content: any,
-  _uid: string,
+  _uid?: string,
   [k: string]: any
 }
 
-export default function LmComponentRender(blok: LmComponentRenderProps): JSX.Element {
+function LmComponentRender(blok: LmComponentRenderProps, iteration?: number): JSX.Element {
   const { content, _uid, ...rest } = blok
 
   if (typeof CoreComponentsNamed[content.component] !== 'undefined') {
     return React.createElement(CoreComponentsNamed[content.component], {
-      key: _uid,
       content: content,
       ComponentRender: LmComponentRender,
+      key: typeof iteration === 'number' ? `${content.component}_${iteration}` : undefined,
       ...rest
     })
   }
-  return React.createElement(() => (
-    <div style={{ color: 'red' }}>The component {content.component} has not been created yet.</div>
-  ), { key: blok._uid })
+  return (
+    <div style={{ color: 'red' }} key={blok._uid || `${iteration}`}>The component {content.component} has not been
+      created yet.</div>
+  )
 }
+
+export default LmComponentRender

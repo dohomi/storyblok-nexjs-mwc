@@ -1,12 +1,12 @@
 import { GetStaticPaths } from 'next'
-import { PageItem } from '../../typings/generated/schema'
-import StoryblokService from '../StoryblokService'
-import { internalLinkHandler } from '../linkHandler'
+import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
+import {LmStoryblokService} from 'lumen-cms-core'
+import { internalLinkHandler } from 'lumen-cms-core/src/utils/linkHandler'
 import { initSharedContentFromStoryblok } from './storyblokDeliveryResolver'
 import { getStoryblokPagesConfig } from './storyblokPagesConfig'
 
 const pagesGetStaticPaths: GetStaticPaths = async () => {
-  const stories: PageItem[] = await StoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
+  const stories: PageItem[] = await LmStoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
 
   await initSharedContentFromStoryblok()
 

@@ -1,5 +1,5 @@
-import React from 'react'
+import { FunctionComponentFactory } from 'react'
 
 export type CoreComponentProps = {
-  ComponentRender: React.ElementType
+  ComponentRender: FunctionComponentFactory<any>
 }

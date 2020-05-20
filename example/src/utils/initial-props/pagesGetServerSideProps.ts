@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import StoryblokService from '../StoryblokService'
+import { LmStoryblokService } from 'lumen-cms-core'
 import { endMeasureTime, startMeasureTime } from './timer'
 import getPageProps from './getPageProps'
 
@@ -20,13 +20,16 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
     const slug = query?.index || 'home'
     console.log('pagesGetServerSideProps', hostname, slug)
 
-    StoryblokService.setDevMode()
-    StoryblokService.setQuery(query)
+    LmStoryblokService.setDevMode()
+    LmStoryblokService.setQuery(query)
 
     const pageProps = await getPageProps(slug, hostname)
     endMeasureTime()
     return {
-      props: pageProps
+      props: {
+        ...pageProps,
+        insideStoryblok: true
+      }
     }
   } catch (e) {
     console.log('error', e)

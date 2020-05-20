@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
-import StoryblokService from '../StoryblokService'
-import { AppPageProps } from '../../typings/app'
+import {LmStoryblokService} from 'lumen-cms-core'
+import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { endMeasureTime, startMeasureTime } from './timer'
 import { getBaseProps } from './getBaseProps'
 import getPageProps from './getPageProps'
@@ -17,7 +17,7 @@ const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppP
 
     console.log('pagesGetStaticProps', previewData)
     if (previewData && previewData.query) {
-      StoryblokService.setQuery(previewData.query)
+      LmStoryblokService.setQuery(previewData.query)
     }
     const pageProps = await getPageProps(slug)
     endMeasureTime()

@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { useAppContext } from '../provider/AppProvider'
 import { CoreComponentProps } from '../core/CoreComponentProps'
 
-export type LmStaticSectionProps = CoreComponentProps &{ content: StaticSectionStoryblok }
+export type LmStaticSectionProps = CoreComponentProps & { content: StaticSectionStoryblok }
 
 export function LmStaticSection({ content, ComponentRender }: LmStaticSectionProps): JSX.Element | null {
   if (!content.container) {
@@ -14,12 +14,12 @@ export function LmStaticSection({ content, ComponentRender }: LmStaticSectionPro
 
   const { allStaticContent } = useAppContext()
   const containerContent = allStaticContent.find((item) => item.uuid === content.container)
-  const body = (containerContent && containerContent.content && containerContent.content.body) || []
+  const body: any[] = (containerContent && containerContent.content && containerContent.content.body) || []
 
   return (
     <SbEditable content={content}>
       <div className={clsx(content.class_names && content.class_names.values)}>
-        {body.map((blok: any) => <ComponentRender content={blok} />)}
+        {body.map((blok, i) => ComponentRender({ content: blok }, i))}
       </div>
     </SbEditable>
   )

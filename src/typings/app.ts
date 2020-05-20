@@ -21,9 +21,10 @@ export type AppApiRequestPayload = {
 export type AppPageProps =
   Pick<AppApiRequestPayload, 'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'>
   & {
-  page?: PageStoryblok | null,
+  page?: PageStoryblok | null
   settings?: GlobalStoryblok | null
   error?: ErrorProps
-  query?: any,
+  query?: any
+  insideStoryblok?: boolean
   [k: string]: any
 }

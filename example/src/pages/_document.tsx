@@ -1,21 +1,19 @@
 import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
-import StoryblokService from '../src/utils/StoryblokService'
 import React from 'react'
-import { CONFIG } from '../src/utils/config'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import { getGlobalState } from '../src/utils/state/state'
-import { GlobalStoryblok } from '../src/typings/generated/components-schema'
-
+import { GlobalStoryblok } from 'lumen-cms-core/src/typings/generated/components-schema'
+import {LmStoryblokService} from 'lumen-cms-core'
 
 class CoreDocument extends Document {
   render() {
-    const locale = getGlobalState('locale')
 
     // @ts-ignore
     const { isProduction } = this.props
     const settings: GlobalStoryblok | undefined = this.props.__NEXT_DATA__.props?.settings
 
-    const googleAnalyticsId = CONFIG.GA || settings?.setup_google_analytics
+    const googleAnalyticsId = settings?.setup_google_analytics
+    const locale = settings?.setup_language || process.env.defaultLocale || 'en'
+
     return (
       <html lang={locale}>
       <Head />
@@ -23,7 +21,7 @@ class CoreDocument extends Document {
       <Main />
       <script dangerouslySetInnerHTML={{
         __html: `
-      var StoryblokCacheVersion = '${StoryblokService.getCacheVersion()}';`
+      var StoryblokCacheVersion = '${LmStoryblokService.getCacheVersion()}';`
       }}></script>
       <NextScript />
       {isProduction && googleAnalyticsId && (
@@ -32,16 +30,18 @@ class CoreDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
           />
-          <script dangerouslySetInnerHTML={{__html:`
+          <script dangerouslySetInnerHTML={{
+            __html: `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '${CONFIG.GA}');
-      `}} />
+        gtag('config', '${googleAnalyticsId}');
+      `
+          }} />
         </>
       )}
-      {StoryblokService.insideVisualComposer() && (
-        <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${StoryblokService.getToken()}`}></script>
+      {LmStoryblokService.insideVisualComposer() && (
+        <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${LmStoryblokService.getToken()}`}></script>
       )}
       </body>
       </html>
@@ -60,7 +60,7 @@ CoreDocument.getInitialProps = async (ctx: DocumentContext) => {
   const initialProps = await Document.getInitialProps(ctx)
   return {
     ...initialProps,
-    isProduction: !StoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production',
+    isProduction: !LmStoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production',
     // Styles fragment is rendered after the app and page rendering finish.
     styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()]
   }

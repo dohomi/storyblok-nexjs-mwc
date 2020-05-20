@@ -1,8 +1,11 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
-import { CONFIG } from './config'
 import { AppPageProps } from '../typings/app'
+import { CONFIG } from './config'
 
 let cv = new Date().getTime()
+
+const publicToken = CONFIG.publicToken
+const previewToken = CONFIG.previewToken
 
 class StoryblokServiceClass {
   private devMode: boolean
@@ -13,8 +16,8 @@ class StoryblokServiceClass {
 
   constructor() {
     this.devMode = false // If true it always loads draft
-    this.token = process.env.NODE_ENV === 'development' ? CONFIG.previewToken : CONFIG.publicToken
-    this.previewToken = CONFIG.previewToken
+    this.token = process.env.NODE_ENV === 'development' ? previewToken : publicToken
+    this.previewToken = previewToken
     this.client = new StoryblokClient({
       accessToken: this.token,
       cache: {

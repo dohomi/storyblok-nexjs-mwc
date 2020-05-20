@@ -63,7 +63,7 @@ export function TimelineRowItem({ isLeft, content, ComponentRender }: TimelineRo
       <Card>
         <CardContentWrap content={content}>
           {(content.title || content.subheader) && <CardHeader title={content.title} subheader={content.subheader} />}
-          {body.length > 0 && <CardContent>{body.map(blok => <ComponentRender content={blok} />)}</CardContent>}
+          {body.length > 0 && <CardContent>{body.map((blok, i) => ComponentRender({ content: blok }, i))}</CardContent>}
         </CardContentWrap>
       </Card>
     </div>

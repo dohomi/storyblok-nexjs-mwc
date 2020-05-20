@@ -20,7 +20,7 @@ export function LmFlexRow({ content, ComponentRender }: LmFlexRowProps): JSX.Ele
               'mh-100': content.full_height
             })}
       >
-        {body.map(item => <ComponentRender content={item} />)}
+        {body.map((item, i) => ComponentRender({ content: item }, i))}
       </Grid>
     </SbEditable>
   )

@@ -41,16 +41,16 @@ const FooterWrap: FunctionComponent = ({ children }) => {
   )
 }
 
-type FooterProps = CoreComponentProps &{
+type FooterProps = CoreComponentProps & {
   settings: GlobalStoryblok
 }
 
-function Footer({ settings, ComponentRender }:FooterProps) :JSX.Element {
+function Footer({ settings, ComponentRender }: FooterProps): JSX.Element {
   const content = settings && settings.footer || []
   return (
     <SbEditable content={settings}>
       <FooterWrap>
-        {content.map((blok) => <ComponentRender content={blok} />)}
+        {content.map((blok, i) => ComponentRender({ content: blok }, i))}
       </FooterWrap>
     </SbEditable>
   )

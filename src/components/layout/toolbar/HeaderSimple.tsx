@@ -30,7 +30,7 @@ function HeaderSimple(props: HeaderSimpleProps): JSX.Element {
         {navRight.length > 0 && (
           <Grid container
                 className={clsx('lm-toolbar__section', 'd-none', { [`d-${mobileNavBreakpoint}-inline-flex`]: true })}>
-            {navRight.map(blok => <ComponentRender content={blok} />)}
+            {navRight.map((blok, i) => ComponentRender({ content: blok }, i))}
           </Grid>
         )}
         {!!hasRightDrawer && (

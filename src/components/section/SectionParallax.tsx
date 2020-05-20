@@ -56,7 +56,7 @@ export function LmSectionParallax({ content, ComponentRender }: LmSectionParalla
   )
 
   function processLayers() {
-    const items = elements.map(async item => {
+    const items = elements.map(async (item, i) => {
       const containerHeight = height * Number(contentHeight as number / 100)
       const offset = ((containerHeight * item.amount) * 2)
       const imgHeight = containerHeight + offset
@@ -72,7 +72,7 @@ export function LmSectionParallax({ content, ComponentRender }: LmSectionParalla
       return {
         image: `"${imgSource}"`,
         amount: Number(item.amount),
-        children: item.children && item.children.length && <ComponentRender content={item.children[0]} />
+        children: item.children && item.children.length && ComponentRender({ content: item.children[0] }, i)
       }
     })
     Promise.all(items)
@@ -93,7 +93,7 @@ export function LmSectionParallax({ content, ComponentRender }: LmSectionParalla
                         layers={layers || []}>
           {!layers && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
           <div className={clsx('parallax__content', content.class_names && content.class_names.values)}>
-            {body.map((blok) => <ComponentRender content={blok} />)}
+            {body.map((blok, i) => ComponentRender({ content: blok }, i))}
           </div>
         </ParallaxBanner>
       </div>

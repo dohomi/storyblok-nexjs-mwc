@@ -1,5 +1,5 @@
 import Index from '../src/components/pages'
-import pagesGetStaticProps from '../src/utils/initial-props/pagesGetStaticProps'
+import pagesGetStaticProps from '../example/src/utils/initial-props/pagesGetStaticProps'
 
 export const getStaticProps = pagesGetStaticProps
 

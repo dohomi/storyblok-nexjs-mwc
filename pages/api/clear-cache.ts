@@ -1,6 +1,6 @@
 import StoryblokService from '../../src/utils/StoryblokService'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { clearFileCache } from '../../src/utils/initial-props/fileCache'
+import { clearFileCache } from '../../example/src/utils/initial-props/fileCache'
 
 export default (_req: NextApiRequest, res: NextApiResponse) => {
   StoryblokService.flushCache()

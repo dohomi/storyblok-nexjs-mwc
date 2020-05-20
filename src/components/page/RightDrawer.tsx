@@ -41,7 +41,7 @@ function RightDrawer({ rightBody, ComponentRender }: RightDrawerProps): JSX.Elem
     <RightDrawerWrap>
       <ContentSpace />
       <div className={classes.rightContent}>
-        {rightBody.map((blok) => <ComponentRender content={blok} />)}
+        {rightBody.map((blok, i) => ComponentRender({ content: blok }, i))}
       </div>
     </RightDrawerWrap>
   )

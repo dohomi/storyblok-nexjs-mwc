@@ -1,6 +1,5 @@
-import { CONFIG } from '../config'
-import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
-import { AppPageProps } from '../../typings/app'
+import { GlobalStoryblok, PageStoryblok } from 'lumen-cms-core/src/typings/generated/components-schema'
+import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { collectComponentData } from './traversePageContent'
@@ -8,6 +7,7 @@ import { collectComponentData } from './traversePageContent'
 const getPageProps = async (slug: string | string[], ssrHostname?: string): Promise<AppPageProps> => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
+  console.log(pageSlug, knownLocale)
   let { page, settings, allCategories = [], allStories = [], locale, allStaticContent = [] } = await apiRequestResolver({
     pageSlug,
     locale: knownLocale,
@@ -15,12 +15,14 @@ const getPageProps = async (slug: string | string[], ssrHostname?: string): Prom
     ssrHostname
   })
 
-  if (CONFIG.defaultLocale && !locale) {
-    locale = CONFIG.defaultLocale
+  const defaultLocale = process.env.defaultLocale || 'en'
+  if (defaultLocale && !locale) {
+    locale = defaultLocale
   }
 
-  if (CONFIG.overwriteLocale) {
-    locale = CONFIG.overwriteLocale
+  const overwriteLocale = process.env.overwriteLocale
+  if (overwriteLocale) {
+    locale = overwriteLocale
   }
 
   // const url = `https://${process.env.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose

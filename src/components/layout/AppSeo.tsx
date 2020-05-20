@@ -1,7 +1,6 @@
 import { NextSeo } from 'next-seo'
 import { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import {
   GlobalStoryblok,
   ImageCoreStoryblok,
@@ -93,11 +92,22 @@ const getCanonicalUrl = (hostname: string = '', url: string) => {
 }
 
 
-const AppSeo: FunctionComponent<{ settings: GlobalStoryblok, page: PageStoryblok, previewImage?: string }> = ({ settings, page, previewImage }) => {
+type AppSeoProps = {
+  settings: GlobalStoryblok
+  page?: PageStoryblok | null
+  previewImage?: string
+}
+
+function AppSeo({ settings, page, previewImage }: AppSeoProps): JSX.Element {
   const router = useRouter()
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
+  if (!page) {
+    return <NextSeo title={'Not Found'} noindex={true} />
+  }
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = page.seo_body || []
   const robotsIndexFollow = CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots // todo additionally disable .now.sh domains
+
+
   const seo: SeoMetaTypes = {
     title: page.meta_title || settings.seo_title || 'Website made by Lumen Media',
     description: page.meta_description || settings.seo_description || 'Website made by Lumen Media',

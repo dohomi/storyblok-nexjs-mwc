@@ -85,7 +85,7 @@ export function LmGridRow({ content, ComponentRender }: LmGridRowProps): JSX.Ele
         <BackgroundImage content={background} backgroundStyle={content.background_style} />}
         {background?.background_elements && background.background_elements.length > 0 &&
         <BackgroundElements elements={background.background_elements} />}
-        {content.body && content.body.map((blok) => <ComponentRender content={blok} />)}
+        {content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
       </Grid>
     </SbEditable>
   )

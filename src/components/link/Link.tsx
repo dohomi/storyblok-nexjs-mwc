@@ -8,7 +8,7 @@ export type LmLinkProps = CoreComponentProps & { content: LinkStoryblok }
 export function LmLink({ content, ComponentRender }: LmLinkProps): JSX.Element {
   return (
     <ContentLink className={'lm-wrap-content__link'} content={content}>
-      {(content.body || []).map(blok => <ComponentRender content={blok} />)}
+      {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
     </ContentLink>
   )
 }

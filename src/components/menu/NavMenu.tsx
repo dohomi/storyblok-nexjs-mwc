@@ -91,7 +91,7 @@ export function LmMenu({ content, ComponentRender }: LmMenuProps): JSX.Element {
                 paper: classes.paper
               }}
               {...addons}>
-          {isCustom && menuItems.map(blok => <ComponentRender content={blok} />)}
+          {isCustom && menuItems.map((blok, i) => ComponentRender({ content: blok }, i))}
           {!isCustom && (
             <div>
               {menuItems.map(nestedProps => (

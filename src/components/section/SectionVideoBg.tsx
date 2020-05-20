@@ -130,7 +130,7 @@ export function LmSectionVideo({ content, ComponentRender }: LmSectionVideoProps
                              ratioHeight={ratioHeight}
                              ratioWidth={ratioWidth} />
         )}
-        {hasBody && <div>{body.map((blok) => <ComponentRender content={blok} />)}</div>}
+        {hasBody && <div>{body.map((blok, i) => ComponentRender({ content: blok }, i))}</div>}
       </div>
     </SbEditable>
   )

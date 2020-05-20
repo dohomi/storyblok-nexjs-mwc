@@ -35,7 +35,7 @@ export function LmAccordionItem({ content, options, setOpen, opened, iteration, 
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <div>
-            {(content.body || []).map(blok => <ComponentRender content={blok} />)}
+            {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>

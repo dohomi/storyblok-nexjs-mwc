@@ -37,7 +37,7 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, classN
               anchor="right"
               onClose={() => setOpen(false)}>
         <div className={classes.drawerContent}>
-          {body.map(blok => <ComponentRender content={blok} />)}
+          {body.map((blok, i) => ComponentRender({ content: blok }, i))}
         </div>
       </Drawer>
     </SbEditable>

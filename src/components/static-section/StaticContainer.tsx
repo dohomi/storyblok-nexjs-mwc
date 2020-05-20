@@ -9,7 +9,7 @@ export function LmStaticContainer({ content, ComponentRender }: LmStaticContaine
   return (
     <SbEditable content={content}>
       <div className="lm-static-container">
-        {(content.body || []).map((blok) => <ComponentRender content={blok} />)}
+        {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
       </div>
     </SbEditable>
   )

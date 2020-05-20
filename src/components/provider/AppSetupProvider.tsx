@@ -6,8 +6,8 @@ import { useWindowDimensions } from './WindowDimensionsProvider'
 
 export type AppSetupProps = {
   hasDrawer?: boolean,
-  hasFeatureImage?: boolean,
-  hasRightDrawer?: boolean,
+  hasFeatureImage?: boolean | null,
+  hasRightDrawer?: boolean | null,
   drawerVariant?: DrawerProps['variant']
   drawerBelowToolbar?: boolean
   hasScrollCollapse?: boolean
@@ -29,7 +29,7 @@ const AppSetupContext = createContext(defaultValue)
 
 const AppSetupProvider: FunctionComponent<{
   settings: GlobalStoryblok
-  page?: PageStoryblok
+  page?: PageStoryblok | null
 }> = ({ children, settings, page }) => {
   const { isMobile } = useWindowDimensions()
   const hasDrawer = Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0

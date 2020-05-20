@@ -85,7 +85,7 @@ export function LmCardList({ content, ComponentRender }: LmCardListProps): JSX.E
         <GridList spacing={gutterSize}
                   cellHeight={'auto'}
                   className={gridClasses.gridList}>
-          {data.map(item => <ComponentRender content={item} options={rest} />)}
+          {data.map((item, i) => ComponentRender({ content: item, options: rest }, i))}
         </GridList>
         <div ref={hasMore ? ref : undefined}></div>
       </div>

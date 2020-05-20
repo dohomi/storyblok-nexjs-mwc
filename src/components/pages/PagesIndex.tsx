@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import { AppPageProps } from '../../typings/app'
 import { useStoryblok } from '../../utils/hooks/useStoryblok'
-// import Error from '../../../pages/_error' @todo
 import Error from 'next/error'
 import AppProvider from '../provider/AppProvider'
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
@@ -14,13 +13,13 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
+import { CoreComponentProps } from '../core/CoreComponentProps'
+import { NotFound } from './404'
 
 
-export type LmPagesIndexProps = NextPage<AppPageProps & {
-  ComponentRender: React.ElementType
-}>
+export type LmPagesIndexProps = NextPage<AppPageProps & CoreComponentProps>
 
-const Index: LmPagesIndexProps = (props) => {
+const LmPagesIndex: LmPagesIndexProps = (props) => {
   const { error, locale, settings, page, ComponentRender, ...rest } = props
   const { stateSettings, statePage } = useStoryblok({ settings, page })
   const { isFallback } = useRouter()
@@ -57,16 +56,9 @@ const Index: LmPagesIndexProps = (props) => {
     return <Error statusCode={error.status} settings={stateSettings} page={statePage} />
   }
 
-  if (!statePage && !stateSettings) {
-    return <h3>No page or settings found</h3>
-  }
-
-  if (!statePage) {
-    return <Error statusCode={404} settings={stateSettings} page={statePage} />
-  }
 
   if (!stateSettings) {
-    return <Error statusCode={404} settings={stateSettings} page={statePage} />
+    return <Error statusCode={500} settings={stateSettings} />
   }
 
   return (
@@ -77,7 +69,13 @@ const Index: LmPagesIndexProps = (props) => {
             <CssBaseline />
             <AppSeo settings={stateSettings} page={statePage} previewImage={statePage?.preview_image} />
             <Layout settings={stateSettings} ComponentRender={ComponentRender}>
-              <ComponentRender content={statePage} />
+              {statePage ? (
+                <ComponentRender content={statePage} />
+              ) : (
+                <NotFound ComponentRender={ComponentRender}
+                          locale={locale}
+                          statusCode={404} />
+              )}
             </Layout>
           </GlobalTheme>
         </AppSetupProvider>
@@ -86,4 +84,4 @@ const Index: LmPagesIndexProps = (props) => {
   )
 }
 
-export default Index
+export default LmPagesIndex

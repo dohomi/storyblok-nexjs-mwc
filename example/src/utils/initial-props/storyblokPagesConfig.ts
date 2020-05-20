@@ -1,5 +1,3 @@
-import { CONFIG } from '../config'
-
 export function getStoryblokPagesConfig() {
   const params: any = {
     per_page: 100,
@@ -14,8 +12,8 @@ export function getStoryblokPagesConfig() {
       }
     }
   }
-  if (CONFIG.rootDirectory) {
-    params.starts_with = `${CONFIG.rootDirectory}/`
+  if (process.env.rootDirectory) {
+    params.starts_with = `${process.env.rootDirectory}/`
   }
   return params
 }

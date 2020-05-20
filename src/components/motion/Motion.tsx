@@ -32,35 +32,35 @@ export function LmMotion({ content, ComponentRender }: LmMotionProps): JSX.Eleme
           'slide': (
             <Slide in={inView} {...transitionProps as SlideProps} direction={content.slide_direction || 'down'}>
               <div>
-                {(content.body || []).map((blok) => <ComponentRender content={blok} />)}
+                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
               </div>
             </Slide>
           ),
           'fade': (
             <Fade in={inView} {...transitionProps as FadeProps}>
               <div>
-                {(content.body || []).map((blok) => <ComponentRender content={blok} />)}
+                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
               </div>
             </Fade>
           ),
           'grow': (
             <Grow in={inView} {...transitionProps as GrowProps}>
               <div>
-                {(content.body || []).map((blok) => <ComponentRender content={blok} />)}
+                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
               </div>
             </Grow>
           ),
           'zoom': (
             <Zoom in={inView} {...transitionProps as ZoomProps}>
               <div>
-                {(content.body || []).map((blok) => <ComponentRender content={blok} />)}
+                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
               </div>
             </Zoom>
           ),
           'collapse': (
             <Collapse in={inView} {...transitionProps as CollapseProps}>
               <div>
-                {(content.body || []).map((blok) => <ComponentRender content={blok} />)}
+                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
               </div>
             </Collapse>
           )

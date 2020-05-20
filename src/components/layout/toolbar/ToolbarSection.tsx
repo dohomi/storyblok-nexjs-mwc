@@ -1,33 +1,25 @@
 import SbEditable from 'storyblok-react'
 import React, { FunctionComponent } from 'react'
-import {LmMenu} from '../../menu/NavMenu'
+import { LmMenu } from '../../menu/NavMenu'
 import ToolbarLogo from './ToolbarLogo'
-import {
-  ButtonStoryblok,
-  GlobalStoryblok,
-  HeadlineStoryblok,
-  NavMenuStoryblok,
-  ToolbarLogoStoryblok,
-  ToolbarNaviButtonStoryblok,
-  ToolbarRowSectionStoryblok
-} from '../../../typings/generated/components-schema'
-import {LmButton} from '../../button/Button'
+import { GlobalStoryblok, ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
+import { LmButton } from '../../button/Button'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
-import {LmListSearchAutocomplete} from '../../list-widget/ListSearchAutocomplete'
+import { LmListSearchAutocomplete } from '../../list-widget/ListSearchAutocomplete'
 import ToggleDrawerButton from './ToggleDrawerButton'
 import { useTheme } from '@material-ui/core/styles'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import {LmHeadline} from '../../headline/Headline'
+import { LmHeadline } from '../../headline/Headline'
 
 
 type ToolbarSectionComponents = {
-  button: FunctionComponent<{ content: ButtonStoryblok }>
-  nav_menu: FunctionComponent<{ content: NavMenuStoryblok, settings: GlobalStoryblok }>
-  toolbar_logo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }>
-  toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
-  headline: FunctionComponent<{ content: HeadlineStoryblok }>
+  // button: FunctionComponent<{ content: ButtonStoryblok }>
+  // nav_menu: Component<{ content: NavMenuStoryblok, settings: GlobalStoryblok }>
+  // toolbar_logo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }>
+  // toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
+  // headline: FunctionComponent<{ content: HeadlineStoryblok }>
   [k: string]: any
 }
 

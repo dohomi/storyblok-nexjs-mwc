@@ -1,5 +1,4 @@
 import imageService from '../../utils/ImageService'
-import StoryblokService from '../../utils/StoryblokService'
 import NextHead from 'next/head'
 import * as React from 'react'
 import { FunctionComponent, memo } from 'react'
@@ -30,7 +29,7 @@ const AppHead: FunctionComponent<{
 }> = ({ settings }) => {
   const favicon = settings.setup_favicon
   const loadFonts: string[] = getFontBasedOnSetting(settings)
-  const isProduction = !StoryblokService.insideVisualComposer() && process.env.NODE_ENV === 'production'
+
   if (process.env.NODE_ENV === 'development') {
     console.log('render app head')
   }
@@ -44,7 +43,7 @@ const AppHead: FunctionComponent<{
       <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://cdn.jsdelivr.net/" crossOrigin="anonymous" />
       <link rel="preconnect" href="https://img2.storyblok.com/" crossOrigin="anonymous" />
-      {isProduction && CONFIG.GA && (
+      {CONFIG.GA && (
         <>
           <link rel="preconnect" href="https://www.googletagmanager.com/" crossOrigin="anonymous" />
           <link rel="preconnect" href="https://www.google-analytics.com/" crossOrigin="anonymous" />

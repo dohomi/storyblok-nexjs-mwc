@@ -101,7 +101,7 @@ export function LmTabs({ content, ComponentRender }: LmTabsProps): JSX.Element {
                           axis={'x'}>
             {body.map((tab: TabsItemStoryblok) => (
               <div key={`content_${tab._uid}`}>
-                {tab.body && tab.body.map((blok) => <ComponentRender content={blok} />)}
+                {tab.body && tab.body.map((blok, i) => ComponentRender({ content: blok }, i))}
               </div>
             ))}
           </SwipeableViews>

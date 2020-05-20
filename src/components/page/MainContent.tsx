@@ -23,8 +23,8 @@ type MainContentProps = CoreComponentProps & {
   body: any[]
 }
 
-export function MainContent ({ body, ComponentRender }:MainContentProps):JSX.Element{
-  return (<MainContenWrap>{body.map((blok) => <ComponentRender content={blok} />)}</MainContenWrap>)
+export function MainContent({ body, ComponentRender }: MainContentProps): JSX.Element {
+  return (<MainContenWrap>{body.map((blok, i) => ComponentRender({ content: blok }, i))}</MainContenWrap>)
 }
 
 

@@ -83,9 +83,9 @@ export function LmGridColumn({ content, ComponentRender }: LmGridColumnProps): J
                 alignItems={content.align_items ? content.align_items : undefined}
                 alignContent={content.align_content ? content.align_content : undefined}
           >
-            {content.body && content.body.map((blok) => <ComponentRender content={blok} />)}
+            {content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
           </Grid>
-        ) : content.body && content.body.map((blok) => <ComponentRender content={blok} />)}
+        ) : content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
       </Grid>
     </SbEditable>
   )

@@ -1,6 +1,6 @@
 import Index from '../src/components/pages'
-import pagesGetStaticProps from '../src/utils/initial-props/pagesGetStaticProps'
-import pagesGetStaticPaths from '../src/utils/initial-props/pagesGetStaticPaths'
+import pagesGetStaticProps from '../example/src/utils/initial-props/pagesGetStaticProps'
+import pagesGetStaticPaths from '../example/src/utils/initial-props/pagesGetStaticPaths'
 
 export const getStaticProps = pagesGetStaticProps
 

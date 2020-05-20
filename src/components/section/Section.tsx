@@ -77,7 +77,7 @@ export function LmSection({ content, ComponentRender }: LmSectionProps): JSX.Ele
                    className={clsx(className, {
                      [classes.fullHeight]: isFullHeight
                    })}>
-          {body.map((blok) => <ComponentRender content={blok} />)}
+          {body.map((blok, i) => ComponentRender({ content: blok }, i))}
         </Container>
       </div>
     </SbEditable>

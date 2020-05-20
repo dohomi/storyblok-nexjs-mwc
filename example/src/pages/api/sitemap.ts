@@ -1,10 +1,10 @@
-import { PageItem } from '../../src/typings/generated/schema'
-import StoryblokService from '../../src/utils/StoryblokService'
+import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
+import { LmStoryblokService } from 'lumen-cms-core'
 import { SitemapStream, streamToPromise } from 'sitemap'
 // import { createGzip } from 'zlib'
 import { IncomingMessage, ServerResponse } from 'http'
-import { internalLinkHandler } from '../../src/utils/linkHandler'
-import { getStoryblokPagesConfig } from '../../example/src/utils/initial-props/storyblokPagesConfig'
+import { internalLinkHandler } from 'lumen-cms-core/src/utils/linkHandler'
+import { getStoryblokPagesConfig } from '../../utils/initial-props/storyblokPagesConfig'
 
 
 export default async function(req: IncomingMessage, res: ServerResponse) {
@@ -12,7 +12,7 @@ export default async function(req: IncomingMessage, res: ServerResponse) {
   // res.setHeader('Content-Encoding', 'gzip')
   try {
 
-    const stories: PageItem[] = await StoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
+    const stories: PageItem[] = await LmStoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
     const smStream = new SitemapStream({ hostname: 'https://' + req.headers.host })
     const ignoreList = (process.env.sitemapIgnorePath && process.env.sitemapIgnorePath.split(',')) || []
 

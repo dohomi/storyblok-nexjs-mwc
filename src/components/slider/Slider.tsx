@@ -114,15 +114,15 @@ export function LmSlider({ content, ComponentRender }: LmSliderProps): JSX.Eleme
                                   body={child}
                                   sectionVariant={content.section_variant}
                                   ComponentRender={ComponentRender} />
-          }) : body.map(item => {
+          }) : body.map((item, i) => {
             if (item.component === 'section') {
               let newOpts: SectionProps = {
                 ...item,
                 presetVariant: content.section_variant || 'transparent'
               }
-              return <ComponentRender content={newOpts} />
+              return ComponentRender({ content: newOpts }, i)
             }
-            return <ComponentRender content={item} />
+            return ComponentRender({ content: item }, i)
           })}
         </SwipeableViews>
         <a className={carouselPrevClasses}

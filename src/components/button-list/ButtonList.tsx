@@ -16,7 +16,7 @@ export function LmButtonList({ content, ComponentRender }: LmButtonListProps): J
   return (
     <SbEditable content={content}>
       <div className={classNames}>
-        {body.map(blok => <ComponentRender content={blok} />)}
+        {body.map((blok, i) => ComponentRender({ content: blok }, i))}
       </div>
     </SbEditable>
   )
