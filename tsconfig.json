@@ -40,10 +40,9 @@
     "node_modules",
     ".next",
     "dist",
-    "pages/**/*.ts"
+    "example"
   ],
   "include": [
-    "next-env",
     "src/**/*.ts",
     "src/**/*.tsx"
   ]

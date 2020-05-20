@@ -1,7 +1,7 @@
-const config = require('./nextjs_basic_config')
+const config = require('./nextjs_dev_config')
 
 // if (process.env.NODE_ENV !== 'production') {
-require('dotenv').config()
+// require('dotenv').config()
 // }
 
 module.exports = config({

@@ -1,3 +1,4 @@
+// @ts-ignore
 import COMPONENT_JSON from '../../../components.80001.json'
 import { allImageOptions, getUid } from '../core/various'
 import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'

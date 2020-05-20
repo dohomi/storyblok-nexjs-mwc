@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "rimraf app-content*json && next",
+    "analyze": "BUNDLE_ANALYZE=true npm run build",
+    "start": "next start",
     "build": "rm -rf .next && next build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
