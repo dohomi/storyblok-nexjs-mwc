@@ -1,5 +1,6 @@
-import React from 'react'
-
+import React, { FunctionComponentFactory } from 'react'
+import SbEditable from 'storyblok-react'
+import { AppPageProps } from './typings/app'
 import { LmAccordion } from './components/accordion/Accordion'
 import { LmPage } from './components/page/Page'
 import { LmTable } from './components/table/Table'
@@ -42,6 +43,8 @@ import { LmAccordionItem } from './components/accordion/AccordionItem'
 import { LmTimelineItem } from './components/timeline/TimelineRow'
 import { LmCardListItem } from './components/card/CardListItem'
 import { LmImageListItem } from './components/image-list/ImageListItem'
+import { LmPagesIndex } from './components/pages/PagesIndex'
+
 
 export {
   LmAccordion,
@@ -87,10 +90,12 @@ export {
   LmImageListItem
 }
 
-export { default as LmPagesIndex } from './components/pages/PagesIndex'
+export { LmPagesIndex }
+export { LmCoreDocument, documentGetInitialProps } from './components/pages/CoreDocument'
 export { default as LmLayout } from './components/layout/Layout'
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
+
 
 // export { default as pagesGetStaticPaths } from './utils/initial-props/pagesGetStaticPaths'
 // export { default as pagesGetStaticProps } from './utils/initial-props/pagesGetStaticProps'
@@ -146,10 +151,37 @@ const CoreComponentsNamed = {
   'motion': LmMotion
 }
 
+export function LmDefaultPage(props: AppPageProps) {
+  const componentRender = props.insideStoryblok ? LmStoryblokComponentRender : LmComponentRender
+  return <LmPagesIndex {...props}
+                       ComponentRender={componentRender as FunctionComponentFactory<any>}
+  />
+}
+
 export type LmComponentRenderProps = {
   content: any,
   _uid?: string,
   [k: string]: any
+}
+
+export function LmStoryblokComponentRender(props: LmComponentRenderProps, iteration?: number): JSX.Element {
+  const { content, ...rest } = props
+  if (typeof CoreComponentsNamed[content.component] !== 'undefined') {
+    return (
+      <SbEditable content={content} key={`${content.component}_${iteration}`}>
+        {React.createElement(CoreComponentsNamed[content.component], {
+          content: content,
+          ComponentRender: LmStoryblokComponentRender,
+          ...rest
+        })}
+      </SbEditable>
+    )
+  }
+  return (
+    <div style={{ color: 'red' }} key={content?._uid || `${iteration}`}>The
+      component {content.component || 'no name found'} has not been
+      created yet.</div>
+  )
 }
 
 function LmComponentRender(blok: LmComponentRenderProps, iteration?: number): JSX.Element {

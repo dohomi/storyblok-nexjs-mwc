@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.39.20",
+  "version": "0.39.24",
   "description": "Core website components for the LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -47,14 +47,9 @@
     "is-mobile": "2.2.1",
     "js-cookie": "2.2.1",
     "marked": "1.1.0",
-    "match-sorter": "4.1.0",
     "mdi-material-ui": "6.15.0",
     "next": "9.4.2",
-    "next-compose-plugins": "2.2.0",
-    "next-routes": "1.4.2",
     "next-seo": "4.5.0",
-    "next-transpile-modules": "3.3.0",
-    "node-fetch": "2.6.0",
     "nprogress": "0.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -66,10 +61,10 @@
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
     "storyblok-js-client": "2.5.0",
+    "storyblok-react": "0.0.10",
     "use-debounce": "3.4.2"
   },
   "peerDependencies": {
-    "sitemap": "6.1.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.14.0",

@@ -1,4 +1,3 @@
-import { NextPage } from 'next'
 import { AppPageProps } from '../../typings/app'
 import { useStoryblok } from '../../utils/hooks/useStoryblok'
 import Error from 'next/error'
@@ -17,9 +16,9 @@ import { CoreComponentProps } from '../core/CoreComponentProps'
 import { NotFound } from './404'
 
 
-export type LmPagesIndexProps = NextPage<AppPageProps & CoreComponentProps>
+export type LmPagesIndexProps = AppPageProps & CoreComponentProps
 
-const LmPagesIndex: LmPagesIndexProps = (props) => {
+export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
   const { error, locale, settings, page, ComponentRender, ...rest } = props
   const { stateSettings, statePage } = useStoryblok({ settings, page })
   const router = useRouter()
@@ -50,9 +49,6 @@ const LmPagesIndex: LmPagesIndexProps = (props) => {
 
 
   if (error) {
-    if (error.type === 'not_supported') {
-      return null
-    }
     return <Error statusCode={error.status} settings={stateSettings} page={statePage} />
   }
 
@@ -84,4 +80,3 @@ const LmPagesIndex: LmPagesIndexProps = (props) => {
   )
 }
 
-export default LmPagesIndex
