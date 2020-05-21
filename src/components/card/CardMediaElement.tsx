@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { CardListItemProps } from './cards'
 import CardMedia from '@material-ui/core/CardMedia'
-import { Fade } from '@material-ui/core'
+import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import ImageShadow from '../section/ImageShadow'
 

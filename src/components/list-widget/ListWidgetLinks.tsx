@@ -1,13 +1,15 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { ListWidgetStoryblok, NavItemStoryblok, NavListStoryblok } from '../../typings/generated/components-schema'
-import NavList from '../nav-list/NavList'
 import { AppApiRequestPayload } from '../../typings/app'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
-const ListWidgetLinks: FunctionComponent<{
+type ListWidgetLinksProps = CoreComponentProps & {
   items: AppApiRequestPayload['allStories']
   options: NavListStoryblok,
   content: ListWidgetStoryblok
-}> = ({ items, options, content }) => {
+}
+
+function ListWidgetLinks({ items, options, content, ComponentRender }: ListWidgetLinksProps): JSX.Element {
   const listProps = {
     ...options,
     _uid: content._uid,
@@ -24,8 +26,7 @@ const ListWidgetLinks: FunctionComponent<{
       return opts
     })
   }
-  return (
-    <NavList content={listProps} />
-  )
+  return <ComponentRender content={listProps} />
 }
+
 export default ListWidgetLinks

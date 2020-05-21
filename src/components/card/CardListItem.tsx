@@ -2,15 +2,13 @@ import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { CardListItemProps } from './cards'
 import CardDescriptionText from './CardDescriptionText'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardListItemActions from './CardListItemActions'
 
-
-const CardListItem: FunctionComponent<CardListItemProps> = (props) => {
+export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
 
@@ -87,4 +85,3 @@ const CardListItem: FunctionComponent<CardListItemProps> = (props) => {
   )
 }
 
-export default CardListItem

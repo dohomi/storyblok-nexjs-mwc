@@ -1,6 +1,5 @@
 import { RteContentProps } from './rte_typings'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import clsx from 'clsx'
 import MuiLink from '@material-ui/core/Link'
 import { getLinkAttrs } from '../../../utils/linkHandler'
@@ -18,7 +17,9 @@ const InlineClassMapping = {
   styled: ''
 }
 
-const RteNodeText: FunctionComponent<{ content: RteContentProps }> = ({ content }) => {
+type RteNodeTextProps = { content: RteContentProps }
+
+function RteNodeText({ content }: RteNodeTextProps): JSX.Element {
   if (content.marks && content.marks.length) {
     const link = content.marks.find(({ type }) => type === 'link')
     const className = clsx(content.marks.map(({ type, attrs }) => {
@@ -51,4 +52,5 @@ const RteNodeText: FunctionComponent<{ content: RteContentProps }> = ({ content 
   }
   return <>{content.text}</>
 }
+
 export default RteNodeText

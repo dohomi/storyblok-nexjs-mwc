@@ -13,6 +13,7 @@ type AppConfigProps = {
   TAWKTO?: string
   prefetch: boolean
   hostname?: string
+  ComponentRender?: JSX.Element
 }
 
 export const CONFIG: AppConfigProps = {
@@ -28,4 +29,8 @@ export const CONFIG: AppConfigProps = {
   GA: process.env.GA,
   TAWKTO: process.env.TAWKTO,
   prefetch: !process.env.disablePrefetch
+}
+
+export function setComponentRender(component: JSX.Element) {
+  CONFIG.ComponentRender = component
 }

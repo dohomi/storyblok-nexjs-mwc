@@ -1,6 +1,4 @@
-import SbEditable from 'storyblok-react'
-import React, { FunctionComponent, RefObject, useState } from 'react'
-import ImageListItem from './ImageListItem'
+import React, { RefObject, useState } from 'react'
 import ImageListLightbox from './ImageListLightbox'
 import { ImageListStoryblok } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
@@ -9,12 +7,13 @@ import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
-
-const ImageList: FunctionComponent<{
+export type LmImageListProps = CoreComponentProps & {
   content: ImageListStoryblok
-}> = (props) => {
-  const content = props.content
+}
+
+export function LmImageList({ content, ComponentRender }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -49,7 +48,7 @@ const ImageList: FunctionComponent<{
   }
 
   return (
-    <SbEditable content={content}>
+    <div className="lm-imagelist__container">
       <div ref={containerRef}
            style={{
              padding: gutterSize + 'px'
@@ -65,16 +64,13 @@ const ImageList: FunctionComponent<{
                   {...gridListProps}
         >
           {body.map((item, i) => (
-            <SbEditable content={item} key={item._uid}>
-              <GridListTile style={{
-                padding: !content.masonry ? `${gutterSize}px` : undefined,
-                marginBottom: content.masonry ? `${gutterSize}px` : undefined
-              }}
-                            onClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })}>
-                <ImageListItem content={item}
-                               listProps={content} />
-              </GridListTile>
-            </SbEditable>
+            <GridListTile key={`${item.component}_${i}`} style={{
+              padding: !content.masonry ? `${gutterSize}px` : undefined,
+              marginBottom: content.masonry ? `${gutterSize}px` : undefined
+            }}
+                          onClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })}>
+              {ComponentRender({ content: item, listProps: content })}
+            </GridListTile>
           ))}
         </GridList>
       </div>
@@ -86,8 +82,6 @@ const ImageList: FunctionComponent<{
         onImageClick,
         className: classes.lightbox
       })}
-    </SbEditable>
+    </div>
   )
 }
-
-export default ImageList

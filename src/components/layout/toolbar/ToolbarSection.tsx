@@ -1,43 +1,29 @@
-import SbEditable from 'storyblok-react'
 import React, { FunctionComponent } from 'react'
-import Menu from '../../menu/NavMenu'
+import { LmMenu } from '../../menu/NavMenu'
 import ToolbarLogo from './ToolbarLogo'
-import {
-  ButtonStoryblok,
-  GlobalStoryblok,
-  HeadlineStoryblok,
-  NavMenuStoryblok,
-  ToolbarLogoStoryblok,
-  ToolbarNaviButtonStoryblok,
-  ToolbarRowSectionStoryblok
-} from '../../../typings/generated/components-schema'
-import LmMuiButton from '../../button/LmMuiButton'
+import { GlobalStoryblok, ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
+import { LmButton } from '../../button/Button'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
-import ListSearchAutocomplete from '../../list-widget/ListSearchAutocomplete'
+import { LmListSearchAutocomplete } from '../../list-widget/ListSearchAutocomplete'
 import ToggleDrawerButton from './ToggleDrawerButton'
 import { useTheme } from '@material-ui/core/styles'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import Headline from '../../headline/Headline'
+import { LmHeadline } from '../../headline/Headline'
 
 
 type ToolbarSectionComponents = {
-  button: FunctionComponent<{ content: ButtonStoryblok }>
-  nav_menu: FunctionComponent<{ content: NavMenuStoryblok, settings: GlobalStoryblok }>
-  toolbar_logo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }>
-  toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
-  headline: FunctionComponent<{ content: HeadlineStoryblok }>
   [k: string]: any
 }
 
 const ToolbarComponents: ToolbarSectionComponents = {
-  'button': LmMuiButton,
-  'nav_menu': Menu,
+  'button': LmButton,
+  'nav_menu': LmMenu,
   'toolbar_logo': ToolbarLogo,
   'toolbar_navi_button': ToggleDrawerButton,
-  'list_search_autocomplete': ListSearchAutocomplete,
-  'headline': Headline
+  'list_search_autocomplete': LmListSearchAutocomplete,
+  'headline': LmHeadline
 }
 
 const Child = (blok: any, settings: GlobalStoryblok) => {
@@ -58,24 +44,24 @@ const ToolbarSectionWrap: FunctionComponent<{ content: ToolbarRowSectionStoryblo
   const hideOnMediaQuery = content.use_media_query && !matches
   const invHideOnMediaQuery = content.inv_use_media_query && matches
   return (
-    <SbEditable content={content}>
-      <Grid item
-            className={clsx(content.class_names?.values, {
-              'h-100': !align,
-              'd-inline-flex': !content.align && !hideOnMediaQuery && !invHideOnMediaQuery,
-              'd-none': hideOnMediaQuery || invHideOnMediaQuery
-            })}
-            style={{
-              alignItems: !align ? 'center' : undefined,
-              alignSelf: align ? align : 'center'
-            }}
-      >{children}
-      </Grid>
-    </SbEditable>
+    <Grid item
+          className={clsx(content.class_names?.values, {
+            'h-100': !align,
+            'd-inline-flex': !content.align && !hideOnMediaQuery && !invHideOnMediaQuery,
+            'd-none': hideOnMediaQuery || invHideOnMediaQuery
+          })}
+          style={{
+            alignItems: !align ? 'center' : undefined,
+            alignSelf: align ? align : 'center'
+          }}
+    >{children}
+    </Grid>
   )
 }
 
-const ToolbarSection: FunctionComponent<{ content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }> = ({ settings, content }) => {
+type ToolbarSectionProps = { content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }
+
+function ToolbarSection({ settings, content }: ToolbarSectionProps): JSX.Element {
   const body = content.body || []
   return (
     <ToolbarSectionWrap content={content}>

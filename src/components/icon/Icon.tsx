@@ -1,9 +1,8 @@
-import SbEditable from 'storyblok-react'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import clsx from 'clsx'
 import { IconStoryblok } from '../../typings/generated/components-schema'
-import { makeStyles } from '@material-ui/styles'
-import LmIcon from './LmIcon'
+import { makeStyles } from '@material-ui/core/styles'
+import LmIconMwc from './LmIcon'
 
 const useStyles = makeStyles({
   icon: {
@@ -31,22 +30,20 @@ const useStyles = makeStyles({
   }
 })
 
-const IconMwc: FunctionComponent<{ content: IconStoryblok }> = ({ content }) => {
+export type LmIconProps = { content: IconStoryblok }
+
+export function LmIcon({ content }: LmIconProps): JSX.Element {
   const classes = useStyles()
   return (
-    <SbEditable content={content}>
-      <div className={clsx(content.class_names && content.class_names.values)}>
-        <LmIcon
-          className={clsx(classes.icon, {
-            [content.size as string]: !!content.size
-          })}
-          iconUrl={content.icon_url}
-          style={{ color: (content.color && content.color.rgba) ? content.color.rgba : undefined }}
-          iconName={content.name && content.name.name}
-        />
-      </div>
-    </SbEditable>
+    <div className={clsx(content.class_names && content.class_names.values)}>
+      <LmIconMwc
+        className={clsx(classes.icon, {
+          [content.size as string]: !!content.size
+        })}
+        iconUrl={content.icon_url}
+        style={{ color: (content.color && content.color.rgba) ? content.color.rgba : undefined }}
+        iconName={content.name && content.name.name}
+      />
+    </div>
   )
 }
-
-export default IconMwc

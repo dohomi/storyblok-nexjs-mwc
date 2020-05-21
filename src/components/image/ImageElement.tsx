@@ -1,9 +1,11 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import Image from './Image'
 import ImageSvg from './ImageSvg'
 
-const ImageElement: FunctionComponent<{ content: ImageStoryblok }> = ({ content }) => {
+export type LmImageProps = { content: ImageStoryblok }
+
+export function LmImage({ content }: LmImageProps): JSX.Element {
   const isSvgImage = content.source && content.source.endsWith('.svg')
   if (isSvgImage) {
     return <ImageSvg content={content} />
@@ -11,5 +13,4 @@ const ImageElement: FunctionComponent<{ content: ImageStoryblok }> = ({ content 
   return <Image content={content} />
 }
 
-export default ImageElement
 

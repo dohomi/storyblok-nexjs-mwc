@@ -2,15 +2,15 @@ import React, { createRef, FunctionComponent, RefObject, useEffect, useState } f
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { createStyles, fade, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import { TextField, useMediaQuery } from '@material-ui/core'
+import TextField from '@material-ui/core/TextField'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { getLinkAttrs } from '../../utils/linkHandler'
 import MuiNextLink from '../link/MuiNextLink'
 import LmIcon from '../icon/LmIcon'
-import { Magnify } from 'mdi-material-ui'
+import Magnify from 'mdi-material-ui/Magnify'
 import clsx from 'clsx'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
-import SbEditable from 'storyblok-react'
 import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
 import { useDebouncedCallback } from 'use-debounce'
@@ -139,25 +139,26 @@ const ListSearchAutocompleteWrap: FunctionComponent<{
   }
   if (isMobileAction) {
     return (
-      <SbEditable content={content}>
+      <>
         {!visible && (
           <IconButton onClick={onOpen}>{content.icon?.name ? <LmIcon iconName={content.icon.name} /> :
             <Magnify />}</IconButton>
         )}
-
         <div style={{
           display: !visible ? 'none' : 'inline-flex',
           backgroundColor: bgColor
         }} className={classes.mobile}>
           {children}
         </div>
-      </SbEditable>
+      </>
     )
   }
-  return <SbEditable content={content}>{children}</SbEditable>
+  return <>children</>
 }
 
-const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocompleteStoryblok }> = ({ content }) => {
+export type LmListSearchAutocompleteProps = { content: ListSearchAutocompleteStoryblok }
+
+export function LmListSearchAutocomplete({ content }: LmListSearchAutocompleteProps): JSX.Element {
   // const { allStories } = useAppContext()
   const [allStories, setAllStories] = useState<StoryData<PageComponent>[]>([])
   const classes = useStyles()
@@ -185,7 +186,6 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
           }
         }
       }).then(res => {
-        console.log("in then", res.data.stories)
         setAllStories(res.data.stories)
         setOpen(true)
         // setSearchText(value)
@@ -271,4 +271,3 @@ const ListSearchAutocomplete: FunctionComponent<{ content: ListSearchAutocomplet
   )
 }
 
-export default ListSearchAutocomplete

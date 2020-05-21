@@ -1,26 +1,23 @@
-import Components from '@components'
 import { StaticSectionStoryblok } from '../../typings/generated/components-schema'
-import React, { FunctionComponent } from 'react'
-import SbEditable from 'storyblok-react'
+import React from 'react'
 import clsx from 'clsx'
 import { useAppContext } from '../provider/AppProvider'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
-const StaticSection: FunctionComponent<{ content: StaticSectionStoryblok }> = ({ content }) => {
+export type LmStaticSectionProps = CoreComponentProps & { content: StaticSectionStoryblok }
+
+export function LmStaticSection({ content, ComponentRender }: LmStaticSectionProps): JSX.Element | null {
   if (!content.container) {
     return null
   }
 
   const { allStaticContent } = useAppContext()
   const containerContent = allStaticContent.find((item) => item.uuid === content.container)
-  const body = (containerContent && containerContent.content && containerContent.content.body) || []
+  const body: any[] = (containerContent && containerContent.content && containerContent.content.body) || []
 
   return (
-    <SbEditable content={content}>
-      <div className={clsx(content.class_names && content.class_names.values)}>
-        {body.map((blok: any) => Components(blok))}
-      </div>
-    </SbEditable>
+    <div className={clsx(content.class_names && content.class_names.values)}>
+      {body.map((blok, i) => ComponentRender({ content: blok }, i))}
+    </div>
   )
 }
-
-export default StaticSection

@@ -1,9 +1,11 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { NavItemStoryblok } from '../../typings/generated/components-schema'
 import ContentLink from '../link/ContentLink'
 
 
-const NavListItem: FunctionComponent<NavItemStoryblok> = (props) => {
+export type LmNavListItemProps = NavItemStoryblok
+
+export function LmNavListItem(props: LmNavListItemProps): JSX.Element {
   const content = { ...props }
 
   return (
@@ -13,4 +15,3 @@ const NavListItem: FunctionComponent<NavItemStoryblok> = (props) => {
   )
 }
 
-export default NavListItem

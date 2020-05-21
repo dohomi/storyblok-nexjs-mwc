@@ -1,13 +1,12 @@
-import SbEditable from 'storyblok-react'
-import React, { FunctionComponent, useState } from 'react'
+import React, { useState } from 'react'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Fade } from '@material-ui/core'
-import { Skeleton } from '@material-ui/lab'
+import Fade from '@material-ui/core/Fade'
+import Skeleton from '@material-ui/lab/Skeleton'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -44,9 +43,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 
-const Image: FunctionComponent<{
+type LmImageProps = {
   content: ImageStoryblok
-}> = ({ content }) => {
+}
+
+export default function LmImage({ content }: LmImageProps): JSX.Element {
   const classes = useStyles()
   const winDims = useWindowDimensions()
   const { isMobile } = winDims
@@ -81,7 +82,7 @@ const Image: FunctionComponent<{
     const width = Math.ceil(parentDim.width || winDims.width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
-      definedWidth = definedWidth || (parentDim.height / parentDim.width) * 100 > 300 ? grandParentDim.width :  width
+      definedWidth = definedWidth || (parentDim.height / parentDim.width) * 100 > 300 ? grandParentDim.width : width
     }
     if (square) {
       // overwrite if square
@@ -122,34 +123,30 @@ const Image: FunctionComponent<{
 
 
   return (
-    <SbEditable content={content}>
-      <figure ref={refIntersectionObserver}
-              className={clsx(classes.root, {
-                [classes.rootNoMargin]: content.disable_ratio_correction
-              })}
-              style={{
-                height: content.height ? `${content.height}px` : content.height_fill ? '100%' : undefined,
-                width: content.width ? `${content.width}px` : content.height_fill ? '100%' : undefined
-              }}>
-        {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'}
-                              variant={property.includes('rounded-circle') ? 'circle' : 'rect'} />}
-        <Fade in={loaded}>
-          {!imgProperties.src ? <span /> : <img
-            {...imgProperties}
-            alt={content.alt || 'website image'}
-            width={content.width ? content.width : undefined}
-            height={definedHeight ? definedHeight : undefined}
+    <figure ref={refIntersectionObserver}
+            className={clsx(classes.root, {
+              [classes.rootNoMargin]: content.disable_ratio_correction
+            })}
             style={{
-              width: content.width ? `${content.width}px` : 'auto',
-              maxHeight: 'inherit',
-              height: definedHeight ? `${definedHeight}px` : 'auto'
-            }}
-            className={clsx(classes.image, content.property, content.class_names?.values)}
-            onLoad={onImageLoaded} />}
-        </Fade>
-      </figure>
-    </SbEditable>
+              height: content.height ? `${content.height}px` : content.height_fill ? '100%' : undefined,
+              width: content.width ? `${content.width}px` : content.height_fill ? '100%' : undefined
+            }}>
+      {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'}
+                            variant={property.includes('rounded-circle') ? 'circle' : 'rect'} />}
+      <Fade in={loaded}>
+        {!imgProperties.src ? <span /> : <img
+          {...imgProperties}
+          alt={content.alt || 'website image'}
+          width={content.width ? content.width : undefined}
+          height={definedHeight ? definedHeight : undefined}
+          style={{
+            width: content.width ? `${content.width}px` : 'auto',
+            maxHeight: 'inherit',
+            height: definedHeight ? `${definedHeight}px` : 'auto'
+          }}
+          className={clsx(classes.image, content.property, content.class_names?.values)}
+          onLoad={onImageLoaded} />}
+      </Fade>
+    </figure>
   )
 }
-
-export default Image

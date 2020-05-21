@@ -1,5 +1,4 @@
-import SbEditable from 'storyblok-react'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { ToolbarNaviButtonStoryblok } from '../../../typings/generated/components-schema'
 import IconButton from '@material-ui/core/IconButton'
 import clsx from 'clsx'
@@ -10,7 +9,9 @@ import AppsIcon from 'mdi-material-ui/Apps'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 
 
-const ToggleDrawerButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblok }> = ({ content }) => {
+type ToggleDrawerButtonProps = { content: ToolbarNaviButtonStoryblok }
+
+function ToggleDrawerButton({ content }: ToggleDrawerButtonProps): JSX.Element | null {
   const rightDrawer = content.is_right_drawer
   const { rightDrawerMediaBreakpoint, leftDrawerMediaBreakpoint, hasRightDrawer } = useAppSetup()
   if (rightDrawer && !hasRightDrawer) {
@@ -20,17 +21,15 @@ const ToggleDrawerButton: FunctionComponent<{ content: ToolbarNaviButtonStoryblo
   const breakpointClass = rightDrawer ? (rightDrawerMediaBreakpoint || 'sm') : (leftDrawerMediaBreakpoint || 'sm')
 
   return (
-    <SbEditable content={content}>
-      <IconButton className={clsx(content.class_names?.values, {
-        [`d-${breakpointClass}-none`]: !content.force_show
-      })}
-                  style={{
-                    width: 'max-content'
-                  }}
-                  onClick={() => rightDrawer ? toggleRightNavigation() : toggleLeftNavigation()}>
-        {content.icon?.name ? <LmIcon iconName={content.icon.name} /> : (rightDrawer ? <AppsIcon /> : <MenuUi />)}
-      </IconButton>
-    </SbEditable>
+    <IconButton className={clsx(content.class_names?.values, {
+      [`d-${breakpointClass}-none`]: !content.force_show
+    })}
+                style={{
+                  width: 'max-content'
+                }}
+                onClick={() => rightDrawer ? toggleRightNavigation() : toggleLeftNavigation()}>
+      {content.icon?.name ? <LmIcon iconName={content.icon.name} /> : (rightDrawer ? <AppsIcon /> : <MenuUi />)}
+    </IconButton>
   )
 }
 

@@ -1,11 +1,12 @@
 import * as React from 'react'
 import { FunctionComponent, useState } from 'react'
 import { ImageListItemStoryblok, ImageListStoryblok } from '../../typings/generated/components-schema'
-import { Fade, GridListTileBar } from '@material-ui/core'
+import Fade from '@material-ui/core/Fade'
+import GridListTileBar from '@material-ui/core/GridListTileBar'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { Skeleton } from '@material-ui/lab'
+import Skeleton from '@material-ui/lab/Skeleton'
 import ContentLink from '../link/ContentLink'
 
 const ImageListItemWrap: FunctionComponent<{ content: ImageListItemStoryblok }> = ({ content, children }) => {
@@ -14,10 +15,12 @@ const ImageListItemWrap: FunctionComponent<{ content: ImageListItemStoryblok }> 
     : <>{children}</>
 }
 
-const ImageListItem: FunctionComponent<{
+export type LmImageListItemProps = {
   content: ImageListItemStoryblok,
   listProps: ImageListStoryblok
-}> = (props) => {
+}
+
+export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
   const { content, listProps } = props
   const [inViewRef, inView, currentRef] = useInView(intersectionDefaultOptions)
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -73,5 +76,3 @@ const ImageListItem: FunctionComponent<{
     </ImageListItemWrap>
   )
 }
-
-export default ImageListItem

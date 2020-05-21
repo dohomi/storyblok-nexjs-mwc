@@ -1,7 +1,6 @@
-import SbEditable from 'storyblok-react'
 import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
 import LmToolbarRow from './ToolbarRow'
-import Divider from '../../divider/Divider'
+import { LmDivider } from '../../divider/Divider'
 import React, { FunctionComponent } from 'react'
 import { DividerStoryblok, GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
 
@@ -13,7 +12,7 @@ type HeaderComponents = {
 
 const Components: HeaderComponents = {
   'toolbar_row': LmToolbarRow,
-  'divider': Divider
+  'divider': LmDivider
 }
 
 const Child = (blok: any, settings: GlobalStoryblok) => {
@@ -25,7 +24,7 @@ const Child = (blok: any, settings: GlobalStoryblok) => {
   ), { key: blok._uid })
 }
 
-const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
+function HeaderCustom(props: AppHeaderProps): JSX.Element {
   const content = props.settings || {}
   let rows = content.multi_toolbar || []
 
@@ -37,11 +36,9 @@ const HeaderCustom: FunctionComponent<AppHeaderProps> = (props) => {
     rows = rows.filter(i => i._uid !== systemBarProps._uid)
   }
   return (
-    <SbEditable content={content}>
-      <TopAppBarWrap {...props} SystemBar={SystemBar}>
-        {rows.map(p => Child(p, content))}
-      </TopAppBarWrap>
-    </SbEditable>
+    <TopAppBarWrap {...props} SystemBar={SystemBar}>
+      {rows.map(p => Child(p, content))}
+    </TopAppBarWrap>
   )
 }
 

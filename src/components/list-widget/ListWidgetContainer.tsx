@@ -1,7 +1,6 @@
 import ListWidgetLists from './ListWidgetLists'
 import ListWidgetCards from './ListWidgetCards'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import {
   CardListStoryblok,
   ListsStoryblok,
@@ -10,20 +9,22 @@ import {
 } from '../../typings/generated/components-schema'
 import ListWidgetLinks from './ListWidgetLinks'
 import { AppApiRequestPayload } from '../../typings/app'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
-const ListWidgetContainer: FunctionComponent<{
-  listOption: (ListsStoryblok | CardListStoryblok | NavListStoryblok)
+type ListWidgetContainerProps = CoreComponentProps & {
+  options: (ListsStoryblok | CardListStoryblok | NavListStoryblok)
   content: ListWidgetStoryblok
   items: AppApiRequestPayload['allStories']
-}> = ({ listOption, content, items }) => {
-  if (listOption.component === 'lists') {
-    return <ListWidgetLists content={content} items={items} options={listOption} />
-  } else if (listOption.component === 'nav_list') {
-    return <ListWidgetLinks items={items} options={listOption} content={content} />
+}
+
+export function ListWidgetContainer(props: ListWidgetContainerProps): JSX.Element {
+  const { options, ...rest } = props
+  if (options.component === 'lists') {
+    return <ListWidgetLists options={options} {...rest} />
+  } else if (options.component === 'nav_list') {
+    return <ListWidgetLinks options={options} {...rest} />
   }
-  return <ListWidgetCards content={content}
-                          items={items}
-                          options={listOption} />
+  return <ListWidgetCards options={options} {...rest} />
 }
 
 export default ListWidgetContainer

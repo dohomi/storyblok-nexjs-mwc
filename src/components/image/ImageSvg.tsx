@@ -1,13 +1,12 @@
 import { useInView } from 'react-intersection-observer'
-import SbEditable from 'storyblok-react'
 import SVG from 'react-inlinesvg'
 import * as React from 'react'
-import { FunctionComponent, useState } from 'react'
+import { useState } from 'react'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { Fade } from '@material-ui/core'
+import Fade from '@material-ui/core/Fade'
 
 const useStyles = makeStyles({
   root: {
@@ -24,8 +23,9 @@ const useStyles = makeStyles({
     }
   }
 })
+type ImageSvgProps = { content: ImageStoryblok }
 
-const ImageSvg: FunctionComponent<{ content: ImageStoryblok }> = ({ content }) => {
+export default function ImageSvg({ content }: ImageSvgProps): JSX.Element {
   const classes = useStyles()
   const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const src = inView ? content.source : ''
@@ -38,25 +38,22 @@ const ImageSvg: FunctionComponent<{ content: ImageStoryblok }> = ({ content }) =
   }
   const fitInColor = (content.color && content.color.rgba) || content.fit_in_color // legacy fit_in_color
   return (
-    <SbEditable content={content}>
-      <Fade in={loaded}>
-        <div className={classes.root}
-             ref={refIntersectionObserver}>
-          {!!src && <SVG src={src as string}
-                         style={{
-                           color: fitInColor,
-                           width: content.width && `${content.width}px`,
-                           height: content.height && `${content.height}px`
-                         }}
-                         onLoad={afterSvgLoaded}
-                         onError={onErrorHandler}
-                         className={clsx(classes.svg, {
-                           'has-color': !!fitInColor
-                         })} />}
-        </div>
-      </Fade>
-    </SbEditable>
+    <Fade in={loaded}>
+      <div className={classes.root}
+           ref={refIntersectionObserver}>
+        {!!src && <SVG src={src as string}
+                       style={{
+                         color: fitInColor,
+                         width: content.width && `${content.width}px`,
+                         height: content.height && `${content.height}px`
+                       }}
+                       onLoad={afterSvgLoaded}
+                       onError={onErrorHandler}
+                       className={clsx(classes.svg, {
+                         'has-color': !!fitInColor
+                       })} />}
+      </div>
+    </Fade>
   )
 }
 
-export default ImageSvg

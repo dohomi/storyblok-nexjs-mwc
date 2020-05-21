@@ -5,12 +5,14 @@ module.exports = ({config}) => {
     test: /\.tsx?$/,
     use: [
       {
-        loader: require.resolve('babel-loader'),
+        loader: require.resolve('ts-loader'),
         options: {
-          presets: [require.resolve('babel-preset-react-app')]
+          transpileOnly: true
         }
       },
-      require.resolve('react-docgen-typescript-loader')
+      {
+        loader: require.resolve('react-docgen-typescript-loader')
+      }
     ]
   })
   config.resolve.extensions.push('.ts', '.tsx')
