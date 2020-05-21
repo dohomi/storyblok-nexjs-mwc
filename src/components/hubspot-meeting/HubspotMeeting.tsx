@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import React from 'react'
 import { HubspotMeetingStoryblok } from '../../typings/generated/components-schema'
 import { useScript } from '../../utils/hooks/useScript'
@@ -15,11 +14,9 @@ export function LmHubspotMeeting({ content, disableEmbed }: LmHubspotMeetingProp
     console.error('script of hubspot not loaded')
   }
   return (
-    <SbEditable content={content}>
-      <div className="lm-hubspot-meeting">
-        {content.meeting_name}
-        <div className="meetings-iframe-container" data-src={dataSrc} />
-      </div>
-    </SbEditable>
+    <div className="lm-hubspot-meeting">
+      {content.meeting_name}
+      <div className="meetings-iframe-container" data-src={dataSrc} />
+    </div>
   )
 }

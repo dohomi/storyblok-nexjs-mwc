@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { ChangeEvent, useState } from 'react'
 import { ListSearchFieldStoryblok } from '../../typings/generated/components-schema'
-import SbEditable from 'storyblok-react'
 import { useDebouncedCallback } from 'use-debounce'
 import { onSearchTextChange } from '../../utils/state/actions'
 import { useRouter } from 'next/router'
@@ -31,21 +30,19 @@ export function LmListSearchField({ content }: LmListSearchFieldProps): JSX.Elem
   }
 
   return (
-    <SbEditable content={content}>
-      <div className={clsx(content.class_names && content.class_names.values)}>
-        <TextField
-          InputProps={{
-            startAdornment: <Magnify />
-          }}
-          id={content._uid}
-          value={searchText}
-          label={content.label}
-          type="search"
-          placeholder={content.placeholder}
-          variant={'outlined'}
-          onChange={onSearchChange}
-        />
-      </div>
-    </SbEditable>
+    <div className={clsx(content.class_names && content.class_names.values)}>
+      <TextField
+        InputProps={{
+          startAdornment: <Magnify />
+        }}
+        id={content._uid}
+        value={searchText}
+        label={content.label}
+        type="search"
+        placeholder={content.placeholder}
+        variant={'outlined'}
+        onChange={onSearchChange}
+      />
+    </div>
   )
 }

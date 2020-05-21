@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import React, { createRef, RefObject, useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { IframeAdvancedStoryblok } from '../../typings/generated/components-schema'
@@ -54,28 +53,26 @@ export function LmIframeAdvanced({ content }: LmIframeAdvancedProps): JSX.Elemen
   )
 
   return (
-    <SbEditable content={content}>
-      <div ref={refIntersectionObserver}>
-        {!loaded && inView && <div className="p-5"><CircularProgress /></div>}
-        <iframe
-          ref={iframeRef}
-          id={contentId}
-          allow={allowed.join(' ')}
-          frameBorder={0}
-          scrolling="no"
-          onLoad={() => setLoaded(true)}
-          allowFullScreen={properties.includes('allow_fullscreen') || false}
-          src={src}
-          className="border-0"
-          style={{
-            overflowY: 'hidden',
-            display: content.display,
-            height: '100%',
-            minHeight: content.height ? `${content.height}px` : undefined,
-            width: content.width || '100%'
-          }}
-        />
-      </div>
-    </SbEditable>
+    <div ref={refIntersectionObserver}>
+      {!loaded && inView && <div className="p-5"><CircularProgress /></div>}
+      <iframe
+        ref={iframeRef}
+        id={contentId}
+        allow={allowed.join(' ')}
+        frameBorder={0}
+        scrolling="no"
+        onLoad={() => setLoaded(true)}
+        allowFullScreen={properties.includes('allow_fullscreen') || false}
+        src={src}
+        className="border-0"
+        style={{
+          overflowY: 'hidden',
+          display: content.display,
+          height: '100%',
+          minHeight: content.height ? `${content.height}px` : undefined,
+          width: content.width || '100%'
+        }}
+      />
+    </div>
   )
 }

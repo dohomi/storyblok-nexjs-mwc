@@ -1,7 +1,6 @@
-import SbEditable from 'storyblok-react'
 import * as React from 'react'
 import { FunctionComponent, memo } from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useGlobalState } from '../../utils/state/state'
 import clsx from 'clsx'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
@@ -48,11 +47,9 @@ type FooterProps = CoreComponentProps & {
 function Footer({ settings, ComponentRender }: FooterProps): JSX.Element {
   const content = settings && settings.footer || []
   return (
-    <SbEditable content={settings}>
-      <FooterWrap>
-        {content.map((blok, i) => ComponentRender({ content: blok }, i))}
-      </FooterWrap>
-    </SbEditable>
+    <FooterWrap>
+      {content.map((blok, i) => ComponentRender({ content: blok }, i))}
+    </FooterWrap>
   )
 }
 

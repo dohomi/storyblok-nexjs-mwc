@@ -1,6 +1,5 @@
 import React from 'react'
 import { BackgroundStoryblok, ColumnStoryblok } from '../../typings/generated/components-schema'
-import SbEditable from 'storyblok-react'
 import BackgroundImage from './BackgroundImage'
 import Grid from '@material-ui/core/Grid'
 import BackgroundElements from './BackgroundElements'
@@ -65,28 +64,26 @@ export function LmGridColumn({ content, ComponentRender }: LmGridColumnProps): J
 
 
   return (
-    <SbEditable content={content}>
-      <Grid item
-            xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
-            sm={smWidth}
-            md={mdWidth}
-            className={className}
-            style={style}>
-        {background?.image && <BackgroundImage content={background} />}
-        {background?.background_elements && background.background_elements.length > 0 &&
-        <BackgroundElements elements={background.background_elements} />}
-        {(content.justify || content.align_content || content.align_items) ? (
-          <Grid container
-                direction={'column'}
-                className={'mh-100'}
-                justify={content.justify ? content.justify : undefined}
-                alignItems={content.align_items ? content.align_items : undefined}
-                alignContent={content.align_content ? content.align_content : undefined}
-          >
-            {content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
-          </Grid>
-        ) : content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
-      </Grid>
-    </SbEditable>
+    <Grid item
+          xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
+          sm={smWidth}
+          md={mdWidth}
+          className={className}
+          style={style}>
+      {background?.image && <BackgroundImage content={background} />}
+      {background?.background_elements && background.background_elements.length > 0 &&
+      <BackgroundElements elements={background.background_elements} />}
+      {(content.justify || content.align_content || content.align_items) ? (
+        <Grid container
+              direction={'column'}
+              className={'mh-100'}
+              justify={content.justify ? content.justify : undefined}
+              alignItems={content.align_items ? content.align_items : undefined}
+              alignContent={content.align_content ? content.align_content : undefined}
+        >
+          {content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
+        </Grid>
+      ) : content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
+    </Grid>
   )
 }

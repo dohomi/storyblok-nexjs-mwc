@@ -1,9 +1,9 @@
-import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import React from 'react'
 import { CardListStoryblok } from '../../typings/generated/components-schema'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
 import { useGridListStyles } from './cardListStyles'
 import { useInfiniteScroll } from '../../utils/hooks/useInfiniteScroll'
 import { CoreComponentProps } from '../core/CoreComponentProps'
@@ -74,21 +74,19 @@ export function LmCardList({ content, ComponentRender }: LmCardListProps): JSX.E
   const variant = content.variant || []
 
   return (
-    <SbEditable content={content}>
-      <div
-        style={{
-          padding: `${gutterSize / 2}px`
-        }}
-        className={clsx(classes.cardBase, variant.map(i => 'card__' + i), {
-          ['ratio-' + content.image_ratio]: content.image_ratio
-        })}>
-        <GridList spacing={gutterSize}
-                  cellHeight={'auto'}
-                  className={gridClasses.gridList}>
-          {data.map((item, i) => ComponentRender({ content: item, options: rest }, i))}
-        </GridList>
-        <div ref={hasMore ? ref : undefined}></div>
-      </div>
-    </SbEditable>
+    <div
+      style={{
+        padding: `${gutterSize / 2}px`
+      }}
+      className={clsx(classes.cardBase, variant.map(i => 'card__' + i), {
+        ['ratio-' + content.image_ratio]: content.image_ratio
+      })}>
+      <GridList spacing={gutterSize}
+                cellHeight={'auto'}
+                className={gridClasses.gridList}>
+        {data.map((item, i) => <GridListTile key={`${item.component}_${i}`}>{ComponentRender({ content: item, options: rest })}</GridListTile>)}
+      </GridList>
+      <div ref={hasMore ? ref : undefined}></div>
+    </div>
   )
 }

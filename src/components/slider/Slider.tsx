@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import SwipeableViews from 'react-swipeable-views'
 import React, { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
@@ -9,7 +8,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import InvertedIndicator from './InvertedIndicator'
 import Typography from '@material-ui/core/Typography'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
-import { ChevronLeft, ChevronRight } from 'mdi-material-ui'
+import ChevronLeft from 'mdi-material-ui/ChevronLeft'
+import ChevronRight from 'mdi-material-ui/ChevronRight'
 import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const chunkArray = (myArray: Element[], chunkSize: number) => {
@@ -105,48 +105,46 @@ export function LmSlider({ content, ComponentRender }: LmSliderProps): JSX.Eleme
   }
 
   return (
-    <SbEditable content={content}>
-      <div className={carouselClasses} style={styles}>
-        <SwipeableViews index={slide}
-                        onChangeIndex={(i) => setSlide(i)}>
-          {wrapInColumns ? body.map((child, index) => {
-            return <LmSliderChild key={`swipeable_${index}`}
-                                  body={child}
-                                  sectionVariant={content.section_variant}
-                                  ComponentRender={ComponentRender} />
-          }) : body.map((item, i) => {
-            if (item.component === 'section') {
-              let newOpts: SectionProps = {
-                ...item,
-                presetVariant: content.section_variant || 'transparent'
-              }
-              return ComponentRender({ content: newOpts }, i)
+    <div className={carouselClasses} style={styles}>
+      <SwipeableViews index={slide}
+                      onChangeIndex={(i) => setSlide(i)}>
+        {wrapInColumns ? body.map((child, index) => {
+          return <LmSliderChild key={`swipeable_${index}`}
+                                body={child}
+                                sectionVariant={content.section_variant}
+                                ComponentRender={ComponentRender} />
+        }) : body.map((item, i) => {
+          if (item.component === 'section') {
+            let newOpts: SectionProps = {
+              ...item,
+              presetVariant: content.section_variant || 'transparent'
             }
-            return ComponentRender({ content: item }, i)
-          })}
-        </SwipeableViews>
-        <a className={carouselPrevClasses}
-           role="button"
-           onClick={() => setSlide(slide === 0 ? body.length - 1 : slide - 1)}>
-          <ChevronLeft />
-          <Typography variant={'srOnly'}>Previous</Typography>
-        </a>
-        <a className={carouselNextClasses}
-           role="button"
-           onClick={() => setSlide(slide === body.length - 1 ? 0 : slide + 1)}>
-          <ChevronRight />
-          <Typography variant={'srOnly'}>Next</Typography>
-        </a>
-        <div className={paginationClasses}>
-          {body.map((item, i) => (
-            <InvertedIndicator key={item._uid || `pagination_${i}`}
-                               active={slide === i}
-                               color={properties.includes('pagination_dark') ? 'dark' : 'light'}
-                               onClick={() => handleChangeIndex(item)}>
-            </InvertedIndicator>
-          ))}
-        </div>
+            return ComponentRender({ content: newOpts }, i)
+          }
+          return ComponentRender({ content: item }, i)
+        })}
+      </SwipeableViews>
+      <a className={carouselPrevClasses}
+         role="button"
+         onClick={() => setSlide(slide === 0 ? body.length - 1 : slide - 1)}>
+        <ChevronLeft />
+        <Typography variant={'srOnly'}>Previous</Typography>
+      </a>
+      <a className={carouselNextClasses}
+         role="button"
+         onClick={() => setSlide(slide === body.length - 1 ? 0 : slide + 1)}>
+        <ChevronRight />
+        <Typography variant={'srOnly'}>Next</Typography>
+      </a>
+      <div className={paginationClasses}>
+        {body.map((item, i) => (
+          <InvertedIndicator key={item._uid || `pagination_${i}`}
+                             active={slide === i}
+                             color={properties.includes('pagination_dark') ? 'dark' : 'light'}
+                             onClick={() => handleChangeIndex(item)}>
+          </InvertedIndicator>
+        ))}
       </div>
-    </SbEditable>
+    </div>
   )
 }

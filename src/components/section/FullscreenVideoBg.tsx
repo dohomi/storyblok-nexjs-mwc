@@ -38,19 +38,6 @@ const FullscreenVideoBg: FunctionComponent<FullscreenVideoBgProps> = (content) =
     onError: () => setError(true)
   }
 
-  // render video based on video ratio
-  // if (fixedToRatio) {
-  //   return (
-  //     <div style={{ paddingBottom: `${(videoAspect * 100).toFixed(2)}%`, position: 'relative', width: '100%' }}>
-  //       <ReactPlayer url={content.url}
-  //                    className={className}
-  //                    width="100%"
-  //                    height="100%"
-  //                    {...playerProps} />
-  //     </div>
-  //   )
-  // }
-
   // calculate video container to fit into available space
   const windowWidth = content.containerDimensions.width
   const windowHeight = content.containerDimensions.height

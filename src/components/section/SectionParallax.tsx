@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import { ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
@@ -9,8 +8,8 @@ import { SectionParallaxStoryblok } from '../../typings/generated/components-sch
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { BannerLayer } from 'react-scroll-parallax/cjs'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { Skeleton } from '@material-ui/lab'
-import { makeStyles } from '@material-ui/core/styles/'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { makeStyles } from '@material-ui/core/styles'
 import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const useStyles = makeStyles({
@@ -84,19 +83,17 @@ export function LmSectionParallax({ content, ComponentRender }: LmSectionParalla
 
   const body = content.body || []
   return (
-    <SbEditable content={content}>
-      <div className={classes.parallax}
-           style={styles}
-           ref={refIntersectionObserver}>
-        <ParallaxBanner disabled={false}
-                        style={styles}
-                        layers={layers || []}>
-          {!layers && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
-          <div className={clsx('parallax__content', content.class_names && content.class_names.values)}>
-            {body.map((blok, i) => ComponentRender({ content: blok }, i))}
-          </div>
-        </ParallaxBanner>
-      </div>
-    </SbEditable>
+    <div className={classes.parallax}
+         style={styles}
+         ref={refIntersectionObserver}>
+      <ParallaxBanner disabled={false}
+                      style={styles}
+                      layers={layers || []}>
+        {!layers && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
+        <div className={clsx('parallax__content', content.class_names && content.class_names.values)}>
+          {body.map((blok, i) => ComponentRender({ content: blok }, i))}
+        </div>
+      </ParallaxBanner>
+    </div>
   )
 }

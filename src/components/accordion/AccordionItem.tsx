@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import React, { useState } from 'react'
 import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
@@ -26,19 +25,17 @@ export function LmAccordionItem({ content, options, setOpen, opened, iteration, 
   const panelKey = `panel-${iteration}`
   const expanded = options.restrict_one ? opened === panelKey : isOpen === panelKey
   return (
-    <SbEditable content={content}>
-      <ExpansionPanel square={options.square ? true : false}
-                      expanded={expanded}
-                      onChange={handleChange(panelKey)}>
-        <ExpansionPanelSummary expandIcon={(content.use_plus_icon || options.use_plus) ? <Plus /> : <ChevronDown />}>
-          <Typography>{content.title}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <div>
-            {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
-          </div>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </SbEditable>
+    <ExpansionPanel square={options.square ? true : false}
+                    expanded={expanded}
+                    onChange={handleChange(panelKey)}>
+      <ExpansionPanelSummary expandIcon={(content.use_plus_icon || options.use_plus) ? <Plus /> : <ChevronDown />}>
+        <Typography>{content.title}</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <div>
+          {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+        </div>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   )
 }

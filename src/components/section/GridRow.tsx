@@ -1,11 +1,9 @@
 import * as React from 'react'
 import { BackgroundStoryblok, RowStoryblok } from '../../typings/generated/components-schema'
-import SbEditable from 'storyblok-react'
 import Grid, { GridProps } from '@material-ui/core/Grid'
-import { createStyles, makeStyles } from '@material-ui/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
-import { Theme } from '@material-ui/core'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { CoreComponentProps } from '../core/CoreComponentProps'
@@ -66,27 +64,25 @@ export function LmGridRow({ content, ComponentRender }: LmGridRowProps): JSX.Ele
   const { style, className } = useBackgroundBox({ background })
 
   return (
-    <SbEditable content={content}>
-      <Grid container
-            style={{
-              ...style,
-              padding: spacing ? `-${spacing * 8}px` : undefined
-            }}
-            spacing={spacing}
-            alignItems={content.align_items ? content.align_items : undefined}
-            direction={direction ? direction : undefined}
-            className={clsx(className, classes.gridRow, {
-              [classes.xsColumnReverse]: content.reverse_on_mobile,
-              [classes.smColumnReverse]: content.reverse_on_tablet
-            })}
-            justify={content.justify ? content.justify : undefined}
-            alignContent={content.align_content ? content.align_content : undefined}>
-        {background?.image &&
-        <BackgroundImage content={background} backgroundStyle={content.background_style} />}
-        {background?.background_elements && background.background_elements.length > 0 &&
-        <BackgroundElements elements={background.background_elements} />}
-        {content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
-      </Grid>
-    </SbEditable>
+    <Grid container
+          style={{
+            ...style,
+            padding: spacing ? `-${spacing * 8}px` : undefined
+          }}
+          spacing={spacing}
+          alignItems={content.align_items ? content.align_items : undefined}
+          direction={direction ? direction : undefined}
+          className={clsx(className, classes.gridRow, {
+            [classes.xsColumnReverse]: content.reverse_on_mobile,
+            [classes.smColumnReverse]: content.reverse_on_tablet
+          })}
+          justify={content.justify ? content.justify : undefined}
+          alignContent={content.align_content ? content.align_content : undefined}>
+      {background?.image &&
+      <BackgroundImage content={background} backgroundStyle={content.background_style} />}
+      {background?.background_elements && background.background_elements.length > 0 &&
+      <BackgroundElements elements={background.background_elements} />}
+      {content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
+    </Grid>
   )
 }

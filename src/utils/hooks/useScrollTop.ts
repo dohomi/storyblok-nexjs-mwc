@@ -1,4 +1,4 @@
-import { useScrollTrigger } from '@material-ui/core'
+import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useDebounce } from 'use-debounce'
 
 export default function useScrollTop() {

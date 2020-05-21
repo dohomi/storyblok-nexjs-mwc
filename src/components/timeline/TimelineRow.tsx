@@ -1,10 +1,8 @@
 import React from 'react'
 import { TimelineItemStoryblok } from '../../typings/generated/components-schema'
-import SbEditable from 'storyblok-react'
 import Grid from '@material-ui/core/Grid'
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import TimelineRowItem from './TimelineRowItem'
-import { LmAvatar } from '../avatar/LmAvatar'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { CoreComponentProps } from '../core/CoreComponentProps'
 
@@ -39,19 +37,20 @@ export function LmTimelineItem({ content, iteration, ComponentRender }: LmTimeli
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
 
   return (
-    <SbEditable content={content}>
+    <>
       <Grid item xs={8} sm={5}>
-        {(iteration % 2 === 0 || isMobile) && <TimelineRowItem isLeft={true} content={content} ComponentRender={ComponentRender} />}
+        {(iteration % 2 === 0 || isMobile) &&
+        <TimelineRowItem isLeft={true} content={content} ComponentRender={ComponentRender} />}
       </Grid>
       <Grid item xs={4} sm={2} className={classes.iconGrid}>
         <div className={classes.line} />
         <div className={classes.iconContainer}>
-          {content.icon && content.icon.map(blok => <LmAvatar content={blok} key={blok._uid} />)}
+          {content.icon && content.icon.map((blok, i) => ComponentRender({ content: blok }, i))}
         </div>
       </Grid>
       <Grid item xs={5} sm={5} style={{ display: isMobile ? 'none' : undefined }}>
         {iteration % 2 !== 0 && <TimelineRowItem isLeft={false} content={content} ComponentRender={ComponentRender} />}
       </Grid>
-    </SbEditable>
+    </>
   )
 }

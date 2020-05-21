@@ -3,7 +3,6 @@ import { ListsStoryblok, ListWidgetStoryblok } from '../../typings/generated/com
 import List from '@material-ui/core/List'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Link from 'next/link'
-import SbEditable from 'storyblok-react'
 import ListItem from '@material-ui/core/ListItem'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -18,31 +17,29 @@ type ListWidgetListsProps = CoreComponentProps & {
   content: ListWidgetStoryblok
 }
 
-function ListWidgetLists({ items, options, content }: ListWidgetListsProps): JSX.Element {
+function ListWidgetLists({ items, options }: ListWidgetListsProps): JSX.Element {
   const imageSize = options.image_size || 'large'
   const hideImage = options.hide_image
   return (
-    <SbEditable content={content}>
-      <List>
-        {items.map((item) => (
-          <Link href="/[...index]"
-                as={internalLinkHandler(item.full_slug)}
-                key={item.uuid}
-                passHref
-                prefetch={false}>
-            <ListItem component={'a'}>
-              {!hideImage && item.content.preview_image && (
-                <ListItemAvatar>
-                  <LmMuiAvatar src={item.content.preview_image} size={imageSize} />
-                </ListItemAvatar>
-              )}
-              <ListItemText primary={item.content.preview_title || item.name}
-                            secondary={!options.hide_subtitle && item.content.preview_subtitle}></ListItemText>
-            </ListItem>
-          </Link>
-        ))}
-      </List>
-    </SbEditable>
+    <List>
+      {items.map((item) => (
+        <Link href="/[...index]"
+              as={internalLinkHandler(item.full_slug)}
+              key={item.uuid}
+              passHref
+              prefetch={false}>
+          <ListItem component={'a'}>
+            {!hideImage && item.content.preview_image && (
+              <ListItemAvatar>
+                <LmMuiAvatar src={item.content.preview_image} size={imageSize} />
+              </ListItemAvatar>
+            )}
+            <ListItemText primary={item.content.preview_title || item.name}
+                          secondary={!options.hide_subtitle && item.content.preview_subtitle}></ListItemText>
+          </ListItem>
+        </Link>
+      ))}
+    </List>
   )
 }
 

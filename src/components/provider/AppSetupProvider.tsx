@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { createContext, FunctionComponent, useContext, useMemo } from 'react'
-import { DrawerProps } from '@material-ui/core'
+import { DrawerProps } from '@material-ui/core/Drawer'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from './WindowDimensionsProvider'
 

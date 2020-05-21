@@ -5,8 +5,7 @@ import Slide, { SlideProps } from '@material-ui/core/Slide'
 import Fade, { FadeProps } from '@material-ui/core/Fade'
 import Grow, { GrowProps } from '@material-ui/core/Grow'
 import Zoom, { ZoomProps } from '@material-ui/core/Zoom'
-import { Collapse, CollapseProps } from '@material-ui/core'
-import SbEditable from 'storyblok-react'
+import Collapse, { CollapseProps } from '@material-ui/core/Collapse'
 import { CoreComponentProps } from '../core/CoreComponentProps'
 
 export type LmMotionProps = CoreComponentProps & { content: MotionStoryblok }
@@ -26,46 +25,44 @@ export function LmMotion({ content, ComponentRender }: LmMotionProps): JSX.Eleme
     transitionProps.timeout = Number(content.duration)
   }
   return (
-    <SbEditable content={content}>
-      <div ref={viewRef}>
-        {{
-          'slide': (
-            <Slide in={inView} {...transitionProps as SlideProps} direction={content.slide_direction || 'down'}>
-              <div>
-                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
-              </div>
-            </Slide>
-          ),
-          'fade': (
-            <Fade in={inView} {...transitionProps as FadeProps}>
-              <div>
-                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
-              </div>
-            </Fade>
-          ),
-          'grow': (
-            <Grow in={inView} {...transitionProps as GrowProps}>
-              <div>
-                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
-              </div>
-            </Grow>
-          ),
-          'zoom': (
-            <Zoom in={inView} {...transitionProps as ZoomProps}>
-              <div>
-                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
-              </div>
-            </Zoom>
-          ),
-          'collapse': (
-            <Collapse in={inView} {...transitionProps as CollapseProps}>
-              <div>
-                {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
-              </div>
-            </Collapse>
-          )
-        }[type]}
-      </div>
-    </SbEditable>
+    <div ref={viewRef}>
+      {{
+        'slide': (
+          <Slide in={inView} {...transitionProps as SlideProps} direction={content.slide_direction || 'down'}>
+            <div>
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+            </div>
+          </Slide>
+        ),
+        'fade': (
+          <Fade in={inView} {...transitionProps as FadeProps}>
+            <div>
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+            </div>
+          </Fade>
+        ),
+        'grow': (
+          <Grow in={inView} {...transitionProps as GrowProps}>
+            <div>
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+            </div>
+          </Grow>
+        ),
+        'zoom': (
+          <Zoom in={inView} {...transitionProps as ZoomProps}>
+            <div>
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+            </div>
+          </Zoom>
+        ),
+        'collapse': (
+          <Collapse in={inView} {...transitionProps as CollapseProps}>
+            <div>
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+            </div>
+          </Collapse>
+        )
+      }[type]}
+    </div>
   )
 }

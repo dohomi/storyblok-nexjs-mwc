@@ -19,9 +19,6 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@components": [
-        "src/components/ComponentRender.tsx"
-      ],
       "@polyfills": [
         "client/polyfills.js"
       ]

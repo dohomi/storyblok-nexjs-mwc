@@ -2,15 +2,15 @@ import React, { createRef, FunctionComponent, RefObject, useEffect, useState } f
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { createStyles, fade, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import { TextField, useMediaQuery } from '@material-ui/core'
+import TextField from '@material-ui/core/TextField'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { getLinkAttrs } from '../../utils/linkHandler'
 import MuiNextLink from '../link/MuiNextLink'
 import LmIcon from '../icon/LmIcon'
-import { Magnify } from 'mdi-material-ui'
+import Magnify from 'mdi-material-ui/Magnify'
 import clsx from 'clsx'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton'
-import SbEditable from 'storyblok-react'
 import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
 import { useDebouncedCallback } from 'use-debounce'
@@ -139,22 +139,21 @@ const ListSearchAutocompleteWrap: FunctionComponent<{
   }
   if (isMobileAction) {
     return (
-      <SbEditable content={content}>
+      <>
         {!visible && (
           <IconButton onClick={onOpen}>{content.icon?.name ? <LmIcon iconName={content.icon.name} /> :
             <Magnify />}</IconButton>
         )}
-
         <div style={{
           display: !visible ? 'none' : 'inline-flex',
           backgroundColor: bgColor
         }} className={classes.mobile}>
           {children}
         </div>
-      </SbEditable>
+      </>
     )
   }
-  return <SbEditable content={content}>{children}</SbEditable>
+  return <>children</>
 }
 
 export type LmListSearchAutocompleteProps = { content: ListSearchAutocompleteStoryblok }

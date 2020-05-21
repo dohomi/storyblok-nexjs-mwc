@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import React, { useMemo } from 'react'
 import { HtmlStoryblok } from '../../typings/generated/components-schema'
 import { useInView } from 'react-intersection-observer'
@@ -23,11 +22,8 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
     [inView, content.lazy_load]
   )
 
-  return (
-    <SbEditable content={content}>
-      <div dangerouslySetInnerHTML={{
-        __html: htmlContent
-      }} ref={refIntersectionObserver} />
-    </SbEditable>
-  )
+  return <div dangerouslySetInnerHTML={{
+    __html: htmlContent
+  }} ref={refIntersectionObserver} />
+
 }

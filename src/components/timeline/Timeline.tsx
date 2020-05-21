@@ -1,6 +1,5 @@
 import React from 'react'
 import { TimelineStoryblok } from '../../typings/generated/components-schema'
-import SbEditable from 'storyblok-react'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import { CoreComponentProps } from '../core/CoreComponentProps'
@@ -19,12 +18,10 @@ export function LmTimeline({ content, ComponentRender }: LmTimelineProps): JSX.E
   const classes = useStyles()
   const body = content.body || []
   return (
-    <SbEditable content={content}>
-      <div className={'lm-timeline'}>
-        <Grid container className={classes.container}>
-          {body.map((blok, i) => ComponentRender({ content: blok, iteration: i, key: blok._uid }, i))}
-        </Grid>
-      </div>
-    </SbEditable>
+    <div className={'lm-timeline'}>
+      <Grid container className={classes.container}>
+        {body.map((blok, i) => ComponentRender({ content: blok, iteration: i, key: blok._uid }, i))}
+      </Grid>
+    </div>
   )
 }

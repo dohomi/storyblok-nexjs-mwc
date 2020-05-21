@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import React, { FunctionComponent } from 'react'
 import { LmMenu } from '../../menu/NavMenu'
 import ToolbarLogo from './ToolbarLogo'
@@ -15,11 +14,6 @@ import { LmHeadline } from '../../headline/Headline'
 
 
 type ToolbarSectionComponents = {
-  // button: FunctionComponent<{ content: ButtonStoryblok }>
-  // nav_menu: Component<{ content: NavMenuStoryblok, settings: GlobalStoryblok }>
-  // toolbar_logo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }>
-  // toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
-  // headline: FunctionComponent<{ content: HeadlineStoryblok }>
   [k: string]: any
 }
 
@@ -50,24 +44,24 @@ const ToolbarSectionWrap: FunctionComponent<{ content: ToolbarRowSectionStoryblo
   const hideOnMediaQuery = content.use_media_query && !matches
   const invHideOnMediaQuery = content.inv_use_media_query && matches
   return (
-    <SbEditable content={content}>
-      <Grid item
-            className={clsx(content.class_names?.values, {
-              'h-100': !align,
-              'd-inline-flex': !content.align && !hideOnMediaQuery && !invHideOnMediaQuery,
-              'd-none': hideOnMediaQuery || invHideOnMediaQuery
-            })}
-            style={{
-              alignItems: !align ? 'center' : undefined,
-              alignSelf: align ? align : 'center'
-            }}
-      >{children}
-      </Grid>
-    </SbEditable>
+    <Grid item
+          className={clsx(content.class_names?.values, {
+            'h-100': !align,
+            'd-inline-flex': !content.align && !hideOnMediaQuery && !invHideOnMediaQuery,
+            'd-none': hideOnMediaQuery || invHideOnMediaQuery
+          })}
+          style={{
+            alignItems: !align ? 'center' : undefined,
+            alignSelf: align ? align : 'center'
+          }}
+    >{children}
+    </Grid>
   )
 }
 
-const ToolbarSection: FunctionComponent<{ content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }> = ({ settings, content }) => {
+type ToolbarSectionProps = { content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }
+
+function ToolbarSection({ settings, content }: ToolbarSectionProps): JSX.Element {
   const body = content.body || []
   return (
     <ToolbarSectionWrap content={content}>

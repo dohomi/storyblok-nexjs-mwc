@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import React from 'react'
 import { ButtonListStoryblok } from '../../typings/generated/components-schema'
@@ -14,10 +13,8 @@ export function LmButtonList({ content, ComponentRender }: LmButtonListProps): J
   })
 
   return (
-    <SbEditable content={content}>
-      <div className={classNames}>
-        {body.map((blok, i) => ComponentRender({ content: blok }, i))}
-      </div>
-    </SbEditable>
+    <div className={classNames}>
+      {body.map((blok, i) => ComponentRender({ content: blok }, i))}
+    </div>
   )
 }

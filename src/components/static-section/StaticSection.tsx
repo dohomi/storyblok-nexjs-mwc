@@ -1,6 +1,5 @@
 import { StaticSectionStoryblok } from '../../typings/generated/components-schema'
 import React from 'react'
-import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import { useAppContext } from '../provider/AppProvider'
 import { CoreComponentProps } from '../core/CoreComponentProps'
@@ -17,10 +16,8 @@ export function LmStaticSection({ content, ComponentRender }: LmStaticSectionPro
   const body: any[] = (containerContent && containerContent.content && containerContent.content.body) || []
 
   return (
-    <SbEditable content={content}>
-      <div className={clsx(content.class_names && content.class_names.values)}>
-        {body.map((blok, i) => ComponentRender({ content: blok }, i))}
-      </div>
-    </SbEditable>
+    <div className={clsx(content.class_names && content.class_names.values)}>
+      {body.map((blok, i) => ComponentRender({ content: blok }, i))}
+    </div>
   )
 }

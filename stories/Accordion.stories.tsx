@@ -22,7 +22,6 @@ export const Playground = () => {
       ]
     }]
   }
-  console.log(blok)
   return (
     <LmAccordion content={blok} />
   )

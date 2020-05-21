@@ -1,11 +1,10 @@
-import SbEditable from 'storyblok-react'
 import { useInView } from 'react-intersection-observer'
 import * as React from 'react'
 import { CSSProperties, useEffect, useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import FullscreenVideoBg from './FullscreenVideoBg'
 import { CoreComponentProps } from '../core/CoreComponentProps'
 
@@ -117,21 +116,19 @@ export function LmSectionVideo({ content, ComponentRender }: LmSectionVideoProps
 
 
   return (
-    <SbEditable content={content}>
-      <div className={classes.videoSection}
-           style={containerStyle}
-           ref={intersectionRef}
-           id={content.section_identifier || content._uid}
-      >
-        {hasSrc && inView && (
-          <FullscreenVideoBg {...content}
-                             containerDimensions={containerDimensions}
-                             fixedToRatio={fixedToRatio}
-                             ratioHeight={ratioHeight}
-                             ratioWidth={ratioWidth} />
-        )}
-        {hasBody && <div>{body.map((blok, i) => ComponentRender({ content: blok }, i))}</div>}
-      </div>
-    </SbEditable>
+    <div className={classes.videoSection}
+         style={containerStyle}
+         ref={intersectionRef}
+         id={content.section_identifier || content._uid}
+    >
+      {hasSrc && inView && (
+        <FullscreenVideoBg {...content}
+                           containerDimensions={containerDimensions}
+                           fixedToRatio={fixedToRatio}
+                           ratioHeight={ratioHeight}
+                           ratioWidth={ratioWidth} />
+      )}
+      {hasBody && <div>{body.map((blok, i) => ComponentRender({ content: blok }, i))}</div>}
+    </div>
   )
 }

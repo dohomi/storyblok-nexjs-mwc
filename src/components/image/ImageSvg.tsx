@@ -6,7 +6,7 @@ import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { Fade } from '@material-ui/core'
+import Fade from '@material-ui/core/Fade'
 
 const useStyles = makeStyles({
   root: {

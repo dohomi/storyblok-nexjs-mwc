@@ -41,6 +41,7 @@ import { LmSection } from './components/section/Section'
 import { LmAccordionItem } from './components/accordion/AccordionItem'
 import { LmTimelineItem } from './components/timeline/TimelineRow'
 import { LmCardListItem } from './components/card/CardListItem'
+import { LmImageListItem } from './components/image-list/ImageListItem'
 
 export {
   LmAccordion,
@@ -82,7 +83,8 @@ export {
   LmPage,
   LmMotion,
   LmAccordionItem,
-  LmCardListItem
+  LmCardListItem,
+  LmImageListItem
 }
 
 export { default as LmPagesIndex } from './components/pages/PagesIndex'
@@ -117,6 +119,7 @@ const CoreComponentsNamed = {
   'column': LmGridColumn,
   'image': LmImage,
   'image_list': LmImageList,
+  'image_list_item': LmImageListItem,
   'button': LmButton,
   'nav_list': LmNavList,
   'nav_menu': LmMenu,
@@ -150,8 +153,7 @@ export type LmComponentRenderProps = {
 }
 
 function LmComponentRender(blok: LmComponentRenderProps, iteration?: number): JSX.Element {
-  const { content, _uid, ...rest } = blok
-
+  const { content, ...rest } = blok
   if (typeof CoreComponentsNamed[content.component] !== 'undefined') {
     return React.createElement(CoreComponentsNamed[content.component], {
       content: content,
@@ -161,7 +163,8 @@ function LmComponentRender(blok: LmComponentRenderProps, iteration?: number): JS
     })
   }
   return (
-    <div style={{ color: 'red' }} key={blok._uid || `${iteration}`}>The component {content.component} has not been
+    <div style={{ color: 'red' }} key={content?._uid || `${iteration}`}>The
+      component {content.component || 'no name found'} has not been
       created yet.</div>
   )
 }

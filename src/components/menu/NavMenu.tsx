@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { useEffect } from 'react'
 import Button from '@material-ui/core/Button'
-import SbEditable from 'storyblok-react'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import Menu from '@material-ui/core/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import ContentLink from '../link/ContentLink'
 import LmIcon from '../icon/LmIcon'
-import { ChevronDown, ChevronUp } from 'mdi-material-ui'
+import ChevronDown from 'mdi-material-ui/ChevronDown'
+import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { useRouter } from 'next/router'
 import { CoreComponentProps } from '../core/CoreComponentProps'
 
@@ -74,37 +74,35 @@ export function LmMenu({ content, ComponentRender }: LmMenuProps): JSX.Element {
   // const StartIcon = content.start_icon?.name ? <LmIcon iconName={content.start_icon.name} /> : null
 
   return (
-    <SbEditable content={content}>
-      <>
-        <Button endIcon={Boolean(anchorEl) ? CloseIcon : ExpandIcon}
-                startIcon={content.start_icon?.name && <LmIcon iconName={content.start_icon.name} />}
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                className="lm-default-color"
-                onClick={handleClick}>
-          {content.title}
-        </Button>
-        <Menu open={Boolean(anchorEl)}
-              onClose={handleClose}
-              anchorEl={anchorEl}
-              classes={{
-                paper: classes.paper
-              }}
-              {...addons}>
-          {isCustom && menuItems.map((blok, i) => ComponentRender({ content: blok }, i))}
-          {!isCustom && (
-            <div>
-              {menuItems.map(nestedProps => (
-                <ContentLink key={nestedProps._uid} className={'lm-nav-men__link'} content={nestedProps}>
-                  <MenuItem>
-                    {nestedProps.label}
-                  </MenuItem>
-                </ContentLink>
-              ))}
-            </div>
-          )}
-        </Menu>
-      </>
-    </SbEditable>
+    <>
+      <Button endIcon={Boolean(anchorEl) ? CloseIcon : ExpandIcon}
+              startIcon={content.start_icon?.name && <LmIcon iconName={content.start_icon.name} />}
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              className="lm-default-color"
+              onClick={handleClick}>
+        {content.title}
+      </Button>
+      <Menu open={Boolean(anchorEl)}
+            onClose={handleClose}
+            anchorEl={anchorEl}
+            classes={{
+              paper: classes.paper
+            }}
+            {...addons}>
+        {isCustom && menuItems.map((blok, i) => ComponentRender({ content: blok }, i))}
+        {!isCustom && (
+          <div>
+            {menuItems.map(nestedProps => (
+              <ContentLink key={nestedProps._uid} className={'lm-nav-men__link'} content={nestedProps}>
+                <MenuItem>
+                  {nestedProps.label}
+                </MenuItem>
+              </ContentLink>
+            ))}
+          </div>
+        )}
+      </Menu>
+    </>
   )
 }

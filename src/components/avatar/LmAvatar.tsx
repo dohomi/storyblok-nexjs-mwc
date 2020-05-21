@@ -1,5 +1,4 @@
 import React, { CSSProperties, useEffect, useState } from 'react'
-import SbEditable from 'storyblok-react'
 import { AvatarStoryblok } from '../../typings/generated/components-schema'
 import Avatar from '@material-ui/core/Avatar'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -68,15 +67,13 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
   )
 
   return (
-    <SbEditable content={content}>
-      <Avatar ref={refIntersectionObserver}
-              variant={content.variant || 'circle'}
-              style={style}
-              className={clsx(content.class_names && content.class_names.values)}
-              {...imageAttrs}>
-        {content.letter}
-        {iconName && <LmIcon iconName={iconName}></LmIcon>}
-      </Avatar>
-    </SbEditable>
+    <Avatar ref={refIntersectionObserver}
+            variant={content.variant || 'circle'}
+            style={style}
+            className={clsx(content.class_names && content.class_names.values)}
+            {...imageAttrs}>
+      {content.letter}
+      {iconName && <LmIcon iconName={iconName}></LmIcon>}
+    </Avatar>
   )
 }
