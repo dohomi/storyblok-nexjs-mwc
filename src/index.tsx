@@ -95,6 +95,7 @@ export { LmCoreDocument, documentGetInitialProps } from './components/pages/Core
 export { default as LmLayout } from './components/layout/Layout'
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
+export { CONFIG } from './utils/config'
 
 
 // export { default as pagesGetStaticPaths } from './utils/initial-props/pagesGetStaticPaths'
