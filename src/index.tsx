@@ -92,7 +92,6 @@ export {
 
 export { LmPagesIndex }
 export { LmCoreDocument, documentGetInitialProps } from './components/pages/CoreDocument'
-export { LmDefaultDocument } from './components/pages/_document'
 export { default as LmLayout } from './components/layout/Layout'
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
