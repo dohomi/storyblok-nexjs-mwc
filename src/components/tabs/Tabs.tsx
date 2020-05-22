@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { FunctionComponent, useState } from 'react'
+import { useState } from 'react'
 import { TabsItemStoryblok, TabsStoryblok } from '../../typings/generated/components-schema'
-import Components from '@components'
 import SwipeableViews from 'react-swipeable-views'
 import MuiTabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -10,6 +9,7 @@ import LmIcon from '../icon/LmIcon'
 import Grid, { GridProps } from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
@@ -46,7 +46,9 @@ const widthMap = {
   'true': true
 }
 
-const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
+export type LmTabsProps = CoreComponentProps & { content: TabsStoryblok }
+
+export function LmTabs({ content, ComponentRender }: LmTabsProps): JSX.Element {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down(content.mobile_breakpoint || 'xs'))
 
@@ -99,7 +101,7 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
                           axis={'x'}>
             {body.map((tab: TabsItemStoryblok) => (
               <div key={`content_${tab._uid}`}>
-                {tab.body && tab.body.map((blok) => Components(blok))}
+                {tab.body && tab.body.map((blok, i) => ComponentRender({ content: blok }, i))}
               </div>
             ))}
           </SwipeableViews>
@@ -109,5 +111,3 @@ const Tabs: FunctionComponent<{ content: TabsStoryblok }> = ({ content }) => {
     </Grid>
   )
 }
-
-export default Tabs

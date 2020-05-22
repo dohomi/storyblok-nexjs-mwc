@@ -1,9 +1,8 @@
-import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import * as React from 'react'
 import { CSSProperties, FunctionComponent } from 'react'
 import { DividerStoryblok } from '../../typings/generated/components-schema'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import LmIcon from '../icon/LmIcon'
 
 const useStyles = makeStyles({
@@ -74,19 +73,18 @@ const useStyles = makeStyles({
 })
 
 const Wrap: FunctionComponent<{
-  content: DividerStoryblok
   style: CSSProperties
   className: string
   childStyle: CSSProperties
-}> = ({ content, children, style, className, childStyle }) => (
-  <SbEditable content={content}>
-    <div className={className} style={style}>
-      <div style={childStyle}>{children}</div>
-    </div>
-  </SbEditable>
+}> = ({ children, style, className, childStyle }) => (
+  <div className={className} style={style}>
+    <div style={childStyle}>{children}</div>
+  </div>
 )
 
-const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) => {
+export type LmDividerProps = { content: DividerStoryblok }
+
+export function LmDivider({ content }: LmDividerProps): JSX.Element {
   const classes = useStyles()
 
   const style: CSSProperties = {}
@@ -107,7 +105,7 @@ const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) 
   }
   if (iconName) {
     return (
-      <Wrap content={content} style={style} childStyle={childStyle} className={className}>
+      <Wrap style={style} childStyle={childStyle} className={className}>
         <div>
           <div style={{ borderTopWidth: `${content.thickness || 1}px` }}>
             <span>
@@ -122,10 +120,8 @@ const Divider: FunctionComponent<{ content: DividerStoryblok }> = ({ content }) 
     )
   }
   return (
-    <Wrap content={content} style={style} childStyle={childStyle} className={className}>
+    <Wrap style={style} childStyle={childStyle} className={className}>
       <span />
     </Wrap>
   )
 }
-
-export default Divider

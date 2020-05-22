@@ -1,8 +1,6 @@
 import imageService from '../../../utils/ImageService'
 import Link from 'next/link'
-import SbEditable from 'storyblok-react'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { GlobalStoryblok, ToolbarLogoStoryblok } from '../../../typings/generated/components-schema'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
@@ -13,7 +11,9 @@ import { intersectionDefaultOptions } from '../../../utils/intersectionObserverC
 import { LogoJsonLd } from 'next-seo'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
 
-const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }> = ({ content, settings }) => {
+type ToolbarLogoProps = { content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }
+
+function ToolbarLogo({ settings }: ToolbarLogoProps): JSX.Element {
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo
   const websiteLogoInvert = settings.website_logo_invert
@@ -23,7 +23,7 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
 
   const getImageSrc = (image: string) => imageService(image, '0x' + height)
 
-  const Logo = (
+  return (
     <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
       {websiteLogo && settings.seo_website_url &&
       <LogoJsonLd logo={imageService(websiteLogo)} url={settings.seo_website_url} />}
@@ -47,14 +47,6 @@ const ToolbarLogo: FunctionComponent<{ content?: ToolbarLogoStoryblok, settings:
         </MuiLink>
       </Link>
     </div>
-  )
-  if (!content) {
-    return Logo
-  }
-  return (
-    <SbEditable content={content}>
-      {Logo}
-    </SbEditable>
   )
 }
 

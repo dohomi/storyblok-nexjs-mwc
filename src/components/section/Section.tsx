@@ -1,6 +1,4 @@
-import Components from '@components'
-import SbEditable from 'storyblok-react'
-import React, { CSSProperties, FunctionComponent } from 'react'
+import React, { CSSProperties } from 'react'
 import { SectionStoryblok } from '../../typings/generated/components-schema'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
@@ -9,6 +7,7 @@ import BackgroundImage from './BackgroundImage'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 export interface SectionProps extends SectionStoryblok {
   presetVariant?: SectionStoryblok['variant']
@@ -37,7 +36,11 @@ const useStyles = makeStyles({
   }
 })
 
-const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
+export type LmSectionProps = CoreComponentProps & {
+  content: SectionProps
+}
+
+export function LmSection({ content, ComponentRender }: LmSectionProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
   const background = Array.isArray(content.background) && content.background[0]
@@ -60,24 +63,21 @@ const Section: FunctionComponent<{ content: SectionProps }> = ({ content }) => {
   }
   // todo className doubled used
   return (
-    <SbEditable content={content}>
-      <div className={clsx(classes.background, { [classes.dark]: !!content.variant }, className)}
-           style={style}
-           id={content.section_identifier || content._uid}>
-        {(background?.image || background?.background_elements) &&
-        <BackgroundImage content={background} backgroundStyle={content.background_style} />}
-        {background?.background_elements && background.background_elements.length > 0 &&
-        <BackgroundElements elements={background.background_elements} />}
-        <Container style={containerStyles}
-                   maxWidth={maxWidth as ContainerProps['maxWidth']}
-                   className={clsx(className, {
-                     [classes.fullHeight]: isFullHeight
-                   })}>
-          {body.map((blok) => Components(blok))}
-        </Container>
-      </div>
-    </SbEditable>
+    <div className={clsx(classes.background, { [classes.dark]: !!content.variant }, className)}
+         style={style}
+         id={content.section_identifier || content._uid}>
+      {(background?.image || background?.background_elements) &&
+      <BackgroundImage content={background} backgroundStyle={content.background_style} />}
+      {background?.background_elements && background.background_elements.length > 0 &&
+      <BackgroundElements elements={background.background_elements} />}
+      <Container style={containerStyles}
+                 maxWidth={maxWidth as ContainerProps['maxWidth']}
+                 className={clsx(className, {
+                   [classes.fullHeight]: isFullHeight
+                 })}>
+        {body.map((blok, i) => ComponentRender({ content: blok }, i))}
+      </Container>
+    </div>
   )
 }
 
-export default Section

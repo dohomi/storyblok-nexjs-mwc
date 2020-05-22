@@ -1,4 +1,3 @@
-import SbEditable from 'storyblok-react'
 import clsx from 'clsx'
 import React, { FunctionComponent } from 'react'
 import { TableStoryblok } from '../../typings/generated/components-schema'
@@ -130,7 +129,9 @@ const TableRow: FunctionComponent<{ content: string[], index: number }> = ({ con
   )
 }
 
-const Table: FunctionComponent<{ content: TableStoryblok }> = ({ content }) => {
+export type LmTableProps = { content: TableStoryblok }
+
+export function LmTable({ content }: LmTableProps): JSX.Element {
   const classes = useStyles()
   const className = clsx(classes.tables, 'lm-table', content.class_names && content.class_names.values, {
     [`lm-table__${content.variant}`]: !!content.variant
@@ -139,23 +140,18 @@ const Table: FunctionComponent<{ content: TableStoryblok }> = ({ content }) => {
   const tableHead = content.body && content.body.thead || []
 
   return (
-    <SbEditable content={content}>
-      <table className={className}>
-        {!content.disable_table_head && (<thead>
-        <tr>
-          {tableHead.map((content, index) => <th key={`head_${index}`}>{content}</th>)}
-        </tr>
-        </thead>)}
-        <tbody>
-        {tableBody.map((row, index) => <TableRow
-          key={`row_${index}`}
-          index={index}
-          content={row} />)}
-        </tbody>
-      </table>
-
-    </SbEditable>
+    <table className={className}>
+      {!content.disable_table_head && (<thead>
+      <tr>
+        {tableHead.map((content, index) => <th key={`head_${index}`}>{content}</th>)}
+      </tr>
+      </thead>)}
+      <tbody>
+      {tableBody.map((row, index) => <TableRow
+        key={`row_${index}`}
+        index={index}
+        content={row} />)}
+      </tbody>
+    </table>
   )
 }
-
-export default Table

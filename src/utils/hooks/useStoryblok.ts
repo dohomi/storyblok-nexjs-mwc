@@ -1,15 +1,14 @@
 import { AppPageProps } from '../../typings/app'
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import StoryblokService from '../StoryblokService'
 
 export const useStoryblok = (props: Pick<AppPageProps, 'page' | 'settings'>) => {
-  const { query } = useRouter() // query only set in SSR mode
+  // const { query } = useRouter() // query only set in SSR mode
 
   const { page, settings } = props
-  if (query) {
-    StoryblokService.setQuery(query)
-  }
+  // if (query) {
+  //   StoryblokService.setQuery(query)
+  // }
   // const insideStoryblok = !!query?._storyblok
   const settingsUid = props.settings?.uuid
   const pageUid = props.page?.uuid

@@ -1,14 +1,14 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 
 # testing
 /coverage
 
 # production
 /build
-/.next
+.next
 /bundles
 /dist
 
@@ -24,4 +24,6 @@ yarn-error.log*
 public_storybook
 
 components.*.json
-/app-content*.json
+app-content*.json
+
+.vercel

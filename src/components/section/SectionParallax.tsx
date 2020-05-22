@@ -1,8 +1,6 @@
-import Components from '@components'
-import SbEditable from 'storyblok-react'
 import { ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
@@ -10,8 +8,9 @@ import { SectionParallaxStoryblok } from '../../typings/generated/components-sch
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { BannerLayer } from 'react-scroll-parallax/cjs'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { Skeleton } from '@material-ui/lab'
-import { makeStyles } from '@material-ui/core/styles/'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { makeStyles } from '@material-ui/core/styles'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const useStyles = makeStyles({
   parallax: {
@@ -26,7 +25,9 @@ const useStyles = makeStyles({
   }
 })
 
-const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> = ({ content }) => {
+export type LmSectionParallaxProps = CoreComponentProps & { content: SectionParallaxStoryblok }
+
+export function LmSectionParallax({ content, ComponentRender }: LmSectionParallaxProps): JSX.Element {
   const dimensions = useWindowDimensions()
   const classes = useStyles()
   const [refIntersectionObserver, inView, refElement] = useInView(intersectionDefaultOptions)
@@ -37,7 +38,7 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
   const [layers, setLayers] = useState<BannerLayer[] | undefined>()
   const disableLazyLoad = content.disable_lazy_load
   const styles = {
-    height: contentHeight ? `${contentHeight}vh` : '50vh',
+    height: contentHeight ? `${contentHeight}vh` : '50vh'
   }
 
   // let [styles, setStyles] = useState(styles)
@@ -54,7 +55,7 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
   )
 
   function processLayers() {
-    const items = elements.map(async item => {
+    const items = elements.map(async (item, i) => {
       const containerHeight = height * Number(contentHeight as number / 100)
       const offset = ((containerHeight * item.amount) * 2)
       const imgHeight = containerHeight + offset
@@ -70,7 +71,7 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
       return {
         image: `"${imgSource}"`,
         amount: Number(item.amount),
-        children: item.children && item.children.length && Components(item.children[0])
+        children: item.children && item.children.length && ComponentRender({ content: item.children[0] }, i)
       }
     })
     Promise.all(items)
@@ -82,21 +83,17 @@ const SectionParallax: FunctionComponent<{ content: SectionParallaxStoryblok }> 
 
   const body = content.body || []
   return (
-    <SbEditable content={content}>
-      <div className={classes.parallax}
-           style={styles}
-           ref={refIntersectionObserver}>
-        <ParallaxBanner disabled={false}
-                        style={styles}
-                        layers={layers || []}>
-          {!layers && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
-          <div className={clsx('parallax__content', content.class_names && content.class_names.values)}>
-            {body.map((blok) => Components(blok))}
-          </div>
-        </ParallaxBanner>
-      </div>
-    </SbEditable>
+    <div className={classes.parallax}
+         style={styles}
+         ref={refIntersectionObserver}>
+      <ParallaxBanner disabled={false}
+                      style={styles}
+                      layers={layers || []}>
+        {!layers && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
+        <div className={clsx('parallax__content', content.class_names && content.class_names.values)}>
+          {body.map((blok, i) => ComponentRender({ content: blok }, i))}
+        </div>
+      </ParallaxBanner>
+    </div>
   )
 }
-
-export default SectionParallax

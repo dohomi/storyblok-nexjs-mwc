@@ -1,6 +1,4 @@
-import SbEditable from 'storyblok-react'
 import Drawer from '@material-ui/core/Drawer'
-import Components from '@components'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import { CardListItemProps } from './cards'
 import Card from '@material-ui/core/Card'
@@ -18,14 +16,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, className, style, children, options }) => {
+const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, className, style, children, options, ComponentRender }) => {
   const classes = useStyles()
   let [open, setOpen] = React.useState<boolean>(false)
   const body = content.body || []
   const variants = options.variant || []
 
   return (
-    <SbEditable content={content}>
+    <>
       <Card className={className}
             raised={variants.includes('raised')}
             elevation={options.elevation ? Number(options.elevation) : undefined}
@@ -38,10 +36,10 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, classN
               anchor="right"
               onClose={() => setOpen(false)}>
         <div className={classes.drawerContent}>
-          {body.map(blok => Components(blok))}
+          {body.map((blok, i) => ComponentRender({ content: blok }, i))}
         </div>
       </Drawer>
-    </SbEditable>
+    </>
   )
 }
 

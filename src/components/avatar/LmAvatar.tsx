@@ -1,5 +1,4 @@
-import React, { CSSProperties, FunctionComponent, useEffect, useState } from 'react'
-import SbEditable from 'storyblok-react'
+import React, { CSSProperties, useEffect, useState } from 'react'
 import { AvatarStoryblok } from '../../typings/generated/components-schema'
 import Avatar from '@material-ui/core/Avatar'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -23,9 +22,11 @@ const sizeMap = {
   }
 }
 
-const LmAvatar: FunctionComponent<{
+export type LmAvatarProps = {
   content: AvatarStoryblok
-}> = ({ content }) => {
+}
+
+export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(intersectionDefaultOptions)
   const iconName = content.icon && content.icon.name
   const imageSrc = content.image
@@ -66,17 +67,13 @@ const LmAvatar: FunctionComponent<{
   )
 
   return (
-    <SbEditable content={content}>
-      <Avatar ref={refIntersectionObserver}
-              variant={content.variant || 'circle'}
-              style={style}
-              className={clsx(content.class_names && content.class_names.values)}
-              {...imageAttrs}>
-        {content.letter}
-        {iconName && <LmIcon iconName={iconName}></LmIcon>}
-      </Avatar>
-    </SbEditable>
+    <Avatar ref={refIntersectionObserver}
+            variant={content.variant || 'circle'}
+            style={style}
+            className={clsx(content.class_names && content.class_names.values)}
+            {...imageAttrs}>
+      {content.letter}
+      {iconName && <LmIcon iconName={iconName}></LmIcon>}
+    </Avatar>
   )
 }
-
-export default LmAvatar

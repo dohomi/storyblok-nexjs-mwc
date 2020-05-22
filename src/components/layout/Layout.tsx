@@ -5,8 +5,9 @@ import AppHead from './AppHead'
 import ExternalScripts from '../external-scripts/ExternalScripts'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
-export type LayoutComponentProps = {
+export type LayoutComponentProps = CoreComponentProps & {
   // appSetup?: State['appSetup'],
   settings: GlobalStoryblok
 }
@@ -14,17 +15,18 @@ export type LayoutComponentProps = {
 const Layout: FunctionComponent<LayoutComponentProps> = ({
   children,
   // appSetup,
-  settings
+  settings,
+  ComponentRender
 }) => {
 
   // console.log('layout render')
   return (
     <>
       <AppHead settings={settings} />
-      <Header settings={settings} />
+      <Header settings={settings} ComponentRender={ComponentRender} />
       {children}
       <DrawerElement settings={settings} />
-      <Footer settings={settings} />
+      <Footer settings={settings} ComponentRender={ComponentRender} />
       <ExternalScripts settings={settings} />
     </>
   )

@@ -1,9 +1,8 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { TimelineStoryblok } from '../../typings/generated/components-schema'
-import SbEditable from 'storyblok-react'
-import TimelineRow from './TimelineRow'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
+import { CoreComponentProps } from '../core/CoreComponentProps'
 
 const useStyles = makeStyles({
   container: {
@@ -13,18 +12,16 @@ const useStyles = makeStyles({
   }
 })
 
-const Timeline: FunctionComponent<{ content: TimelineStoryblok }> = ({ content }) => {
+export type LmTimelineProps = CoreComponentProps & { content: TimelineStoryblok }
+
+export function LmTimeline({ content, ComponentRender }: LmTimelineProps): JSX.Element {
   const classes = useStyles()
   const body = content.body || []
   return (
-    <SbEditable content={content}>
-      <div className={'lm-timeline'}>
-        <Grid container className={classes.container}>
-          {body.map((blok, i) => <TimelineRow content={blok} iteration={i} key={blok._uid} />)}
-        </Grid>
-      </div>
-    </SbEditable>
+    <div className={'lm-timeline'}>
+      <Grid container className={classes.container}>
+        {body.map((blok, i) => ComponentRender({ content: blok, iteration: i, key: blok._uid }, i))}
+      </Grid>
+    </div>
   )
 }
-
-export default Timeline
