@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.39.27",
+  "version": "0.39.28",
   "description": "Core website components for the LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -29,7 +29,9 @@
     "update-storyblok": "npm run fetch-storyblok-components && npm run gen-ts-schema && npm run codegen",
     "codegen": "graphql-codegen --config codegen.yml",
     "storybook": "start-storybook -p 6006 -c .storybook",
-    "deploy-storybook": "rimraf public_storybook && build-storybook -c .storybook -o public_storybook && now --prod"
+    "deploy-storybook": "rimraf public_storybook && build-storybook -c .storybook -o public_storybook && now --prod",
+    "prepublish": "npm run build-ts",
+    "release": "np"
   },
   "author": "Dominic Garms",
   "license": "MIT",
@@ -64,8 +66,7 @@
     "storyblok-react": "0.0.10",
     "use-debounce": "3.4.2"
   },
-  "peerDependencies": {
-  },
+  "peerDependencies": {},
   "devDependencies": {
     "@graphql-codegen/cli": "^1.14.0",
     "@graphql-codegen/typescript": "^1.14.0",
@@ -94,6 +95,7 @@
     "graphql": "^15.0.0",
     "json-schema-to-typescript": "^9.1.0",
     "lorem-ipsum": "^2.0.3",
+    "np": "^6.2.3",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "qawolf": "^1.0.1",
