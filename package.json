@@ -30,7 +30,7 @@
     "codegen": "graphql-codegen --config codegen.yml",
     "storybook": "start-storybook -p 6006 -c .storybook",
     "deploy-storybook": "rimraf public_storybook && build-storybook -c .storybook -o public_storybook && now --prod",
-    "prepublish": "npm run build-ts",
+    "prepublishOnly": "npm run build-ts",
     "release": "np"
   },
   "author": "Dominic Garms",
