@@ -42,7 +42,7 @@ export function LmCoreDocument({ props, isDevelopment }: CoreDocumentProps): JSX
           }} />
         </>
       )}
-      {insideStoryblok && (
+      {LmStoryblokService.insideVisualComposer() && (
         <script src={`//app.storyblok.com/f/storyblok-latest.js?t=${CONFIG.previewToken}`}></script>
       )}
       </body>

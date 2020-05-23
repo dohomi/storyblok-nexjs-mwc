@@ -16,6 +16,7 @@ import { PageComponent } from '../../typings/generated/schema'
 import { useDebouncedCallback } from 'use-debounce'
 import StoryblokService from '../../utils/StoryblokService'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import { CONFIG } from '../..'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -261,7 +262,7 @@ export function LmListSearchAutocomplete({ content }: LmListSearchAutocompletePr
             linktype: 'story'
           }, {})
           return (
-            <MuiNextLink href="/[...index]" as={rest.href} passHref key={item.uuid as string} prefetch={false}>
+            <MuiNextLink href={CONFIG.href} as={rest.href} passHref key={item.uuid as string} prefetch={false}>
               {item.label}
             </MuiNextLink>
           )

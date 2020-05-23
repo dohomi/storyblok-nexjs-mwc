@@ -10,6 +10,7 @@ import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
 import { LogoJsonLd } from 'next-seo'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
+import { CONFIG } from '../../..'
 
 type ToolbarLogoProps = { content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }
 
@@ -27,7 +28,7 @@ function ToolbarLogo({ settings }: ToolbarLogoProps): JSX.Element {
     <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
       {websiteLogo && settings.seo_website_url &&
       <LogoJsonLd logo={imageService(websiteLogo)} url={settings.seo_website_url} />}
-      <Link as={homepageLinkHandler()} href="/[...index]" passHref>
+      <Link as={homepageLinkHandler()} href={CONFIG.href} passHref>
         <MuiLink className={clsx('lm-logo-header', { ['lm-logo-text']: !websiteLogo })}>
           <>
             {!websiteLogo && (

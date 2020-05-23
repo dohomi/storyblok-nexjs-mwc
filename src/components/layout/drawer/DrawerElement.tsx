@@ -10,6 +10,7 @@ import DrawerContentList from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 import useBackgroundBox from '../../section/useBackgroundBox'
+import { CONFIG } from '../../..'
 
 const DrawerElement: FunctionComponent<{
   settings: GlobalStoryblok
@@ -31,7 +32,7 @@ const DrawerElement: FunctionComponent<{
           <ContentSpace />
         )}
         {!appSetup.hasDrawer && !appSetup.drawerBelowToolbar && (<div>
-          <Link href="/[...index]" as={homepageLinkHandler()}>
+          <Link href={CONFIG.href} as={homepageLinkHandler()}>
             <a>
               <div className="p-3">
                 {!websiteLogo && websiteTitle}

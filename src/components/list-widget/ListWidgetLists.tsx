@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import { internalLinkHandler } from '../../utils/linkHandler'
 import { AppApiRequestPayload } from '../../typings/app'
 import { CoreComponentProps } from '../core/CoreComponentProps'
+import { CONFIG } from '../..'
 
 
 type ListWidgetListsProps = CoreComponentProps & {
@@ -23,7 +24,7 @@ function ListWidgetLists({ items, options }: ListWidgetListsProps): JSX.Element 
   return (
     <List>
       {items.map((item) => (
-        <Link href="/[...index]"
+        <Link href={CONFIG.href}
               as={internalLinkHandler(item.full_slug)}
               key={item.uuid}
               passHref

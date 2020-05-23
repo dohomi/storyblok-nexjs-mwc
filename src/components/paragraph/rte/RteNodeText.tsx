@@ -43,7 +43,7 @@ function RteNodeText({ content }: RteNodeTextProps): JSX.Element {
         props.prefetch = false
       }
       return (
-        <MuiNextLink href="/[...index]" as={rest.href} rel={rel} target={target} {...props}>
+        <MuiNextLink href={CONFIG.href} as={rest.href} rel={rel} target={target} {...props}>
           {content.text}
         </MuiNextLink>
       )

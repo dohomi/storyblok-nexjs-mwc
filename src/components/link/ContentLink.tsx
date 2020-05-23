@@ -37,17 +37,17 @@ const ContentLink: FunctionComponent<{
       }
       if (isMuiLink) {
         return (
-          <MuiNextLink href={content.link.nextHref || '/[...index]'} as={attrs.href} {...props}>
+          <MuiNextLink href={content.link.nextHref || CONFIG.href} as={attrs.href} {...props}>
             {children}
           </MuiNextLink>
         )
       }
       if (!passHref) {
-        return <Link {...attrs} href={content.link.nextHref || '/[...index]'} as={attrs.href} {...props}>
+        return <Link {...attrs} href={content.link.nextHref || CONFIG.href} as={attrs.href} {...props}>
           <a rel={rel} target={target} className={className}>{children}</a>
         </Link>
       }
-      return <Link {...attrs} href={content.link.nextHref || '/[...index]'} as={attrs.href} passHref {...props}>
+      return <Link {...attrs} href={content.link.nextHref || CONFIG.href} as={attrs.href} passHref {...props}>
         {children}
       </Link>
     }
