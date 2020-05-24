@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import StoryblokService from '../../utils/StoryblokService'
 import AppProvider, { AppContextProps } from '../../components/provider/AppProvider'
 import { createGlobalState } from 'react-hooks-global-state'
+import { LmComponentRender } from '../../index'
 
 interface StorybookState {
   allTags: { value: string, label: string }[]
@@ -64,7 +65,7 @@ const SetStoriesDecorator = (storyFunc: Function) => {
   )
   if (loaded && values) {
     return (
-      <AppProvider content={values}>
+      <AppProvider content={{ ...values, ComponentRender: LmComponentRender }}>
         <div className="p-3">
           {storyFunc()}
         </div>

@@ -1,5 +1,5 @@
 import Header from '../src/components/layout/toolbar/Header'
-import ComponentRender from '../src'
+import {  LmComponentRender as ComponentRender } from '../src/'
 import * as React from 'react'
 import { FunctionComponentFactory } from 'react'
 import { customSettings, simpleSettings } from '../src/storybook/toolbar'

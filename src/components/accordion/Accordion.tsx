@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
-export type LmAccordionProps = CoreComponentProps & {
+export type LmAccordionProps = {
   content: AccordionStoryblok
 }
 
-export function LmAccordion({ content, ComponentRender }: LmAccordionProps): JSX.Element {
+export function LmAccordion({ content }: LmAccordionProps): JSX.Element {
   const [opened, setOpen] = useState<string>('')
-
+  const { ComponentRender } = useAppContext()
+  // console.log(ctx)
   return (
     <div className="lm-accordion">
       {(content.body || [])
@@ -18,8 +19,9 @@ export function LmAccordion({ content, ComponentRender }: LmAccordionProps): JSX
             options: content,
             opened: opened,
             setOpen: setOpen,
-            iteration
-          }, iteration))}
+            iteration,
+            i: iteration
+          }))}
     </div>
   )
 }

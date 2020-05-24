@@ -44,6 +44,8 @@ import { LmTimelineItem } from './components/timeline/TimelineRow'
 import { LmCardListItem } from './components/card/CardListItem'
 import { LmImageListItem } from './components/image-list/ImageListItem'
 import { LmPagesIndex } from './components/pages/PagesIndex'
+import { LmToolbarLogo } from './components/layout/toolbar/ToolbarLogo'
+import { LmToggleDrawerButton } from './components/layout/toolbar/ToggleDrawerButton'
 
 
 export {
@@ -87,12 +89,14 @@ export {
   LmMotion,
   LmAccordionItem,
   LmCardListItem,
-  LmImageListItem
+  LmImageListItem,
+  LmToolbarLogo,
+  LmToggleDrawerButton
 }
 
 export { LmPagesIndex }
-export { LmCoreDocument, documentGetInitialProps } from './components/pages/CoreDocument'
 export { default as LmLayout } from './components/layout/Layout'
+export { LmApp } from './components/pages/_app'
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
 export { CONFIG } from './utils/config'
@@ -149,7 +153,9 @@ const CoreComponentsNamed = {
   'timeline_item': LmTimelineItem,
   'avatar': LmAvatar,
   'date_headline': LmDateHeadline,
-  'motion': LmMotion
+  'motion': LmMotion,
+  'toolbar_logo': LmToolbarLogo,
+  'toolbar_navi_button': LmToggleDrawerButton
 }
 
 export function LmDefaultPage(props: AppPageProps) {
@@ -162,44 +168,41 @@ export function LmDefaultPage(props: AppPageProps) {
 export type LmComponentRenderProps = {
   content: any,
   _uid?: string,
+  i?: number // iteration in case of array render
   [k: string]: any
 }
 
-export function LmStoryblokComponentRender(props: LmComponentRenderProps, iteration?: number): JSX.Element {
-  const { content, ...rest } = props
+export function LmStoryblokComponentRender(props: LmComponentRenderProps): JSX.Element {
+  const { content, i, ...rest } = props
   if (typeof CoreComponentsNamed[content.component] !== 'undefined') {
     return (
-      <SbEditable content={content} key={`${content.component}_${iteration}`}>
+      <SbEditable content={content} key={typeof i === 'number' ? `${content.component}_${i}` : undefined}>
         {React.createElement(CoreComponentsNamed[content.component], {
           content: content,
-          ComponentRender: LmStoryblokComponentRender,
           ...rest
         })}
       </SbEditable>
     )
   }
   return (
-    <div style={{ color: 'red' }} key={content?._uid || `${iteration}`}>The
+    <div style={{ color: 'red' }} key={content?._uid || `${i}`}>The
       component {content.component || 'no name found'} has not been
       created yet.</div>
   )
 }
 
-function LmComponentRender(blok: LmComponentRenderProps, iteration?: number): JSX.Element {
-  const { content, ...rest } = blok
+export function LmComponentRender(blok: LmComponentRenderProps): JSX.Element {
+  const { content, i, ...rest } = blok
   if (typeof CoreComponentsNamed[content.component] !== 'undefined') {
     return React.createElement(CoreComponentsNamed[content.component], {
       content: content,
-      ComponentRender: LmComponentRender,
-      key: typeof iteration === 'number' ? `${content.component}_${iteration}` : undefined,
+      key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
       ...rest
     })
   }
   return (
-    <div style={{ color: 'red' }} key={content?._uid || `${iteration}`}>The
+    <div style={{ color: 'red' }} key={content?._uid || `${i}`}>The
       component {content.component || 'no name found'} has not been
       created yet.</div>
   )
 }
-
-export default LmComponentRender

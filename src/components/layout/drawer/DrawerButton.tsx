@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 import ContentLink from '../../link/ContentLink'
 import ListItem from '@material-ui/core/ListItem'
@@ -7,7 +6,9 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import LmIcon from '../../icon/LmIcon'
 
-const DrawerButton: FunctionComponent<{ content: ButtonStoryblok }> = (props) => {
+type DrawerButtonProps = { content: ButtonStoryblok }
+
+export function DrawerButton(props: DrawerButtonProps): JSX.Element {
   const { content } = props
   const buttonProps = {
     text: content.label || content.name,
@@ -30,5 +31,3 @@ const DrawerButton: FunctionComponent<{ content: ButtonStoryblok }> = (props) =>
     </ContentLink>
   )
 }
-
-export default DrawerButton

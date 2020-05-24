@@ -8,11 +8,10 @@ import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import { internalLinkHandler } from '../../utils/linkHandler'
 import { AppApiRequestPayload } from '../../typings/app'
-import { CoreComponentProps } from '../core/CoreComponentProps'
-import { CONFIG } from '../..'
+import { CONFIG } from '../../utils/config'
 
 
-type ListWidgetListsProps = CoreComponentProps & {
+type ListWidgetListsProps = {
   items: AppApiRequestPayload['allStories']
   options: ListsStoryblok
   content: ListWidgetStoryblok

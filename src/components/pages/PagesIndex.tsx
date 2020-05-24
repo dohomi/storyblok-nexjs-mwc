@@ -8,15 +8,16 @@ import GlobalTheme from '../global-theme/GlobalTheme'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppSeo from '../layout/AppSeo'
 import Layout from '../layout/Layout'
-import React, { useEffect } from 'react'
+import React, { FunctionComponentFactory, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
-import { CoreComponentProps } from '../core/CoreComponentProps'
 import { NotFound } from './404'
 
 
-export type LmPagesIndexProps = AppPageProps & CoreComponentProps
+export type LmPagesIndexProps = AppPageProps & {
+  ComponentRender: FunctionComponentFactory<any>
+}
 
 export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
   const { error, locale, settings, page, ComponentRender, ...rest } = props
@@ -58,18 +59,17 @@ export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
   }
 
   return (
-    <AppProvider content={rest}>
+    <AppProvider content={{ ...rest, ComponentRender }}>
       <WindowDimensionsProvider>
         <AppSetupProvider settings={stateSettings} page={statePage}>
           <GlobalTheme settings={stateSettings} rightDrawerWidth={statePage?.right_drawer_width}>
             <CssBaseline />
             <AppSeo settings={stateSettings} page={statePage} previewImage={statePage?.preview_image} />
-            <Layout settings={stateSettings} ComponentRender={ComponentRender}>
+            <Layout settings={stateSettings}>
               {statePage ? (
                 <ComponentRender content={statePage} />
               ) : (
-                <NotFound ComponentRender={ComponentRender}
-                          locale={locale}
+                <NotFound locale={locale}
                           statusCode={404} />
               )}
             </Layout>

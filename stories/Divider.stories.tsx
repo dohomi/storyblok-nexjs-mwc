@@ -1,4 +1,4 @@
-import LmDivider from '../src/'
+import {  LmComponentRender as LmDivider } from '../src/'
 import { storyDivider } from '../src/storybook/core/various'
 import React from 'react'
 

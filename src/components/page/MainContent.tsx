@@ -3,7 +3,7 @@ import { usePageStyles } from './usePageStyle'
 import clsx from 'clsx'
 import { useGlobalState } from '../../utils/state/state'
 import { useAppSetup } from '../provider/AppSetupProvider'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const MainContenWrap: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
@@ -19,12 +19,14 @@ const MainContenWrap: FunctionComponent = ({ children }) => {
     )}>{children}</main>
 }
 
-type MainContentProps = CoreComponentProps & {
+type MainContentProps = {
   body: any[]
 }
 
-export function MainContent({ body, ComponentRender }: MainContentProps): JSX.Element {
-  return (<MainContenWrap>{body.map((blok, i) => ComponentRender({ content: blok }, i))}</MainContenWrap>)
+export function MainContent({ body }: MainContentProps): JSX.Element {
+  const { ComponentRender } = useAppContext()
+
+  return (<MainContenWrap>{body.map((blok, i) => ComponentRender({ content: blok, i }))}</MainContenWrap>)
 }
 
 

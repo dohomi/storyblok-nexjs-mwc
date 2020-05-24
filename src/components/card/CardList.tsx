@@ -6,7 +6,7 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { useGridListStyles } from './cardListStyles'
 import { useInfiniteScroll } from '../../utils/hooks/useInfiniteScroll'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const useStyles = makeStyles({
     cardBase: {
@@ -58,9 +58,11 @@ const useStyles = makeStyles({
 )
 
 
-export type LmCardListProps = CoreComponentProps & { content: CardListStoryblok }
+export type LmCardListProps = { content: CardListStoryblok }
 
-export function LmCardList({ content, ComponentRender }: LmCardListProps): JSX.Element {
+export function LmCardList({ content }: LmCardListProps): JSX.Element {
+  const { ComponentRender } = useAppContext()
+
   const { body, column_gap, column_count, column_count_phone, column_count_tablet, ...rest } = content
   const classes = useStyles(content)
   const gridClasses = useGridListStyles({
@@ -84,7 +86,10 @@ export function LmCardList({ content, ComponentRender }: LmCardListProps): JSX.E
       <GridList spacing={gutterSize}
                 cellHeight={'auto'}
                 className={gridClasses.gridList}>
-        {data.map((item, i) => <GridListTile key={`${item.component}_${i}`}>{ComponentRender({ content: item, options: rest })}</GridListTile>)}
+        {data.map((item, i) => <GridListTile key={`${item.component}_${i}`}>{ComponentRender({
+          content: item,
+          options: rest
+        })}</GridListTile>)}
       </GridList>
       <div ref={hasMore ? ref : undefined}></div>
     </div>

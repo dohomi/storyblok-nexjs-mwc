@@ -1,4 +1,4 @@
-import LmIcon from '../src/'
+import {  LmComponentRender as LmIcon } from '../src/'
 import { storyIcon } from '../src/storybook/core/various'
 import React from 'react'
 

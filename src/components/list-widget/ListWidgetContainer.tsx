@@ -9,9 +9,8 @@ import {
 } from '../../typings/generated/components-schema'
 import ListWidgetLinks from './ListWidgetLinks'
 import { AppApiRequestPayload } from '../../typings/app'
-import { CoreComponentProps } from '../core/CoreComponentProps'
 
-type ListWidgetContainerProps = CoreComponentProps & {
+type ListWidgetContainerProps = {
   options: (ListsStoryblok | CardListStoryblok | NavListStoryblok)
   content: ListWidgetStoryblok
   items: AppApiRequestPayload['allStories']

@@ -1,4 +1,4 @@
-import LmCardList from '../src/'
+import {  LmComponentRender as LmCardList } from '../src/'
 import {
   CardListItemStoryblok,
   CardListStoryblok,

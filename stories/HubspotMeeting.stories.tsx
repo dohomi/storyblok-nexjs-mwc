@@ -1,4 +1,4 @@
-import LmHubspotMeeting from '../src/'
+import {  LmComponentRender as LmHubspotMeeting } from '../src/'
 import React from 'react'
 import { storyHubspotMeeting } from '../src/storybook/core/various'
 

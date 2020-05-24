@@ -1,11 +1,12 @@
-import DrawerButton from './DrawerButton'
+import { DrawerButton } from './DrawerButton'
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import List from '@material-ui/core/List'
 import ListSubheader from '@material-ui/core/ListSubheader'
 
-const DrawerNavList: FunctionComponent<{ content: NavMenuStoryblok }> = (props) => {
+type DrawerNavListProps = { content: NavMenuStoryblok }
+
+export function DrawerNavList(props: DrawerNavListProps): JSX.Element {
   const { content } = props
   const body = content.body || []
   return (
@@ -16,5 +17,3 @@ const DrawerNavList: FunctionComponent<{ content: NavMenuStoryblok }> = (props) 
     </List>
   )
 }
-
-export default DrawerNavList

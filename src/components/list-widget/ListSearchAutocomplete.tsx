@@ -16,7 +16,7 @@ import { PageComponent } from '../../typings/generated/schema'
 import { useDebouncedCallback } from 'use-debounce'
 import StoryblokService from '../../utils/StoryblokService'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import { CONFIG } from '../..'
+import { CONFIG } from '../../utils/config'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -5,7 +5,7 @@ import { useGlobalState } from '../../utils/state/state'
 import clsx from 'clsx'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { useAppSetup } from '../provider/AppSetupProvider'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   footer: {
@@ -40,15 +40,17 @@ const FooterWrap: FunctionComponent = ({ children }) => {
   )
 }
 
-type FooterProps = CoreComponentProps & {
+type FooterProps = {
   settings: GlobalStoryblok
 }
 
-function Footer({ settings, ComponentRender }: FooterProps): JSX.Element {
+function Footer({ settings }: FooterProps): JSX.Element {
   const content = settings && settings.footer || []
+  const { ComponentRender } = useAppContext()
+
   return (
     <FooterWrap>
-      {content.map((blok, i) => ComponentRender({ content: blok }, i))}
+      {content.map((blok, i) => ComponentRender({ content: blok, i }))}
     </FooterWrap>
   )
 }

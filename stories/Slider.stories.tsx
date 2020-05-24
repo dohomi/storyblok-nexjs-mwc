@@ -1,4 +1,4 @@
-import LmSlider from '../src/'
+import { LmComponentRender as LmSlider } from '../src/'
 import * as React from 'react'
 import { storySlider } from '../src/storybook/core/various'
 import { get3ColumnsSection } from '../src/storybook/section'

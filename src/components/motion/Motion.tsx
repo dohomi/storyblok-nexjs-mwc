@@ -6,11 +6,13 @@ import Fade, { FadeProps } from '@material-ui/core/Fade'
 import Grow, { GrowProps } from '@material-ui/core/Grow'
 import Zoom, { ZoomProps } from '@material-ui/core/Zoom'
 import Collapse, { CollapseProps } from '@material-ui/core/Collapse'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
-export type LmMotionProps = CoreComponentProps & { content: MotionStoryblok }
+export type LmMotionProps = { content: MotionStoryblok }
 
-export function LmMotion({ content, ComponentRender }: LmMotionProps): JSX.Element {
+export function LmMotion({ content }: LmMotionProps): JSX.Element {
+  const { ComponentRender } = useAppContext()
+
   const type = content.type || 'fade'
   const options: IntersectionOptions = {
     triggerOnce: true
@@ -30,35 +32,35 @@ export function LmMotion({ content, ComponentRender }: LmMotionProps): JSX.Eleme
         'slide': (
           <Slide in={inView} {...transitionProps as SlideProps} direction={content.slide_direction || 'down'}>
             <div>
-              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok, i }))}
             </div>
           </Slide>
         ),
         'fade': (
           <Fade in={inView} {...transitionProps as FadeProps}>
             <div>
-              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok, i }))}
             </div>
           </Fade>
         ),
         'grow': (
           <Grow in={inView} {...transitionProps as GrowProps}>
             <div>
-              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok, i }))}
             </div>
           </Grow>
         ),
         'zoom': (
           <Zoom in={inView} {...transitionProps as ZoomProps}>
             <div>
-              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok, i }))}
             </div>
           </Zoom>
         ),
         'collapse': (
           <Collapse in={inView} {...transitionProps as CollapseProps}>
             <div>
-              {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+              {(content.body || []).map((blok, i) => ComponentRender({ content: blok, i }))}
             </div>
           </Collapse>
         )

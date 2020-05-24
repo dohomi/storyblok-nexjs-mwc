@@ -1,4 +1,4 @@
-import LmParagraph from '../src/'
+import { LmComponentRender as LmParagraph } from '../src/'
 import { ParagraphStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyParagraph } from '../src/storybook/core/various'

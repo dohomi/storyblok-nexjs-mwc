@@ -7,7 +7,7 @@ import { TimelineItemStoryblok } from '../../typings/generated/components-schema
 import clsx from 'clsx'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import ContentLink from '../link/ContentLink'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   cardContainer: {
@@ -49,13 +49,15 @@ const CardContentWrap: FunctionComponent<{
   )
 }
 
-export type TimelineRowItemProps = CoreComponentProps & {
+export type TimelineRowItemProps = {
   isLeft: boolean
   content: TimelineItemStoryblok
 }
 
-export function TimelineRowItem({ isLeft, content, ComponentRender }: TimelineRowItemProps): JSX.Element {
+export function TimelineRowItem({ isLeft, content }: TimelineRowItemProps): JSX.Element {
   const classes = useStyles()
+  const { ComponentRender } = useAppContext()
+
   const body = content.body || []
   return (
     <div className={classes.cardContainer}>
@@ -63,7 +65,7 @@ export function TimelineRowItem({ isLeft, content, ComponentRender }: TimelineRo
       <Card>
         <CardContentWrap content={content}>
           {(content.title || content.subheader) && <CardHeader title={content.title} subheader={content.subheader} />}
-          {body.length > 0 && <CardContent>{body.map((blok, i) => ComponentRender({ content: blok }, i))}</CardContent>}
+          {body.length > 0 && <CardContent>{body.map((blok, i) => ComponentRender({ content: blok, i }))}</CardContent>}
         </CardContentWrap>
       </Card>
     </div>

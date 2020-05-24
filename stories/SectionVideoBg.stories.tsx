@@ -1,4 +1,4 @@
-import LmSectionVideo from '../src/'
+import { LmComponentRender as LmSectionVideo } from '../src/'
 import * as React from 'react'
 import { storyBackground, storyColumn, storyRow, storySectionVideoBg } from '../src/storybook/core/section'
 import { storyHeadline } from '../src/storybook/core/various'

@@ -2,7 +2,7 @@ import { CONFIG } from '../../utils/config'
 import React, { useEffect, useState } from 'react'
 import StoryblokService from '../../utils/StoryblokService'
 import Head from 'next/head'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const statusCodes = {
   400: 'Bad Request',
@@ -12,16 +12,18 @@ const statusCodes = {
   501: 'Not Implemented'
 }
 
-const getErrorPath = ({ locale, statusCode }: { locale?: string, statusCode: number }) => {
+const getErrorPath = ({ locale, statusCode = 404 }: { locale?: string, statusCode?: number }) => {
   const currentLocale = locale !== CONFIG.defaultLocale ? locale : ''
   const directory = CONFIG.rootDirectory || currentLocale || ''
   return `cdn/stories/${directory ? `${directory}/` : ''}error-${statusCode}`
 }
 
-type NotFoundProps = CoreComponentProps & { statusCode?: number, locale?: string }
+type NotFoundProps = { statusCode?: number, locale?: string }
 
-export function NotFound({ statusCode = 404, ComponentRender, locale }: NotFoundProps): JSX.Element {
+export function NotFound({ statusCode = 404, locale }: NotFoundProps): JSX.Element {
   const title = (statusCodes as any)[statusCode]
+  const { ComponentRender } = useAppContext()
+
   const [errorContent, setErrorContent] = useState<{ title: string, body: any[] } | null | undefined>(undefined)
   useEffect(
     () => {
@@ -56,7 +58,7 @@ export function NotFound({ statusCode = 404, ComponentRender, locale }: NotFound
       </Head>
       <div className="p-5">
         {
-          errorContent && errorContent.body && errorContent.body.map((blok, i) => ComponentRender({ content: blok }, i))
+          errorContent && errorContent.body && errorContent.body.map((blok, i) => ComponentRender({ content: blok, i}))
         }
         {
           errorContent === null && (

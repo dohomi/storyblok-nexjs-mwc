@@ -7,14 +7,16 @@ import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
-export type LmImageListProps = CoreComponentProps & {
+export type LmImageListProps = {
   content: ImageListStoryblok
 }
 
-export function LmImageList({ content, ComponentRender }: LmImageListProps): JSX.Element {
+export function LmImageList({ content }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
+  const { ComponentRender } = useAppContext()
+
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,

@@ -7,7 +7,7 @@ import BackgroundImage from './BackgroundImage'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 export interface SectionProps extends SectionStoryblok {
   presetVariant?: SectionStoryblok['variant']
@@ -36,13 +36,15 @@ const useStyles = makeStyles({
   }
 })
 
-export type LmSectionProps = CoreComponentProps & {
+export type LmSectionProps = {
   content: SectionProps
 }
 
-export function LmSection({ content, ComponentRender }: LmSectionProps): JSX.Element {
+export function LmSection({ content }: LmSectionProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
+  const { ComponentRender } = useAppContext()
+
   const background = Array.isArray(content.background) && content.background[0]
   const { style, className } = useBackgroundBox({ variant: content.variant, background })
   const body = content.body || []
@@ -75,7 +77,7 @@ export function LmSection({ content, ComponentRender }: LmSectionProps): JSX.Ele
                  className={clsx(className, {
                    [classes.fullHeight]: isFullHeight
                  })}>
-        {body.map((blok, i) => ComponentRender({ content: blok }, i))}
+        {body.map((blok, i) => ComponentRender({ content: blok, i }))}
       </Container>
     </div>
   )

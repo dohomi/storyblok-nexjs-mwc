@@ -6,9 +6,9 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
-type LmAccordionItemProps = CoreComponentProps & {
+type LmAccordionItemProps = {
   content: AccordionItemStoryblok,
   options: AccordionStoryblok,
   opened: string,
@@ -16,8 +16,9 @@ type LmAccordionItemProps = CoreComponentProps & {
   iteration: number
 }
 
-export function LmAccordionItem({ content, options, setOpen, opened, iteration, ComponentRender }: LmAccordionItemProps): JSX.Element {
+export function LmAccordionItem({ content, options, setOpen, opened, iteration }: LmAccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
+  const { ComponentRender } = useAppContext()
 
   const handleChange = (panel: string) => (_: React.ChangeEvent<{}>, isExpanded: boolean) => {
     options.restrict_one ? setOpen(isExpanded ? panel : '') : setIsOpen(isExpanded ? panel : '')
@@ -33,7 +34,7 @@ export function LmAccordionItem({ content, options, setOpen, opened, iteration, 
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <div>
-          {(content.body || []).map((blok, i) => ComponentRender({ content: blok }, i))}
+          {(content.body || []).map((blok, i) => ComponentRender({ content: blok, i }))}
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>

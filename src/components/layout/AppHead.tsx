@@ -1,28 +1,10 @@
 import imageService from '../../utils/ImageService'
 import NextHead from 'next/head'
-import * as React from 'react'
-import { FunctionComponent, memo } from 'react'
+import React, { FunctionComponent, memo } from 'react'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
-import Router from 'next/router'
-import NProgress from 'nprogress'
 import { CONFIG } from '../../utils/config'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
-
-const trackGA = (url: string) => {
-  if (CONFIG.GA && window !== undefined && window['gtag']) {
-    window['gtag']('config', CONFIG.GA, {
-      page_location: url,
-      page_title: window.document.title
-    })
-  }
-}
-
-Router.events.on('routeChangeStart', () => NProgress.start())
-Router.events.on('routeChangeComplete', (url) => {
-  NProgress.done()
-  trackGA(url)
-})
-Router.events.on('routeChangeError', () => NProgress.done())
+import StoryblokService from '../../utils/StoryblokService'
 
 const AppHead: FunctionComponent<{
   settings: GlobalStoryblok
@@ -60,6 +42,9 @@ const AppHead: FunctionComponent<{
       {settings.setup_google_site_verification &&
       <meta name="google-site-verification" content={settings.setup_google_site_verification}
             key="google-site-verification" />}
+      {StoryblokService.insideVisualComposer() && (
+        <script src="//app.storyblok.com/f/storyblok-latest.js"></script>
+      )}
     </NextHead>
   )
 }

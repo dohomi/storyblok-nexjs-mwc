@@ -9,9 +9,9 @@ import AppsIcon from 'mdi-material-ui/Apps'
 import { useAppSetup } from '../../provider/AppSetupProvider'
 
 
-type ToggleDrawerButtonProps = { content: ToolbarNaviButtonStoryblok }
+export type LmToggleDrawerButtonProps = { content: ToolbarNaviButtonStoryblok }
 
-function ToggleDrawerButton({ content }: ToggleDrawerButtonProps): JSX.Element | null {
+export function LmToggleDrawerButton({ content }: LmToggleDrawerButtonProps): JSX.Element | null {
   const rightDrawer = content.is_right_drawer
   const { rightDrawerMediaBreakpoint, leftDrawerMediaBreakpoint, hasRightDrawer } = useAppSetup()
   if (rightDrawer && !hasRightDrawer) {
@@ -33,4 +33,3 @@ function ToggleDrawerButton({ content }: ToggleDrawerButtonProps): JSX.Element |
   )
 }
 
-export default ToggleDrawerButton

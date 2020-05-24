@@ -4,7 +4,7 @@ import BackgroundImage from './BackgroundImage'
 import Grid from '@material-ui/core/Grid'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const xsSpanMap = {
   1: 3,
@@ -47,10 +47,12 @@ const mdSpanMap = {
   'true': true
 }
 
-export type LmGridColumnProps = CoreComponentProps & { content: ColumnStoryblok }
+export type LmGridColumnProps = { content: ColumnStoryblok }
 
-export function LmGridColumn({ content, ComponentRender }: LmGridColumnProps): JSX.Element {
+export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
   // const classes = useStyles(content)
+  const { ComponentRender } = useAppContext()
+
   const background: BackgroundStoryblok | undefined = (Array.isArray(content.background) && content.background[0] as BackgroundStoryblok) || undefined
   const { className, style } = useBackgroundBox({ background })
   let mdWidth = mdSpanMap[content.width_general as string]
@@ -81,9 +83,9 @@ export function LmGridColumn({ content, ComponentRender }: LmGridColumnProps): J
               alignItems={content.align_items ? content.align_items : undefined}
               alignContent={content.align_content ? content.align_content : undefined}
         >
-          {content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
+          {content.body && content.body.map((blok, i) => ComponentRender({ content: blok, i }))}
         </Grid>
-      ) : content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
+      ) : content.body && content.body.map((blok, i) => ComponentRender({ content: blok, i }))}
     </Grid>
   )
 }

@@ -1,15 +1,17 @@
 import React from 'react'
 import { ListWidgetStoryblok, NavItemStoryblok, NavListStoryblok } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
-type ListWidgetLinksProps = CoreComponentProps & {
+type ListWidgetLinksProps = {
   items: AppApiRequestPayload['allStories']
   options: NavListStoryblok,
   content: ListWidgetStoryblok
 }
 
-function ListWidgetLinks({ items, options, content, ComponentRender }: ListWidgetLinksProps): JSX.Element {
+function ListWidgetLinks({ items, options, content }: ListWidgetLinksProps): JSX.Element {
+  const { ComponentRender } = useAppContext()
+
   const listProps = {
     ...options,
     _uid: content._uid,

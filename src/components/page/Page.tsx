@@ -3,11 +3,10 @@ import React from 'react'
 import { PageStoryblok } from '../../typings/generated/components-schema'
 import RightDrawer from './RightDrawer'
 import MainContent from './MainContent'
-import { CoreComponentProps } from '../core/CoreComponentProps'
 
-export type LmPageProps = CoreComponentProps & { content: PageStoryblok }
+export type LmPageProps = { content: PageStoryblok }
 
-export function LmPage({ content, ComponentRender }: LmPageProps): JSX.Element {
+export function LmPage({ content }: LmPageProps): JSX.Element {
   const body = content.body || []
   const rightBody = content.right_body || []
 
@@ -18,15 +17,15 @@ export function LmPage({ content, ComponentRender }: LmPageProps): JSX.Element {
   if (!body.some(i => i.component === 'section_parallax')) {
     return (
       <>
-        {rightBody.length > 0 && <RightDrawer rightBody={rightBody} body={body} ComponentRender={ComponentRender} />}
-        <MainContent body={body} ComponentRender={ComponentRender} />
+        {rightBody.length > 0 && <RightDrawer rightBody={rightBody} body={body} />}
+        <MainContent body={body} />
       </>
     )
   }
   return (
     <ParallaxProvider>
-      {rightBody.length > 0 && <RightDrawer rightBody={rightBody} body={body} ComponentRender={ComponentRender} />}
-      <MainContent body={body} ComponentRender={ComponentRender} />
+      {rightBody.length > 0 && <RightDrawer rightBody={rightBody} body={body} />}
+      <MainContent body={body} />
     </ParallaxProvider>
   )
 }

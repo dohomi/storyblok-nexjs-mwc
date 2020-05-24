@@ -10,11 +10,11 @@ import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
 import { LogoJsonLd } from 'next-seo'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
-import { CONFIG } from '../../..'
+import { CONFIG } from '../../../utils/config'
 
-type ToolbarLogoProps = { content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }
+export type LmToolbarLogoProps = { content?: ToolbarLogoStoryblok, settings: GlobalStoryblok }
 
-function ToolbarLogo({ settings }: ToolbarLogoProps): JSX.Element {
+export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo
   const websiteLogoInvert = settings.website_logo_invert
@@ -50,5 +50,3 @@ function ToolbarLogo({ settings }: ToolbarLogoProps): JSX.Element {
     </div>
   )
 }
-
-export default ToolbarLogo

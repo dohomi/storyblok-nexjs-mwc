@@ -9,6 +9,8 @@ import { boolean, color, number, optionsKnob, select, text } from '@storybook/ad
 import { CONFIG_STORYBOOK } from './configStorybook'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
+import AppProvider from '../../components/provider/AppProvider'
+import { LmComponentRender } from '../../index'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()
@@ -56,30 +58,32 @@ const StoriesLayout = (storyFunc: Function) => {
     }, 'secondary', CONFIG_STORYBOOK.KNOBS.TOOLBAR) as GlobalStoryblok['toolbar_variant'],
     toolbar_font_size: text('Toolbar Font Size', '', CONFIG_STORYBOOK.KNOBS.TOOLBAR),
     website_logo: select('Logo URL', {
+      lumenmedia: 'https://a.storyblok.com/f/69069/256x256/2db5812b18/lumencms-logo.png',
       etherhill: 'https://a.storyblok.com/f/69529/1076x500/aeb2c104c2/etherhill_logo_white_001.png',
       bali: 'https://a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png',
       upskill: 'https://a.storyblok.com/f/67295/256x64/8361be6afc/upskill-logo-primary-upskill-xs.png'
     }, 'https://a.storyblok.com/f/69529/1076x500/aeb2c104c2/etherhill_logo_white_001.png', CONFIG_STORYBOOK.KNOBS.TOOLBAR)
   }
   const loadFonts: string[] = getFontBasedOnSetting(settings)
-
   return (
-    <WindowDimensionsProvider>
-      <GlobalTheme settings={settings as GlobalStoryblok}>
-        <div>
-          <CssBaseline />
-          <Layout>
-            <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
-              <>
-                {storyFunc({ settings })}
-              </>
-            </Container>
-          </Layout>
-          <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`}
-                rel="stylesheet" />
-        </div>
-      </GlobalTheme>
-    </WindowDimensionsProvider>
+    <AppProvider content={{ ComponentRender: LmComponentRender }}>
+      <WindowDimensionsProvider>
+        <GlobalTheme settings={settings as GlobalStoryblok}>
+          <div>
+            <CssBaseline />
+            <Layout>
+              <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
+                <>
+                  {storyFunc({ settings })}
+                </>
+              </Container>
+            </Layout>
+            <link href={`https://fonts.googleapis.com/css?family=${loadFonts.join('|')}&display=swap`}
+                  rel="stylesheet" />
+          </div>
+        </GlobalTheme>
+      </WindowDimensionsProvider>
+    </AppProvider>
   )
 }
 

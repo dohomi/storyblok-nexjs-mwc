@@ -9,7 +9,7 @@ import LmIcon from '../icon/LmIcon'
 import Grid, { GridProps } from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
@@ -46,11 +46,12 @@ const widthMap = {
   'true': true
 }
 
-export type LmTabsProps = CoreComponentProps & { content: TabsStoryblok }
+export type LmTabsProps = { content: TabsStoryblok }
 
-export function LmTabs({ content, ComponentRender }: LmTabsProps): JSX.Element {
+export function LmTabs({ content }: LmTabsProps): JSX.Element {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down(content.mobile_breakpoint || 'xs'))
+  const { ComponentRender } = useAppContext()
 
   const classes = useStyles()
   const [activeTab, setActiveTab] = useState(0)
@@ -101,7 +102,7 @@ export function LmTabs({ content, ComponentRender }: LmTabsProps): JSX.Element {
                           axis={'x'}>
             {body.map((tab: TabsItemStoryblok) => (
               <div key={`content_${tab._uid}`}>
-                {tab.body && tab.body.map((blok, i) => ComponentRender({ content: blok }, i))}
+                {tab.body && tab.body.map((blok, i) => ComponentRender({ content: blok, i }))}
               </div>
             ))}
           </SwipeableViews>

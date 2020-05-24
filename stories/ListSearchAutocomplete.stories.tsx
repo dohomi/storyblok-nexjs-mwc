@@ -1,5 +1,5 @@
 import * as React from 'react'
-import LmListSearchAutocomplete from '../src/'
+import { LmComponentRender as LmListSearchAutocomplete } from '../src/'
 import { ListSearchAutocompleteStoryblok } from '../src/typings/generated/components-schema'
 import { storyListSearchAutocomplete } from '../src/storybook/layout/toolbar'
 

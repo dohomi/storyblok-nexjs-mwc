@@ -1,4 +1,4 @@
-import LmIframe from '../src/'
+import {  LmComponentRender as LmIframe } from '../src/'
 import { IframeAdvancedStoryblok, IframeStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyIframe } from '../src/storybook/core/various'

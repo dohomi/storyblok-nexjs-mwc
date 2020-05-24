@@ -1,4 +1,4 @@
-import LmHeadline from '../src/'
+import {  LmComponentRender as LmHeadline } from '../src/'
 import { HeadlineStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyDateHeadline, storyHeadline } from '../src/storybook/core/various'

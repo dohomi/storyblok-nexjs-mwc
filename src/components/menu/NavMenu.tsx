@@ -10,7 +10,7 @@ import LmIcon from '../icon/LmIcon'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { useRouter } from 'next/router'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -18,9 +18,11 @@ const useStyles = makeStyles({
   })
 })
 
-export type LmMenuProps = CoreComponentProps & { content: NavMenuStoryblok }
+export type LmMenuProps = { content: NavMenuStoryblok }
 
-export function LmMenu({ content, ComponentRender }: LmMenuProps): JSX.Element {
+export function LmMenu({ content }: LmMenuProps): JSX.Element {
+  const { ComponentRender } = useAppContext()
+
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const menuItems = content.body || []
@@ -90,7 +92,7 @@ export function LmMenu({ content, ComponentRender }: LmMenuProps): JSX.Element {
               paper: classes.paper
             }}
             {...addons}>
-        {isCustom && menuItems.map((blok, i) => ComponentRender({ content: blok }, i))}
+        {isCustom && menuItems.map((blok, i) => ComponentRender({ content: blok, i }))}
         {!isCustom && (
           <div>
             {menuItems.map(nestedProps => (

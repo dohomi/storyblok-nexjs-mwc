@@ -1,4 +1,4 @@
-import  LmImage from '../src/'
+import { LmComponentRender as LmImage } from '../src/'
 import {
   ColumnStoryblok,
   HeadlineStoryblok,

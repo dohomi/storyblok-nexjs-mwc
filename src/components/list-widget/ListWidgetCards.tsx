@@ -5,15 +5,17 @@ import {
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
-type ListWidgetCardsProps = CoreComponentProps & {
+type ListWidgetCardsProps = {
   content: ListWidgetStoryblok
   items: AppApiRequestPayload['allStories']
   options: CardListStoryblok
 }
 
-function ListWidgetCards({ items, content, options, ComponentRender }: ListWidgetCardsProps): JSX.Element {
+function ListWidgetCards({ items, content, options }: ListWidgetCardsProps): JSX.Element {
+  const { ComponentRender } = useAppContext()
+
   return <ComponentRender content={{
     ...options,
     _uid: content._uid,

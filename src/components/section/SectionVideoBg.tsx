@@ -6,7 +6,7 @@ import { SectionVideoBgStoryblok } from '../../typings/generated/components-sche
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/core/styles'
 import FullscreenVideoBg from './FullscreenVideoBg'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 
 const useStyles = makeStyles({
@@ -68,10 +68,11 @@ const useStyles = makeStyles({
 // }
 })
 
-export type LmSectionVideoProps = CoreComponentProps & { content: SectionVideoBgStoryblok }
+export type LmSectionVideoProps = { content: SectionVideoBgStoryblok }
 
-export function LmSectionVideo({ content, ComponentRender }: LmSectionVideoProps): JSX.Element {
+export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
   const classes = useStyles()
+  const { ComponentRender } = useAppContext()
   const dimensions = useWindowDimensions()
   const [intersectionRef, inView, intersectionElement] = useInView(intersectionDefaultOptions)
   const [containerDimensions, setContainerDimensions] = useState({
@@ -128,7 +129,7 @@ export function LmSectionVideo({ content, ComponentRender }: LmSectionVideoProps
                            ratioHeight={ratioHeight}
                            ratioWidth={ratioWidth} />
       )}
-      {hasBody && <div>{body.map((blok, i) => ComponentRender({ content: blok }, i))}</div>}
+      {hasBody && <div>{body.map((blok, i) => ComponentRender({ content: blok, i }))}</div>}
     </div>
   )
 }

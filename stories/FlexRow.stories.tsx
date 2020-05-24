@@ -1,4 +1,4 @@
-import LmFlexRow from '../src/'
+import {  LmComponentRender as LmFlexRow } from '../src/'
 import { FlexRowStoryblok, HeadlineStoryblok, IconStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyFlexRow } from '../src/storybook/core/section'

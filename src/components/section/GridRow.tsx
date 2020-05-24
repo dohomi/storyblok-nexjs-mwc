@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,10 +53,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export type LmGridRowProps = CoreComponentProps & { content: RowStoryblok }
+export type LmGridRowProps = { content: RowStoryblok }
 
-export function LmGridRow({ content, ComponentRender }: LmGridRowProps): JSX.Element {
+export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   // const theme = useTheme()
+  const { ComponentRender } = useAppContext()
   const classes = useStyles()
   let spacing = content.spacing ? Number(content.spacing) as GridProps['spacing'] : 3
   const background: BackgroundStoryblok | undefined = Array.isArray(content.background) && content.background[0]
@@ -82,7 +83,7 @@ export function LmGridRow({ content, ComponentRender }: LmGridRowProps): JSX.Ele
       <BackgroundImage content={background} backgroundStyle={content.background_style} />}
       {background?.background_elements && background.background_elements.length > 0 &&
       <BackgroundElements elements={background.background_elements} />}
-      {content.body && content.body.map((blok, i) => ComponentRender({ content: blok }, i))}
+      {content.body && content.body.map((blok, i) => ComponentRender({ content: blok, i }))}
     </Grid>
   )
 }

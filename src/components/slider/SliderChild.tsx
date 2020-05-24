@@ -1,10 +1,12 @@
 import React from 'react'
 import { SectionProps } from '../section/Section'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
-type LmSliderChildProps = CoreComponentProps & { body: any[], sectionVariant: any }
+type LmSliderChildProps = { body: any[], sectionVariant: any }
 
-export function LmSliderChild({ body, sectionVariant, ComponentRender }: LmSliderChildProps): JSX.Element {
+export function LmSliderChild({ body, sectionVariant }: LmSliderChildProps): JSX.Element {
+  const { ComponentRender } = useAppContext()
+
   return (
     <div className="d-flex h-100 lm-slider__container flex-row justify-content-center">
       {body.map((item, i) => {
@@ -13,11 +15,11 @@ export function LmSliderChild({ body, sectionVariant, ComponentRender }: LmSlide
             ...item,
             presetVariant: sectionVariant || 'transparent'
           }
-          return ComponentRender({ content: newOpts }, i)
+          return ComponentRender({ content: newOpts, i })
         }
         return (
           <div key={`child_${item._uid}`} className="flex-grow-1">
-            {ComponentRender({ content: item }, i)}
+            {ComponentRender({ content: item, i })}
           </div>
         )
       })}

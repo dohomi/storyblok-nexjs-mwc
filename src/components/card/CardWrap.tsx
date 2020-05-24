@@ -6,7 +6,7 @@ import ContentLink from '../link/ContentLink'
 import clsx from 'clsx'
 import useShadowStyles from '../jss/shadowStyles'
 
-const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, options, ComponentRender }) => {
+const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, options }) => {
   const className = 'lm-card'
   const styles = useShadowStyles()
   const variants = options.variant || []
@@ -19,7 +19,6 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, opt
     return <CardWrapWithAction className={className}
                                content={content}
                                style={style}
-                               ComponentRender={ComponentRender}
                                options={options}>{children}</CardWrapWithAction>
   }
 

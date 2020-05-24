@@ -1,6 +1,6 @@
 import React from 'react'
 import { ButtonStoryblok } from '../src/typings/generated/components-schema'
-import LmButton from '../src/'
+import {  LmComponentRender as LmButton } from '../src/'
 import { storyButton } from '../src/storybook/core/various'
 
 const defaultProps: ButtonStoryblok = {

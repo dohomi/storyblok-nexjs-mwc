@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 const chunkArray = (myArray: Element[], chunkSize: number) => {
   const results = []
@@ -69,10 +69,11 @@ export const useStyles = makeStyles({
 })
 
 
-export type LmSliderProps = CoreComponentProps & { content: SliderStoryblok }
+export type LmSliderProps = { content: SliderStoryblok }
 
-export function LmSlider({ content, ComponentRender }: LmSliderProps): JSX.Element {
+export function LmSlider({ content }: LmSliderProps): JSX.Element {
   const [slide, setSlide] = useState(0)
+  const { ComponentRender } = useAppContext()
   const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
   const wrapInColumns = content.slides_per_view && !isMobile
@@ -111,17 +112,16 @@ export function LmSlider({ content, ComponentRender }: LmSliderProps): JSX.Eleme
         {wrapInColumns ? body.map((child, index) => {
           return <LmSliderChild key={`swipeable_${index}`}
                                 body={child}
-                                sectionVariant={content.section_variant}
-                                ComponentRender={ComponentRender} />
+                                sectionVariant={content.section_variant} />
         }) : body.map((item, i) => {
           if (item.component === 'section') {
             let newOpts: SectionProps = {
               ...item,
               presetVariant: content.section_variant || 'transparent'
             }
-            return ComponentRender({ content: newOpts }, i)
+            return ComponentRender({ content: newOpts, i })
           }
-          return ComponentRender({ content: item }, i)
+          return ComponentRender({ content: item, i })
         })}
       </SwipeableViews>
       <a className={carouselPrevClasses}

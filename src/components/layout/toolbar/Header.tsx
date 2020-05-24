@@ -3,17 +3,16 @@ import { memo } from 'react'
 import HeaderCustom from './HeaderCustom'
 import HeaderSimple from './HeaderSimple'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
-import { CoreComponentProps } from '../../core/CoreComponentProps'
 
-type LmHeaderProps = CoreComponentProps & {
+type LmHeaderProps = {
   settings: GlobalStoryblok
 }
 
-function Header({ settings, ComponentRender }: LmHeaderProps): JSX.Element {
+function Header({ settings }: LmHeaderProps): JSX.Element {
   if (settings.multi_toolbar && settings.multi_toolbar.length) {
     return <HeaderCustom settings={settings} />
   }
-  return <HeaderSimple settings={settings} ComponentRender={ComponentRender} />
+  return <HeaderSimple settings={settings} />
 }
 
 export default memo(Header)

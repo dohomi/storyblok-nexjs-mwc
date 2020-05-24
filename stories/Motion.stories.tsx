@@ -1,7 +1,7 @@
 import React from 'react'
 import { HeadlineStoryblok } from '../src/typings/generated/components-schema'
 import { loremIpsum } from 'lorem-ipsum'
-import LmMotion from '../src/'
+import { LmComponentRender as LmMotion } from '../src/'
 import { storyMotion } from '../src/storybook/core/various'
 
 export default { title: 'Animations: Motion' }
@@ -70,7 +70,7 @@ export const Playground = () => (
   <div style={{ textAlign: 'center' }}>
     <div style={{ maxWidth: '60vw' }}>
       <LmMotion content={{
-        ...storyMotion({options: { duration: 5000 }}),
+        ...storyMotion({ options: { duration: 5000 } }),
         body
       }} />
     </div>

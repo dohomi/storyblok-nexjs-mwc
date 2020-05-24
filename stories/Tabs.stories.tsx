@@ -1,4 +1,4 @@
-import LmTabs from '../src/'
+import { LmComponentRender as LmTabs } from '../src/'
 import {
   HeadlineStoryblok,
   ParagraphStoryblok,

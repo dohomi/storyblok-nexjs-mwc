@@ -8,7 +8,7 @@ import { usePageStyles } from './usePageStyle'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 import { useAppSetup } from '../provider/AppSetupProvider'
-import { CoreComponentProps } from '../core/CoreComponentProps'
+import { useAppContext } from '../provider/AppProvider'
 
 
 const RightDrawerWrap: FunctionComponent = ({ children }) => {
@@ -30,18 +30,20 @@ const RightDrawerWrap: FunctionComponent = ({ children }) => {
                  onClose={() => closeNavigationDrawers()}>{children}</Drawer>
 }
 
-type RightDrawerProps = CoreComponentProps & {
+type RightDrawerProps = {
   rightBody: any[]
   body: any[]
 }
 
-function RightDrawer({ rightBody, ComponentRender }: RightDrawerProps): JSX.Element {
+function RightDrawer({ rightBody }: RightDrawerProps): JSX.Element {
   const classes = usePageStyles()
+  const { ComponentRender } = useAppContext()
+
   return (
     <RightDrawerWrap>
       <ContentSpace />
       <div className={classes.rightContent}>
-        {rightBody.map((blok, i) => ComponentRender({ content: blok }, i))}
+        {rightBody.map((blok, i) => ComponentRender({ content: blok, i}))}
       </div>
     </RightDrawerWrap>
   )

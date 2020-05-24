@@ -1,56 +1,11 @@
-import CollapsibleListSection from './CollapsibleListSection'
-import React, { FunctionComponent } from 'react'
-import DrawerButton from './DrawerButton'
-import {
-  ButtonStoryblok,
-  DateHeadlineStoryblok,
-  DividerStoryblok,
-  GlobalStoryblok,
-  HeadlineStoryblok,
-  ImageStoryblok,
-  NavMenuStoryblok,
-  ToolbarNaviButtonStoryblok,
-  ToolbarRowStoryblok
-} from '../../../typings/generated/components-schema'
-import {LmImage} from '../../image/ImageElement'
-import {LmHeadline} from '../../headline/Headline'
-import {LmDateHeadline} from '../../headline/DateHeadline'
-import {LmDivider} from '../../divider/Divider'
+import React from 'react'
+import { GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
 import { useAppSetup } from '../../provider/AppSetupProvider'
-import ToggleDrawerButton from '../toolbar/ToggleDrawerButton'
+import { DrawerContentRender } from './CollapsibleListSection'
 
-type DrawerContentComponents = {
-  button: FunctionComponent<{ content: ButtonStoryblok }>
-  toolbar_navi_button: FunctionComponent<{ content: ToolbarNaviButtonStoryblok, settings: GlobalStoryblok }>
-  nav_menu: FunctionComponent<{ content: NavMenuStoryblok }>
-  image: FunctionComponent<{ content: ImageStoryblok }>
-  headline: FunctionComponent<{ content: HeadlineStoryblok }>
-  date_headline: FunctionComponent<{ content: DateHeadlineStoryblok }>
-  divider: FunctionComponent<{ content: DividerStoryblok }>
-  [k: string]: any
-}
+type DrawerContentListProps = { content: Partial<GlobalStoryblok> }
 
-const Components: DrawerContentComponents = {
-  'button': DrawerButton,
-  'toolbar_navi_button': ToggleDrawerButton,
-  'nav_menu': CollapsibleListSection,
-  'list_search_autocomplete': () => null,
-  'image': LmImage,
-  'headline': LmHeadline,
-  'date_headline': LmDateHeadline,
-  'divider': LmDivider
-}
-
-const Child = (blok: any) => {
-  if (typeof Components[blok.component] !== 'undefined') {
-    return React.createElement(Components[blok.component], { content: blok, key: blok._uid })
-  }
-  return React.createElement(() => (
-    <div style={{ color: 'red' }}>The component {blok.component} has not been created yet.</div>
-  ), { key: blok._uid })
-}
-
-const DrawerContentList: FunctionComponent<{ content: Partial<GlobalStoryblok> }> = ({ content }) => {
+export function DrawerContentList({ content }: DrawerContentListProps): JSX.Element {
   const appSetup = useAppSetup()
   let childs = (appSetup.hasDrawer ? content.drawer_body : content.toolbar) || []
 
@@ -70,8 +25,7 @@ const DrawerContentList: FunctionComponent<{ content: Partial<GlobalStoryblok> }
   }
   return (
     <>
-      {childs.map(props => Child(props))}
+      {childs.map((props, i) => DrawerContentRender({ content: props, i }))}
     </>
   )
 }
-export default DrawerContentList
