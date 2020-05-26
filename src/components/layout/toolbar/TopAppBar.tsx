@@ -167,5 +167,6 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
     </>
   )
 }
+TopAppBar.displayName = 'TopAppBar'
 
 export default TopAppBar

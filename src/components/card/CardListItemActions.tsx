@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import CardActions from '@material-ui/core/CardActions'
 import { CardListItemProps } from './cards'
 import { useAppContext } from '../provider/AppProvider'
 
-const CardListItemActions: FunctionComponent<CardListItemProps> = ({ options, content }) => {
+function CardListItemActions({ options, content }: CardListItemProps): JSX.Element | null {
   const { ComponentRender } = useAppContext()
 
   const cardActionsBody = content.card_actions_body || []

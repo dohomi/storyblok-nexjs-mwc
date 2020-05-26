@@ -1,45 +1,39 @@
-import React, { useEffect } from 'react'
-import Router from 'next/router'
+import React from 'react'
 import { AppProps } from 'next/app'
-import { CONFIG } from '../..'
-import NProgress from 'nprogress'
-import { AppPageProps } from '../../typings/app'
+import { AppPageProps, ComponentRenderProps } from '../../typings/app'
+import { AppContainer } from '../layout/AppContainer'
+import { useStoryblok } from '../../utils/hooks/useStoryblok'
+import { getGlobalState, setGlobalState } from '../../utils/state/state'
+import hasWebpSupport from '../../utils/detectWebpSupport'
 
-const trackGA = (url: string) => {
-  if (CONFIG.GA && window !== undefined && window['gtag']) {
-    window['gtag']('config', CONFIG.GA, {
-      page_location: url,
-      page_title: window.document.title
-    })
-  }
+
+export type LmAppProps = AppProps<AppPageProps> & {
+  ComponentRender: ComponentRenderProps
 }
 
-export function LmApp({ Component, pageProps }: AppProps<AppPageProps>) {
+export function LmApp({ Component, pageProps, ComponentRender, router }: LmAppProps) {
+  const { locale, settings, page } = pageProps as AppPageProps
+  const { stateSettings, statePage } = useStoryblok({ settings, page })
+  if (locale && getGlobalState('locale') !== locale) {
+    setGlobalState('locale', locale)
+  }
+  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
+    hasWebpSupport()
+      .then((has) => setGlobalState('hasWebpSupport', has))
+  }
 
-  useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      NProgress.done()
-      trackGA(url)
-    }
-    const handleRouteStart = () => {
-      NProgress.start()
-    }
-    const handleRouteError = () => {
-      NProgress.done()
-    }
-    Router.events.on('routeChangeComplete', handleRouteChange)
-    Router.events.on('routeChangeStart', handleRouteStart)
-    Router.events.on('routeChangeError', handleRouteError)
-    return () => {
-      Router.events.off('routeChangeComplete', handleRouteChange)
-      Router.events.off('routeChangeStart', handleRouteStart)
-      Router.events.off('routeChangeError', handleRouteError)
-    }
-  }, [])
+  if (router.isFallback) {
+    return <div>loading...</div>
+  }
 
+  const appProps = {
+    ...pageProps,
+    page: statePage,
+    settings: stateSettings
+  }
   return (
-    <>
-      <Component {...pageProps} />
-    </>
+    <AppContainer content={appProps} ComponentRender={ComponentRender}>
+      <Component {...appProps} ComponentRender={ComponentRender} />
+    </AppContainer>
   )
 }

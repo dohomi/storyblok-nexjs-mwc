@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { getImageAttrs, getOriginalImageDimensions } from '../../utils/ImageService'
 import SwipeableViews from 'react-swipeable-views'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
@@ -16,7 +16,7 @@ export type ImageListLightboxProps = {
   className: string
 }
 
-const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
+function Swipe(props: ImageListLightboxProps): JSX.Element {
   let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)
 
   function getImageSource(source: string) {
@@ -68,8 +68,7 @@ const Swipe: FunctionComponent<ImageListLightboxProps> = (props) => {
           <InvertedIndicator key={item._uid}
                              active={props.lightbox === item._uid}
                              color={'light'}
-                             onClick={() => props.onImageClick(item)}>
-          </InvertedIndicator>
+                             onClick={() => props.onImageClick(item)} />
         ))}
       </ol>
     </div>

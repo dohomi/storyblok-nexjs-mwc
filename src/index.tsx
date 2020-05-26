@@ -1,6 +1,6 @@
-import React, { FunctionComponentFactory } from 'react'
+import React, { FunctionComponentFactory, isValidElement } from 'react'
 import SbEditable from 'storyblok-react'
-import { AppPageProps } from './typings/app'
+import { AppPageProps, ComponentRenderFuncProps } from './typings/app'
 import { LmAccordion } from './components/accordion/Accordion'
 import { LmPage } from './components/page/Page'
 import { LmTable } from './components/table/Table'
@@ -43,9 +43,10 @@ import { LmAccordionItem } from './components/accordion/AccordionItem'
 import { LmTimelineItem } from './components/timeline/TimelineRow'
 import { LmCardListItem } from './components/card/CardListItem'
 import { LmImageListItem } from './components/image-list/ImageListItem'
-import { LmPagesIndex } from './components/pages/PagesIndex'
 import { LmToolbarLogo } from './components/layout/toolbar/ToolbarLogo'
 import { LmToggleDrawerButton } from './components/layout/toolbar/ToggleDrawerButton'
+import { LmApp } from './components/pages/_app'
+import { AppProps } from 'next/app'
 
 
 export {
@@ -94,24 +95,16 @@ export {
   LmToggleDrawerButton
 }
 
-export { LmPagesIndex }
-export { default as LmLayout } from './components/layout/Layout'
-export { LmApp } from './components/pages/_app'
+export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
+export { LmApp }
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
+export { useAppContext } from './components/provider/AppProvider'
+export { useWindowDimensions } from './components/provider/WindowDimensionsProvider'
+export { useAppSetup } from './components/provider/AppSetupProvider'
 export { CONFIG } from './utils/config'
 
-
-// export { default as pagesGetStaticPaths } from './utils/initial-props/pagesGetStaticPaths'
-// export { default as pagesGetStaticProps } from './utils/initial-props/pagesGetStaticProps'
-// export { default as pagesGetServerSideProps } from './utils/initial-props/pagesGetServerSideProps'
-// // export { default as LmPagesDocument } from './pages/_document'
-// // export { default as apiSitemap } from './pages/api/sitemap'
-// // export { default as apiPreview } from './pages/api/preview'
-// // export { default as apiClearCache } from './pages/api/clear-cache'
-// // export { default as apiSharedData } from './pages/api/shared-data'
-
-const CoreComponentsNamed = {
+export const LmCoreComponentsNamed = {
   'page': LmPage,
   'table': LmTable,
   'accordion': LmAccordion,
@@ -158,31 +151,29 @@ const CoreComponentsNamed = {
   'toolbar_navi_button': LmToggleDrawerButton
 }
 
-export function LmDefaultPage(props: AppPageProps) {
-  const componentRender = props.insideStoryblok ? LmStoryblokComponentRender : LmComponentRender
-  return <LmPagesIndex {...props}
-                       ComponentRender={componentRender as FunctionComponentFactory<any>}
-  />
+export function LmDefaultApp(props: AppProps<AppPageProps>) {
+  const ComponentRender = props.pageProps.insideStoryblok ? LmStoryblokComponentRender : LmComponentRender
+  return <LmApp {...props} ComponentRender={ComponentRender as FunctionComponentFactory<any>} />
 }
 
-export type LmComponentRenderProps = {
-  content: any,
-  _uid?: string,
-  i?: number // iteration in case of array render
-  [k: string]: any
-}
 
-export function LmStoryblokComponentRender(props: LmComponentRenderProps): JSX.Element {
+export function LmStoryblokComponentRender(props: ComponentRenderFuncProps): JSX.Element {
   const { content, i, ...rest } = props
-  if (typeof CoreComponentsNamed[content.component] !== 'undefined') {
-    return (
-      <SbEditable content={content} key={typeof i === 'number' ? `${content.component}_${i}` : undefined}>
-        {React.createElement(CoreComponentsNamed[content.component], {
-          content: content,
-          ...rest
-        })}
-      </SbEditable>
-    )
+  if (typeof LmCoreComponentsNamed[content.component] !== 'undefined') {
+    const CurrentElement = React.createElement(LmCoreComponentsNamed[content.component], {
+      content: content,
+      ...rest
+    })
+    if (isValidElement(CurrentElement)) {
+      return (
+        <SbEditable content={content} key={typeof i === 'number' ? `${content.component}_${i}` : undefined}>
+          {CurrentElement}
+        </SbEditable>
+      )
+    } else {
+      console.log(`element is not valid for SbEditable ${content.component} ${content._uid}`)
+    }
+    return CurrentElement
   }
   return (
     <div style={{ color: 'red' }} key={content?._uid || `${i}`}>The
@@ -191,10 +182,11 @@ export function LmStoryblokComponentRender(props: LmComponentRenderProps): JSX.E
   )
 }
 
-export function LmComponentRender(blok: LmComponentRenderProps): JSX.Element {
-  const { content, i, ...rest } = blok
-  if (typeof CoreComponentsNamed[content.component] !== 'undefined') {
-    return React.createElement(CoreComponentsNamed[content.component], {
+export function LmComponentRender(props: ComponentRenderFuncProps): JSX.Element {
+  const { content, i, ...rest } = props
+
+  if (typeof LmCoreComponentsNamed[content.component] !== 'undefined') {
+    return React.createElement(LmCoreComponentsNamed[content.component], {
       content: content,
       key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
       ...rest

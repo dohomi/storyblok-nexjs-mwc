@@ -45,4 +45,5 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
     </>
   )
 }
+CardMediaElement.displayName = 'CardMediaElement'
 export default CardMediaElement

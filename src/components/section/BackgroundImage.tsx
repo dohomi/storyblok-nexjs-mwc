@@ -1,5 +1,5 @@
 import { getImageAttrs } from '../../utils/ImageService'
-import React, { FunctionComponent, useState } from 'react'
+import React, { useState } from 'react'
 import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -41,7 +41,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const BackgroundImage: FunctionComponent<{ content: BackgroundStoryblok, backgroundStyle?: SectionStoryblok['background_style'] }> = ({ content, backgroundStyle }) => {
+type BackgroundImageProps = {
+  content: BackgroundStoryblok,
+  backgroundStyle?: SectionStoryblok['background_style']
+}
+
+function BackgroundImage({ content, backgroundStyle }: BackgroundImageProps): JSX.Element | null {
   if (!content.image) {
     return null
   }

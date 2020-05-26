@@ -2,7 +2,6 @@ import * as React from 'react'
 import { LmComponentRender as LmAccordion } from '../src/'
 import { storyAccordion, storyAccordionItem } from '../src/storybook/core/various'
 import { get3ColumnsSection } from '../src/storybook/section'
-import { useAppContext } from '../src/components/provider/AppProvider'
 
 
 export default {
@@ -10,8 +9,6 @@ export default {
 }
 
 export const Playground = () => {
-  const ctx = useAppContext()
-  console.log(ctx.ComponentRender)
   const blok = {
     ...storyAccordion(),
     body: [{

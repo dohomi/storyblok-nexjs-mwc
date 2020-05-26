@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import cx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -61,12 +61,14 @@ const useStyles = makeStyles(({ palette, breakpoints }) => {
   }
 })
 
-const InvertedIndicator: FunctionComponent<{
+type InvertedIndicatorProps = {
   className?: string,
   active: boolean,
   color?: 'dark' | 'light'
   onClick: any
-}> = ({ className, active, color, ...props }) => {
+}
+
+function InvertedIndicator({ className, active, color, ...props }: InvertedIndicatorProps): JSX.Element {
   const classes = useStyles({ active, color: color || 'dark', ...props })
   return (
     <div

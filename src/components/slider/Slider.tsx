@@ -141,8 +141,7 @@ export function LmSlider({ content }: LmSliderProps): JSX.Element {
           <InvertedIndicator key={item._uid || `pagination_${i}`}
                              active={slide === i}
                              color={properties.includes('pagination_dark') ? 'dark' : 'light'}
-                             onClick={() => handleChangeIndex(item)}>
-          </InvertedIndicator>
+                             onClick={() => handleChangeIndex(item)} />
         ))}
       </div>
     </div>

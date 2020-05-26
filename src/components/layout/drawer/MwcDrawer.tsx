@@ -29,7 +29,7 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const MwcDrawer: FunctionComponent<{
+const DrawerContainer: FunctionComponent<{
   backgroundProps?: UseBackgroundPayload
 }> = ({ children, backgroundProps }) => {
   const classes = useStyles()
@@ -82,5 +82,6 @@ const MwcDrawer: FunctionComponent<{
     </Drawer>
   )
 }
+DrawerContainer.displayName = 'DrawerContainer'
 
-export default MwcDrawer
+export default DrawerContainer

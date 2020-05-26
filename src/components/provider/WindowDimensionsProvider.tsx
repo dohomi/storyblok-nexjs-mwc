@@ -21,17 +21,7 @@ let defaultValue: WithWindowDimensionsProps = {
 export const WindowDimensionsCtx = createContext(defaultValue)
 
 const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
-  let defaultValue: WithWindowDimensionsProps = {
-    height: 500,
-    ...deviceDetect()
-  }
-
-  if (typeof window !== 'undefined') {
-    defaultValue = getWindowDimensions()
-  }
-
-
-  const [dimensions, setDimensions] = useState(defaultValue)
+  const [dimensions, setDimensions] = useState<WithWindowDimensionsProps>(defaultValue)
   const [debouncedCallback] = useDebouncedCallback(
     // function
     () => {
@@ -40,11 +30,17 @@ const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
     // delay in ms
     500
   )
+
+
   useEffect(
     () => {
       if (typeof window === 'undefined') {
         return
       }
+      setDimensions({
+        ...getWindowDimensions(),
+        ...deviceDetect()
+      })
       window.addEventListener('resize', debouncedCallback)
       return () => {
         window.removeEventListener('resize', debouncedCallback)
@@ -55,7 +51,7 @@ const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
 
   function getWindowDimensions() {
     const opts = {
-      ...defaultValue,
+      ...dimensions,
       height: window.innerHeight,
       width: window.innerWidth,
       isTabletWidth: window.innerWidth >= 600 && window.innerWidth < 960
@@ -69,6 +65,8 @@ const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
     </WindowDimensionsCtx.Provider>
   )
 }
+
+WindowDimensionsProvider.displayName = 'WindowDimensionsProvider'
 
 export default WindowDimensionsProvider
 

@@ -21,6 +21,12 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
+      "@nextjs": [
+        "../../lumen-cms-nextjs/src/"
+      ],
+      "@core": [
+        "../src/"
+      ],
       "@polyfills": [
         "../client/polyfills.js"
       ]

@@ -11,7 +11,7 @@ import { useAppSetup } from '../provider/AppSetupProvider'
 import { useAppContext } from '../provider/AppProvider'
 
 
-const RightDrawerWrap: FunctionComponent = ({ children }) => {
+const RightDrawerContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
   const theme = useTheme()
   const appSetup = useAppSetup()
@@ -29,6 +29,7 @@ const RightDrawerWrap: FunctionComponent = ({ children }) => {
                  open={!matches ? rightIsOpen : true}
                  onClose={() => closeNavigationDrawers()}>{children}</Drawer>
 }
+RightDrawerContainer.displayName = 'RightDrawerContainer'
 
 type RightDrawerProps = {
   rightBody: any[]
@@ -40,12 +41,12 @@ function RightDrawer({ rightBody }: RightDrawerProps): JSX.Element {
   const { ComponentRender } = useAppContext()
 
   return (
-    <RightDrawerWrap>
+    <RightDrawerContainer>
       <ContentSpace />
       <div className={classes.rightContent}>
-        {rightBody.map((blok, i) => ComponentRender({ content: blok, i}))}
+        {rightBody.map((blok, i) => ComponentRender({ content: blok, i }))}
       </div>
-    </RightDrawerWrap>
+    </RightDrawerContainer>
   )
 }
 

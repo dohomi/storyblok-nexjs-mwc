@@ -9,11 +9,12 @@ import { intersectionDefaultOptions } from '../../utils/intersectionObserverConf
 import Skeleton from '@material-ui/lab/Skeleton'
 import ContentLink from '../link/ContentLink'
 
-const ImageListItemWrap: FunctionComponent<{ content: ImageListItemStoryblok }> = ({ content, children }) => {
+const ImageListItemContainer: FunctionComponent<{ content: ImageListItemStoryblok }> = ({ content, children }) => {
   return content.link?.cached_url
     ? <ContentLink className={'img-list-item'} content={content}>{children}</ContentLink>
     : <>{children}</>
 }
+ImageListItemContainer.displayName = 'ImageListItemContainer'
 
 export type LmImageListItemProps = {
   content: ImageListItemStoryblok,
@@ -61,7 +62,7 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
   }
 
   return (
-    <ImageListItemWrap content={content}>
+    <ImageListItemContainer content={content}>
       {!loaded && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />}
       <Fade in={loaded}>
         <img {...imageProps}
@@ -73,6 +74,6 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
       {(content.label || content.sub_title) &&
       <GridListTileBar title={content.label} subtitle={content.sub_title}
                        titlePosition={listProps.label_position || 'bottom'} />}
-    </ImageListItemWrap>
+    </ImageListItemContainer>
   )
 }

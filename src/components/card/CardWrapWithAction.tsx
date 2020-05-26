@@ -45,5 +45,6 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({ content, classN
     </>
   )
 }
+CardWrapWithAction.displayName = 'CardWrapWithAction'
 
 export default CardWrapWithAction

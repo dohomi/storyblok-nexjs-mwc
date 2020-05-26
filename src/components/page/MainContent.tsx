@@ -5,7 +5,7 @@ import { useGlobalState } from '../../utils/state/state'
 import { useAppSetup } from '../provider/AppSetupProvider'
 import { useAppContext } from '../provider/AppProvider'
 
-const MainContenWrap: FunctionComponent = ({ children }) => {
+const MainContentContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
   const appSetup = useAppSetup()
   const [isOpen] = useGlobalState('leftNavigationDrawer')
@@ -18,6 +18,7 @@ const MainContenWrap: FunctionComponent = ({ children }) => {
       }
     )}>{children}</main>
 }
+MainContentContainer.displayName = 'MainContentContainer'
 
 type MainContentProps = {
   body: any[]
@@ -26,7 +27,11 @@ type MainContentProps = {
 export function MainContent({ body }: MainContentProps): JSX.Element {
   const { ComponentRender } = useAppContext()
 
-  return (<MainContenWrap>{body.map((blok, i) => ComponentRender({ content: blok, i }))}</MainContenWrap>)
+  return (
+    <MainContentContainer>
+      {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+    </MainContentContainer>
+  )
 }
 
 

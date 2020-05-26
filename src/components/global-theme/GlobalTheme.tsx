@@ -217,4 +217,6 @@ const GlobalTheme: FunctionComponent<{
     </ThemeProvider>
   )
 }
+GlobalTheme.displayName = 'GlobalTheme'
+
 export default GlobalTheme

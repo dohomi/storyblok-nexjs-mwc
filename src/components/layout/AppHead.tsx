@@ -1,14 +1,16 @@
 import imageService from '../../utils/ImageService'
 import NextHead from 'next/head'
-import React, { FunctionComponent, memo } from 'react'
+import React, { memo } from 'react'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import { CONFIG } from '../../utils/config'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import StoryblokService from '../../utils/StoryblokService'
 
-const AppHead: FunctionComponent<{
+type AppHeadProps = {
   settings: GlobalStoryblok
-}> = ({ settings }) => {
+}
+
+function AppHead({ settings }: AppHeadProps): JSX.Element {
   const favicon = settings.setup_favicon
   const loadFonts: string[] = getFontBasedOnSetting(settings)
 

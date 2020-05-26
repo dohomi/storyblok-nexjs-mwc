@@ -28,6 +28,7 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
     </>
   )
 }
+Layout.displayName = 'Layout'
 
 // export default memo<{children: ReactNode, settings:GlobalStoryblok}>(Layout)
 export default Layout

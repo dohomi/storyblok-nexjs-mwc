@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const FooterWrap: FunctionComponent = ({ children }) => {
+const FooterContainer: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
   const appSetup = useAppSetup()
@@ -39,6 +39,7 @@ const FooterWrap: FunctionComponent = ({ children }) => {
     </footer>
   )
 }
+FooterContainer.displayName = 'FooterContainer'
 
 type FooterProps = {
   settings: GlobalStoryblok
@@ -49,9 +50,9 @@ function Footer({ settings }: FooterProps): JSX.Element {
   const { ComponentRender } = useAppContext()
 
   return (
-    <FooterWrap>
+    <FooterContainer>
       {content.map((blok, i) => ComponentRender({ content: blok, i }))}
-    </FooterWrap>
+    </FooterContainer>
   )
 }
 

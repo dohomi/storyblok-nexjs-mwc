@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FunctionComponent } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useAppSetup } from '../provider/AppSetupProvider'
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const ContentSpace: FunctionComponent = () => {
+function ContentSpace(): JSX.Element {
   const classes = useStyles()
   const appSetup = useAppSetup()
   const scrolledWithoutHysteresis = useScrollTop()
@@ -39,4 +38,5 @@ const ContentSpace: FunctionComponent = () => {
       })} />
   )
 }
+
 export default ContentSpace

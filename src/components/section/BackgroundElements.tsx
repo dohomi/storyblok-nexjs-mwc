@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from 'react'
+import React, { CSSProperties } from 'react'
 import {
   BackgroundElementColorStoryblok,
   BackgroundElementGradientStoryblok,
@@ -8,9 +8,11 @@ import imageService from '../../utils/ImageService'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
-const BackgroundElements: FunctionComponent<{
+type BackgroundElementsProps = {
   elements: (BackgroundElementColorStoryblok | BackgroundElementItemStoryblok | BackgroundElementGradientStoryblok)[]
-}> = ({ elements = [] }) => {
+}
+
+function BackgroundElements({ elements = [] }: BackgroundElementsProps): JSX.Element {
   const [viewRef, inView] = useInView(intersectionDefaultOptions)
 
   let styleElement: CSSProperties = {
@@ -44,4 +46,5 @@ const BackgroundElements: FunctionComponent<{
       style={styleElement} />
   )
 }
+
 export default BackgroundElements

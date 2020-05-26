@@ -1,3 +1,3 @@
-import { apiSharedData } from '../../lumen-cms-nextjs'
+import { apiSharedData } from 'lumen-cms-nextjs'
 
 export default apiSharedData

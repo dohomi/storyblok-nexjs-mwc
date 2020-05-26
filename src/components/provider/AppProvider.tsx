@@ -1,15 +1,11 @@
-import React, { createContext, FunctionComponent, FunctionComponentFactory, useContext } from 'react'
-import { AppApiRequestPayload } from '../../typings/app'
+import React, { createContext, FunctionComponent, useContext } from 'react'
+import { AppApiRequestPayload, ComponentRenderProps } from '../../typings/app'
 
 export type AppContextProps =
   Omit<AppApiRequestPayload, 'locale' | 'settings' | 'page' | 'allStories'>
   & {
   insideStoryblok?: boolean
-  ComponentRender: FunctionComponentFactory<{
-    content: any
-    i?: number
-    [k: string]: any
-  }>
+  ComponentRender: ComponentRenderProps
   [k: string]: any
 }
 
@@ -29,6 +25,7 @@ const AppContext = createContext<AppContextProps>(defaultValue)
 const AppProvider: FunctionComponent<{ content: AppContextProps }> = ({ children, content }) => {
   return <AppContext.Provider value={content}>{children}</AppContext.Provider>
 }
+AppProvider.displayName = 'AppProvider'
 
 export const useAppContext = () => useContext<AppContextProps>(AppContext)
 

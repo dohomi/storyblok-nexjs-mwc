@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   }))
 
-const ListSearchAutocompleteWrap: FunctionComponent<{
+const ListSearchAutocompleteContainer: FunctionComponent<{
   content: ListSearchAutocompleteStoryblok,
   popperActive?: boolean,
   inputRef: RefObject<HTMLInputElement>,
@@ -156,6 +156,7 @@ const ListSearchAutocompleteWrap: FunctionComponent<{
   }
   return <>children</>
 }
+ListSearchAutocompleteContainer.displayName = 'ListSearchAutocompleteContainer'
 
 export type LmListSearchAutocompleteProps = { content: ListSearchAutocompleteStoryblok }
 
@@ -196,10 +197,10 @@ export function LmListSearchAutocomplete({ content }: LmListSearchAutocompletePr
   )
 
   return (
-    <ListSearchAutocompleteWrap content={content}
-                                popperActive={open}
-                                inputRef={inputRef}
-                                isMobileAction={!!isMobileAction}>
+    <ListSearchAutocompleteContainer content={content}
+                                     popperActive={open}
+                                     inputRef={inputRef}
+                                     isMobileAction={!!isMobileAction}>
       <Autocomplete
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
@@ -268,7 +269,7 @@ export function LmListSearchAutocomplete({ content }: LmListSearchAutocompletePr
           )
         }}
       />
-    </ListSearchAutocompleteWrap>
+    </ListSearchAutocompleteContainer>
   )
 }
 

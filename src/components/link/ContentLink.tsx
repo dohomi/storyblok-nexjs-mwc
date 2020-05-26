@@ -54,5 +54,6 @@ const ContentLink: FunctionComponent<{
   }
   return <>{children}</>
 }
+ContentLink.displayName = 'ContentLink'
 
 export default ContentLink

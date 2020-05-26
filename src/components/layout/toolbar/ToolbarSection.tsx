@@ -8,7 +8,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useAppContext } from '../../provider/AppProvider'
 
 
-const ToolbarSectionWrap: FunctionComponent<{ content: ToolbarRowSectionStoryblok }> = ({ children, content }) => {
+const ToolbarSectionContainer: FunctionComponent<{ content: ToolbarRowSectionStoryblok }> = ({ children, content }) => {
   const align = content.align
   const theme = useTheme()
   const appSetup = useAppSetup()
@@ -30,6 +30,7 @@ const ToolbarSectionWrap: FunctionComponent<{ content: ToolbarRowSectionStoryblo
     >{children}</Grid>
   )
 }
+ToolbarSectionContainer.displayName = 'ToolbarSectionContainer'
 
 type ToolbarSectionProps = { content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }
 
@@ -37,9 +38,9 @@ function ToolbarSection({ settings, content }: ToolbarSectionProps): JSX.Element
   const body = content.body || []
   const { ComponentRender } = useAppContext()
   return (
-    <ToolbarSectionWrap content={content}>
+    <ToolbarSectionContainer content={content}>
       {body.map((blok, i) => ComponentRender({ content: blok, settings, i }))}
-    </ToolbarSectionWrap>
+    </ToolbarSectionContainer>
   )
 }
 

@@ -1,12 +1,10 @@
 import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
 import LmToolbarRow from './ToolbarRow'
 import { LmDivider } from '../../divider/Divider'
-import React, { FunctionComponent } from 'react'
-import { DividerStoryblok, GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
+import React from 'react'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
 type HeaderComponents = {
-  toolbar_row: FunctionComponent<{ content: ToolbarRowStoryblok, settings: GlobalStoryblok }>
-  divider: FunctionComponent<{ content: DividerStoryblok }>
   [k: string]: any
 }
 
@@ -15,7 +13,7 @@ const Components: HeaderComponents = {
   'divider': LmDivider
 }
 
-const Child = (blok: any, settings: GlobalStoryblok) => {
+function HeaderItem(blok: any, settings: GlobalStoryblok): JSX.Element {
   if (typeof Components[blok.component] !== 'undefined') {
     return React.createElement(Components[blok.component], { key: blok._uid, content: blok, settings })
   }
@@ -31,13 +29,13 @@ function HeaderCustom(props: AppHeaderProps): JSX.Element {
   let SystemBar = null
   const systemBarProps = rows.find(item => item.is_system_bar)
   if (systemBarProps) {
-    SystemBar = Child(systemBarProps, content)
+    SystemBar = HeaderItem(systemBarProps, content)
     // rows.splice(systemBarProps, 1)
     rows = rows.filter(i => i._uid !== systemBarProps._uid)
   }
   return (
     <TopAppBarWrap {...props} SystemBar={SystemBar}>
-      {rows.map(p => Child(p, content))}
+      {rows.map(p => HeaderItem(p, content))}
     </TopAppBarWrap>
   )
 }

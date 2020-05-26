@@ -1,36 +1,43 @@
-import { AppPageProps } from '../../typings/app'
-import { useStoryblok } from '../../utils/hooks/useStoryblok'
+import { AppPageProps, ComponentRenderProps } from '../../typings/app'
 import Error from 'next/error'
-import AppProvider from '../provider/AppProvider'
-import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
-import AppSetupProvider from '../provider/AppSetupProvider'
-import GlobalTheme from '../global-theme/GlobalTheme'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import AppSeo from '../layout/AppSeo'
 import Layout from '../layout/Layout'
-import React, { FunctionComponentFactory, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { getGlobalState, setGlobalState } from '../../utils/state/state'
-import hasWebpSupport from '../../utils/detectWebpSupport'
+import React, { useEffect } from 'react'
 import { NotFound } from './404'
+import NProgress from 'nprogress'
+import { CONFIG } from '../../utils/config'
+import { Router } from 'next/router'
 
 
 export type LmPagesIndexProps = AppPageProps & {
-  ComponentRender: FunctionComponentFactory<any>
+  ComponentRender: ComponentRenderProps
 }
 
 export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
-  const { error, locale, settings, page, ComponentRender, ...rest } = props
-  const { stateSettings, statePage } = useStoryblok({ settings, page })
-  const router = useRouter()
-  const isFallback = router?.isFallback
-  if (locale && getGlobalState('locale') !== locale) {
-    setGlobalState('locale', locale)
-  }
-  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
-    hasWebpSupport()
-      .then((has) => setGlobalState('hasWebpSupport', has))
-  }
+  const { settings, page, error, locale, ComponentRender } = props
+  useEffect(() => {
+      const handleRouteChange = (url: string) => {
+        NProgress.done()
+        trackGA(url)
+      }
+      const handleRouteStart = () => {
+        NProgress.start()
+      }
+      const handleRouteError = () => {
+        NProgress.done()
+      }
+      Router.events.on('routeChangeComplete', handleRouteChange)
+      Router.events.on('routeChangeStart', handleRouteStart)
+      Router.events.on('routeChangeError', handleRouteError)
+      return () => {
+        Router.events.off('routeChangeComplete', handleRouteChange)
+        Router.events.off('routeChangeStart', handleRouteStart)
+        Router.events.off('routeChangeError', handleRouteError)
+      }
+    },
+    []
+  )
+
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   useEffect(
@@ -44,39 +51,30 @@ export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
     []
   )
 
-  if (isFallback) {
-    return <div>Loading...</div>
+  function trackGA(url: string, GA?: string) {
+    if (window !== undefined && window['gtag'] && (CONFIG.GA || settings?.setup_google_analytics)) {
+      window['gtag']('config', CONFIG.GA || GA, {
+        page_location: url,
+        page_title: window.document.title
+      })
+    }
   }
 
-
-  if (error) {
-    return <Error statusCode={error.status} settings={stateSettings} page={statePage} />
+  if (error || !settings) {
+    return <Error statusCode={500} />
   }
-
-
-  if (!stateSettings) {
-    return <Error statusCode={500} settings={stateSettings} />
-  }
-
   return (
-    <AppProvider content={{ ...rest, ComponentRender }}>
-      <WindowDimensionsProvider>
-        <AppSetupProvider settings={stateSettings} page={statePage}>
-          <GlobalTheme settings={stateSettings} rightDrawerWidth={statePage?.right_drawer_width}>
-            <CssBaseline />
-            <AppSeo settings={stateSettings} page={statePage} previewImage={statePage?.preview_image} />
-            <Layout settings={stateSettings}>
-              {statePage ? (
-                <ComponentRender content={statePage} />
-              ) : (
-                <NotFound locale={locale}
-                          statusCode={404} />
-              )}
-            </Layout>
-          </GlobalTheme>
-        </AppSetupProvider>
-      </WindowDimensionsProvider>
-    </AppProvider>
+    <>
+      <AppSeo settings={settings} page={page} previewImage={page?.preview_image} />
+      <Layout settings={settings}>
+        {page ? (
+          <ComponentRender content={page} />
+        ) : (
+          <NotFound locale={locale}
+                    statusCode={404} />
+        )}
+      </Layout>
+    </>
   )
 }
 

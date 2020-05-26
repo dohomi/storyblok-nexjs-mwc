@@ -72,7 +72,7 @@ const useStyles = makeStyles({
   }
 })
 
-const Wrap: FunctionComponent<{
+const DividerContainer: FunctionComponent<{
   style: CSSProperties
   className: string
   childStyle: CSSProperties
@@ -81,6 +81,8 @@ const Wrap: FunctionComponent<{
     <div style={childStyle}>{children}</div>
   </div>
 )
+
+DividerContainer.displayName = 'DividerContainer'
 
 export type LmDividerProps = { content: DividerStoryblok }
 
@@ -105,7 +107,7 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
   }
   if (iconName) {
     return (
-      <Wrap style={style} childStyle={childStyle} className={className}>
+      <DividerContainer style={style} childStyle={childStyle} className={className}>
         <div>
           <div style={{ borderTopWidth: `${content.thickness || 1}px` }}>
             <span>
@@ -116,12 +118,12 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
             </span>
           </div>
         </div>
-      </Wrap>
+      </DividerContainer>
     )
   }
   return (
-    <Wrap style={style} childStyle={childStyle} className={className}>
+    <DividerContainer style={style} childStyle={childStyle} className={className}>
       <span />
-    </Wrap>
+    </DividerContainer>
   )
 }

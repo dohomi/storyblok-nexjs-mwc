@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const CardContentWrap: FunctionComponent<{
+const CardContentContainer: FunctionComponent<{
   content: TimelineItemStoryblok
 }> = ({ content, children }) => {
   if (content.link) {
@@ -48,6 +48,7 @@ const CardContentWrap: FunctionComponent<{
     <>{children}</>
   )
 }
+CardContentContainer.displayName = 'CardContentContainer'
 
 export type TimelineRowItemProps = {
   isLeft: boolean
@@ -63,10 +64,10 @@ export function TimelineRowItem({ isLeft, content }: TimelineRowItemProps): JSX.
     <div className={classes.cardContainer}>
       <div className={clsx(classes.cardDecorator, isLeft ? classes.cardDecoratorLeft : classes.cardDecoratorRight)} />
       <Card>
-        <CardContentWrap content={content}>
+        <CardContentContainer content={content}>
           {(content.title || content.subheader) && <CardHeader title={content.title} subheader={content.subheader} />}
           {body.length > 0 && <CardContent>{body.map((blok, i) => ComponentRender({ content: blok, i }))}</CardContent>}
-        </CardContentWrap>
+        </CardContentContainer>
       </Card>
     </div>
   )

@@ -35,5 +35,6 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, opt
     </Card>
   )
 }
+CardWrap.displayName = 'CardWrap'
 
 export default CardWrap

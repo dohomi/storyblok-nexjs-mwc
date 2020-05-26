@@ -70,6 +70,7 @@ const AppSetupProvider: FunctionComponent<{
     </AppSetupContext.Provider>
   )
 }
+AppSetupProvider.displayName = 'AppSetupProvider'
 
 export const useAppSetup = () => useContext(AppSetupContext)
 

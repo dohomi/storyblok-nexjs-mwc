@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { TableStoryblok } from '../../typings/generated/components-schema'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
@@ -120,7 +120,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }))
 
 
-const TableRow: FunctionComponent<{ content: string[], index: number }> = ({ content, index }) => {
+type TableRowProps = { content: string[], index: number }
+
+function TableRow({ content, index }: TableRowProps): JSX.Element {
   return (
     <tr>
       {content.map((column: string, iterator: number) => <td key={`column_${index}_${iterator}`}

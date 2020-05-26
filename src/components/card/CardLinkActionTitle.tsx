@@ -1,10 +1,10 @@
 import Typography from '@material-ui/core/Typography'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { CardListItemProps } from './cards'
 import clsx from 'clsx'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 
-const CardListActionTitles: FunctionComponent<CardListItemProps> = ({ content, options }) => {
+function CardListActionTitles({ content, options }: CardListItemProps): JSX.Element {
   return (
     <>
       {content.title && <Typography component={options.title_tag || 'h3'}
@@ -16,4 +16,5 @@ const CardListActionTitles: FunctionComponent<CardListItemProps> = ({ content, o
     </>
   )
 }
+
 export default CardListActionTitles

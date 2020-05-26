@@ -1,8 +1,8 @@
 import clsx from 'clsx'
-import ReactPlayer from 'react-player'
+import ReactPlayer, { ReactPlayerProps } from 'react-player'
 import BackgroundImageContainer from './BackgroundImage'
 import * as React from 'react'
-import { FunctionComponent, useState } from 'react'
+import { useState } from 'react'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 
 type ContainerDimensions = {
@@ -17,7 +17,7 @@ type FullscreenVideoBgProps = SectionVideoBgStoryblok & {
   ratioWidth: number
 }
 
-const FullscreenVideoBg: FunctionComponent<FullscreenVideoBgProps> = (content) => {
+function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
   const properties = content.property || []
   const videoAspect = content.ratioHeight / content.ratioWidth
   // let fixedToRatio = content.fixedToRatio
@@ -29,13 +29,15 @@ const FullscreenVideoBg: FunctionComponent<FullscreenVideoBgProps> = (content) =
     )
   }
 
-  const playerProps = {
+  const muted = properties.includes('muted')
+  const playerProps: ReactPlayerProps = {
     loop: properties.includes('loop'),
     playing: properties.includes('autoplay'),
-    muted: properties.includes('muted'),
+    muted: muted,
     controls: properties.includes('controls'),
     playsinline: properties.includes('playsinline'),
-    onError: () => setError(true)
+    onError: () => setError(true),
+    volume: muted ? 0 : undefined
   }
 
   // calculate video container to fit into available space
@@ -71,5 +73,6 @@ const FullscreenVideoBg: FunctionComponent<FullscreenVideoBgProps> = (content) =
     </>
   )
 }
+
 
 export default FullscreenVideoBg
