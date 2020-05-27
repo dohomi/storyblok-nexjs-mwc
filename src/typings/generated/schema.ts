@@ -11,7 +11,7 @@ export type Scalars = {
 };
 
 export type QueryType = {
-   __typename?: 'QueryType';
+  __typename?: 'QueryType';
   CategoryItem?: Maybe<CategoryItem>;
   CategoryItems?: Maybe<CategoryItems>;
   ContentNode?: Maybe<ContentItem>;
@@ -242,7 +242,7 @@ export type QueryTypeTagsArgs = {
 };
 
 export type CategoryItem = {
-   __typename?: 'CategoryItem';
+  __typename?: 'CategoryItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<CategoryComponent>;
   created_at?: Maybe<Scalars['String']>;
@@ -267,7 +267,7 @@ export type CategoryItem = {
 };
 
 export type Alternate = {
-   __typename?: 'Alternate';
+  __typename?: 'Alternate';
   fullSlug: Scalars['String'];
   id: Scalars['Int'];
   isFolder?: Maybe<Scalars['Boolean']>;
@@ -278,7 +278,7 @@ export type Alternate = {
 };
 
 export type TranslatedSlug = {
-   __typename?: 'TranslatedSlug';
+  __typename?: 'TranslatedSlug';
   lang: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
@@ -286,7 +286,7 @@ export type TranslatedSlug = {
 
 
 export type CategoryComponent = {
-   __typename?: 'CategoryComponent';
+  __typename?: 'CategoryComponent';
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
   component?: Maybe<Scalars['String']>;
@@ -296,13 +296,13 @@ export type CategoryComponent = {
 };
 
 export type CategoryItems = {
-   __typename?: 'CategoryItems';
+  __typename?: 'CategoryItems';
   items?: Maybe<Array<Maybe<CategoryItem>>>;
   total?: Maybe<Scalars['Int']>;
 };
 
 export type GlobalItem = {
-   __typename?: 'GlobalItem';
+  __typename?: 'GlobalItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<GlobalComponent>;
   created_at?: Maybe<Scalars['String']>;
@@ -327,7 +327,7 @@ export type GlobalItem = {
 };
 
 export type GlobalComponent = {
-   __typename?: 'GlobalComponent';
+  __typename?: 'GlobalComponent';
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
   component?: Maybe<Scalars['String']>;
@@ -385,13 +385,13 @@ export type GlobalComponent = {
 
 
 export type GlobalItems = {
-   __typename?: 'GlobalItems';
+  __typename?: 'GlobalItems';
   items?: Maybe<Array<Maybe<GlobalItem>>>;
   total?: Maybe<Scalars['Int']>;
 };
 
 export type ErrorpageItem = {
-   __typename?: 'ErrorpageItem';
+  __typename?: 'ErrorpageItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<ErrorpageComponent>;
   created_at?: Maybe<Scalars['String']>;
@@ -416,7 +416,7 @@ export type ErrorpageItem = {
 };
 
 export type ErrorpageComponent = {
-   __typename?: 'ErrorpageComponent';
+  __typename?: 'ErrorpageComponent';
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['BlockScalar']>;
@@ -425,13 +425,13 @@ export type ErrorpageComponent = {
 };
 
 export type ErrorpageItems = {
-   __typename?: 'ErrorpageItems';
+  __typename?: 'ErrorpageItems';
   items?: Maybe<Array<Maybe<ErrorpageItem>>>;
   total?: Maybe<Scalars['Int']>;
 };
 
 export type StaticcontainerItem = {
-   __typename?: 'StaticcontainerItem';
+  __typename?: 'StaticcontainerItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<StaticcontainerComponent>;
   created_at?: Maybe<Scalars['String']>;
@@ -456,7 +456,7 @@ export type StaticcontainerItem = {
 };
 
 export type StaticcontainerComponent = {
-   __typename?: 'StaticcontainerComponent';
+  __typename?: 'StaticcontainerComponent';
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['BlockScalar']>;
@@ -464,13 +464,13 @@ export type StaticcontainerComponent = {
 };
 
 export type StaticcontainerItems = {
-   __typename?: 'StaticcontainerItems';
+  __typename?: 'StaticcontainerItems';
   items?: Maybe<Array<Maybe<StaticcontainerItem>>>;
   total?: Maybe<Scalars['Int']>;
 };
 
 export type PageItem = {
-   __typename?: 'PageItem';
+  __typename?: 'PageItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<PageComponent>;
   created_at?: Maybe<Scalars['String']>;
@@ -495,7 +495,7 @@ export type PageItem = {
 };
 
 export type PageComponent = {
-   __typename?: 'PageComponent';
+  __typename?: 'PageComponent';
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['BlockScalar']>;
@@ -516,13 +516,13 @@ export type PageComponent = {
 };
 
 export type PageItems = {
-   __typename?: 'PageItems';
+  __typename?: 'PageItems';
   items?: Maybe<Array<Maybe<PageItem>>>;
   total?: Maybe<Scalars['Int']>;
 };
 
 export type ContentItem = {
-   __typename?: 'ContentItem';
+  __typename?: 'ContentItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<Scalars['JsonScalar']>;
   content_string?: Maybe<Scalars['String']>;
@@ -548,13 +548,13 @@ export type ContentItem = {
 };
 
 export type ContentItems = {
-   __typename?: 'ContentItems';
+  __typename?: 'ContentItems';
   items?: Maybe<Array<Maybe<ContentItem>>>;
   total?: Maybe<Scalars['Int']>;
 };
 
 export type Space = {
-   __typename?: 'Space';
+  __typename?: 'Space';
   domain: Scalars['String'];
   id: Scalars['Int'];
   languageCodes: Array<Maybe<Scalars['String']>>;
@@ -563,36 +563,36 @@ export type Space = {
 };
 
 export type Tags = {
-   __typename?: 'Tags';
+  __typename?: 'Tags';
   items: Array<Tag>;
 };
 
 export type Tag = {
-   __typename?: 'Tag';
+  __typename?: 'Tag';
   name: Scalars['String'];
   taggingsCount: Scalars['Int'];
 };
 
 export type Datasources = {
-   __typename?: 'Datasources';
+  __typename?: 'Datasources';
   items: Array<Datasource>;
 };
 
 export type Datasource = {
-   __typename?: 'Datasource';
+  __typename?: 'Datasource';
   id: Scalars['Int'];
   name: Scalars['String'];
   slug: Scalars['String'];
 };
 
 export type DatasourceEntries = {
-   __typename?: 'DatasourceEntries';
+  __typename?: 'DatasourceEntries';
   items: Array<DatasourceEntry>;
   total: Scalars['Int'];
 };
 
 export type DatasourceEntry = {
-   __typename?: 'DatasourceEntry';
+  __typename?: 'DatasourceEntry';
   dimensionValue?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   name: Scalars['String'];

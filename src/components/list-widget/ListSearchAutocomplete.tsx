@@ -154,7 +154,7 @@ const ListSearchAutocompleteContainer: FunctionComponent<{
       </>
     )
   }
-  return <>children</>
+  return <>{children}</>
 }
 ListSearchAutocompleteContainer.displayName = 'ListSearchAutocompleteContainer'
 

@@ -29,9 +29,10 @@ export const useStyles = makeStyles((theme: Theme) => createStyles({
   }
 }))
 
-const DrawerContainer: FunctionComponent<{
+type DrawerContainerProps = {
   backgroundProps?: UseBackgroundPayload
-}> = ({ children, backgroundProps }) => {
+}
+const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({ children, backgroundProps }) => {
   const classes = useStyles()
   const router = useRouter()
   const asPath = router?.asPath
