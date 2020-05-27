@@ -1,3 +1,6 @@
+# Moved to a different Repo:
+This repo is archived. You find the successor [here](https://github.com/lumen-cms/lumen-cms-core)
+
 # Next.js Storyblok Boilerplate
 
 ## How to get started?
